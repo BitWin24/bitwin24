@@ -1,6 +1,6 @@
 [Protocol]
-exec=mag-qt '%u'
-protocol=mag
+exec=bitwin24-qt '%u'
+protocol=bitwin24
 input=none
 output=none
 helper=true

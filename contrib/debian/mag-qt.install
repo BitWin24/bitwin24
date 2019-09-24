@@ -1,6 +1,6 @@
-usr/local/bin/mag-qt usr/bin
+usr/local/bin/bitwin24-qt usr/bin
 share/pixmaps/bitcoin32.xpm usr/share/pixmaps
 share/pixmaps/bitcoin16.xpm usr/share/pixmaps
 share/pixmaps/bitcoin128.png usr/share/pixmaps
-debian/mag-qt.desktop usr/share/applications
-debian/mag-qt.protocol usr/share/kde4/services/
+debian/bitwin24-qt.desktop usr/share/applications
+debian/bitwin24-qt.protocol usr/share/kde4/services/

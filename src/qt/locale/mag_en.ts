@@ -842,7 +842,7 @@
     </message>
     <message>
         <location line="+11"/>
-        <source>Request payments (generates QR codes and mag: URIs)</source>
+        <source>Request payments (generates QR codes and bitwin24: URIs)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1153,7 +1153,7 @@ Address: %4
     </message>
     <message>
         <location filename="../blockexplorer.cpp" line="+480"/>
-        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (mag.conf).</source>
+        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (bitwin24.conf).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2447,7 +2447,7 @@ Please be patient after clicking import.</source>
     <message>
         <location line="+21"/>
         <source>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/mag-project/mag-project-translations</source>
+https://www.transifex.com/bitwin24-project/bitwin24-project-translations</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2853,13 +2853,13 @@ If AutoMint is enabled this percentage will settle around the configured AutoMin
     </message>
     <message>
         <location line="+1"/>
-        <source>To disable AutoMint add &apos;enablezeromint=0&apos; in mag.conf.</source>
+        <source>To disable AutoMint add &apos;enablezeromint=0&apos; in bitwin24.conf.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
         <source>AutoMint is currently disabled.
-To enable AutoMint change &apos;enablezeromint=0&apos; to &apos;enablezeromint=1&apos; in mag.conf</source>
+To enable AutoMint change &apos;enablezeromint=0&apos; to &apos;enablezeromint=1&apos; in bitwin24.conf</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2899,7 +2899,7 @@ To enable AutoMint change &apos;enablezeromint=0&apos; to &apos;enablezeromint=1
     </message>
     <message>
         <location line="-108"/>
-        <source>Cannot start mag: click-to-pay handler</source>
+        <source>Cannot start bitwin24: click-to-pay handler</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3290,8 +3290,8 @@ Immature: confirmed, but less than 1 mint of the same denomination after it was 
         <source>Show the current status of automatic zMAG minting.
 
 To change the status (restart required):
-- enable: add &apos;enablezeromint=1&apos; to mag.conf
-- disable: add &apos;enablezeromint=0&apos; to mag.conf
+- enable: add &apos;enablezeromint=1&apos; to bitwin24.conf
+- disable: add &apos;enablezeromint=0&apos; to bitwin24.conf
 
 To change the percentage (no restart required):
 - menu Settings-&gt;Options-&gt;Percentage of autominted zMAG
@@ -6258,7 +6258,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
 </context>
 <context>
-    <name>mag-core</name>
+    <name>bitwin24-core</name>
     <message>
         <location filename="../magstrings.cpp" line="+15"/>
         <source>(1 = keep tx meta data e.g. account owner and payment request information, 2 = drop tx meta data)</source>

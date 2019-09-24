@@ -565,8 +565,8 @@
         <translation>送出錢幣到 MAG 地址</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and mag: URIs)</source>
-        <translation>請求付款 (會產生 QR Code跟 mag 位址)</translation>
+        <source>Request payments (generates QR codes and bitwin24: URIs)</source>
+        <translation>請求付款 (會產生 QR Code跟 bitwin24 位址)</translation>
     </message>
     <message>
         <source>&amp;Masternodes</source>
@@ -960,6 +960,6 @@
     <name>ZMagControlDialog</name>
     </context>
 <context>
-    <name>mag-core</name>
+    <name>bitwin24-core</name>
     </context>
 </TS>

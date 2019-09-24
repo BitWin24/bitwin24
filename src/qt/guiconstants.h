@@ -54,7 +54,7 @@ static const int MAX_URI_LENGTH = 255;
 #define SPINNER_FRAMES 35
 
 #define QAPP_ORG_NAME "MAG"
-#define QAPP_ORG_DOMAIN "magnetwork.io"
+#define QAPP_ORG_DOMAIN "bitwin24network.io"
 #define QAPP_APP_NAME_DEFAULT "MAG-Qt"
 #define QAPP_APP_NAME_TESTNET "MAG-Qt-testnet"
 

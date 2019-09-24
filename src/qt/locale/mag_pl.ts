@@ -517,8 +517,8 @@
         <translation>Wyślij monety do adresu MAG</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and mag: URIs)</source>
-        <translation>Zarządaj płatności (generuje kod QR i mag:URI)</translation>
+        <source>Request payments (generates QR codes and bitwin24: URIs)</source>
+        <translation>Zarządaj płatności (generuje kod QR i bitwin24:URI)</translation>
     </message>
     <message>
         <source>&amp;Masternodes</source>
@@ -1219,9 +1219,9 @@ Proszę sprawdzić adres i spróbować ponownie</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/mag-project/mag-project-translations</source>
+https://www.transifex.com/bitwin24-project/bitwin24-project-translations</source>
         <translation>Brakuje języka bądź nieukończona pełnego tłumaczenia? Pomóż w tłumaczeniu tutaj:
-https://www.transifex.com/mag-project/mag-project-translations </translation>
+https://www.transifex.com/bitwin24-project/bitwin24-project-translations </translation>
     </message>
     <message>
         <source>Connect to the MAG network through a SOCKS5 proxy.</source>
@@ -2028,7 +2028,7 @@ https://www.transifex.com/mag-project/mag-project-translations </translation>
     </message>
     </context>
 <context>
-    <name>mag-core</name>
+    <name>bitwin24-core</name>
     <message>
         <source>Error</source>
         <translation>Błąd</translation>

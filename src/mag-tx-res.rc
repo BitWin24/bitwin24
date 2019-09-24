@@ -17,13 +17,13 @@ BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
             VALUE "CompanyName",        "MAG"
-            VALUE "FileDescription",    "mag-tx (CLI MAG transaction editor utility)"
+            VALUE "FileDescription",    "bitwin24-tx (CLI MAG transaction editor utility)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
-            VALUE "InternalName",       "mag-tx"
+            VALUE "InternalName",       "bitwin24-tx"
             VALUE "LegalCopyright",     COPYRIGHT_STR
             VALUE "LegalTrademarks1",   "Distributed under the MIT software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php."
-            VALUE "OriginalFilename",   "mag-tx.exe"
-            VALUE "ProductName",        "mag-tx"
+            VALUE "OriginalFilename",   "bitwin24-tx.exe"
+            VALUE "ProductName",        "bitwin24-tx"
             VALUE "ProductVersion",     VER_PRODUCTVERSION_STR
         END
     END

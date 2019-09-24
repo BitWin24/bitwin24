@@ -1,4 +1,4 @@
-Source: mag
+Source: bitwin24
 Section: utils
 Priority: optional
 Maintainer: Jonas Smedegaard <dr@jones.dk> ***TODO***
@@ -22,9 +22,9 @@ Build-Depends: debhelper,
  libqrencode-dev,
  libprotobuf-dev, protobuf-compiler
 Standards-Version: 3.9.2
-Homepage: http://www.magnetwork.io
-Vcs-Git: git://github.com/magnetwork/MAG.git
-Vcs-Browser: https://github.com/magnetwork/MAG
+Homepage: http://www.bitwin24network.io
+Vcs-Git: git://github.com/bitwin24network/MAG.git
+Vcs-Browser: https://github.com/bitwin24network/MAG
 
 Package: magd
 Architecture: any
@@ -40,9 +40,9 @@ Description: peer-to-peer network based digital currency - daemon
  requires 1+ GB of space, slowly growing.
  .
  This package provides the daemon, magd, and the CLI tool
- mag-cli to interact with the daemon.
+ bitwin24-cli to interact with the daemon.
 
-Package: mag-qt
+Package: bitwin24-qt
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: peer-to-peer network based digital currency - Qt GUI

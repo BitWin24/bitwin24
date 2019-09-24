@@ -69,11 +69,11 @@ if BUILD_BITCOIND
 endif
 
 if BUILD_BITCOIN_UTILS
-  bin_PROGRAMS += mag-cli mag-tx
+  bin_PROGRAMS += bitwin24-cli bitwin24-tx
 endif
 
 .PHONY: FORCE
-# mag core #
+# bitwin24 core #
 BITCOIN_CORE_H = \
   activemasternode.h \
   accumulators.h \
@@ -191,7 +191,7 @@ obj/build.h: FORCE
 	  "$(abs_top_srcdir)"
 libbitcoin_util_a-clientversion.$(OBJEXT): obj/build.h
 
-# server: shared between magd and mag-qt
+# server: shared between magd and bitwin24-qt
 libbitcoin_server_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(MINIUPNPC_CPPFLAGS) $(EVENT_CFLAGS) $(EVENT_PTHREADS_CFLAGS)
 libbitcoin_server_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 libbitcoin_server_a_SOURCES = \
@@ -239,7 +239,7 @@ libbitcoin_zmq_a_SOURCES = \
   zmq/zmqpublishnotifier.cpp
 endif
 
-# wallet: shared between magd and mag-qt, but only linked
+# wallet: shared between magd and bitwin24-qt, but only linked
 # when wallet enabled
 libbitcoin_wallet_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 libbitcoin_wallet_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
@@ -344,7 +344,7 @@ libzerocoin_libbitcoin_zerocoin_a_SOURCES = \
   libzerocoin/Params.cpp \
   libzerocoin/SerialNumberSignatureOfKnowledge.cpp
 
-# common: shared between magd, and mag-qt and non-server tools
+# common: shared between magd, and bitwin24-qt and non-server tools
 libbitcoin_common_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 libbitcoin_common_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 libbitcoin_common_a_SOURCES = \
@@ -408,7 +408,7 @@ libbitcoin_util_a_SOURCES += compat/glibc_compat.cpp
 AM_LDFLAGS += $(COMPAT_LDFLAGS)
 endif
 
-# cli: shared between mag-cli and mag-qt
+# cli: shared between bitwin24-cli and bitwin24-qt
 libbitcoin_cli_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 libbitcoin_cli_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 libbitcoin_cli_a_SOURCES = \
@@ -443,14 +443,14 @@ magd_LDADD = \
 
 magd_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(ZMQ_LIBS)
 
-# mag-cli binary #
-mag_cli_SOURCES = mag-cli.cpp
+# bitwin24-cli binary #
+mag_cli_SOURCES = bitwin24-cli.cpp
 mag_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
 mag_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 mag_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-mag_cli_SOURCES += mag-cli-res.rc
+mag_cli_SOURCES += bitwin24-cli-res.rc
 endif
 
 mag_cli_LDADD = \
@@ -462,14 +462,14 @@ mag_cli_LDADD = \
 mag_cli_LDADD += $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS)
 #
 
-# mag-tx binary #
-mag_tx_SOURCES = mag-tx.cpp
+# bitwin24-tx binary #
+mag_tx_SOURCES = bitwin24-tx.cpp
 mag_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 mag_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 mag_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-mag_tx_SOURCES += mag-tx-res.rc
+mag_tx_SOURCES += bitwin24-tx-res.rc
 endif
 
 mag_tx_LDADD = \

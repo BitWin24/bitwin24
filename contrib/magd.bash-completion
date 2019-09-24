@@ -1,4 +1,4 @@
-# bash programmable completion for magd(1) and mag-cli(1)
+# bash programmable completion for magd(1) and bitwin24-cli(1)
 # Copyright (c) 2012,2014 Christian von Roques <roques@mti.ag>
 # Distributed under the MIT/X11 software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -19,7 +19,7 @@ _mag_rpc() {
     $magd "${rpcargs[@]}" "$@"
 }
 
-# Add mag accounts to COMPREPLY
+# Add bitwin24 accounts to COMPREPLY
 _mag_accounts() {
     local accounts
     accounts=$(_mag_rpc listaccounts | awk '/".*"/ { a=$1; gsub(/"/, "", a); print a}')
@@ -133,7 +133,7 @@ _magd() {
     esac
 }
 
-complete -F _magd magd mag-cli
+complete -F _magd magd bitwin24-cli
 }
 
 # Local variables:

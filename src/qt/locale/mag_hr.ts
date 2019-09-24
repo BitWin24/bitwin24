@@ -609,8 +609,8 @@
         <translation>Pošaljite kovanice na MAG adresu</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and mag: URIs)</source>
-        <translation>Zahtjev za plaćanja (generira QR kodove i mag: URI)</translation>
+        <source>Request payments (generates QR codes and bitwin24: URIs)</source>
+        <translation>Zahtjev za plaćanja (generira QR kodove i bitwin24: URI)</translation>
     </message>
     <message>
         <source>&amp;Privacy</source>
@@ -1352,7 +1352,7 @@
     </message>
     </context>
 <context>
-    <name>mag-core</name>
+    <name>bitwin24-core</name>
     <message>
         <source>Error</source>
         <translation>Greška</translation>

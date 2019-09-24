@@ -41,7 +41,7 @@ QString BitcoinUnits::id(int unit)
 {
     switch (unit) {
     case MAG:
-        return QString("mag");
+        return QString("bitwin24");
     case mMAG:
         return QString("mmag");
     case uMAG:

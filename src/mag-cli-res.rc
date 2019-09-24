@@ -19,10 +19,10 @@ BEGIN
             VALUE "CompanyName",        "Mag"
             VALUE "FileDescription",    "Mag-cli (OSS RPC client for Mag)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
-            VALUE "InternalName",       "mag-cli"
+            VALUE "InternalName",       "bitwin24-cli"
             VALUE "LegalCopyright",     COPYRIGHT_STR
             VALUE "LegalTrademarks1",   "Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php."
-            VALUE "OriginalFilename",   "mag-cli.exe"
+            VALUE "OriginalFilename",   "bitwin24-cli.exe"
             VALUE "ProductName",        "Mag-cli"
             VALUE "ProductVersion",     VER_PRODUCTVERSION_STR
         END

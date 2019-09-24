@@ -29,9 +29,9 @@ SendCoinsEntry::SendCoinsEntry(QWidget* parent) : QStackedWidget(parent),
 #endif
     ui->addAsLabel->setPlaceholderText(tr("Enter a label for this address to add it to your address book"));
 
-    // normal mag address field
+    // normal bitwin24 address field
     GUIUtil::setupAddressWidget(ui->payTo, this);
-    // just a label for displaying mag address(es)
+    // just a label for displaying bitwin24 address(es)
     ui->payTo_is->setFont(GUIUtil::bitcoinAddressFont());
 
     // Connect signals

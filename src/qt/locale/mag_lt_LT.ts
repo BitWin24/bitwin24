@@ -653,8 +653,8 @@
         <translation>Siųsti monetas į MAG adresą</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and mag: URIs)</source>
-        <translation>Prašyti mokėjimų (sugeneruoja QR kodus ir mag URI)</translation>
+        <source>Request payments (generates QR codes and bitwin24: URIs)</source>
+        <translation>Prašyti mokėjimų (sugeneruoja QR kodus ir bitwin24 URI)</translation>
     </message>
     <message>
         <source>&amp;Privacy</source>
@@ -892,8 +892,8 @@ MultiSend: %1</translation>
         <translation>Teksto etiketė</translation>
     </message>
     <message>
-        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (mag.conf).</source>
-        <translation>Ne visi pavedimai bus rodomi. Norėdami peržiūrėti visus pavedimus, reikia nustatyti txindex = 1 konfigūracijos faile (mag.conf).</translation>
+        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (bitwin24.conf).</source>
+        <translation>Ne visi pavedimai bus rodomi. Norėdami peržiūrėti visus pavedimus, reikia nustatyti txindex = 1 konfigūracijos faile (bitwin24.conf).</translation>
     </message>
 </context>
 <context>
@@ -1881,9 +1881,9 @@ Patikrinkite adresą ir bandykite dar kartą.</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/mag-project/mag-project-translations</source>
+https://www.transifex.com/bitwin24-project/bitwin24-project-translations</source>
         <translation>Trūksta kalbos arba vertimas nebaigtas? Padėkite prisidėdami prie vertimų čia: 
-https://www.transifex.com/mag-project/mag-project-translations</translation>
+https://www.transifex.com/bitwin24-project/bitwin24-project-translations</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -2141,8 +2141,8 @@ Nesubrendusios: patvirtintos, bet mažiau nei 1 konvertacijos to pačio nominalo
         <translation>AutoMint šiuo metu įgalintas ir nustatytas</translation>
     </message>
     <message>
-        <source>To disable AutoMint add 'enablezeromint=0' in mag.conf.</source>
-        <translation>Norėdami išjungti Automatinį Kalimą pridėkite 'enablezeromint=0' mag.conf faile.</translation>
+        <source>To disable AutoMint add 'enablezeromint=0' in bitwin24.conf.</source>
+        <translation>Norėdami išjungti Automatinį Kalimą pridėkite 'enablezeromint=0' bitwin24.conf faile.</translation>
     </message>
     </context>
 <context>
@@ -2156,8 +2156,8 @@ Nesubrendusios: patvirtintos, bet mažiau nei 1 konvertacijos to pačio nominalo
         <translation>Netinkamas mokėjimo adresas %1</translation>
     </message>
     <message>
-        <source>Cannot start mag: click-to-pay handler</source>
-        <translation>Nepavyksta paleisti mag: apdorojimo "spustelėjimo ir apmokėjimo" funkcijos klaida</translation>
+        <source>Cannot start bitwin24: click-to-pay handler</source>
+        <translation>Nepavyksta paleisti bitwin24: apdorojimo "spustelėjimo ir apmokėjimo" funkcijos klaida</translation>
     </message>
     <message>
         <source>Payment request file cannot be read! This can be caused by an invalid payment request file.</source>
@@ -3460,7 +3460,7 @@ Nesubrendusios: patvirtintos, bet mažiau nei 1 konvertacijos tos pačio nominal
     </message>
     </context>
 <context>
-    <name>mag-core</name>
+    <name>bitwin24-core</name>
     <message>
         <source>(default: %s)</source>
         <translation>(numatytas: %s)</translation>

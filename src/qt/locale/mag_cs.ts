@@ -609,8 +609,8 @@
         <translation>Odeslat platbuna MAG adresu</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and mag: URIs)</source>
-        <translation>Vyžádat platbu (generování QK kódu a mag: URIs)</translation>
+        <source>Request payments (generates QR codes and bitwin24: URIs)</source>
+        <translation>Vyžádat platbu (generování QK kódu a bitwin24: URIs)</translation>
     </message>
     <message>
         <source>&amp;Privacy</source>
@@ -820,8 +820,8 @@ MultiSend: %1</translation>
         <translation>TextPopisku</translation>
     </message>
     <message>
-        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (mag.conf).</source>
-        <translation>Ne všechny transakce budou zobrazeny. Pro zobrazení všech transackí nastavte v konfiguračním souboru (mag.conf) txindex=1.</translation>
+        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (bitwin24.conf).</source>
+        <translation>Ne všechny transakce budou zobrazeny. Pro zobrazení všech transackí nastavte v konfiguračním souboru (bitwin24.conf) txindex=1.</translation>
     </message>
 </context>
 <context>
@@ -2402,7 +2402,7 @@ Prosím zkontrolujte adresu a zkuste to znovu.</translation>
     </message>
     </context>
 <context>
-    <name>mag-core</name>
+    <name>bitwin24-core</name>
     <message>
         <source>Error</source>
         <translation>Chyba</translation>

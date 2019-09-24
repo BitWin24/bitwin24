@@ -6,7 +6,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/mag-config.h"
+#include "config/bitwin24-config.h"
 #endif
 
 #include "util.h"
@@ -237,8 +237,8 @@ bool LogAcceptCategory(const char* category)
             const vector<string>& categories = mapMultiArgs["-debug"];
             ptrCategory.reset(new set<string>(categories.begin(), categories.end()));
             // thread_specific_ptr automatically deletes the set when the thread ends.
-            // "mag" is a composite category enabling all MAG-related debug output
-            if (ptrCategory->count(string("mag"))) {
+            // "bitwin24" is a composite category enabling all MAG-related debug output
+            if (ptrCategory->count(string("bitwin24"))) {
                 ptrCategory->insert(string("obfuscation"));
                 ptrCategory->insert(string("swiftx"));
                 ptrCategory->insert(string("masternode"));
@@ -403,7 +403,7 @@ static std::string FormatException(std::exception* pex, const char* pszThread)
     char pszModule[MAX_PATH] = "";
     GetModuleFileNameA(NULL, pszModule, sizeof(pszModule));
 #else
-    const char* pszModule = "mag";
+    const char* pszModule = "bitwin24";
 #endif
     if (pex)
         return strprintf(
@@ -427,7 +427,7 @@ boost::filesystem::path GetDefaultDataDir()
 // Windows < Vista: C:\Documents and Settings\Username\Application Data\MAG
 // Windows >= Vista: C:\Users\Username\AppData\Roaming\MAG
 // Mac: ~/Library/Application Support/MAG
-// Unix: ~/.mag
+// Unix: ~/.bitwin24
 #ifdef WIN32
     // Windows
     return GetSpecialFolderPath(CSIDL_APPDATA) / "MAG";
@@ -445,7 +445,7 @@ boost::filesystem::path GetDefaultDataDir()
     return pathRet / "MAG";
 #else
     // Unix
-    return pathRet / ".mag";
+    return pathRet / ".bitwin24";
 #endif
 #endif
 }
@@ -492,7 +492,7 @@ void ClearDatadirCache()
 
 boost::filesystem::path GetConfigFile()
 {
-    boost::filesystem::path pathConfigFile(GetArg("-conf", "mag.conf"));
+    boost::filesystem::path pathConfigFile(GetArg("-conf", "bitwin24.conf"));
     if (!pathConfigFile.is_complete())
         pathConfigFile = GetDataDir(false) / pathConfigFile;
 
@@ -511,7 +511,7 @@ void ReadConfigFile(map<string, string>& mapSettingsRet,
 {
     boost::filesystem::ifstream streamConfig(GetConfigFile());
     if (!streamConfig.good()) {
-        // Create empty mag.conf if it does not exist
+        // Create empty bitwin24.conf if it does not exist
         FILE* configFile = fopen(GetConfigFile().string().c_str(), "a");
         if (configFile != NULL)
             fclose(configFile);
@@ -522,7 +522,7 @@ void ReadConfigFile(map<string, string>& mapSettingsRet,
     setOptions.insert("*");
 
     for (boost::program_options::detail::config_file_iterator it(streamConfig, setOptions), end; it != end; ++it) {
-        // Don't overwrite existing settings so command line settings override mag.conf
+        // Don't overwrite existing settings so command line settings override bitwin24.conf
         string strKey = string("-") + it->string_key;
         string strValue = it->value[0];
         InterpretNegativeSetting(strKey, strValue);

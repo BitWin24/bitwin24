@@ -78,6 +78,6 @@ f.write('static const char UNUSED *mag_strings[] = {\n')
 messages.sort(key=operator.itemgetter(0))
 for (msgid, msgstr) in messages:
     if msgid != EMPTY:
-        f.write('QT_TRANSLATE_NOOP("mag-core", %s),\n' % ('\n'.join(msgid)))
+        f.write('QT_TRANSLATE_NOOP("bitwin24-core", %s),\n' % ('\n'.join(msgid)))
 f.write('};\n')
 f.close()

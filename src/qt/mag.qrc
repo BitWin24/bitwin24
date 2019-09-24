@@ -41,12 +41,12 @@
         <file alias="tx_input">res/icons/tx_input.png</file>
         <file alias="tx_output">res/icons/tx_output.png</file>
         <file alias="tx_inout">res/icons/tx_inout.png</file>
-        <file alias="unit_mag">res/icons/unit_mag.png</file>
-        <file alias="unit_mmag">res/icons/unit_mmag.png</file>
-        <file alias="unit_umag">res/icons/unit_umag.png</file>
-        <file alias="unit_tmag">res/icons/unit_tmag.png</file>
-        <file alias="unit_tmmag">res/icons/unit_tmmag.png</file>
-        <file alias="unit_tumag">res/icons/unit_tumag.png</file>
+        <file alias="unit_bitwin24">res/icons/unit_bitwin24.png</file>
+        <file alias="unit_mbitwin24">res/icons/unit_mbitwin24.png</file>
+        <file alias="unit_ubitwin24">res/icons/unit_ubitwin24.png</file>
+        <file alias="unit_tbitwin24">res/icons/unit_tbitwin24.png</file>
+        <file alias="unit_tmbitwin24">res/icons/unit_tmbitwin24.png</file>
+        <file alias="unit_tubitwin24">res/icons/unit_tubitwin24.png</file>
         <file alias="lock_closed">res/icons/lock_closed.png</file>
         <file alias="lock_open">res/icons/lock_open.png</file>
         <file alias="lock_en">res/icons/lock_en.png</file>
@@ -66,7 +66,7 @@
     </qresource>
     <qresource prefix="/images">
         <file alias="about">res/images/about.png</file>
-        <file alias="mag_logo_horizontal">res/images/mag_logo_horizontal.png</file>
+        <file alias="bitwin24_logo_horizontal">res/images/mag_logo_horizontal.png</file>
         <file alias="merchant_ad">res/images/merchant.png</file>
         <file alias="rewards">res/images/rewards.png</file>
         <file alias="downArrow">res/images/downArrow_dark.png</file>

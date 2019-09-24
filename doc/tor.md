@@ -71,10 +71,10 @@ NumEntryGuards 8
 The directory can be different of course, but (both) port numbers should be equal to
 your magd's P2P listen port (17172 by default).
 ```
--externalip=X   You can tell mag about its publicly reachable address using
+-externalip=X   You can tell bitwin24 about its publicly reachable address using
                 this option, and this can be a .onion address. Given the above
                 configuration, you can find your onion address in
-                /var/lib/tor/mag-service/hostname. Onion addresses are given
+                /var/lib/tor/bitwin24-service/hostname. Onion addresses are given
                 preference for your node to advertize itself with, for connections
                 coming from unroutable addresses (such as 127.0.0.1, where the
                 Tor proxy typically runs).

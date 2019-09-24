@@ -653,7 +653,7 @@
         <translation>Verstuur munten naar een MAG adres</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and mag: URIs)</source>
+        <source>Request payments (generates QR codes and bitwin24: URIs)</source>
         <translation>Vraag betaling aan (genereert QR codes en MAG: URI's)</translation>
     </message>
     <message>
@@ -892,8 +892,8 @@ MultiSend: %1</translation>
         <translation>TextLabel</translation>
     </message>
     <message>
-        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (mag.conf).</source>
-        <translation>Niet alle transacties zullen worden getoond. Om alle transacties te bekijken moet u txindex=1 instellen in het configuratie bestand (mag.conf).</translation>
+        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (bitwin24.conf).</source>
+        <translation>Niet alle transacties zullen worden getoond. Om alle transacties te bekijken moet u txindex=1 instellen in het configuratie bestand (bitwin24.conf).</translation>
     </message>
 </context>
 <context>
@@ -1939,9 +1939,9 @@ Waas alsjeblieft geduldig nadat u op importeren hebt geklikt.</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/mag-project/mag-project-translations</source>
+https://www.transifex.com/bitwin24-project/bitwin24-project-translations</source>
         <translation>Taal ontbreekt of vertaling onvolledig? Help om bij te dragen aan vertalingen:
-https://www.transifex.com/mag-project/mag-project-translations</translation>
+https://www.transifex.com/bitwin24-project/bitwin24-project-translations</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -2255,14 +2255,14 @@ Als AutoMint ingeschakeld is zal deze percentage afhangen van de geconfigureerde
         <translation>AutoMint is momenteel ingeschakeld en ingesteld op</translation>
     </message>
     <message>
-        <source>To disable AutoMint add 'enablezeromint=0' in mag.conf.</source>
-        <translation>Om AutoMint uit te schakelen, voeg je 'enablezeromint=0' toe aan mag.conf.</translation>
+        <source>To disable AutoMint add 'enablezeromint=0' in bitwin24.conf.</source>
+        <translation>Om AutoMint uit te schakelen, voeg je 'enablezeromint=0' toe aan bitwin24.conf.</translation>
     </message>
     <message>
         <source>AutoMint is currently disabled.
-To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in mag.conf</source>
+To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in bitwin24.conf</source>
         <translation>AutoMint is momenteel uitgeschakeld.
-Om AutoMint in te schakelend verander je 'enablezeromint=0' naar 'enablezeromint=1' in mag.conf</translation>
+Om AutoMint in te schakelend verander je 'enablezeromint=0' naar 'enablezeromint=1' in bitwin24.conf</translation>
     </message>
 </context>
 <context>
@@ -2288,8 +2288,8 @@ Om AutoMint in te schakelend verander je 'enablezeromint=0' naar 'enablezeromint
         <translation>Ongeldig betalingsadres %1</translation>
     </message>
     <message>
-        <source>Cannot start mag: click-to-pay handler</source>
-        <translation>Kan mag niet starten: click-to-pay handler</translation>
+        <source>Cannot start bitwin24: click-to-pay handler</source>
+        <translation>Kan bitwin24 niet starten: click-to-pay handler</translation>
     </message>
     <message>
         <source>URI cannot be parsed! This can be caused by an invalid MAG address or malformed URI parameters.</source>
@@ -2579,8 +2579,8 @@ Onvolwassen: bevestigd, maar minder dan 1 mint van dezelfde denominatie nadat he
         <source>Show the current status of automatic zMAG minting.
 
 To change the status (restart required):
-- enable: add 'enablezeromint=1' to mag.conf
-- disable: add 'enablezeromint=0' to mag.conf
+- enable: add 'enablezeromint=1' to bitwin24.conf
+- disable: add 'enablezeromint=0' to bitwin24.conf
 
 To change the percentage (no restart required):
 - menu Settings-&gt;Options-&gt;Percentage of autominted zMAG
@@ -2589,8 +2589,8 @@ To change the percentage (no restart required):
         <translation>Toon de huidige status van automatische zMAG-markering.
 
 Om de status te wijzigen (opnieuw opstarten vereist): 
-- enable: voeg 'enablezeromint = 1' toe aan mag.conf
-- uitschakelen: voeg 'enablezeromint = 0' toe aan mag.conf
+- enable: voeg 'enablezeromint = 1' toe aan bitwin24.conf
+- uitschakelen: voeg 'enablezeromint = 0' toe aan bitwin24.conf
 
 Om het percentage te wijzigen (geen herstart vereist): 
 - menu Instellingen-&gt; Opties-&gt; Percentage van geautomatiseerde zMAG
@@ -4884,7 +4884,7 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
     </message>
 </context>
 <context>
-    <name>mag-core</name>
+    <name>bitwin24-core</name>
     <message>
         <source>(1 = keep tx meta data e.g. account owner and payment request information, 2 = drop tx meta data)</source>
         <translation>(1 = houd tx meta data, bijvoorbeeld account eigenaar en betalingsverzoek informatie, 2 = drop tx meta data)</translation>

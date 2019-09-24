@@ -1,10 +1,10 @@
 (note: this is a temporary file, to be added-to by anybody, and moved to release-notes at release time)
 
-MAG Core version *version* is now available from:  <https://github.com/mag-project/mag/releases>
+MAG Core version *version* is now available from:  <https://github.com/bitwin24-project/bitwin24/releases>
 
 This is a new major version release, including various bug fixes and performance improvements, as well as updated translations.
 
-Please report bugs using the issue tracker at github: <https://github.com/mag-project/mag/issues>
+Please report bugs using the issue tracker at github: <https://github.com/bitwin24-project/bitwin24/issues>
 
 
 Mandatory Update
@@ -14,7 +14,7 @@ Mandatory Update
 How to Upgrade
 ==============
 
-If you are running an older version, shut it down. Wait until it has completely shut down (which might take a few minutes for older versions), then run the installer (on Windows) or just copy over /Applications/MAG-Qt (on Mac) or magd/mag-qt (on Linux).
+If you are running an older version, shut it down. Wait until it has completely shut down (which might take a few minutes for older versions), then run the installer (on Windows) or just copy over /Applications/MAG-Qt (on Mac) or magd/bitwin24-qt (on Linux).
 
 
 Compatibility
@@ -60,4 +60,4 @@ Detailed release notes follow. This overview includes changes that affect behavi
 Thanks to everyone who directly contributed to this release:
 
 
-As well as everyone that helped translating on [Transifex](https://www.transifex.com/projects/p/mag-project-translations/), the QA team during Testing and the Node hosts supporting our Testnet.
+As well as everyone that helped translating on [Transifex](https://www.transifex.com/projects/p/bitwin24-project-translations/), the QA team during Testing and the Node hosts supporting our Testnet.

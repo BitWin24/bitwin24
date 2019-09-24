@@ -1,7 +1,7 @@
 # /etc/conf.d/magd: config file for /etc/init.d/magd
 
 # Config file location
-#BITCOIND_CONFIGFILE="/etc/mag/mag.conf"
+#BITCOIND_CONFIGFILE="/etc/bitwin24/bitwin24.conf"
 
 # What directory to write pidfile to?  (created and owned by $BITCOIND_USER)
 #BITCOIND_PIDDIR="/var/run/magd"
@@ -13,8 +13,8 @@
 #BITCOIND_DATADIR="/var/lib/magd"
 
 # User and group to own magd process
-#BITCOIND_USER="mag"
-#BITCOIND_GROUP="mag"
+#BITCOIND_USER="bitwin24"
+#BITCOIND_GROUP="bitwin24"
 
 # Path to magd executable
 #BITCOIND_BIN="/usr/bin/magd"

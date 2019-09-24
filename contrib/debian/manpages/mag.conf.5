@@ -1,19 +1,19 @@
-.TH MAG.CONF "5" "January 2011" "mag.conf 3.19"
+.TH MAG.CONF "5" "January 2011" "bitwin24.conf 3.19"
 .SH NAME
-mag.conf \- mag configuration file
+bitwin24.conf \- bitwin24 configuration file
 .SH SYNOPSIS
 All command-line options (except for '\-conf') may be specified in a configuration file, and all configuration file options may also be specified on the command line. Command-line options override values set in the configuration file.
 .TP
 The configuration file is a list of 'setting=value' pairs, one per line, with optional comments starting with the '#' character.
 .TP
-The configuration file is not automatically created; you can create it using your favorite plain-text editor. By default, magd(1) will look for a file named mag.conf(5) in the mag data directory, but both the data directory and the configuration file path may be changed using the '\-datadir' and '\-conf' command-line arguments.
+The configuration file is not automatically created; you can create it using your favorite plain-text editor. By default, magd(1) will look for a file named bitwin24.conf(5) in the bitwin24 data directory, but both the data directory and the configuration file path may be changed using the '\-datadir' and '\-conf' command-line arguments.
 .SH LOCATION
-mag.conf should be located in $HOME/.mag
+bitwin24.conf should be located in $HOME/.bitwin24
 .SH NETWORK-RELATED SETTINGS
 .TP
 .TP
 \fBtestnet=\fR[\fI'1'\fR|\fI'0'\fR]
-Enable or disable run on the test network instead of the real *mag* network.
+Enable or disable run on the test network instead of the real *bitwin24* network.
 .TP
 \fBproxy=\fR\fI'127.0.0.1:9050'\fR
 Connect via a socks4 proxy.
@@ -29,7 +29,7 @@ Maximum number of inbound+outbound connections.
 .SH JSON-RPC OPTIONS
 .TP
 \fBserver=\fR[\fI'1'\fR|\fI'0'\fR]
-Tells *mag* to accept or not accept JSON-RPC commands.
+Tells *bitwin24* to accept or not accept JSON-RPC commands.
 .TP
 \fBrpcuser=\fR\fI'username'\fR
 You must set *rpcuser* to secure the JSON-RPC api.
@@ -44,7 +44,7 @@ By default, only RPC connections from localhost are allowed. Specify as many *rp
 Listen for RPC connections on this TCP port.
 .TP
 \fBrpcconnect=\fR\fI'127.0.0.1'\fR
-You can use *mag* or *magd(1)* to send commands to *mag*/*magd(1)* running on another host using this option.
+You can use *bitwin24* or *magd(1)* to send commands to *bitwin24*/*magd(1)* running on another host using this option.
 .TP
 .SH MISCELLANEOUS OPTIONS
 .TP

@@ -30,7 +30,7 @@
  *
  * \section intro_sec Introduction
  *
- * This is the developer documentation of the reference client for an experimental new digital currency called MAG (http://www.magnetwork.io),
+ * This is the developer documentation of the reference client for an experimental new digital currency called MAG (http://www.bitwin24network.io),
  * which enables instant payments to anyone, anywhere in the world. MAG uses peer-to-peer technology to operate
  * with no central authority: managing transactions and issuing money are carried out collectively by the network.
  *
@@ -70,7 +70,7 @@ bool AppInit(int argc, char* argv[])
     //
     // Parameters
     //
-    // If Qt is used, parameters/mag.conf are parsed in qt/mag.cpp's main()
+    // If Qt is used, parameters/bitwin24.conf are parsed in qt/bitwin24.cpp's main()
     ParseParameters(argc, argv);
 
     // Process help and version before taking care about datadir
@@ -117,11 +117,11 @@ bool AppInit(int argc, char* argv[])
         // Command-line RPC
         bool fCommandLine = false;
         for (int i = 1; i < argc; i++)
-            if (!IsSwitchChar(argv[i][0]) && !boost::algorithm::istarts_with(argv[i], "mag:"))
+            if (!IsSwitchChar(argv[i][0]) && !boost::algorithm::istarts_with(argv[i], "bitwin24:"))
                 fCommandLine = true;
 
         if (fCommandLine) {
-            fprintf(stderr, "Error: There is no RPC client functionality in magd any more. Use the mag-cli utility instead.\n");
+            fprintf(stderr, "Error: There is no RPC client functionality in magd any more. Use the bitwin24-cli utility instead.\n");
             exit(1);
         }
 #ifndef WIN32

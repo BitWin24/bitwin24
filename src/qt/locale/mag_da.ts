@@ -653,7 +653,7 @@
         <translation>Send mønter til en MAG adresse</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and mag: URIs)</source>
+        <source>Request payments (generates QR codes and bitwin24: URIs)</source>
         <translation>Anmod om betaling (genrerer QR kode og MAG URL)</translation>
     </message>
     <message>
@@ -892,8 +892,8 @@ Adresse: %4
         <translation>Tekstmærke</translation>
     </message>
     <message>
-        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (mag.conf).</source>
-        <translation>Ikke alle transaktioner vil blive vist. For at vise alle transaktioner må De sætte "txindex=1" i konfigurationsfilen (mag.conf).</translation>
+        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (bitwin24.conf).</source>
+        <translation>Ikke alle transaktioner vil blive vist. For at vise alle transaktioner må De sætte "txindex=1" i konfigurationsfilen (bitwin24.conf).</translation>
     </message>
 </context>
 <context>
@@ -1939,9 +1939,9 @@ Vær tålmodig efter at du har klikket på import.</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/mag-project/mag-project-translations</source>
+https://www.transifex.com/bitwin24-project/bitwin24-project-translations</source>
         <translation>Det valgte sprog mangler, eller oversættelsen er mangelfuld. Hjælp ved at bidrage med oversættelser her:
-https://www.transifex.com/mag-project/mag-project-translations</translation>
+https://www.transifex.com/bitwin24-project/bitwin24-project-translations</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -2254,14 +2254,14 @@ Hvis AutoMint er aktiveret, vil denne procentdel sætte sig omkring den konfigur
         <translation>AutoMint er i øjeblikket aktiveret og indstillet til</translation>
     </message>
     <message>
-        <source>To disable AutoMint add 'enablezeromint=0' in mag.conf.</source>
-        <translation>To disable AutoMint add 'enablezeromint=0' in mag.conf.</translation>
+        <source>To disable AutoMint add 'enablezeromint=0' in bitwin24.conf.</source>
+        <translation>To disable AutoMint add 'enablezeromint=0' in bitwin24.conf.</translation>
     </message>
     <message>
         <source>AutoMint is currently disabled.
-To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in mag.conf</source>
+To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in bitwin24.conf</source>
         <translation>AutoMint er for øjeblikket deaktiveret
-For at aktivere AutoMint-ændring 'enablezeromint = 0' til 'enablezeromint = 1' i mag.conf</translation>
+For at aktivere AutoMint-ændring 'enablezeromint = 0' til 'enablezeromint = 1' i bitwin24.conf</translation>
     </message>
 </context>
 <context>
@@ -2287,7 +2287,7 @@ For at aktivere AutoMint-ændring 'enablezeromint = 0' til 'enablezeromint = 1' 
         <translation>Ugyldig betalingsadresse: %1</translation>
     </message>
     <message>
-        <source>Cannot start mag: click-to-pay handler</source>
+        <source>Cannot start bitwin24: click-to-pay handler</source>
         <translation>Kan ikke starte MAG "klik for at betale" systemet</translation>
     </message>
     <message>
@@ -2578,8 +2578,8 @@ Uplettet: bekræftet, men mindre end 1 minutter med samme betegnelse, efter at d
         <source>Show the current status of automatic zMAG minting.
 
 To change the status (restart required):
-- enable: add 'enablezeromint=1' to mag.conf
-- disable: add 'enablezeromint=0' to mag.conf
+- enable: add 'enablezeromint=1' to bitwin24.conf
+- disable: add 'enablezeromint=0' to bitwin24.conf
 
 To change the percentage (no restart required):
 - menu Settings-&gt;Options-&gt;Percentage of autominted zMAG
@@ -2588,8 +2588,8 @@ To change the percentage (no restart required):
         <translation>Vis den aktuelle status for automatisk zMAG minting.øj
 
 For at ændre status (genstart kræves):.
-- aktiver: tilføj 'enablezeromint = 1' til mag.conf
-- deaktiver: tilføj 'enablezeromint = 0' til mag.conf
+- aktiver: tilføj 'enablezeromint = 1' til bitwin24.conf
+- deaktiver: tilføj 'enablezeromint = 0' til bitwin24.conf
 
 For at ændre procentdelen (ingen genstart kræves):.
 - menu Indstillinger-&gt; Indstillinger-&gt; Procentdel af automatiseret zMAG
@@ -4883,7 +4883,7 @@ Enten mint højere nomineringer (så færre input er nødvendige) eller reducere
     </message>
 </context>
 <context>
-    <name>mag-core</name>
+    <name>bitwin24-core</name>
     <message>
         <source>(1 = keep tx meta data e.g. account owner and payment request information, 2 = drop tx meta data)</source>
         <translation>(1 = beholdtx metadata. For eksempel information om kontoejer og betalngsanmodninger, 2 = drop TX metadata)</translation>

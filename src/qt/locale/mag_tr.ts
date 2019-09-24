@@ -645,8 +645,8 @@
         <translation>Koinleri MAG adresine gönder</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and mag: URIs)</source>
-        <translation>Ödeme talep etme (QR kodları ve mag üretir: URI'ler)</translation>
+        <source>Request payments (generates QR codes and bitwin24: URIs)</source>
+        <translation>Ödeme talep etme (QR kodları ve bitwin24 üretir: URI'ler)</translation>
     </message>
     <message>
         <source>&amp;Privacy</source>
@@ -864,8 +864,8 @@ Adres: %4
         <translation>TextLabel</translation>
     </message>
     <message>
-        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (mag.conf).</source>
-        <translation>Tüm işlemler gösterilmez. Tüm işlemleri görmek için yapılandırma dosyasında txindex = 1 ayarlamanız gerekir (mag.conf).
+        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (bitwin24.conf).</source>
+        <translation>Tüm işlemler gösterilmez. Tüm işlemleri görmek için yapılandırma dosyasında txindex = 1 ayarlamanız gerekir (bitwin24.conf).
 </translation>
     </message>
 </context>
@@ -1902,9 +1902,9 @@ Unutmayın, cüzdan, yeni adresi içeren işlemleri bulmak için blok zinciri ye
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/mag-project/mag-project-translations</source>
+https://www.transifex.com/bitwin24-project/bitwin24-project-translations</source>
         <translation>Dil eksik veya çeviri tamamlanmamış mı? Katkıda bulunan çevirilere yardımcı olun:
-https://www.transifex.com/mag-project/mag-project-translations</translation>
+https://www.transifex.com/bitwin24-project/bitwin24-project-translations</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -2186,14 +2186,14 @@ AutoMint etkinleştirilirse, bu yüzde, yapılandırılmış AutoMint yüzdesi e
         <translation>AutoMint şu anda etkinleştirilmiş ve</translation>
     </message>
     <message>
-        <source>To disable AutoMint add 'enablezeromint=0' in mag.conf.</source>
-        <translation>AutoMint kapatmak için ekle  'enablezeromint=0'  mag.conf. dosyasına</translation>
+        <source>To disable AutoMint add 'enablezeromint=0' in bitwin24.conf.</source>
+        <translation>AutoMint kapatmak için ekle  'enablezeromint=0'  bitwin24.conf. dosyasına</translation>
     </message>
     <message>
         <source>AutoMint is currently disabled.
-To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in mag.conf</source>
+To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in bitwin24.conf</source>
         <translation>AutoMint şu anda aktif değil.
- AutoMint aktive etmek için  değiştir 'enablezeromint=0' yazan kısmı 'enablezeromint=1' şeklinde mag.conf dosyasında</translation>
+ AutoMint aktive etmek için  değiştir 'enablezeromint=0' yazan kısmı 'enablezeromint=1' şeklinde bitwin24.conf dosyasında</translation>
     </message>
 </context>
 <context>
@@ -2219,7 +2219,7 @@ To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in mag.conf</
         <translation>Geçersiz ödeme adresi %1</translation>
     </message>
     <message>
-        <source>Cannot start mag: click-to-pay handler</source>
+        <source>Cannot start bitwin24: click-to-pay handler</source>
         <translation>Mag başlatılamıyor: tıkla ve ödeme işleyicisi</translation>
     </message>
     <message>
@@ -4487,7 +4487,7 @@ Ya daha yüksek mezhepleri daraltın (daha az girdi gereklidir) veya harcama mik
     </message>
 </context>
 <context>
-    <name>mag-core</name>
+    <name>bitwin24-core</name>
     <message>
         <source>(1 = keep tx meta data e.g. account owner and payment request information, 2 = drop tx meta data)</source>
         <translation>(1 = tx meta verileri, örneğin hesap sahibi ve ödeme talebi bilgileri, 2 = tx meta verileri bırak)</translation>

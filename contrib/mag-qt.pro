@@ -78,7 +78,7 @@ HEADERS += src/activemasternode.h \
            src/crypter.h \
            src/obfuscation-relay.h \
            src/obfuscation.h \
-           src/mag-config.h \
+           src/bitwin24-config.h \
            src/db.h \
            src/eccryptoverify.h \
            src/ecwrapper.h \
@@ -131,7 +131,7 @@ HEADERS += src/activemasternode.h \
            src/wallet_ismine.h \
            src/walletdb.h \
            src/compat/sanity.h \
-           src/config/mag-config.h \
+           src/config/bitwin24-config.h \
            src/crypto/common.h \
            src/crypto/hmac_sha256.h \
            src/crypto/hmac_sha512.h \
@@ -337,7 +337,7 @@ HEADERS += src/activemasternode.h \
            src/secp256k1/src/java/org_bitcoin_NativeSecp256k1.h \
            src/crypto/aes_helper.c \
            src/qt/bitcoinamountfield.moc \
-           src/qt/mag.moc \
+           src/qt/bitwin24.moc \
            src/qt/intro.moc \
            src/qt/overviewpage.moc \
            src/qt/rpcconsole.moc \
@@ -378,9 +378,9 @@ SOURCES += src/activemasternode.cpp \
            src/crypter.cpp \
            src/obfuscation-relay.cpp \
            src/obfuscation.cpp \
-           src/mag-cli.cpp \
-           src/mag-tx.cpp \
-           src/mag.cpp \
+           src/bitwin24-cli.cpp \
+           src/bitwin24-tx.cpp \
+           src/bitwin24.cpp \
            src/db.cpp \
            src/eccryptoverify.cpp \
            src/ecwrapper.cpp \
@@ -480,7 +480,7 @@ SOURCES += src/activemasternode.cpp \
            src/qt/coincontroltreewidget.cpp \
            src/qt/csvmodelwriter.cpp \
            src/qt/obfuscationconfig.cpp \
-           src/qt/mag.cpp \
+           src/qt/bitwin24.cpp \
            src/qt/magstrings.cpp \
            src/qt/editaddressdialog.cpp \
            src/qt/guiutil.cpp \
@@ -650,7 +650,7 @@ SOURCES += src/activemasternode.cpp \
            src/leveldb/helpers/memenv/memenv.cc \
            src/leveldb/helpers/memenv/memenv_test.cc \
            src/secp256k1/src/java/org_bitcoin_NativeSecp256k1.c
-RESOURCES += src/qt/mag.qrc src/qt/mag_locale.qrc
+RESOURCES += src/qt/bitwin24.qrc src/qt/mag_locale.qrc
 
 TRANSLATIONS += src/qt/locale/mag_bg.ts \
                 src/qt/locale/mag_de.ts \

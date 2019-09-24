@@ -653,8 +653,8 @@
         <translation>Invia valuta all'indirizzo MAG</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and mag: URIs)</source>
-        <translation>Richiedi pagamenti (genera codici QR e mag: URIs)</translation>
+        <source>Request payments (generates QR codes and bitwin24: URIs)</source>
+        <translation>Richiedi pagamenti (genera codici QR e bitwin24: URIs)</translation>
     </message>
     <message>
         <source>&amp;Privacy</source>
@@ -888,8 +888,8 @@ MultiSend: %1</translation>
         <translation>Etichetta</translation>
     </message>
     <message>
-        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (mag.conf).</source>
-        <translation>Non tutte le transazioni verranno visualizzate. Per vedere tutte le transazioni è necessario aggiungere txindex=1 nel file di configurazione (mag.conf)</translation>
+        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (bitwin24.conf).</source>
+        <translation>Non tutte le transazioni verranno visualizzate. Per vedere tutte le transazioni è necessario aggiungere txindex=1 nel file di configurazione (bitwin24.conf)</translation>
     </message>
 </context>
 <context>
@@ -1878,14 +1878,14 @@ Se il conio automatico è attivato questa percentuale si stabilizzerà all'incir
         <translation>AutoMint è attivo e impostato su</translation>
     </message>
     <message>
-        <source>To disable AutoMint add 'enablezeromint=0' in mag.conf.</source>
-        <translation>Per disabilitare il conio automatico aggiungi 'enablezeromint=0' in mag.conf.</translation>
+        <source>To disable AutoMint add 'enablezeromint=0' in bitwin24.conf.</source>
+        <translation>Per disabilitare il conio automatico aggiungi 'enablezeromint=0' in bitwin24.conf.</translation>
     </message>
     <message>
         <source>AutoMint is currently disabled.
-To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in mag.conf</source>
+To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in bitwin24.conf</source>
         <translation>Conio automatico è correntemente disattivato.
-Per attivare il Conio automatico cambiare 'enablezeromint=0' in 'enablezeromint=1' in mag.conf</translation>
+Per attivare il Conio automatico cambiare 'enablezeromint=0' in 'enablezeromint=1' in bitwin24.conf</translation>
     </message>
 </context>
 <context>
@@ -2051,8 +2051,8 @@ Gli zMAG sono maturi quando hanno più di 20 conferme E più di 2 conii della st
         <source>Show the current status of automatic zMAG minting.
 
 To change the status (restart required):
-- enable: add 'enablezeromint=1' to mag.conf
-- disable: add 'enablezeromint=0' to mag.conf
+- enable: add 'enablezeromint=1' to bitwin24.conf
+- disable: add 'enablezeromint=0' to bitwin24.conf
 
 To change the percentage (no restart required):
 - menu Settings-&gt;Options-&gt;Percentage of autominted zMAG
@@ -2060,8 +2060,8 @@ To change the percentage (no restart required):
 </source>
         <translation>Mostra lo stato corrente del conio automatico zMAG.
 Per cambiare lo stato (riavvio necessario):
-- attivato: aggiungi 'enablezeromint=1' a mag.conf
-- disattivato: aggiungi 'enablezeromint=0' a mag.conf
+- attivato: aggiungi 'enablezeromint=1' a bitwin24.conf
+- disattivato: aggiungi 'enablezeromint=0' a bitwin24.conf
 
 Per cambiare la percentuale (riavvio non necessario):
 - menu Impostazioni-&gt;Opzioni-&gt;Percentuale di zMAG da coniare automaticamente
@@ -2677,7 +2677,7 @@ Per cambiare la percentuale (riavvio non necessario):
     </message>
     </context>
 <context>
-    <name>mag-core</name>
+    <name>bitwin24-core</name>
     <message>
         <source>Error</source>
         <translation>Errore</translation>

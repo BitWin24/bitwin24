@@ -12,8 +12,8 @@ When a "Transaction Lock" occurs the hash of the related transaction is broadcas
 * `zmqpubhashtxlock`: publishes the transaction hash when locked via SwiftX
 
 This mechanism has been integrated into Bitcore-Node-MAG which allows for notification to be broadcast through Insight API in one of two ways:
-* WebSocket: [https://github.com/MAG-Project/insight-api-mag#web-socket-api](https://github.com/MAG-Project/insight-api-mag#web-socket-api) 
-* API: [https://github.com/MAG-Project/insight-api-mag#swifttx-transactions](https://github.com/MAG-Project/insight-api-mag#swifttx-transactions) 
+* WebSocket: [https://github.com/MAG-Project/insight-api-bitwin24#web-socket-api](https://github.com/MAG-Project/insight-api-bitwin24#web-socket-api) 
+* API: [https://github.com/MAG-Project/insight-api-bitwin24#swifttx-transactions](https://github.com/MAG-Project/insight-api-bitwin24#swifttx-transactions) 
 
 ####Command line option
 

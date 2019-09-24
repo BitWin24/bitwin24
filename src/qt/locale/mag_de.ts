@@ -653,8 +653,8 @@
         <translation>An eine MAG-Adresse überweisen</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and mag: URIs)</source>
-        <translation>Zahlung anfordern (QR-Code Generierung und mag: URIs)</translation>
+        <source>Request payments (generates QR codes and bitwin24: URIs)</source>
+        <translation>Zahlung anfordern (QR-Code Generierung und bitwin24: URIs)</translation>
     </message>
     <message>
         <source>&amp;Privacy</source>
@@ -887,8 +887,8 @@ Adresse: %4</translation>
         <translation>TextEtikett</translation>
     </message>
     <message>
-        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (mag.conf).</source>
-        <translation>Nicht alle Transaktionen können anzezeigt werden. Um alle Transaktionen zu sehen, müssen sie die Option  "txindex=1" in der "mag.conf" Konfigurationsdatei hinzufügen.</translation>
+        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (bitwin24.conf).</source>
+        <translation>Nicht alle Transaktionen können anzezeigt werden. Um alle Transaktionen zu sehen, müssen sie die Option  "txindex=1" in der "bitwin24.conf" Konfigurationsdatei hinzufügen.</translation>
     </message>
 </context>
 <context>
@@ -1930,9 +1930,9 @@ Bitte haben Sie etwas Geduld, nachdem Sie auf Importieren geklickt haben.</trans
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/mag-project/mag-project-translations</source>
+https://www.transifex.com/bitwin24-project/bitwin24-project-translations</source>
         <translation>Sprache fehlt oder ist unvollständig? Helfe mit und trage zur Übersetzung bei unter:
-https://www.transifex.com/mag-project/mag-project-translations</translation>
+https://www.transifex.com/bitwin24-project/bitwin24-project-translations</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -2246,14 +2246,14 @@ Falls das automatische Prägen aktiviert ist, wird sich dieser Prozentsatz um de
         <translation>Automatisches Prägen ist aktiv und eingestellt auf</translation>
     </message>
     <message>
-        <source>To disable AutoMint add 'enablezeromint=0' in mag.conf.</source>
-        <translation>Um das automatische Prägen zu deaktivieren, füge 'enablezeromint=0' in mag.conf ein.</translation>
+        <source>To disable AutoMint add 'enablezeromint=0' in bitwin24.conf.</source>
+        <translation>Um das automatische Prägen zu deaktivieren, füge 'enablezeromint=0' in bitwin24.conf ein.</translation>
     </message>
     <message>
         <source>AutoMint is currently disabled.
-To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in mag.conf</source>
+To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in bitwin24.conf</source>
         <translation>Das automatische Prägen ist deaktiviert.
-Um das automatische Prägen zu aktivieren ändere 'enablezeromint=0' zu 'enablezeromint=1' in mag.conf</translation>
+Um das automatische Prägen zu aktivieren ändere 'enablezeromint=0' zu 'enablezeromint=1' in bitwin24.conf</translation>
     </message>
 </context>
 <context>
@@ -2279,7 +2279,7 @@ Um das automatische Prägen zu aktivieren ändere 'enablezeromint=0' zu 'enablez
         <translation>Ungültige Zahlungsaufforderungsadresse %1</translation>
     </message>
     <message>
-        <source>Cannot start mag: click-to-pay handler</source>
+        <source>Cannot start bitwin24: click-to-pay handler</source>
         <translation>Kann MAG nicht starten: click-to-pay Handler</translation>
     </message>
     <message>
@@ -2570,8 +2570,8 @@ Unreif: Bestätigt, aber keine Prägung in der selben Stückelung seit erfolgter
         <source>Show the current status of automatic zMAG minting.
 
 To change the status (restart required):
-- enable: add 'enablezeromint=1' to mag.conf
-- disable: add 'enablezeromint=0' to mag.conf
+- enable: add 'enablezeromint=1' to bitwin24.conf
+- disable: add 'enablezeromint=0' to bitwin24.conf
 
 To change the percentage (no restart required):
 - menu Settings-&gt;Options-&gt;Percentage of autominted zMAG
@@ -2580,8 +2580,8 @@ To change the percentage (no restart required):
         <translation>Zeigt den aktuellen Status der automatischen zMAG-Prägung an
 
 Um den Status zu ändern (Neustart erforderlich): 
-- enable: füge 'enablezeromint = 1' zu mag.conf hinzu
-- disable: füge 'enablezeromint = 0' zu mag.conf hinzu
+- enable: füge 'enablezeromint = 1' zu bitwin24.conf hinzu
+- disable: füge 'enablezeromint = 0' zu bitwin24.conf hinzu
 
 Um den Prozentsatz zu ändern (kein Neustart erforderlich): 
 - Menü Einstellungen-&gt; Optionen-&gt; Prozentsatz der autom. zMAG
@@ -4875,7 +4875,7 @@ Präge entweder höhere Stückelungen (damit weniger Eingaben benötigt werdenn)
     </message>
 </context>
 <context>
-    <name>mag-core</name>
+    <name>bitwin24-core</name>
     <message>
         <source>(1 = keep tx meta data e.g. account owner and payment request information, 2 = drop tx meta data)</source>
         <translation>(1 = behalte Tx-Meta-Daten z.B. Betrag, Besitzer und Zahlungsanforderungsinformationen, 2 = verwerfe Tx-Meta-Daten)</translation>

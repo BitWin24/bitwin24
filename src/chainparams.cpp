@@ -188,7 +188,7 @@ public:
         assert(hashGenesisBlock == uint256("0x0000015b2f14a08ed3848d7fd94da692498ed46ae927693c75fc4317a5e6ae2c"));
         assert(genesis.hashMerkleRoot == uint256("0xdac56c8d5e16e7bad2fbe36227dfc6da136c4b8d8869c0094616e1f7852566d6"));
 
-//        vSeeds.push_back(CDNSSeedData("magnetwork.io", "satoshi.magnetwork.io"));   // Primary DNS Seeder
+//        vSeeds.push_back(CDNSSeedData("bitwin24network.io", "satoshi.bitwin24network.io"));   // Primary DNS Seeder
 //        vSeeds.push_back(CDNSSeedData("litemint.com", "satoshi.litemint.com"));     // Secondary DNS Seeder
 //        vSeeds.push_back(CDNSSeedData("35.241.249.95", "35.241.249.95"));
 //        vSeeds.push_back(CDNSSeedData("35.227.76.49", "35.227.76.49"));
@@ -276,20 +276,20 @@ public:
 
         vFixedSeeds.clear();
         vSeeds.clear();
-//        vSeeds.push_back(CDNSSeedData("magnetwork.io", "nakamoto.magnetwork.io"));
+//        vSeeds.push_back(CDNSSeedData("bitwin24network.io", "nakamoto.bitwin24network.io"));
 //        vSeeds.push_back(CDNSSeedData("litemint.com", "nakamoto.litemint.com"));
 //        vSeeds.push_back(CDNSSeedData("35.241.249.95", "35.241.249.95"));
 //        vSeeds.push_back(CDNSSeedData("35.227.76.49", "35.227.76.49"));
 //        vSeeds.push_back(CDNSSeedData("35.190.191.73", "35.190.191.73"));
         
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 65); // Testnet mag addresses start with 'T'
-        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 10);  // Testnet mag script addresses start with '5'
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 65); // Testnet bitwin24 addresses start with 'T'
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 10);  // Testnet bitwin24 script addresses start with '5'
         base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 135);     // Testnet private keys start with 'w'
-        // Testnet mag BIP32 pubkeys start with 'DRKV'
+        // Testnet bitwin24 BIP32 pubkeys start with 'DRKV'
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x3a)(0x80)(0x61)(0xa0).convert_to_container<std::vector<unsigned char> >();
-        // Testnet mag BIP32 prvkeys start with 'DRKP'
+        // Testnet bitwin24 BIP32 prvkeys start with 'DRKP'
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x3a)(0x80)(0x58)(0x37).convert_to_container<std::vector<unsigned char> >();
-        // Testnet mag BIP44 coin type is '1' (All coin's testnet default)
+        // Testnet bitwin24 BIP44 coin type is '1' (All coin's testnet default)
         base58Prefixes[EXT_COIN_TYPE] = boost::assign::list_of(0x80)(0x00)(0x00)(0x01).convert_to_container<std::vector<unsigned char> >();
 
         convertSeed6(vFixedSeeds, pnSeed6_test, ARRAYLEN(pnSeed6_test));

@@ -20,7 +20,7 @@
 #include <QPixmap>
 
 #if defined(HAVE_CONFIG_H)
-#include "config/mag-config.h" /* for USE_QRCODE */
+#include "config/bitwin24-config.h" /* for USE_QRCODE */
 #endif
 
 #ifdef USE_QRCODE

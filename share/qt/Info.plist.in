@@ -38,7 +38,7 @@
   <true/>
 
   <key>CFBundleIdentifier</key>
-  <string>io.mag.Mag-Qt</string>
+  <string>io.bitwin24.Mag-Qt</string>
 
   <key>CFBundleURLTypes</key>
   <array>
@@ -46,10 +46,10 @@
       <key>CFBundleTypeRole</key>
       <string>Editor</string>
       <key>CFBundleURLName</key>
-      <string>io.mag.MagPayment</string>
+      <string>io.bitwin24.MagPayment</string>
       <key>CFBundleURLSchemes</key>
       <array>
-        <string>mag</string>
+        <string>bitwin24</string>
       </array>
     </dict>
   </array>
@@ -58,7 +58,7 @@
   <array>
     <dict>
       <key>UTTypeIdentifier</key>
-      <string>io.mag.paymentrequest</string>
+      <string>io.bitwin24.paymentrequest</string>
       <key>UTTypeDescription</key>
       <string>Mag payment request</string>
       <key>UTTypeConformsTo</key>
@@ -68,7 +68,7 @@
       <key>UTTypeTagSpecification</key>
       <dict>
         <key>public.mime-type</key>
-        <string>application/x-mag-payment-request</string>
+        <string>application/x-bitwin24-payment-request</string>
         <key>public.filename-extension</key>
         <array>
           <string>magpaymentrequest</string>
@@ -84,7 +84,7 @@
       <string>Editor</string>
       <key>LSItemContentTypes</key>
       <array>
-        <string>io.mag.paymentrequest</string>
+        <string>io.bitwin24.paymentrequest</string>
       </array>
       <key>LSHandlerRank</key>
       <string>Owner</string>

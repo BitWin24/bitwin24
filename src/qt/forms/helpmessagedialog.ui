@@ -28,7 +28,7 @@
       </sizepolicy>
      </property>
      <property name="pixmap">
-      <pixmap resource="../mag.qrc">:/images/about</pixmap>
+      <pixmap resource="../bitwin24.qrc">:/images/about</pixmap>
      </property>
     </widget>
    </item>
@@ -97,7 +97,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../mag.qrc"/>
+  <include location="../bitwin24.qrc"/>
  </resources>
  <connections>
   <connection>

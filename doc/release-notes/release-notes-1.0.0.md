@@ -1,6 +1,6 @@
-MAG Core version *1.0.0* is now available from:  <https://github.com/magnetwork/mag/releases>
+MAG Core version *1.0.0* is now available from:  <https://github.com/bitwin24network/bitwin24/releases>
 
-Please report bugs using the issue tracker at github: <https://github.com/magnetwork/mag/issues>
+Please report bugs using the issue tracker at github: <https://github.com/bitwin24network/bitwin24/issues>
 
 Mandatory Update
 ==============
@@ -12,7 +12,7 @@ Existing users have up till November 12, 2018 to Swap their coins on [Cryptopia 
 How to Install / Upgrade
 ==============
 
-If you are running an older version, shut it down. Wait until it has completely shut down (which might take a few minutes for older versions), then run the installer (on Windows) or just copy over /Applications/MAG-Qt (on Mac) or magd/mag-qt (on Linux).
+If you are running an older version, shut it down. Wait until it has completely shut down (which might take a few minutes for older versions), then run the installer (on Windows) or just copy over /Applications/MAG-Qt (on Mac) or magd/bitwin24-qt (on Linux).
 
 Compatibility
 ==============
@@ -45,7 +45,7 @@ User Experience
 
 The visual layout of the MAG Qt wallet has undergone a complete overhaul.
 The overview tab has been simplified greatly to display only balances that are active or relevant, also a reward section has been added.
-A merchant tab, which lets you login to your [merchant dashboard](https://merchant.magnetwork.io/) (can be turned off in the options) is also present.
+A merchant tab, which lets you login to your [merchant dashboard](https://merchant.bitwin24network.io/) (can be turned off in the options) is also present.
 
 ### Wallet Options
 

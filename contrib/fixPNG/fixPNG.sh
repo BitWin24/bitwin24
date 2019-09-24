@@ -9,7 +9,7 @@
 #fi
 
 # EXECUTE:
-# >cd mag
+# >cd bitwin24
 # >contrib/fixPNG/fixPNG.sh "src/"
 
 # FIX png FILES

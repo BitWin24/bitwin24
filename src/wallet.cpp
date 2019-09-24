@@ -2853,7 +2853,7 @@ bool CWallet::CreateTransaction(const vector<pair<CScript, CAmount> >& vecSend,
                 if (nChange > 0) {
                     // Fill a vout to ourself
                     // TODO: pass in scriptChange instead of reservekey so
-                    // change transaction isn't always pay-to-mag-address
+                    // change transaction isn't always pay-to-bitwin24-address
                     CScript scriptChange;
                     bool combineChange = false;
 
@@ -4598,7 +4598,7 @@ bool CWallet::CreateZerocoinMintTransaction(const CAmount nValue, CMutableTransa
             reservekey->ReturnKey();
     }
 
-    // Sign if these are mag outputs - NOTE that zMAG outputs are signed later in SoK
+    // Sign if these are bitwin24 outputs - NOTE that zMAG outputs are signed later in SoK
     if (!isZCSpendChange) {
         int nIn = 0;
         for (const std::pair<const CWalletTx*, unsigned int>& coin : setCoins) {
@@ -4919,7 +4919,7 @@ bool CWallet::CreateZerocoinSpendTransaction(CAmount nValue, int nSecurityLevel,
                 }
             }
 
-            //add output to mag address to the transaction (the actual primary spend taking place)
+            //add output to bitwin24 address to the transaction (the actual primary spend taking place)
             CTxOut txOutZerocoinSpend(nValue, scriptZerocoinSpend);
             txNew.vout.push_back(txOutZerocoinSpend);
 

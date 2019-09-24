@@ -14,7 +14,7 @@
 - (NSString *)__bundleIdentifier
 {
     if (self == [NSBundle mainBundle]) {
-        return @"io.mag.Mag-Qt";
+        return @"io.bitwin24.Mag-Qt";
     } else {
         return [self __bundleIdentifier];
     }

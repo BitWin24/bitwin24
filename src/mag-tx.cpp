@@ -48,10 +48,10 @@ static bool AppInitRawTx(int argc, char* argv[])
 
     if (argc < 2 || mapArgs.count("-?") || mapArgs.count("-help")) {
         // First part of help message is specific to this utility
-        std::string strUsage = _("Mag Core mag-tx utility version") + " " + FormatFullVersion() + "\n\n" +
+        std::string strUsage = _("Mag Core bitwin24-tx utility version") + " " + FormatFullVersion() + "\n\n" +
                                _("Usage:") + "\n" +
-                               "  mag-tx [options] <hex-tx> [commands]  " + _("Update hex-encoded mag transaction") + "\n" +
-                               "  mag-tx [options] -create [commands]   " + _("Create hex-encoded mag transaction") + "\n" +
+                               "  bitwin24-tx [options] <hex-tx> [commands]  " + _("Update hex-encoded bitwin24 transaction") + "\n" +
+                               "  bitwin24-tx [options] -create [commands]   " + _("Create hex-encoded bitwin24 transaction") + "\n" +
                                "\n";
 
         fprintf(stdout, "%s", strUsage.c_str());
@@ -569,7 +569,7 @@ static int CommandLineRawTx(int argc, char* argv[])
             if (argc < 2)
                 throw runtime_error("too few parameters");
 
-            // param: hex-encoded mag transaction
+            // param: hex-encoded bitwin24 transaction
             string strHexTx(argv[1]);
             if (strHexTx == "-") // "-" implies standard input
                 strHexTx = readStdin();

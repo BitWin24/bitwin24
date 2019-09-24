@@ -22,10 +22,10 @@ BEGIN
             VALUE "CompanyName",        "MAG"
             VALUE "FileDescription",    "MAG Core (OSS GUI client for MAG)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
-            VALUE "InternalName",       "mag-qt"
+            VALUE "InternalName",       "bitwin24-qt"
             VALUE "LegalCopyright",     COPYRIGHT_STR
             VALUE "LegalTrademarks1",   "Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php."
-            VALUE "OriginalFilename",   "mag-qt.exe"
+            VALUE "OriginalFilename",   "bitwin24-qt.exe"
             VALUE "ProductName",        "MAG Core"
             VALUE "ProductVersion",     VER_PRODUCTVERSION_STR
         END

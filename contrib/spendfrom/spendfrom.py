@@ -7,7 +7,7 @@
 #  spendfrom.py  # Lists available funds
 #  spendfrom.py --from=ADDRESS --to=ADDRESS --amount=11.00
 #
-# Assumes it will talk to a magd or mag-Qt running
+# Assumes it will talk to a magd or bitwin24-Qt running
 # on localhost.
 #
 # Depends on jsonrpc
@@ -33,15 +33,15 @@ def check_json_precision():
         raise RuntimeError("JSON encode/decode loses precision")
 
 def determine_db_dir():
-    """Return the default location of the mag data directory"""
+    """Return the default location of the bitwin24 data directory"""
     if platform.system() == "Darwin":
         return os.path.expanduser("~/Library/Application Support/MAG/")
     elif platform.system() == "Windows":
         return os.path.join(os.environ['APPDATA'], "MAG")
-    return os.path.expanduser("~/.mag")
+    return os.path.expanduser("~/.bitwin24")
 
 def read_bitcoin_config(dbdir):
-    """Read the mag.conf file from dbdir, returns dictionary of settings"""
+    """Read the bitwin24.conf file from dbdir, returns dictionary of settings"""
     from ConfigParser import SafeConfigParser
 
     class FakeSecHead(object):
@@ -59,11 +59,11 @@ def read_bitcoin_config(dbdir):
                 return s
 
     config_parser = SafeConfigParser()
-    config_parser.readfp(FakeSecHead(open(os.path.join(dbdir, "mag.conf"))))
+    config_parser.readfp(FakeSecHead(open(os.path.join(dbdir, "bitwin24.conf"))))
     return dict(config_parser.items("all"))
 
 def connect_JSON(config):
-    """Connect to a mag JSON-RPC server"""
+    """Connect to a bitwin24 JSON-RPC server"""
     testnet = config.get('testnet', '0')
     testnet = (int(testnet) > 0)  # 0/1 in config file, convert to True/False
     if not 'rpcport' in config:
@@ -110,7 +110,7 @@ def list_available(magd):
         vout = rawtx["vout"][output['vout']]
         pk = vout["scriptPubKey"]
 
-        # This code only deals with ordinary pay-to-mag-address
+        # This code only deals with ordinary pay-to-bitwin24-address
         # or pay-to-script-hash outputs right now; anything exotic is ignored.
         if pk["type"] != "pubkeyhash" and pk["type"] != "scripthash":
             continue
@@ -229,7 +229,7 @@ def main():
     parser.add_option("--fee", dest="fee", default="0.0",
                       help="fee to include")
     parser.add_option("--datadir", dest="datadir", default=determine_db_dir(),
-                      help="location of mag.conf file with RPC username/password (default: %default)")
+                      help="location of bitwin24.conf file with RPC username/password (default: %default)")
     parser.add_option("--testnet", dest="testnet", default=False, action="store_true",
                       help="Use the test network")
     parser.add_option("--dry_run", dest="dry_run", default=False, action="store_true",

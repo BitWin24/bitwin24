@@ -3,16 +3,16 @@ Description=MAG's distributed currency daemon
 After=network.target
 
 [Service]
-User=mag
-Group=mag
+User=bitwin24
+Group=bitwin24
 
 Type=forking
 PIDFile=/var/lib/magd/magd.pid
 
 ExecStart=/usr/bin/magd -daemon -pid=/var/lib/magd/magd.pid \
-          -conf=/etc/mag/mag.conf -datadir=/var/lib/magd
+          -conf=/etc/bitwin24/bitwin24.conf -datadir=/var/lib/magd
 
-ExecStop=-/usr/bin/mag-cli -conf=/etc/mag/mag.conf \
+ExecStop=-/usr/bin/bitwin24-cli -conf=/etc/bitwin24/bitwin24.conf \
          -datadir=/var/lib/magd stop
 
 Restart=always

@@ -955,7 +955,7 @@
                   <string>S&amp;end</string>
                  </property>
                  <property name="icon">
-                  <iconset resource="../mag.qrc">
+                  <iconset resource="../bitwin24.qrc">
                    <normaloff>:/icons/send</normaloff>:/icons/send</iconset>
                  </property>
                  <property name="autoDefault">
@@ -1024,7 +1024,7 @@
                   <string>Clear &amp;All</string>
                  </property>
                  <property name="icon">
-                  <iconset resource="../mag.qrc">
+                  <iconset resource="../bitwin24.qrc">
                    <normaloff>:/icons/remove</normaloff>:/icons/remove</iconset>
                  </property>
                  <property name="autoDefault">
@@ -1041,7 +1041,7 @@
                   <string>Add &amp;Recipient</string>
                  </property>
                  <property name="icon">
-                  <iconset resource="../mag.qrc">
+                  <iconset resource="../bitwin24.qrc">
                    <normaloff>:/icons/add</normaloff>:/icons/add</iconset>
                  </property>
                  <property name="autoDefault">
@@ -1770,7 +1770,7 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../mag.qrc"/>
+  <include location="../bitwin24.qrc"/>
  </resources>
  <connections/>
  <buttongroups>

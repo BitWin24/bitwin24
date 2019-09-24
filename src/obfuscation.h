@@ -493,7 +493,7 @@ public:
 
     void GetDenominationsToString(int nDenom, std::string& strDenom);
 
-    /// Get the denominations for a specific amount of mag.
+    /// Get the denominations for a specific amount of bitwin24.
     int GetDenominationsByAmount(CAmount nAmount, int nDenomTarget = 0); // is not used any more?
     int GetDenominationsByAmounts(std::vector<CAmount>& vecAmount);
 

@@ -2546,7 +2546,7 @@ static CCheckQueue<CScriptCheck> scriptcheckqueue(128);
 
 void ThreadScriptCheck()
 {
-    RenameThread("mag-scriptch");
+    RenameThread("bitwin24-scriptch");
     scriptcheckqueue.Thread();
 }
 

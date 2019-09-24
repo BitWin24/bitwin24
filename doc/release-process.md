@@ -24,10 +24,10 @@ If you're using the automated script (found in [contrib/gitian-build.sh](/contri
 Check out the source code in the following directory hierarchy.
 
     cd /path/to/your/toplevel/build
-    git clone https://github.com/mag-project/gitian.sigs.git
-    git clone https://github.com/mag-project/mag-detached-sigs.git
+    git clone https://github.com/bitwin24-project/gitian.sigs.git
+    git clone https://github.com/bitwin24-project/bitwin24-detached-sigs.git
     git clone https://github.com/devrandom/gitian-builder.git
-    git clone https://github.com/mag-project/mag.git
+    git clone https://github.com/bitwin24-project/bitwin24.git
 
 ### MAG maintainers/release engineers, suggestion for writing release notes
 
@@ -50,7 +50,7 @@ If you're using the automated script (found in [contrib/gitian-build.sh](/contri
 
 Setup Gitian descriptors:
 
-    pushd ./mag
+    pushd ./bitwin24
     export SIGNER=(your Gitian key, ie bluematt, sipa, etc)
     export VERSION=(new version, e.g. 0.8.0)
     git fetch
@@ -84,7 +84,7 @@ Create the OS X SDK tarball, see the [OS X readme](README_osx.md) for details, a
 By default, Gitian will fetch source files as needed. To cache them ahead of time:
 
     pushd ./gitian-builder
-    make -C ../mag/depends download SOURCES_PATH=`pwd`/cache/common
+    make -C ../bitwin24/depends download SOURCES_PATH=`pwd`/cache/common
     popd
 
 Only missing files will be fetched, so this is safe to re-run for each build.
@@ -92,7 +92,7 @@ Only missing files will be fetched, so this is safe to re-run for each build.
 NOTE: Offline builds must use the --url flag to ensure Gitian fetches only from local URLs. For example:
 
     pushd ./gitian-builder
-    ./bin/gbuild --url mag=/path/to/mag,signature=/path/to/sigs {rest of arguments}
+    ./bin/gbuild --url bitwin24=/path/to/bitwin24,signature=/path/to/sigs {rest of arguments}
     popd
 
 The gbuild invocations below <b>DO NOT DO THIS</b> by default.
@@ -100,47 +100,47 @@ The gbuild invocations below <b>DO NOT DO THIS</b> by default.
 ### Build and sign MAG Core for Linux, Windows, and OS X:
 
     pushd ./gitian-builder
-    ./bin/gbuild --memory 3000 --commit mag=v${VERSION} ../mag/contrib/gitian-descriptors/gitian-linux.yml
-    ./bin/gsign --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs/ ../mag/contrib/gitian-descriptors/gitian-linux.yml
-    mv build/out/mag-*.tar.gz build/out/src/mag-*.tar.gz ../
+    ./bin/gbuild --memory 3000 --commit bitwin24=v${VERSION} ../bitwin24/contrib/gitian-descriptors/gitian-linux.yml
+    ./bin/gsign --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs/ ../bitwin24/contrib/gitian-descriptors/gitian-linux.yml
+    mv build/out/bitwin24-*.tar.gz build/out/src/bitwin24-*.tar.gz ../
 
-    ./bin/gbuild --memory 3000 --commit mag=v${VERSION} ../mag/contrib/gitian-descriptors/gitian-win.yml
-    ./bin/gsign --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../gitian.sigs/ ../mag/contrib/gitian-descriptors/gitian-win.yml
-    mv build/out/mag-*-win-unsigned.tar.gz inputs/mag-win-unsigned.tar.gz
-    mv build/out/mag-*.zip build/out/mag-*.exe ../
+    ./bin/gbuild --memory 3000 --commit bitwin24=v${VERSION} ../bitwin24/contrib/gitian-descriptors/gitian-win.yml
+    ./bin/gsign --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../gitian.sigs/ ../bitwin24/contrib/gitian-descriptors/gitian-win.yml
+    mv build/out/bitwin24-*-win-unsigned.tar.gz inputs/bitwin24-win-unsigned.tar.gz
+    mv build/out/bitwin24-*.zip build/out/bitwin24-*.exe ../
 
-    ./bin/gbuild --memory 3000 --commit mag=v${VERSION} ../mag/contrib/gitian-descriptors/gitian-osx.yml
-    ./bin/gsign --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../gitian.sigs/ ../mag/contrib/gitian-descriptors/gitian-osx.yml
-    mv build/out/mag-*-osx-unsigned.tar.gz inputs/mag-osx-unsigned.tar.gz
-    mv build/out/mag-*.tar.gz build/out/mag-*.dmg ../
+    ./bin/gbuild --memory 3000 --commit bitwin24=v${VERSION} ../bitwin24/contrib/gitian-descriptors/gitian-osx.yml
+    ./bin/gsign --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../gitian.sigs/ ../bitwin24/contrib/gitian-descriptors/gitian-osx.yml
+    mv build/out/bitwin24-*-osx-unsigned.tar.gz inputs/bitwin24-osx-unsigned.tar.gz
+    mv build/out/bitwin24-*.tar.gz build/out/bitwin24-*.dmg ../
 
-    ./bin/gbuild --memory 3000 --commit mag=v${VERSION} ../mag/contrib/gitian-descriptors/gitian-aarch64.yml
-    ./bin/gsign --signer $SIGNER --release ${VERSION}-aarch64 --destination ../gitian.sigs/ ../mag/contrib/gitian-descriptors/gitian-aarch64.yml
-    mv build/out/mag-*.tar.gz build/out/src/mag-*.tar.gz ../
+    ./bin/gbuild --memory 3000 --commit bitwin24=v${VERSION} ../bitwin24/contrib/gitian-descriptors/gitian-aarch64.yml
+    ./bin/gsign --signer $SIGNER --release ${VERSION}-aarch64 --destination ../gitian.sigs/ ../bitwin24/contrib/gitian-descriptors/gitian-aarch64.yml
+    mv build/out/bitwin24-*.tar.gz build/out/src/bitwin24-*.tar.gz ../
     popd
 
 Build output expected:
 
-  1. source tarball (`mag-${VERSION}.tar.gz`)
-  2. linux 32-bit and 64-bit dist tarballs (`mag-${VERSION}-linux[32|64].tar.gz`)
-  3. windows 32-bit and 64-bit unsigned installers and dist zips (`mag-${VERSION}-win[32|64]-setup-unsigned.exe`, `mag-${VERSION}-win[32|64].zip`)
-  4. OS X unsigned installer and dist tarball (`mag-${VERSION}-osx-unsigned.dmg`, `mag-${VERSION}-osx64.tar.gz`)
+  1. source tarball (`bitwin24-${VERSION}.tar.gz`)
+  2. linux 32-bit and 64-bit dist tarballs (`bitwin24-${VERSION}-linux[32|64].tar.gz`)
+  3. windows 32-bit and 64-bit unsigned installers and dist zips (`bitwin24-${VERSION}-win[32|64]-setup-unsigned.exe`, `bitwin24-${VERSION}-win[32|64].zip`)
+  4. OS X unsigned installer and dist tarball (`bitwin24-${VERSION}-osx-unsigned.dmg`, `bitwin24-${VERSION}-osx64.tar.gz`)
   5. Gitian signatures (in `gitian.sigs/${VERSION}-<linux|{win,osx}-unsigned>/(your Gitian key)/`)
 
 ### Verify other gitian builders signatures to your own. (Optional)
 
 Add other gitian builders keys to your gpg keyring, and/or refresh keys.
 
-    gpg --import mag/contrib/gitian-keys/*.pgp
+    gpg --import bitwin24/contrib/gitian-keys/*.pgp
     gpg --refresh-keys
 
 Verify the signatures
 
     pushd ./gitian-builder
-    ./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-linux ../mag/contrib/gitian-descriptors/gitian-linux.yml
-    ./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-win-unsigned ../mag/contrib/gitian-descriptors/gitian-win.yml
-    ./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-unsigned ../mag/contrib/gitian-descriptors/gitian-osx.yml
-    ./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-aarch64 ../mag/contrib/gitian-descriptors/gitian-aarch64.yml
+    ./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-linux ../bitwin24/contrib/gitian-descriptors/gitian-linux.yml
+    ./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-win-unsigned ../bitwin24/contrib/gitian-descriptors/gitian-win.yml
+    ./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-unsigned ../bitwin24/contrib/gitian-descriptors/gitian-osx.yml
+    ./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-aarch64 ../bitwin24/contrib/gitian-descriptors/gitian-aarch64.yml
     popd
 
 ### Next steps:
@@ -162,22 +162,22 @@ Codesigner only: Create Windows/OS X detached signatures:
 
 Codesigner only: Sign the osx binary:
 
-    transfer mag-osx-unsigned.tar.gz to osx for signing
-    tar xf mag-osx-unsigned.tar.gz
+    transfer bitwin24-osx-unsigned.tar.gz to osx for signing
+    tar xf bitwin24-osx-unsigned.tar.gz
     ./detached-sig-create.sh -s "Key ID"
     Enter the keychain password and authorize the signature
     Move signature-osx.tar.gz back to the gitian host
 
 Codesigner only: Sign the windows binaries:
 
-    tar xf mag-win-unsigned.tar.gz
+    tar xf bitwin24-win-unsigned.tar.gz
     ./detached-sig-create.sh -key /path/to/codesign.key
     Enter the passphrase for the key when prompted
     signature-win.tar.gz will be created
 
 Codesigner only: Commit the detached codesign payloads:
 
-    cd ~/mag-detached-sigs
+    cd ~/bitwin24-detached-sigs
     checkout the appropriate branch for this release series
     rm -rf *
     tar xf signature-osx.tar.gz
@@ -190,25 +190,25 @@ Codesigner only: Commit the detached codesign payloads:
 Non-codesigners: wait for Windows/OS X detached signatures:
 
 - Once the Windows/OS X builds each have 3 matching signatures, they will be signed with their respective release keys.
-- Detached signatures will then be committed to the [mag-detached-sigs](https://github.com/MAG-Project/mag-detached-sigs) repository, which can be combined with the unsigned apps to create signed binaries.
+- Detached signatures will then be committed to the [bitwin24-detached-sigs](https://github.com/MAG-Project/bitwin24-detached-sigs) repository, which can be combined with the unsigned apps to create signed binaries.
 
 Create (and optionally verify) the signed OS X binary:
 
     pushd ./gitian-builder
-    ./bin/gbuild -i --commit signature=v${VERSION} ../mag/contrib/gitian-descriptors/gitian-osx-signer.yml
-    ./bin/gsign --signer $SIGNER --release ${VERSION}-osx-signed --destination ../gitian.sigs/ ../mag/contrib/gitian-descriptors/gitian-osx-signer.yml
-    ./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-signed ../mag/contrib/gitian-descriptors/gitian-osx-signer.yml
-    mv build/out/mag-osx-signed.dmg ../mag-${VERSION}-osx.dmg
+    ./bin/gbuild -i --commit signature=v${VERSION} ../bitwin24/contrib/gitian-descriptors/gitian-osx-signer.yml
+    ./bin/gsign --signer $SIGNER --release ${VERSION}-osx-signed --destination ../gitian.sigs/ ../bitwin24/contrib/gitian-descriptors/gitian-osx-signer.yml
+    ./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-signed ../bitwin24/contrib/gitian-descriptors/gitian-osx-signer.yml
+    mv build/out/bitwin24-osx-signed.dmg ../bitwin24-${VERSION}-osx.dmg
     popd
 
 Create (and optionally verify) the signed Windows binaries:
 
     pushd ./gitian-builder
-    ./bin/gbuild -i --commit signature=v${VERSION} ../mag/contrib/gitian-descriptors/gitian-win-signer.yml
-    ./bin/gsign --signer $SIGNER --release ${VERSION}-win-signed --destination ../gitian.sigs/ ../mag/contrib/gitian-descriptors/gitian-win-signer.yml
-    ./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-win-signed ../mag/contrib/gitian-descriptors/gitian-win-signer.yml
-    mv build/out/mag-*win64-setup.exe ../mag-${VERSION}-win64-setup.exe
-    mv build/out/mag-*win32-setup.exe ../mag-${VERSION}-win32-setup.exe
+    ./bin/gbuild -i --commit signature=v${VERSION} ../bitwin24/contrib/gitian-descriptors/gitian-win-signer.yml
+    ./bin/gsign --signer $SIGNER --release ${VERSION}-win-signed --destination ../gitian.sigs/ ../bitwin24/contrib/gitian-descriptors/gitian-win-signer.yml
+    ./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-win-signed ../bitwin24/contrib/gitian-descriptors/gitian-win-signer.yml
+    mv build/out/bitwin24-*win64-setup.exe ../bitwin24-${VERSION}-win64-setup.exe
+    mv build/out/bitwin24-*win32-setup.exe ../bitwin24-${VERSION}-win32-setup.exe
     popd
 
 Commit your signature for the signed OS X/Windows binaries:
@@ -230,23 +230,23 @@ sha256sum * > SHA256SUMS
 
 The list of files should be:
 ```
-mag-${VERSION}-aarch64-linux-gnu.tar.gz
-mag-${VERSION}-arm-linux-gnueabihf.tar.gz
-mag-${VERSION}-i686-pc-linux-gnu.tar.gz
-mag-${VERSION}-x86_64-linux-gnu.tar.gz
-mag-${VERSION}-osx64.tar.gz
-mag-${VERSION}-osx.dmg
-mag-${VERSION}.tar.gz
-mag-${VERSION}-win32-setup.exe
-mag-${VERSION}-win32.zip
-mag-${VERSION}-win64-setup.exe
-mag-${VERSION}-win64.zip
+bitwin24-${VERSION}-aarch64-linux-gnu.tar.gz
+bitwin24-${VERSION}-arm-linux-gnueabihf.tar.gz
+bitwin24-${VERSION}-i686-pc-linux-gnu.tar.gz
+bitwin24-${VERSION}-x86_64-linux-gnu.tar.gz
+bitwin24-${VERSION}-osx64.tar.gz
+bitwin24-${VERSION}-osx.dmg
+bitwin24-${VERSION}.tar.gz
+bitwin24-${VERSION}-win32-setup.exe
+bitwin24-${VERSION}-win32.zip
+bitwin24-${VERSION}-win64-setup.exe
+bitwin24-${VERSION}-win64.zip
 ```
 The `*-debug*` files generated by the gitian build contain debug symbols
 for troubleshooting by developers. It is assumed that anyone that is interested
 in debugging can run gitian to generate the files for themselves. To avoid
 end-user confusion about which file to pick, as well as save storage
-space *do not upload these to the magnetwork.io server*.
+space *do not upload these to the bitwin24network.io server*.
 
 - GPG-sign it, delete the unsigned file:
 ```
@@ -262,7 +262,7 @@ Note: check that SHA256SUMS itself doesn't end up in SHA256SUMS, which is a spur
 
   - bitcointalk announcement thread
 
-  - Optionally twitter, reddit /r/mag, ... but this will usually sort out itself
+  - Optionally twitter, reddit /r/bitwin24, ... but this will usually sort out itself
 
   - Archive release notes for the new version to `doc/release-notes/` (branch `master` and branch of the release)
 

@@ -2,10 +2,10 @@
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-bin_PROGRAMS += qt/mag-qt
+bin_PROGRAMS += qt/bitwin24-qt
 EXTRA_LIBRARIES += qt/libbitcoinqt.a
 
-# mag qt core #
+# bitwin24 qt core #
 QT_TS = \
   qt/locale/mag_bg.ts \
   qt/locale/mag_ca.ts \
@@ -127,14 +127,14 @@ BITCOIN_MM = \
   qt/macnotificationhandler.mm
 
 QT_MOC = \
-  qt/mag.moc \
+  qt/bitwin24.moc \
   qt/bitcoinamountfield.moc \
   qt/intro.moc \
   qt/overviewpage.moc \
   qt/rpcconsole.moc
 
 QT_QRC_CPP = qt/qrc_mag.cpp
-QT_QRC = qt/mag.qrc
+QT_QRC = qt/bitwin24.qrc
 QT_QRC_LOCALE_CPP = qt/qrc_mag_locale.cpp
 QT_QRC_LOCALE = qt/mag_locale.qrc
 
@@ -362,7 +362,7 @@ RES_CSS = \
 
 RES_MOVIES = $(wildcard $(srcdir)/qt/res/movies/spinner-*.png)
 
-BITCOIN_RC = qt/res/mag-qt-res.rc
+BITCOIN_RC = qt/res/bitwin24-qt-res.rc
 
 BITCOIN_QT_INCLUDES = -I$(builddir)/qt -I$(srcdir)/qt -I$(srcdir)/qt/forms \
   -I$(builddir)/qt/forms
@@ -391,13 +391,13 @@ $(qt_libbitcoinqt_a_OBJECTS) $(qt_mag_qt_OBJECTS) : | $(QT_MOC)
 $(QT_MOC): $(PROTOBUF_H)
 $(QT_MOC_CPP): $(PROTOBUF_H)
 
-# mag-qt binary #
+# bitwin24-qt binary #
 qt_mag_qt_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
   $(QT_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS)
 qt_mag_qt_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
 qt_bitcoin_qt_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
 
-qt_mag_qt_SOURCES = qt/mag.cpp
+qt_mag_qt_SOURCES = qt/bitwin24.cpp
 if TARGET_DARWIN
   qt_mag_qt_SOURCES += $(BITCOIN_MM)
 endif
@@ -439,7 +439,7 @@ $(QT_QRC_LOCALE_CPP): $(QT_QRC_LOCALE) $(QT_QM)
 
 $(QT_QRC_CPP): $(QT_QRC) $(QT_FORMS_H) $(RES_ICONS) $(RES_IMAGES) $(RES_CSS) $(RES_MOVIES) $(PROTOBUF_H)
 	@test -f $(RCC)
-	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name mag $< | \
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name bitwin24 $< | \
 	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
 
 CLEAN_QT = $(nodist_qt_libbitcoinqt_a_SOURCES) $(QT_QM) $(QT_FORMS_H) qt/*.gcda qt/*.gcno qt/temp_mag_locale.qrc
@@ -447,9 +447,9 @@ CLEAN_QT = $(nodist_qt_libbitcoinqt_a_SOURCES) $(QT_QM) $(QT_FORMS_H) qt/*.gcda 
 CLEANFILES += $(CLEAN_QT)
 
 mag_qt_clean: FORCE
-	rm -f $(CLEAN_QT) $(qt_libbitcoinqt_a_OBJECTS) $(qt_mag_qt_OBJECTS) qt/mag-qt$(EXEEXT) $(LIBBITCOINQT)
+	rm -f $(CLEAN_QT) $(qt_libbitcoinqt_a_OBJECTS) $(qt_mag_qt_OBJECTS) qt/bitwin24-qt$(EXEEXT) $(LIBBITCOINQT)
 
-mag_qt : qt/mag-qt$(EXEEXT)
+mag_qt : qt/bitwin24-qt$(EXEEXT)
 
 ui_%.h: %.ui
 	@test -f $(UIC)

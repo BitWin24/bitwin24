@@ -5,7 +5,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/mag-config.h"
+#include "config/bitwin24-config.h"
 #endif
 
 #include "bitcoingui.h"
@@ -82,7 +82,7 @@ static void InitMessage(const std::string& message)
  */
 static std::string Translate(const char* psz)
 {
-    return QCoreApplication::translate("mag-core", psz).toStdString();
+    return QCoreApplication::translate("bitwin24-core", psz).toStdString();
 }
 
 static QString GetLangTerritory()
@@ -129,11 +129,11 @@ static void initTranslations(QTranslator& qtTranslatorBase, QTranslator& qtTrans
     if (qtTranslator.load("qt_" + lang_territory, QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
         QApplication::installTranslator(&qtTranslator);
 
-    // Load e.g. bitcoin_de.qm (shortcut "de" needs to be defined in mag.qrc)
+    // Load e.g. bitcoin_de.qm (shortcut "de" needs to be defined in bitwin24.qrc)
     if (translatorBase.load(lang, ":/translations/"))
         QApplication::installTranslator(&translatorBase);
 
-    // Load e.g. bitcoin_de_DE.qm (shortcut "de_DE" needs to be defined in mag.qrc)
+    // Load e.g. bitcoin_de_DE.qm (shortcut "de_DE" needs to be defined in bitwin24.qrc)
     if (translator.load(lang_territory, ":/translations/"))
         QApplication::installTranslator(&translator);
 }
@@ -234,7 +234,7 @@ private:
     void startThread();
 };
 
-#include "mag.moc"
+#include "bitwin24.moc"
 
 BitcoinCore::BitcoinCore() : QObject()
 {
@@ -506,7 +506,7 @@ int main(int argc, char* argv[])
 
 /// 2. Basic Qt initialization (not dependent on parameters or configuration)
     Q_INIT_RESOURCE(mag_locale);
-    Q_INIT_RESOURCE(mag);
+    Q_INIT_RESOURCE(bitwin24);
 
     BitcoinApplication app(argc, argv);
 #if QT_VERSION > 0x050100
@@ -553,7 +553,7 @@ int main(int argc, char* argv[])
     if (!Intro::pickDataDirectory())
         return 0;
 
-    /// 6. Determine availability of data directory and parse mag.conf
+    /// 6. Determine availability of data directory and parse bitwin24.conf
     /// - Do not call GetDataDir(true) before this step finishes
     if (!boost::filesystem::is_directory(GetDataDir(false))) {
         QMessageBox::critical(0, QObject::tr("MAG Core"),
@@ -610,7 +610,7 @@ int main(int argc, char* argv[])
         exit(0);
 
     // Start up the payment server early, too, so impatient users that click on
-    // mag: links repeatedly have their payment requests routed to this process:
+    // bitwin24: links repeatedly have their payment requests routed to this process:
     app.createPaymentServer();
 #endif
 

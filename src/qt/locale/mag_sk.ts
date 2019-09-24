@@ -577,8 +577,8 @@
         <translation>Odoslať mince na adresu MAG</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and mag: URIs)</source>
-        <translation>Vyžiadať platby (generuje QR kódy a mag: identifikátory URI)</translation>
+        <source>Request payments (generates QR codes and bitwin24: URIs)</source>
+        <translation>Vyžiadať platby (generuje QR kódy a bitwin24: identifikátory URI)</translation>
     </message>
     <message>
         <source>&amp;Masternodes</source>
@@ -776,8 +776,8 @@ MultiSend: %1</translation>
         <translation>TextLabel</translation>
     </message>
     <message>
-        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (mag.conf).</source>
-        <translation>Nie všetky transakcie sa zobrazia. Ak chcete zobraziť všetky transakcie, musíte v konfiguračnom súbore (mag.conf) nastaviť txindex = 1.</translation>
+        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (bitwin24.conf).</source>
+        <translation>Nie všetky transakcie sa zobrazia. Ak chcete zobraziť všetky transakcie, musíte v konfiguračnom súbore (bitwin24.conf) nastaviť txindex = 1.</translation>
     </message>
 </context>
 <context>
@@ -1284,7 +1284,7 @@ MultiSend: %1</translation>
     <name>ZMagControlDialog</name>
     </context>
 <context>
-    <name>mag-core</name>
+    <name>bitwin24-core</name>
     <message>
         <source>Error</source>
         <translation>Chyba</translation>

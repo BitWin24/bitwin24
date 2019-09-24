@@ -272,6 +272,6 @@
     <name>ZMagControlDialog</name>
     </context>
 <context>
-    <name>mag-core</name>
+    <name>bitwin24-core</name>
     </context>
 </TS>

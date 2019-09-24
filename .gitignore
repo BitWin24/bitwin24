@@ -7,13 +7,13 @@ reset-files.bash
 *.tar.gz
 
 *.exe
-src/mag
-src/magd
-src/mag-cli
-src/mag-tx
-src/test/mag_mag
-src/qt/test/test_mag-qt
-src/test/test_mag
+src/bitwin24
+src/bitwin24d
+src/bitwin24-cli
+src/bitwin24-tx
+src/test/bitwin24_bitwin24
+src/qt/test/test_bitwin24-qt
+src/test/test_bitwin24
 
 # autoreconf
 Makefile.in
@@ -39,8 +39,8 @@ confdefs.h
 conftest.cpp
 conftest.err
 libtool
-src/config/mag-config.h
-src/config/mag-config.h.in
+src/config/bitwin24-config.h
+src/config/bitwin24-config.h.in
 src/config/stamp-h1
 share/setup.nsi
 share/qt/Info.plist
@@ -66,7 +66,7 @@ src/qt/test/moc*.cpp
 *.o
 *.o-*
 *.patch
-.mag
+.bitwin24
 *.a
 *.pb.cc
 *.pb.h
@@ -85,12 +85,12 @@ src/qt/test/moc*.cpp
 # Compilation and Qt preprocessor part
 *.qm
 Makefile
-mag-qt
+bitwin24-qt
 MAG-Qt.app
 
 # Unit-tests
 Makefile.test
-mag-qt_test
+bitwin24-qt_test
 src/test/buildenv.py
 
 # Resources cpp

@@ -653,7 +653,7 @@
         <translation>Отправить монеты на MAG адрес</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and mag: URIs)</source>
+        <source>Request payments (generates QR codes and bitwin24: URIs)</source>
         <translation>Запросить платежи (генерирует QR-код и MAG: URI)</translation>
     </message>
     <message>
@@ -892,8 +892,8 @@ MultiSend: %1</translation>
         <translation>Текстовая метка</translation>
     </message>
     <message>
-        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (mag.conf).</source>
-        <translation>Будут показаны не все транзакции. Для отображения всех транзакций необходимо выставить txindex=1 в конфигурационном файле (mag.conf).</translation>
+        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (bitwin24.conf).</source>
+        <translation>Будут показаны не все транзакции. Для отображения всех транзакций необходимо выставить txindex=1 в конфигурационном файле (bitwin24.conf).</translation>
     </message>
 </context>
 <context>
@@ -1939,9 +1939,9 @@ Please be patient after clicking import.</source>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/mag-project/mag-project-translations</source>
+https://www.transifex.com/bitwin24-project/bitwin24-project-translations</source>
         <translation>Отсутствует ваш язык или заметили незавершенный перевод? Вы можете помочь нам стать лучше:
-https://www.transifex.com/mag-project/mag-project-translations</translation>
+https://www.transifex.com/bitwin24-project/bitwin24-project-translations</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -2254,14 +2254,14 @@ If AutoMint is enabled this percentage will settle around the configured AutoMin
         <translation>Авточеканка в данный момен включена и установлена в</translation>
     </message>
     <message>
-        <source>To disable AutoMint add 'enablezeromint=0' in mag.conf.</source>
-        <translation>To disable AutoMint add 'enablezeromint=0' in mag.conf.</translation>
+        <source>To disable AutoMint add 'enablezeromint=0' in bitwin24.conf.</source>
+        <translation>To disable AutoMint add 'enablezeromint=0' in bitwin24.conf.</translation>
     </message>
     <message>
         <source>AutoMint is currently disabled.
-To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in mag.conf</source>
+To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in bitwin24.conf</source>
         <translation>Авточеканка  в настоящее время отключена.
-Чтобы включить Авточеканку, измените 'enablezeromint = 0' на 'enablezeromint = 1' в файле mag.conf</translation>
+Чтобы включить Авточеканку, измените 'enablezeromint = 0' на 'enablezeromint = 1' в файле bitwin24.conf</translation>
     </message>
 </context>
 <context>
@@ -2287,8 +2287,8 @@ To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in mag.conf</
         <translation>Неверный адрес оплаты %1</translation>
     </message>
     <message>
-        <source>Cannot start mag: click-to-pay handler</source>
-        <translation>Не удалось запустить mag: обработчик click-to-pay </translation>
+        <source>Cannot start bitwin24: click-to-pay handler</source>
+        <translation>Не удалось запустить bitwin24: обработчик click-to-pay </translation>
     </message>
     <message>
         <source>URI cannot be parsed! This can be caused by an invalid MAG address or malformed URI parameters.</source>
@@ -2578,8 +2578,8 @@ Immature: confirmed, but less than 1 mint of the same denomination after it was 
         <source>Show the current status of automatic zMAG minting.
 
 To change the status (restart required):
-- enable: add 'enablezeromint=1' to mag.conf
-- disable: add 'enablezeromint=0' to mag.conf
+- enable: add 'enablezeromint=1' to bitwin24.conf
+- disable: add 'enablezeromint=0' to bitwin24.conf
 
 To change the percentage (no restart required):
 - menu Settings-&gt;Options-&gt;Percentage of autominted zMAG
@@ -2588,8 +2588,8 @@ To change the percentage (no restart required):
         <translation>Показать текущий статус автоматической чеканки zMAG.
 
 Чтобы изменить статус (требуется перезагрузка):
-- включить: добавить 'enablezeromint = 1' в mag.conf
-- отключить: добавить 'enablezeromint = 0' в mag.conf
+- включить: добавить 'enablezeromint = 1' в bitwin24.conf
+- отключить: добавить 'enablezeromint = 0' в bitwin24.conf
 
 Чтобы изменить процент (не требуется перезагрузка):
 - меню Настройки-&gt; Параметры-&gt; Процент авторизованного zMAG</translation>
@@ -4883,7 +4883,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
 </context>
 <context>
-    <name>mag-core</name>
+    <name>bitwin24-core</name>
     <message>
         <source>(1 = keep tx meta data e.g. account owner and payment request information, 2 = drop tx meta data)</source>
         <translation>(1 = сохранить tx метаданные, например, владельца учетной записи и информацию о запросе платежа, 2 = удалить tx метаданные)</translation>

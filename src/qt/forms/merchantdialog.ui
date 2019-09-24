@@ -894,7 +894,7 @@
                         <item>
                          <widget class="QLabel" name="labelStats1">
                           <property name="toolTip">
-                           <string>Total amount of mag traded during the past 7 days</string>
+                           <string>Total amount of bitwin24 traded during the past 7 days</string>
                           </property>
                           <property name="text">
                            <string></string>
@@ -946,7 +946,7 @@
                         <item>
                          <widget class="QLabel" name="labelStats2">
                           <property name="toolTip">
-                           <string>Total amount of mag traded during the past 24 hours.</string>
+                           <string>Total amount of bitwin24 traded during the past 24 hours.</string>
                           </property>
                           <property name="text">
                            <string></string>
@@ -1186,7 +1186,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../mag.qrc"/>
+  <include location="../bitwin24.qrc"/>
  </resources>
  <connections/>
 </ui>

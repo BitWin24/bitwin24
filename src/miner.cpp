@@ -575,7 +575,7 @@ void BitcoinMiner(CWallet* pwallet, bool fProofOfStake)
 {
     LogPrintf("MAGMiner started\n");
     SetThreadPriority(THREAD_PRIORITY_LOWEST);
-    RenameThread("mag-miner");
+    RenameThread("bitwin24-miner");
 
     // Each thread has its own key and counter
     CReserveKey reservekey(pwallet);

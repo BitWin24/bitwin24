@@ -11,7 +11,7 @@
 #include <vector>
 
 /**
- * CBaseChainParams defines the base parameters (shared between mag-cli and magd)
+ * CBaseChainParams defines the base parameters (shared between bitwin24-cli and magd)
  * of a given instance of the Mag system.
  */
 class CBaseChainParams

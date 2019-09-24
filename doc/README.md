@@ -3,7 +3,7 @@ MAG Core
 
 Setup
 ---------------------
-[MAG Core](https://magnetwork.io/wallet) is the original MAG client and it builds the backbone of the network. However, it downloads and stores the entire history of MAG transactions; depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more. Thankfully you only have to do this once.
+[MAG Core](https://bitwin24network.io/wallet) is the original MAG client and it builds the backbone of the network. However, it downloads and stores the entire history of MAG transactions; depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more. Thankfully you only have to do this once.
 
 Running
 ---------------------
@@ -13,12 +13,12 @@ The following are some helpful notes on how to run MAG on your native platform.
 
 Unpack the files into a directory and run:
 
-- bin/32/mag-qt (GUI, 32-bit) or bin/32/magd (headless, 32-bit)
-- bin/64/mag-qt (GUI, 64-bit) or bin/64/magd (headless, 64-bit)
+- bin/32/bitwin24-qt (GUI, 32-bit) or bin/32/magd (headless, 32-bit)
+- bin/64/bitwin24-qt (GUI, 64-bit) or bin/64/magd (headless, 64-bit)
 
 ### Windows
 
-Unpack the files into a directory, and then run mag-qt.exe.
+Unpack the files into a directory, and then run bitwin24-qt.exe.
 
 ### OSX
 
@@ -28,9 +28,9 @@ Drag MAG-Qt to your applications folder, and then run MAG-Qt.
 
 * See the documentation at the [MAG Wiki](https://en.bitcoin.it/wiki/Main_Page) ***TODO***
 for help and more information.
-* Ask for help on [BitcoinTalk](https://bitcointalk.org/index.php?topic=2402932) or on the [MAG Forum](http://forum.magnetwork.io/).
-* Join our Discord server [Discord Server](https://discord.magnetwork.io)
-* Join one of our Slack groups [MAG Slack Groups](https://magnetwork.io/slack-logins/) (Main community is replaced by Discord).
+* Ask for help on [BitcoinTalk](https://bitcointalk.org/index.php?topic=2402932) or on the [MAG Forum](http://forum.bitwin24network.io/).
+* Join our Discord server [Discord Server](https://discord.bitwin24network.io)
+* Join one of our Slack groups [MAG Slack Groups](https://bitwin24network.io/slack-logins/) (Main community is replaced by Discord).
 
 Building
 ---------------------
@@ -56,8 +56,8 @@ The Mag repo's [root README](https://github.com/MAG-Project/MAG/blob/master/READ
 
 ### Resources
 
-* Discuss on the [BitcoinTalk](https://bitcointalk.org/index.php?topic=1262920.0) or the [MAG](http://forum.magnetwork.io/) forum.
-* Join the [MAG-Dev](https://mag-dev.slack.com/) Slack group ([Sign-Up](https://mag-dev.herokuapp.com/)).
+* Discuss on the [BitcoinTalk](https://bitcointalk.org/index.php?topic=1262920.0) or the [MAG](http://forum.bitwin24network.io/) forum.
+* Join the [MAG-Dev](https://bitwin24-dev.slack.com/) Slack group ([Sign-Up](https://bitwin24-dev.herokuapp.com/)).
 
 ### Miscellaneous
 - [Assets Attribution](assets-attribution.md)

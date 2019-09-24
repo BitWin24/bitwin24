@@ -344,7 +344,7 @@ public:
 
         hashGenesisBlock = genesis.GetHash();
         string strHexHash = genesis.GetHash().GetHex();
-        nDefaultPort = 51476;
+        nDefaultPort = 24072;
         assert(hashGenesisBlock == uint256("0xed556f3925965379bf46d9c15375cab46741dc47dc9113c6bf5b569ea316ca34"));
 
         vFixedSeeds.clear(); //! Testnet mode doesn't have any fixed seeds.

@@ -54,7 +54,7 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
 // + Contains no strange transactions
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
-    (0, uint256("0x00000d4ca0b20413a832a5011755f1adb74a37071e4f2ce6872b6eca5e9b05b0"));
+    (0, uint256("0x0000015b2f14a08ed3848d7fd94da692498ed46ae927693c75fc4317a5e6ae2c"));
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
     1540617434, // * UNIX timestamp of last checkpoint block
@@ -172,27 +172,27 @@ public:
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig = CScript() << 486604799 << CScriptNum(4) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
         txNew.vout[0].nValue = 200 * COIN;
-        txNew.vout[0].scriptPubKey = CScript() << ParseHex("042ac84efa715d1335d69aa2ae1174cdec72ee7738377ec8e238589875dfeadf4ea2d6a046b23dedc35bcbf26c876d6e6724f7cf747fb930d88e9fd7b4738111a1") << OP_CHECKSIG;
+        txNew.vout[0].scriptPubKey = CScript() << ParseHex("045777AA773E88BBBF2B31FB859D4E3C73B527B6F1FB12FFFDD6B331AB585C1CBD0CCBAF0E40B947235A49B04A806AE3C38FBC23BAB96CCF3252A312BE0BB0E61C") << OP_CHECKSIG;
         genesis.vtx.push_back(txNew);
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
         genesis.nVersion = 1;
-        genesis.nTime = 1540944000;
+        genesis.nTime = 1540944123;
         genesis.nBits = 0x1e0ffff0;
-        genesis.nNonce = 504588;
+        genesis.nNonce = 924596;
 
         hashGenesisBlock = genesis.GetHash();
         string strHexHash = genesis.GetHash().GetHex();
         string strmerkle = genesis.hashMerkleRoot.GetHex();
         string test = genesis.ToString();
-        assert(hashGenesisBlock == uint256("0x00000d4ca0b20413a832a5011755f1adb74a37071e4f2ce6872b6eca5e9b05b0"));
-        assert(genesis.hashMerkleRoot == uint256("0x1fac46a8259c006995e62bbdd1682487d06b9795f80e28b3f22801374f84060d"));
+        assert(hashGenesisBlock == uint256("0x0000015b2f14a08ed3848d7fd94da692498ed46ae927693c75fc4317a5e6ae2c"));
+        assert(genesis.hashMerkleRoot == uint256("0xdac56c8d5e16e7bad2fbe36227dfc6da136c4b8d8869c0094616e1f7852566d6"));
 
-        vSeeds.push_back(CDNSSeedData("magnetwork.io", "satoshi.magnetwork.io"));   // Primary DNS Seeder
-        vSeeds.push_back(CDNSSeedData("litemint.com", "satoshi.litemint.com"));     // Secondary DNS Seeder
-        vSeeds.push_back(CDNSSeedData("35.241.249.95", "35.241.249.95"));
-        vSeeds.push_back(CDNSSeedData("35.227.76.49", "35.227.76.49"));
-        vSeeds.push_back(CDNSSeedData("35.190.191.73", "35.190.191.73"));
+//        vSeeds.push_back(CDNSSeedData("magnetwork.io", "satoshi.magnetwork.io"));   // Primary DNS Seeder
+//        vSeeds.push_back(CDNSSeedData("litemint.com", "satoshi.litemint.com"));     // Secondary DNS Seeder
+//        vSeeds.push_back(CDNSSeedData("35.241.249.95", "35.241.249.95"));
+//        vSeeds.push_back(CDNSSeedData("35.227.76.49", "35.227.76.49"));
+//        vSeeds.push_back(CDNSSeedData("35.190.191.73", "35.190.191.73"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 38); // Start with 'G'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 15); // Start with '7'
@@ -269,35 +269,18 @@ public:
 
         //! Modify the testnet genesis block so the timestamp is valid for a later start.
         genesis.nTime = 1540944001;
-        genesis.nNonce = 104735;
+        genesis.nNonce = 2376021;
 
         hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x00000a14264564b749b2d5572f337d2a9b33366b252d7741261fc3c922d4556f"));
+        assert(hashGenesisBlock == uint256("0x00000cf101fc4c4a5e609584707447bba50392041314bf6e2476b4a815904b0c"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
-        vSeeds.push_back(CDNSSeedData("magnetwork.io", "nakamoto.magnetwork.io"));
-        vSeeds.push_back(CDNSSeedData("litemint.com", "nakamoto.litemint.com"));
-        vSeeds.push_back(CDNSSeedData("35.241.249.95", "35.241.249.95"));
-        vSeeds.push_back(CDNSSeedData("35.227.76.49", "35.227.76.49"));
-        vSeeds.push_back(CDNSSeedData("35.190.191.73", "35.190.191.73"));
-        
-        // Mag official masternodes.
-        vSeeds.push_back(CDNSSeedData("104.238.145.183", "104.238.145.183"));
-        vSeeds.push_back(CDNSSeedData("208.167.245.110", "208.167.245.110"));
-        vSeeds.push_back(CDNSSeedData("209.250.224.172", "209.250.224.172"));
-        vSeeds.push_back(CDNSSeedData("207.148.7.57", "207.148.7.57"));
-        vSeeds.push_back(CDNSSeedData("45.32.201.0", "45.32.201.0"));
-        vSeeds.push_back(CDNSSeedData("45.77.159.2", "45.77.159.2"));        
-        vSeeds.push_back(CDNSSeedData("95.179.203.104", "95.179.203.104"));
-        vSeeds.push_back(CDNSSeedData("144.202.75.165", "144.202.75.165"));
-        vSeeds.push_back(CDNSSeedData("209.246.143.185", "209.246.143.185"));
-        vSeeds.push_back(CDNSSeedData("45.77.151.65", "45.77.151.65"));
-        vSeeds.push_back(CDNSSeedData("95.179.199.60", "95.179.199.60"));
-        vSeeds.push_back(CDNSSeedData("149.28.247.127", "149.28.247.127"));
-        vSeeds.push_back(CDNSSeedData("45.32.223.92", "45.32.223.92"));
-        vSeeds.push_back(CDNSSeedData("45.32.199.110", "45.32.199.110"));
-        vSeeds.push_back(CDNSSeedData("95.179.199.104", "95.179.199.104"));
+//        vSeeds.push_back(CDNSSeedData("magnetwork.io", "nakamoto.magnetwork.io"));
+//        vSeeds.push_back(CDNSSeedData("litemint.com", "nakamoto.litemint.com"));
+//        vSeeds.push_back(CDNSSeedData("35.241.249.95", "35.241.249.95"));
+//        vSeeds.push_back(CDNSSeedData("35.227.76.49", "35.227.76.49"));
+//        vSeeds.push_back(CDNSSeedData("35.190.191.73", "35.190.191.73"));
         
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 65); // Testnet mag addresses start with 'T'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 10);  // Testnet mag script addresses start with '5'
@@ -357,12 +340,12 @@ public:
         nTargetSpacing = 1 * 60;        // MAG: 1 minutes
         bnProofOfWorkLimit = ~uint256(0) >> 1;
         genesis.nTime = 1540944002;
-        genesis.nNonce = 1547833;
+        genesis.nNonce = 2;
 
         hashGenesisBlock = genesis.GetHash();
         string strHexHash = genesis.GetHash().GetHex();
         nDefaultPort = 51476;
-        assert(hashGenesisBlock == uint256("0x000000d893aa0704951b40b262956c95a0f86dbe88eef5829b54ad7255dd6cbe"));
+        assert(hashGenesisBlock == uint256("0xed556f3925965379bf46d9c15375cab46741dc47dc9113c6bf5b569ea316ca34"));
 
         vFixedSeeds.clear(); //! Testnet mode doesn't have any fixed seeds.
         vSeeds.clear();      //! Testnet mode doesn't have any DNS seeds.

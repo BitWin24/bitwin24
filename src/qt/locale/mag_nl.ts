@@ -2442,7 +2442,7 @@ Om AutoMint in te schakelend verander je 'enablezeromint=0' naar 'enablezeromint
         <translation>PRIVACY</translation>
     </message>
     <message>
-        <source>Enter an amount of Mag to convert to zMAG</source>
+        <source>Enter an amount of BWI to convert to zMAG</source>
         <translation>Vul het aantal MAG in om te converteren naar zMAG</translation>
     </message>
     <message>
@@ -2929,8 +2929,8 @@ Maximaal toegestaan:</translation>
         <translation>Geen 'Betaal aan' adres verstrekt, lokale betaling wordt gemaakt</translation>
     </message>
     <message>
-        <source>Invalid Mag Address</source>
-        <translation>Ongeldig Mag addres</translation>
+        <source>Invalid BitWin24 Address</source>
+        <translation>Ongeldig BitWin24 addres</translation>
     </message>
     <message>
         <source>Invalid Send Amount</source>

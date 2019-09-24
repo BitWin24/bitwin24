@@ -2417,7 +2417,7 @@ För att aktivera AutoMint ändra 'enablezeromint=0' till 'enablezeromint=1' i b
         <translation>SEKRETESS</translation>
     </message>
     <message>
-        <source>Enter an amount of Mag to convert to zMAG</source>
+        <source>Enter an amount of BWI to convert to zMAG</source>
         <translation>Mata in en mängd MAG att konvertera till zMAG</translation>
     </message>
     <message>
@@ -2905,8 +2905,8 @@ Högsta tillåtna:</translation>
         <translation>Ingen 'Betala Till' adress inmatad, skapar lokal betalning</translation>
     </message>
     <message>
-        <source>Invalid Mag Address</source>
-        <translation>Ogiltig Mag Adress</translation>
+        <source>Invalid BitWin24 Address</source>
+        <translation>Ogiltig BitWin24 Adress</translation>
     </message>
     <message>
         <source>Invalid Send Amount</source>

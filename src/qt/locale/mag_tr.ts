@@ -2220,7 +2220,7 @@ To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in bitwin24.c
     </message>
     <message>
         <source>Cannot start bitwin24: click-to-pay handler</source>
-        <translation>Mag başlatılamıyor: tıkla ve ödeme işleyicisi</translation>
+        <translation>BitWin24 başlatılamıyor: tıkla ve ödeme işleyicisi</translation>
     </message>
     <message>
         <source>URI cannot be parsed! This can be caused by an invalid MAG address or malformed URI parameters.</source>
@@ -2705,8 +2705,8 @@ Maksimum bırakılan: </translation>
         <translation>Sağlanan 'Ödeme Yapmak İçin' adresi yok, yerel ödeme oluşturun</translation>
     </message>
     <message>
-        <source>Invalid Mag Address</source>
-        <translation>Geçersiz Mag Adresi</translation>
+        <source>Invalid BitWin24 Address</source>
+        <translation>Geçersiz BitWin24 Adresi</translation>
     </message>
     <message>
         <source>Invalid Send Amount</source>

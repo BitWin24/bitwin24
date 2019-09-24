@@ -2442,8 +2442,8 @@ Da biste omogućili, promjenite postavke AutoMint 'enablezeromint=0' na 'enablez
         <translation>PRIVATNOST</translation>
     </message>
     <message>
-        <source>Enter an amount of Mag to convert to zMAG</source>
-        <translation>Unesite iznos Mag za pretvorbu u zMAG</translation>
+        <source>Enter an amount of BWI to convert to zMAG</source>
+        <translation>Unesite iznos BWI za pretvorbu u zMAG</translation>
     </message>
     <message>
         <source>zMAG Control</source>
@@ -2926,8 +2926,8 @@ Maksimalno dopušteno:</translation>
         <translation>Nije dodijeljena adresa "Plati", stvarajući lokalnu uplatu</translation>
     </message>
     <message>
-        <source>Invalid Mag Address</source>
-        <translation>Nevažeća Mag Adresa</translation>
+        <source>Invalid BitWin24 Address</source>
+        <translation>Nevažeća BitWin24 Adresa</translation>
     </message>
     <message>
         <source>Invalid Send Amount</source>

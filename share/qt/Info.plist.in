@@ -38,7 +38,7 @@
   <true/>
 
   <key>CFBundleIdentifier</key>
-  <string>io.bitwin24.Mag-Qt</string>
+  <string>io.bitwin24.BitWin24-Qt</string>
 
   <key>CFBundleURLTypes</key>
   <array>
@@ -60,7 +60,7 @@
       <key>UTTypeIdentifier</key>
       <string>io.bitwin24.paymentrequest</string>
       <key>UTTypeDescription</key>
-      <string>Mag payment request</string>
+      <string>BitWin24 payment request</string>
       <key>UTTypeConformsTo</key>
       <array>
         <string>public.data</string>

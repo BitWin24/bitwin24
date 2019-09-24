@@ -2442,7 +2442,7 @@ Para habilitar AutoMint cambie 'enablezeromint = 0' a 'enablezeromint = 1' en bi
         <translation>PRIVACIDAD</translation>
     </message>
     <message>
-        <source>Enter an amount of Mag to convert to zMAG</source>
+        <source>Enter an amount of BWI to convert to zMAG</source>
         <translation>Introduzca la cantidad de MAG que desea convertir a zMag</translation>
     </message>
     <message>
@@ -2929,7 +2929,7 @@ Máximo permitido:</translation>
         <translation>No se especificó drección 'Pagar A', por lo que asumimos un pago local</translation>
     </message>
     <message>
-        <source>Invalid Mag Address</source>
+        <source>Invalid BitWin24 Address</source>
         <translation>Dirección MAG Inválida</translation>
     </message>
     <message>

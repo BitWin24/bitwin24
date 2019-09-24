@@ -347,7 +347,7 @@ void AddressTableModel::updateEntry(const QString& address,
     const QString& purpose,
     int status)
 {
-    // Update address book model from Mag core
+    // Update address book model from BitWin24 core
     priv->updateEntry(address, label, isMine, purpose, status);
 }
 

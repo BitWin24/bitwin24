@@ -12,7 +12,7 @@
 
 /**
  * CBaseChainParams defines the base parameters (shared between bitwin24-cli and magd)
- * of a given instance of the Mag system.
+ * of a given instance of the BitWin24 system.
  */
 class CBaseChainParams
 {

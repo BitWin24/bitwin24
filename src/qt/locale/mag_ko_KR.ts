@@ -2441,7 +2441,7 @@ To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in bitwin24.c
         <translation>프라이버시</translation>
     </message>
     <message>
-        <source>Enter an amount of Mag to convert to zMAG</source>
+        <source>Enter an amount of BWI to convert to zMAG</source>
         <translation>zMAG로 변환할 MAG 수량을 입력하세요.</translation>
     </message>
     <message>
@@ -2929,7 +2929,7 @@ Maximum allowed: </source>
         <translation>주소를 입력하지 않아, 신규 주소를 생성합니다.</translation>
     </message>
     <message>
-        <source>Invalid Mag Address</source>
+        <source>Invalid BitWin24 Address</source>
         <translation>잘못된 MAG 주소</translation>
     </message>
     <message>

@@ -378,7 +378,7 @@
                            </size>
                           </property>
                           <property name="toolTip">
-                           <string>Enter an amount of Mag to convert to zMAG</string>
+                           <string>Enter an amount of BWI to convert to zMAG</string>
                           </property>
                           <property name="text">
                            <string>Mint Zerocoin</string>
@@ -430,7 +430,7 @@
                            </font>
                           </property>
                           <property name="toolTip">
-                           <string>Enter an amount of Mag to convert to zMAG</string>
+                           <string>Enter an amount of BWI to convert to zMAG</string>
                           </property>
                           <property name="text">
                            <string>0.000 000 00 MAG</string>

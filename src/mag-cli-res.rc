@@ -16,14 +16,14 @@ BEGIN
     BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
-            VALUE "CompanyName",        "Mag"
-            VALUE "FileDescription",    "Mag-cli (OSS RPC client for Mag)"
+            VALUE "CompanyName",        "BitWin24"
+            VALUE "FileDescription",    "BitWin24-cli (OSS RPC client for BitWin24)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
             VALUE "InternalName",       "bitwin24-cli"
             VALUE "LegalCopyright",     COPYRIGHT_STR
             VALUE "LegalTrademarks1",   "Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php."
             VALUE "OriginalFilename",   "bitwin24-cli.exe"
-            VALUE "ProductName",        "Mag-cli"
+            VALUE "ProductName",        "BitWin24-cli"
             VALUE "ProductVersion",     VER_PRODUCTVERSION_STR
         END
     END

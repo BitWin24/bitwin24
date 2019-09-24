@@ -336,7 +336,7 @@ void PrivacyDialog::sendzMAG()
     }
     else{
         if (!address.IsValid()) {
-            QMessageBox::warning(this, tr("Spend Zerocoin"), tr("Invalid Mag Address"), QMessageBox::Ok, QMessageBox::Ok);
+            QMessageBox::warning(this, tr("Spend Zerocoin"), tr("Invalid BitWin24 Address"), QMessageBox::Ok, QMessageBox::Ok);
             ui->payTo->setFocus();
             return;
         }
@@ -517,7 +517,7 @@ void PrivacyDialog::sendzMAG()
 
     CAmount nValueOut = 0;
     for (const CTxOut& txout: wtxNew.vout) {
-        strStats += tr("value out: ") + FormatMoney(txout.nValue).c_str() + " Mag, ";
+        strStats += tr("value out: ") + FormatMoney(txout.nValue).c_str() + " BitWin24, ";
         nValueOut += txout.nValue;
 
         strStats += tr("address: ");

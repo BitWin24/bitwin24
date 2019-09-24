@@ -2433,7 +2433,7 @@ Um das automatische Prägen zu aktivieren ändere 'enablezeromint=0' zu 'enablez
         <translation>PRIVATSPHÄRE</translation>
     </message>
     <message>
-        <source>Enter an amount of Mag to convert to zMAG</source>
+        <source>Enter an amount of BWI to convert to zMAG</source>
         <translation>Geben Sie den Betrag ein, den sie von MAG in zMAG umwandeln möchten</translation>
     </message>
     <message>
@@ -2920,7 +2920,7 @@ Maximal erlaubt:</translation>
         <translation>Keine "Pay To"-Adresse zur Verfügung. Erstelle lokale Zahlung</translation>
     </message>
     <message>
-        <source>Invalid Mag Address</source>
+        <source>Invalid BitWin24 Address</source>
         <translation>Ungültige MAG-Adresse </translation>
     </message>
     <message>

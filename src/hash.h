@@ -410,7 +410,7 @@ inline uint256 HashQuark(const T1 pbegin, const T1 pend)
     return hash[8].trim256();
 }
 
-/* ----------- Mag Hash ------------------------------------------------ */
+/* ----------- BitWin24 Hash ------------------------------------------------ */
 template<typename T1>
 inline uint256 HashX11(const T1 pbegin, const T1 pend)
 

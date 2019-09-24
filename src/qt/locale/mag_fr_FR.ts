@@ -2376,7 +2376,7 @@ Pour activer Auto-monnayage, changez 'enablezeromint = 0' en 'enablezeromint = 1
         <translation>CONFIDENTIALITÉ</translation>
     </message>
     <message>
-        <source>Enter an amount of Mag to convert to zMAG</source>
+        <source>Enter an amount of BWI to convert to zMAG</source>
         <translation>Entrez un montant de MAG à convertir en zMAG</translation>
     </message>
     <message>
@@ -2860,8 +2860,8 @@ Maximum autorisé:</translation>
         <translation>Aucune adresse 'Payer à' de fournie, création d'un paiement local</translation>
     </message>
     <message>
-        <source>Invalid Mag Address</source>
-        <translation>Adresse Mag incorrecte</translation>
+        <source>Invalid BitWin24 Address</source>
+        <translation>Adresse BitWin24 incorrecte</translation>
     </message>
     <message>
         <source>Invalid Send Amount</source>

@@ -2441,8 +2441,8 @@ To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in bitwin24.c
         <translation>КОНФИДЕНЦИАЛЬНОСТЬ</translation>
     </message>
     <message>
-        <source>Enter an amount of Mag to convert to zMAG</source>
-        <translation>Введите сумму в Mag для  конвертации в zMAG</translation>
+        <source>Enter an amount of BWI to convert to zMAG</source>
+        <translation>Введите сумму в BWI для  конвертации в zMAG</translation>
     </message>
     <message>
         <source>zMAG Control</source>
@@ -2927,7 +2927,7 @@ Maximum allowed: </source>
         <translation>Не предоставляется адрес «Pay To», создающий местный платеж</translation>
     </message>
     <message>
-        <source>Invalid Mag Address</source>
+        <source>Invalid BitWin24 Address</source>
         <translation>неправильный MAG адрес</translation>
     </message>
     <message>

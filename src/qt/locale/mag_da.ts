@@ -2441,8 +2441,8 @@ For at aktivere AutoMint-ændring 'enablezeromint = 0' til 'enablezeromint = 1' 
         <translation>PRIVATLIV</translation>
     </message>
     <message>
-        <source>Enter an amount of Mag to convert to zMAG</source>
-        <translation>Indtast en mængde Mag for at konvertere til zMag</translation>
+        <source>Enter an amount of BWI to convert to zMAG</source>
+        <translation>Indtast en mængde BWI for at konvertere til zMag</translation>
     </message>
     <message>
         <source>zMAG Control</source>
@@ -2928,7 +2928,7 @@ Maksimum tilladt:</translation>
         <translation>Ingen 'Betal til' adresse, der er oprettet, skaber lokal betaling</translation>
     </message>
     <message>
-        <source>Invalid Mag Address</source>
+        <source>Invalid BitWin24 Address</source>
         <translation> Ugyldig MAG adresse</translation>
     </message>
     <message>
@@ -4557,7 +4557,7 @@ Enten mint højere nomineringer (så færre input er nødvendige) eller reducere
     </message>
     <message>
         <source>Received MAG from zMAG</source>
-        <translation>Modtaget Mag fra zMag</translation>
+        <translation>Modtaget BitWin24 fra zMag</translation>
     </message>
     <message>
         <source>Minted Change as zMAG from zMAG Spend</source>
@@ -4784,7 +4784,7 @@ Enten mint højere nomineringer (så færre input er nødvendige) eller reducere
     </message>
     <message>
         <source>Received MAG from zMAG</source>
-        <translation>Modtaget Mag fra zMag</translation>
+        <translation>Modtaget BitWin24 fra zMag</translation>
     </message>
     <message>
         <source>Zerocoin Spend, Change in zMAG</source>

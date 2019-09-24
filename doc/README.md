@@ -42,7 +42,7 @@ The following are developer notes on how to build MAG on your native platform. T
 
 Development
 ---------------------
-The Mag repo's [root README](https://github.com/MAG-Project/MAG/blob/master/README.md) contains relevant information on the development process and automated testing.
+The BitWin24 repo's [root README](https://github.com/MAG-Project/MAG/blob/master/README.md) contains relevant information on the development process and automated testing.
 
 - [Developer Notes](developer-notes.md)
 - [Multiwallet Qt Development](multiwallet-qt.md)

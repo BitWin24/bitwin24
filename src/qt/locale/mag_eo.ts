@@ -2004,8 +2004,8 @@ Nematura: konfirmita, sed malpli ol 1 minto el la samo nomado post ĝin estis mi
         <translation>Mesaĝo: eniri kvanto &gt; 0.</translation>
     </message>
     <message>
-        <source>Invalid Mag Address</source>
-        <translation>Nevalida Mag adreso</translation>
+        <source>Invalid BitWin24 Address</source>
+        <translation>Nevalida BitWin24 adreso</translation>
     </message>
     <message>
         <source>Confirm send coins</source>

@@ -5,7 +5,7 @@ UNSIGNED=$1
 SIGNATURE=$2
 ARCH=x86_64
 ROOTDIR=dist
-BUNDLE=${ROOTDIR}/Mag-Qt.app
+BUNDLE=${ROOTDIR}/BitWin24-Qt.app
 TEMPDIR=signed.temp
 OUTDIR=signed-app
 

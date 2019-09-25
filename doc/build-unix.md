@@ -132,10 +132,10 @@ Berkeley DB
 It is recommended to use Berkeley DB 4.8. If you have to build it yourself:
 
 ```bash
-MAG_ROOT=$(pwd)
+BITWIN24_ROOT=$(pwd)
 
 # Pick some path to install BDB to, here we create a directory within the bitwin24 directory
-BDB_PREFIX="${MAG_ROOT}/db4"
+BDB_PREFIX="${BITWIN24_ROOT}/db4"
 mkdir -p $BDB_PREFIX
 
 # Fetch the source and verify that it is not tampered with
@@ -151,7 +151,7 @@ cd db-4.8.30.NC/build_unix/
 make install
 
 # Configure BITWIN24 Core to use our own-built instance of BDB
-cd $MAG_ROOT
+cd $BITWIN24_ROOT
 ./configure (other args...) LDFLAGS="-L${BDB_PREFIX}/lib/" CPPFLAGS="-I${BDB_PREFIX}/include/"
 ```
 

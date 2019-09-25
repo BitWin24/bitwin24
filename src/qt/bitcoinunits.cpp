@@ -68,10 +68,10 @@ QString BitcoinUnits::name(int unit)
         switch (unit) {
         case BITWIN24:
             return QString("tBITWIN24");
-        case mMAG:
-            return QString("mtMAG");
-        case uMAG:
-            return QString::fromUtf8("μtMAG");
+        case mBWI:
+            return QString("mtBWI");
+        case uBWI:
+            return QString::fromUtf8("μtBWI");
         default:
             return QString("???");
         }
@@ -84,9 +84,9 @@ QString BitcoinUnits::description(int unit)
         switch (unit) {
         case BITWIN24:
             return QString("BITWIN24");
-        case mMAG:
+        case mBWI:
             return QString("Milli-BITWIN24 (1 / 1" THIN_SP_UTF8 "000)");
-        case uMAG:
+        case uBWI:
             return QString("Micro-BITWIN24 (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
         default:
             return QString("???");
@@ -94,11 +94,11 @@ QString BitcoinUnits::description(int unit)
     } else {
         switch (unit) {
         case BITWIN24:
-            return QString("TestMAGs");
-        case mMAG:
-            return QString("Milli-TestMAG (1 / 1" THIN_SP_UTF8 "000)");
-        case uMAG:
-            return QString("Micro-TestMAG (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            return QString("TestBWIs");
+        case mBWI:
+            return QString("Milli-TestBWI (1 / 1" THIN_SP_UTF8 "000)");
+        case uBWI:
+            return QString("Micro-TestBWI (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
         default:
             return QString("???");
         }

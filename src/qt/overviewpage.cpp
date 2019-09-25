@@ -150,7 +150,7 @@ OverviewPage::~OverviewPage()
     delete ui;
 }
 
-void OverviewPage::getPercentage(CAmount nUnlockedBalance, CAmount nZerocoinBalance, QString& sMAGPercentage, QString& szMAGPercentage)
+void OverviewPage::getPercentage(CAmount nUnlockedBalance, CAmount nZerocoinBalance, QString& sBWIPercentage, QString& szBWIPercentage)
 {
     int nPrecision = 2;
     double dzPercentage = 0.0;
@@ -169,8 +169,8 @@ void OverviewPage::getPercentage(CAmount nUnlockedBalance, CAmount nZerocoinBala
 
     double dPercentage = 100.0 - dzPercentage;
 
-    szMAGPercentage = "(" + QLocale(QLocale::system()).toString(dzPercentage, 'f', nPrecision) + " %)";
-    sMAGPercentage = "(" + QLocale(QLocale::system()).toString(dPercentage, 'f', nPrecision) + " %)";
+    szBWIPercentage = "(" + QLocale(QLocale::system()).toString(dzPercentage, 'f', nPrecision) + " %)";
+    sBWIPercentage = "(" + QLocale(QLocale::system()).toString(dPercentage, 'f', nPrecision) + " %)";
 
 }
 
@@ -209,7 +209,7 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
     CAmount nTotalWatchBalance = watchOnlyBalance + watchUnconfBalance;
     CAmount nAvailableWatchBalance = watchOnlyBalance - watchImmatureBalance - nWatchOnlyLockedBalance;
 
-    // zMAG Balance
+    // zBWI Balance
     CAmount matureZerocoinBalance = zerocoinBalance - unconfirmedZerocoinBalance - immatureZerocoinBalance;
 
     // Percentages
@@ -244,7 +244,7 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
     ui->labelStakeRewards->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, stakeEarnings, false, BitcoinUnits::separatorAlways));
 
     // Adjust bubble-help according to AutoMint settings
-    QString automintHelp = tr("Current percentage of zMAG.\nIf AutoMint is enabled this percentage will settle around the configured AutoMint percentage (default = 10%).\n");
+    QString automintHelp = tr("Current percentage of zBWI.\nIf AutoMint is enabled this percentage will settle around the configured AutoMint percentage (default = 10%).\n");
     bool fEnableZeromint = GetBoolArg("-enablezeromint", Params().ZeroCoinEnabled());
     int nZeromintPercentage = GetArg("-zeromintpercentage", 1);
     if (fEnableZeromint) {
@@ -266,9 +266,9 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
     bool showWatchOnly = nTotalWatchBalance != 0;
 
     // BITWIN24 Available
-    bool showMAGAvailable = settingShowAllBalances || magAvailableBalance != nTotalBalance;
-    bool showWatchOnlyMAGAvailable = showMAGAvailable || nAvailableWatchBalance != nTotalWatchBalance;
-    ui->labelBalanceText->setVisible(showMAGAvailable || showWatchOnlyMAGAvailable);
+    bool showBWIAvailable = settingShowAllBalances || magAvailableBalance != nTotalBalance;
+    bool showWatchOnlyBWIAvailable = showBWIAvailable || nAvailableWatchBalance != nTotalWatchBalance;
+    ui->labelBalanceText->setVisible(showBWIAvailable || showWatchOnlyMAGAvailable);
     ui->labelBalance->setVisible(showMAGAvailable || showWatchOnlyMAGAvailable);
     ui->labelWatchAvailable->setVisible(showWatchOnlyMAGAvailable && showWatchOnly);
 

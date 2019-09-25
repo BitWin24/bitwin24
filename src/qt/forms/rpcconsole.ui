@@ -1328,7 +1328,7 @@
        <item row="4" column="0">
         <widget class="QLabel" name="wallet_customzbwibackuppath_label">
          <property name="text">
-          <string>Custom zMAG Backup Path:</string>
+          <string>Custom zBWI Backup Path:</string>
          </property>
          <property name="visible">
           <bool>false</bool>

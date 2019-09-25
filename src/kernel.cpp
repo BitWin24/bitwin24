@@ -13,7 +13,7 @@
 #include "timedata.h"
 #include "util.h"
 #include "stakeinput.h"
-#include "zmagchain.h"
+#include "zbwichain.h"
 
 using namespace std;
 
@@ -359,7 +359,7 @@ bool CheckProofOfStake(const CBlock block, uint256& hashProofOfStake, std::uniqu
         if (spend.getSpendType() != libzerocoin::SpendType::STAKE)
             return error("%s: spend is using the wrong SpendType (%d)", __func__, (int)spend.getSpendType());
 
-        stake = std::unique_ptr<CStakeInput>(new CZMagStake(spend));
+        stake = std::unique_ptr<CStakeInput>(new CZBWIStake(spend));
     } else {
         // First try finding the previous transaction in database
         uint256 hashBlock;

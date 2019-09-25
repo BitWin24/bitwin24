@@ -2267,7 +2267,7 @@ Nesubrendusios: patvirtintos, bet mažiau nei 1 konvertacijos to pačio nominalo
     </message>
     <message>
         <source>zMAG Control</source>
-        <translation>zMag Kontrolė</translation>
+        <translation>zBWI Kontrolė</translation>
     </message>
     <message>
         <source>zMAG Selected:</source>
@@ -3449,7 +3449,7 @@ Nesubrendusios: patvirtintos, bet mažiau nei 1 konvertacijos tos pačio nominal
     </message>
     </context>
 <context>
-    <name>ZMagControlDialog</name>
+    <name>ZBWIControlDialog</name>
     <message>
         <source>0</source>
         <translation>0</translation>

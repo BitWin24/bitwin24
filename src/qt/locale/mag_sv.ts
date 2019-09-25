@@ -4773,7 +4773,7 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
     </message>
 </context>
 <context>
-    <name>ZMagControlDialog</name>
+    <name>ZBWIControlDialog</name>
     <message>
         <source>Select zMAG to Spend</source>
         <translation>Välj zMAG att Spendera</translation>

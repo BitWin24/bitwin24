@@ -34,7 +34,7 @@
 #include "util.h"
 #include "utilmoneystr.h"
 #include "validationinterface.h"
-#include "zmagchain.h"
+#include "zbwichain.h"
 
 #include "primitives/zerocoin.h"
 #include "libzerocoin/Denominations.h"
@@ -1251,7 +1251,7 @@ bool AcceptToMemoryPool(CTxMemPool& pool, CValidationState& state, const CTransa
                 CoinSpend spend = TxInToZerocoinSpend(txIn);
                 if (!ContextualCheckZerocoinSpend(tx, spend, chainActive.Tip(), 0))
                     return state.Invalid(error("%s: ContextualCheckZerocoinSpend failed for tx %s", __func__,
-                                               tx.GetHash().GetHex()), REJECT_INVALID, "bad-txns-invalid-zmag");
+                                               tx.GetHash().GetHex()), REJECT_INVALID, "bad-txns-invalid-zbwi");
             }
         } else {
             LOCK(pool.cs);
@@ -3004,7 +3004,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     pindex->nMoneySupply = nMoneySupplyPrev + nValueOut - nValueIn;
     pindex->nMint = pindex->nMoneySupply - nMoneySupplyPrev + nFees;
 
-//    LogPrintf("XX69----------> ConnectBlock(): nValueOut: %s, nValueIn: %s, nFees: %s, nMint: %s zMagSpent: %s\n",
+//    LogPrintf("XX69----------> ConnectBlock(): nValueOut: %s, nValueIn: %s, nFees: %s, nMint: %s zBWISpent: %s\n",
 //              FormatMoney(nValueOut), FormatMoney(nValueIn),
 //              FormatMoney(nFees), FormatMoney(pindex->nMint), FormatMoney(nAmountZerocoinSpent));
 
@@ -4269,7 +4269,7 @@ bool ContextualCheckZerocoinStake(int nHeight, CStakeInput* stake)
     if (nHeight < Params().Zerocoin_Block_V2_Start())
         return error("%s: zMAG stake block is less than allowed start height", __func__);
 
-    if (CZMagStake* zMAG = dynamic_cast<CZMagStake*>(stake)) {
+    if (CZBWIStake* zMAG = dynamic_cast<CZBWIStake*>(stake)) {
         CBlockIndex* pindexFrom = zMAG->GetIndexFrom();
         if (!pindexFrom)
             return error("%s: failed to get index associated with zMAG stake checksum", __func__);

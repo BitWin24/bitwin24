@@ -957,7 +957,7 @@
     </message>
     </context>
 <context>
-    <name>ZMagControlDialog</name>
+    <name>ZBWIControlDialog</name>
     </context>
 <context>
     <name>bitwin24-core</name>

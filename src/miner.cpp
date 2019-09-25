@@ -27,7 +27,7 @@
 #include "blocksignature.h"
 #include "spork.h"
 #include "invalid.h"
-#include "zmagchain.h"
+#include "zbwichain.h"
 
 
 #include <boost/thread.hpp>
@@ -212,8 +212,8 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, CWallet* pwallet, 
                     nTotalIn = tx.GetZerocoinSpent();
 
                     //Give a high priority to zerocoinspends to get into the next block
-                    //Priority = (age^6+100000)*amount - gives higher priority to zmags that have been in mempool long
-                    //and higher priority to zmags that are large in value
+                    //Priority = (age^6+100000)*amount - gives higher priority to zbwis that have been in mempool long
+                    //and higher priority to zbwis that are large in value
                     int64_t nTimeSeen = GetAdjustedTime();
                     double nConfs = 100000;
 
@@ -554,7 +554,7 @@ bool ProcessBlockFound(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
     CValidationState state;
     if (!ProcessNewBlock(state, NULL, pblock)) {
         if (pblock->IsZerocoinStake())
-            pwalletMain->zmagTracker->RemovePending(pblock->vtx[1].GetHash());
+            pwalletMain->zbwiTracker->RemovePending(pblock->vtx[1].GetHash());
         return error("MAGMiner : ProcessNewBlock, block not accepted");
     }
 

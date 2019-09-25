@@ -6224,9 +6224,9 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
 </context>
 <context>
-    <name>ZMagControlDialog</name>
+    <name>ZBWIControlDialog</name>
     <message>
-        <location filename="../forms/zmagcontroldialog.ui" line="+20"/>
+        <location filename="../forms/zbwicontroldialog.ui" line="+20"/>
         <source>Select zMAG to Spend</source>
         <translation type="unfinished"></translation>
     </message>

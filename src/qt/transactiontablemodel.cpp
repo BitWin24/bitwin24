@@ -365,7 +365,7 @@ QString TransactionTableModel::formatTxType(const TransactionRecord* wtx) const
         return tr("Spent zMAG");
     case TransactionRecord::RecvFromZerocoinSpend:
         return tr("Received MAG from zMAG");
-    case TransactionRecord::ZerocoinSpend_Change_zMag:
+    case TransactionRecord::ZerocoinSpend_Change_zBWI:
         return tr("Minted Change as zMAG from zMAG Spend");
     case TransactionRecord::ZerocoinSpend_FromMe:
         return tr("Converted zMAG to MAG");
@@ -423,7 +423,7 @@ QString TransactionTableModel::formatTxToAddress(const TransactionRecord* wtx, b
     case TransactionRecord::SendToOther:
         return QString::fromStdString(wtx->address) + watchAddress;
     case TransactionRecord::ZerocoinMint:
-    case TransactionRecord::ZerocoinSpend_Change_zMag:
+    case TransactionRecord::ZerocoinSpend_Change_zBWI:
         return tr("Anonymous (zMAG Transaction)");
     case TransactionRecord::StakeZMAG:
         return tr("Anonymous (zMAG Stake)");

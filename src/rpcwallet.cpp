@@ -17,7 +17,7 @@
 #include "utilmoneystr.h"
 #include "wallet.h"
 #include "walletdb.h"
-#include "zmagchain.h"
+#include "zbwichain.h"
 
 #include <stdint.h>
 
@@ -2581,7 +2581,7 @@ UniValue listmintedzerocoins(const UniValue& params, bool fHelp)
     EnsureWalletIsUnlocked(true);
 
     CWalletDB walletdb(pwalletMain->strWalletFile);
-    set<CMintMeta> setMints = pwalletMain->zmagTracker->ListMints(true, false, true);
+    set<CMintMeta> setMints = pwalletMain->zbwiTracker->ListMints(true, false, true);
 
     UniValue jsonList(UniValue::VARR);
     for (const CMintMeta& meta : setMints)
@@ -2616,7 +2616,7 @@ UniValue listzerocoinamounts(const UniValue& params, bool fHelp)
     EnsureWalletIsUnlocked(true);
 
     CWalletDB walletdb(pwalletMain->strWalletFile);
-    set<CMintMeta> setMints = pwalletMain->zmagTracker->ListMints(true, true, true);
+    set<CMintMeta> setMints = pwalletMain->zbwiTracker->ListMints(true, true, true);
 
     std::map<libzerocoin::CoinDenomination, CAmount> spread;
     for (const auto& denom : libzerocoin::zerocoinDenomList)
@@ -2932,8 +2932,8 @@ UniValue resetmintzerocoin(const UniValue& params, bool fHelp)
     LOCK2(cs_main, pwalletMain->cs_wallet);
 
     CWalletDB walletdb(pwalletMain->strWalletFile);
-    CzMAGTracker* zmagTracker = pwalletMain->zmagTracker.get();
-    set<CMintMeta> setMints = zmagTracker->ListMints(false, false, true);
+    CzMAGTracker* zbwiTracker = pwalletMain->zbwiTracker.get();
+    set<CMintMeta> setMints = zbwiTracker->ListMints(false, false, true);
     vector<CMintMeta> vMintsToFind(setMints.begin(), setMints.end());
     vector<CMintMeta> vMintsMissing;
     vector<CMintMeta> vMintsToUpdate;
@@ -2944,14 +2944,14 @@ UniValue resetmintzerocoin(const UniValue& params, bool fHelp)
     // update the meta data of mints that were marked for updating
     UniValue arrUpdated(UniValue::VARR);
     for (CMintMeta meta : vMintsToUpdate) {
-        zmagTracker->UpdateState(meta);
+        zbwiTracker->UpdateState(meta);
         arrUpdated.push_back(meta.hashPubcoin.GetHex());
     }
 
     // delete any mints that were unable to be located on the blockchain
     UniValue arrDeleted(UniValue::VARR);
     for (CMintMeta mint : vMintsMissing) {
-        zmagTracker->Archive(mint);
+        zbwiTracker->Archive(mint);
         arrDeleted.push_back(mint.hashPubcoin.GetHex());
     }
 
@@ -2985,8 +2985,8 @@ UniValue resetspentzerocoin(const UniValue& params, bool fHelp)
     LOCK2(cs_main, pwalletMain->cs_wallet);
 
     CWalletDB walletdb(pwalletMain->strWalletFile);
-    CzMAGTracker* zmagTracker = pwalletMain->zmagTracker.get();
-    set<CMintMeta> setMints = zmagTracker->ListMints(false, false, false);
+    CzMAGTracker* zbwiTracker = pwalletMain->zbwiTracker.get();
+    set<CMintMeta> setMints = zbwiTracker->ListMints(false, false, false);
     list<CZerocoinSpend> listSpends = walletdb.ListSpentCoins();
     list<CZerocoinSpend> listUnconfirmedSpends;
 
@@ -3008,7 +3008,7 @@ UniValue resetspentzerocoin(const UniValue& params, bool fHelp)
     for (CZerocoinSpend spend : listUnconfirmedSpends) {
         for (auto& meta : setMints) {
             if (meta.hashSerial == GetSerialHash(spend.GetSerial())) {
-                zmagTracker->SetPubcoinNotUsed(meta.hashPubcoin);
+                zbwiTracker->SetPubcoinNotUsed(meta.hashPubcoin);
                 walletdb.EraseZerocoinSpendSerialEntry(spend.GetSerial());
                 RemoveSerialFromDB(spend.GetSerial());
                 UniValue obj(UniValue::VOBJ);
@@ -3122,8 +3122,8 @@ UniValue exportzerocoins(const UniValue& params, bool fHelp)
     if (params.size() == 2)
         denomination = libzerocoin::IntToZerocoinDenomination(params[1].get_int());
 
-    CzMAGTracker* zmagTracker = pwalletMain->zmagTracker.get();
-    set<CMintMeta> setMints = zmagTracker->ListMints(!fIncludeSpent, false, false);
+    CzMAGTracker* zbwiTracker = pwalletMain->zbwiTracker.get();
+    set<CMintMeta> setMints = zbwiTracker->ListMints(!fIncludeSpent, false, false);
 
     UniValue jsonList(UniValue::VARR);
     for (const CMintMeta& meta : setMints) {
@@ -3237,7 +3237,7 @@ UniValue importzerocoins(const UniValue& params, bool fHelp)
         CZerocoinMint mint(denom, bnValue, bnRandom, bnSerial, fUsed, nVersion, &privkey);
         mint.SetTxHash(txid);
         mint.SetHeight(nHeight);
-        pwalletMain->zmagTracker->Add(mint, true);
+        pwalletMain->zbwiTracker->Add(mint, true);
         count++;
         nValue += libzerocoin::ZerocoinDenominationToAmount(denom);
     }
@@ -3299,23 +3299,23 @@ UniValue reconsiderzerocoins(const UniValue& params, bool fHelp)
     return arrRet;
 }
 
-UniValue setzmagseed(const UniValue& params, bool fHelp)
+UniValue setzbwiseed(const UniValue& params, bool fHelp)
 {
     if(fHelp || params.size() != 1)
         throw runtime_error(
-            "setzmagseed \"seed\"\n"
-            "\nSet the wallet's deterministic zmag seed to a specific value.\n" +
+            "setzbwiseed \"seed\"\n"
+            "\nSet the wallet's deterministic zbwi seed to a specific value.\n" +
             HelpRequiringPassphrase() + "\n"
 
             "\nArguments:\n"
-            "1. \"seed\"        (string, required) The deterministic zmag seed.\n"
+            "1. \"seed\"        (string, required) The deterministic zbwi seed.\n"
 
             "\nResult\n"
             "\"success\" : b,  (boolean) Whether the seed was successfully set.\n"
 
             "\nExamples\n" +
-            HelpExampleCli("setzmagseed", "63f793e7895dd30d99187b35fbfb314a5f91af0add9e0a4e5877036d1e392dd5") +
-            HelpExampleRpc("setzmagseed", "63f793e7895dd30d99187b35fbfb314a5f91af0add9e0a4e5877036d1e392dd5"));
+            HelpExampleCli("setzbwiseed", "63f793e7895dd30d99187b35fbfb314a5f91af0add9e0a4e5877036d1e392dd5") +
+            HelpExampleRpc("setzbwiseed", "63f793e7895dd30d99187b35fbfb314a5f91af0add9e0a4e5877036d1e392dd5"));
 
     EnsureWalletIsUnlocked();
 
@@ -3333,11 +3333,11 @@ UniValue setzmagseed(const UniValue& params, bool fHelp)
     return ret;
 }
 
-UniValue getzmagseed(const UniValue& params, bool fHelp)
+UniValue getzbwiseed(const UniValue& params, bool fHelp)
 {
     if(fHelp || !params.empty())
         throw runtime_error(
-            "getzmagseed\n"
+            "getzbwiseed\n"
             "\nCheck archived zMAG list to see if any mints were added to the blockchain.\n" +
             HelpRequiringPassphrase() + "\n"
 
@@ -3345,7 +3345,7 @@ UniValue getzmagseed(const UniValue& params, bool fHelp)
             "\"seed\" : s,  (string) The deterministic zMAG seed.\n"
 
             "\nExamples\n" +
-            HelpExampleCli("getzmagseed", "") + HelpExampleRpc("getzmagseed", ""));
+            HelpExampleCli("getzbwiseed", "") + HelpExampleRpc("getzbwiseed", ""));
 
     EnsureWalletIsUnlocked();
 
@@ -3407,10 +3407,10 @@ UniValue generatemintlist(const UniValue& params, bool fHelp)
     return arrRet;
 }
 
-UniValue dzmagstate(const UniValue& params, bool fHelp) {
+UniValue dzbwistate(const UniValue& params, bool fHelp) {
     if (fHelp || params.size() != 0)
         throw runtime_error(
-                "dzmagstate\n"
+                "dzbwistate\n"
                         "\nThe current state of the mintpool of the deterministic zMAG wallet.\n" +
                 HelpRequiringPassphrase() + "\n"
 
@@ -3421,7 +3421,7 @@ UniValue dzmagstate(const UniValue& params, bool fHelp) {
     UniValue obj(UniValue::VOBJ);
     int nCount, nCountLastUsed;
     zwallet->GetState(nCount, nCountLastUsed);
-    obj.push_back(Pair("dzmag_count", nCount));
+    obj.push_back(Pair("dzbwi_count", nCount));
     obj.push_back(Pair("mintpool_count", nCountLastUsed));
 
     return obj;
@@ -3458,11 +3458,11 @@ void static SearchThread(CzMAGWallet* zwallet, int nCountStart, int nCountEnd)
     }
 }
 
-UniValue searchdzmag(const UniValue& params, bool fHelp)
+UniValue searchdzbwi(const UniValue& params, bool fHelp)
 {
     if(fHelp || params.size() != 3)
         throw runtime_error(
-            "searchdzmag\n"
+            "searchdzbwi\n"
             "\nMake an extended search for deterministically generated zMAG that have not yet been recognized by the wallet.\n" +
             HelpRequiringPassphrase() + "\n"
 
@@ -3472,7 +3472,7 @@ UniValue searchdzmag(const UniValue& params, bool fHelp)
             "3. \"threads\"     (numeric) How many threads should this operation consume.\n"
 
             "\nExamples\n" +
-            HelpExampleCli("searchdzmag", "1, 100, 2") + HelpExampleRpc("searchdzmag", "1, 100, 2"));
+            HelpExampleCli("searchdzbwi", "1, 100, 2") + HelpExampleRpc("searchdzbwi", "1, 100, 2"));
 
     EnsureWalletIsUnlocked();
 
@@ -3488,7 +3488,7 @@ UniValue searchdzmag(const UniValue& params, bool fHelp)
 
     CzMAGWallet* zwallet = pwalletMain->zwalletMain;
 
-    boost::thread_group* dzmagThreads = new boost::thread_group();
+    boost::thread_group* dzbwiThreads = new boost::thread_group();
     int nRangePerThread = nRange / nThreads;
 
     int nPrevThreadEnd = nCount - 1;
@@ -3496,12 +3496,12 @@ UniValue searchdzmag(const UniValue& params, bool fHelp)
         int nStart = nPrevThreadEnd + 1;;
         int nEnd = nStart + nRangePerThread;
         nPrevThreadEnd = nEnd;
-        dzmagThreads->create_thread(boost::bind(&SearchThread, zwallet, nStart, nEnd));
+        dzbwiThreads->create_thread(boost::bind(&SearchThread, zwallet, nStart, nEnd));
     }
 
-    dzmagThreads->join_all();
+    dzbwiThreads->join_all();
 
-    zwallet->RemoveMintsFromPool(pwalletMain->zmagTracker->GetSerialHashes());
+    zwallet->RemoveMintsFromPool(pwalletMain->zbwiTracker->GetSerialHashes());
     zwallet->SyncWithChain(false);
 
     //todo: better response

@@ -2021,7 +2021,7 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations </trans
     </message>
     </context>
 <context>
-    <name>ZMagControlDialog</name>
+    <name>ZBWIControlDialog</name>
     <message>
         <source>0</source>
         <translation>0</translation>

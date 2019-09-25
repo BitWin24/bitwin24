@@ -4388,7 +4388,7 @@ Soit monnayer des dénominations plus élevées (moins d'intrants sont nécessai
     </message>
 </context>
 <context>
-    <name>ZMagControlDialog</name>
+    <name>ZBWIControlDialog</name>
     <message>
         <source>Quantity</source>
         <translation>Quantité </translation>

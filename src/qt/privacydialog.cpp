@@ -14,7 +14,7 @@
 #include "sendcoinsentry.h"
 #include "walletmodel.h"
 #include "coincontrol.h"
-#include "zmagcontroldialog.h"
+#include "zbwicontroldialog.h"
 #include "spork.h"
 #include "askpassphrasedialog.h"
 
@@ -304,19 +304,19 @@ void PrivacyDialog::on_pushButtonSpendzMAG_clicked()
     sendzMAG();
 }
 
-void PrivacyDialog::on_pushButtonZMagControl_clicked()
+void PrivacyDialog::on_pushButtonZBWIControl_clicked()
 {
     if (!walletModel || !walletModel->getOptionsModel())
         return;
 
-    ZMagControlDialog* zMagControl = new ZMagControlDialog(this);
-    zMagControl->setModel(walletModel);
-    zMagControl->exec();
+    ZBWIControlDialog* zBWIControl = new ZBWIControlDialog(this);
+    zBWIControl->setModel(walletModel);
+    zBWIControl->exec();
 }
 
-void PrivacyDialog::setZMagControlLabels(int64_t nAmount, int nQuantity)
+void PrivacyDialog::setZBWIControlLabels(int64_t nAmount, int nQuantity)
 {
-    ui->labelzMagSelected_int->setText(QString::number(nAmount));
+    ui->labelzBWISelected_int->setText(QString::number(nAmount));
     ui->labelQuantitySelected_int->setText(QString::number(nQuantity));
 }
 
@@ -425,8 +425,8 @@ void PrivacyDialog::sendzMAG()
     // use mints from zMAG selector if applicable
     vector<CMintMeta> vMintsToFetch;
     vector<CZerocoinMint> vMintsSelected;
-    if (!ZMagControlDialog::setSelectedMints.empty()) {
-        vMintsToFetch = ZMagControlDialog::GetSelectedMints();
+    if (!ZBWIControlDialog::setSelectedMints.empty()) {
+        vMintsToFetch = ZBWIControlDialog::GetSelectedMints();
 
         for (auto& meta : vMintsToFetch) {
             if (meta.nVersion < libzerocoin::PrivateCoin::PUBKEY_VERSION) {
@@ -497,9 +497,9 @@ void PrivacyDialog::sendzMAG()
             walletModel->updateAddressBookLabels(address.Get(), "(no label)", "send");
     }
 
-    // Clear zmag selector in case it was used
-    ZMagControlDialog::setSelectedMints.clear();
-    ui->labelzMagSelected_int->setText(QString("0"));
+    // Clear zbwi selector in case it was used
+    ZBWIControlDialog::setSelectedMints.clear();
+    ui->labelzBWISelected_int->setText(QString("0"));
     ui->labelQuantitySelected_int->setText(QString("0"));
 
     // Some statistics for entertainment
@@ -658,7 +658,7 @@ void PrivacyDialog::setBalance(const CAmount& balance, const CAmount& unconfirme
         mapImmature.insert(make_pair(denom, 0));
     }
 
-    std::vector<CMintMeta> vMints = pwalletMain->zmagTracker->GetMints(false);
+    std::vector<CMintMeta> vMints = pwalletMain->zbwiTracker->GetMints(false);
     map<libzerocoin::CoinDenomination, int> mapMaturityHeights = GetMintMaturityHeight();
     for (auto& meta : vMints){
         // All denominations

@@ -118,11 +118,11 @@ UniValue blockToJSON(const CBlock& block, const CBlockIndex* blockindex, bool tx
 
     result.push_back(Pair("moneysupply",ValueFromAmount(blockindex->nMoneySupply)));
 
-    UniValue zmagObj(UniValue::VOBJ);
+    UniValue zbwiObj(UniValue::VOBJ);
     for (auto denom : libzerocoin::zerocoinDenomList) {
-        zmagObj.push_back(Pair(to_string(denom), ValueFromAmount(blockindex->mapZerocoinSupply.at(denom) * (denom*COIN))));
+        zbwiObj.push_back(Pair(to_string(denom), ValueFromAmount(blockindex->mapZerocoinSupply.at(denom) * (denom*COIN))));
     }
-    zmagObj.push_back(Pair("total", ValueFromAmount(blockindex->GetZerocoinSupply())));
+    zbwiObj.push_back(Pair("total", ValueFromAmount(blockindex->GetZerocoinSupply())));
 
     return result;
 }

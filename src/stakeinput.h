@@ -29,8 +29,8 @@ public:
 
 // zMAGStake can take two forms
 // 1) the stake candidate, which is a zcmint that is attempted to be staked
-// 2) a staked zmag, which is a zcspend that has successfully staked
-class CZMagStake : public CStakeInput
+// 2) a staked zbwi, which is a zcspend that has successfully staked
+class CZBWIStake : public CStakeInput
 {
 private:
     uint32_t nChecksum;
@@ -39,7 +39,7 @@ private:
     uint256 hashSerial;
 
 public:
-    explicit CZMagStake(libzerocoin::CoinDenomination denom, const uint256& hashSerial)
+    explicit CZBWIStake(libzerocoin::CoinDenomination denom, const uint256& hashSerial)
     {
         this->denom = denom;
         this->hashSerial = hashSerial;
@@ -47,7 +47,7 @@ public:
         fMint = true;
     }
 
-    explicit CZMagStake(const libzerocoin::CoinSpend& spend);
+    explicit CZBWIStake(const libzerocoin::CoinSpend& spend);
 
     CBlockIndex* GetIndexFrom() override;
     bool GetTxFrom(CTransaction& tx) override;

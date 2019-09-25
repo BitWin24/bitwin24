@@ -2479,7 +2479,7 @@ Om AutoMint in te schakelend verander je 'enablezeromint=0' naar 'enablezeromint
 zMAG are mature when they have more than 20 confirmations AND more than 2 mints of the same denomination after them were minted</source>
         <translation>Beschikbare (volwwassen en uitgeefbaar) zMAG voor besteding
 
-zMag zijn volwassen wanneer zij meer dan 20 bevestigingen hebben EN meer dan 2 muntages van dezelfde denominaties nadat zij gemunt zijn.</translation>
+zBWI zijn volwassen wanneer zij meer dan 20 bevestigingen hebben EN meer dan 2 muntages van dezelfde denominaties nadat zij gemunt zijn.</translation>
     </message>
     <message>
         <source>0 zMAG</source>
@@ -4857,7 +4857,7 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
     </message>
 </context>
 <context>
-    <name>ZMagControlDialog</name>
+    <name>ZBWIControlDialog</name>
     <message>
         <source>Select zMAG to Spend</source>
         <translation>Selecteer zMAG om te besteden</translation>

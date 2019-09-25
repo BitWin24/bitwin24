@@ -23,8 +23,8 @@
 #include "validationinterface.h"
 #include "wallet_ismine.h"
 #include "walletdb.h"
-#include "zmagwallet.h"
-#include "zmagtracker.h"
+#include "zbwiwallet.h"
+#include "zbwitracker.h"
 
 #include <algorithm>
 #include <map>
@@ -213,7 +213,7 @@ public:
     std::string ResetMintZerocoin();
     std::string ResetSpentZerocoin();
     void ReconsiderZerocoins(std::list<CZerocoinMint>& listMintsRestored, std::list<CDeterministicMint>& listDMintsRestored);
-    void ZMagBackupWallet();
+    void ZBWIBackupWallet();
     bool GetZerocoinKey(const CBigNum& bnSerial, CKey& key);
     bool CreateZMAGOutPut(libzerocoin::CoinDenomination denomination, CTxOut& outMint, CDeterministicMint& dMint);
     bool GetMint(const uint256& hashSerial, CZerocoinMint& mint);
@@ -221,7 +221,7 @@ public:
     bool DatabaseMint(CDeterministicMint& dMint);
     bool SetMintUnspent(const CBigNum& bnSerial);
     bool UpdateMint(const CBigNum& bnValue, const int& nHeight, const uint256& txid, const libzerocoin::CoinDenomination& denom);
-    string GetUniqueWalletBackupName(bool fzmagAuto) const;
+    string GetUniqueWalletBackupName(bool fzbwiAuto) const;
 
 
     /** Zerocin entry changed.
@@ -243,7 +243,7 @@ public:
     bool fWalletUnlockAnonymizeOnly;
     std::string strWalletFile;
     bool fBackupMints;
-    std::unique_ptr<CzMAGTracker> zmagTracker;
+    std::unique_ptr<CzMAGTracker> zbwiTracker;
 
     std::set<int64_t> setKeyPool;
     std::map<CKeyID, CKeyMetadata> mapKeyMetadata;
@@ -331,7 +331,7 @@ public:
     void setZWallet(CzMAGWallet* zwallet)
     {
         zwalletMain = zwallet;
-        zmagTracker = std::unique_ptr<CzMAGTracker>(new CzMAGTracker(strWalletFile));
+        zbwiTracker = std::unique_ptr<CzMAGTracker>(new CzMAGTracker(strWalletFile));
     }
 
     CzMAGWallet* getZWallet() { return zwalletMain; }
@@ -341,7 +341,7 @@ public:
         return fEnableZeromint;
     }
 
-    void setZMagAutoBackups(bool fEnabled)
+    void setZBWIAutoBackups(bool fEnabled)
     {
         fBackupMints = fEnabled;
     }

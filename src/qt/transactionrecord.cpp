@@ -11,7 +11,7 @@
 #include "swifttx.h"
 #include "timedata.h"
 #include "wallet.h"
-#include "zmagchain.h"
+#include "zbwichain.h"
 
 #include <stdint.h>
 
@@ -54,7 +54,7 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet* 
         if (!wtx.IsZerocoinSpend() && !ExtractDestination(wtx.vout[1].scriptPubKey, address))
             return parts;
 
-        if (wtx.IsZerocoinSpend() && (fZSpendFromMe || wallet->zmagTracker->HasMintTx(hash))) {
+        if (wtx.IsZerocoinSpend() && (fZSpendFromMe || wallet->zbwiTracker->HasMintTx(hash))) {
             //zMAG stake reward
             sub.involvesWatchAddress = false;
             sub.type = TransactionRecord::StakeZMAG;
@@ -98,7 +98,7 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet* 
                 isminetype mine = wallet->IsMine(txout);
                 TransactionRecord sub(hash, nTime);
                 sub.involvesWatchAddress = mine & ISMINE_WATCH_ONLY;
-                sub.type = TransactionRecord::ZerocoinSpend_Change_zMag;
+                sub.type = TransactionRecord::ZerocoinSpend_Change_zBWI;
                 sub.address = mapValue["zerocoinmint"];
                 if (!fFeeAssigned) {
                     sub.debit -= (wtx.GetZerocoinSpent() - wtx.GetValueOut());
@@ -315,7 +315,7 @@ bool IsZMAGType(TransactionRecord::Type type)
         case TransactionRecord::ZerocoinMint:
         case TransactionRecord::ZerocoinSpend:
         case TransactionRecord::RecvFromZerocoinSpend:
-        case TransactionRecord::ZerocoinSpend_Change_zMag:
+        case TransactionRecord::ZerocoinSpend_Change_zBWI:
         case TransactionRecord::ZerocoinSpend_FromMe:
             return true;
         default:

@@ -3635,7 +3635,7 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
     </message>
 </context>
 <context>
-    <name>ZMagControlDialog</name>
+    <name>ZBWIControlDialog</name>
     <message>
         <source>Quantity</source>
         <translation>Quantia</translation>

@@ -4845,7 +4845,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
 </context>
 <context>
-    <name>ZMagControlDialog</name>
+    <name>ZBWIControlDialog</name>
     <message>
         <source>Select zMAG to Spend</source>
         <translation>Изберете zMAG за Изпращане</translation>

@@ -2442,7 +2442,7 @@ For at aktivere AutoMint-ændring 'enablezeromint = 0' til 'enablezeromint = 1' 
     </message>
     <message>
         <source>Enter an amount of BWI to convert to zMAG</source>
-        <translation>Indtast en mængde BWI for at konvertere til zMag</translation>
+        <translation>Indtast en mængde BWI for at konvertere til zBWI</translation>
     </message>
     <message>
         <source>zMAG Control</source>
@@ -4553,11 +4553,11 @@ Enten mint højere nomineringer (så færre input er nødvendige) eller reducere
     </message>
     <message>
         <source>Spent zMAG</source>
-        <translation>Brugt zMag</translation>
+        <translation>Brugt zBWI</translation>
     </message>
     <message>
         <source>Received MAG from zMAG</source>
-        <translation>Modtaget BitWin24 fra zMag</translation>
+        <translation>Modtaget BitWin24 fra zBWI</translation>
     </message>
     <message>
         <source>Minted Change as zMAG from zMAG Spend</source>
@@ -4784,7 +4784,7 @@ Enten mint højere nomineringer (så færre input er nødvendige) eller reducere
     </message>
     <message>
         <source>Received MAG from zMAG</source>
-        <translation>Modtaget BitWin24 fra zMag</translation>
+        <translation>Modtaget BitWin24 fra zBWI</translation>
     </message>
     <message>
         <source>Zerocoin Spend, Change in zMAG</source>
@@ -4856,7 +4856,7 @@ Enten mint højere nomineringer (så færre input er nødvendige) eller reducere
     </message>
 </context>
 <context>
-    <name>ZMagControlDialog</name>
+    <name>ZBWIControlDialog</name>
     <message>
         <source>Select zMAG to Spend</source>
         <translation>Vælg zMAG for at bruge</translation>
@@ -4939,7 +4939,7 @@ Enten mint højere nomineringer (så færre input er nødvendige) eller reducere
     </message>
     <message>
         <source>Enable automatic wallet backups triggered after each zMAG minting (0-1, default: %u)</source>
-        <translation>Aktivér automatiske wallet-sikkerhedskopier udløst efter hver zMag-mintning (0-1, standard: %u)</translation>
+        <translation>Aktivér automatiske wallet-sikkerhedskopier udløst efter hver zBWI-mintning (0-1, standard: %u)</translation>
     </message>
     <message>
         <source>Enable or disable staking functionality for MAG inputs (0-1, default: %u)</source>

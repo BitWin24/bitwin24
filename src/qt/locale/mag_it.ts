@@ -2666,7 +2666,7 @@ Per cambiare la percentuale (riavvio non necessario):
     </message>
     </context>
 <context>
-    <name>ZMagControlDialog</name>
+    <name>ZBWIControlDialog</name>
     <message>
         <source>0</source>
         <translation>0</translation>

@@ -2443,7 +2443,7 @@ Para habilitar AutoMint cambie 'enablezeromint = 0' a 'enablezeromint = 1' en bi
     </message>
     <message>
         <source>Enter an amount of BWI to convert to zMAG</source>
-        <translation>Introduzca la cantidad de MAG que desea convertir a zMag</translation>
+        <translation>Introduzca la cantidad de MAG que desea convertir a zBWI</translation>
     </message>
     <message>
         <source>zMAG Control</source>
@@ -4857,7 +4857,7 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
     </message>
 </context>
 <context>
-    <name>ZMagControlDialog</name>
+    <name>ZBWIControlDialog</name>
     <message>
         <source>Select zMAG to Spend</source>
         <translation>Selecciona zMAG para Gastar</translation>

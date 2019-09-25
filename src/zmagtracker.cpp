@@ -3,7 +3,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <primitives/deterministicmint.h>
-#include "zmagtracker.h"
+#include "zbwitracker.h"
 #include "util.h"
 #include "sync.h"
 #include "main.h"
@@ -440,7 +440,7 @@ std::set<CMintMeta> CzMAGTracker::ListMints(bool fUnusedOnly, bool fMatureOnly, 
         std::list<CDeterministicMint> listDeterministicDB = walletdb.ListDeterministicMints();
         for (auto& dMint : listDeterministicDB)
             Add(dMint);
-        LogPrint("zero", "%s: added %d dzmag from DB\n", __func__, listDeterministicDB.size());
+        LogPrint("zero", "%s: added %d dzbwi from DB\n", __func__, listDeterministicDB.size());
     }
 
     std::vector<CMintMeta> vOverWrite;

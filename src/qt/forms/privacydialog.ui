@@ -729,21 +729,21 @@
                          <number>0</number>
                         </property>
                         <item>
-                         <widget class="QPushButton" name="pushButtonZMagControl">
+                         <widget class="QPushButton" name="pushButtonZBWIControl">
                           <property name="text">
                            <string>zMAG Control</string>
                           </property>
                          </widget>
                         </item>
                         <item>
-                         <widget class="QLabel" name="labelzMagSelected">
+                         <widget class="QLabel" name="labelzBWISelected">
                           <property name="text">
                            <string>zMAG Selected:</string>
                           </property>
                          </widget>
                         </item>
                         <item>
-                         <widget class="QLabel" name="labelzMagSelected_int">
+                         <widget class="QLabel" name="labelzBWISelected_int">
                           <property name="text">
                            <string>0</string>
                           </property>

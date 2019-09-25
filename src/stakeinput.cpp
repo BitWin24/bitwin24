@@ -9,7 +9,7 @@
 #include "stakeinput.h"
 #include "wallet.h"
 
-CZMagStake::CZMagStake(const libzerocoin::CoinSpend& spend)
+CZBWIStake::CZBWIStake(const libzerocoin::CoinSpend& spend)
 {
     this->nChecksum = spend.getAccumulatorChecksum();
     this->denom = spend.getDenomination();
@@ -19,7 +19,7 @@ CZMagStake::CZMagStake(const libzerocoin::CoinSpend& spend)
     fMint = false;
 }
 
-int CZMagStake::GetChecksumHeightFromMint()
+int CZBWIStake::GetChecksumHeightFromMint()
 {
     int nHeightChecksum = chainActive.Height() - Params().Zerocoin_RequiredStakeDepth();
 
@@ -30,12 +30,12 @@ int CZMagStake::GetChecksumHeightFromMint()
     return GetChecksumHeight(nChecksum, denom);
 }
 
-int CZMagStake::GetChecksumHeightFromSpend()
+int CZBWIStake::GetChecksumHeightFromSpend()
 {
     return GetChecksumHeight(nChecksum, denom);
 }
 
-uint32_t CZMagStake::GetChecksum()
+uint32_t CZBWIStake::GetChecksum()
 {
     return nChecksum;
 }
@@ -43,7 +43,7 @@ uint32_t CZMagStake::GetChecksum()
 // The zMAG block index is the first appearance of the accumulator checksum that was used in the spend
 // note that this also means when staking that this checksum should be from a block that is beyond 60 minutes old and
 // 100 blocks deep.
-CBlockIndex* CZMagStake::GetIndexFrom()
+CBlockIndex* CZBWIStake::GetIndexFrom()
 {
     if (pindexFrom)
         return pindexFrom;
@@ -65,13 +65,13 @@ CBlockIndex* CZMagStake::GetIndexFrom()
     return pindexFrom;
 }
 
-CAmount CZMagStake::GetValue()
+CAmount CZBWIStake::GetValue()
 {
     return denom * COIN;
 }
 
 //Use the first accumulator checkpoint that occurs 60 minutes after the block being staked from
-bool CZMagStake::GetModifier(uint64_t& nStakeModifier)
+bool CZBWIStake::GetModifier(uint64_t& nStakeModifier)
 {
     CBlockIndex* pindex = GetIndexFrom();
     if (!pindex)
@@ -91,7 +91,7 @@ bool CZMagStake::GetModifier(uint64_t& nStakeModifier)
     }
 }
 
-CDataStream CZMagStake::GetUniqueness()
+CDataStream CZBWIStake::GetUniqueness()
 {
     //The unique identifier for a zMAG is a hash of the serial
     CDataStream ss(SER_GETHASH, 0);
@@ -99,7 +99,7 @@ CDataStream CZMagStake::GetUniqueness()
     return ss;
 }
 
-bool CZMagStake::CreateTxIn(CWallet* pwallet, CTxIn& txIn, uint256 hashTxOut)
+bool CZBWIStake::CreateTxIn(CWallet* pwallet, CTxIn& txIn, uint256 hashTxOut)
 {
     CBlockIndex* pindexCheckpoint = GetIndexFrom();
     if (!pindexCheckpoint)
@@ -120,7 +120,7 @@ bool CZMagStake::CreateTxIn(CWallet* pwallet, CTxIn& txIn, uint256 hashTxOut)
     return true;
 }
 
-bool CZMagStake::CreateTxOuts(CWallet* pwallet, vector<CTxOut>& vout, CAmount nTotal)
+bool CZBWIStake::CreateTxOuts(CWallet* pwallet, vector<CTxOut>& vout, CAmount nTotal)
 {
     //Create an output returning the zMAG that was staked
     CTxOut outReward;
@@ -148,19 +148,19 @@ bool CZMagStake::CreateTxOuts(CWallet* pwallet, vector<CTxOut>& vout, CAmount nT
     return true;
 }
 
-bool CZMagStake::GetTxFrom(CTransaction& tx)
+bool CZBWIStake::GetTxFrom(CTransaction& tx)
 {
     return false;
 }
 
-bool CZMagStake::MarkSpent(CWallet *pwallet, const uint256& txid)
+bool CZBWIStake::MarkSpent(CWallet *pwallet, const uint256& txid)
 {
-    CzMAGTracker* zmagTracker = pwallet->zmagTracker.get();
+    CzMAGTracker* zbwiTracker = pwallet->zbwiTracker.get();
     CMintMeta meta;
-    if (!zmagTracker->GetMetaFromStakeHash(hashSerial, meta))
+    if (!zbwiTracker->GetMetaFromStakeHash(hashSerial, meta))
         return error("%s: tracker does not have serialhash", __func__);
 
-    zmagTracker->SetPubcoinUsed(meta.hashPubcoin, txid);
+    zbwiTracker->SetPubcoinUsed(meta.hashPubcoin, txid);
     return true;
 }
 

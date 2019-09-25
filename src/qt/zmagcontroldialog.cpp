@@ -2,8 +2,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "zmagcontroldialog.h"
-#include "ui_zmagcontroldialog.h"
+#include "zbwicontroldialog.h"
+#include "ui_zbwicontroldialog.h"
 
 #include "accumulators.h"
 #include "bitcoingui.h" //TreeWidgetItem
@@ -13,12 +13,12 @@
 using namespace std;
 using namespace libzerocoin;
 
-std::set<std::string> ZMagControlDialog::setSelectedMints;
-std::set<CMintMeta> ZMagControlDialog::setMints;
+std::set<std::string> ZBWIControlDialog::setSelectedMints;
+std::set<CMintMeta> ZBWIControlDialog::setMints;
 
-ZMagControlDialog::ZMagControlDialog(QWidget *parent) :
+ZBWIControlDialog::ZBWIControlDialog(QWidget *parent) :
     QDialog(parent, Qt::WindowSystemMenuHint | Qt::WindowTitleHint | Qt::WindowCloseButtonHint),
-    ui(new Ui::ZMagControlDialog),
+    ui(new Ui::ZBWIControlDialog),
     model(0)
 {
     ui->setupUi(this);
@@ -32,12 +32,12 @@ ZMagControlDialog::ZMagControlDialog(QWidget *parent) :
     connect(ui->pushButtonAll, SIGNAL(clicked()), this, SLOT(ButtonAllClicked()));
 }
 
-ZMagControlDialog::~ZMagControlDialog()
+ZBWIControlDialog::~ZBWIControlDialog()
 {
     delete ui;
 }
 
-void ZMagControlDialog::setModel(WalletModel *model)
+void ZBWIControlDialog::setModel(WalletModel *model)
 {
     this->model = model;
     updateList();
@@ -45,7 +45,7 @@ void ZMagControlDialog::setModel(WalletModel *model)
 
 
 //Update the tree widget
-void ZMagControlDialog::updateList()
+void ZBWIControlDialog::updateList()
 {
     // need to prevent the slot from being called each time something is changed
     ui->treeWidget->blockSignals(true);
@@ -130,7 +130,7 @@ void ZMagControlDialog::updateList()
 }
 
 // Update the list when a checkbox is clicked
-void ZMagControlDialog::updateSelection(QTreeWidgetItem* item, int column)
+void ZBWIControlDialog::updateSelection(QTreeWidgetItem* item, int column)
 {
     // only want updates from non top level items that are available to spend
     if (item->parent() && column == COLUMN_CHECKBOX && !item->isDisabled()){
@@ -152,7 +152,7 @@ void ZMagControlDialog::updateSelection(QTreeWidgetItem* item, int column)
 }
 
 // Update the Quantity and Amount display
-void ZMagControlDialog::updateLabels()
+void ZBWIControlDialog::updateLabels()
 {
     int64_t nAmount = 0;
     for (const CMintMeta& mint : setMints) {
@@ -161,14 +161,14 @@ void ZMagControlDialog::updateLabels()
     }
 
     //update this dialog's labels
-    ui->labelZMag_int->setText(QString::number(nAmount));
+    ui->labelZBWI_int->setText(QString::number(nAmount));
     ui->labelQuantity_int->setText(QString::number(setSelectedMints.size()));
 
     //update PrivacyDialog labels
-    privacyDialog->setZMagControlLabels(nAmount, setSelectedMints.size());
+    privacyDialog->setZBWIControlLabels(nAmount, setSelectedMints.size());
 }
 
-std::vector<CMintMeta> ZMagControlDialog::GetSelectedMints()
+std::vector<CMintMeta> ZBWIControlDialog::GetSelectedMints()
 {
     std::vector<CMintMeta> listReturn;
     for (const CMintMeta& mint : setMints) {
@@ -180,7 +180,7 @@ std::vector<CMintMeta> ZMagControlDialog::GetSelectedMints()
 }
 
 // select or deselect all of the mints
-void ZMagControlDialog::ButtonAllClicked()
+void ZBWIControlDialog::ButtonAllClicked()
 {
     ui->treeWidget->blockSignals(true);
     Qt::CheckState state = Qt::Checked;

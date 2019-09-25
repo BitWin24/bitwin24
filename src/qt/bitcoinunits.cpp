@@ -19,18 +19,18 @@ BitcoinUnits::BitcoinUnits(QObject* parent) : QAbstractListModel(parent),
 QList<BitcoinUnits::Unit> BitcoinUnits::availableUnits()
 {
     QList<BitcoinUnits::Unit> unitlist;
-    unitlist.append(BITWIN24);
-    unitlist.append(mBITWIN24);
-    unitlist.append(uBITWIN24);
+    unitlist.append(BWI);
+    unitlist.append(mbwi);
+    unitlist.append(uBWI);
     return unitlist;
 }
 
 bool BitcoinUnits::valid(int unit)
 {
     switch (unit) {
-    case BITWIN24:
-    case mBITWIN24:
-    case uBITWIN24:
+    case BWI:
+    case mbwi:
+    case uBWI:
         return true;
     default:
         return false;
@@ -40,11 +40,11 @@ bool BitcoinUnits::valid(int unit)
 QString BitcoinUnits::id(int unit)
 {
     switch (unit) {
-    case BITWIN24:
+    case BWI:
         return QString("BWI");
-    case mBITWIN24:
+    case mbwi:
         return QString("mBWI");
-    case uBITWIN24:
+    case uBWI:
         return QString::fromUtf8("uBWI");
     default:
         return QString("???");
@@ -55,11 +55,11 @@ QString BitcoinUnits::name(int unit)
 {
     if (Params().NetworkID() == CBaseChainParams::MAIN) {
         switch (unit) {
-        case BITWIN24:
+        case BWI:
             return QString("BWI");
-        case mBITWIN24:
+        case mbwi:
             return QString("mBWI");
-        case uBITWIN24:
+        case uBWI:
             return QString::fromUtf8("μBWI");
         default:
             return QString("???");
@@ -82,7 +82,7 @@ QString BitcoinUnits::description(int unit)
 {
     if (Params().NetworkID() == CBaseChainParams::MAIN) {
         switch (unit) {
-        case BITWIN24:
+        case BWI:
             return QString("BWI");
         case mBWI:
             return QString("Milli-BWI (1 / 1" THIN_SP_UTF8 "000)");
@@ -93,7 +93,7 @@ QString BitcoinUnits::description(int unit)
         }
     } else {
         switch (unit) {
-        case BITWIN24:
+        case BWI:
             return QString("TestBWIs");
         case mBWI:
             return QString("Milli-TestBWI (1 / 1" THIN_SP_UTF8 "000)");
@@ -108,7 +108,7 @@ QString BitcoinUnits::description(int unit)
 qint64 BitcoinUnits::factor(int unit)
 {
     switch (unit) {
-    case BITWIN24:
+    case BWI:
         return 100000000;
     case mBWI:
         return 100000;
@@ -122,7 +122,7 @@ qint64 BitcoinUnits::factor(int unit)
 int BitcoinUnits::decimals(int unit)
 {
     switch (unit) {
-    case BITWIN24:
+    case BWI:
         return 8;
     case mBWI:
         return 5;

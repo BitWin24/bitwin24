@@ -263,10 +263,10 @@ RES_ICONS = \
   qt/res/icons/tx_output.png \
   qt/res/icons/tx_mined.png \
   qt/res/icons/unit_bitwin24.png \
-  qt/res/icons/unit_mbitwin24.png \
+  qt/res/icons/unit_mbwi.png \
   qt/res/icons/unit_ubwi.png \
-  qt/res/icons/unit_tbitwin24.png \
-  qt/res/icons/unit_tmbitwin24.png \
+  qt/res/icons/unit_tbwi.png \
+  qt/res/icons/unit_tmbwi.png \
   qt/res/icons/unit_tubwi.png
 
 BITCOIN_QT_CPP = \

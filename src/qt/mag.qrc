@@ -42,10 +42,10 @@
         <file alias="tx_output">res/icons/tx_output.png</file>
         <file alias="tx_inout">res/icons/tx_inout.png</file>
         <file alias="unit_bitwin24">res/icons/unit_bitwin24.png</file>
-        <file alias="unit_mbitwin24">res/icons/unit_mbitwin24.png</file>
+        <file alias="unit_mbwi">res/icons/unit_mbwi.png</file>
         <file alias="unit_ubwi">res/icons/unit_ubwi.png</file>
-        <file alias="unit_tbitwin24">res/icons/unit_tbitwin24.png</file>
-        <file alias="unit_tmbitwin24">res/icons/unit_tmbitwin24.png</file>
+        <file alias="unit_tbwi">res/icons/unit_tbwi.png</file>
+        <file alias="unit_tmbwi">res/icons/unit_tmbwi.png</file>
         <file alias="unit_tubwi">res/icons/unit_tubwi.png</file>
         <file alias="lock_closed">res/icons/lock_closed.png</file>
         <file alias="lock_open">res/icons/lock_open.png</file>

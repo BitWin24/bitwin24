@@ -41,11 +41,11 @@ QString BitcoinUnits::id(int unit)
 {
     switch (unit) {
     case BITWIN24:
-        return QString("bitwin24");
+        return QString("BWI");
     case mBITWIN24:
-        return QString("mmag");
+        return QString("mBWI");
     case uBITWIN24:
-        return QString::fromUtf8("ubwi");
+        return QString::fromUtf8("uBWI");
     default:
         return QString("???");
     }
@@ -56,18 +56,18 @@ QString BitcoinUnits::name(int unit)
     if (Params().NetworkID() == CBaseChainParams::MAIN) {
         switch (unit) {
         case BITWIN24:
-            return QString("BITWIN24");
+            return QString("BWI");
         case mBITWIN24:
-            return QString("mBITWIN24");
+            return QString("mBWI");
         case uBITWIN24:
-            return QString::fromUtf8("μBITWIN24");
+            return QString::fromUtf8("μBWI");
         default:
             return QString("???");
         }
     } else {
         switch (unit) {
         case BITWIN24:
-            return QString("tBITWIN24");
+            return QString("tBWI");
         case mBWI:
             return QString("mtBWI");
         case uBWI:
@@ -83,11 +83,11 @@ QString BitcoinUnits::description(int unit)
     if (Params().NetworkID() == CBaseChainParams::MAIN) {
         switch (unit) {
         case BITWIN24:
-            return QString("BITWIN24");
+            return QString("BWI");
         case mBWI:
-            return QString("Milli-BITWIN24 (1 / 1" THIN_SP_UTF8 "000)");
+            return QString("Milli-BWI (1 / 1" THIN_SP_UTF8 "000)");
         case uBWI:
-            return QString("Micro-BITWIN24 (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            return QString("Micro-BWI (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
         default:
             return QString("???");
         }

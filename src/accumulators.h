@@ -31,4 +31,4 @@ int GetChecksumHeight(uint32_t nChecksum, libzerocoin::CoinDenomination denomina
 bool InvalidCheckpointRange(int nHeight);
 bool ValidateAccumulatorCheckpoint(const CBlock& block, CBlockIndex* pindex, AccumulatorMap& mapAccumulators);
 
-#endif //MAG_ACCUMULATORS_H
+#endif //BITWIN24_ACCUMULATORS_H

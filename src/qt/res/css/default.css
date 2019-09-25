@@ -999,7 +999,7 @@ background-color:#ffffff;
 
 QLabel#labelOverviewHeaderRight {
 qproperty-alignment: 'AlignVCenter | AlignRight';
-background-image: url(':/images/mag_logo_horizontal');
+background-image: url(':/images/bitwin24_logo_horizontal');
 background-repeat: no-repeat;
 background-position: Right;
 }

@@ -371,9 +371,9 @@ bool CheckProofOfStake(const CBlock block, uint256& hashProofOfStake, std::uniqu
         if (!VerifyScript(txin.scriptSig, txPrev.vout[txin.prevout.n].scriptPubKey, STANDARD_SCRIPT_VERIFY_FLAGS, TransactionSignatureChecker(&tx, 0)))
             return error("CheckProofOfStake() : VerifySignature failed on coinstake %s", tx.GetHash().ToString().c_str());
 
-        CMagStake* magInput = new CMagStake();
-        magInput->SetInput(txPrev, txin.prevout.n);
-        stake = std::unique_ptr<CStakeInput>(magInput);
+        CMagStake* bitwin24Input = new CMagStake();
+        bitwin24Input->SetInput(txPrev, txin.prevout.n);
+        stake = std::unique_ptr<CStakeInput>(bitwin24Input);
     }
 
     CBlockIndex* pindex = stake->GetIndexFrom();

@@ -1,7 +1,7 @@
 MAG Core integration/staging repository
 =====================================
 
-[![Build Status](https://travis-ci.org/bitwin24network/bitwin24.svg?branch=master)](https://travis-ci.org/bitwin24network/bitwin24) [![GitHub version](https://badge.fury.io/gh/bitwin24network%2Fmag.svg)](https://badge.fury.io/gh/bitwin24network%2Fmag)
+[![Build Status](https://travis-ci.org/bitwin24network/bitwin24.svg?branch=master)](https://travis-ci.org/bitwin24network/bitwin24) [![GitHub version](https://badge.fury.io/gh/bitwin24network%2Fbitwin24.svg)](https://badge.fury.io/gh/bitwin24network%2Fbitwin24)
 
 Since 2017, our primary focus has been on promoting the usage of [MAG](https://bitwin24network.io), an open source cryptocurrency, for real-world use cases while providing truly decentralized solutions to our users.
 

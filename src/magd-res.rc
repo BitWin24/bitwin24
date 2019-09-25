@@ -17,13 +17,13 @@ BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
             VALUE "CompanyName",        "MAG"
-            VALUE "FileDescription",    "magd (OSS daemon/client for MAG)"
+            VALUE "FileDescription",    "bitwin24d (OSS daemon/client for MAG)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
-            VALUE "InternalName",       "magd"
+            VALUE "InternalName",       "bitwin24d"
             VALUE "LegalCopyright",     COPYRIGHT_STR
             VALUE "LegalTrademarks1",   "Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php."
-            VALUE "OriginalFilename",   "magd.exe"
-            VALUE "ProductName",        "magd"
+            VALUE "OriginalFilename",   "bitwin24d.exe"
+            VALUE "ProductName",        "bitwin24d"
             VALUE "ProductVersion",     VER_PRODUCTVERSION_STR
         END
     END

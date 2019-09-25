@@ -106,6 +106,6 @@ To create a new language template, you will need to edit the languages manifest 
 **Note:** that the language translation file **must end in `.qm`** (the compiled extension), and not `.ts`.
 
 ### Questions and general assistance
-The BITWIN24 Core translation maintainers include *Fuzzbawls and s3v3nh4cks*. You can find them, and others, in the [BITWIN24 Discord](https://discord.bitwin24network.io).
+The BITWIN24 Core translation maintainers include *Fuzzbawls and s3v3nh4cks*. You can find them, and others, in the [BITWIN24 Discord](https://discord.bitwin24work.io).
 
 Announcements will be posted during application pre-releases to notify translators to check for updates.

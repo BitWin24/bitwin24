@@ -7,7 +7,7 @@ architectures:
 packages:
 - "faketime"
 remotes:
-- "url": "https://github.com/bitwin24network/bitwin24-detached-sigs.git"
+- "url": "https://github.com/bitwin24work/bitwin24-detached-sigs.git"
   "dir": "signature"
 files:
 - "bitwin24-osx-unsigned.tar.gz"

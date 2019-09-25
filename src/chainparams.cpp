@@ -188,7 +188,7 @@ public:
         assert(hashGenesisBlock == uint256("0x0000015b2f14a08ed3848d7fd94da692498ed46ae927693c75fc4317a5e6ae2c"));
         assert(genesis.hashMerkleRoot == uint256("0xdac56c8d5e16e7bad2fbe36227dfc6da136c4b8d8869c0094616e1f7852566d6"));
 
-//        vSeeds.push_back(CDNSSeedData("bitwin24network.io", "satoshi.bitwin24network.io"));   // Primary DNS Seeder
+//        vSeeds.push_back(CDNSSeedData("bitwin24work.io", "satoshi.bitwin24work.io"));   // Primary DNS Seeder
 //        vSeeds.push_back(CDNSSeedData("litemint.com", "satoshi.litemint.com"));     // Secondary DNS Seeder
 //        vSeeds.push_back(CDNSSeedData("35.241.249.95", "35.241.249.95"));
 //        vSeeds.push_back(CDNSSeedData("35.227.76.49", "35.227.76.49"));
@@ -276,7 +276,7 @@ public:
 
         vFixedSeeds.clear();
         vSeeds.clear();
-//        vSeeds.push_back(CDNSSeedData("bitwin24network.io", "nakamoto.bitwin24network.io"));
+//        vSeeds.push_back(CDNSSeedData("bitwin24work.io", "nakamoto.bitwin24work.io"));
 //        vSeeds.push_back(CDNSSeedData("litemint.com", "nakamoto.litemint.com"));
 //        vSeeds.push_back(CDNSSeedData("35.241.249.95", "35.241.249.95"));
 //        vSeeds.push_back(CDNSSeedData("35.227.76.49", "35.227.76.49"));

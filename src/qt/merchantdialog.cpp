@@ -45,7 +45,7 @@ MerchantDialog::MerchantDialog(QWidget* parent) : QDialog(parent, Qt::WindowSyst
     retain.setRetainSizeWhenHidden(true);
     ui->merchantTransactions->setSizePolicy(retain);
 
-    ui->merchantSignUp->setText("<a href=\"https://merchant.bitwin24network.io/\">Sign up for BITWIN24 Merchant Account</a>");
+    ui->merchantSignUp->setText("<a href=\"https://merchant.bitwin24work.io/\">Sign up for BITWIN24 Merchant Account</a>");
     ui->merchantSignUp->setTextFormat(Qt::RichText);
     ui->merchantSignUp->setTextInteractionFlags(Qt::TextBrowserInteraction);
     ui->merchantSignUp->setOpenExternalLinks(true);    
@@ -184,13 +184,13 @@ void MerchantDialog::on_refreshMagStats_clicked()
 
 void MerchantDialog::on_merchantSignUp_clicked()
 {
-  //  QString link = "https://merchant.bitwin24network.io/accounts/?up=true";
+  //  QString link = "https://merchant.bitwin24work.io/accounts/?up=true";
 //    QDesktopServices::openUrl(QUrl(link));
 }
 
 void MerchantDialog::on_merchantWebsite_clicked()
 {
-    QString link = "https://merchant.bitwin24network.io";
+    QString link = "https://merchant.bitwin24work.io";
     QDesktopServices::openUrl(QUrl(link));
 }
 
@@ -206,7 +206,7 @@ void MerchantDialog::on_merchantSignIn_clicked()
         conf.setPeerVerifyMode(QSslSocket::VerifyNone);
         request.setSslConfiguration(conf);
         request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-        request.setUrl(QUrl("https://walletbackend.bitwin24network.io:8711/.account/appsignin"));
+        request.setUrl(QUrl("https://walletbackend.bitwin24work.io:8711/.account/appsignin"));
 
         QJsonObject body;
         body.insert(QString("email"), ui->labelLoginEmail->text());
@@ -226,7 +226,7 @@ void MerchantDialog::on_merchantSignOut_clicked()
         conf.setPeerVerifyMode(QSslSocket::VerifyNone);
         request.setSslConfiguration(conf);
         request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-        request.setUrl(QUrl("https://walletbackend.bitwin24network.io:8711/.account/appsignout"));
+        request.setUrl(QUrl("https://walletbackend.bitwin24work.io:8711/.account/appsignout"));
 
         QJsonObject body;
         body.insert(QString("token"), token);
@@ -255,7 +255,7 @@ void MerchantDialog::refreshStats()
     conf.setPeerVerifyMode(QSslSocket::VerifyNone);
     request.setSslConfiguration(conf);
 
-    request.setUrl(QUrl("https://walletbackend.bitwin24network.io:8711/.tools/stats"));
+    request.setUrl(QUrl("https://walletbackend.bitwin24work.io:8711/.tools/stats"));
     networkManager->post(request, "");
 }
 
@@ -268,7 +268,7 @@ void MerchantDialog::refreshAccountData()
         conf.setPeerVerifyMode(QSslSocket::VerifyNone);
         request.setSslConfiguration(conf);
         request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-        request.setUrl(QUrl("https://walletbackend.bitwin24network.io:8711/.account/getdata"));
+        request.setUrl(QUrl("https://walletbackend.bitwin24work.io:8711/.account/getdata"));
 
         QJsonObject body;
         body.insert(QString("token"), token);

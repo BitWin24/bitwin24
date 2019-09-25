@@ -1,7 +1,7 @@
 import socket
 
 seeders = [
-    'satoshi.bitwin24network.io',
+    'satoshi.bitwin24work.io',
     'satoshi.litemint.com',
     '35.241.249.95',
     '35.227.76.49', 

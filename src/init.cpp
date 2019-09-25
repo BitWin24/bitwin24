@@ -75,7 +75,7 @@ using namespace std;
 
 #ifdef ENABLE_WALLET
 CWallet* pwalletMain = NULL;
-CzMAGWallet* zwalletMain = NULL;
+CzBITWIN24Wallet* zwalletMain = NULL;
 int nWalletBackups = 10;
 #endif
 volatile bool fFeeEstimatesInitialized = false;
@@ -383,7 +383,7 @@ std::string HelpMessage(HelpMessageMode mode)
 #endif
     strUsage += HelpMessageOpt("-reindex", _("Rebuild block chain index from current blk000??.dat files") + " " + _("on startup"));
     strUsage += HelpMessageOpt("-reindexaccumulators", _("Reindex the accumulator database") + " " + _("on startup"));
-    strUsage += HelpMessageOpt("-reindexmoneysupply", _("Reindex the BITWIN24 and zMAG money supply statistics") + " " + _("on startup"));
+    strUsage += HelpMessageOpt("-reindexmoneysupply", _("Reindex the BITWIN24 and zBITWIN24 money supply statistics") + " " + _("on startup"));
     strUsage += HelpMessageOpt("-resync", _("Delete blockchain folders and resync from scratch") + " " + _("on startup"));
 #if !defined(WIN32)
     strUsage += HelpMessageOpt("-sysperms", _("Create new files with system default permissions, instead of umask 077 (only effective with disabled wallet functionality)"));
@@ -519,7 +519,7 @@ std::string HelpMessage(HelpMessageMode mode)
     strUsage += HelpMessageGroup(_("Staking options:"));
     strUsage += HelpMessageOpt("-staking=<n>", strprintf(_("Enable staking functionality (0-1, default: %u)"), 1));
     strUsage += HelpMessageOpt("-magstake=<n>", strprintf(_("Enable or disable staking functionality for BITWIN24 inputs (0-1, default: %u)"), 1));
-    strUsage += HelpMessageOpt("-zbwistake=<n>", strprintf(_("Enable or disable staking functionality for zMAG inputs (0-1, default: %u)"), 1));
+    strUsage += HelpMessageOpt("-zbwistake=<n>", strprintf(_("Enable or disable staking functionality for zBITWIN24 inputs (0-1, default: %u)"), 1));
     strUsage += HelpMessageOpt("-reservebalance=<amt>", _("Keep the specified amount available for spending at all times (default: 0)"));
     if (GetBoolArg("-help-debug", false)) {
         strUsage += HelpMessageOpt("-printstakemodifier", _("Display the stake modifier calculations in the debug.log file."));
@@ -541,8 +541,8 @@ std::string HelpMessage(HelpMessageMode mode)
         strUsage += HelpMessageOpt("-enablezeromint=<n>", strprintf(_("Enable automatic Zerocoin minting (0-1, default: %u)"), 0));
         strUsage += HelpMessageOpt("-zeromintpercentage=<n>", strprintf(_("Percentage of automatically minted Zerocoin  (1-100, default: %u)"), 10));
         strUsage += HelpMessageOpt("-preferredDenom=<n>", strprintf(_("Preferred Denomination for automatically minted Zerocoin  (1/5/10/50/100/500/1000/5000), 0 for no preference. default: %u)"), 0));
-        strUsage += HelpMessageOpt("-backupzbwi=<n>", strprintf(_("Enable automatic wallet backups triggered after each zMAG minting (0-1, default: %u)"), 1));
-        strUsage += HelpMessageOpt("-zbwibackuppath=<dir|file>", _("Specify custom backup path to add a copy of any automatic zMAG backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup. If backuppath is set as well, 4 backups will happen"));
+        strUsage += HelpMessageOpt("-backupzbwi=<n>", strprintf(_("Enable automatic wallet backups triggered after each zBITWIN24 minting (0-1, default: %u)"), 1));
+        strUsage += HelpMessageOpt("-zbwibackuppath=<dir|file>", _("Specify custom backup path to add a copy of any automatic zBITWIN24 backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup. If backuppath is set as well, 4 backups will happen"));
 #endif // ENABLE_WALLET
         strUsage += HelpMessageOpt("-reindexzerocoin=<n>", strprintf(_("Delete all zerocoin spends and mints that have been recorded to the blockchain database and reindex them (0-1, default: %u)"), 0));
     }
@@ -1460,10 +1460,10 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
                 // Recalculate money supply for blocks that are impacted by accounting issue after zerocoin activation
                 if (GetBoolArg("-reindexmoneysupply", false)) {
                     if (chainActive.Height() > Params().Zerocoin_StartHeight()) {
-                        RecalculateZMAGMinted();
-                        RecalculateZMAGSpent();
+                        RecalculateZBITWIN24Minted();
+                        RecalculateZBITWIN24Spent();
                     }
-                    RecalculateMAGSupply(1);
+                    RecalculateBITWIN24Supply(1);
                 }
 
                 // Force recalculation of accumulators.
@@ -1623,7 +1623,7 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
 
         LogPrintf("%s", strErrors.str());
         LogPrintf(" wallet      %15dms\n", GetTimeMillis() - nStart);
-        zwalletMain = new CzMAGWallet(pwalletMain->strWalletFile);
+        zwalletMain = new CzBITWIN24Wallet(pwalletMain->strWalletFile);
         pwalletMain->setZWallet(zwalletMain);
 
         RegisterValidationInterface(pwalletMain);
@@ -1670,7 +1670,7 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
         }
         fVerifyingBlocks = false;
 
-        //Inititalize zMAGWallet
+        //Inititalize zBITWIN24Wallet
         uiInterface.InitMessage(_("Syncing BITWIN24 wallet..."));
 
         bool fEnableZBWIBackups = GetBoolArg("-backupzbwi", true);
@@ -1861,8 +1861,8 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
        is convertable to another.
 
        For example:
-       1MAG+1000 == (.1MAG+100)*10
-       10MAG+10000 == (1MAG+1000)*10
+       1BITWIN24+1000 == (.1BITWIN24+100)*10
+       10BITWIN24+10000 == (1BITWIN24+1000)*10
     */
     /* Disable obfuscation denominations.
     obfuScationDenominations.push_back((10000 * COIN) + 10000000);

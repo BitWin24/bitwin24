@@ -89,7 +89,7 @@ enum AvailableCoinsType {
     STAKABLE_COINS = 6                          // UTXO's that are valid for staking
 };
 
-// Possible states for zMAG send
+// Possible states for zBITWIN24 send
 enum ZerocoinSpendStatus {
     ZMAG_SPEND_OKAY = 0,                            // No error
     ZMAG_SPEND_ERROR = 1,                           // Unspecified class of errors, more details are (hopefully) in the returning text

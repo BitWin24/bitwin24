@@ -747,7 +747,7 @@
                       <item>
                        <layout class="QHBoxLayout" name="horizontalLayout_21">
                         <item>
-                         <widget class="QLabel" name="labelMAGStats">
+                         <widget class="QLabel" name="labelBITWIN24Stats">
                           <property name="font">
                            <font>
                             <pointsize>17</pointsize>

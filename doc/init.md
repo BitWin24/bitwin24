@@ -89,7 +89,7 @@ use old versions of Upstart and do not supply the start-stop-daemon uitility.
 Copy magd.init to /etc/init.d/magd. Test by running "service magd start".
 
 Using this script, you can adjust the path and flags to the magd program by
-setting the MAGD and FLAGS environment variables in the file
+setting the BITWIN24D and FLAGS environment variables in the file
 /etc/sysconfig/magd. You can also use the DAEMONOPTS environment variable here.
 
 5. Auto-respawn

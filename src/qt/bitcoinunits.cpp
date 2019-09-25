@@ -20,8 +20,8 @@ QList<BitcoinUnits::Unit> BitcoinUnits::availableUnits()
 {
     QList<BitcoinUnits::Unit> unitlist;
     unitlist.append(BITWIN24);
-    unitlist.append(mMAG);
-    unitlist.append(uMAG);
+    unitlist.append(mBITWIN24);
+    unitlist.append(uBITWIN24);
     return unitlist;
 }
 
@@ -29,8 +29,8 @@ bool BitcoinUnits::valid(int unit)
 {
     switch (unit) {
     case BITWIN24:
-    case mMAG:
-    case uMAG:
+    case mBITWIN24:
+    case uBITWIN24:
         return true;
     default:
         return false;
@@ -42,9 +42,9 @@ QString BitcoinUnits::id(int unit)
     switch (unit) {
     case BITWIN24:
         return QString("bitwin24");
-    case mMAG:
+    case mBITWIN24:
         return QString("mmag");
-    case uMAG:
+    case uBITWIN24:
         return QString::fromUtf8("umag");
     default:
         return QString("???");
@@ -57,17 +57,17 @@ QString BitcoinUnits::name(int unit)
         switch (unit) {
         case BITWIN24:
             return QString("BITWIN24");
-        case mMAG:
-            return QString("mMAG");
-        case uMAG:
-            return QString::fromUtf8("μMAG");
+        case mBITWIN24:
+            return QString("mBITWIN24");
+        case uBITWIN24:
+            return QString::fromUtf8("μBITWIN24");
         default:
             return QString("???");
         }
     } else {
         switch (unit) {
         case BITWIN24:
-            return QString("tMAG");
+            return QString("tBITWIN24");
         case mMAG:
             return QString("mtMAG");
         case uMAG:

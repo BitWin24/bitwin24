@@ -40,8 +40,8 @@ bool CMasternodePaymentDB::Write(const CMasternodePayments& objToSave)
 
     // serialize, checksum data up to that point, then append checksum
     CDataStream ssObj(SER_DISK, CLIENT_VERSION);
-    ssObj << strMagicMessage;                   // masternode cache file specific magic message
-    ssObj << FLATDATA(Params().MessageStart()); // network specific magic number
+    ssObj << strMagicMessage;                   // masternode cache file specific bitwin24ic message
+    ssObj << FLATDATA(Params().MessageStart()); // network specific bitwin24ic number
     ssObj << objToSave;
     uint256 hash = Hash(ssObj.begin(), ssObj.end());
     ssObj << hash;
@@ -108,7 +108,7 @@ CMasternodePaymentDB::ReadResult CMasternodePaymentDB::Read(CMasternodePayments&
     unsigned char pchMsgTmp[4];
     std::string strMagicMessageTmp;
     try {
-        // de-serialize file header (masternode cache file specific magic message) and ..
+        // de-serialize file header (masternode cache file specific bitwin24ic message) and ..
         ssObj >> strMagicMessageTmp;
 
         // ... verify the message matches predefined one
@@ -118,7 +118,7 @@ CMasternodePaymentDB::ReadResult CMasternodePaymentDB::Read(CMasternodePayments&
         }
 
 
-        // de-serialize file header (network specific magic number) and ..
+        // de-serialize file header (network specific bitwin24ic number) and ..
         ssObj >> FLATDATA(pchMsgTmp);
 
         // ... verify the network matches ours

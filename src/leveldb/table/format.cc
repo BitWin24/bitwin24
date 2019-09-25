@@ -41,13 +41,13 @@ void Footer::EncodeTo(std::string* dst) const {
 }
 
 Status Footer::DecodeFrom(Slice* input) {
-  const char* magic_ptr = input->data() + kEncodedLength - 8;
-  const uint32_t magic_lo = DecodeFixed32(magic_ptr);
-  const uint32_t magic_hi = DecodeFixed32(magic_ptr + 4);
-  const uint64_t magic = ((static_cast<uint64_t>(magic_hi) << 32) |
-                          (static_cast<uint64_t>(magic_lo)));
-  if (magic != kTableMagicNumber) {
-    return Status::Corruption("not an sstable (bad magic number)");
+  const char* bitwin24ic_ptr = input->data() + kEncodedLength - 8;
+  const uint32_t bitwin24ic_lo = DecodeFixed32(bitwin24ic_ptr);
+  const uint32_t bitwin24ic_hi = DecodeFixed32(bitwin24ic_ptr + 4);
+  const uint64_t bitwin24ic = ((static_cast<uint64_t>(bitwin24ic_hi) << 32) |
+                          (static_cast<uint64_t>(bitwin24ic_lo)));
+  if (bitwin24ic != kTableMagicNumber) {
+    return Status::Corruption("not an sstable (bad bitwin24ic number)");
   }
 
   Status result = metaindex_handle_.DecodeFrom(input);
@@ -56,7 +56,7 @@ Status Footer::DecodeFrom(Slice* input) {
   }
   if (result.ok()) {
     // We skip over any leftover data (just padding for now) in "input"
-    const char* end = magic_ptr + 8;
+    const char* end = bitwin24ic_ptr + 8;
     *input = Slice(end, input->data() + input->size() - end);
   }
   return result;

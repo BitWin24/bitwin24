@@ -43,10 +43,10 @@
         <file alias="tx_inout">res/icons/tx_inout.png</file>
         <file alias="unit_bitwin24">res/icons/unit_bitwin24.png</file>
         <file alias="unit_mbitwin24">res/icons/unit_mbitwin24.png</file>
-        <file alias="unit_ubitwin24">res/icons/unit_ubitwin24.png</file>
+        <file alias="unit_ubwi">res/icons/unit_ubwi.png</file>
         <file alias="unit_tbitwin24">res/icons/unit_tbitwin24.png</file>
         <file alias="unit_tmbitwin24">res/icons/unit_tmbitwin24.png</file>
-        <file alias="unit_tubitwin24">res/icons/unit_tubitwin24.png</file>
+        <file alias="unit_tubwi">res/icons/unit_tubwi.png</file>
         <file alias="lock_closed">res/icons/lock_closed.png</file>
         <file alias="lock_open">res/icons/lock_open.png</file>
         <file alias="lock_en">res/icons/lock_en.png</file>
@@ -66,7 +66,7 @@
     </qresource>
     <qresource prefix="/images">
         <file alias="about">res/images/about.png</file>
-        <file alias="bitwin24_logo_horizontal">res/images/mag_logo_horizontal.png</file>
+        <file alias="bitwin24_logo_horizontal">res/images/bitwin24_logo_horizontal.png</file>
         <file alias="merchant_ad">res/images/merchant.png</file>
         <file alias="rewards">res/images/rewards.png</file>
         <file alias="downArrow">res/images/downArrow_dark.png</file>

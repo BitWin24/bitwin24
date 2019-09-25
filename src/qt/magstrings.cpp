@@ -8,7 +8,7 @@
 #else
 #define UNUSED
 #endif
-static const char UNUSED *mag_strings[] = {
+static const char UNUSED *bitwin24_strings[] = {
 QT_TRANSLATE_NOOP("bitwin24-core", " mints deleted\n"),
 QT_TRANSLATE_NOOP("bitwin24-core", " mints updated, "),
 QT_TRANSLATE_NOOP("bitwin24-core", " unconfirmed transactions removed\n"),

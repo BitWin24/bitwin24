@@ -7,6 +7,6 @@ Comment[tr]=BITWIN24, eşten eşe kriptografik sanal para birimi
 Exec=bitwin24-qt %u
 Terminal=false
 Type=Application
-Icon=mag128
+Icon=bitwin24128
 MimeType=x-scheme-handler/bitwin24;
 Categories=Office;Finance;

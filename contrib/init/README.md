@@ -1,10 +1,10 @@
 Sample configuration files for:
 
-SystemD: magd.service
-Upstart: magd.conf
-OpenRC:  magd.openrc
-         magd.openrcconf
-CentOS:  magd.init
+SystemD: bitwin24d.service
+Upstart: bitwin24d.conf
+OpenRC:  bitwin24d.openrc
+         bitwin24d.openrcconf
+CentOS:  bitwin24d.init
 
 have been made available to assist packagers in creating node packages here.
 

@@ -6,9 +6,9 @@ and tests weren't explicitly disabled.
 
 After configuring, they can be run with 'make check'.
 
-To run the magd tests manually, launch src/test/test_mag .
+To run the bitwin24d tests manually, launch src/test/test_bitwin24 .
 
-To add more magd tests, add `BOOST_AUTO_TEST_CASE` functions to the existing
+To add more bitwin24d tests, add `BOOST_AUTO_TEST_CASE` functions to the existing
 .cpp files in the test/ directory or add new .cpp files that
 implement new BOOST_AUTO_TEST_SUITE sections.
 

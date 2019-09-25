@@ -81,7 +81,7 @@ bool AppInit(int argc, char* argv[])
             strUsage += LicenseInfo();
         } else {
             strUsage += "\n" + _("Usage:") + "\n" +
-                        "  magd [options]                     " + _("Start BitWin24 Core Daemon") + "\n";
+                        "  bitwin24d [options]                     " + _("Start BitWin24 Core Daemon") + "\n";
 
             strUsage += "\n" + HelpMessage(HMM_BITCOIND);
         }
@@ -121,7 +121,7 @@ bool AppInit(int argc, char* argv[])
                 fCommandLine = true;
 
         if (fCommandLine) {
-            fprintf(stderr, "Error: There is no RPC client functionality in magd any more. Use the bitwin24-cli utility instead.\n");
+            fprintf(stderr, "Error: There is no RPC client functionality in bitwin24d any more. Use the bitwin24-cli utility instead.\n");
             exit(1);
         }
 #ifndef WIN32
@@ -172,7 +172,7 @@ int main(int argc, char* argv[])
 {
     SetupEnvironment();
 
-    // Connect magd signal handlers
+    // Connect bitwin24d signal handlers
     noui_connect();
 
     return (AppInit(argc, argv) ? 0 : 1);

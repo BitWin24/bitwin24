@@ -133,7 +133,7 @@ CAmount CzBWITracker::GetBalance(bool fConfirmedOnly, bool fUnconfirmedOnly) con
     }
 
     {
-        //LOCK(cs_magtracker);
+        //LOCK(cs_bitwin24tracker);
         // Get Unused coins
         for (auto& it : mapSerialHashes) {
             CMintMeta meta = it.second;

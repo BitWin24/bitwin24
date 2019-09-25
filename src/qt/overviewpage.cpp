@@ -202,7 +202,7 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
 
     // BITWIN24 Balance
     CAmount nTotalBalance = balance + unconfirmedBalance;
-    CAmount magAvailableBalance = balance - immatureBalance - nLockedBalance;
+    CAmount bitwin24AvailableBalance = balance - immatureBalance - nLockedBalance;
     CAmount nUnlockedBalance = nTotalBalance - nLockedBalance;
 
     // BITWIN24 Watch-Only Balance
@@ -217,11 +217,11 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
     QString sPercentage = "";
     getPercentage(nUnlockedBalance, zerocoinBalance, sPercentage, szPercentage);
     // Combined balances
-    CAmount availableTotalBalance = magAvailableBalance + matureZerocoinBalance;
+    CAmount availableTotalBalance = bitwin24AvailableBalance + matureZerocoinBalance;
     CAmount sumTotalBalance = nTotalBalance + zerocoinBalance;
 
     // BITWIN24 labels
-    ui->labelBalance->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, magAvailableBalance, false, BitcoinUnits::separatorAlways));
+    ui->labelBalance->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, bitwin24AvailableBalance, false, BitcoinUnits::separatorAlways));
     ui->labelUnconfirmed->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, unconfirmedBalance, false, BitcoinUnits::separatorAlways));
     ui->labelImmature->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, immatureBalance, false, BitcoinUnits::separatorAlways));
     ui->labelLockedBalance->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, nLockedBalance, false, BitcoinUnits::separatorAlways));
@@ -266,7 +266,7 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
     bool showWatchOnly = nTotalWatchBalance != 0;
 
     // BITWIN24 Available
-    bool showBWIAvailable = settingShowAllBalances || magAvailableBalance != nTotalBalance;
+    bool showBWIAvailable = settingShowAllBalances || bitwin24AvailableBalance != nTotalBalance;
     bool showWatchOnlyBWIAvailable = showBWIAvailable || nAvailableWatchBalance != nTotalWatchBalance;
     ui->labelBalanceText->setVisible(showBWIAvailable || showWatchOnlyBWIAvailable);
     ui->labelBalance->setVisible(showBWIAvailable || showWatchOnlyBWIAvailable);

@@ -481,7 +481,7 @@ SOURCES += src/activemasternode.cpp \
            src/qt/csvmodelwriter.cpp \
            src/qt/obfuscationconfig.cpp \
            src/qt/bitwin24.cpp \
-           src/qt/magstrings.cpp \
+           src/qt/bitwin24strings.cpp \
            src/qt/editaddressdialog.cpp \
            src/qt/guiutil.cpp \
            src/qt/intro.cpp \
@@ -559,7 +559,7 @@ SOURCES += src/activemasternode.cpp \
            src/test/sighash_tests.cpp \
            src/test/sigopcount_tests.cpp \
            src/test/skiplist_tests.cpp \
-           src/test/test_mag.cpp \
+           src/test/test_bitwin24.cpp \
            src/test/timedata_tests.cpp \
            src/test/transaction_tests.cpp \
            src/test/uint256_tests.cpp \
@@ -650,21 +650,21 @@ SOURCES += src/activemasternode.cpp \
            src/leveldb/helpers/memenv/memenv.cc \
            src/leveldb/helpers/memenv/memenv_test.cc \
            src/secp256k1/src/java/org_bitcoin_NativeSecp256k1.c
-RESOURCES += src/qt/bitwin24.qrc src/qt/mag_locale.qrc
+RESOURCES += src/qt/bitwin24.qrc src/qt/bitwin24_locale.qrc
 
-TRANSLATIONS += src/qt/locale/mag_bg.ts \
-                src/qt/locale/mag_de.ts \
-                src/qt/locale/mag_en.ts \
-                src/qt/locale/mag_es.ts \
-                src/qt/locale/mag_fi.ts \
-                src/qt/locale/mag_fr.ts \
-                src/qt/locale/mag_it.ts \
-                src/qt/locale/mag_ja.ts \
-                src/qt/locale/mag_pl.ts \
-                src/qt/locale/mag_pt.ts \
-                src/qt/locale/mag_ru.ts \
-                src/qt/locale/mag_sk.ts \
-                src/qt/locale/mag_sv.ts \
-                src/qt/locale/mag_vi.ts \
-                src/qt/locale/mag_zh_CN.ts \
-                src/qt/locale/mag_zh_TW.ts
+TRANSLATIONS += src/qt/locale/bitwin24_bg.ts \
+                src/qt/locale/bitwin24_de.ts \
+                src/qt/locale/bitwin24_en.ts \
+                src/qt/locale/bitwin24_es.ts \
+                src/qt/locale/bitwin24_fi.ts \
+                src/qt/locale/bitwin24_fr.ts \
+                src/qt/locale/bitwin24_it.ts \
+                src/qt/locale/bitwin24_ja.ts \
+                src/qt/locale/bitwin24_pl.ts \
+                src/qt/locale/bitwin24_pt.ts \
+                src/qt/locale/bitwin24_ru.ts \
+                src/qt/locale/bitwin24_sk.ts \
+                src/qt/locale/bitwin24_sv.ts \
+                src/qt/locale/bitwin24_vi.ts \
+                src/qt/locale/bitwin24_zh_CN.ts \
+                src/qt/locale/bitwin24_zh_TW.ts

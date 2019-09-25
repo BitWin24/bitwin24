@@ -52,7 +52,7 @@ bool fPayAtLeastCustomFee = true;
 int64_t nStartupTime = GetTime(); //!< Client startup time for use with automint
 
 /**
- * Fees smaller than this (in umag) are considered zero fee (for transaction creation)
+ * Fees smaller than this (in ubwi) are considered zero fee (for transaction creation)
  * We are ~100 times smaller then bitcoin now (2015-06-23), set minTxFee 10 times higher
  * so it's still 10 times lower comparing to bitcoin.
  * Override with -mintxfee
@@ -2126,7 +2126,7 @@ bool CWallet::SelectStakeCoins(std::list<std::unique_ptr<CStakeInput> >& listInp
     vector<COutput> vCoins;
     AvailableCoins(vCoins, true, NULL, false, STAKABLE_COINS);
     CAmount nAmountSelected = 0;
-    if (GetBoolArg("-magstake", true)) {
+    if (GetBoolArg("-bitwin24stake", true)) {
         for (const COutput &out : vCoins) {
             //make sure not to outrun target amount
             if (nAmountSelected + out.tx->vout[out.i].nValue > nTargetAmount)
@@ -2196,7 +2196,7 @@ bool CWallet::MintableCoins()
 {
     LOCK(cs_main);
     CAmount nBalance = GetBalance();
-    CAmount nZmagBalance = GetZerocoinBalance(false);
+    CAmount nZbitwin24Balance = GetZerocoinBalance(false);
 
     // Regular BITWIN24
     if (nBalance > 0) {
@@ -2222,7 +2222,7 @@ bool CWallet::MintableCoins()
     }
 
     // zBWI
-    if (nZmagBalance > 0) {
+    if (nZbitwin24Balance > 0) {
         set<CMintMeta> setMints = zbwiTracker->ListMints(true, true, true);
         for (auto mint : setMints) {
             if (mint.nVersion < CZerocoinMint::STAKABLE_VERSION)

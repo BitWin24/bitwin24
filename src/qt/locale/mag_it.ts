@@ -1115,7 +1115,7 @@ MultiSend: %1</translation>
     </message>
     <message>
         <source>Transactions with higher priority are more likely to get included into a block.</source>
-        <translation>Transazioni con priorità maggiore verranno aggiunte con maggiore probabilità in un blocco.</translation>
+        <translation>Transazioni con priorità bitwin24giore verranno aggiunte con bitwin24giore probabilità in un blocco.</translation>
     </message>
     <message>
         <source>This label turns red, if the priority is smaller than "medium".</source>

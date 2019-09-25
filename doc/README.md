@@ -13,8 +13,8 @@ The following are some helpful notes on how to run BITWIN24 on your native platf
 
 Unpack the files into a directory and run:
 
-- bin/32/bitwin24-qt (GUI, 32-bit) or bin/32/magd (headless, 32-bit)
-- bin/64/bitwin24-qt (GUI, 64-bit) or bin/64/magd (headless, 64-bit)
+- bin/32/bitwin24-qt (GUI, 32-bit) or bin/32/bitwin24d (headless, 32-bit)
+- bin/64/bitwin24-qt (GUI, 64-bit) or bin/64/bitwin24d (headless, 64-bit)
 
 ### Windows
 

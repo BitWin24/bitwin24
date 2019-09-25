@@ -1,12 +1,12 @@
-.TH BWID "1" "February 2017" "magd 2.1.4.1"
+.TH BWID "1" "February 2017" "bitwin24d 2.1.4.1"
 .SH NAME
 BITWIN24 \- peer-to-peer network based digital currency
 .SH SYNOPSIS
-magd [options] <command> [params]
+bitwin24d [options] <command> [params]
 .TP
-magd [options] help <command> \- Get help for a command
+bitwin24d [options] help <command> \- Get help for a command
 .SH DESCRIPTION
-This  manual page documents the magd program. BITWIN24 is a peer-to-peer digital currency. Peer-to-peer (P2P) means that there is no central authority to issue new money or keep track of transactions. Instead, these tasks are managed collectively by the nodes of the network. Advantages:
+This  manual page documents the bitwin24d program. BITWIN24 is a peer-to-peer digital currency. Peer-to-peer (P2P) means that there is no central authority to issue new money or keep track of transactions. Instead, these tasks are managed collectively by the nodes of the network. Advantages:
 
 BITWIN24 can be sent easily through the Internet, without having to trust middlemen. Transactions are designed to be irreversible. Be safe from instability caused by fractional reserve banking and central banks. The limited inflation of the BITWIN24 system’s money supply is distributed evenly (by CPU power) throughout the network, not monopolized by banks.
 
@@ -70,10 +70,10 @@ This help message
 \fBbackupwallet 'destination'\fR
 Safely copies *wallet.dat* to 'destination', which can be a directory or a path with filename.
 .TP
-\fBgetaccount 'magaddress'\fR
+\fBgetaccount 'bitwin24address'\fR
 Returns the account associated with the given address.
 .TP
-\fBsetaccount 'magaddress' ['account']\fR
+\fBsetaccount 'bitwin24address' ['account']\fR
 Sets the ['account'] associated with the given address. ['account'] may be omitted to remove an address from ['account'].
 .TP
 \fBgetaccountaddress 'account'\fR
@@ -115,8 +115,8 @@ Returns a new bitwin24 address for receiving payments. If 'account' is specified
 \fBgetreceivedbyaccount 'account' ['minconf=1']\fR
 Returns the total amount received by addresses associated with 'account' in transactions with at least ['minconf'] confirmations.
 .TP
-\fBgetreceivedbyaddress 'magaddress' ['minconf=1']\fR
-Returns the total amount received by 'magaddress' in transactions with at least ['minconf'] confirmations.
+\fBgetreceivedbyaddress 'bitwin24address' ['minconf=1']\fR
+Returns the total amount received by 'bitwin24address' in transactions with at least ['minconf'] confirmations.
 .TP
 \fBgettransaction 'txid'\fR
 Returns information about a specific transaction, given hexadecimal transaction ID.
@@ -168,21 +168,21 @@ Returns a list of the last ['count'] transactions for 'account' \- for all accou
 \fBmove <'fromaccount'> <'toaccount'> <'amount'> ['minconf=1'] ['comment']\fR
 Moves funds between accounts.
 .TP
-\fBsendfrom* <'account'> <'magaddress'> <'amount'> ['minconf=1'] ['comment'] ['comment-to']\fR
-Sends amount from account's balance to 'magaddress'. This method will fail if there is less than amount BITWIN24 with ['minconf'] confirmations in the account's balance (unless account is the empty-string-named default account; it behaves like the *sendtoaddress* method). Returns transaction ID on success.
+\fBsendfrom* <'account'> <'bitwin24address'> <'amount'> ['minconf=1'] ['comment'] ['comment-to']\fR
+Sends amount from account's balance to 'bitwin24address'. This method will fail if there is less than amount BITWIN24 with ['minconf'] confirmations in the account's balance (unless account is the empty-string-named default account; it behaves like the *sendtoaddress* method). Returns transaction ID on success.
 .TP
-\fBsendtoaddress 'magaddress' 'amount' ['comment'] ['comment-to']\fR
-Sends amount from the server's available balance to 'magaddress'. amount is a real and is rounded to the nearest 0.01. Returns transaction id on success.
+\fBsendtoaddress 'bitwin24address' 'amount' ['comment'] ['comment-to']\fR
+Sends amount from the server's available balance to 'bitwin24address'. amount is a real and is rounded to the nearest 0.01. Returns transaction id on success.
 .TP
 \fBstop\fR
 Stops the bitwin24 server.
 .TP
-\fBvalidateaddress 'magaddress'\fR
-Checks that 'magaddress' looks like a proper BITWIN24 address. Returns an object containing:
+\fBvalidateaddress 'bitwin24address'\fR
+Checks that 'bitwin24address' looks like a proper BITWIN24 address. Returns an object containing:
 
     "isvalid" : true or false.
     "ismine"  : true if the address is in the server's wallet.
-    "address" : magaddress.
+    "address" : bitwin24address.
 
     *note: ismine and address are only returned if the address is valid.
 

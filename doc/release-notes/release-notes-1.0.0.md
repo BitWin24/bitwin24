@@ -12,7 +12,7 @@ Existing users have up till November 12, 2018 to Swap their coins on [Cryptopia 
 How to Install / Upgrade
 ==============
 
-If you are running an older version, shut it down. Wait until it has completely shut down (which might take a few minutes for older versions), then run the installer (on Windows) or just copy over /Applications/BITWIN24-Qt (on Mac) or magd/bitwin24-qt (on Linux).
+If you are running an older version, shut it down. Wait until it has completely shut down (which might take a few minutes for older versions), then run the installer (on Windows) or just copy over /Applications/BITWIN24-Qt (on Mac) or bitwin24d/bitwin24-qt (on Linux).
 
 Compatibility
 ==============

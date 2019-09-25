@@ -7,13 +7,13 @@ User=bitwin24
 Group=bitwin24
 
 Type=forking
-PIDFile=/var/lib/magd/magd.pid
+PIDFile=/var/lib/bitwin24d/bitwin24d.pid
 
-ExecStart=/usr/bin/magd -daemon -pid=/var/lib/magd/magd.pid \
-          -conf=/etc/bitwin24/bitwin24.conf -datadir=/var/lib/magd
+ExecStart=/usr/bin/bitwin24d -daemon -pid=/var/lib/bitwin24d/bitwin24d.pid \
+          -conf=/etc/bitwin24/bitwin24.conf -datadir=/var/lib/bitwin24d
 
 ExecStop=-/usr/bin/bitwin24-cli -conf=/etc/bitwin24/bitwin24.conf \
-         -datadir=/var/lib/magd stop
+         -datadir=/var/lib/bitwin24d stop
 
 Restart=always
 PrivateTmp=true

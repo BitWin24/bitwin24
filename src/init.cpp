@@ -379,7 +379,7 @@ std::string HelpMessage(HelpMessageMode mode)
     strUsage += HelpMessageOpt("-maxorphantx=<n>", strprintf(_("Keep at most <n> unconnectable transactions in memory (default: %u)"), DEFAULT_MAX_ORPHAN_TRANSACTIONS));
     strUsage += HelpMessageOpt("-par=<n>", strprintf(_("Set the number of script verification threads (%u to %d, 0 = auto, <0 = leave that many cores free, default: %d)"), -(int)boost::thread::hardware_concurrency(), MAX_SCRIPTCHECK_THREADS, DEFAULT_SCRIPTCHECK_THREADS));
 #ifndef WIN32
-    strUsage += HelpMessageOpt("-pid=<file>", strprintf(_("Specify pid file (default: %s)"), "magd.pid"));
+    strUsage += HelpMessageOpt("-pid=<file>", strprintf(_("Specify pid file (default: %s)"), "bitwin24d.pid"));
 #endif
     strUsage += HelpMessageOpt("-reindex", _("Rebuild block chain index from current blk000??.dat files") + " " + _("on startup"));
     strUsage += HelpMessageOpt("-reindexaccumulators", _("Reindex the accumulator database") + " " + _("on startup"));
@@ -518,7 +518,7 @@ std::string HelpMessage(HelpMessageMode mode)
 #ifdef ENABLE_WALLET
     strUsage += HelpMessageGroup(_("Staking options:"));
     strUsage += HelpMessageOpt("-staking=<n>", strprintf(_("Enable staking functionality (0-1, default: %u)"), 1));
-    strUsage += HelpMessageOpt("-magstake=<n>", strprintf(_("Enable or disable staking functionality for BITWIN24 inputs (0-1, default: %u)"), 1));
+    strUsage += HelpMessageOpt("-bitwin24stake=<n>", strprintf(_("Enable or disable staking functionality for BITWIN24 inputs (0-1, default: %u)"), 1));
     strUsage += HelpMessageOpt("-zbwistake=<n>", strprintf(_("Enable or disable staking functionality for zBITWIN24 inputs (0-1, default: %u)"), 1));
     strUsage += HelpMessageOpt("-reservebalance=<amt>", _("Keep the specified amount available for spending at all times (default: 0)"));
     if (GetBoolArg("-help-debug", false)) {
@@ -546,7 +546,7 @@ std::string HelpMessage(HelpMessageMode mode)
 #endif // ENABLE_WALLET
         strUsage += HelpMessageOpt("-reindexzerocoin=<n>", strprintf(_("Delete all zerocoin spends and mints that have been recorded to the blockchain database and reindex them (0-1, default: %u)"), 0));
     }
-//    strUsage += "  -anonymizemagamount=<n>     " + strprintf(_("Keep N BITWIN24 anonymized (default: %u)"), 0) + "\n";
+//    strUsage += "  -anonymizebitwin24amount=<n>     " + strprintf(_("Keep N BITWIN24 anonymized (default: %u)"), 0) + "\n";
 //    strUsage += "  -liquidityprovider=<n>       " + strprintf(_("Provide liquidity to Obfuscation by infrequently mixing coins on a continual basis (0-100, default: %u, 1=very frequent, high fees, 100=very infrequent, low fees)"), 0) + "\n";
 
     strUsage += HelpMessageGroup(_("SwiftX options:"));
@@ -1720,7 +1720,7 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
     else if (readResult != CMasternodeDB::Ok) {
         LogPrintf("Error reading mncache.dat: ");
         if (readResult == CMasternodeDB::IncorrectFormat)
-            LogPrintf("magic is ok but data has invalid format, will try to recreate\n");
+            LogPrintf("bitwin24ic is ok but data has invalid format, will try to recreate\n");
         else
             LogPrintf("file format is unknown or invalid, please fix it manually\n");
     }
@@ -1735,7 +1735,7 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
     else if (readResult2 != CBudgetDB::Ok) {
         LogPrintf("Error reading budget.dat: ");
         if (readResult2 == CBudgetDB::IncorrectFormat)
-            LogPrintf("magic is ok but data has invalid format, will try to recreate\n");
+            LogPrintf("bitwin24ic is ok but data has invalid format, will try to recreate\n");
         else
             LogPrintf("file format is unknown or invalid, please fix it manually\n");
     }
@@ -1755,7 +1755,7 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
     else if (readResult3 != CMasternodePaymentDB::Ok) {
         LogPrintf("Error reading mnpayments.dat: ");
         if (readResult3 == CMasternodePaymentDB::IncorrectFormat)
-            LogPrintf("magic is ok but data has invalid format, will try to recreate\n");
+            LogPrintf("bitwin24ic is ok but data has invalid format, will try to recreate\n");
         else
             LogPrintf("file format is unknown or invalid, please fix it manually\n");
     }
@@ -1836,7 +1836,7 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
 //        nZeromintPercentage = 99999;
 //    }
 //
-//    nAnonymizeMagAmount = GetArg("-anonymizemagamount", 0);
+//    nAnonymizeMagAmount = GetArg("-anonymizebitwin24amount", 0);
 //    if (nAnonymizeMagAmount > 999999) nAnonymizeMagAmount = 999999;
 //    if (nAnonymizeMagAmount < 2) nAnonymizeMagAmount = 2;
 

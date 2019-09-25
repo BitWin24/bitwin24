@@ -11,7 +11,7 @@
 
 /**
  * Name of client reported in the 'version' message. Report the same name
- * for both magd and bitwin24-qt, to make it harder for attackers to
+ * for both bitwin24d and bitwin24-qt, to make it harder for attackers to
  * target servers or GUI users specifically.
  */
 const std::string CLIENT_NAME("BITWIN24 Core");

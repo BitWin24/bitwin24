@@ -135,9 +135,9 @@ If your remote server is not running, start your remote daemon as you normally w
 
 I usually confirm that remote is on the correct block by issuing:
 
-```magd getinfo```
+```bitwin24d getinfo```
 
-And compare with the official explorer at http://magexplorer.coin-server.com <or> dnet.presstab.pw
+And compare with the official explorer at http://bitwin24explorer.coin-server.com <or> dnet.presstab.pw
 
 ### Local
 

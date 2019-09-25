@@ -65,7 +65,7 @@ noinst_PROGRAMS =
 TESTS =
 
 if BUILD_BITCOIND
-  bin_PROGRAMS += magd
+  bin_PROGRAMS += bitwin24d
 endif
 
 if BUILD_BITCOIN_UTILS
@@ -191,7 +191,7 @@ obj/build.h: FORCE
 	  "$(abs_top_srcdir)"
 libbitcoin_util_a-clientversion.$(OBJEXT): obj/build.h
 
-# server: shared between magd and bitwin24-qt
+# server: shared between bitwin24d and bitwin24-qt
 libbitcoin_server_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(MINIUPNPC_CPPFLAGS) $(EVENT_CFLAGS) $(EVENT_PTHREADS_CFLAGS)
 libbitcoin_server_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 libbitcoin_server_a_SOURCES = \
@@ -239,7 +239,7 @@ libbitcoin_zmq_a_SOURCES = \
   zmq/zmqpublishnotifier.cpp
 endif
 
-# wallet: shared between magd and bitwin24-qt, but only linked
+# wallet: shared between bitwin24d and bitwin24-qt, but only linked
 # when wallet enabled
 libbitcoin_wallet_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 libbitcoin_wallet_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
@@ -344,7 +344,7 @@ libzerocoin_libbitcoin_zerocoin_a_SOURCES = \
   libzerocoin/Params.cpp \
   libzerocoin/SerialNumberSignatureOfKnowledge.cpp
 
-# common: shared between magd, and bitwin24-qt and non-server tools
+# common: shared between bitwin24d, and bitwin24-qt and non-server tools
 libbitcoin_common_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 libbitcoin_common_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 libbitcoin_common_a_SOURCES = \
@@ -418,16 +418,16 @@ libbitcoin_cli_a_SOURCES = \
 nodist_libbitcoin_util_a_SOURCES = $(srcdir)/obj/build.h
 #
 
-# magd binary #
-magd_SOURCES = magd.cpp
-magd_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-magd_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-magd_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+# bitwin24d binary #
+bitwin24d_SOURCES = bitwin24d.cpp
+bitwin24d_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+bitwin24d_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+bitwin24d_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-magd_SOURCES += magd-res.rc
+bitwin24d_SOURCES += bitwin24d-res.rc
 endif
-magd_LDADD = \
+bitwin24d_LDADD = \
   $(LIBBITCOIN_SERVER) \
   $(LIBBITCOIN_COMMON) \
   $(LIBUNIVALUE) \
@@ -441,38 +441,38 @@ magd_LDADD = \
   $(LIBMEMENV) \
   $(LIBSECP256K1)
 
-magd_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(ZMQ_LIBS)
+bitwin24d_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(ZMQ_LIBS)
 
 # bitwin24-cli binary #
-mag_cli_SOURCES = bitwin24-cli.cpp
-mag_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
-mag_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-mag_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+bitwin24_cli_SOURCES = bitwin24-cli.cpp
+bitwin24_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
+bitwin24_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+bitwin24_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-mag_cli_SOURCES += bitwin24-cli-res.rc
+bitwin24_cli_SOURCES += bitwin24-cli-res.rc
 endif
 
-mag_cli_LDADD = \
+bitwin24_cli_LDADD = \
   $(LIBBITCOIN_CLI) \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_UTIL) \
   $(LIBBITCOIN_CRYPTO)
 
-mag_cli_LDADD += $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS)
+bitwin24_cli_LDADD += $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS)
 #
 
 # bitwin24-tx binary #
-mag_tx_SOURCES = bitwin24-tx.cpp
-mag_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-mag_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-mag_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+bitwin24_tx_SOURCES = bitwin24-tx.cpp
+bitwin24_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+bitwin24_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+bitwin24_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-mag_tx_SOURCES += bitwin24-tx-res.rc
+bitwin24_tx_SOURCES += bitwin24-tx-res.rc
 endif
 
-mag_tx_LDADD = \
+bitwin24_tx_LDADD = \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_COMMON) \
   $(LIBBITCOIN_ZEROCOIN) \
@@ -480,7 +480,7 @@ mag_tx_LDADD = \
   $(LIBBITCOIN_CRYPTO) \
   $(LIBSECP256K1)
 
-mag_tx_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS)
+bitwin24_tx_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS)
 #
 
 # bitcoinconsensus library #

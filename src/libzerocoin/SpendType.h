@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef MAG_SPENDTYPE_H
-#define MAG_SPENDTYPE_H
+#ifndef BITWIN24_SPENDTYPE_H
+#define BITWIN24_SPENDTYPE_H
 
 #include <cstdint>
 
@@ -16,4 +16,4 @@ namespace libzerocoin {
     };
 }
 
-#endif //MAG_SPENDTYPE_H
+#endif //BITWIN24_SPENDTYPE_H

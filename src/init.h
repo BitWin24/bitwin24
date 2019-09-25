@@ -12,7 +12,7 @@
 
 class CScheduler;
 class CWallet;
-class CzMAGWallet;
+class CzBWIWallet;
 
 namespace boost
 {
@@ -20,7 +20,7 @@ class thread_group;
 } // namespace boost
 
 extern CWallet* pwalletMain;
-extern CzMAGWallet* zwalletMain;
+extern CzBWIWallet* zwalletMain;
 
 void StartShutdown();
 bool ShutdownRequested();

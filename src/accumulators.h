@@ -3,8 +3,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef MAG_ACCUMULATORS_H
-#define MAG_ACCUMULATORS_H
+#ifndef BITWIN24_ACCUMULATORS_H
+#define BITWIN24_ACCUMULATORS_H
 
 #include "libzerocoin/Accumulator.h"
 #include "libzerocoin/Coin.h"

@@ -5,8 +5,8 @@
 
 
 
-#ifndef MAG_INVALID_SERIALS_JSON_H
-#define MAG_INVALID_SERIALS_JSON_H
+#ifndef BITWIN24_INVALID_SERIALS_JSON_H
+#define BITWIN24_INVALID_SERIALS_JSON_H
 
 #include <string>
 
@@ -1190,4 +1190,4 @@ std::string LoadInvalidSerials()
     return str;
 }
 
-#endif //MAG_INVALID_SERIALS_JSON_H
+#endif //BITWIN24_INVALID_SERIALS_JSON_H

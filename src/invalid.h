@@ -3,10 +3,10 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef MAG_INVALID_H
-#define MAG_INVALID_H
+#ifndef BITWIN24_INVALID_H
+#define BITWIN24_INVALID_H
 
-#endif //MAG_INVALID_H
+#endif //BITWIN24_INVALID_H
 
 #include <libzerocoin/bignum.h>
 #include <univalue/include/univalue.h>

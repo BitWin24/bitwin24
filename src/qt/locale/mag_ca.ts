@@ -168,7 +168,7 @@
         <translation>Confirma l'encriptació del moneder</translation>
     </message>
     <message>
-        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your MAGs from being stolen by malware infecting your computer.</source>
+        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your BITWIN24s from being stolen by malware infecting your computer.</source>
         <translation>BITWIN24 es tancarà per finalitzar el procés d'encriptació. Recorda que encriptant el teu moneder no protegeix els teus BITWIN24 de ser robats si el teu ordinador està infectat amb programari maliciós.</translation>
     </message>
     <message>
@@ -177,7 +177,7 @@
     </message>
     <message>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITWIN24&lt;/b&gt;!</source>
-        <translation>Avís: Si encripteu el vostre moneder i perdeu la contrasenya, &lt;b&gt;PERDREU TOTS ELS VOSTRES MAGS&lt;/b&gt;!</translation>
+        <translation>Avís: Si encripteu el vostre moneder i perdeu la contrasenya, &lt;b&gt;PERDREU TOTS ELS VOSTRES BITWIN24S&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Wallet encrypted</source>

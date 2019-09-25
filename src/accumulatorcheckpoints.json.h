@@ -476,4 +476,4 @@ std::string GetRegTestCheckpoints() {
     return strRegTestCheckpoints;
 }
 
-#endif //MAG_ACCUMULATORCHECKPOINTS_JSON_H
+#endif //BITWIN24_ACCUMULATORCHECKPOINTS_JSON_H

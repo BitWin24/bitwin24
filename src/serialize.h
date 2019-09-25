@@ -965,4 +965,4 @@ public:
     }
 };
 
-#endif // MAG_SERIALIZE_H
+#endif // BITWIN24_SERIALIZE_H

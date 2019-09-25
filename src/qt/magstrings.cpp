@@ -58,12 +58,12 @@ QT_TRANSLATE_NOOP("bitwin24-core", ""
 QT_TRANSLATE_NOOP("bitwin24-core", ""
 "Enable SwiftX, show confirmations for locked transactions (bool, default: %s)"),
 QT_TRANSLATE_NOOP("bitwin24-core", ""
-"Enable automatic wallet backups triggered after each zMAG minting (0-1, "
+"Enable automatic wallet backups triggered after each zBWI minting (0-1, "
 "default: %u)"),
 QT_TRANSLATE_NOOP("bitwin24-core", ""
 "Enable or disable staking functionality for BITWIN24 inputs (0-1, default: %u)"),
 QT_TRANSLATE_NOOP("bitwin24-core", ""
-"Enable or disable staking functionality for zMAG inputs (0-1, default: %u)"),
+"Enable or disable staking functionality for zBWI inputs (0-1, default: %u)"),
 QT_TRANSLATE_NOOP("bitwin24-core", ""
 "Enable spork administration functionality with the appropriate private key."),
 QT_TRANSLATE_NOOP("bitwin24-core", ""
@@ -171,7 +171,7 @@ QT_TRANSLATE_NOOP("bitwin24-core", ""
 "Show N confirmations for a successfully locked transaction (0-9999, default: "
 "%u)"),
 QT_TRANSLATE_NOOP("bitwin24-core", ""
-"Specify custom backup path to add a copy of any automatic zMAG backup. If "
+"Specify custom backup path to add a copy of any automatic zBWI backup. If "
 "set as dir, every backup generates a timestamped file. If set as file, will "
 "rewrite to that file every backup. If backuppath is set as well, 4 backups "
 "will happen"),

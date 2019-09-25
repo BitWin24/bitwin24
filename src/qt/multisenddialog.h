@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef MAG_QT_MULTISENDDIALOG_H
-#define MAG_QT_MULTISENDDIALOG_H
+#ifndef BITWIN24_QT_MULTISENDDIALOG_H
+#define BITWIN24_QT_MULTISENDDIALOG_H
 
 #include <QDialog>
 
@@ -38,4 +38,4 @@ private:
     WalletModel* model;
 };
 
-#endif // MAG_QT_MULTISENDDIALOG_H
+#endif // BITWIN24_QT_MULTISENDDIALOG_H

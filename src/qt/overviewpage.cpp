@@ -268,30 +268,30 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
     // BITWIN24 Available
     bool showBWIAvailable = settingShowAllBalances || magAvailableBalance != nTotalBalance;
     bool showWatchOnlyBWIAvailable = showBWIAvailable || nAvailableWatchBalance != nTotalWatchBalance;
-    ui->labelBalanceText->setVisible(showBWIAvailable || showWatchOnlyMAGAvailable);
-    ui->labelBalance->setVisible(showMAGAvailable || showWatchOnlyMAGAvailable);
-    ui->labelWatchAvailable->setVisible(showWatchOnlyMAGAvailable && showWatchOnly);
+    ui->labelBalanceText->setVisible(showBWIAvailable || showWatchOnlyBWIAvailable);
+    ui->labelBalance->setVisible(showBWIAvailable || showWatchOnlyBWIAvailable);
+    ui->labelWatchAvailable->setVisible(showWatchOnlyBWIAvailable && showWatchOnly);
 
     // BITWIN24 Pending
-    bool showMAGPending = settingShowAllBalances || unconfirmedBalance != 0;
-    bool showWatchOnlyMAGPending = showMAGPending || watchUnconfBalance != 0;
-    ui->labelPendingText->setVisible(showMAGPending || showWatchOnlyMAGPending);
-    ui->labelUnconfirmed->setVisible(showMAGPending || showWatchOnlyMAGPending);
-    ui->labelWatchPending->setVisible(showWatchOnlyMAGPending && showWatchOnly);
+    bool showBWIPending = settingShowAllBalances || unconfirmedBalance != 0;
+    bool showWatchOnlyBWIPending = showBWIPending || watchUnconfBalance != 0;
+    ui->labelPendingText->setVisible(showBWIPending || showWatchOnlyBWIPending);
+    ui->labelUnconfirmed->setVisible(showBWIPending || showWatchOnlyBWIPending);
+    ui->labelWatchPending->setVisible(showWatchOnlyBWIPending && showWatchOnly);
 
     // BITWIN24 Immature
-    bool showMAGImmature = settingShowAllBalances || immatureBalance != 0;
-    bool showWatchOnlyImmature = showMAGImmature || watchImmatureBalance != 0;
-    ui->labelImmatureText->setVisible(showMAGImmature || showWatchOnlyImmature);
-    ui->labelImmature->setVisible(showMAGImmature || showWatchOnlyImmature); // for symmetry reasons also show immature label when the watch-only one is shown
+    bool showBWIImmature = settingShowAllBalances || immatureBalance != 0;
+    bool showWatchOnlyImmature = showBWIImmature || watchImmatureBalance != 0;
+    ui->labelImmatureText->setVisible(showBWIImmature || showWatchOnlyImmature);
+    ui->labelImmature->setVisible(showBWIImmature || showWatchOnlyImmature); // for symmetry reasons also show immature label when the watch-only one is shown
     ui->labelWatchImmature->setVisible(showWatchOnlyImmature && showWatchOnly); // show watch-only immature balance
 
     // BITWIN24 Locked
-    bool showMAGLocked = settingShowAllBalances || nLockedBalance != 0;
-    bool showWatchOnlyMAGLocked = showMAGLocked || nWatchOnlyLockedBalance != 0;
-    ui->labelLockedBalanceText->setVisible(showMAGLocked || showWatchOnlyMAGLocked);
-    ui->labelLockedBalance->setVisible(showMAGLocked || showWatchOnlyMAGLocked);
-    ui->labelWatchLocked->setVisible(showWatchOnlyMAGLocked && showWatchOnly);
+    bool showBWILocked = settingShowAllBalances || nLockedBalance != 0;
+    bool showWatchOnlyBWILocked = showBWILocked || nWatchOnlyLockedBalance != 0;
+    ui->labelLockedBalanceText->setVisible(showBWILocked || showWatchOnlyBWILocked);
+    ui->labelLockedBalance->setVisible(showBWILocked || showWatchOnlyBWILocked);
+    ui->labelWatchLocked->setVisible(showWatchOnlyBWILocked && showWatchOnly);
 
     // Masternode and Stake Earnings.
     ui->labelStakeRewards->setVisible(true);
@@ -301,8 +301,8 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
 
     // Percent split
     //bool showPercentages = ! (zerocoinBalance == 0 && nTotalBalance == 0);
-    ui->labelMAGPercent->setVisible(false);
-    ui->labelzMAGPercent->setVisible(false);
+    ui->labelBWIPercent->setVisible(false);
+    ui->labelzBWIPercent->setVisible(false);
 
     static int cachedTxLocks = 0;
 

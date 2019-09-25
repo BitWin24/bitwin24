@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef MAG_ZMAGTRACKER_H
-#define MAG_ZMAGTRACKER_H
+#ifndef BITWIN24_ZMAGTRACKER_H
+#define BITWIN24_ZMAGTRACKER_H
 
 #include "primitives/zerocoin.h"
 #include <list>
@@ -48,4 +48,4 @@ public:
     void Clear();
 };
 
-#endif //MAG_ZMAGTRACKER_H
+#endif //BITWIN24_ZBITWIN24TRACKER_H

@@ -81,7 +81,7 @@ private:
 
     int nDisplayUnit;
     bool updateLabel(const QString& address);
-    void sendzMAG();
+    void sendzBWI();
 
 private slots:
     void on_payTo_textChanged(const QString& address);
@@ -101,10 +101,10 @@ private slots:
 //    void coinControlClipboardLowOutput();
 //    void coinControlClipboardChange();
 
-    void on_pushButtonMintzMAG_clicked();
+    void on_pushButtonMintzBWI_clicked();
     void on_pushButtonMintReset_clicked();
     void on_pushButtonSpentReset_clicked();
-    void on_pushButtonSpendzMAG_clicked();
+    void on_pushButtonSpendzBWI_clicked();
     void on_pushButtonZBWIControl_clicked();
     void on_pushButtonHideDenoms_clicked();
     void on_pushButtonShowDenoms_clicked();

@@ -1125,8 +1125,8 @@ Adresse: %4</translation>
         <translation>Diese Bezeichnung wird rot, wenn ein Empfänger einen Betrag erhält, der kleiner ist als %1.</translation>
     </message>
     <message>
-        <source>Can vary +/- %1 umag per input.</source>
-        <translation>Kann um +/- %1 umag pro Eingang variieren.</translation>
+        <source>Can vary +/- %1 ubwi per input.</source>
+        <translation>Kann um +/- %1 ubwi pro Eingang variieren.</translation>
     </message>
     <message>
         <source>(no label)</source>

@@ -1122,8 +1122,8 @@ MultiSend: %1</translation>
         <translation>Ši etiketė taps raudona, jei gavėjas gaus sumą mažesnę už %1</translation>
     </message>
     <message>
-        <source>Can vary +/- %1 umag per input.</source>
-        <translation>Gali skirtis +/- %1 umag kiekvienoje įvestyje.</translation>
+        <source>Can vary +/- %1 ubwi per input.</source>
+        <translation>Gali skirtis +/- %1 ubwi kiekvienoje įvestyje.</translation>
     </message>
     <message>
         <source>(no label)</source>

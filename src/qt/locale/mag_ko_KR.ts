@@ -1130,8 +1130,8 @@ Address: %4
         <translation>받는 사람이 %1 보다 작은 금액을 받으면 라벨이 빨간색으로 변경됩니다.</translation>
     </message>
     <message>
-        <source>Can vary +/- %1 umag per input.</source>
-        <translation>Can vary +/- %1 umag per input.</translation>
+        <source>Can vary +/- %1 ubwi per input.</source>
+        <translation>Can vary +/- %1 ubwi per input.</translation>
     </message>
     <message>
         <source>(no label)</source>

@@ -1126,8 +1126,8 @@ Address: %4
         <translation>Етикета става червен, когато получателя ще получи сума по-малка от %1.</translation>
     </message>
     <message>
-        <source>Can vary +/- %1 umag per input.</source>
-        <translation>Може да има разлика от +/- %1 umag на вх.</translation>
+        <source>Can vary +/- %1 ubwi per input.</source>
+        <translation>Може да има разлика от +/- %1 ubwi на вх.</translation>
     </message>
     <message>
         <source>(no label)</source>

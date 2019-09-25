@@ -1122,8 +1122,8 @@ Muktisendi: %1</translation>
         <translation>Ĉi tiun etikedo ruĝiĝas se iu ajna ricevanto ricevas totalo pli malgranda ol %1.</translation>
     </message>
     <message>
-        <source>Can vary +/- %1 umag per input.</source>
-        <translation>Povas varii +/- %1 umag per enigo.</translation>
+        <source>Can vary +/- %1 ubwi per input.</source>
+        <translation>Povas varii +/- %1 ubwi per enigo.</translation>
     </message>
     <message>
         <source>(no label)</source>

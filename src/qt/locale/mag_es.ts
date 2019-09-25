@@ -1130,8 +1130,8 @@ MultiEnvío: %1</translation>
         <translation>Esta etiqueta se vuelve roja, si algún destinatario recibe una cantidad menor que %1.</translation>
     </message>
     <message>
-        <source>Can vary +/- %1 umag per input.</source>
-        <translation>Puede variar +/- %1 umag por entrada.</translation>
+        <source>Can vary +/- %1 ubwi per input.</source>
+        <translation>Puede variar +/- %1 ubwi por entrada.</translation>
     </message>
     <message>
         <source>(no label)</source>

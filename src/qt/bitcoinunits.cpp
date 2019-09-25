@@ -45,7 +45,7 @@ QString BitcoinUnits::id(int unit)
     case mBITWIN24:
         return QString("mmag");
     case uBITWIN24:
-        return QString::fromUtf8("umag");
+        return QString::fromUtf8("ubwi");
     default:
         return QString("???");
     }

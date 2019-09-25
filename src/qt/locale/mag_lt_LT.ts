@@ -62,12 +62,12 @@
         <translation>Gavimo adresai</translation>
     </message>
     <message>
-        <source>These are your MAG addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Tai jūsų MAG adresai mokėjimų išsiuntimams. Visada patikrinkite sumą ir gavėjo adresą prieš siųsdami monetas.</translation>
+        <source>These are your BITWIN24 addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Tai jūsų BITWIN24 adresai mokėjimų išsiuntimams. Visada patikrinkite sumą ir gavėjo adresą prieš siųsdami monetas.</translation>
     </message>
     <message>
-        <source>These are your MAG addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Tai jūsų MAG adresai mokėjimų gavimams. Rekomenduojama naudoti naują adresą kiekvienam pavedimui.</translation>
+        <source>These are your BITWIN24 addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Tai jūsų BITWIN24 adresai mokėjimų gavimams. Rekomenduojama naudoti naują adresą kiekvienam pavedimui.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -176,16 +176,16 @@
         <translation>Patvirtinkite piniginės užšifravimą.</translation>
     </message>
     <message>
-        <source>MAG will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your MAGs from being stolen by malware infecting your computer.</source>
-        <translation>Dabar MAG išsijungs, kad būtų užbaigtas šifravimo procesas. Atminkite, kad jūsų piniginės užšifravimas negali visiškai apsaugoti jūsų MAG nuo kenkėjiškų programų, užkrėsto jūsų kompiuterio.</translation>
+        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your MAGs from being stolen by malware infecting your computer.</source>
+        <translation>Dabar BITWIN24 išsijungs, kad būtų užbaigtas šifravimo procesas. Atminkite, kad jūsų piniginės užšifravimas negali visiškai apsaugoti jūsų BITWIN24 nuo kenkėjiškų programų, užkrėsto jūsų kompiuterio.</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
         <translation>Ar tikrai norite užšifruoti savo piniginę?</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MAG&lt;/b&gt;!</source>
-        <translation>Įspėjimas: jei užšifruosite savo piniginę ir prarasite slaptafrazę, jūs &lt;b&gt;PRARASITE VISUS SAVO MAG&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITWIN24&lt;/b&gt;!</source>
+        <translation>Įspėjimas: jei užšifruosite savo piniginę ir prarasite slaptafrazę, jūs &lt;b&gt;PRARASITE VISUS SAVO BITWIN24&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Wallet encrypted</source>
@@ -254,12 +254,12 @@
         <translation>Adresas:</translation>
     </message>
     <message>
-        <source>Enter a MAG Address that you would like to encrypt using BIP 38. Enter a passphrase in the middle box. Press encrypt to compute the encrypted private key.</source>
+        <source>Enter a BITWIN24 Address that you would like to encrypt using BIP 38. Enter a passphrase in the middle box. Press encrypt to compute the encrypted private key.</source>
         <translation>Įveskite BitWin24 adresą, kurį norėtumėte užšifruoti naudojant BIP 38. Vidiniame laukelyje įrašykite slaptą frazę. Paspauskite užšifruoti, jei norite gauti užšifruotą privatųjį raktą.</translation>
     </message>
     <message>
-        <source>The MAG address to encrypt</source>
-        <translation>MAG adresas, kurį norite užšifruoti</translation>
+        <source>The BITWIN24 address to encrypt</source>
+        <translation>BITWIN24 adresas, kurį norite užšifruoti</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -290,8 +290,8 @@
         <translation>Kopijuoti dabartinį parašą</translation>
     </message>
     <message>
-        <source>Encrypt the private key for this MAG address</source>
-        <translation>Užšifruoti šio MAG adreso privatų raktą</translation>
+        <source>Encrypt the private key for this BITWIN24 address</source>
+        <translation>Užšifruoti šio BITWIN24 adreso privatų raktą</translation>
     </message>
     <message>
         <source>Reset all fields</source>
@@ -645,12 +645,12 @@
         <translation>Skirtukų įrankių juosta</translation>
     </message>
     <message>
-        <source>MAG Core</source>
-        <translation>MAG Core</translation>
+        <source>BITWIN24 Core</source>
+        <translation>BITWIN24 Core</translation>
     </message>
     <message>
-        <source>Send coins to a MAG address</source>
-        <translation>Siųsti monetas į MAG adresą</translation>
+        <source>Send coins to a BITWIN24 address</source>
+        <translation>Siųsti monetas į BITWIN24 adresą</translation>
     </message>
     <message>
         <source>Request payments (generates QR codes and bitwin24: URIs)</source>
@@ -669,24 +669,24 @@
         <translation>Naršyti masternod'us</translation>
     </message>
     <message>
-        <source>&amp;About MAG Core</source>
-        <translation>&amp;Apie MAG Core</translation>
+        <source>&amp;About BITWIN24 Core</source>
+        <translation>&amp;Apie BITWIN24 Core</translation>
     </message>
     <message>
-        <source>Show information about MAG Core</source>
-        <translation>Rodyti informaciją apie MAG Core</translation>
+        <source>Show information about BITWIN24 Core</source>
+        <translation>Rodyti informaciją apie BITWIN24 Core</translation>
     </message>
     <message>
-        <source>Modify configuration options for MAG</source>
-        <translation>Keisti MAG konfigūravimo parinktis</translation>
+        <source>Modify configuration options for BITWIN24</source>
+        <translation>Keisti BITWIN24 konfigūravimo parinktis</translation>
     </message>
     <message>
-        <source>Sign messages with your MAG addresses to prove you own them</source>
-        <translation>Pasirašykite pranešimus naudodami savo MAG adresus, kad įrodytumėte, kad juos turite</translation>
+        <source>Sign messages with your BITWIN24 addresses to prove you own them</source>
+        <translation>Pasirašykite pranešimus naudodami savo BITWIN24 adresus, kad įrodytumėte, kad juos turite</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified MAG addresses</source>
-        <translation>Patvirtinkite pranešimus, kad jie būtų pasirašyti su nurodytais MAG adresais</translation>
+        <source>Verify messages to ensure they were signed with specified BITWIN24 addresses</source>
+        <translation>Patvirtinkite pranešimus, kad jie būtų pasirašyti su nurodytais BITWIN24 adresais</translation>
     </message>
     <message>
         <source>&amp;BIP38 tool</source>
@@ -717,8 +717,8 @@
         <translation>Atidaryti Masternod'o konfigūracijos failą</translation>
     </message>
     <message>
-        <source>Open a MAG: URI or payment request</source>
-        <translation>Atidaryti MAG: URI arba mokėjimo prašymą</translation>
+        <source>Open a BITWIN24: URI or payment request</source>
+        <translation>Atidaryti BITWIN24: URI arba mokėjimo prašymą</translation>
     </message>
     <message>
         <source>&amp;Blockchain explorer</source>
@@ -729,16 +729,16 @@
         <translation>Blokų naršyklės langas</translation>
     </message>
     <message>
-        <source>Show the MAG Core help message to get a list with possible MAG command-line options</source>
-        <translation>Rodyti MAG Core žinyną, kad gautumėte sąrašą su galimomis MAG komandinės eilutės parinktimis</translation>
+        <source>Show the BITWIN24 Core help message to get a list with possible BITWIN24 command-line options</source>
+        <translation>Rodyti BITWIN24 Core žinyną, kad gautumėte sąrašą su galimomis BITWIN24 komandinės eilutės parinktimis</translation>
     </message>
     <message>
-        <source>MAG Core client</source>
-        <translation>MAG Core piniginė</translation>
+        <source>BITWIN24 Core client</source>
+        <translation>BITWIN24 Core piniginė</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to MAG network</source>
-        <translation><numerusform>%n aktyvių prisijungimų MAG tinkle ()</numerusform><numerusform>%n aktyvių prisijungimų MAG tinkle ()</numerusform><numerusform>%n aktyvių prisijungimų MAG tinkle ()</numerusform><numerusform>%n aktyvių prisijungimų MAG tinkle ()</numerusform></translation>
+        <source>%n active connection(s) to BITWIN24 network</source>
+        <translation><numerusform>%n aktyvių prisijungimų BITWIN24 tinkle ()</numerusform><numerusform>%n aktyvių prisijungimų BITWIN24 tinkle ()</numerusform><numerusform>%n aktyvių prisijungimų BITWIN24 tinkle ()</numerusform><numerusform>%n aktyvių prisijungimų BITWIN24 tinkle ()</numerusform></translation>
     </message>
     <message>
         <source>Synchronizing with network...</source>
@@ -1177,8 +1177,8 @@ MultiSend: %1</translation>
         <translation>Keisti siuntimo adresą</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid MAG address.</source>
-        <translation>Įvestas adresas "%1" nėra galiojantis MAG adresas.</translation>
+        <source>The entered address "%1" is not a valid BITWIN24 address.</source>
+        <translation>Įvestas adresas "%1" nėra galiojantis BITWIN24 adresas.</translation>
     </message>
     <message>
         <source>The entered address "%1" is already in the address book.</source>
@@ -1223,16 +1223,16 @@ MultiSend: %1</translation>
         <translation>versija</translation>
     </message>
     <message>
-        <source>MAG Core</source>
-        <translation>MAG Core</translation>
+        <source>BITWIN24 Core</source>
+        <translation>BITWIN24 Core</translation>
     </message>
     <message>
         <source>(%1-bit)</source>
         <translation>(%1-bitai)</translation>
     </message>
     <message>
-        <source>About MAG Core</source>
-        <translation>Apie MAG Core</translation>
+        <source>About BITWIN24 Core</source>
+        <translation>Apie BITWIN24 Core</translation>
     </message>
     <message>
         <source>Command-line options</source>
@@ -1278,16 +1278,16 @@ MultiSend: %1</translation>
         <translation>Sveiki</translation>
     </message>
     <message>
-        <source>Welcome to MAG Core.</source>
-        <translation>Sveiki atvykę į MAG Core</translation>
+        <source>Welcome to BITWIN24 Core.</source>
+        <translation>Sveiki atvykę į BITWIN24 Core</translation>
     </message>
     <message>
-        <source>As this is the first time the program is launched, you can choose where MAG Core will store its data.</source>
-        <translation>Kadangi programa paleista pirmą kartą, galite pasirinkti kur MAG Core saugos savo duomenis.</translation>
+        <source>As this is the first time the program is launched, you can choose where BITWIN24 Core will store its data.</source>
+        <translation>Kadangi programa paleista pirmą kartą, galite pasirinkti kur BITWIN24 Core saugos savo duomenis.</translation>
     </message>
     <message>
-        <source>MAG Core will download and store a copy of the MAG block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>MAG Core atsisiųs ir saugos MAG blockchain'o kopiją. Šiame kataloge bus saugomas ne mažesnis kaip %1GB duomenų kiekis, kuris laikui bėgant augs. Piniginė taip pat bus saugoma šiame kataloge.</translation>
+        <source>BITWIN24 Core will download and store a copy of the BITWIN24 block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>BITWIN24 Core atsisiųs ir saugos BITWIN24 blockchain'o kopiją. Šiame kataloge bus saugomas ne mažesnis kaip %1GB duomenų kiekis, kuris laikui bėgant augs. Piniginė taip pat bus saugoma šiame kataloge.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -1298,8 +1298,8 @@ MultiSend: %1</translation>
         <translation>Naudoti pasirinktą duomenų katalogą:</translation>
     </message>
     <message>
-        <source>MAG Core</source>
-        <translation>MAG Core</translation>
+        <source>BITWIN24 Core</source>
+        <translation>BITWIN24 Core</translation>
     </message>
     <message>
         <source>Error: Specified data directory "%1" cannot be created.</source>
@@ -1440,12 +1440,12 @@ MultiSend: %1</translation>
         <translation>Įveskite adresą kuriam norite siųsti</translation>
     </message>
     <message>
-        <source>MultiSend allows you to automatically send up to 100% of your stake or masternode reward to a list of other MAG addresses after it matures.
-To Add: enter percentage to give and MAG address to add to the MultiSend vector.
+        <source>MultiSend allows you to automatically send up to 100% of your stake or masternode reward to a list of other BITWIN24 addresses after it matures.
+To Add: enter percentage to give and BITWIN24 address to add to the MultiSend vector.
 To Delete: Enter address to delete and press delete.
 MultiSend will not be activated unless you have clicked Activate</source>
-        <translation>MultiSend leidžia automatiškai išsiųsti iki 100% jūsų stake'inimo ar masternod'ų atlygio į kitus MAG adresus.
-Norėdami pridėti: įveskite pateiktą procentą ir MAG adresą, kurį norite pridėti prie MultiSend sąrašo.
+        <translation>MultiSend leidžia automatiškai išsiųsti iki 100% jūsų stake'inimo ar masternod'ų atlygio į kitus BITWIN24 adresus.
+Norėdami pridėti: įveskite pateiktą procentą ir BITWIN24 adresą, kurį norite pridėti prie MultiSend sąrašo.
 Norėdami ištrinti: įveskite adresą, kurį norite ištrinti, ir paspauskite ištrinti
 MultiSend nebus aktyvuotas, nebent paspausite "Įjungti"</translation>
     </message>
@@ -1651,8 +1651,8 @@ Patikrinkite adresą ir bandykite dar kartą.</translation>
         <translation>Adresas / Suma:</translation>
     </message>
     <message>
-        <source>Add destinations to send MAG to</source>
-        <translation>Pridėkite vietas, kurioms norite siųsti MAG</translation>
+        <source>Add destinations to send BITWIN24 to</source>
+        <translation>Pridėkite vietas, kurioms norite siųsti BITWIN24</translation>
     </message>
     <message>
         <source>Add &amp;Destination</source>
@@ -1750,48 +1750,48 @@ Patikrinkite adresą ir bandykite dar kartą.</translation>
         <translation>Pasirinkite privatumo lygmenį.</translation>
     </message>
     <message>
-        <source>Use 2 separate masternodes to mix funds up to 10000 MAG</source>
-        <translation>Naudokite 2 atskirus masternod'us, kad sumaišytumėte lėšas iki 10 000 MAG</translation>
+        <source>Use 2 separate masternodes to mix funds up to 10000 BITWIN24</source>
+        <translation>Naudokite 2 atskirus masternod'us, kad sumaišytumėte lėšas iki 10 000 BITWIN24</translation>
     </message>
     <message>
-        <source>Use 8 separate masternodes to mix funds up to 10000 MAG</source>
-        <translation>Naudokite 8 atskirus masternod'us, kad sumaišytumėte lėšas iki 10 000 MAG</translation>
+        <source>Use 8 separate masternodes to mix funds up to 10000 BITWIN24</source>
+        <translation>Naudokite 8 atskirus masternod'us, kad sumaišytumėte lėšas iki 10 000 BITWIN24</translation>
     </message>
     <message>
         <source>Use 16 separate masternodes</source>
         <translation>Naudokite 16 atskirų masternod'ų</translation>
     </message>
     <message>
-        <source>This option is the quickest and will cost about ~0.025 MAG to anonymize 10000 MAG</source>
-        <translation>Ši parinktis yra greičiausia ir kainuos apie ~0.025 MAG, kad anonimizuotų 10000 MAG</translation>
+        <source>This option is the quickest and will cost about ~0.025 BITWIN24 to anonymize 10000 BITWIN24</source>
+        <translation>Ši parinktis yra greičiausia ir kainuos apie ~0.025 BITWIN24, kad anonimizuotų 10000 BITWIN24</translation>
     </message>
     <message>
-        <source>This option is moderately fast and will cost about 0.05 MAG to anonymize 10000 MAG</source>
-        <translation>Ši parinktis yra vidutiniškai greita ir kainuoja apie 0,05 MAG, kad anonimizuotų 10000 MAG</translation>
+        <source>This option is moderately fast and will cost about 0.05 BITWIN24 to anonymize 10000 BITWIN24</source>
+        <translation>Ši parinktis yra vidutiniškai greita ir kainuoja apie 0,05 BITWIN24, kad anonimizuotų 10000 BITWIN24</translation>
     </message>
     <message>
         <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
         <translation>Tai yra lėčiausias ir saugiausias variantas. Maksimalus anonimiškumas kainuos.</translation>
     </message>
     <message>
-        <source>0.1 MAG per 10000 MAG you anonymize.</source>
-        <translation>0.1 MAG kas 1000 MAG kuriuos anonimizuosite.</translation>
+        <source>0.1 BITWIN24 per 10000 BITWIN24 you anonymize.</source>
+        <translation>0.1 BITWIN24 kas 1000 BITWIN24 kuriuos anonimizuosite.</translation>
     </message>
     <message>
         <source>Obfuscation Configuration</source>
         <translation>Obfuscation Konfigūracija</translation>
     </message>
     <message>
-        <source>Obfuscation was successfully set to basic (%1 and 2 rounds). You can change this at any time by opening MAG's configuration screen.</source>
-        <translation>Obfuscation buvo sėkmingai nustatytas į paprastą (%1 ir 2 raundai). Bet kada galite tai pakeisti, atidarę MAG konfigūracijos ekraną.</translation>
+        <source>Obfuscation was successfully set to basic (%1 and 2 rounds). You can change this at any time by opening BITWIN24's configuration screen.</source>
+        <translation>Obfuscation buvo sėkmingai nustatytas į paprastą (%1 ir 2 raundai). Bet kada galite tai pakeisti, atidarę BITWIN24 konfigūracijos ekraną.</translation>
     </message>
     <message>
-        <source>Obfuscation was successfully set to high (%1 and 8 rounds). You can change this at any time by opening MAG's configuration screen.</source>
-        <translation>Obfuscation buvo sėkmingai nustatytas į aukštą (%1 ir 8 raundai). Bet kada galite tai pakeisti, atidarę MAG konfigūracijos ekraną.</translation>
+        <source>Obfuscation was successfully set to high (%1 and 8 rounds). You can change this at any time by opening BITWIN24's configuration screen.</source>
+        <translation>Obfuscation buvo sėkmingai nustatytas į aukštą (%1 ir 8 raundai). Bet kada galite tai pakeisti, atidarę BITWIN24 konfigūracijos ekraną.</translation>
     </message>
     <message>
-        <source>Obfuscation was successfully set to maximum (%1 and 16 rounds). You can change this at any time by opening MAG's configuration screen.</source>
-        <translation>Obfuscation buvo sėkmingai nustatytas į maksimumą (%1 ir 16 raundai). Bet kada galite tai pakeisti, atidarę MAG konfigūracijos ekraną.</translation>
+        <source>Obfuscation was successfully set to maximum (%1 and 16 rounds). You can change this at any time by opening BITWIN24's configuration screen.</source>
+        <translation>Obfuscation buvo sėkmingai nustatytas į maksimumą (%1 ir 16 raundai). Bet kada galite tai pakeisti, atidarę BITWIN24 konfigūracijos ekraną.</translation>
     </message>
 </context>
 <context>
@@ -1844,12 +1844,12 @@ Patikrinkite adresą ir bandykite dar kartą.</translation>
         <translation>Ekspertas</translation>
     </message>
     <message>
-        <source>Automatically start MAG after logging in to the system.</source>
-        <translation>Automatiškai paleisti MAG prisijungus prie sistemos.</translation>
+        <source>Automatically start BITWIN24 after logging in to the system.</source>
+        <translation>Automatiškai paleisti BITWIN24 prisijungus prie sistemos.</translation>
     </message>
     <message>
-        <source>&amp;Start MAG on system login</source>
-        <translation>&amp;Paleisti MAG sistemai įsijungiant</translation>
+        <source>&amp;Start BITWIN24 on system login</source>
+        <translation>&amp;Paleisti BITWIN24 sistemai įsijungiant</translation>
     </message>
     <message>
         <source>Whether to show coin control features or not.</source>
@@ -1876,8 +1876,8 @@ Patikrinkite adresą ir bandykite dar kartą.</translation>
         <translation>&amp;Tinklas</translation>
     </message>
     <message>
-        <source>The user interface language can be set here. This setting will take effect after restarting MAG.</source>
-        <translation>Čia galite nustatyti vartotojo sąsajos kalbą. Šis nustatymas įsigalios iš naujo paleidus "MAG".</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting BITWIN24.</source>
+        <translation>Čia galite nustatyti vartotojo sąsajos kalbą. Šis nustatymas įsigalios iš naujo paleidus "BITWIN24".</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
@@ -1890,16 +1890,16 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Įrašyti prievadą naudojant &amp;UPnP</translation>
     </message>
     <message>
-        <source>Enable automatic minting of MAG units to zMAG</source>
-        <translation>Įgalinti automatinį konvertavimą iš MAG į zMAG</translation>
+        <source>Enable automatic minting of BITWIN24 units to zMAG</source>
+        <translation>Įgalinti automatinį konvertavimą iš BITWIN24 į zMAG</translation>
     </message>
     <message>
         <source>Enable zMAG Automint</source>
         <translation>Įgalinti zMAG Automatinį nukaldinima</translation>
     </message>
     <message>
-        <source>Percentage of incoming MAG which get automatically converted to zMAG via Zerocoin Protocol (min: 10%)</source>
-        <translation>Procentas gauto MAG, kuris automatiškai bus konvertuotas į zMAG naudojant Zerocoin Protokolą (min: 10%)</translation>
+        <source>Percentage of incoming BITWIN24 which get automatically converted to zMAG via Zerocoin Protocol (min: 10%)</source>
+        <translation>Procentas gauto BITWIN24, kuris automatiškai bus konvertuotas į zMAG naudojant Zerocoin Protokolą (min: 10%)</translation>
     </message>
     <message>
         <source>Percentage of autominted zMAG</source>
@@ -1910,8 +1910,8 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Pageidautinas zMAG Automatinio Nukaldinimo Nominalas</translation>
     </message>
     <message>
-        <source>Connect to the MAG network through a SOCKS5 proxy.</source>
-        <translation>Jungtis prie MAG tinklo naudojant SOCKS5 tarpinį serverį.</translation>
+        <source>Connect to the BITWIN24 network through a SOCKS5 proxy.</source>
+        <translation>Jungtis prie BITWIN24 tinklo naudojant SOCKS5 tarpinį serverį.</translation>
     </message>
     <message>
         <source>Proxy &amp;IP:</source>
@@ -2029,8 +2029,8 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Bendras balansas, įskaitant visas nepasiekiamas monetas.</translation>
     </message>
     <message>
-        <source>MAG Balance</source>
-        <translation>MAG Balansas</translation>
+        <source>BITWIN24 Balance</source>
+        <translation>BITWIN24 Balansas</translation>
     </message>
     <message>
         <source>Pending:</source>
@@ -2053,8 +2053,8 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Dabartinis bendras užrakintas balansas tik žiūrėjimo adresuose</translation>
     </message>
     <message>
-        <source>Your current MAG balance, unconfirmed and immature transactions included</source>
-        <translation>Jūsų dabartinis MAG balansas, įskaitant nepatvirtintus ir nesubrendusius sandorius</translation>
+        <source>Your current BITWIN24 balance, unconfirmed and immature transactions included</source>
+        <translation>Jūsų dabartinis BITWIN24 balansas, įskaitant nepatvirtintus ir nesubrendusius sandorius</translation>
     </message>
     <message>
         <source>zMAG Balance</source>
@@ -2073,8 +2073,8 @@ Immature: confirmed, but less than 1 mint of the same denomination after it was 
 Nesubrendusios: patvirtintos, bet mažiau nei 1 konvertacijos to pačio nominalo po to, kai buvo konvertuotas.</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the MAG network after a connection is established, but this process has not completed yet.</source>
-        <translation>Rodoma informacija gali būti pasenusi. Jūsų piniginė automatiškai sinchronizuojasi su MAG tinklu po ryšio aktyvavimo, tačiau šis procesas dar nebaigtas.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BITWIN24 network after a connection is established, but this process has not completed yet.</source>
+        <translation>Rodoma informacija gali būti pasenusi. Jūsų piniginė automatiškai sinchronizuojasi su BITWIN24 tinklu po ryšio aktyvavimo, tačiau šis procesas dar nebaigtas.</translation>
     </message>
     <message>
         <source>OVERVIEW</source>
@@ -2117,8 +2117,8 @@ Nesubrendusios: patvirtintos, bet mažiau nei 1 konvertacijos to pačio nominalo
         <translation>Prienamas išleidimui:</translation>
     </message>
     <message>
-        <source>Locked MAG or Masternode collaterals. These are excluded from zMAG minting.</source>
-        <translation>Užrakinti MAG arba Masternode užstatai. Jie yra neįtraukti į zMAG kalimą.</translation>
+        <source>Locked BITWIN24 or Masternode collaterals. These are excluded from zMAG minting.</source>
+        <translation>Užrakinti BITWIN24 arba Masternode užstatai. Jie yra neįtraukti į zMAG kalimą.</translation>
     </message>
     <message>
         <source>Locked:</source>
@@ -2210,8 +2210,8 @@ Nesubrendusios: patvirtintos, bet mažiau nei 1 konvertacijos to pačio nominalo
         <translation>Zerocoin Veiksmai:</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the MAG network after a connection is established, but this process has not completed yet.</source>
-        <translation>Rodoma informacija gali būti pasenusi. Jūsų piniginė automatiškai sinchronizuojasi su MAG tinklu po ryšio aktyvavimo, tačiau šis procesas dar nebaigtas.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BITWIN24 network after a connection is established, but this process has not completed yet.</source>
+        <translation>Rodoma informacija gali būti pasenusi. Jūsų piniginė automatiškai sinchronizuojasi su BITWIN24 tinklu po ryšio aktyvavimo, tačiau šis procesas dar nebaigtas.</translation>
     </message>
     <message>
         <source>Mint Zerocoin</source>
@@ -2234,8 +2234,8 @@ Nesubrendusios: patvirtintos, bet mažiau nei 1 konvertacijos to pačio nominalo
         <translation>Prieinama Konvertavimui:</translation>
     </message>
     <message>
-        <source>0.000 000 00 MAG</source>
-        <translation>0.000 000 00 MAG</translation>
+        <source>0.000 000 00 BITWIN24</source>
+        <translation>0.000 000 00 BITWIN24</translation>
     </message>
     <message>
         <source>Reset</source>
@@ -2651,8 +2651,8 @@ Nesubrendusios: patvirtintos, bet mažiau nei 1 konvertacijos tos pačio nominal
         <translation>Suma</translation>
     </message>
     <message>
-        <source>Enter a MAG address (e.g. %1)</source>
-        <translation>Įveskite MAG adresą (pvz. %1)</translation>
+        <source>Enter a BITWIN24 address (e.g. %1)</source>
+        <translation>Įveskite BITWIN24 adresą (pvz. %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -2829,8 +2829,8 @@ Nesubrendusios: patvirtintos, bet mažiau nei 1 konvertacijos tos pačio nominal
         <translation>Iš:</translation>
     </message>
     <message>
-        <source>Welcome to the MAG RPC console.</source>
-        <translation>Sveiki atvykę į MAG RPC konsolę.</translation>
+        <source>Welcome to the BITWIN24 RPC console.</source>
+        <translation>Sveiki atvykę į BITWIN24 RPC konsolę.</translation>
     </message>
     <message>
         <source>never</source>
@@ -3001,8 +3001,8 @@ Nesubrendusios: patvirtintos, bet mažiau nei 1 konvertacijos tos pačio nominal
         <translation>Pasirinktinio pakeitimo adresas</translation>
     </message>
     <message>
-        <source>0 MAG</source>
-        <translation>0 MAG</translation>
+        <source>0 BITWIN24</source>
+        <translation>0 BITWIN24</translation>
     </message>
     <message>
         <source>Transaction Fee:</source>
@@ -3158,8 +3158,8 @@ Nesubrendusios: patvirtintos, bet mažiau nei 1 konvertacijos tos pačio nominal
 <context>
     <name>SignVerifyMessageDialog</name>
     <message>
-        <source>The MAG address to sign the message with</source>
-        <translation>MAG adresas, kuriuo pasirašyti žinute</translation>
+        <source>The BITWIN24 address to sign the message with</source>
+        <translation>BITWIN24 adresas, kuriuo pasirašyti žinute</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -3182,16 +3182,16 @@ Nesubrendusios: patvirtintos, bet mažiau nei 1 konvertacijos tos pačio nominal
         <translation>Kopijuoti dabartinį parašą</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this MAG address</source>
-        <translation>Pažymėkite žinutę, kad įrodytumėte, jog jūs šio MAG adreso savininkas</translation>
+        <source>Sign the message to prove you own this BITWIN24 address</source>
+        <translation>Pažymėkite žinutę, kad įrodytumėte, jog jūs šio BITWIN24 adreso savininkas</translation>
     </message>
     <message>
-        <source>The MAG address the message was signed with</source>
-        <translation>MAG adresas, kurio buvo pasirašyta žinutė</translation>
+        <source>The BITWIN24 address the message was signed with</source>
+        <translation>BITWIN24 adresas, kurio buvo pasirašyta žinutė</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified MAG address</source>
-        <translation>Patikrinkite pranešimą, kad jis būtų pasirašytas su nurodytu MAG adresu</translation>
+        <source>Verify the message to ensure it was signed with the specified BITWIN24 address</source>
+        <translation>Patikrinkite pranešimą, kad jis būtų pasirašytas su nurodytu BITWIN24 adresu</translation>
     </message>
     <message>
         <source>Reset all sign message fields</source>
@@ -3229,8 +3229,8 @@ Nesubrendusios: patvirtintos, bet mažiau nei 1 konvertacijos tos pačio nominal
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>MAG Core</source>
-        <translation>MAG Core</translation>
+        <source>BITWIN24 Core</source>
+        <translation>BITWIN24 Core</translation>
     </message>
     </context>
 <context>
@@ -3494,8 +3494,8 @@ Nesubrendusios: patvirtintos, bet mažiau nei 1 konvertacijos tos pačio nominal
         <translation>Klaida kraunant wallet.dat: Piniginė yra sugadinta</translation>
     </message>
     <message>
-        <source>Error loading wallet.dat: Wallet requires newer version of MAG Core</source>
-        <translation>Klaida kraunant wallet.dat: Piniginė reikalauja naujesnės MAG Core versijos</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of BITWIN24 Core</source>
+        <translation>Klaida kraunant wallet.dat: Piniginė reikalauja naujesnės BITWIN24 Core versijos</translation>
     </message>
     <message>
         <source>Error opening block database</source>
@@ -3726,8 +3726,8 @@ Nesubrendusios: patvirtintos, bet mažiau nei 1 konvertacijos tos pačio nominal
         <translation>Piniginė užrakinta.</translation>
     </message>
     <message>
-        <source>Wallet needed to be rewritten: restart MAG Core to complete</source>
-        <translation>Piniginę reikia perrašyti: paleiskite MAG Core iš naujo</translation>
+        <source>Wallet needed to be rewritten: restart BITWIN24 Core to complete</source>
+        <translation>Piniginę reikia perrašyti: paleiskite BITWIN24 Core iš naujo</translation>
     </message>
     <message>
         <source>Wallet options:</source>

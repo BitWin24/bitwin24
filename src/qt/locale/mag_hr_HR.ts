@@ -62,12 +62,12 @@
         <translation>Adresa primatelja</translation>
     </message>
     <message>
-        <source>These are your MAG addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>To su vaše MAG adrese za slanje plaćanja. Uvijek provjerite iznos i adresu primatelja prije slanja novca.</translation>
+        <source>These are your BITWIN24 addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>To su vaše BITWIN24 adrese za slanje plaćanja. Uvijek provjerite iznos i adresu primatelja prije slanja novca.</translation>
     </message>
     <message>
-        <source>These are your MAG addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>To su vaše MAG adrese za primanje uplata. Preporuča se upotreba nove adrese primatelja za svaku transakciju.</translation>
+        <source>These are your BITWIN24 addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>To su vaše BITWIN24 adrese za primanje uplata. Preporuča se upotreba nove adrese primatelja za svaku transakciju.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -176,15 +176,15 @@
         <translation>Potvrdi šifriranje novčanika</translation>
     </message>
     <message>
-        <source>MAG will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your MAGs from being stolen by malware infecting your computer.</source>
-        <translation>MAG se sada zatvara kako bi dovršio proces šifriranja. Ne zaboravite da šifriranje vašeg novčanika ne može u potpunosti zaštititi vaše MAG od krađe zlonamjernog softvera koji zarazi vaše računalo.</translation>
+        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your MAGs from being stolen by malware infecting your computer.</source>
+        <translation>BITWIN24 se sada zatvara kako bi dovršio proces šifriranja. Ne zaboravite da šifriranje vašeg novčanika ne može u potpunosti zaštititi vaše BITWIN24 od krađe zlonamjernog softvera koji zarazi vaše računalo.</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
         <translation>Jeste li sigurni da želite šifrirati svoj novčanik?</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MAG&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITWIN24&lt;/b&gt;!</source>
         <translation>Upozorenje: Ako šifrirate svoj novčanik i izgubite zaporku, 1 izgubit ćete sve Vaše MAGove 1 !</translation>
     </message>
     <message>
@@ -254,12 +254,12 @@
         <translation>Adresa:</translation>
     </message>
     <message>
-        <source>Enter a MAG Address that you would like to encrypt using BIP 38. Enter a passphrase in the middle box. Press encrypt to compute the encrypted private key.</source>
-        <translation>Unesite MAG adresu koju želite šifrirati pomoću BIP 38. Unesite zaporku u srednjem okviru. Pritisnite šifriranje za izračunavanje šifriranog privatnog ključa.</translation>
+        <source>Enter a BITWIN24 Address that you would like to encrypt using BIP 38. Enter a passphrase in the middle box. Press encrypt to compute the encrypted private key.</source>
+        <translation>Unesite BITWIN24 adresu koju želite šifrirati pomoću BIP 38. Unesite zaporku u srednjem okviru. Pritisnite šifriranje za izračunavanje šifriranog privatnog ključa.</translation>
     </message>
     <message>
-        <source>The MAG address to encrypt</source>
-        <translation>MAG adresa za šifriranje</translation>
+        <source>The BITWIN24 address to encrypt</source>
+        <translation>BITWIN24 adresa za šifriranje</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -290,8 +290,8 @@
         <translation>Kopirajte trenutačni potpis u međuspremnik sustava</translation>
     </message>
     <message>
-        <source>Encrypt the private key for this MAG address</source>
-        <translation>Šifriranje privatnog ključa za ovu MAG adresu</translation>
+        <source>Encrypt the private key for this BITWIN24 address</source>
+        <translation>Šifriranje privatnog ključa za ovu BITWIN24 adresu</translation>
     </message>
     <message>
         <source>Reset all fields</source>
@@ -645,12 +645,12 @@
         <translation>Alatna traka kartica</translation>
     </message>
     <message>
-        <source>MAG Core</source>
-        <translation>MAG Core</translation>
+        <source>BITWIN24 Core</source>
+        <translation>BITWIN24 Core</translation>
     </message>
     <message>
-        <source>Send coins to a MAG address</source>
-        <translation>Pošaljite kovanice na MAG adresu</translation>
+        <source>Send coins to a BITWIN24 address</source>
+        <translation>Pošaljite kovanice na BITWIN24 adresu</translation>
     </message>
     <message>
         <source>Request payments (generates QR codes and bitwin24: URIs)</source>
@@ -669,24 +669,24 @@
         <translation>Pretraži masternodes</translation>
     </message>
     <message>
-        <source>&amp;About MAG Core</source>
-        <translation>O MAG Core</translation>
+        <source>&amp;About BITWIN24 Core</source>
+        <translation>O BITWIN24 Core</translation>
     </message>
     <message>
-        <source>Show information about MAG Core</source>
-        <translation>Prikaz informacija o MAG Core-u</translation>
+        <source>Show information about BITWIN24 Core</source>
+        <translation>Prikaz informacija o BITWIN24 Core-u</translation>
     </message>
     <message>
-        <source>Modify configuration options for MAG</source>
-        <translation>Izmijenite konfiguracijske opcije za MAG</translation>
+        <source>Modify configuration options for BITWIN24</source>
+        <translation>Izmijenite konfiguracijske opcije za BITWIN24</translation>
     </message>
     <message>
-        <source>Sign messages with your MAG addresses to prove you own them</source>
-        <translation>Potpišite poruke s vašim MAG adresama kako biste dokazali da ih posjedujete</translation>
+        <source>Sign messages with your BITWIN24 addresses to prove you own them</source>
+        <translation>Potpišite poruke s vašim BITWIN24 adresama kako biste dokazali da ih posjedujete</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified MAG addresses</source>
-        <translation>Potvrdite poruke kako biste bili sigurni da su potpisani s određenim MAG adresama</translation>
+        <source>Verify messages to ensure they were signed with specified BITWIN24 addresses</source>
+        <translation>Potvrdite poruke kako biste bili sigurni da su potpisani s određenim BITWIN24 adresama</translation>
     </message>
     <message>
         <source>&amp;BIP38 tool</source>
@@ -717,8 +717,8 @@
         <translation>Otvori Masternode konfiguracijsku datoteku</translation>
     </message>
     <message>
-        <source>Open a MAG: URI or payment request</source>
-        <translation>Otvori MAG: URI zahtjev za plačanje</translation>
+        <source>Open a BITWIN24: URI or payment request</source>
+        <translation>Otvori BITWIN24: URI zahtjev za plačanje</translation>
     </message>
     <message>
         <source>&amp;Blockchain explorer</source>
@@ -729,16 +729,16 @@
         <translation>Prozor Block preglednika</translation>
     </message>
     <message>
-        <source>Show the MAG Core help message to get a list with possible MAG command-line options</source>
-        <translation>Pokažite poruku MAG Core pomoći da biste dobili popis s mogućim MAG opcijama naredbenog retka</translation>
+        <source>Show the BITWIN24 Core help message to get a list with possible BITWIN24 command-line options</source>
+        <translation>Pokažite poruku BITWIN24 Core pomoći da biste dobili popis s mogućim BITWIN24 opcijama naredbenog retka</translation>
     </message>
     <message>
-        <source>MAG Core client</source>
+        <source>BITWIN24 Core client</source>
         <translation>MAGX Core Klijent</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to MAG network</source>
-        <translation><numerusform>%n aktivne veze na MAG mrežu</numerusform><numerusform>%n aktivne veze na MAG mrežu</numerusform><numerusform>%n aktivne veze na MAG mrežu</numerusform></translation>
+        <source>%n active connection(s) to BITWIN24 network</source>
+        <translation><numerusform>%n aktivne veze na BITWIN24 mrežu</numerusform><numerusform>%n aktivne veze na BITWIN24 mrežu</numerusform><numerusform>%n aktivne veze na BITWIN24 mrežu</numerusform></translation>
     </message>
     <message>
         <source>Synchronizing with network...</source>
@@ -1185,8 +1185,8 @@ Višestruko slanje: %1</translation>
         <translation>Uređivanje adrese slanja</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid MAG address.</source>
-        <translation>Unesena adresa "%1" nije važeća MAG adresa.</translation>
+        <source>The entered address "%1" is not a valid BITWIN24 address.</source>
+        <translation>Unesena adresa "%1" nije važeća BITWIN24 adresa.</translation>
     </message>
     <message>
         <source>The entered address "%1" is already in the address book.</source>
@@ -1231,16 +1231,16 @@ Višestruko slanje: %1</translation>
         <translation>verzija</translation>
     </message>
     <message>
-        <source>MAG Core</source>
-        <translation>MAG Core</translation>
+        <source>BITWIN24 Core</source>
+        <translation>BITWIN24 Core</translation>
     </message>
     <message>
         <source>(%1-bit)</source>
         <translation>(%1-bit)</translation>
     </message>
     <message>
-        <source>About MAG Core</source>
-        <translation>O MAG Core</translation>
+        <source>About BITWIN24 Core</source>
+        <translation>O BITWIN24 Core</translation>
     </message>
     <message>
         <source>Command-line options</source>
@@ -1286,16 +1286,16 @@ Višestruko slanje: %1</translation>
         <translation>Dobrodošli</translation>
     </message>
     <message>
-        <source>Welcome to MAG Core.</source>
-        <translation>Dobrodošli u MAG Core.</translation>
+        <source>Welcome to BITWIN24 Core.</source>
+        <translation>Dobrodošli u BITWIN24 Core.</translation>
     </message>
     <message>
-        <source>As this is the first time the program is launched, you can choose where MAG Core will store its data.</source>
-        <translation>Budući da je prvi put pokrenut program, možete odabrati gdje će MAG Core pohraniti svoje podatke.</translation>
+        <source>As this is the first time the program is launched, you can choose where BITWIN24 Core will store its data.</source>
+        <translation>Budući da je prvi put pokrenut program, možete odabrati gdje će BITWIN24 Core pohraniti svoje podatke.</translation>
     </message>
     <message>
-        <source>MAG Core will download and store a copy of the MAG block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>MAG Core preuzima i pohranjuje kopiju MAG blok-lanca. Barem će %1GB podataka biti pohranjeno u ovom direktoriju i to će s vremenom rasti. Novčanik će također biti pohranjena u ovom direktoriju.</translation>
+        <source>BITWIN24 Core will download and store a copy of the BITWIN24 block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>BITWIN24 Core preuzima i pohranjuje kopiju BITWIN24 blok-lanca. Barem će %1GB podataka biti pohranjeno u ovom direktoriju i to će s vremenom rasti. Novčanik će također biti pohranjena u ovom direktoriju.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -1306,8 +1306,8 @@ Višestruko slanje: %1</translation>
         <translation>Koristite prilagođeni direktorij podataka:</translation>
     </message>
     <message>
-        <source>MAG Core</source>
-        <translation>MAG Core</translation>
+        <source>BITWIN24 Core</source>
+        <translation>BITWIN24 Core</translation>
     </message>
     <message>
         <source>Error: Specified data directory "%1" cannot be created.</source>
@@ -1448,12 +1448,12 @@ Višestruko slanje: %1</translation>
         <translation>Unesite adresu za slanje</translation>
     </message>
     <message>
-        <source>MultiSend allows you to automatically send up to 100% of your stake or masternode reward to a list of other MAG addresses after it matures.
-To Add: enter percentage to give and MAG address to add to the MultiSend vector.
+        <source>MultiSend allows you to automatically send up to 100% of your stake or masternode reward to a list of other BITWIN24 addresses after it matures.
+To Add: enter percentage to give and BITWIN24 address to add to the MultiSend vector.
 To Delete: Enter address to delete and press delete.
 MultiSend will not be activated unless you have clicked Activate</source>
-        <translation>MultiSend vam omogućuje da automatski pošaljete do 100% svoje nagrade za ulog ili masternode  nagrade na popis drugih MAG adresa nakon što sazrijete.
-Za Dodaj: unesite postotak za davanje i MAG adresu za dodavanje MultiSend vektoru.
+        <translation>MultiSend vam omogućuje da automatski pošaljete do 100% svoje nagrade za ulog ili masternode  nagrade na popis drugih BITWIN24 adresa nakon što sazrijete.
+Za Dodaj: unesite postotak za davanje i BITWIN24 adresu za dodavanje MultiSend vektoru.
 Za brisanje: Unesite adresu za brisanje i pritisnite Delete.
 MultiSend neće biti aktiviran dok ne kliknete Aktiviraj</translation>
     </message>
@@ -1679,8 +1679,8 @@ Budite strpljivi nakon što kliknete uvoz.</translation>
         <translation>Adresa / iznos:</translation>
     </message>
     <message>
-        <source>Add destinations to send MAG to</source>
-        <translation>Dodajte odredišta za slanje MAG
+        <source>Add destinations to send BITWIN24 to</source>
+        <translation>Dodajte odredišta za slanje BITWIN24
 </translation>
     </message>
     <message>
@@ -1779,48 +1779,48 @@ Budite strpljivi nakon što kliknete uvoz.</translation>
         <translation>Odaberi razinu privatnosti.</translation>
     </message>
     <message>
-        <source>Use 2 separate masternodes to mix funds up to 10000 MAG</source>
-        <translation>Koristite 2 odvojene masternode za miješanje sredstava do 10000 MAG</translation>
+        <source>Use 2 separate masternodes to mix funds up to 10000 BITWIN24</source>
+        <translation>Koristite 2 odvojene masternode za miješanje sredstava do 10000 BITWIN24</translation>
     </message>
     <message>
-        <source>Use 8 separate masternodes to mix funds up to 10000 MAG</source>
-        <translation>Koristite 8 zasebnih masternoda za miješanje sredstava do 10000 MAG</translation>
+        <source>Use 8 separate masternodes to mix funds up to 10000 BITWIN24</source>
+        <translation>Koristite 8 zasebnih masternoda za miješanje sredstava do 10000 BITWIN24</translation>
     </message>
     <message>
         <source>Use 16 separate masternodes</source>
         <translation>Koristite 16 zasebnih masternodova</translation>
     </message>
     <message>
-        <source>This option is the quickest and will cost about ~0.025 MAG to anonymize 10000 MAG</source>
-        <translation>Ova je opcija najbrža i košta oko 0,025 MAG da anonimizira 10000 MAG</translation>
+        <source>This option is the quickest and will cost about ~0.025 BITWIN24 to anonymize 10000 BITWIN24</source>
+        <translation>Ova je opcija najbrža i košta oko 0,025 BITWIN24 da anonimizira 10000 BITWIN24</translation>
     </message>
     <message>
-        <source>This option is moderately fast and will cost about 0.05 MAG to anonymize 10000 MAG</source>
-        <translation>Ova je opcija umjereno brza i košta oko 0,05 MAG da anonimizira 10000 MAG</translation>
+        <source>This option is moderately fast and will cost about 0.05 BITWIN24 to anonymize 10000 BITWIN24</source>
+        <translation>Ova je opcija umjereno brza i košta oko 0,05 BITWIN24 da anonimizira 10000 BITWIN24</translation>
     </message>
     <message>
         <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
         <translation>Ovo je najsporiji i najsigurniji izbor. Korištenje maksimalne anonimnosti košta</translation>
     </message>
     <message>
-        <source>0.1 MAG per 10000 MAG you anonymize.</source>
-        <translation>0,1 MAG po 10000 MAG za anonimizaciju.</translation>
+        <source>0.1 BITWIN24 per 10000 BITWIN24 you anonymize.</source>
+        <translation>0,1 BITWIN24 po 10000 BITWIN24 za anonimizaciju.</translation>
     </message>
     <message>
         <source>Obfuscation Configuration</source>
         <translation>Obfuscation Konfiguracija</translation>
     </message>
     <message>
-        <source>Obfuscation was successfully set to basic (%1 and 2 rounds). You can change this at any time by opening MAG's configuration screen.</source>
-        <translation>Obfuscation je uspješno postavljen na osnovne (%1 i 2 runde). To možete promijeniti u bilo kojem trenutku otvaranjem zaslona za konfiguraciju MAG-a.</translation>
+        <source>Obfuscation was successfully set to basic (%1 and 2 rounds). You can change this at any time by opening BITWIN24's configuration screen.</source>
+        <translation>Obfuscation je uspješno postavljen na osnovne (%1 i 2 runde). To možete promijeniti u bilo kojem trenutku otvaranjem zaslona za konfiguraciju BITWIN24-a.</translation>
     </message>
     <message>
-        <source>Obfuscation was successfully set to high (%1 and 8 rounds). You can change this at any time by opening MAG's configuration screen.</source>
-        <translation>Obfuscation je uspješno postavljen na visoku razinu (%1 i 8 krugova). To možete promijeniti u bilo kojem trenutku otvaranjem zaslona za konfiguraciju MAG-a</translation>
+        <source>Obfuscation was successfully set to high (%1 and 8 rounds). You can change this at any time by opening BITWIN24's configuration screen.</source>
+        <translation>Obfuscation je uspješno postavljen na visoku razinu (%1 i 8 krugova). To možete promijeniti u bilo kojem trenutku otvaranjem zaslona za konfiguraciju BITWIN24-a</translation>
     </message>
     <message>
-        <source>Obfuscation was successfully set to maximum (%1 and 16 rounds). You can change this at any time by opening MAG's configuration screen.</source>
-        <translation>Obfuscation je uspješno postavljen na maksimalnu razinu (%1 i 16 krugova). To možete promijeniti u bilo kojem trenutku otvaranjem zaslona za konfiguraciju MAG-a.</translation>
+        <source>Obfuscation was successfully set to maximum (%1 and 16 rounds). You can change this at any time by opening BITWIN24's configuration screen.</source>
+        <translation>Obfuscation je uspješno postavljen na maksimalnu razinu (%1 i 16 krugova). To možete promijeniti u bilo kojem trenutku otvaranjem zaslona za konfiguraciju BITWIN24-a.</translation>
     </message>
 </context>
 <context>
@@ -1881,8 +1881,8 @@ Budite strpljivi nakon što kliknete uvoz.</translation>
         <translation>Ako onemogućite potrošnju nepotvrđenih promjena, promjena s transakcijskog kanala bit će upotrijebljena sve dok ta transakcija nema barem jednu potvrdu. To također utječe na izračun salda.</translation>
     </message>
     <message>
-        <source>Automatically open the MAG client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Automatski otvorite MAG klijentski priključak na rooteru. To funkcionira samo kada vaš rooter podržava UPnP i omogućen je.</translation>
+        <source>Automatically open the BITWIN24 client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Automatski otvorite BITWIN24 klijentski priključak na rooteru. To funkcionira samo kada vaš rooter podržava UPnP i omogućen je.</translation>
     </message>
     <message>
         <source>Accept connections from outside</source>
@@ -1901,12 +1901,12 @@ Budite strpljivi nakon što kliknete uvoz.</translation>
         <translation>Stručnjak</translation>
     </message>
     <message>
-        <source>Automatically start MAG after logging in to the system.</source>
-        <translation>Automatski pokrenite MAG nakon prijave u sustav.</translation>
+        <source>Automatically start BITWIN24 after logging in to the system.</source>
+        <translation>Automatski pokrenite BITWIN24 nakon prijave u sustav.</translation>
     </message>
     <message>
-        <source>&amp;Start MAG on system login</source>
-        <translation>Pokrenite MAG na prijavi u sustav</translation>
+        <source>&amp;Start BITWIN24 on system login</source>
+        <translation>Pokrenite BITWIN24 na prijavi u sustav</translation>
     </message>
     <message>
         <source>Whether to show coin control features or not.</source>
@@ -1933,8 +1933,8 @@ Budite strpljivi nakon što kliknete uvoz.</translation>
         <translation>Mreža</translation>
     </message>
     <message>
-        <source>The user interface language can be set here. This setting will take effect after restarting MAG.</source>
-        <translation>Ovdje se može postaviti jezik korisničkog sučelja. Ova postavka će stupiti na snagu nakon ponovnog pokretanja MAG-a.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting BITWIN24.</source>
+        <translation>Ovdje se može postaviti jezik korisničkog sučelja. Ova postavka će stupiti na snagu nakon ponovnog pokretanja BITWIN24-a.</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
@@ -1948,24 +1948,24 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
 </translation>
     </message>
     <message>
-        <source>Enable automatic minting of MAG units to zMAG</source>
-        <translation>Omogućite automint MAG jedinica na zMAG</translation>
+        <source>Enable automatic minting of BITWIN24 units to zMAG</source>
+        <translation>Omogućite automint BITWIN24 jedinica na zMAG</translation>
     </message>
     <message>
         <source>Enable zMAG Automint</source>
         <translation>Omogući zMAG Automint</translation>
     </message>
     <message>
-        <source>Percentage of incoming MAG which get automatically converted to zMAG via Zerocoin Protocol (min: 10%)</source>
-        <translation>Postotak dolaznih MAG koji se automatski pretvara u zMAG putem protokola Zerocoin (min: 10%)</translation>
+        <source>Percentage of incoming BITWIN24 which get automatically converted to zMAG via Zerocoin Protocol (min: 10%)</source>
+        <translation>Postotak dolaznih BITWIN24 koji se automatski pretvara u zMAG putem protokola Zerocoin (min: 10%)</translation>
     </message>
     <message>
         <source>Percentage of autominted zMAG</source>
         <translation>Postotak automatiziranog zMAG</translation>
     </message>
     <message>
-        <source>Wait with automatic conversion to Zerocoin until enough MAG for this denomination is available</source>
-        <translation>Pričekajte s automatskom pretvorbom u Zerocoin dok ne bude dostupno dovoljno MAG za apoen</translation>
+        <source>Wait with automatic conversion to Zerocoin until enough BITWIN24 for this denomination is available</source>
+        <translation>Pričekajte s automatskom pretvorbom u Zerocoin dok ne bude dostupno dovoljno BITWIN24 za apoen</translation>
     </message>
     <message>
         <source>Preferred Automint zMAG Denomination</source>
@@ -1976,8 +1976,8 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Prag razdvajanja Stake-a:</translation>
     </message>
     <message>
-        <source>Connect to the MAG network through a SOCKS5 proxy.</source>
-        <translation>Povežite se s MAG mrežom putem SOCKS5 proxy poslužitelja.</translation>
+        <source>Connect to the BITWIN24 network through a SOCKS5 proxy.</source>
+        <translation>Povežite se s BITWIN24 mrežom putem SOCKS5 proxy poslužitelja.</translation>
     </message>
     <message>
         <source>Proxy &amp;IP:</source>
@@ -2131,8 +2131,8 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Ukupni saldo, uključujući sve nedostupne kovanice.</translation>
     </message>
     <message>
-        <source>MAG Balance</source>
-        <translation>MAG Saldo</translation>
+        <source>BITWIN24 Balance</source>
+        <translation>BITWIN24 Saldo</translation>
     </message>
     <message>
         <source>Pending:</source>
@@ -2155,8 +2155,8 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Trenutačno zaključana ravnoteža u adresama samo za gledanje</translation>
     </message>
     <message>
-        <source>Your current MAG balance, unconfirmed and immature transactions included</source>
-        <translation>Uključena je vaša trenutna bilanca MAG, nepotvrđene i nezrele transakcije</translation>
+        <source>Your current BITWIN24 balance, unconfirmed and immature transactions included</source>
+        <translation>Uključena je vaša trenutna bilanca BITWIN24, nepotvrđene i nezrele transakcije</translation>
     </message>
     <message>
         <source>zMAG Balance</source>
@@ -2175,8 +2175,8 @@ Immature: confirmed, but less than 1 mint of the same denomination after it was 
 Nezreli: potvrđeno, ali manje od 1 minta iste denominacije nakon mintanja</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the MAG network after a connection is established, but this process has not completed yet.</source>
-        <translation>Prikazane informacije mogu biti zastarjele. Vaš se novčanik automatski sinkronizira s MAG mrežom nakon uspostavljanja veze, ali taj postupak još nije dovršen.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BITWIN24 network after a connection is established, but this process has not completed yet.</source>
+        <translation>Prikazane informacije mogu biti zastarjele. Vaš se novčanik automatski sinkronizira s BITWIN24 mrežom nakon uspostavljanja veze, ali taj postupak još nije dovršen.</translation>
     </message>
     <message>
         <source>OVERVIEW</source>
@@ -2219,8 +2219,8 @@ Nezreli: potvrđeno, ali manje od 1 minta iste denominacije nakon mintanja</tran
         <translation>Po potrošiti:</translation>
     </message>
     <message>
-        <source>Locked MAG or Masternode collaterals. These are excluded from zMAG minting.</source>
-        <translation>Zaključani MAG ili Masternode kolateral. Oni su isključeni iz zMAG kovanja.</translation>
+        <source>Locked BITWIN24 or Masternode collaterals. These are excluded from zMAG minting.</source>
+        <translation>Zaključani BITWIN24 ili Masternode kolateral. Oni su isključeni iz zMAG kovanja.</translation>
     </message>
     <message>
         <source>Locked:</source>
@@ -2292,8 +2292,8 @@ Da biste omogućili, promjenite postavke AutoMint 'enablezeromint=0' na 'enablez
         <translation>Ne može se pokrenuti bitwin24: clik-to-pay handler</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid MAG address or malformed URI parameters.</source>
-        <translation>URI se ne može analizirati! To može biti uzrokovana nevažećom MAG adresom ili nepravilnim URI parametrima.</translation>
+        <source>URI cannot be parsed! This can be caused by an invalid BITWIN24 address or malformed URI parameters.</source>
+        <translation>URI se ne može analizirati! To može biti uzrokovana nevažećom BITWIN24 adresom ili nepravilnim URI parametrima.</translation>
     </message>
     <message>
         <source>Payment request file cannot be read! This can be caused by an invalid payment request file.</source>
@@ -2378,8 +2378,8 @@ Da biste omogućili, promjenite postavke AutoMint 'enablezeromint=0' na 'enablez
         <translation>Zerocoin radnje:</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the MAG network after a connection is established, but this process has not completed yet.</source>
-        <translation>Prikazane informacije mogu biti zastarjele. Vaš se novčanik automatski sinkronizira s MAG mrežom nakon uspostavljanja veze, ali taj postupak još nije dovršen.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BITWIN24 network after a connection is established, but this process has not completed yet.</source>
+        <translation>Prikazane informacije mogu biti zastarjele. Vaš se novčanik automatski sinkronizira s BITWIN24 mrežom nakon uspostavljanja veze, ali taj postupak još nije dovršen.</translation>
     </message>
     <message>
         <source>Mint Zerocoin</source>
@@ -2402,8 +2402,8 @@ Da biste omogućili, promjenite postavke AutoMint 'enablezeromint=0' na 'enablez
         <translation>Dostupno za Minting:</translation>
     </message>
     <message>
-        <source>0.000 000 00 MAG</source>
-        <translation>0.000 000 00 MAG</translation>
+        <source>0.000 000 00 BITWIN24</source>
+        <translation>0.000 000 00 BITWIN24</translation>
     </message>
     <message>
         <source>Reset Zerocoin Wallet DB. Deletes transactions that did not make it into the blockchain.</source>
@@ -2502,8 +2502,8 @@ zMAG su zreli kada imaju više od 20 potvrda I više od 2 mint od iste denominac
         <translation>Platiti:</translation>
     </message>
     <message>
-        <source>The MAG address to send the payment to. Creates local payment to yourself when empty.</source>
-        <translation>MAG adresa za slanje uplate. Stvara lokalno plaćanje za sebe kada je prazno.</translation>
+        <source>The BITWIN24 address to send the payment to. Creates local payment to yourself when empty.</source>
+        <translation>BITWIN24 adresa za slanje uplate. Stvara lokalno plaćanje za sebe kada je prazno.</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2984,7 +2984,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message numerus="yes">
         <source>PrivacyDialog</source>
-        <comment>Enter an amount of MAG to convert to zMAG</comment>
+        <comment>Enter an amount of BITWIN24 to convert to zMAG</comment>
         <translation><numerusform>PrivacyDialog</numerusform><numerusform>PrivacyDialog</numerusform><numerusform>PrivacyDialog</numerusform></translation>
     </message>
     <message>
@@ -3027,8 +3027,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Iznos</translation>
     </message>
     <message>
-        <source>Enter a MAG address (e.g. %1)</source>
-        <translation>Unesite MAG adresu (npr., %1)</translation>
+        <source>Enter a BITWIN24 address (e.g. %1)</source>
+        <translation>Unesite BITWIN24 adresu (npr., %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -3166,8 +3166,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Block chain</translation>
     </message>
     <message>
-        <source>Open the MAG debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Otvorite MAG debug log datoteku iz aktualnog direktorija podataka. To može potrajati nekoliko sekundi za velike datoteke zapisnika.</translation>
+        <source>Open the BITWIN24 debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Otvorite BITWIN24 debug log datoteku iz aktualnog direktorija podataka. To može potrajati nekoliko sekundi za velike datoteke zapisnika.</translation>
     </message>
     <message>
         <source>Number of Masternodes</source>
@@ -3382,8 +3382,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Iz:</translation>
     </message>
     <message>
-        <source>Welcome to the MAG RPC console.</source>
-        <translation>Dobrodošli na MAG RPC konzolu.</translation>
+        <source>Welcome to the BITWIN24 RPC console.</source>
+        <translation>Dobrodošli na BITWIN24 RPC konzolu.</translation>
     </message>
     <message>
         <source>&amp;Disconnect Node</source>
@@ -3509,16 +3509,16 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Dodatna oznaka za povezivanje s novom adresom primatelja.</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the MAG network.</source>
-        <translation>Dodatna poruka priložena zahtjevu za plaćanje, koji će se prikazati kada se zahtjev otvori. Napomena: poruka neće biti poslana s plaćanjem putem MAG mreže.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the BITWIN24 network.</source>
+        <translation>Dodatna poruka priložena zahtjevu za plaćanje, koji će se prikazati kada se zahtjev otvori. Napomena: poruka neće biti poslana s plaćanjem putem BITWIN24 mreže.</translation>
     </message>
     <message>
         <source>RECEIVE</source>
         <translation>PRIMI</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the MAG network.</source>
-        <translation>Dodatna poruka za pridruživanje zahtjevu za plaćanje koja će se prikazati kada se zahtjev otvori.Napomena: poruka neće biti poslana s plaćanjem putem MAG mreže.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the BITWIN24 network.</source>
+        <translation>Dodatna poruka za pridruživanje zahtjevu za plaćanje koja će se prikazati kada se zahtjev otvori.Napomena: poruka neće biti poslana s plaćanjem putem BITWIN24 mreže.</translation>
     </message>
     <message>
         <source>Use this form to request payments. All fields are &lt;b&gt;optional&lt;/b&gt;.</source>
@@ -3747,8 +3747,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Veličina UTXO:</translation>
     </message>
     <message>
-        <source>0 MAG</source>
-        <translation>0 MAG</translation>
+        <source>0 BITWIN24</source>
+        <translation>0 BITWIN24</translation>
     </message>
     <message>
         <source>Transaction Fee:</source>
@@ -3813,8 +3813,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Ako je prilagođena naknada postavljena na 1000 uMAG, a transakcija je samo 250 bajta, tada "po kilobajtu" plaća se samo 250 uMAG-ova, a "ukupno barem" plaća 1000 uMAG-ova. Za transakcije veće od kilobajta, oboje plaćaju po kilobajtu.</translation>
     </message>
     <message>
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for MAG transactions than the network can process.</source>
-        <translation>Plaćanje samo minimalne naknade je sasvim u redu sve dok j obujma transakcija manji od prostora u blokovima. No, budite svjesni da to može dovesti do transakcije koja nikada se ne potvrđuje kada se pojavi više zahtjeva za MAG transakcijama nego što mreža može obraditi.</translation>
+        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for BITWIN24 transactions than the network can process.</source>
+        <translation>Plaćanje samo minimalne naknade je sasvim u redu sve dok j obujma transakcija manji od prostora u blokovima. No, budite svjesni da to može dovesti do transakcije koja nikada se ne potvrđuje kada se pojavi više zahtjeva za BITWIN24 transakcijama nego što mreža može obraditi.</translation>
     </message>
     <message>
         <source>normal</source>
@@ -3861,8 +3861,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Dodaj primatelja</translation>
     </message>
     <message>
-        <source>Anonymized MAG</source>
-        <translation>Anonimiziran MAG</translation>
+        <source>Anonymized BITWIN24</source>
+        <translation>Anonimiziran BITWIN24</translation>
     </message>
     <message>
         <source>Balance:</source>
@@ -3909,8 +3909,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Alat za podjelu blocka ne funkcionira s više adresa. Pokušajte ponovo.</translation>
     </message>
     <message>
-        <source>Warning: Invalid MAG address</source>
-        <translation>Upozorenje: Nevažeća MAG adresa</translation>
+        <source>Warning: Invalid BITWIN24 address</source>
+        <translation>Upozorenje: Nevažeća BITWIN24 adresa</translation>
     </message>
     <message>
         <source>%1 to %2</source>
@@ -4012,8 +4012,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Platiti:</translation>
     </message>
     <message>
-        <source>The MAG address to send the payment to</source>
-        <translation>MAG adresa za slanje uplate</translation>
+        <source>The BITWIN24 address to send the payment to</source>
+        <translation>BITWIN24 adresa za slanje uplate</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -4052,8 +4052,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Poruka:</translation>
     </message>
     <message>
-        <source>A message that was attached to the MAG: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the MAG network.</source>
-        <translation>Poruka koja je bila povezana s MAG: URI koji će biti pohranjen s transakcijom za vašu referencu. Napomena: ova poruka neće biti poslana preko MAG mreže.</translation>
+        <source>A message that was attached to the BITWIN24: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the BITWIN24 network.</source>
+        <translation>Poruka koja je bila povezana s BITWIN24: URI koji će biti pohranjen s transakcijom za vašu referencu. Napomena: ova poruka neće biti poslana preko BITWIN24 mreže.</translation>
     </message>
     <message>
         <source>This is an unverified payment request.</source>
@@ -4079,8 +4079,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
 <context>
     <name>ShutdownWindow</name>
     <message>
-        <source>MAG Core is shutting down...</source>
-        <translation>MAG Core se zatvara ...</translation>
+        <source>BITWIN24 Core is shutting down...</source>
+        <translation>BITWIN24 Core se zatvara ...</translation>
     </message>
     <message>
         <source>Do not shut down the computer until this window disappears.</source>
@@ -4102,8 +4102,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Možete potpisati poruke s vašim adresama kako biste dokazali da ih posjedujete. Pazite da ne potpišete ništa nejasno, jer napadi za krađu identiteta mogu Vas pokušati uvjeriti da vam potpišu identitet. Potpišite samo detalje oko kojih se slažete.</translation>
     </message>
     <message>
-        <source>The MAG address to sign the message with</source>
-        <translation>MAG adresa za potpisivanje poruke</translation>
+        <source>The BITWIN24 address to sign the message with</source>
+        <translation>BITWIN24 adresa za potpisivanje poruke</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -4134,16 +4134,16 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Kopirajte trenutačni potpis u međuspremnik sustava</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this MAG address</source>
-        <translation>Potpišite poruku da biste dokazali da ste vlasnik ove MAG adrese</translation>
+        <source>Sign the message to prove you own this BITWIN24 address</source>
+        <translation>Potpišite poruku da biste dokazali da ste vlasnik ove BITWIN24 adrese</translation>
     </message>
     <message>
-        <source>The MAG address the message was signed with</source>
-        <translation>MAG adresa s kojom je potpisana poruka</translation>
+        <source>The BITWIN24 address the message was signed with</source>
+        <translation>BITWIN24 adresa s kojom je potpisana poruka</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified MAG address</source>
-        <translation>Potvrdite poruku kako biste bili sigurni da je potpisana s navedenom MAG adresom</translation>
+        <source>Verify the message to ensure it was signed with the specified BITWIN24 address</source>
+        <translation>Potvrdite poruku kako biste bili sigurni da je potpisana s navedenom BITWIN24 adresom</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -4229,8 +4229,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>MAG Core</source>
-        <translation>MAG Core</translation>
+        <source>BITWIN24 Core</source>
+        <translation>BITWIN24 Core</translation>
     </message>
     <message>
         <source>Version %1</source>
@@ -4245,8 +4245,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Dash Core programeri</translation>
     </message>
     <message>
-        <source>The MAG Core developers</source>
-        <translation>MAG Core programeri</translation>
+        <source>The BITWIN24 Core developers</source>
+        <translation>BITWIN24 Core programeri</translation>
     </message>
     <message>
         <source>[testnet]</source>
@@ -4526,8 +4526,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Zaprimljeno preko Zametanja</translation>
     </message>
     <message>
-        <source>MAG Stake</source>
-        <translation>MAG Stake</translation>
+        <source>BITWIN24 Stake</source>
+        <translation>BITWIN24 Stake</translation>
     </message>
     <message>
         <source>zMAG Stake</source>
@@ -4550,24 +4550,24 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Prikrivanje Stvara Denominacije</translation>
     </message>
     <message>
-        <source>Converted MAG to zMAG</source>
-        <translation>Pretvoreni MAG u zMAG</translation>
+        <source>Converted BITWIN24 to zMAG</source>
+        <translation>Pretvoreni BITWIN24 u zMAG</translation>
     </message>
     <message>
         <source>Spent zMAG</source>
         <translation>Utrošeni zMAG</translation>
     </message>
     <message>
-        <source>Received MAG from zMAG</source>
-        <translation>Primljeni MAG od zMAG</translation>
+        <source>Received BITWIN24 from zMAG</source>
+        <translation>Primljeni BITWIN24 od zMAG</translation>
     </message>
     <message>
         <source>Minted Change as zMAG from zMAG Spend</source>
         <translation>Mintana razlika zMAG od zMAG Utroška</translation>
     </message>
     <message>
-        <source>Converted zMAG to MAG</source>
-        <translation>Pretvoreni zMAG u MAG</translation>
+        <source>Converted zMAG to BITWIN24</source>
+        <translation>Pretvoreni zMAG u BITWIN24</translation>
     </message>
     <message>
         <source>Anonymous (zMAG Transaction)</source>
@@ -4785,8 +4785,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Izvoz uspješan</translation>
     </message>
     <message>
-        <source>Received MAG from zMAG</source>
-        <translation>Primljeni MAG od zMAG</translation>
+        <source>Received BITWIN24 from zMAG</source>
+        <translation>Primljeni BITWIN24 od zMAG</translation>
     </message>
     <message>
         <source>Zerocoin Spend, Change in zMAG</source>
@@ -4826,8 +4826,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Salji novac</translation>
     </message>
     <message>
-        <source>SwiftX doesn't support sending values that high yet. Transactions are currently limited to %1 MAG.</source>
-        <translation>SwiftX ne podržava slanje visokih vrijednosti. Transakcije su trenutačno ograničene na %1 MAG.</translation>
+        <source>SwiftX doesn't support sending values that high yet. Transactions are currently limited to %1 BITWIN24.</source>
+        <translation>SwiftX ne podržava slanje visokih vrijednosti. Transakcije su trenutačno ograničene na %1 BITWIN24.</translation>
     </message>
 </context>
 <context>
@@ -4911,8 +4911,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Izračunata kontrolna točka akumulatora nije ono što se bilježi indeksom blokova</translation>
     </message>
     <message>
-        <source>Cannot obtain a lock on data directory %s. MAG Core is probably already running.</source>
-        <translation>Nije moguće dobiti zaključavanje na direktoriju podataka %s. MAG Core vjerojatno već radi.</translation>
+        <source>Cannot obtain a lock on data directory %s. BITWIN24 Core is probably already running.</source>
+        <translation>Nije moguće dobiti zaključavanje na direktoriju podataka %s. BITWIN24 Core vjerojatno već radi.</translation>
     </message>
     <message>
         <source>Change automatic finalized budget voting behavior. mode=auto: Vote for only exact finalized budget match to my generated budget. (string, default: auto)</source>
@@ -4943,8 +4943,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Omogući automatsko sigurnosno kopiranje novčanika nakon svakog zMAG mintanja (0-1, default: %u)</translation>
     </message>
     <message>
-        <source>Enable or disable staking functionality for MAG inputs (0-1, default: %u)</source>
-        <translation>Omogući ili onemogući staking funkcionalnosti za MAG unose (0-1, default: %u)</translation>
+        <source>Enable or disable staking functionality for BITWIN24 inputs (0-1, default: %u)</source>
+        <translation>Omogući ili onemogući staking funkcionalnosti za BITWIN24 unose (0-1, default: %u)</translation>
     </message>
     <message>
         <source>Enable or disable staking functionality for zMAG inputs (0-1, default: %u)</source>
@@ -4983,12 +4983,12 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Izvrši naredbu kada se promijeni najbolji blok (%s u cmd zamjenjuje se blokovskim raspršivanjem)</translation>
     </message>
     <message>
-        <source>Fees (in MAG/Kb) smaller than this are considered zero fee for relaying (default: %s)</source>
-        <translation>Naknade (u MAG / Kb) manje od toga smatraju se nulom naknadom za prosljeđivanje (zadano: %s)</translation>
+        <source>Fees (in BITWIN24/Kb) smaller than this are considered zero fee for relaying (default: %s)</source>
+        <translation>Naknade (u BITWIN24 / Kb) manje od toga smatraju se nulom naknadom za prosljeđivanje (zadano: %s)</translation>
     </message>
     <message>
-        <source>Fees (in MAG/Kb) smaller than this are considered zero fee for transaction creation (default: %s)</source>
-        <translation>Naknade (u MAG / Kb) manje od toga smatraju se nulom naknadom za izradu transakcija (zadano: %s)</translation>
+        <source>Fees (in BITWIN24/Kb) smaller than this are considered zero fee for transaction creation (default: %s)</source>
+        <translation>Naknade (u BITWIN24 / Kb) manje od toga smatraju se nulom naknadom za izradu transakcija (zadano: %s)</translation>
     </message>
     <message>
         <source>Flush database activity from memory pool to disk log every &lt;n&gt; megabytes (default: %u)</source>
@@ -5087,20 +5087,20 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Ovaj proizvod uključuje softver razvijen od strane OpenSSL projekta za uporabu u OpenSSL Toolkitu i kriptografskom softveru kojeg je napisao Eric Young i UPnP softver koji je napisao Thomas Bernard.</translation>
     </message>
     <message>
-        <source>Unable to bind to %s on this computer. MAG Core is probably already running.</source>
-        <translation>Nije moguće vezati se na %s na ovom računalu. MAG Core vjerojatno već radi.</translation>
+        <source>Unable to bind to %s on this computer. BITWIN24 Core is probably already running.</source>
+        <translation>Nije moguće vezati se na %s na ovom računalu. BITWIN24 Core vjerojatno već radi.</translation>
     </message>
     <message>
         <source>Unable to locate enough Obfuscation denominated funds for this transaction.</source>
         <translation>Nije moguće locirati dovoljno sredstava s domenom Prikrivanja za tu transakciju.</translation>
     </message>
     <message>
-        <source>Unable to locate enough Obfuscation non-denominated funds for this transaction that are not equal 10000 MAG.</source>
-        <translation>Nije moguće pronaći dovoljno prikrivenih sredstava koja nisu denominirana za ovu transakciju koja nisu jednaka 10000 MAG.</translation>
+        <source>Unable to locate enough Obfuscation non-denominated funds for this transaction that are not equal 10000 BITWIN24.</source>
+        <translation>Nije moguće pronaći dovoljno prikrivenih sredstava koja nisu denominirana za ovu transakciju koja nisu jednaka 10000 BITWIN24.</translation>
     </message>
     <message>
-        <source>Unable to locate enough funds for this transaction that are not equal 10000 MAG.</source>
-        <translation>Nije moguće pronaći dovoljno sredstava za ovu transakciju koja nije jednaka 10000 MAG.</translation>
+        <source>Unable to locate enough funds for this transaction that are not equal 10000 BITWIN24.</source>
+        <translation>Nije moguće pronaći dovoljno sredstava za ovu transakciju koja nije jednaka 10000 BITWIN24.</translation>
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: %s)</source>
@@ -5115,8 +5115,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Upozorenje: -paytxfee je vrlo visoka! To je transakcijska naknada koju ćete platiti ako šaljete transakciju.</translation>
     </message>
     <message>
-        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong MAG Core will not work properly.</source>
-        <translation>Upozorenje: Provjerite jesu li datum i vrijeme vašeg računala točni! Ako je vaš sat pogrešan, MAG Core neće raditi ispravno.</translation>
+        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong BITWIN24 Core will not work properly.</source>
+        <translation>Upozorenje: Provjerite jesu li datum i vrijeme vašeg računala točni! Ako je vaš sat pogrešan, BITWIN24 Core neće raditi ispravno.</translation>
     </message>
     <message>
         <source>Warning: The network does not appear to fully agree! Some miners appear to be experiencing issues.</source>
@@ -5267,8 +5267,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Autorska prava (C) 2014-%i The Dash Core Developers</translation>
     </message>
     <message>
-        <source>Copyright (C) 2015-%i The MAG Core Developers</source>
-        <translation>Autorska prava (C) 2015-%i The MAG Core Developers</translation>
+        <source>Copyright (C) 2015-%i The BITWIN24 Core Developers</source>
+        <translation>Autorska prava (C) 2015-%i The BITWIN24 Core Developers</translation>
     </message>
     <message>
         <source>Corrupted block database detected</source>
@@ -5356,8 +5356,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Pogreška pri učitavanju wallet.dat: novčanik oštećen</translation>
     </message>
     <message>
-        <source>Error loading wallet.dat: Wallet requires newer version of MAG Core</source>
-        <translation>Pogreška prilikom učitavanja wallet.dat: Novčanik zahtijeva noviju verziju MAG jezgre</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of BITWIN24 Core</source>
+        <translation>Pogreška prilikom učitavanja wallet.dat: Novčanik zahtijeva noviju verziju BITWIN24 jezgre</translation>
     </message>
     <message>
         <source>Error opening block database</source>
@@ -5412,8 +5412,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Greška čitanja bloka</translation>
     </message>
     <message>
-        <source>Fee (in MAG/kB) to add to transactions you send (default: %s)</source>
-        <translation>Naknada (u MAG / kB) za dodavanje transakcija koje šaljete (zadano: %s)</translation>
+        <source>Fee (in BITWIN24/kB) to add to transactions you send (default: %s)</source>
+        <translation>Naknada (u BITWIN24 / kB) za dodavanje transakcija koje šaljete (zadano: %s)</translation>
     </message>
     <message>
         <source>Finalizing transaction.</source>
@@ -5472,8 +5472,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Informacije</translation>
     </message>
     <message>
-        <source>Initialization sanity check failed. MAG Core is shutting down.</source>
-        <translation>Provjera ispravnosti inicijalizacije nije uspjela. MAG Core se zatvara.</translation>
+        <source>Initialization sanity check failed. BITWIN24 Core is shutting down.</source>
+        <translation>Provjera ispravnosti inicijalizacije nije uspjela. BITWIN24 Core se zatvara.</translation>
     </message>
     <message>
         <source>Input is not valid.</source>
@@ -5544,8 +5544,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Postotak automatskog kovanog Zerocoina (1-100, zadano: %u)</translation>
     </message>
     <message>
-        <source>Reindex the MAG and zMAG money supply statistics</source>
-        <translation>Ponovno indeksirati statistiku MAG i zMAG ponude novca</translation>
+        <source>Reindex the BITWIN24 and zMAG money supply statistics</source>
+        <translation>Ponovno indeksirati statistiku BITWIN24 i zMAG ponude novca</translation>
     </message>
     <message>
         <source>Reindexing zerocoin database...</source>
@@ -5583,8 +5583,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>uklonjene nepotvrđene transakcije</translation>
     </message>
     <message>
-        <source>Disable all MAG specific functionality (Masternodes, Zerocoin, SwiftX, Budgeting) (0-1, default: %u)</source>
-        <translation>Onemogući sve specifične funkcije MAG (Masternodes, Zerocoin, SwiftX, Budgeting) (0-1, zadano: %u)</translation>
+        <source>Disable all BITWIN24 specific functionality (Masternodes, Zerocoin, SwiftX, Budgeting) (0-1, default: %u)</source>
+        <translation>Onemogući sve specifične funkcije BITWIN24 (Masternodes, Zerocoin, SwiftX, Budgeting) (0-1, zadano: %u)</translation>
     </message>
     <message>
         <source>Enable SwiftX, show confirmations for locked transactions (bool, default: %s)</source>
@@ -6295,8 +6295,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Novčanik zaključan.</translation>
     </message>
     <message>
-        <source>Wallet needed to be rewritten: restart MAG Core to complete</source>
-        <translation>Potrebno je prepisati novčanik: ponovo pokrenite MAG Core</translation>
+        <source>Wallet needed to be rewritten: restart BITWIN24 Core to complete</source>
+        <translation>Potrebno je prepisati novčanik: ponovo pokrenite BITWIN24 Core</translation>
     </message>
     <message>
         <source>Wallet options:</source>

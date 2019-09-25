@@ -62,12 +62,12 @@
         <translation>Mottagar adresser</translation>
     </message>
     <message>
-        <source>These are your MAG addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Det här är dina MAG adresser för att skicka betalningar. Kontrollera alltid summan och mottagaradressen före du sänder mynt.</translation>
+        <source>These are your BITWIN24 addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Det här är dina BITWIN24 adresser för att skicka betalningar. Kontrollera alltid summan och mottagaradressen före du sänder mynt.</translation>
     </message>
     <message>
-        <source>These are your MAG addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Det här är dina MAG adresser för att ta emot betalningar. Det är rekomenderat att använda en ny mottagaradress för varje transaktion.</translation>
+        <source>These are your BITWIN24 addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Det här är dina BITWIN24 adresser för att ta emot betalningar. Det är rekomenderat att använda en ny mottagaradress för varje transaktion.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -176,16 +176,16 @@
         <translation>Bekräfta plånboks krypering</translation>
     </message>
     <message>
-        <source>MAG will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your MAGs from being stolen by malware infecting your computer.</source>
-        <translation>MAG kommer att stängas ner nu för att färdigställa kryperingsprocessen. Kom ihåg att kryptering av din plånbok inte kan säkerställa dina MAGs från att bli stulna av skadeprogram som infekterat din dator.</translation>
+        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your MAGs from being stolen by malware infecting your computer.</source>
+        <translation>BITWIN24 kommer att stängas ner nu för att färdigställa kryperingsprocessen. Kom ihåg att kryptering av din plånbok inte kan säkerställa dina MAGs från att bli stulna av skadeprogram som infekterat din dator.</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
         <translation>Är du säker på att du vill kryptera din plånbok?</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MAG&lt;/b&gt;!</source>
-        <translation>Varning: om du krypterar din plånbok och tappar bort din lösenfras kommer du &lt;b&gt; FÖRLORA ALLA DINA MAG&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITWIN24&lt;/b&gt;!</source>
+        <translation>Varning: om du krypterar din plånbok och tappar bort din lösenfras kommer du &lt;b&gt; FÖRLORA ALLA DINA BITWIN24&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Wallet encrypted</source>
@@ -254,12 +254,12 @@
         <translation>Adress:</translation>
     </message>
     <message>
-        <source>Enter a MAG Address that you would like to encrypt using BIP 38. Enter a passphrase in the middle box. Press encrypt to compute the encrypted private key.</source>
-        <translation>Fyll i en MAG Adress som du skulle vilja cryptera med BIP 38. Skriv in en lösenfras i den mittersta lådan. Tryck kryptera för att beräkna fram den krypterade privata nyckeln.</translation>
+        <source>Enter a BITWIN24 Address that you would like to encrypt using BIP 38. Enter a passphrase in the middle box. Press encrypt to compute the encrypted private key.</source>
+        <translation>Fyll i en BITWIN24 Adress som du skulle vilja cryptera med BIP 38. Skriv in en lösenfras i den mittersta lådan. Tryck kryptera för att beräkna fram den krypterade privata nyckeln.</translation>
     </message>
     <message>
-        <source>The MAG address to encrypt</source>
-        <translation>MAG adressen som ska krypteras</translation>
+        <source>The BITWIN24 address to encrypt</source>
+        <translation>BITWIN24 adressen som ska krypteras</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -290,8 +290,8 @@
         <translation>Kopiera den nuvarande signaturen till systemets urklipp</translation>
     </message>
     <message>
-        <source>Encrypt the private key for this MAG address</source>
-        <translation>Kryptera den privata nyckeln för denna MAG adressen</translation>
+        <source>Encrypt the private key for this BITWIN24 address</source>
+        <translation>Kryptera den privata nyckeln för denna BITWIN24 adressen</translation>
     </message>
     <message>
         <source>Reset all fields</source>
@@ -645,12 +645,12 @@
         <translation>flik vertygsrad</translation>
     </message>
     <message>
-        <source>MAG Core</source>
-        <translation>MAG Kärna</translation>
+        <source>BITWIN24 Core</source>
+        <translation>BITWIN24 Kärna</translation>
     </message>
     <message>
-        <source>Send coins to a MAG address</source>
-        <translation>Skicka mynt till en MAG adress</translation>
+        <source>Send coins to a BITWIN24 address</source>
+        <translation>Skicka mynt till en BITWIN24 adress</translation>
     </message>
     <message>
         <source>Request payments (generates QR codes and bitwin24: URIs)</source>
@@ -669,24 +669,24 @@
         <translation>Utforska masternoder</translation>
     </message>
     <message>
-        <source>&amp;About MAG Core</source>
-        <translation>Om MAG Kärnan</translation>
+        <source>&amp;About BITWIN24 Core</source>
+        <translation>Om BITWIN24 Kärnan</translation>
     </message>
     <message>
-        <source>Show information about MAG Core</source>
-        <translation>Visa information om MAG Kärnan</translation>
+        <source>Show information about BITWIN24 Core</source>
+        <translation>Visa information om BITWIN24 Kärnan</translation>
     </message>
     <message>
-        <source>Modify configuration options for MAG</source>
-        <translation>Ändra konfigurationsval för MAG</translation>
+        <source>Modify configuration options for BITWIN24</source>
+        <translation>Ändra konfigurationsval för BITWIN24</translation>
     </message>
     <message>
-        <source>Sign messages with your MAG addresses to prove you own them</source>
-        <translation>Signera meddelanden med din MAG adress för att visa att du äger dem</translation>
+        <source>Sign messages with your BITWIN24 addresses to prove you own them</source>
+        <translation>Signera meddelanden med din BITWIN24 adress för att visa att du äger dem</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified MAG addresses</source>
-        <translation>Verifiera meddelandet för att säkerställa att de blev signerat med den specifika MAG adressen.</translation>
+        <source>Verify messages to ensure they were signed with specified BITWIN24 addresses</source>
+        <translation>Verifiera meddelandet för att säkerställa att de blev signerat med den specifika BITWIN24 adressen.</translation>
     </message>
     <message>
         <source>&amp;BIP38 tool</source>
@@ -717,8 +717,8 @@
         <translation>Öppna Huvudnodens konfigurations fil </translation>
     </message>
     <message>
-        <source>Open a MAG: URI or payment request</source>
-        <translation>Öppna en MAG: URI eller betalningsförfrågan</translation>
+        <source>Open a BITWIN24: URI or payment request</source>
+        <translation>Öppna en BITWIN24: URI eller betalningsförfrågan</translation>
     </message>
     <message>
         <source>&amp;Blockchain explorer</source>
@@ -729,16 +729,16 @@
         <translation>Blockera utforskarfönstret</translation>
     </message>
     <message>
-        <source>Show the MAG Core help message to get a list with possible MAG command-line options</source>
-        <translation>Visa MAG Core hjälp meddelande för att få en lista med möjliga MAG kommandorad alternativ</translation>
+        <source>Show the BITWIN24 Core help message to get a list with possible BITWIN24 command-line options</source>
+        <translation>Visa BITWIN24 Core hjälp meddelande för att få en lista med möjliga BITWIN24 kommandorad alternativ</translation>
     </message>
     <message>
-        <source>MAG Core client</source>
-        <translation>MAG kärn klient</translation>
+        <source>BITWIN24 Core client</source>
+        <translation>BITWIN24 kärn klient</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to MAG network</source>
-        <translation><numerusform>%n aktiv(a) annslutning(ar) till MAG nätverket</numerusform><numerusform>%n aktiv(a) annslutning(ar) till MAG nätverket</numerusform></translation>
+        <source>%n active connection(s) to BITWIN24 network</source>
+        <translation><numerusform>%n aktiv(a) annslutning(ar) till BITWIN24 nätverket</numerusform><numerusform>%n aktiv(a) annslutning(ar) till BITWIN24 nätverket</numerusform></translation>
     </message>
     <message>
         <source>Synchronizing with network...</source>
@@ -1185,8 +1185,8 @@ MultiSend: %1</translation>
         <translation>Redigera skickande adress</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid MAG address.</source>
-        <translation>Den inmatade adressen "%1" är ej en giltig MAG adress.</translation>
+        <source>The entered address "%1" is not a valid BITWIN24 address.</source>
+        <translation>Den inmatade adressen "%1" är ej en giltig BITWIN24 adress.</translation>
     </message>
     <message>
         <source>The entered address "%1" is already in the address book.</source>
@@ -1231,16 +1231,16 @@ MultiSend: %1</translation>
         <translation>version</translation>
     </message>
     <message>
-        <source>MAG Core</source>
-        <translation>MAG Kärna</translation>
+        <source>BITWIN24 Core</source>
+        <translation>BITWIN24 Kärna</translation>
     </message>
     <message>
         <source>(%1-bit)</source>
         <translation>(%1-bit)</translation>
     </message>
     <message>
-        <source>About MAG Core</source>
-        <translation>Om MAG Kärna</translation>
+        <source>About BITWIN24 Core</source>
+        <translation>Om BITWIN24 Kärna</translation>
     </message>
     <message>
         <source>Command-line options</source>
@@ -1286,16 +1286,16 @@ MultiSend: %1</translation>
         <translation>Välkommen</translation>
     </message>
     <message>
-        <source>Welcome to MAG Core.</source>
-        <translation>Välkommen till MAG Core.</translation>
+        <source>Welcome to BITWIN24 Core.</source>
+        <translation>Välkommen till BITWIN24 Core.</translation>
     </message>
     <message>
-        <source>As this is the first time the program is launched, you can choose where MAG Core will store its data.</source>
-        <translation>Eftersom detta är första gången programmet körs så kan du välja var MAG Core ska spara sin data.</translation>
+        <source>As this is the first time the program is launched, you can choose where BITWIN24 Core will store its data.</source>
+        <translation>Eftersom detta är första gången programmet körs så kan du välja var BITWIN24 Core ska spara sin data.</translation>
     </message>
     <message>
-        <source>MAG Core will download and store a copy of the MAG block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>MAG Kärnan kommer ladda ner och spara en kopia av MAG block chain. Minst %1GB data kommer sparas i denna katalog och den kommer växa med tiden. Plånboken kommer också sparas i denna katalog.</translation>
+        <source>BITWIN24 Core will download and store a copy of the BITWIN24 block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>BITWIN24 Kärnan kommer ladda ner och spara en kopia av BITWIN24 block chain. Minst %1GB data kommer sparas i denna katalog och den kommer växa med tiden. Plånboken kommer också sparas i denna katalog.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -1306,8 +1306,8 @@ MultiSend: %1</translation>
         <translation>Använd en skräddarsydd data katalog</translation>
     </message>
     <message>
-        <source>MAG Core</source>
-        <translation>MAG Core</translation>
+        <source>BITWIN24 Core</source>
+        <translation>BITWIN24 Core</translation>
     </message>
     <message>
         <source>Error: Specified data directory "%1" cannot be created.</source>
@@ -1448,12 +1448,12 @@ MultiSend: %1</translation>
         <translation>Mata in Adress att Skicka till</translation>
     </message>
     <message>
-        <source>MultiSend allows you to automatically send up to 100% of your stake or masternode reward to a list of other MAG addresses after it matures.
-To Add: enter percentage to give and MAG address to add to the MultiSend vector.
+        <source>MultiSend allows you to automatically send up to 100% of your stake or masternode reward to a list of other BITWIN24 addresses after it matures.
+To Add: enter percentage to give and BITWIN24 address to add to the MultiSend vector.
 To Delete: Enter address to delete and press delete.
 MultiSend will not be activated unless you have clicked Activate</source>
-        <translation>MultiSend tillåter dig att automatiskt skicka upp till 100% av dina staking eller huvudnod belöningar till en lista av andra MAG adresser efter att belöningarna har mognat.
-För att Lägga till: Ange procent att ge och MAG adress för att lägga till i MultiSend vektorn.
+        <translation>MultiSend tillåter dig att automatiskt skicka upp till 100% av dina staking eller huvudnod belöningar till en lista av andra BITWIN24 adresser efter att belöningarna har mognat.
+För att Lägga till: Ange procent att ge och BITWIN24 adress för att lägga till i MultiSend vektorn.
 För att Ta Bort: Ange adressen som ska tas bort och tryck ta bort.
 MultiSend kommer inte aktiveras om du inte tryckt på Aktivera</translation>
     </message>
@@ -1680,8 +1680,8 @@ Var god vänta efter att du trycker på importera.</translation>
         <translation>Adress / Mängd:</translation>
     </message>
     <message>
-        <source>Add destinations to send MAG to</source>
-        <translation>Lägg till destination att skicka MAG till</translation>
+        <source>Add destinations to send BITWIN24 to</source>
+        <translation>Lägg till destination att skicka BITWIN24 till</translation>
     </message>
     <message>
         <source>Add &amp;Destination</source>
@@ -1779,48 +1779,48 @@ Var god vänta efter att du trycker på importera.</translation>
         <translation>Var vänlig och välj en sekretess nivå.</translation>
     </message>
     <message>
-        <source>Use 2 separate masternodes to mix funds up to 10000 MAG</source>
-        <translation>Använd 2 separata huvudnoder för att blanda tillgångar upp till 10000 MAG</translation>
+        <source>Use 2 separate masternodes to mix funds up to 10000 BITWIN24</source>
+        <translation>Använd 2 separata huvudnoder för att blanda tillgångar upp till 10000 BITWIN24</translation>
     </message>
     <message>
-        <source>Use 8 separate masternodes to mix funds up to 10000 MAG</source>
-        <translation>Använd 8 separata huvudnoderför att blanda tillgångar upp till 10000 MAG</translation>
+        <source>Use 8 separate masternodes to mix funds up to 10000 BITWIN24</source>
+        <translation>Använd 8 separata huvudnoderför att blanda tillgångar upp till 10000 BITWIN24</translation>
     </message>
     <message>
         <source>Use 16 separate masternodes</source>
         <translation>Använd 16 separata huvudnoder</translation>
     </message>
     <message>
-        <source>This option is the quickest and will cost about ~0.025 MAG to anonymize 10000 MAG</source>
-        <translation>Det här alternativet är det snabbaste och kommer kostar ungefär ~0.025 MAG för att anonymisera 10000 MAG</translation>
+        <source>This option is the quickest and will cost about ~0.025 BITWIN24 to anonymize 10000 BITWIN24</source>
+        <translation>Det här alternativet är det snabbaste och kommer kostar ungefär ~0.025 BITWIN24 för att anonymisera 10000 BITWIN24</translation>
     </message>
     <message>
-        <source>This option is moderately fast and will cost about 0.05 MAG to anonymize 10000 MAG</source>
-        <translation>Det här alternativet är måttligt snabb och kommer kostar ungefär 0.05 MAG för att anonymisera 10000 MAG</translation>
+        <source>This option is moderately fast and will cost about 0.05 BITWIN24 to anonymize 10000 BITWIN24</source>
+        <translation>Det här alternativet är måttligt snabb och kommer kostar ungefär 0.05 BITWIN24 för att anonymisera 10000 BITWIN24</translation>
     </message>
     <message>
         <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
         <translation>Det här är det långsammaste och säkraste alternativet. Använda maximal anonymitet kommer kosta</translation>
     </message>
     <message>
-        <source>0.1 MAG per 10000 MAG you anonymize.</source>
-        <translation>0.1 MAG per 10000 MAG du anonymiserar.</translation>
+        <source>0.1 BITWIN24 per 10000 BITWIN24 you anonymize.</source>
+        <translation>0.1 BITWIN24 per 10000 BITWIN24 du anonymiserar.</translation>
     </message>
     <message>
         <source>Obfuscation Configuration</source>
         <translation>Fördunkling Konfiguration</translation>
     </message>
     <message>
-        <source>Obfuscation was successfully set to basic (%1 and 2 rounds). You can change this at any time by opening MAG's configuration screen.</source>
-        <translation>Fördunkling sattes framgångsrikt till grundläggande (%1 och 2 rundor). Du kan ändra det här när du vill genom att öppna MAG's konfigurationsskärm.</translation>
+        <source>Obfuscation was successfully set to basic (%1 and 2 rounds). You can change this at any time by opening BITWIN24's configuration screen.</source>
+        <translation>Fördunkling sattes framgångsrikt till grundläggande (%1 och 2 rundor). Du kan ändra det här när du vill genom att öppna BITWIN24's konfigurationsskärm.</translation>
     </message>
     <message>
-        <source>Obfuscation was successfully set to high (%1 and 8 rounds). You can change this at any time by opening MAG's configuration screen.</source>
-        <translation>Fördunkling sattes framgångsrikt till hög (%1 och 8 rundor). Du kan ändra det här när du vill genom att öppna MAG's konfigurationsskärm.</translation>
+        <source>Obfuscation was successfully set to high (%1 and 8 rounds). You can change this at any time by opening BITWIN24's configuration screen.</source>
+        <translation>Fördunkling sattes framgångsrikt till hög (%1 och 8 rundor). Du kan ändra det här när du vill genom att öppna BITWIN24's konfigurationsskärm.</translation>
     </message>
     <message>
-        <source>Obfuscation was successfully set to maximum (%1 and 16 rounds). You can change this at any time by opening MAG's configuration screen.</source>
-        <translation>Fördunkling sattes framgångsrikt till maximal (%1 och 16 rundor). Du kan ändra det här när du vill genom att öppna MAG's konfigurationsskärm.</translation>
+        <source>Obfuscation was successfully set to maximum (%1 and 16 rounds). You can change this at any time by opening BITWIN24's configuration screen.</source>
+        <translation>Fördunkling sattes framgångsrikt till maximal (%1 och 16 rundor). Du kan ändra det här när du vill genom att öppna BITWIN24's konfigurationsskärm.</translation>
     </message>
 </context>
 <context>
@@ -1877,8 +1877,8 @@ Var god vänta efter att du trycker på importera.</translation>
         <translation>Om du avaktiverar spenderandet av okonfirmerad växel så kommer växeln från en transaktion &lt;br/&gt;ej kunna användas föräns transaktionen har minst en bekräftelse. &lt;br/&gt; Detta påverkar även hur ditt saldo beräknas.</translation>
     </message>
     <message>
-        <source>Automatically open the MAG client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Öppna automatiskt MAG klient porten på denna router. Detta funkar endast om din router stödjer UPnP och är påslaget.</translation>
+        <source>Automatically open the BITWIN24 client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Öppna automatiskt BITWIN24 klient porten på denna router. Detta funkar endast om din router stödjer UPnP och är påslaget.</translation>
     </message>
     <message>
         <source>Accept connections from outside</source>
@@ -1893,12 +1893,12 @@ Var god vänta efter att du trycker på importera.</translation>
         <translation>Expert</translation>
     </message>
     <message>
-        <source>Automatically start MAG after logging in to the system.</source>
-        <translation>Starta MAG automatiskt efter inloggning på systemet.</translation>
+        <source>Automatically start BITWIN24 after logging in to the system.</source>
+        <translation>Starta BITWIN24 automatiskt efter inloggning på systemet.</translation>
     </message>
     <message>
-        <source>&amp;Start MAG on system login</source>
-        <translation>&amp;Starta MAG vid systeminloggning</translation>
+        <source>&amp;Start BITWIN24 on system login</source>
+        <translation>&amp;Starta BITWIN24 vid systeminloggning</translation>
     </message>
     <message>
         <source>Whether to show coin control features or not.</source>
@@ -1921,8 +1921,8 @@ Var god vänta efter att du trycker på importera.</translation>
         <translation>&amp;Nätverk</translation>
     </message>
     <message>
-        <source>The user interface language can be set here. This setting will take effect after restarting MAG.</source>
-        <translation>Användargränssnittets språk kan väljas här. Denna inställning börjar gälla efter att man startat om MAG.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting BITWIN24.</source>
+        <translation>Användargränssnittets språk kan väljas här. Denna inställning börjar gälla efter att man startat om BITWIN24.</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
@@ -1935,24 +1935,24 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Kartlägg port med &amp;UPnP</translation>
     </message>
     <message>
-        <source>Enable automatic minting of MAG units to zMAG</source>
-        <translation>Tillåt automatisk prägling med MAG enheter till zMAG</translation>
+        <source>Enable automatic minting of BITWIN24 units to zMAG</source>
+        <translation>Tillåt automatisk prägling med BITWIN24 enheter till zMAG</translation>
     </message>
     <message>
         <source>Enable zMAG Automint</source>
         <translation>Tillåt zMAG Autoprägling</translation>
     </message>
     <message>
-        <source>Percentage of incoming MAG which get automatically converted to zMAG via Zerocoin Protocol (min: 10%)</source>
-        <translation>Procent av inkommande MAG som automatiskt konverteras till zMAG via Zerocoin Protokollet (min: 10%)</translation>
+        <source>Percentage of incoming BITWIN24 which get automatically converted to zMAG via Zerocoin Protocol (min: 10%)</source>
+        <translation>Procent av inkommande BITWIN24 som automatiskt konverteras till zMAG via Zerocoin Protokollet (min: 10%)</translation>
     </message>
     <message>
         <source>Percentage of autominted zMAG</source>
         <translation>Procent av autopräglade zMAG</translation>
     </message>
     <message>
-        <source>Wait with automatic conversion to Zerocoin until enough MAG for this denomination is available</source>
-        <translation>Vänta med automatisk omvandling till Zerocoin tills tillräckligt många MAG för denna valör är tillgängliga</translation>
+        <source>Wait with automatic conversion to Zerocoin until enough BITWIN24 for this denomination is available</source>
+        <translation>Vänta med automatisk omvandling till Zerocoin tills tillräckligt många BITWIN24 för denna valör är tillgängliga</translation>
     </message>
     <message>
         <source>Preferred Automint zMAG Denomination</source>
@@ -1963,8 +1963,8 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Staking delnings tröskel:</translation>
     </message>
     <message>
-        <source>Connect to the MAG network through a SOCKS5 proxy.</source>
-        <translation>Anslut till MAG nätverket via en SOCKS5 proxy.</translation>
+        <source>Connect to the BITWIN24 network through a SOCKS5 proxy.</source>
+        <translation>Anslut till BITWIN24 nätverket via en SOCKS5 proxy.</translation>
     </message>
     <message>
         <source>Proxy &amp;IP:</source>
@@ -2106,8 +2106,8 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Totalt saldo, inkluderar alla otillgängliga mynt.</translation>
     </message>
     <message>
-        <source>MAG Balance</source>
-        <translation>MAG Saldo</translation>
+        <source>BITWIN24 Balance</source>
+        <translation>BITWIN24 Saldo</translation>
     </message>
     <message>
         <source>Pending:</source>
@@ -2130,8 +2130,8 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Nuvarande låst saldo endast i "watch only" adresser</translation>
     </message>
     <message>
-        <source>Your current MAG balance, unconfirmed and immature transactions included</source>
-        <translation>Ditt nuvarande MAG saldo, obekräftade och omogna transaktioner är inkluderade</translation>
+        <source>Your current BITWIN24 balance, unconfirmed and immature transactions included</source>
+        <translation>Ditt nuvarande BITWIN24 saldo, obekräftade och omogna transaktioner är inkluderade</translation>
     </message>
     <message>
         <source>zMAG Balance</source>
@@ -2150,8 +2150,8 @@ Immature: confirmed, but less than 1 mint of the same denomination after it was 
 Omogna: bekräftade men under 1 myntning av samma valör efter den blev präglad</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the MAG network after a connection is established, but this process has not completed yet.</source>
-        <translation>Informationen kan vara föråldrad. Din plånbok synkroniserar automatiskt med MAG nätverket efter att en anslutning är etablerad, men denna process har inte blivit klar än.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BITWIN24 network after a connection is established, but this process has not completed yet.</source>
+        <translation>Informationen kan vara föråldrad. Din plånbok synkroniserar automatiskt med BITWIN24 nätverket efter att en anslutning är etablerad, men denna process har inte blivit klar än.</translation>
     </message>
     <message>
         <source>OVERVIEW</source>
@@ -2194,8 +2194,8 @@ Omogna: bekräftade men under 1 myntning av samma valör efter den blev präglad
         <translation>Spenderbar:</translation>
     </message>
     <message>
-        <source>Locked MAG or Masternode collaterals. These are excluded from zMAG minting.</source>
-        <translation>Låsta MAG eller masternode som säkerhet. Dessa är uteslutna från zMAG minting.</translation>
+        <source>Locked BITWIN24 or Masternode collaterals. These are excluded from zMAG minting.</source>
+        <translation>Låsta BITWIN24 eller masternode som säkerhet. Dessa är uteslutna från zMAG minting.</translation>
     </message>
     <message>
         <source>Locked:</source>
@@ -2267,8 +2267,8 @@ För att aktivera AutoMint ändra 'enablezeromint=0' till 'enablezeromint=1' i b
         <translation>Kan ej starta bitwin24: klicka-för-att-betala hanterare</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid MAG address or malformed URI parameters.</source>
-        <translation>URI kunde ej analyseras! Detta kan orsakas av en ogiltig MAG adress eller felproducerade URI parametrar.</translation>
+        <source>URI cannot be parsed! This can be caused by an invalid BITWIN24 address or malformed URI parameters.</source>
+        <translation>URI kunde ej analyseras! Detta kan orsakas av en ogiltig BITWIN24 adress eller felproducerade URI parametrar.</translation>
     </message>
     <message>
         <source>Payment request file cannot be read! This can be caused by an invalid payment request file.</source>
@@ -2353,8 +2353,8 @@ För att aktivera AutoMint ändra 'enablezeromint=0' till 'enablezeromint=1' i b
         <translation>Zerocoin Handlingar:</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the MAG network after a connection is established, but this process has not completed yet.</source>
-        <translation>nformationen kan vara föråldrad. Din plånbok synkroniserar automatiskt med MAG nätverket efter att en anslutning är etablerad, men denna process har inte blivit klar än.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BITWIN24 network after a connection is established, but this process has not completed yet.</source>
+        <translation>nformationen kan vara föråldrad. Din plånbok synkroniserar automatiskt med BITWIN24 nätverket efter att en anslutning är etablerad, men denna process har inte blivit klar än.</translation>
     </message>
     <message>
         <source>Mint Zerocoin</source>
@@ -2377,8 +2377,8 @@ För att aktivera AutoMint ändra 'enablezeromint=0' till 'enablezeromint=1' i b
         <translation>Tillgängligt att prägla:</translation>
     </message>
     <message>
-        <source>0.000 000 00 MAG</source>
-        <translation>0.000 000 00 MAG</translation>
+        <source>0.000 000 00 BITWIN24</source>
+        <translation>0.000 000 00 BITWIN24</translation>
     </message>
     <message>
         <source>Reset Zerocoin Wallet DB. Deletes transactions that did not make it into the blockchain.</source>
@@ -2418,7 +2418,7 @@ För att aktivera AutoMint ändra 'enablezeromint=0' till 'enablezeromint=1' i b
     </message>
     <message>
         <source>Enter an amount of BWI to convert to zMAG</source>
-        <translation>Mata in en mängd MAG att konvertera till zMAG</translation>
+        <translation>Mata in en mängd BITWIN24 att konvertera till zMAG</translation>
     </message>
     <message>
         <source>zMAG Control</source>
@@ -2477,8 +2477,8 @@ zMAG är mogna när de har över 20 bekräftelser OCH över 2 präglingar av sam
         <translation>Betala &amp;Till:</translation>
     </message>
     <message>
-        <source>The MAG address to send the payment to. Creates local payment to yourself when empty.</source>
-        <translation>MAG adress att skicka betalningen till. Skapar betalning till dig själv när den är tom.</translation>
+        <source>The BITWIN24 address to send the payment to. Creates local payment to yourself when empty.</source>
+        <translation>BITWIN24 adress att skicka betalningen till. Skapar betalning till dig själv när den är tom.</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2964,7 +2964,7 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
     </message>
     <message numerus="yes">
         <source>PrivacyDialog</source>
-        <comment>Enter an amount of MAG to convert to zMAG</comment>
+        <comment>Enter an amount of BITWIN24 to convert to zMAG</comment>
         <translation><numerusform>SekretessRuta</numerusform><numerusform>SekretessDialog</numerusform></translation>
     </message>
     <message>
@@ -3007,8 +3007,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Mängd</translation>
     </message>
     <message>
-        <source>Enter a MAG address (e.g. %1)</source>
-        <translation>Mata in en MAG adress (e.g. %1)</translation>
+        <source>Enter a BITWIN24 address (e.g. %1)</source>
+        <translation>Mata in en BITWIN24 adress (e.g. %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -3137,8 +3137,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Blockchain</translation>
     </message>
     <message>
-        <source>Open the MAG debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Öppna MAG felsökningslogg från den nuvarande data katalogen. Detta kan ta några sekunder för stora logg filer.</translation>
+        <source>Open the BITWIN24 debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Öppna BITWIN24 felsökningslogg från den nuvarande data katalogen. Detta kan ta några sekunder för stora logg filer.</translation>
     </message>
     <message>
         <source>Number of Masternodes</source>
@@ -3341,8 +3341,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Ut:</translation>
     </message>
     <message>
-        <source>Welcome to the MAG RPC console.</source>
-        <translation>Välkommen till MAG RPC konsol.</translation>
+        <source>Welcome to the BITWIN24 RPC console.</source>
+        <translation>Välkommen till BITWIN24 RPC konsol.</translation>
     </message>
     <message>
         <source>&amp;Disconnect Node</source>
@@ -3448,16 +3448,16 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>En valfri etikett att associera med den nya mottagaradressen.</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the MAG network.</source>
-        <translation>Ett frivilligt meddelande att bifoga till betalningsförfrågan, som kommer visas när förfrågan öppnas. Observera: Medelandet kommer inte skickas med betalningen över MAG nätverket.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the BITWIN24 network.</source>
+        <translation>Ett frivilligt meddelande att bifoga till betalningsförfrågan, som kommer visas när förfrågan öppnas. Observera: Medelandet kommer inte skickas med betalningen över BITWIN24 nätverket.</translation>
     </message>
     <message>
         <source>RECEIVE</source>
         <translation>ERHÅLLA</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the MAG network.</source>
-        <translation>Ett frivilligt meddelande att bifoga till betalningsförfrågan, vilket kommer visas när förfrågan öppnas.&lt;br&gt;Observera: Medelandet kommer inte skickas med betalningen över MAG nätverket.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the BITWIN24 network.</source>
+        <translation>Ett frivilligt meddelande att bifoga till betalningsförfrågan, vilket kommer visas när förfrågan öppnas.&lt;br&gt;Observera: Medelandet kommer inte skickas med betalningen över BITWIN24 nätverket.</translation>
     </message>
     <message>
         <source>Use this form to request payments. All fields are &lt;b&gt;optional&lt;/b&gt;.</source>
@@ -3677,8 +3677,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>UTXO Storlek:</translation>
     </message>
     <message>
-        <source>0 MAG</source>
-        <translation>0 MAG</translation>
+        <source>0 BITWIN24</source>
+        <translation>0 BITWIN24</translation>
     </message>
     <message>
         <source>Transaction Fee:</source>
@@ -3737,8 +3737,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Om 1000 uMAGs är den valda skräddarsydda avgiften och transaktionen är bara 250 bytes så kommer "per kilobyte" bara betala 250 uMAGs i avgift,&lt;br /&gt;medans "minst totalt" betalar 1000 uMAGs. För transaktioner större än en kilobyte så betalar båda per kilobyte.</translation>
     </message>
     <message>
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for MAG transactions than the network can process.</source>
-        <translation>Att endast betala minimum avgift är okej så länge som transaktionsvolymen är mindre än rummet i blocken.&lt;br /&gt;Men var medveten om att detta kan sluta som en transaktion som aldrig blir bekräftad när det finns ett större behov av MAG transaktioner än nätverket kan bearbeta.</translation>
+        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for BITWIN24 transactions than the network can process.</source>
+        <translation>Att endast betala minimum avgift är okej så länge som transaktionsvolymen är mindre än rummet i blocken.&lt;br /&gt;Men var medveten om att detta kan sluta som en transaktion som aldrig blir bekräftad när det finns ett större behov av BITWIN24 transaktioner än nätverket kan bearbeta.</translation>
     </message>
     <message>
         <source>normal</source>
@@ -3777,8 +3777,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Skicka till flera mottagare på en gång</translation>
     </message>
     <message>
-        <source>Anonymized MAG</source>
-        <translation>Anonymiserade MAG</translation>
+        <source>Anonymized BITWIN24</source>
+        <translation>Anonymiserade BITWIN24</translation>
     </message>
     <message>
         <source>Balance:</source>
@@ -3825,8 +3825,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Split block verktyget fungerar inte med flera adresser. Försök igen.</translation>
     </message>
     <message>
-        <source>Warning: Invalid MAG address</source>
-        <translation>Varning: Ogiltig MAG adress</translation>
+        <source>Warning: Invalid BITWIN24 address</source>
+        <translation>Varning: Ogiltig BITWIN24 adress</translation>
     </message>
     <message>
         <source>%1 to %2</source>
@@ -3928,8 +3928,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Betala &amp;Till:</translation>
     </message>
     <message>
-        <source>The MAG address to send the payment to</source>
-        <translation>MAG adressen att skicka betalningen till</translation>
+        <source>The BITWIN24 address to send the payment to</source>
+        <translation>BITWIN24 adressen att skicka betalningen till</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -3968,8 +3968,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Medelande:</translation>
     </message>
     <message>
-        <source>A message that was attached to the MAG: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the MAG network.</source>
-        <translation>Ett medelande som var bifogat till MAG: URI som kommer sparas med transaktionen som din referens. Lägg märke till: Detta meddelande kommer inte skickas genom MAG nätverket.</translation>
+        <source>A message that was attached to the BITWIN24: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the BITWIN24 network.</source>
+        <translation>Ett medelande som var bifogat till BITWIN24: URI som kommer sparas med transaktionen som din referens. Lägg märke till: Detta meddelande kommer inte skickas genom BITWIN24 nätverket.</translation>
     </message>
     <message>
         <source>This is an unverified payment request.</source>
@@ -3995,8 +3995,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
 <context>
     <name>ShutdownWindow</name>
     <message>
-        <source>MAG Core is shutting down...</source>
-        <translation>MAG Core stängs ner...</translation>
+        <source>BITWIN24 Core is shutting down...</source>
+        <translation>BITWIN24 Core stängs ner...</translation>
     </message>
     <message>
         <source>Do not shut down the computer until this window disappears.</source>
@@ -4018,8 +4018,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Du kan signera meddelanden med din egna adress för att bevisa att du äger dem. Se upp för att signera något vagt, då phishing-attacker kan försöka lura dig att signera din identitet åt dom. Signera endast fullt detaljerade påståenden du går med på.</translation>
     </message>
     <message>
-        <source>The MAG address to sign the message with</source>
-        <translation>MAG adressen för signera meddelandet med</translation>
+        <source>The BITWIN24 address to sign the message with</source>
+        <translation>BITWIN24 adressen för signera meddelandet med</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -4050,16 +4050,16 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Kopiera den nuvarande signaturen till systemets urklipp</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this MAG address</source>
-        <translation>Signera meddelandet för att bevisa att du äger denna MAG adress</translation>
+        <source>Sign the message to prove you own this BITWIN24 address</source>
+        <translation>Signera meddelandet för att bevisa att du äger denna BITWIN24 adress</translation>
     </message>
     <message>
-        <source>The MAG address the message was signed with</source>
-        <translation>MAG adressen meddelandet blev signerat med</translation>
+        <source>The BITWIN24 address the message was signed with</source>
+        <translation>BITWIN24 adressen meddelandet blev signerat med</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified MAG address</source>
-        <translation>Verifiera meddelandet för att säkerställa att de blev signerat med den specifika MAG adressen.</translation>
+        <source>Verify the message to ensure it was signed with the specified BITWIN24 address</source>
+        <translation>Verifiera meddelandet för att säkerställa att de blev signerat med den specifika BITWIN24 adressen.</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -4145,8 +4145,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>MAG Core</source>
-        <translation>MAG Core</translation>
+        <source>BITWIN24 Core</source>
+        <translation>BITWIN24 Core</translation>
     </message>
     <message>
         <source>Version %1</source>
@@ -4161,8 +4161,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Dash Core utvecklarna</translation>
     </message>
     <message>
-        <source>The MAG Core developers</source>
-        <translation>MAG Core utvecklarna</translation>
+        <source>The BITWIN24 Core developers</source>
+        <translation>BITWIN24 Core utvecklarna</translation>
     </message>
     <message>
         <source>[testnet]</source>
@@ -4441,8 +4441,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Mottaget via Fördunkling</translation>
     </message>
     <message>
-        <source>MAG Stake</source>
-        <translation>MAG staking</translation>
+        <source>BITWIN24 Stake</source>
+        <translation>BITWIN24 staking</translation>
     </message>
     <message>
         <source>zMAG Stake</source>
@@ -4465,24 +4465,24 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Obfuscation Skapa tecken</translation>
     </message>
     <message>
-        <source>Converted MAG to zMAG</source>
-        <translation>Konvertera MAG till zMAG</translation>
+        <source>Converted BITWIN24 to zMAG</source>
+        <translation>Konvertera BITWIN24 till zMAG</translation>
     </message>
     <message>
         <source>Spent zMAG</source>
         <translation>Spendera zMAG</translation>
     </message>
     <message>
-        <source>Received MAG from zMAG</source>
-        <translation>Mottog MAG från zMAG</translation>
+        <source>Received BITWIN24 from zMAG</source>
+        <translation>Mottog BITWIN24 från zMAG</translation>
     </message>
     <message>
         <source>Minted Change as zMAG from zMAG Spend</source>
         <translation>Myntad Växel som zMAG från zMAG Spendering</translation>
     </message>
     <message>
-        <source>Converted zMAG to MAG</source>
-        <translation>Konverterad zMAG till MAG</translation>
+        <source>Converted zMAG to BITWIN24</source>
+        <translation>Konverterad zMAG till BITWIN24</translation>
     </message>
     <message>
         <source>Anonymous (zMAG Transaction)</source>
@@ -4700,8 +4700,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Exportering Lyckat</translation>
     </message>
     <message>
-        <source>Received MAG from zMAG</source>
-        <translation>Mottog MAG från zMAG</translation>
+        <source>Received BITWIN24 from zMAG</source>
+        <translation>Mottog BITWIN24 från zMAG</translation>
     </message>
     <message>
         <source>Zerocoin Spend, Change in zMAG</source>
@@ -4741,8 +4741,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Skicka Mynt</translation>
     </message>
     <message>
-        <source>SwiftX doesn't support sending values that high yet. Transactions are currently limited to %1 MAG.</source>
-        <translation>wiftX stödjer inte att skicka så höga värden än. Transaktioner är för nuvarande begränsade till %1 MAG.</translation>
+        <source>SwiftX doesn't support sending values that high yet. Transactions are currently limited to %1 BITWIN24.</source>
+        <translation>wiftX stödjer inte att skicka så höga värden än. Transaktioner är för nuvarande begränsade till %1 BITWIN24.</translation>
     </message>
 </context>
 <context>
@@ -4826,8 +4826,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Beräknade ackumulator kontrollstation är inte vad som sparats av block index</translation>
     </message>
     <message>
-        <source>Cannot obtain a lock on data directory %s. MAG Core is probably already running.</source>
-        <translation>Kan ej låsa in på data katalog %s. MAG Kärna körs förmodligen redan.</translation>
+        <source>Cannot obtain a lock on data directory %s. BITWIN24 Core is probably already running.</source>
+        <translation>Kan ej låsa in på data katalog %s. BITWIN24 Kärna körs förmodligen redan.</translation>
     </message>
     <message>
         <source>Change automatic finalized budget voting behavior. mode=auto: Vote for only exact finalized budget match to my generated budget. (string, default: auto)</source>
@@ -4858,8 +4858,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Aktivera automatisk plånboksbackup efter varje zMAG minting (0-1, standard: %u)</translation>
     </message>
     <message>
-        <source>Enable or disable staking functionality for MAG inputs (0-1, default: %u)</source>
-        <translation>Aktivera eller avaktivera staking funktionalitet för MAG inmatningar (0-1, standard: %u)</translation>
+        <source>Enable or disable staking functionality for BITWIN24 inputs (0-1, default: %u)</source>
+        <translation>Aktivera eller avaktivera staking funktionalitet för BITWIN24 inmatningar (0-1, standard: %u)</translation>
     </message>
     <message>
         <source>Enable or disable staking functionality for zMAG inputs (0-1, default: %u)</source>
@@ -4898,12 +4898,12 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Exekvera kommando när den bästa block ändras (%s i cmd är utbytt mot block hash)</translation>
     </message>
     <message>
-        <source>Fees (in MAG/Kb) smaller than this are considered zero fee for relaying (default: %s)</source>
-        <translation>Avgifter (i MAG/Kb) mindre än detta anses vara noll avgift i vidarebefodring (standard: %s)</translation>
+        <source>Fees (in BITWIN24/Kb) smaller than this are considered zero fee for relaying (default: %s)</source>
+        <translation>Avgifter (i BITWIN24/Kb) mindre än detta anses vara noll avgift i vidarebefodring (standard: %s)</translation>
     </message>
     <message>
-        <source>Fees (in MAG/Kb) smaller than this are considered zero fee for transaction creation (default: %s)</source>
-        <translation>Avgifter (i MAG/Kb) mindre än detta anses vara noll avgift i transaktionsskapelse (standard: %s)</translation>
+        <source>Fees (in BITWIN24/Kb) smaller than this are considered zero fee for transaction creation (default: %s)</source>
+        <translation>Avgifter (i BITWIN24/Kb) mindre än detta anses vara noll avgift i transaktionsskapelse (standard: %s)</translation>
     </message>
     <message>
         <source>Flush database activity from memory pool to disk log every &lt;n&gt; megabytes (default: %u)</source>
@@ -5002,20 +5002,20 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Denna produkt inkluderar mjukvara utvecklad av OpenSSL Projektet för användning i OpenSSL Toolkit &lt;https://www.openssl.org/&gt; och kryptografisk mjukvara skriven av Eric Young och UPnP mjukvara skriven av Thomas Bernard.</translation>
     </message>
     <message>
-        <source>Unable to bind to %s on this computer. MAG Core is probably already running.</source>
-        <translation>Kan inte binda till %s på denna dator. MAG Core körs förmodligen redan.</translation>
+        <source>Unable to bind to %s on this computer. BITWIN24 Core is probably already running.</source>
+        <translation>Kan inte binda till %s på denna dator. BITWIN24 Core körs förmodligen redan.</translation>
     </message>
     <message>
         <source>Unable to locate enough Obfuscation denominated funds for this transaction.</source>
         <translation>Kan ej lokalisera tillräckligt Fördunklingsdenominationerade pengar för denna transaktion.</translation>
     </message>
     <message>
-        <source>Unable to locate enough Obfuscation non-denominated funds for this transaction that are not equal 10000 MAG.</source>
-        <translation>Kan ej lokalisera tillräckligt Fördunkling icke-denominationerade pengar för denna transaktion som inte är 10000 MAG.</translation>
+        <source>Unable to locate enough Obfuscation non-denominated funds for this transaction that are not equal 10000 BITWIN24.</source>
+        <translation>Kan ej lokalisera tillräckligt Fördunkling icke-denominationerade pengar för denna transaktion som inte är 10000 BITWIN24.</translation>
     </message>
     <message>
-        <source>Unable to locate enough funds for this transaction that are not equal 10000 MAG.</source>
-        <translation>Kan inte hitta tillräckligt med pengar för denna transaktion som inte är 10000 MAG.</translation>
+        <source>Unable to locate enough funds for this transaction that are not equal 10000 BITWIN24.</source>
+        <translation>Kan inte hitta tillräckligt med pengar för denna transaktion som inte är 10000 BITWIN24.</translation>
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: %s)</source>
@@ -5030,8 +5030,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Varning: -maxtxfee är sätt väldigt högt! Detta är transaktionsavgiften du kommer betala om du skickar en transaktion.</translation>
     </message>
     <message>
-        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong MAG Core will not work properly.</source>
-        <translation>Varning: Var vänlig kontrollera att din dators tid och datum är korrekt! Om din klocka är fel så kommer MAG Core inte att fungera korrekt.</translation>
+        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong BITWIN24 Core will not work properly.</source>
+        <translation>Varning: Var vänlig kontrollera att din dators tid och datum är korrekt! Om din klocka är fel så kommer BITWIN24 Core inte att fungera korrekt.</translation>
     </message>
     <message>
         <source>Warning: The network does not appear to fully agree! Some miners appear to be experiencing issues.</source>
@@ -5182,8 +5182,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Copyright (C) 2014-%i The Dash Core Developers</translation>
     </message>
     <message>
-        <source>Copyright (C) 2015-%i The MAG Core Developers</source>
-        <translation>Copyright (C) 2015-%i The MAG Core Developers</translation>
+        <source>Copyright (C) 2015-%i The BITWIN24 Core Developers</source>
+        <translation>Copyright (C) 2015-%i The BITWIN24 Core Developers</translation>
     </message>
     <message>
         <source>Corrupted block database detected</source>
@@ -5270,8 +5270,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Fel vid laddning av wallet.dat: Plånbok korrupterad</translation>
     </message>
     <message>
-        <source>Error loading wallet.dat: Wallet requires newer version of MAG Core</source>
-        <translation>Fel vid laddning av wallet.dat: Plånbok  kräver nyare MAG Kärna version</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of BITWIN24 Core</source>
+        <translation>Fel vid laddning av wallet.dat: Plånbok  kräver nyare BITWIN24 Kärna version</translation>
     </message>
     <message>
         <source>Error opening block database</source>
@@ -5326,8 +5326,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Misslyckades läsa block</translation>
     </message>
     <message>
-        <source>Fee (in MAG/kB) to add to transactions you send (default: %s)</source>
-        <translation>Avgift (i MAG/kB) för att lägga till transaktioner you skicka (standard: %s)</translation>
+        <source>Fee (in BITWIN24/kB) to add to transactions you send (default: %s)</source>
+        <translation>Avgift (i BITWIN24/kB) för att lägga till transaktioner you skicka (standard: %s)</translation>
     </message>
     <message>
         <source>Finalizing transaction.</source>
@@ -5386,8 +5386,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Information</translation>
     </message>
     <message>
-        <source>Initialization sanity check failed. MAG Core is shutting down.</source>
-        <translation>Initierings renlighetscheck misslyckades. MAG Kärna stängs ner.</translation>
+        <source>Initialization sanity check failed. BITWIN24 Core is shutting down.</source>
+        <translation>Initierings renlighetscheck misslyckades. BITWIN24 Kärna stängs ner.</translation>
     </message>
     <message>
         <source>Input is not valid.</source>
@@ -5458,8 +5458,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Procent automatiskt mintad Zerocoin (1-100, default: %u)</translation>
     </message>
     <message>
-        <source>Reindex the MAG and zMAG money supply statistics</source>
-        <translation>Indexera MAG och zMAG pengarna tillgång statistik på nytt</translation>
+        <source>Reindex the BITWIN24 and zMAG money supply statistics</source>
+        <translation>Indexera BITWIN24 och zMAG pengarna tillgång statistik på nytt</translation>
     </message>
     <message>
         <source>Reindexing zerocoin database...</source>
@@ -5498,8 +5498,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
 </translation>
     </message>
     <message>
-        <source>Disable all MAG specific functionality (Masternodes, Zerocoin, SwiftX, Budgeting) (0-1, default: %u)</source>
-        <translation>Avaktivera all MAG funktionalitet (Huvudnoder, Zerocoin, SwiftX, Budgeting) (0-1, standard: %u)</translation>
+        <source>Disable all BITWIN24 specific functionality (Masternodes, Zerocoin, SwiftX, Budgeting) (0-1, default: %u)</source>
+        <translation>Avaktivera all BITWIN24 funktionalitet (Huvudnoder, Zerocoin, SwiftX, Budgeting) (0-1, standard: %u)</translation>
     </message>
     <message>
         <source>Enable SwiftX, show confirmations for locked transactions (bool, default: %s)</source>
@@ -6210,8 +6210,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Plånboken är låst.</translation>
     </message>
     <message>
-        <source>Wallet needed to be rewritten: restart MAG Core to complete</source>
-        <translation>Plånbok behöver skrivas om: starta om MAG Kärna för att göra klart</translation>
+        <source>Wallet needed to be rewritten: restart BITWIN24 Core to complete</source>
+        <translation>Plånbok behöver skrivas om: starta om BITWIN24 Kärna för att göra klart</translation>
     </message>
     <message>
         <source>Wallet options:</source>

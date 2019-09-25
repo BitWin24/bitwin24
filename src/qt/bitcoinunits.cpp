@@ -19,7 +19,7 @@ BitcoinUnits::BitcoinUnits(QObject* parent) : QAbstractListModel(parent),
 QList<BitcoinUnits::Unit> BitcoinUnits::availableUnits()
 {
     QList<BitcoinUnits::Unit> unitlist;
-    unitlist.append(MAG);
+    unitlist.append(BITWIN24);
     unitlist.append(mMAG);
     unitlist.append(uMAG);
     return unitlist;
@@ -28,7 +28,7 @@ QList<BitcoinUnits::Unit> BitcoinUnits::availableUnits()
 bool BitcoinUnits::valid(int unit)
 {
     switch (unit) {
-    case MAG:
+    case BITWIN24:
     case mMAG:
     case uMAG:
         return true;
@@ -40,7 +40,7 @@ bool BitcoinUnits::valid(int unit)
 QString BitcoinUnits::id(int unit)
 {
     switch (unit) {
-    case MAG:
+    case BITWIN24:
         return QString("bitwin24");
     case mMAG:
         return QString("mmag");
@@ -55,8 +55,8 @@ QString BitcoinUnits::name(int unit)
 {
     if (Params().NetworkID() == CBaseChainParams::MAIN) {
         switch (unit) {
-        case MAG:
-            return QString("MAG");
+        case BITWIN24:
+            return QString("BITWIN24");
         case mMAG:
             return QString("mMAG");
         case uMAG:
@@ -66,7 +66,7 @@ QString BitcoinUnits::name(int unit)
         }
     } else {
         switch (unit) {
-        case MAG:
+        case BITWIN24:
             return QString("tMAG");
         case mMAG:
             return QString("mtMAG");
@@ -82,18 +82,18 @@ QString BitcoinUnits::description(int unit)
 {
     if (Params().NetworkID() == CBaseChainParams::MAIN) {
         switch (unit) {
-        case MAG:
-            return QString("MAG");
+        case BITWIN24:
+            return QString("BITWIN24");
         case mMAG:
-            return QString("Milli-MAG (1 / 1" THIN_SP_UTF8 "000)");
+            return QString("Milli-BITWIN24 (1 / 1" THIN_SP_UTF8 "000)");
         case uMAG:
-            return QString("Micro-MAG (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            return QString("Micro-BITWIN24 (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
         default:
             return QString("???");
         }
     } else {
         switch (unit) {
-        case MAG:
+        case BITWIN24:
             return QString("TestMAGs");
         case mMAG:
             return QString("Milli-TestMAG (1 / 1" THIN_SP_UTF8 "000)");
@@ -108,7 +108,7 @@ QString BitcoinUnits::description(int unit)
 qint64 BitcoinUnits::factor(int unit)
 {
     switch (unit) {
-    case MAG:
+    case BITWIN24:
         return 100000000;
     case mMAG:
         return 100000;
@@ -122,7 +122,7 @@ qint64 BitcoinUnits::factor(int unit)
 int BitcoinUnits::decimals(int unit)
 {
     switch (unit) {
-    case MAG:
+    case BITWIN24:
         return 8;
     case mMAG:
         return 5;

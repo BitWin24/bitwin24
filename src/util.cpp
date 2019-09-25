@@ -105,7 +105,7 @@ std::string to_internal(const std::string&);
 
 using namespace std;
 
-// MAG only features
+// BITWIN24 only features
 // Masternode
 bool fMasterNode = false;
 string strMasterNodePrivKey = "";
@@ -237,7 +237,7 @@ bool LogAcceptCategory(const char* category)
             const vector<string>& categories = mapMultiArgs["-debug"];
             ptrCategory.reset(new set<string>(categories.begin(), categories.end()));
             // thread_specific_ptr automatically deletes the set when the thread ends.
-            // "bitwin24" is a composite category enabling all MAG-related debug output
+            // "bitwin24" is a composite category enabling all BITWIN24-related debug output
             if (ptrCategory->count(string("bitwin24"))) {
                 ptrCategory->insert(string("obfuscation"));
                 ptrCategory->insert(string("swiftx"));
@@ -424,13 +424,13 @@ void PrintExceptionContinue(std::exception* pex, const char* pszThread)
 boost::filesystem::path GetDefaultDataDir()
 {
     namespace fs = boost::filesystem;
-// Windows < Vista: C:\Documents and Settings\Username\Application Data\MAG
-// Windows >= Vista: C:\Users\Username\AppData\Roaming\MAG
-// Mac: ~/Library/Application Support/MAG
+// Windows < Vista: C:\Documents and Settings\Username\Application Data\BITWIN24
+// Windows >= Vista: C:\Users\Username\AppData\Roaming\BITWIN24
+// Mac: ~/Library/Application Support/BITWIN24
 // Unix: ~/.bitwin24
 #ifdef WIN32
     // Windows
-    return GetSpecialFolderPath(CSIDL_APPDATA) / "MAG";
+    return GetSpecialFolderPath(CSIDL_APPDATA) / "BITWIN24";
 #else
     fs::path pathRet;
     char* pszHome = getenv("HOME");
@@ -442,7 +442,7 @@ boost::filesystem::path GetDefaultDataDir()
     // Mac
     pathRet /= "Library/Application Support";
     TryCreateDirectory(pathRet);
-    return pathRet / "MAG";
+    return pathRet / "BITWIN24";
 #else
     // Unix
     return pathRet / ".bitwin24";

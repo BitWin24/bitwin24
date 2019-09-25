@@ -1,9 +1,9 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=MAG
-Comment=MAG P2P Cryptocurrency
-Comment[fr]=MAG, monnaie virtuelle cryptographique pair à pair
-Comment[tr]=MAG, eşten eşe kriptografik sanal para birimi
+Name=BITWIN24
+Comment=BITWIN24 P2P Cryptocurrency
+Comment[fr]=BITWIN24, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=BITWIN24, eşten eşe kriptografik sanal para birimi
 Exec=bitwin24-qt %u
 Terminal=false
 Type=Application

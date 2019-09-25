@@ -2,7 +2,7 @@
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2018 The PIVX developers
-// Copyright (c) 2018-present The MAG developers
+// Copyright (c) 2018-present The BITWIN24 developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -53,7 +53,7 @@ using namespace std;
 using namespace libzerocoin;
 
 #if defined(NDEBUG)
-#error "MAG cannot be compiled without assertions."
+#error "BITWIN24 cannot be compiled without assertions."
 #endif
 
 /**
@@ -1772,7 +1772,7 @@ int64_t GetBlockValue(int nHeight)
             nSubsidy = Params().SwapCoinbaseValue();
         }
         else {
-            nSubsidy = 100 * COIN; // Initial MAG chain coinbase value after 1st halving.
+            nSubsidy = 100 * COIN; // Initial BITWIN24 chain coinbase value after 1st halving.
         }
 
         return nSubsidy;
@@ -2403,7 +2403,7 @@ bool DisconnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex
         const CTransaction& tx = block.vtx[i];
 
         /** UNDO ZEROCOIN DATABASING
-         * note we only undo zerocoin databasing in the following statement, value to and from MAG
+         * note we only undo zerocoin databasing in the following statement, value to and from BITWIN24
          * addresses should still be handled by the typical bitcoin based undo code
          * */
         if (tx.ContainsZerocoins()) {
@@ -2685,7 +2685,7 @@ bool RecalculateMAGSupply(int nHeightStart)
 
 bool ReindexAccumulators(list<uint256>& listMissingCheckpoints, string& strError)
 {
-    // MAG: recalculate Accumulator Checkpoints that failed to database properly
+    // BITWIN24: recalculate Accumulator Checkpoints that failed to database properly
     if (!listMissingCheckpoints.empty()) {
         uiInterface.ShowProgress(_("Calculating missing accumulators..."), 0);
         LogPrintf("%s : finding missing checkpoints\n", __func__);
@@ -3199,7 +3199,7 @@ void static UpdateTip(CBlockIndex* pindexNew)
 {
     chainActive.SetTip(pindexNew);
 
-    // If turned on AutoZeromint will automatically convert MAG to zMAG
+    // If turned on AutoZeromint will automatically convert BITWIN24 to zMAG
     if (pwalletMain->isZeromintEnabled ())
         pwalletMain->AutoZeromint ();
 
@@ -4040,7 +4040,7 @@ bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW, bo
                 nHeight = (*mi).second->nHeight + 1;
         }
 
-        // MAG
+        // BITWIN24
         // It is entirely possible that we don't have enough data and this could fail
         // (i.e. the block could indeed be valid). Store the block for later consideration
         // but issue an initial reject message.
@@ -5496,7 +5496,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             return false;
         }
 
-        // MAG: We use certain sporks during IBD, so check to see if they are
+        // BITWIN24: We use certain sporks during IBD, so check to see if they are
         // available. If not, ask the first peer connected for them.
         bool fMissingSporks = !pSporkDB->SporkExists(SPORK_14_NEW_PROTOCOL_ENFORCEMENT) &&
                 !pSporkDB->SporkExists(SPORK_15_NEW_PROTOCOL_ENFORCEMENT_2) &&

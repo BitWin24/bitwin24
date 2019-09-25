@@ -62,12 +62,12 @@
         <translation>Alıcı Adres</translation>
     </message>
     <message>
-        <source>These are your MAG addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Bunlar ödemeleri göndermek için olan MAG adreslerinizdir.Coinleri göndermeden önce her zaman gönderilen miktarı ve adresi kontrol edin</translation>
+        <source>These are your BITWIN24 addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Bunlar ödemeleri göndermek için olan BITWIN24 adreslerinizdir.Coinleri göndermeden önce her zaman gönderilen miktarı ve adresi kontrol edin</translation>
     </message>
     <message>
-        <source>These are your MAG addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Bunlar ödemeleri almak için olan MAG adreslerinizdirHer işlem için yeni bir adres kullanmanız önerilir.</translation>
+        <source>These are your BITWIN24 addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Bunlar ödemeleri almak için olan BITWIN24 adreslerinizdirHer işlem için yeni bir adres kullanmanız önerilir.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -176,15 +176,15 @@
         <translation>cüzdan şifrelemesini onayla</translation>
     </message>
     <message>
-        <source>MAG will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your MAGs from being stolen by malware infecting your computer.</source>
-        <translation>MAG şifreleme işlemini tamamlamak için şimdi kapanacaktır. Cüzdanınızı şifrelemenin, MAG'lerinizi bilgisayarınıza bulaşan kötücül yazılımlar tarafından çalınmasına tamamen engelleyemediğini unutmayın</translation>
+        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your MAGs from being stolen by malware infecting your computer.</source>
+        <translation>BITWIN24 şifreleme işlemini tamamlamak için şimdi kapanacaktır. Cüzdanınızı şifrelemenin, BITWIN24'lerinizi bilgisayarınıza bulaşan kötücül yazılımlar tarafından çalınmasına tamamen engelleyemediğini unutmayın</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
         <translation>Cüzdanınızı şifrelemek istediğinizden emin misiniz?</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MAG&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITWIN24&lt;/b&gt;!</source>
         <translation>Dikkat! Eğer cüzdanınızı şifrelerseniz ve şifrenizi unutursanız &lt;b&gt;Tüm Pıvlerinizi kaybedersiniz&lt;/b&gt;!</translation>
     </message>
     <message>
@@ -254,12 +254,12 @@
         <translation>adres</translation>
     </message>
     <message>
-        <source>Enter a MAG Address that you would like to encrypt using BIP 38. Enter a passphrase in the middle box. Press encrypt to compute the encrypted private key.</source>
-        <translation>BIP 38 ile şifrelemek isteğiniz MAG Adresini giriniz. Ortadaki kutucuğa bir parola giriniz. Şifrelenmiş özel anahtarı hesaplamak için şifrele tuşuna basınız. </translation>
+        <source>Enter a BITWIN24 Address that you would like to encrypt using BIP 38. Enter a passphrase in the middle box. Press encrypt to compute the encrypted private key.</source>
+        <translation>BIP 38 ile şifrelemek isteğiniz BITWIN24 Adresini giriniz. Ortadaki kutucuğa bir parola giriniz. Şifrelenmiş özel anahtarı hesaplamak için şifrele tuşuna basınız. </translation>
     </message>
     <message>
-        <source>The MAG address to encrypt</source>
-        <translation>Şifrelenecek MAG adresi</translation>
+        <source>The BITWIN24 address to encrypt</source>
+        <translation>Şifrelenecek BITWIN24 adresi</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -290,8 +290,8 @@
         <translation>Geçerli imzayı sistem panosuna kopyala</translation>
     </message>
     <message>
-        <source>Encrypt the private key for this MAG address</source>
-        <translation>Bu MAG adresinin özel anahtarını şifreleyin</translation>
+        <source>Encrypt the private key for this BITWIN24 address</source>
+        <translation>Bu BITWIN24 adresinin özel anahtarını şifreleyin</translation>
     </message>
     <message>
         <source>Reset all fields</source>
@@ -637,12 +637,12 @@
         <translation>Sekme tablosu</translation>
     </message>
     <message>
-        <source>MAG Core</source>
-        <translation>MAG CORE</translation>
+        <source>BITWIN24 Core</source>
+        <translation>BITWIN24 CORE</translation>
     </message>
     <message>
-        <source>Send coins to a MAG address</source>
-        <translation>Koinleri MAG adresine gönder</translation>
+        <source>Send coins to a BITWIN24 address</source>
+        <translation>Koinleri BITWIN24 adresine gönder</translation>
     </message>
     <message>
         <source>Request payments (generates QR codes and bitwin24: URIs)</source>
@@ -661,24 +661,24 @@
         <translation>Masternodları ara</translation>
     </message>
     <message>
-        <source>&amp;About MAG Core</source>
+        <source>&amp;About BITWIN24 Core</source>
         <translation>Pıvx core Hakkında</translation>
     </message>
     <message>
-        <source>Show information about MAG Core</source>
+        <source>Show information about BITWIN24 Core</source>
         <translation>Pıvx Core hakkında bilgi göster</translation>
     </message>
     <message>
-        <source>Modify configuration options for MAG</source>
-        <translation>MAG için yapılandırma seçeneklerini değiştirin</translation>
+        <source>Modify configuration options for BITWIN24</source>
+        <translation>BITWIN24 için yapılandırma seçeneklerini değiştirin</translation>
     </message>
     <message>
-        <source>Sign messages with your MAG addresses to prove you own them</source>
-        <translation>Sahip olduğunuzu kanıtlamak için mesajlarınızı MAG adresleriyle imzalayın</translation>
+        <source>Sign messages with your BITWIN24 addresses to prove you own them</source>
+        <translation>Sahip olduğunuzu kanıtlamak için mesajlarınızı BITWIN24 adresleriyle imzalayın</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified MAG addresses</source>
-        <translation>Belirtilen MAG adresleriyle imzalanmış olduklarından emin olmak için iletileri doğrulayın</translation>
+        <source>Verify messages to ensure they were signed with specified BITWIN24 addresses</source>
+        <translation>Belirtilen BITWIN24 adresleriyle imzalanmış olduklarından emin olmak için iletileri doğrulayın</translation>
     </message>
     <message>
         <source>&amp;BIP38 tool</source>
@@ -709,8 +709,8 @@
         <translation>Açık Masternode yapılandırma dosyası</translation>
     </message>
     <message>
-        <source>Open a MAG: URI or payment request</source>
-        <translation>Bir MAG: URI veya ödeme isteği açın</translation>
+        <source>Open a BITWIN24: URI or payment request</source>
+        <translation>Bir BITWIN24: URI veya ödeme isteği açın</translation>
     </message>
     <message>
         <source>&amp;Blockchain explorer</source>
@@ -721,12 +721,12 @@
         <translation>Kaşif penceresini engelle</translation>
     </message>
     <message>
-        <source>Show the MAG Core help message to get a list with possible MAG command-line options</source>
-        <translation>Olası MAG komut satırı seçeneklerine sahip bir liste almak için MAG Core yardım mesajını gösterin</translation>
+        <source>Show the BITWIN24 Core help message to get a list with possible BITWIN24 command-line options</source>
+        <translation>Olası BITWIN24 komut satırı seçeneklerine sahip bir liste almak için BITWIN24 Core yardım mesajını gösterin</translation>
     </message>
     <message>
-        <source>MAG Core client</source>
-        <translation>MAG Core istemci</translation>
+        <source>BITWIN24 Core client</source>
+        <translation>BITWIN24 Core istemci</translation>
     </message>
     <message>
         <source>Synchronizing with network...</source>
@@ -1154,8 +1154,8 @@ Adres: %4
         <translation>Gönderen adresini düzenle</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid MAG address.</source>
-        <translation>Girilen "%1" adresi geçerli bir MAG adresi değil.</translation>
+        <source>The entered address "%1" is not a valid BITWIN24 address.</source>
+        <translation>Girilen "%1" adresi geçerli bir BITWIN24 adresi değil.</translation>
     </message>
     <message>
         <source>The entered address "%1" is already in the address book.</source>
@@ -1200,16 +1200,16 @@ Adres: %4
         <translation>versiyon</translation>
     </message>
     <message>
-        <source>MAG Core</source>
-        <translation>MAG CORE</translation>
+        <source>BITWIN24 Core</source>
+        <translation>BITWIN24 CORE</translation>
     </message>
     <message>
         <source>(%1-bit)</source>
         <translation>(%1-bit)</translation>
     </message>
     <message>
-        <source>About MAG Core</source>
-        <translation>hakkında MAG Core</translation>
+        <source>About BITWIN24 Core</source>
+        <translation>hakkında BITWIN24 Core</translation>
     </message>
     <message>
         <source>Command-line options</source>
@@ -1255,16 +1255,16 @@ Adres: %4
         <translation>Hoşgeldiniz</translation>
     </message>
     <message>
-        <source>Welcome to MAG Core.</source>
-        <translation>MAG Core'a hoşgeldiniz.</translation>
+        <source>Welcome to BITWIN24 Core.</source>
+        <translation>BITWIN24 Core'a hoşgeldiniz.</translation>
     </message>
     <message>
-        <source>As this is the first time the program is launched, you can choose where MAG Core will store its data.</source>
-        <translation>Program ilk başlatıldığında MAG Core'un verilerini nerede saklayacağını seçebilirsiniz.</translation>
+        <source>As this is the first time the program is launched, you can choose where BITWIN24 Core will store its data.</source>
+        <translation>Program ilk başlatıldığında BITWIN24 Core'un verilerini nerede saklayacağını seçebilirsiniz.</translation>
     </message>
     <message>
-        <source>MAG Core will download and store a copy of the MAG block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>MAG Core, MAG blok zincirinin bir kopyasını indirecek ve depolayacaktır. Bu dizinde en az %1GB veri saklanacak ve zamanla büyüyecek. Cüzdan ayrıca bu dizinde saklanır.</translation>
+        <source>BITWIN24 Core will download and store a copy of the BITWIN24 block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>BITWIN24 Core, BITWIN24 blok zincirinin bir kopyasını indirecek ve depolayacaktır. Bu dizinde en az %1GB veri saklanacak ve zamanla büyüyecek. Cüzdan ayrıca bu dizinde saklanır.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -1275,8 +1275,8 @@ Adres: %4
         <translation>Özel bir veri dizini kullanın:</translation>
     </message>
     <message>
-        <source>MAG Core</source>
-        <translation>MAG CORE</translation>
+        <source>BITWIN24 Core</source>
+        <translation>BITWIN24 CORE</translation>
     </message>
     <message>
         <source>Error: Specified data directory "%1" cannot be created.</source>
@@ -1417,12 +1417,12 @@ Adres: %4
         <translation>Gönderim adresi girin</translation>
     </message>
     <message>
-        <source>MultiSend allows you to automatically send up to 100% of your stake or masternode reward to a list of other MAG addresses after it matures.
-To Add: enter percentage to give and MAG address to add to the MultiSend vector.
+        <source>MultiSend allows you to automatically send up to 100% of your stake or masternode reward to a list of other BITWIN24 addresses after it matures.
+To Add: enter percentage to give and BITWIN24 address to add to the MultiSend vector.
 To Delete: Enter address to delete and press delete.
 MultiSend will not be activated unless you have clicked Activate</source>
-        <translation>MultiSend, olgunlaştıktan sonra diğer MAG adreslerinin bir listesine otomatik olarak kazancınızın 100% 'ünü veya grup yazınızı ödüllendirmenize olanak tanır.
-Eklemek için: Verilecek yüzdeyi ve MultiSend vektörüne eklemek için MAG adresi girin.
+        <translation>MultiSend, olgunlaştıktan sonra diğer BITWIN24 adreslerinin bir listesine otomatik olarak kazancınızın 100% 'ünü veya grup yazınızı ödüllendirmenize olanak tanır.
+Eklemek için: Verilecek yüzdeyi ve MultiSend vektörüne eklemek için BITWIN24 adresi girin.
 Silme: Silinecek adresi girin ve silmek için basın.
 MultiSend, Etkinleştir'i tıklamadığınız sürece etkinleştirilmeyecektir</translation>
     </message>
@@ -1644,8 +1644,8 @@ Unutmayın, cüzdan, yeni adresi içeren işlemleri bulmak için blok zinciri ye
         <translation>Address /miktar:</translation>
     </message>
     <message>
-        <source>Add destinations to send MAG to</source>
-        <translation>MAG göndermek için varış yerleri ekleyin</translation>
+        <source>Add destinations to send BITWIN24 to</source>
+        <translation>BITWIN24 göndermek için varış yerleri ekleyin</translation>
     </message>
     <message>
         <source>Add &amp;Destination</source>
@@ -1743,48 +1743,48 @@ Unutmayın, cüzdan, yeni adresi içeren işlemleri bulmak için blok zinciri ye
         <translation>Lütfen bir gizlilik düzeyi seçin.</translation>
     </message>
     <message>
-        <source>Use 2 separate masternodes to mix funds up to 10000 MAG</source>
-        <translation>10000 MAG'e kadar fonları karıştırmak için 2 ayrı matternod kullanın</translation>
+        <source>Use 2 separate masternodes to mix funds up to 10000 BITWIN24</source>
+        <translation>10000 BITWIN24'e kadar fonları karıştırmak için 2 ayrı matternod kullanın</translation>
     </message>
     <message>
-        <source>Use 8 separate masternodes to mix funds up to 10000 MAG</source>
-        <translation>10000 MAG'ye kadar olan fonları karıştırmak için 8 ayrı matternod kullanın</translation>
+        <source>Use 8 separate masternodes to mix funds up to 10000 BITWIN24</source>
+        <translation>10000 BITWIN24'ye kadar olan fonları karıştırmak için 8 ayrı matternod kullanın</translation>
     </message>
     <message>
         <source>Use 16 separate masternodes</source>
         <translation>16 ayrı matternod kullan</translation>
     </message>
     <message>
-        <source>This option is the quickest and will cost about ~0.025 MAG to anonymize 10000 MAG</source>
-        <translation>Bu seçenek en hızlıdır ve 10000 MAG'yi anonimleştirmek için ~ 0.025 MAG'lik bir maliyeti olacaktır</translation>
+        <source>This option is the quickest and will cost about ~0.025 BITWIN24 to anonymize 10000 BITWIN24</source>
+        <translation>Bu seçenek en hızlıdır ve 10000 BITWIN24'yi anonimleştirmek için ~ 0.025 BITWIN24'lik bir maliyeti olacaktır</translation>
     </message>
     <message>
-        <source>This option is moderately fast and will cost about 0.05 MAG to anonymize 10000 MAG</source>
-        <translation>Bu seçenek orta derecede hızlıdır ve 10000 MAG'yi anonimleştirmek için yaklaşık 0.05 MAG'e mal olur</translation>
+        <source>This option is moderately fast and will cost about 0.05 BITWIN24 to anonymize 10000 BITWIN24</source>
+        <translation>Bu seçenek orta derecede hızlıdır ve 10000 BITWIN24'yi anonimleştirmek için yaklaşık 0.05 BITWIN24'e mal olur</translation>
     </message>
     <message>
         <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
         <translation>Bu en yavaş ve en güvenli seçenektir. Maksimum anonimlik kullanmak maliyete gelecek</translation>
     </message>
     <message>
-        <source>0.1 MAG per 10000 MAG you anonymize.</source>
-        <translation>0.1 MAG her 10000 MAG anonimleştirmeye.</translation>
+        <source>0.1 BITWIN24 per 10000 BITWIN24 you anonymize.</source>
+        <translation>0.1 BITWIN24 her 10000 BITWIN24 anonimleştirmeye.</translation>
     </message>
     <message>
         <source>Obfuscation Configuration</source>
         <translation>Şaşırtma ayarlama</translation>
     </message>
     <message>
-        <source>Obfuscation was successfully set to basic (%1 and 2 rounds). You can change this at any time by opening MAG's configuration screen.</source>
-        <translation>Şaşırtma başarıyla temele ayarlandı. (%1 ve  2 turlar) Bunu istediğiniz zaman değiştirmek için MAG in ayarlar ekranını açmanız yeterli</translation>
+        <source>Obfuscation was successfully set to basic (%1 and 2 rounds). You can change this at any time by opening BITWIN24's configuration screen.</source>
+        <translation>Şaşırtma başarıyla temele ayarlandı. (%1 ve  2 turlar) Bunu istediğiniz zaman değiştirmek için BITWIN24 in ayarlar ekranını açmanız yeterli</translation>
     </message>
     <message>
-        <source>Obfuscation was successfully set to high (%1 and 8 rounds). You can change this at any time by opening MAG's configuration screen.</source>
-        <translation>Şaşırtma başarıyla Yüksek e ayarlandı. (%1 ve 8 turlar) Bunu istediğiniz zaman değiştirmek için MAG in ayarlar ekranını açmanız yeterli</translation>
+        <source>Obfuscation was successfully set to high (%1 and 8 rounds). You can change this at any time by opening BITWIN24's configuration screen.</source>
+        <translation>Şaşırtma başarıyla Yüksek e ayarlandı. (%1 ve 8 turlar) Bunu istediğiniz zaman değiştirmek için BITWIN24 in ayarlar ekranını açmanız yeterli</translation>
     </message>
     <message>
-        <source>Obfuscation was successfully set to maximum (%1 and 16 rounds). You can change this at any time by opening MAG's configuration screen.</source>
-        <translation>Şaşırtma başarıyla maksimuma ayarlandı. (%1 ve 16 turlar) Bunu istediğiniz zaman değiştirmek için MAG in ayarlar ekranını açmanız yeterli</translation>
+        <source>Obfuscation was successfully set to maximum (%1 and 16 rounds). You can change this at any time by opening BITWIN24's configuration screen.</source>
+        <translation>Şaşırtma başarıyla maksimuma ayarlandı. (%1 ve 16 turlar) Bunu istediğiniz zaman değiştirmek için BITWIN24 in ayarlar ekranını açmanız yeterli</translation>
     </message>
 </context>
 <context>
@@ -1845,8 +1845,8 @@ Unutmayın, cüzdan, yeni adresi içeren işlemleri bulmak için blok zinciri ye
         <translation>Doğrulanmamış değişikliğin harcamasını devre dışı bırakırsanız, bir işlemdeki değişiklik&lt;br/&gt;Bu işlem en az bir onay alıncaya kadar kullanılamaz.&lt;br/&gt;Bu aynı zamanda bakiyenizin nasıl hesaplandığını etkiler.</translation>
     </message>
     <message>
-        <source>Automatically open the MAG client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Yönelticideki MAG istemci bağlantı noktasını otomatik olarak açın. Bu, yalnızca yönlendiriciniz UPnP'yi destekliyorsa ve etkinleştirilmişse çalışır.</translation>
+        <source>Automatically open the BITWIN24 client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Yönelticideki BITWIN24 istemci bağlantı noktasını otomatik olarak açın. Bu, yalnızca yönlendiriciniz UPnP'yi destekliyorsa ve etkinleştirilmişse çalışır.</translation>
     </message>
     <message>
         <source>Accept connections from outside</source>
@@ -1865,12 +1865,12 @@ Unutmayın, cüzdan, yeni adresi içeren işlemleri bulmak için blok zinciri ye
         <translation>Uzman</translation>
     </message>
     <message>
-        <source>Automatically start MAG after logging in to the system.</source>
-        <translation>Sisteme giriş yaptıktan sonra otomatik olarak MAG'i başlatın.</translation>
+        <source>Automatically start BITWIN24 after logging in to the system.</source>
+        <translation>Sisteme giriş yaptıktan sonra otomatik olarak BITWIN24'i başlatın.</translation>
     </message>
     <message>
-        <source>&amp;Start MAG on system login</source>
-        <translation>&amp; Sistem oturum açma işleminde MAG'i başlat</translation>
+        <source>&amp;Start BITWIN24 on system login</source>
+        <translation>&amp; Sistem oturum açma işleminde BITWIN24'i başlat</translation>
     </message>
     <message>
         <source>Whether to show coin control features or not.</source>
@@ -1897,8 +1897,8 @@ Unutmayın, cüzdan, yeni adresi içeren işlemleri bulmak için blok zinciri ye
         <translation>&amp;ağ</translation>
     </message>
     <message>
-        <source>The user interface language can be set here. This setting will take effect after restarting MAG.</source>
-        <translation>Kullanıcı arabirimi dili burada ayarlanabilir. Bu ayar, MAG yeniden başlatıldıktan sonra geçerli olur.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting BITWIN24.</source>
+        <translation>Kullanıcı arabirimi dili burada ayarlanabilir. Bu ayar, BITWIN24 yeniden başlatıldıktan sonra geçerli olur.</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
@@ -1915,24 +1915,24 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>zMAG Otomatik basımı etkinleştir</translation>
     </message>
     <message>
-        <source>Percentage of incoming MAG which get automatically converted to zMAG via Zerocoin Protocol (min: 10%)</source>
-        <translation>Zerocoin Protokolü üzerinden otomatik olarak zMAG'ye dönüştürülen gelen MAG yüzdesi (dakika: 10%)</translation>
+        <source>Percentage of incoming BITWIN24 which get automatically converted to zMAG via Zerocoin Protocol (min: 10%)</source>
+        <translation>Zerocoin Protokolü üzerinden otomatik olarak zMAG'ye dönüştürülen gelen BITWIN24 yüzdesi (dakika: 10%)</translation>
     </message>
     <message>
         <source>Percentage of autominted zMAG</source>
         <translation>Otomatikleştirilmiş zMAG yüzdesi</translation>
     </message>
     <message>
-        <source>Wait with automatic conversion to Zerocoin until enough MAG for this denomination is available</source>
-        <translation>Bu mezhebi için yeterli MAG bulunana kadar Zerocoin'e otomatik dönüşümle birlikte bekleyin</translation>
+        <source>Wait with automatic conversion to Zerocoin until enough BITWIN24 for this denomination is available</source>
+        <translation>Bu mezhebi için yeterli BITWIN24 bulunana kadar Zerocoin'e otomatik dönüşümle birlikte bekleyin</translation>
     </message>
     <message>
         <source>Preferred Automint zMAG Denomination</source>
         <translation>Tercih edilen Automint zMAG Nominal değeri</translation>
     </message>
     <message>
-        <source>Connect to the MAG network through a SOCKS5 proxy.</source>
-        <translation>Bir SOCKS5 proxy vasıtasıyla MAG ağına bağlanın.</translation>
+        <source>Connect to the BITWIN24 network through a SOCKS5 proxy.</source>
+        <translation>Bir SOCKS5 proxy vasıtasıyla BITWIN24 ağına bağlanın.</translation>
     </message>
     <message>
         <source>Proxy &amp;IP:</source>
@@ -2078,8 +2078,8 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Toplam Bakiye, mevcut olmayan tüm paralar dahil.</translation>
     </message>
     <message>
-        <source>MAG Balance</source>
-        <translation>MAG Bakiyesi</translation>
+        <source>BITWIN24 Balance</source>
+        <translation>BITWIN24 Bakiyesi</translation>
     </message>
     <message>
         <source>Pending:</source>
@@ -2098,16 +2098,16 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Staklanmış veya masternod ödülleri henüz olgunlaşmamış</translation>
     </message>
     <message>
-        <source>Your current MAG balance, unconfirmed and immature transactions included</source>
-        <translation>Güncel MAG bakiyeniz, onaylanmamış ve olgunlaşmamış işlemler dahil</translation>
+        <source>Your current BITWIN24 balance, unconfirmed and immature transactions included</source>
+        <translation>Güncel BITWIN24 bakiyeniz, onaylanmamış ve olgunlaşmamış işlemler dahil</translation>
     </message>
     <message>
         <source>zMAG Balance</source>
         <translation>zMAG Bakiyesi</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the MAG network after a connection is established, but this process has not completed yet.</source>
-        <translation>Görüntülenen bilgiler güncelliğini yitirmiş olabilir. Bir bağlantı kurulduktan sonra M-cüzdanınız otomatik olarak MAG şebekesiyle senkronize edilir, ancak bu işlem henüz tamamlanmadı.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BITWIN24 network after a connection is established, but this process has not completed yet.</source>
+        <translation>Görüntülenen bilgiler güncelliğini yitirmiş olabilir. Bir bağlantı kurulduktan sonra M-cüzdanınız otomatik olarak BITWIN24 şebekesiyle senkronize edilir, ancak bu işlem henüz tamamlanmadı.</translation>
     </message>
     <message>
         <source>OVERVIEW</source>
@@ -2150,8 +2150,8 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Harcanabilir:</translation>
     </message>
     <message>
-        <source>Locked MAG or Masternode collaterals. These are excluded from zMAG minting.</source>
-        <translation>Kilitli MAG veya Masternode teminatları. Bunlar zMAG matlaştırmadan çıkarılır.</translation>
+        <source>Locked BITWIN24 or Masternode collaterals. These are excluded from zMAG minting.</source>
+        <translation>Kilitli BITWIN24 veya Masternode teminatları. Bunlar zMAG matlaştırmadan çıkarılır.</translation>
     </message>
     <message>
         <source>Locked:</source>
@@ -2223,8 +2223,8 @@ To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in bitwin24.c
         <translation>BitWin24 başlatılamıyor: tıkla ve ödeme işleyicisi</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid MAG address or malformed URI parameters.</source>
-        <translation>URI ayrıştırılamaz! Bunun nedeni, geçersiz bir MAG adresi veya hatalı biçimlendirilmiş URI parametrelerinden kaynaklanabilir.</translation>
+        <source>URI cannot be parsed! This can be caused by an invalid BITWIN24 address or malformed URI parameters.</source>
+        <translation>URI ayrıştırılamaz! Bunun nedeni, geçersiz bir BITWIN24 adresi veya hatalı biçimlendirilmiş URI parametrelerinden kaynaklanabilir.</translation>
     </message>
     <message>
         <source>Payment request file cannot be read! This can be caused by an invalid payment request file.</source>
@@ -2309,8 +2309,8 @@ To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in bitwin24.c
         <translation>Zerocoin Actions:</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the MAG network after a connection is established, but this process has not completed yet.</source>
-        <translation>Görüntülenen bilgiler güncelliğini yitirmiş olabilir. Bir bağlantı kurulduktan sonra M-cüzdanınız otomatik olarak MAG şebekesiyle senkronize edilir, ancak bu işlem henüz tamamlanmadı.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BITWIN24 network after a connection is established, but this process has not completed yet.</source>
+        <translation>Görüntülenen bilgiler güncelliğini yitirmiş olabilir. Bir bağlantı kurulduktan sonra M-cüzdanınız otomatik olarak BITWIN24 şebekesiyle senkronize edilir, ancak bu işlem henüz tamamlanmadı.</translation>
     </message>
     <message>
         <source>Mint Zerocoin</source>
@@ -2333,8 +2333,8 @@ To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in bitwin24.c
         <translation>Mintinge hazır</translation>
     </message>
     <message>
-        <source>0.000 000 00 MAG</source>
-        <translation>0.000 000 00 MAG</translation>
+        <source>0.000 000 00 BITWIN24</source>
+        <translation>0.000 000 00 BITWIN24</translation>
     </message>
     <message>
         <source>Reset Zerocoin Wallet DB. Deletes transactions that did not make it into the blockchain.</source>
@@ -2421,8 +2421,8 @@ zMAG, 20'den fazla teyit bulunduğunda olgunlaşır ve bundan sonra aynı mezhep
         <translation>şuna öde:</translation>
     </message>
     <message>
-        <source>The MAG address to send the payment to. Creates local payment to yourself when empty.</source>
-        <translation>Ödemeyi göndermek için MAG adresi. Boş olduğunda kendinize yerel ödeme oluşturur.</translation>
+        <source>The BITWIN24 address to send the payment to. Creates local payment to yourself when empty.</source>
+        <translation>Ödemeyi göndermek için BITWIN24 adresi. Boş olduğunda kendinize yerel ödeme oluşturur.</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2790,8 +2790,8 @@ Ya daha yüksek mezhepleri daraltın (daha az girdi gereklidir) veya harcama mik
         <translation>Miktar</translation>
     </message>
     <message>
-        <source>Enter a MAG address (e.g. %1)</source>
-        <translation>Gir bir MAG addres (e.g. %1)</translation>
+        <source>Enter a BITWIN24 address (e.g. %1)</source>
+        <translation>Gir bir BITWIN24 addres (e.g. %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -2928,8 +2928,8 @@ Ya daha yüksek mezhepleri daraltın (daha az girdi gereklidir) veya harcama mik
         <translation>Block chain</translation>
     </message>
     <message>
-        <source>Open the MAG debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Geçerli veri dizininden MAG hata ayıklama günlük dosyasını açın. Bu, büyük günlük dosyaları için birkaç saniye sürebilir.</translation>
+        <source>Open the BITWIN24 debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Geçerli veri dizininden BITWIN24 hata ayıklama günlük dosyasını açın. Bu, büyük günlük dosyaları için birkaç saniye sürebilir.</translation>
     </message>
     <message>
         <source>Number of Masternodes</source>
@@ -3112,8 +3112,8 @@ Ya daha yüksek mezhepleri daraltın (daha az girdi gereklidir) veya harcama mik
         <translation>Dışa:</translation>
     </message>
     <message>
-        <source>Welcome to the MAG RPC console.</source>
-        <translation>MAG RPC konsola hoşgeldiniz</translation>
+        <source>Welcome to the BITWIN24 RPC console.</source>
+        <translation>BITWIN24 RPC konsola hoşgeldiniz</translation>
     </message>
     <message>
         <source>This will delete your local blockchain folders and the wallet will synchronize the complete Blockchain from scratch.&lt;br /&gt;&lt;br /&gt;</source>
@@ -3199,12 +3199,12 @@ Ya daha yüksek mezhepleri daraltın (daha az girdi gereklidir) veya harcama mik
         <translation>Yeni alma adresi ile ilişkilendirilebilecek isteğe bağlı bir etiket.</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the MAG network.</source>
-        <translation>Talep açıldığında görüntülenecek ödeme isteğine eklemek için isteğe bağlı bir mesaj. Not: Mesaj, ödemenin MAG şebekesi üzerinden gönderilmeyecektir.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the BITWIN24 network.</source>
+        <translation>Talep açıldığında görüntülenecek ödeme isteğine eklemek için isteğe bağlı bir mesaj. Not: Mesaj, ödemenin BITWIN24 şebekesi üzerinden gönderilmeyecektir.</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the MAG network.</source>
-        <translation>Talep açıldığında görüntülenecek, ödeme isteğine eklemek için isteğe bağlı bir mesaj.&lt;br&gt;Not: Mesaj, ödemenin MAG şebekesi üzerinden gönderilmeyecektir.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the BITWIN24 network.</source>
+        <translation>Talep açıldığında görüntülenecek, ödeme isteğine eklemek için isteğe bağlı bir mesaj.&lt;br&gt;Not: Mesaj, ödemenin BITWIN24 şebekesi üzerinden gönderilmeyecektir.</translation>
     </message>
     <message>
         <source>Use this form to request payments. All fields are &lt;b&gt;optional&lt;/b&gt;.</source>
@@ -3428,8 +3428,8 @@ Ya daha yüksek mezhepleri daraltın (daha az girdi gereklidir) veya harcama mik
         <translation>UTXO Boyutu:</translation>
     </message>
     <message>
-        <source>0 MAG</source>
-        <translation>0 MAG</translation>
+        <source>0 BITWIN24</source>
+        <translation>0 BITWIN24</translation>
     </message>
     <message>
         <source>Transaction Fee:</source>
@@ -3492,8 +3492,8 @@ Ya daha yüksek mezhepleri daraltın (daha az girdi gereklidir) veya harcama mik
         <translation>Özel ücret 1000 uMAG olarak ayarlanırsa ve işlem sadece 250 bayt ise, "kilobayt başına" ücret karşılığında yalnızca 250 uMAG ücreti verilir,&lt;br /&gt;"toplam en az" ise 1000 uMAG ödüyor. Bir kilobayttan daha büyük işlemler için kilobayt ödersiniz.</translation>
     </message>
     <message>
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for MAG transactions than the network can process.</source>
-        <translation>Yalnızca minimum ücreti ödemek, işlem hacmi bloklardaki alana göre daha az olduğu sürece iyidir.&lt;br /&gt;Ancak, bunun, MAG işlemleri için ağın işleyebileceğinden daha fazla talep olması durumunda, onaylama işleminde asla sonuçlanamayacağına dikkat edin.</translation>
+        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for BITWIN24 transactions than the network can process.</source>
+        <translation>Yalnızca minimum ücreti ödemek, işlem hacmi bloklardaki alana göre daha az olduğu sürece iyidir.&lt;br /&gt;Ancak, bunun, BITWIN24 işlemleri için ağın işleyebileceğinden daha fazla talep olması durumunda, onaylama işleminde asla sonuçlanamayacağına dikkat edin.</translation>
     </message>
     <message>
         <source>normal</source>
@@ -3540,8 +3540,8 @@ Ya daha yüksek mezhepleri daraltın (daha az girdi gereklidir) veya harcama mik
         <translation>Alıcı ekle</translation>
     </message>
     <message>
-        <source>Anonymized MAG</source>
-        <translation>anonim edilmiş MAG</translation>
+        <source>Anonymized BITWIN24</source>
+        <translation>anonim edilmiş BITWIN24</translation>
     </message>
     <message>
         <source>Balance:</source>
@@ -3588,8 +3588,8 @@ Ya daha yüksek mezhepleri daraltın (daha az girdi gereklidir) veya harcama mik
         <translation>Bloğu böl aygıtı multipl adresle çalışmaz Tekrar deneyin</translation>
     </message>
     <message>
-        <source>Warning: Invalid MAG address</source>
-        <translation>Uyarı: Geçersiz MAG adresi</translation>
+        <source>Warning: Invalid BITWIN24 address</source>
+        <translation>Uyarı: Geçersiz BITWIN24 adresi</translation>
     </message>
     <message>
         <source>%1 to %2</source>
@@ -3683,8 +3683,8 @@ Ya daha yüksek mezhepleri daraltın (daha az girdi gereklidir) veya harcama mik
         <translation>şuna öde:</translation>
     </message>
     <message>
-        <source>The MAG address to send the payment to</source>
-        <translation>Ödemeyi göndermek için MAG adresi</translation>
+        <source>The BITWIN24 address to send the payment to</source>
+        <translation>Ödemeyi göndermek için BITWIN24 adresi</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -3723,8 +3723,8 @@ Ya daha yüksek mezhepleri daraltın (daha az girdi gereklidir) veya harcama mik
         <translation>Mesaj:</translation>
     </message>
     <message>
-        <source>A message that was attached to the MAG: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the MAG network.</source>
-        <translation>MAG e eklenmiş olan bir mesaj: İşleminizle beraber saklanacak olan URI hatırlamanız için. Not: Bu mesaj MAG ağında yayınlanmayacak.</translation>
+        <source>A message that was attached to the BITWIN24: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the BITWIN24 network.</source>
+        <translation>BITWIN24 e eklenmiş olan bir mesaj: İşleminizle beraber saklanacak olan URI hatırlamanız için. Not: Bu mesaj BITWIN24 ağında yayınlanmayacak.</translation>
     </message>
     <message>
         <source>This is an unverified payment request.</source>
@@ -3750,8 +3750,8 @@ Ya daha yüksek mezhepleri daraltın (daha az girdi gereklidir) veya harcama mik
 <context>
     <name>ShutdownWindow</name>
     <message>
-        <source>MAG Core is shutting down...</source>
-        <translation>MAG Core kapanıyor ...</translation>
+        <source>BITWIN24 Core is shutting down...</source>
+        <translation>BITWIN24 Core kapanıyor ...</translation>
     </message>
     <message>
         <source>Do not shut down the computer until this window disappears.</source>
@@ -3773,8 +3773,8 @@ Ya daha yüksek mezhepleri daraltın (daha az girdi gereklidir) veya harcama mik
         <translation>Sahip olduğunuzu kanıtlamak için adreslerinizle mesaj imzalayabilirsiniz. Kimlik avı saldırıları sizi kimliğini onlara yazmaya kandırmaya çalışabilir, çünkü belirsiz bir şey imzalamamaya dikkat edin. Kabul ettiğiniz tamamen ayrıntılı ifadeleri yalnızca imzalayın.</translation>
     </message>
     <message>
-        <source>The MAG address to sign the message with</source>
-        <translation>Ile mesaj imzalamak için MAG adresi</translation>
+        <source>The BITWIN24 address to sign the message with</source>
+        <translation>Ile mesaj imzalamak için BITWIN24 adresi</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -3805,16 +3805,16 @@ Ya daha yüksek mezhepleri daraltın (daha az girdi gereklidir) veya harcama mik
         <translation>Geçerli imzayı sistem panosuna kopyala</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this MAG address</source>
-        <translation>Bu MAG adresinin sahibi olduğunuzu kanıtlamak için mesajı imzala</translation>
+        <source>Sign the message to prove you own this BITWIN24 address</source>
+        <translation>Bu BITWIN24 adresinin sahibi olduğunuzu kanıtlamak için mesajı imzala</translation>
     </message>
     <message>
-        <source>The MAG address the message was signed with</source>
-        <translation>Mesajın imzalandığı MAG adresi</translation>
+        <source>The BITWIN24 address the message was signed with</source>
+        <translation>Mesajın imzalandığı BITWIN24 adresi</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified MAG address</source>
-        <translation>Belirtilen MAG adresi ile imzalanmış olduğundan emin olmak için iletiyi doğrulayın</translation>
+        <source>Verify the message to ensure it was signed with the specified BITWIN24 address</source>
+        <translation>Belirtilen BITWIN24 adresi ile imzalanmış olduğundan emin olmak için iletiyi doğrulayın</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -3900,8 +3900,8 @@ Ya daha yüksek mezhepleri daraltın (daha az girdi gereklidir) veya harcama mik
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>MAG Core</source>
-        <translation>MAG CORE</translation>
+        <source>BITWIN24 Core</source>
+        <translation>BITWIN24 CORE</translation>
     </message>
     <message>
         <source>Version %1</source>
@@ -3916,8 +3916,8 @@ Ya daha yüksek mezhepleri daraltın (daha az girdi gereklidir) veya harcama mik
         <translation>The Dash Core developers</translation>
     </message>
     <message>
-        <source>The MAG Core developers</source>
-        <translation>The MAG Core developers</translation>
+        <source>The BITWIN24 Core developers</source>
+        <translation>The BITWIN24 Core developers</translation>
     </message>
     <message>
         <source>[testnet]</source>
@@ -4436,8 +4436,8 @@ Ya daha yüksek mezhepleri daraltın (daha az girdi gereklidir) veya harcama mik
         <translation>Koinleri göder</translation>
     </message>
     <message>
-        <source>SwiftX doesn't support sending values that high yet. Transactions are currently limited to %1 MAG.</source>
-        <translation>SwiftX yüksek değerler göndermeyi desteklemiyor. İşlemler şu anda %1 MAG ile sınırlıdır.</translation>
+        <source>SwiftX doesn't support sending values that high yet. Transactions are currently limited to %1 BITWIN24.</source>
+        <translation>SwiftX yüksek değerler göndermeyi desteklemiyor. İşlemler şu anda %1 BITWIN24 ile sınırlıdır.</translation>
     </message>
 </context>
 <context>
@@ -4513,8 +4513,8 @@ Ya daha yüksek mezhepleri daraltın (daha az girdi gereklidir) veya harcama mik
         <translation>Hesaplanan akümülatör kontrol noktası, blok indeksiyle kaydedilen kontrol noktası değildir.</translation>
     </message>
     <message>
-        <source>Cannot obtain a lock on data directory %s. MAG Core is probably already running.</source>
-        <translation>Veri dizini %s üzerinde bir kilit elde edemiyor. MAG Core muhtemelen zaten çalışıyor.</translation>
+        <source>Cannot obtain a lock on data directory %s. BITWIN24 Core is probably already running.</source>
+        <translation>Veri dizini %s üzerinde bir kilit elde edemiyor. BITWIN24 Core muhtemelen zaten çalışıyor.</translation>
     </message>
     <message>
         <source>Change automatic finalized budget voting behavior. mode=auto: Vote for only exact finalized budget match to my generated budget. (string, default: auto)</source>
@@ -4565,12 +4565,12 @@ Ya daha yüksek mezhepleri daraltın (daha az girdi gereklidir) veya harcama mik
         <translation>En iyi blok değiştirildiğinde komutu yürütün (cmd'deki %s yerine blok karması verilir)</translation>
     </message>
     <message>
-        <source>Fees (in MAG/Kb) smaller than this are considered zero fee for relaying (default: %s)</source>
-        <translation>Bundan daha küçük ücretler (MAG / Kb cinsinden), aktarma için sıfır ücret olarak kabul edilir (varsayılan: %s)</translation>
+        <source>Fees (in BITWIN24/Kb) smaller than this are considered zero fee for relaying (default: %s)</source>
+        <translation>Bundan daha küçük ücretler (BITWIN24 / Kb cinsinden), aktarma için sıfır ücret olarak kabul edilir (varsayılan: %s)</translation>
     </message>
     <message>
-        <source>Fees (in MAG/Kb) smaller than this are considered zero fee for transaction creation (default: %s)</source>
-        <translation>Bundan daha küçük ücretler (MAG / Kb cinsinden), işlem yaratmada sıfır ücret olarak kabul edilir (varsayılan: %s)</translation>
+        <source>Fees (in BITWIN24/Kb) smaller than this are considered zero fee for transaction creation (default: %s)</source>
+        <translation>Bundan daha küçük ücretler (BITWIN24 / Kb cinsinden), işlem yaratmada sıfır ücret olarak kabul edilir (varsayılan: %s)</translation>
     </message>
     <message>
         <source>Flush database activity from memory pool to disk log every &lt;n&gt; megabytes (default: %u)</source>

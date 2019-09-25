@@ -442,7 +442,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Buy MAG</string>
+      <string>Buy BITWIN24</string>
      </property>
      <property name="icon">
       <iconset resource="../bitwin24.qrc">
@@ -512,7 +512,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>MAG</string>
+      <string>BITWIN24</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_5">
@@ -1704,7 +1704,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>MAG</string>
+      <string>BITWIN24</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="UnitsInputMAG">
@@ -1751,7 +1751,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Sell MAG</string>
+      <string>Sell BITWIN24</string>
      </property>
      <property name="icon">
       <iconset resource="../bitwin24">
@@ -1777,7 +1777,7 @@
          </font>
         </property>
         <property name="text">
-         <string>MAG Available:</string>
+         <string>BITWIN24 Available:</string>
         </property>
        </widget>
       </item>
@@ -2221,7 +2221,7 @@
          </font>
         </property>
         <property name="text">
-         <string>MAG</string>
+         <string>BITWIN24</string>
         </property>
        </widget>
       </item>
@@ -2762,7 +2762,7 @@
       </font>
      </property>
      <property name="text">
-      <string>MAG Balance:</string>
+      <string>BITWIN24 Balance:</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_12">
@@ -2813,7 +2813,7 @@
       </font>
      </property>
      <property name="text">
-      <string>MAG Available:</string>
+      <string>BITWIN24 Available:</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_14">
@@ -2832,7 +2832,7 @@
       </font>
      </property>
      <property name="text">
-      <string>MAG Pending:</string>
+      <string>BITWIN24 Pending:</string>
      </property>
     </widget>
     <widget class="QLabel" name="MAGPendingLabel">
@@ -2928,7 +2928,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Bittrex MAG Deposit Address:</string>
+      <string>Bittrex BITWIN24 Deposit Address:</string>
      </property>
     </widget>
     <widget class="QPushButton" name="GenDepositBTN">
@@ -2941,7 +2941,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Generate MAG Deposit Address</string>
+      <string>Generate BITWIN24 Deposit Address</string>
      </property>
      <property name="icon">
       <iconset resource="../bitwin24.qrc">

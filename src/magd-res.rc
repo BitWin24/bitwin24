@@ -16,8 +16,8 @@ BEGIN
     BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
-            VALUE "CompanyName",        "MAG"
-            VALUE "FileDescription",    "bitwin24d (OSS daemon/client for MAG)"
+            VALUE "CompanyName",        "BITWIN24"
+            VALUE "FileDescription",    "bitwin24d (OSS daemon/client for BITWIN24)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
             VALUE "InternalName",       "bitwin24d"
             VALUE "LegalCopyright",     COPYRIGHT_STR

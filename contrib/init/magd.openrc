@@ -16,8 +16,8 @@ BITCOIND_USER=${BITCOIND_USER:-bitwin24}
 BITCOIND_GROUP=${BITCOIND_GROUP:-bitwin24}
 BITCOIND_BIN=${BITCOIND_BIN:-/usr/bin/magd}
 
-name="MAG Core Daemon"
-description="MAG crypto-currency p2p network daemon"
+name="BITWIN24 Core Daemon"
+description="BITWIN24 crypto-currency p2p network daemon"
 
 command="/usr/bin/magd"
 command_args="-pid=\"${BITCOIND_PIDFILE}\" \
@@ -78,7 +78,7 @@ checkconfig()
 		eerror "It is also recommended that you also set alertnotify so you are "
 		eerror "notified of problems:"
 		eerror ""
-		eerror "ie: alertnotify=echo %%s | mail -s \"MAG Alert\"" \
+		eerror "ie: alertnotify=echo %%s | mail -s \"BITWIN24 Alert\"" \
 			"admin@foo.com"
 		eerror ""
 		return 1

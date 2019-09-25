@@ -62,11 +62,11 @@
         <translation>Ricevanta adresojn</translation>
     </message>
     <message>
-        <source>These are your MAG addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Ĉi tiuj estas viaj MAG adreso por sendi pagojn. Ĉiam kontroku la kvanto kaj la ricevanta antaŭ ol sendi monerojn.</translation>
+        <source>These are your BITWIN24 addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Ĉi tiuj estas viaj BITWIN24 adreso por sendi pagojn. Ĉiam kontroku la kvanto kaj la ricevanta antaŭ ol sendi monerojn.</translation>
     </message>
     <message>
-        <source>These are your MAG addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <source>These are your BITWIN24 addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
         <translation>Ĉi tiuj estas vian adreson por ricevi pagojn. Ĝi rekomendas uzi novajn ricenvantan adreson por ĉiu nova transakcio.</translation>
     </message>
     <message>
@@ -176,15 +176,15 @@
         <translation>Konfirmi monerĉifrado</translation>
     </message>
     <message>
-        <source>MAG will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your MAGs from being stolen by malware infecting your computer.</source>
-        <translation>MAG fermos nun por fini ĉifran procezon. Memoru ke ĉifri vian monujon ne povas plene protekti viajn MAGs de esti ŝtelita per malware infektanta vian komputilon.</translation>
+        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your MAGs from being stolen by malware infecting your computer.</source>
+        <translation>BITWIN24 fermos nun por fini ĉifran procezon. Memoru ke ĉifri vian monujon ne povas plene protekti viajn MAGs de esti ŝtelita per malware infektanta vian komputilon.</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
         <translation>Ĉu vi certas ke vi volas ĉifri vian monujon?</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MAG&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITWIN24&lt;/b&gt;!</source>
         <translation>Averto: se vi ĉifras vian monujo kaj perdi vian pasfrazon, vi &lt;b&gt;PERDOS VIAN TUTAN MONON&lt;/b&gt;!</translation>
     </message>
     <message>
@@ -254,11 +254,11 @@
         <translation>Adreso:</translation>
     </message>
     <message>
-        <source>Enter a MAG Address that you would like to encrypt using BIP 38. Enter a passphrase in the middle box. Press encrypt to compute the encrypted private key.</source>
-        <translation>Eniri unu MAG adreso ke vi volus ĉifri per BIP 38. Eniri unu pasfrazon meze skatolo. Klaku ĉifri por komputi la ĉifrita privata ŝlosilo.</translation>
+        <source>Enter a BITWIN24 Address that you would like to encrypt using BIP 38. Enter a passphrase in the middle box. Press encrypt to compute the encrypted private key.</source>
+        <translation>Eniri unu BITWIN24 adreso ke vi volus ĉifri per BIP 38. Eniri unu pasfrazon meze skatolo. Klaku ĉifri por komputi la ĉifrita privata ŝlosilo.</translation>
     </message>
     <message>
-        <source>The MAG address to encrypt</source>
+        <source>The BITWIN24 address to encrypt</source>
         <translation>Adreson por ĉifri</translation>
     </message>
     <message>
@@ -290,8 +290,8 @@
         <translation>Kopiu la aktualan subskribo al la sistemo-poŝo</translation>
     </message>
     <message>
-        <source>Encrypt the private key for this MAG address</source>
-        <translation>Ĉifri la privata ŝlosilo por ĉi tiu MAG adreso</translation>
+        <source>Encrypt the private key for this BITWIN24 address</source>
+        <translation>Ĉifri la privata ŝlosilo por ĉi tiu BITWIN24 adreso</translation>
     </message>
     <message>
         <source>Reset all fields</source>
@@ -645,12 +645,12 @@
         <translation>Iloj langeto</translation>
     </message>
     <message>
-        <source>MAG Core</source>
-        <translation>MAG kerno</translation>
+        <source>BITWIN24 Core</source>
+        <translation>BITWIN24 kerno</translation>
     </message>
     <message>
-        <source>Send coins to a MAG address</source>
-        <translation>Sendu mono al MAG addreso</translation>
+        <source>Send coins to a BITWIN24 address</source>
+        <translation>Sendu mono al BITWIN24 addreso</translation>
     </message>
     <message>
         <source>Request payments (generates QR codes and bitwin24: URIs)</source>
@@ -669,24 +669,24 @@
         <translation>Foliumi mastro-nodo</translation>
     </message>
     <message>
-        <source>&amp;About MAG Core</source>
-        <translation>&amp;Pri MAG Kerno</translation>
+        <source>&amp;About BITWIN24 Core</source>
+        <translation>&amp;Pri BITWIN24 Kerno</translation>
     </message>
     <message>
-        <source>Show information about MAG Core</source>
-        <translation>Montri informon pri MAG Kerno</translation>
+        <source>Show information about BITWIN24 Core</source>
+        <translation>Montri informon pri BITWIN24 Kerno</translation>
     </message>
     <message>
-        <source>Modify configuration options for MAG</source>
-        <translation>Modifi agordajn opciojn por MAG</translation>
+        <source>Modify configuration options for BITWIN24</source>
+        <translation>Modifi agordajn opciojn por BITWIN24</translation>
     </message>
     <message>
-        <source>Sign messages with your MAG addresses to prove you own them</source>
-        <translation>Subskribu mesaĝo per via MAG adreso por pruvi vi posedas ĝin</translation>
+        <source>Sign messages with your BITWIN24 addresses to prove you own them</source>
+        <translation>Subskribu mesaĝo per via BITWIN24 adreso por pruvi vi posedas ĝin</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified MAG addresses</source>
-        <translation>Kontrolu mesaĝojn por certigi ke ili estas subskribita kun specifita MAG adreso</translation>
+        <source>Verify messages to ensure they were signed with specified BITWIN24 addresses</source>
+        <translation>Kontrolu mesaĝojn por certigi ke ili estas subskribita kun specifita BITWIN24 adreso</translation>
     </message>
     <message>
         <source>&amp;BIP38 tool</source>
@@ -717,8 +717,8 @@
         <translation>Malfermi mastro-nodo agord-dosieron</translation>
     </message>
     <message>
-        <source>Open a MAG: URI or payment request</source>
-        <translation>Malfermi unu MAG: URI aŭ pago peto</translation>
+        <source>Open a BITWIN24: URI or payment request</source>
+        <translation>Malfermi unu BITWIN24: URI aŭ pago peto</translation>
     </message>
     <message>
         <source>&amp;Blockchain explorer</source>
@@ -729,16 +729,16 @@
         <translation>Bloko esplorilo fenestro</translation>
     </message>
     <message>
-        <source>Show the MAG Core help message to get a list with possible MAG command-line options</source>
-        <translation>Montri la MAG Kore help-mesaĝo por havi liston de havebla MAG komandlinion opciojn</translation>
+        <source>Show the BITWIN24 Core help message to get a list with possible BITWIN24 command-line options</source>
+        <translation>Montri la BITWIN24 Kore help-mesaĝo por havi liston de havebla BITWIN24 komandlinion opciojn</translation>
     </message>
     <message>
-        <source>MAG Core client</source>
-        <translation>MAG Kerno kliento</translation>
+        <source>BITWIN24 Core client</source>
+        <translation>BITWIN24 Kerno kliento</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to MAG network</source>
-        <translation><numerusform>%n aktiva ligo(j) al la MAG reto</numerusform><numerusform>%n aktiva ligo(j) al la MAG reto</numerusform></translation>
+        <source>%n active connection(s) to BITWIN24 network</source>
+        <translation><numerusform>%n aktiva ligo(j) al la BITWIN24 reto</numerusform><numerusform>%n aktiva ligo(j) al la BITWIN24 reto</numerusform></translation>
     </message>
     <message>
         <source>Synchronizing with network...</source>
@@ -1177,8 +1177,8 @@ Muktisendi: %1</translation>
         <translation>Redaktu sendantan adreson</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid MAG address.</source>
-        <translation>La enirita "%1" adreso ne estas validan MAG adreson.</translation>
+        <source>The entered address "%1" is not a valid BITWIN24 address.</source>
+        <translation>La enirita "%1" adreso ne estas validan BITWIN24 adreson.</translation>
     </message>
     <message>
         <source>The entered address "%1" is already in the address book.</source>
@@ -1223,16 +1223,16 @@ Muktisendi: %1</translation>
         <translation>versio</translation>
     </message>
     <message>
-        <source>MAG Core</source>
-        <translation>MAG kerno</translation>
+        <source>BITWIN24 Core</source>
+        <translation>BITWIN24 kerno</translation>
     </message>
     <message>
         <source>(%1-bit)</source>
         <translation>(%1-bajto)</translation>
     </message>
     <message>
-        <source>About MAG Core</source>
-        <translation>Pri MAG Kerno</translation>
+        <source>About BITWIN24 Core</source>
+        <translation>Pri BITWIN24 Kerno</translation>
     </message>
     <message>
         <source>Command-line options</source>
@@ -1274,16 +1274,16 @@ Muktisendi: %1</translation>
         <translation>Bonvenon</translation>
     </message>
     <message>
-        <source>Welcome to MAG Core.</source>
-        <translation>Bonvenon al la MAG Kerno.</translation>
+        <source>Welcome to BITWIN24 Core.</source>
+        <translation>Bonvenon al la BITWIN24 Kerno.</translation>
     </message>
     <message>
-        <source>As this is the first time the program is launched, you can choose where MAG Core will store its data.</source>
-        <translation>Ĉar estas la unuan fojon ke la programo estas lanĉita, vi povas elekti kie MAG kernk storigis sian datumojn. </translation>
+        <source>As this is the first time the program is launched, you can choose where BITWIN24 Core will store its data.</source>
+        <translation>Ĉar estas la unuan fojon ke la programo estas lanĉita, vi povas elekti kie BITWIN24 kernk storigis sian datumojn. </translation>
     </message>
     <message>
-        <source>MAG Core will download and store a copy of the MAG block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>MAG kerno elŝutos kaj konservi kopion de la MAG blokĉeno. Almenaŭ %1GB datumoj stokitos en ĉi tiun dosierujo, kaj ĝi kresko kun la tempo. Monujo stokitos en ĉi tiun dosierujo.</translation>
+        <source>BITWIN24 Core will download and store a copy of the BITWIN24 block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>BITWIN24 kerno elŝutos kaj konservi kopion de la BITWIN24 blokĉeno. Almenaŭ %1GB datumoj stokitos en ĉi tiun dosierujo, kaj ĝi kresko kun la tempo. Monujo stokitos en ĉi tiun dosierujo.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -1294,8 +1294,8 @@ Muktisendi: %1</translation>
         <translation>Uzi kutimon datumojn dosierujo:</translation>
     </message>
     <message>
-        <source>MAG Core</source>
-        <translation>MAG kerno</translation>
+        <source>BITWIN24 Core</source>
+        <translation>BITWIN24 kerno</translation>
     </message>
     <message>
         <source>Error: Specified data directory "%1" cannot be created.</source>
@@ -1561,8 +1561,8 @@ Bonvolu kontroku la adreson kaj riprovu</translation>
         <translation>Adreso / Kvanto:</translation>
     </message>
     <message>
-        <source>Add destinations to send MAG to</source>
-        <translation>Aldonu destinoj por sendi MAG al</translation>
+        <source>Add destinations to send BITWIN24 to</source>
+        <translation>Aldonu destinoj por sendi BITWIN24 al</translation>
     </message>
     <message>
         <source>Add &amp;Destination</source>
@@ -1628,12 +1628,12 @@ Bonvolu kontroku la adreson kaj riprovu</translation>
         <translation>Bonvolu elekti privata nivelo.</translation>
     </message>
     <message>
-        <source>This option is the quickest and will cost about ~0.025 MAG to anonymize 10000 MAG</source>
-        <translation>Tion opcion estas la plej rapida kaji kostos ~0.025 MAG por anonimigi 10000 MAG</translation>
+        <source>This option is the quickest and will cost about ~0.025 BITWIN24 to anonymize 10000 BITWIN24</source>
+        <translation>Tion opcion estas la plej rapida kaji kostos ~0.025 BITWIN24 por anonimigi 10000 BITWIN24</translation>
     </message>
     <message>
-        <source>This option is moderately fast and will cost about 0.05 MAG to anonymize 10000 MAG</source>
-        <translation>Tion opcion estas moderebla rapide kaj kostos ĉirkaŭ 0.05 MAG por anonimigi 10000 MAG</translation>
+        <source>This option is moderately fast and will cost about 0.05 BITWIN24 to anonymize 10000 BITWIN24</source>
+        <translation>Tion opcion estas moderebla rapide kaj kostos ĉirkaŭ 0.05 BITWIN24 por anonimigi 10000 BITWIN24</translation>
     </message>
     <message>
         <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
@@ -1682,8 +1682,8 @@ Bonvolu kontroku la adreson kaj riprovu</translation>
         <translation>&amp;Monujo</translation>
     </message>
     <message>
-        <source>Automatically open the MAG client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Aŭtomate malfermi MAG klienton havenon en la enkursigilo. Tio nur laboras kiam via enkursigilo subtenas UPnP kaj estas ebligita.</translation>
+        <source>Automatically open the BITWIN24 client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Aŭtomate malfermi BITWIN24 klienton havenon en la enkursigilo. Tio nur laboras kiam via enkursigilo subtenas UPnP kaj estas ebligita.</translation>
     </message>
     <message>
         <source>Accept connections from outside</source>
@@ -1694,8 +1694,8 @@ Bonvolu kontroku la adreson kaj riprovu</translation>
         <translation>Sperta</translation>
     </message>
     <message>
-        <source>&amp;Start MAG on system login</source>
-        <translation>&amp;Komencu MAG en sistem-ensaluto</translation>
+        <source>&amp;Start BITWIN24 on system login</source>
+        <translation>&amp;Komencu BITWIN24 en sistem-ensaluto</translation>
     </message>
     <message>
         <source>&amp;Spend unconfirmed change</source>
@@ -1706,8 +1706,8 @@ Bonvolu kontroku la adreson kaj riprovu</translation>
         <translation>&amp;Reto</translation>
     </message>
     <message>
-        <source>The user interface language can be set here. This setting will take effect after restarting MAG.</source>
-        <translation>La uzanta interfaco lingvo povas esti agordi ĉi tie. Tio agordo efektivigos post rekomenci MAG.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting BITWIN24.</source>
+        <translation>La uzanta interfaco lingvo povas esti agordi ĉi tie. Tio agordo efektivigos post rekomenci BITWIN24.</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
@@ -1716,8 +1716,8 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</source
 https://www.transifex.com/bitwin24-project/bitwin24-project-translations</translation>
     </message>
     <message>
-        <source>Connect to the MAG network through a SOCKS5 proxy.</source>
-        <translation>Konekti al la MAG reto per SOCKS5 prokurilo.</translation>
+        <source>Connect to the BITWIN24 network through a SOCKS5 proxy.</source>
+        <translation>Konekti al la BITWIN24 reto per SOCKS5 prokurilo.</translation>
     </message>
     <message>
         <source>Proxy &amp;IP:</source>
@@ -1787,16 +1787,16 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Via aktuala elspezebla saldo</translation>
     </message>
     <message>
-        <source>MAG Balance</source>
-        <translation>MAG kvanto</translation>
+        <source>BITWIN24 Balance</source>
+        <translation>BITWIN24 kvanto</translation>
     </message>
     <message>
         <source>Immature:</source>
         <translation>Nematura:</translation>
     </message>
     <message>
-        <source>Your current MAG balance, unconfirmed and immature transactions included</source>
-        <translation>Via aktuala MAG totalo, nekonformita kaj nematurita transakcioj inkluzivita</translation>
+        <source>Your current BITWIN24 balance, unconfirmed and immature transactions included</source>
+        <translation>Via aktuala BITWIN24 totalo, nekonformita kaj nematurita transakcioj inkluzivita</translation>
     </message>
     <message>
         <source>zMAG Balance</source>
@@ -1809,8 +1809,8 @@ Immature: confirmed, but less than 1 mint of the same denomination after it was 
 Nematura: konfirmita, sed malpli ol 1 minto el la samo nomado post ĝin estis mintita</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the MAG network after a connection is established, but this process has not completed yet.</source>
-        <translation>Montrata informon povas esti malmoderna. Via monujo automate sinkronigis kun la MAG reto post konekcio establas, sed ĉi tio procezo ankoraŭ ne kompletigis.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BITWIN24 network after a connection is established, but this process has not completed yet.</source>
+        <translation>Montrata informon povas esti malmoderna. Via monujo automate sinkronigis kun la BITWIN24 reto post konekcio establas, sed ĉi tio procezo ankoraŭ ne kompletigis.</translation>
     </message>
     <message>
         <source>OVERVIEW</source>
@@ -1862,8 +1862,8 @@ Nematura: konfirmita, sed malpli ol 1 minto el la samo nomado post ĝin estis mi
 <context>
     <name>PrivacyDialog</name>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the MAG network after a connection is established, but this process has not completed yet.</source>
-        <translation>Montrata informon povas esti malmoderna. Via monujo automate sinkronigis kun la MAG reto post konekcio establas, sed ĉi tio procezo ankoraŭ ne kompletigis.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BITWIN24 network after a connection is established, but this process has not completed yet.</source>
+        <translation>Montrata informon povas esti malmoderna. Via monujo automate sinkronigis kun la BITWIN24 reto post konekcio establas, sed ĉi tio procezo ankoraŭ ne kompletigis.</translation>
     </message>
     <message>
         <source>0</source>
@@ -1874,8 +1874,8 @@ Nematura: konfirmita, sed malpli ol 1 minto el la samo nomado post ĝin estis mi
         <translation>zMAG</translation>
     </message>
     <message>
-        <source>0.000 000 00 MAG</source>
-        <translation>0.000 000 00 MAG</translation>
+        <source>0.000 000 00 BITWIN24</source>
+        <translation>0.000 000 00 BITWIN24</translation>
     </message>
     <message>
         <source>Reset</source>
@@ -1918,8 +1918,8 @@ Nematura: konfirmita, sed malpli ol 1 minto el la samo nomado post ĝin estis mi
         <translation>Pagu &amp;Al:</translation>
     </message>
     <message>
-        <source>The MAG address to send the payment to. Creates local payment to yourself when empty.</source>
-        <translation>MAG adreso por alsendi la pago. Kreas lokala pago al vi mem kiam malplenija.</translation>
+        <source>The BITWIN24 address to send the payment to. Creates local payment to yourself when empty.</source>
+        <translation>BITWIN24 adreso por alsendi la pago. Kreas lokala pago al vi mem kiam malplenija.</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2101,8 +2101,8 @@ Nematura: konfirmita, sed malpli ol 1 minto el la samo nomado post ĝin estis mi
         <translation>Rekonstrui indekson</translation>
     </message>
     <message>
-        <source>Welcome to the MAG RPC console.</source>
-        <translation>Bonvenon al la MAG RPC konzolo.</translation>
+        <source>Welcome to the BITWIN24 RPC console.</source>
+        <translation>Bonvenon al la BITWIN24 RPC konzolo.</translation>
     </message>
     <message>
         <source>1 &amp;hour</source>
@@ -2297,8 +2297,8 @@ Nematura: konfirmita, sed malpli ol 1 minto el la samo nomado post ĝin estis mi
         <translation>Se estas aktiva sed ŝanĝo-adreso estas malpleniĝa au nevalida, ŝanĝo sendos al nova generita adreson.</translation>
     </message>
     <message>
-        <source>0 MAG</source>
-        <translation>0 MAG</translation>
+        <source>0 BITWIN24</source>
+        <translation>0 BITWIN24</translation>
     </message>
     <message>
         <source>Open Coin Control...</source>
@@ -2345,8 +2345,8 @@ Nematura: konfirmita, sed malpli ol 1 minto el la samo nomado post ĝin estis mi
         <translation>Kopi ŝanĝo</translation>
     </message>
     <message>
-        <source>Warning: Invalid MAG address</source>
-        <translation>Averto: nevalida MAG adreson</translation>
+        <source>Warning: Invalid BITWIN24 address</source>
+        <translation>Averto: nevalida BITWIN24 adreson</translation>
     </message>
     <message>
         <source>Are you sure you want to send?</source>
@@ -2372,7 +2372,7 @@ Nematura: konfirmita, sed malpli ol 1 minto el la samo nomado post ĝin estis mi
         <translation>Pagu &amp;Al:</translation>
     </message>
     <message>
-        <source>The MAG address to send the payment to</source>
+        <source>The BITWIN24 address to send the payment to</source>
         <translation>MAGC adreso por sendi la pago al</translation>
     </message>
     <message>
@@ -2407,8 +2407,8 @@ Nematura: konfirmita, sed malpli ol 1 minto el la samo nomado post ĝin estis mi
 <context>
     <name>ShutdownWindow</name>
     <message>
-        <source>MAG Core is shutting down...</source>
-        <translation>MAG kerno fermanta...</translation>
+        <source>BITWIN24 Core is shutting down...</source>
+        <translation>BITWIN24 kerno fermanta...</translation>
     </message>
     </context>
 <context>
@@ -2461,8 +2461,8 @@ Nematura: konfirmita, sed malpli ol 1 minto el la samo nomado post ĝin estis mi
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>MAG Core</source>
-        <translation>MAG kerno</translation>
+        <source>BITWIN24 Core</source>
+        <translation>BITWIN24 kerno</translation>
     </message>
     <message>
         <source>The Bitcoin Core developers</source>
@@ -2473,8 +2473,8 @@ Nematura: konfirmita, sed malpli ol 1 minto el la samo nomado post ĝin estis mi
         <translation>La Dash kerno programistoj</translation>
     </message>
     <message>
-        <source>The MAG Core developers</source>
-        <translation>La MAG kerno programistoj</translation>
+        <source>The BITWIN24 Core developers</source>
+        <translation>La BITWIN24 kerno programistoj</translation>
     </message>
     </context>
 <context>

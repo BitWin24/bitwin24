@@ -82,7 +82,7 @@ AskPassphraseDialog::AskPassphraseDialog(Mode mode, QWidget* parent, WalletModel
         ui->anonymizationCheckBox->setChecked(false);
     }
 
-    // It doesn't make sense to show the checkbox for sending MAG because you wouldn't check it anyway.
+    // It doesn't make sense to show the checkbox for sending BITWIN24 because you wouldn't check it anyway.
     if (context == Context::Send_MAG || context == Context::Send_zMAG) {
         ui->anonymizationCheckBox->hide();
     }
@@ -123,7 +123,7 @@ void AskPassphraseDialog::accept()
             break;
         }
         QMessageBox::StandardButton retval = QMessageBox::question(this, tr("Confirm wallet encryption"),
-            tr("Warning: If you encrypt your wallet and lose your passphrase, you will <b>LOSE ALL OF YOUR MAG</b>!") + "<br><br>" + tr("Are you sure you wish to encrypt your wallet?"),
+            tr("Warning: If you encrypt your wallet and lose your passphrase, you will <b>LOSE ALL OF YOUR BITWIN24</b>!") + "<br><br>" + tr("Are you sure you wish to encrypt your wallet?"),
             QMessageBox::Yes | QMessageBox::Cancel,
             QMessageBox::Cancel);
         if (retval == QMessageBox::Yes) {
@@ -131,7 +131,7 @@ void AskPassphraseDialog::accept()
                 if (model->setWalletEncrypted(true, newpass1)) {
                     QMessageBox::warning(this, tr("Wallet encrypted"),
                         "<qt>" +
-                            tr("MAG will close now to finish the encryption process. "
+                            tr("BITWIN24 will close now to finish the encryption process. "
                                "Remember that encrypting your wallet cannot fully protect "
                                "your MAGs from being stolen by malware infecting your computer.") +
                             "<br><br><b>" +

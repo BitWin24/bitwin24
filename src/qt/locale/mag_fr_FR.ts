@@ -62,12 +62,12 @@
         <translation>Adresses de réception</translation>
     </message>
     <message>
-        <source>These are your MAG addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Voici vos adresses MAG pour envoyer des paiements.  Assurez-vous de toujours vérifier le montant et l'adresse de réception avant d'envoyer les jetons</translation>
+        <source>These are your BITWIN24 addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Voici vos adresses BITWIN24 pour envoyer des paiements.  Assurez-vous de toujours vérifier le montant et l'adresse de réception avant d'envoyer les jetons</translation>
     </message>
     <message>
-        <source>These are your MAG addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Voici vos adresses MAG pour les réceptions de vos paiments. Il est recommandé d'utiliser une nouvelle adresse de réception pour chaque transaction.</translation>
+        <source>These are your BITWIN24 addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Voici vos adresses BITWIN24 pour les réceptions de vos paiments. Il est recommandé d'utiliser une nouvelle adresse de réception pour chaque transaction.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -176,16 +176,16 @@
         <translation>Confirmer le cryptage du portefeuille</translation>
     </message>
     <message>
-        <source>MAG will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your MAGs from being stolen by malware infecting your computer.</source>
-        <translation>MAG va maintenant se fermer pour finir le processus de cryptage. Notez que le cryptage de votre portefeuille ne peut pas complètement protéger vos MAGs d'un vol par un malware ayant infecté votre ordinateur. </translation>
+        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your MAGs from being stolen by malware infecting your computer.</source>
+        <translation>BITWIN24 va maintenant se fermer pour finir le processus de cryptage. Notez que le cryptage de votre portefeuille ne peut pas complètement protéger vos MAGs d'un vol par un malware ayant infecté votre ordinateur. </translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
         <translation>Êtes-vous sûr de vouloir crypter votre portefeuille?</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MAG&lt;/b&gt;!</source>
-        <translation>Attention : si vous cryptez votre portefeuille et perdez votre phrase secrète, vous &lt;b&gt;PERDREZ TOUS VOS MAG&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITWIN24&lt;/b&gt;!</source>
+        <translation>Attention : si vous cryptez votre portefeuille et perdez votre phrase secrète, vous &lt;b&gt;PERDREZ TOUS VOS BITWIN24&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Wallet encrypted</source>
@@ -254,12 +254,12 @@
         <translation>Adresse :</translation>
     </message>
     <message>
-        <source>Enter a MAG Address that you would like to encrypt using BIP 38. Enter a passphrase in the middle box. Press encrypt to compute the encrypted private key.</source>
-        <translation>Entrez une adresse MAG que vous voulez chiffrer en utilisant BIP 38. Entrez une phrase secrète dans le champ du milieu. Cliquez sur chiffrer pour calculer le chiffrage de la clé privée.</translation>
+        <source>Enter a BITWIN24 Address that you would like to encrypt using BIP 38. Enter a passphrase in the middle box. Press encrypt to compute the encrypted private key.</source>
+        <translation>Entrez une adresse BITWIN24 que vous voulez chiffrer en utilisant BIP 38. Entrez une phrase secrète dans le champ du milieu. Cliquez sur chiffrer pour calculer le chiffrage de la clé privée.</translation>
     </message>
     <message>
-        <source>The MAG address to encrypt</source>
-        <translation>L'adresse MAG à chiffrer</translation>
+        <source>The BITWIN24 address to encrypt</source>
+        <translation>L'adresse BITWIN24 à chiffrer</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -290,8 +290,8 @@
         <translation>Copier la signature actuelle dans le presse-papier</translation>
     </message>
     <message>
-        <source>Encrypt the private key for this MAG address</source>
-        <translation>Chiffrer la clef privée pour cette adresse MAG</translation>
+        <source>Encrypt the private key for this BITWIN24 address</source>
+        <translation>Chiffrer la clef privée pour cette adresse BITWIN24</translation>
     </message>
     <message>
         <source>Reset all fields</source>
@@ -645,16 +645,16 @@
         <translation>Onglets de la barre d'outils</translation>
     </message>
     <message>
-        <source>MAG Core</source>
-        <translation>MAG Core</translation>
+        <source>BITWIN24 Core</source>
+        <translation>BITWIN24 Core</translation>
     </message>
     <message>
-        <source>Send coins to a MAG address</source>
-        <translation>Envoyer des pièces à une adresse MAG</translation>
+        <source>Send coins to a BITWIN24 address</source>
+        <translation>Envoyer des pièces à une adresse BITWIN24</translation>
     </message>
     <message>
         <source>Request payments (generates QR codes and bitwin24: URIs)</source>
-        <translation>Requêtes de paiements (Génère des QR codes et des URIs MAG)</translation>
+        <translation>Requêtes de paiements (Génère des QR codes et des URIs BITWIN24)</translation>
     </message>
     <message>
         <source>&amp;Privacy</source>
@@ -669,24 +669,24 @@
         <translation>Afficher les masternodes</translation>
     </message>
     <message>
-        <source>&amp;About MAG Core</source>
-        <translation>A &amp;propos de MAG Core</translation>
+        <source>&amp;About BITWIN24 Core</source>
+        <translation>A &amp;propos de BITWIN24 Core</translation>
     </message>
     <message>
-        <source>Show information about MAG Core</source>
-        <translation>Afficher les information concernant MAG Core</translation>
+        <source>Show information about BITWIN24 Core</source>
+        <translation>Afficher les information concernant BITWIN24 Core</translation>
     </message>
     <message>
-        <source>Modify configuration options for MAG</source>
-        <translation>Modifier les options de configuration pour MAG</translation>
+        <source>Modify configuration options for BITWIN24</source>
+        <translation>Modifier les options de configuration pour BITWIN24</translation>
     </message>
     <message>
-        <source>Sign messages with your MAG addresses to prove you own them</source>
-        <translation>Signer les messages avec votre adresse MAG pour prouver qu'elles sont bien à vous.</translation>
+        <source>Sign messages with your BITWIN24 addresses to prove you own them</source>
+        <translation>Signer les messages avec votre adresse BITWIN24 pour prouver qu'elles sont bien à vous.</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified MAG addresses</source>
-        <translation>Vérifier les messages afin de s'assurer qu'ils sont signés avec l'adresse MAG spécifiée</translation>
+        <source>Verify messages to ensure they were signed with specified BITWIN24 addresses</source>
+        <translation>Vérifier les messages afin de s'assurer qu'ils sont signés avec l'adresse BITWIN24 spécifiée</translation>
     </message>
     <message>
         <source>&amp;BIP38 tool</source>
@@ -717,8 +717,8 @@
         <translation>Ouvrir le fichier de configuration de Masternode</translation>
     </message>
     <message>
-        <source>Open a MAG: URI or payment request</source>
-        <translation>Ouvrir un MAG: URI ou requête de paiement</translation>
+        <source>Open a BITWIN24: URI or payment request</source>
+        <translation>Ouvrir un BITWIN24: URI ou requête de paiement</translation>
     </message>
     <message>
         <source>&amp;Blockchain explorer</source>
@@ -729,16 +729,16 @@
         <translation>Fenêtre de Explorateur de Bloc</translation>
     </message>
     <message>
-        <source>Show the MAG Core help message to get a list with possible MAG command-line options</source>
-        <translation>Afficher les message d'aide de MAG Core pour avoir les options pour ligne de commande</translation>
+        <source>Show the BITWIN24 Core help message to get a list with possible BITWIN24 command-line options</source>
+        <translation>Afficher les message d'aide de BITWIN24 Core pour avoir les options pour ligne de commande</translation>
     </message>
     <message>
-        <source>MAG Core client</source>
-        <translation>MAG Core client</translation>
+        <source>BITWIN24 Core client</source>
+        <translation>BITWIN24 Core client</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to MAG network</source>
-        <translation><numerusform>connexion(s) active(s) au réseau MAG</numerusform><numerusform>connexion(s) active(s) au réseau MAG</numerusform></translation>
+        <source>%n active connection(s) to BITWIN24 network</source>
+        <translation><numerusform>connexion(s) active(s) au réseau BITWIN24</numerusform><numerusform>connexion(s) active(s) au réseau BITWIN24</numerusform></translation>
     </message>
     <message>
         <source>Synchronizing with network...</source>
@@ -1165,8 +1165,8 @@ Adresse : %4
         <translation>Modifier l'adresse d'envoi</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid MAG address.</source>
-        <translation>L'adresse entrée "%1" n'est pas une adresse MAG valide</translation>
+        <source>The entered address "%1" is not a valid BITWIN24 address.</source>
+        <translation>L'adresse entrée "%1" n'est pas une adresse BITWIN24 valide</translation>
     </message>
     <message>
         <source>The entered address "%1" is already in the address book.</source>
@@ -1211,16 +1211,16 @@ Adresse : %4
         <translation>version</translation>
     </message>
     <message>
-        <source>MAG Core</source>
-        <translation>MAG Core</translation>
+        <source>BITWIN24 Core</source>
+        <translation>BITWIN24 Core</translation>
     </message>
     <message>
         <source>(%1-bit)</source>
         <translation>(%1-bit)</translation>
     </message>
     <message>
-        <source>About MAG Core</source>
-        <translation>A propos de MAG Core</translation>
+        <source>About BITWIN24 Core</source>
+        <translation>A propos de BITWIN24 Core</translation>
     </message>
     <message>
         <source>Command-line options</source>
@@ -1262,12 +1262,12 @@ Adresse : %4
         <translation>Bienvenu</translation>
     </message>
     <message>
-        <source>Welcome to MAG Core.</source>
-        <translation>Bienvenue à MAG Core</translation>
+        <source>Welcome to BITWIN24 Core.</source>
+        <translation>Bienvenue à BITWIN24 Core</translation>
     </message>
     <message>
-        <source>As this is the first time the program is launched, you can choose where MAG Core will store its data.</source>
-        <translation>Comme c'est la première fois que le programme est lancé, vous pouvez choisir où MAG Core va stocker ses données.</translation>
+        <source>As this is the first time the program is launched, you can choose where BITWIN24 Core will store its data.</source>
+        <translation>Comme c'est la première fois que le programme est lancé, vous pouvez choisir où BITWIN24 Core va stocker ses données.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -1278,8 +1278,8 @@ Adresse : %4
         <translation>Utiliser un répertoire spécifique de données </translation>
     </message>
     <message>
-        <source>MAG Core</source>
-        <translation>MAG Core</translation>
+        <source>BITWIN24 Core</source>
+        <translation>BITWIN24 Core</translation>
     </message>
     <message>
         <source>Error: Specified data directory "%1" cannot be created.</source>
@@ -1416,12 +1416,12 @@ Adresse : %4
         <translation>Saisir l'adresse à laquelle envoyer</translation>
     </message>
     <message>
-        <source>MultiSend allows you to automatically send up to 100% of your stake or masternode reward to a list of other MAG addresses after it matures.
-To Add: enter percentage to give and MAG address to add to the MultiSend vector.
+        <source>MultiSend allows you to automatically send up to 100% of your stake or masternode reward to a list of other BITWIN24 addresses after it matures.
+To Add: enter percentage to give and BITWIN24 address to add to the MultiSend vector.
 To Delete: Enter address to delete and press delete.
 MultiSend will not be activated unless you have clicked Activate</source>
-        <translation>L'Envoi-multiple vous perment d'envoyer automatiquement jusqu'à 100% de vos récompenses Stake ou Masternode à une liste d'adresses MAG  après leur maturité.
-Pour ajouter: entrez le pourcentage à donner et l'adresse MAG à ajouter au vecteur d'Envoi-multiple.
+        <translation>L'Envoi-multiple vous perment d'envoyer automatiquement jusqu'à 100% de vos récompenses Stake ou Masternode à une liste d'adresses BITWIN24  après leur maturité.
+Pour ajouter: entrez le pourcentage à donner et l'adresse BITWIN24 à ajouter au vecteur d'Envoi-multiple.
 Pour supprimer: Entrez l'adresse à effacer et appuyez sur Supprimer.
 L'Envoi-multiple ne sera activé que si vous avez cliqué sur Activer</translation>
     </message>
@@ -1640,8 +1640,8 @@ S'il vous plaît soyez patient après avoir cliqué sur l'importation.</translat
         <translation>Adresse / Montant:</translation>
     </message>
     <message>
-        <source>Add destinations to send MAG to</source>
-        <translation>Ajouter des destinations pour envoyer MAG</translation>
+        <source>Add destinations to send BITWIN24 to</source>
+        <translation>Ajouter des destinations pour envoyer BITWIN24</translation>
     </message>
     <message>
         <source>Add &amp;Destination</source>
@@ -1727,48 +1727,48 @@ S'il vous plaît soyez patient après avoir cliqué sur l'importation.</translat
         <translation>Veuillez sélectionner un niveau de confidentialité.</translation>
     </message>
     <message>
-        <source>Use 2 separate masternodes to mix funds up to 10000 MAG</source>
-        <translation>Utiliser 2 masternodes différentes pour mélanger les fonds jusqu'a 10000 MAG</translation>
+        <source>Use 2 separate masternodes to mix funds up to 10000 BITWIN24</source>
+        <translation>Utiliser 2 masternodes différentes pour mélanger les fonds jusqu'a 10000 BITWIN24</translation>
     </message>
     <message>
-        <source>Use 8 separate masternodes to mix funds up to 10000 MAG</source>
-        <translation>Utiliser 8 masternodes différentes pour mélanger les fonds jusqu'a 10000 MAG</translation>
+        <source>Use 8 separate masternodes to mix funds up to 10000 BITWIN24</source>
+        <translation>Utiliser 8 masternodes différentes pour mélanger les fonds jusqu'a 10000 BITWIN24</translation>
     </message>
     <message>
         <source>Use 16 separate masternodes</source>
         <translation>Utiliser 16 masternodes différents</translation>
     </message>
     <message>
-        <source>This option is the quickest and will cost about ~0.025 MAG to anonymize 10000 MAG</source>
-        <translation>Cette option est la plus rapide, et coutera ~0.025 MAG pour anonymiser 10000 MAG</translation>
+        <source>This option is the quickest and will cost about ~0.025 BITWIN24 to anonymize 10000 BITWIN24</source>
+        <translation>Cette option est la plus rapide, et coutera ~0.025 BITWIN24 pour anonymiser 10000 BITWIN24</translation>
     </message>
     <message>
-        <source>This option is moderately fast and will cost about 0.05 MAG to anonymize 10000 MAG</source>
-        <translation>Cette option est moyennement rapide, et coutera 0.05 MAG pour anonymiser 10000 MAG</translation>
+        <source>This option is moderately fast and will cost about 0.05 BITWIN24 to anonymize 10000 BITWIN24</source>
+        <translation>Cette option est moyennement rapide, et coutera 0.05 BITWIN24 pour anonymiser 10000 BITWIN24</translation>
     </message>
     <message>
         <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
         <translation>Il s'agit de l'option la plus lente est la plus sécurisé. Utiliser l'anonymat maximum coutera</translation>
     </message>
     <message>
-        <source>0.1 MAG per 10000 MAG you anonymize.</source>
-        <translation>0.1 MAG par 10000 MAG vous anonymisez.</translation>
+        <source>0.1 BITWIN24 per 10000 BITWIN24 you anonymize.</source>
+        <translation>0.1 BITWIN24 par 10000 BITWIN24 vous anonymisez.</translation>
     </message>
     <message>
         <source>Obfuscation Configuration</source>
         <translation>Configuration de l'Obfuscation</translation>
     </message>
     <message>
-        <source>Obfuscation was successfully set to basic (%1 and 2 rounds). You can change this at any time by opening MAG's configuration screen.</source>
-        <translation>L'Obfuscation a été réglé avec succès à base (%1 et 2 tours). Vous pouvez changer ce paramètre à tout moment depuis l'écran de configuration MAG.</translation>
+        <source>Obfuscation was successfully set to basic (%1 and 2 rounds). You can change this at any time by opening BITWIN24's configuration screen.</source>
+        <translation>L'Obfuscation a été réglé avec succès à base (%1 et 2 tours). Vous pouvez changer ce paramètre à tout moment depuis l'écran de configuration BITWIN24.</translation>
     </message>
     <message>
-        <source>Obfuscation was successfully set to high (%1 and 8 rounds). You can change this at any time by opening MAG's configuration screen.</source>
-        <translation>L'Obfuscation a été réglé avec succès à élevé (%1 et 8 tours). Vous pouvez changer ce paramètre à tout moment depuis l'écran de configuration MAG.</translation>
+        <source>Obfuscation was successfully set to high (%1 and 8 rounds). You can change this at any time by opening BITWIN24's configuration screen.</source>
+        <translation>L'Obfuscation a été réglé avec succès à élevé (%1 et 8 tours). Vous pouvez changer ce paramètre à tout moment depuis l'écran de configuration BITWIN24.</translation>
     </message>
     <message>
-        <source>Obfuscation was successfully set to maximum (%1 and 16 rounds). You can change this at any time by opening MAG's configuration screen.</source>
-        <translation>L'Obfuscation a été réglé avec succès à maximum (%1 et 16 tours). Vous pouvez changer ce paramètre à tout moment depuis l'écran de configuration MAG.</translation>
+        <source>Obfuscation was successfully set to maximum (%1 and 16 rounds). You can change this at any time by opening BITWIN24's configuration screen.</source>
+        <translation>L'Obfuscation a été réglé avec succès à maximum (%1 et 16 tours). Vous pouvez changer ce paramètre à tout moment depuis l'écran de configuration BITWIN24.</translation>
     </message>
 </context>
 <context>
@@ -1821,8 +1821,8 @@ S'il vous plaît soyez patient après avoir cliqué sur l'importation.</translat
         <translation>SI vous désactivez la dépense de la monnaire non confirmée, la monnaie rendue sur une transaction &lt;br/&gt;ne peut pas être utilisée tant que celle-ci n'a pas reçue au moins une confirmation &lt;br/&gt;Ceci implique également la manière dont votre solde est calculé.</translation>
     </message>
     <message>
-        <source>Automatically open the MAG client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Ouvrir automatiquement le port du client MAG sur le routeur. Ceci fonctionne uniquement si votre routeur prend en charge UPnP et que celui-ci est activé.</translation>
+        <source>Automatically open the BITWIN24 client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Ouvrir automatiquement le port du client BITWIN24 sur le routeur. Ceci fonctionne uniquement si votre routeur prend en charge UPnP et que celui-ci est activé.</translation>
     </message>
     <message>
         <source>Accept connections from outside</source>
@@ -1841,12 +1841,12 @@ S'il vous plaît soyez patient après avoir cliqué sur l'importation.</translat
         <translation>Expert</translation>
     </message>
     <message>
-        <source>Automatically start MAG after logging in to the system.</source>
-        <translation>Démarrez MAG automatiquement après vous être connecté au système.</translation>
+        <source>Automatically start BITWIN24 after logging in to the system.</source>
+        <translation>Démarrez BITWIN24 automatiquement après vous être connecté au système.</translation>
     </message>
     <message>
-        <source>&amp;Start MAG on system login</source>
-        <translation>Démarrer MAG au démarrage système</translation>
+        <source>&amp;Start BITWIN24 on system login</source>
+        <translation>Démarrer BITWIN24 au démarrage système</translation>
     </message>
     <message>
         <source>Whether to show coin control features or not.</source>
@@ -1873,8 +1873,8 @@ S'il vous plaît soyez patient après avoir cliqué sur l'importation.</translat
         <translation>Réseau</translation>
     </message>
     <message>
-        <source>The user interface language can be set here. This setting will take effect after restarting MAG.</source>
-        <translation>La langue de l'interface utilisateur peut être définie ici. Ce paramètre prendra effet après le redémarrage de MAG.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting BITWIN24.</source>
+        <translation>La langue de l'interface utilisateur peut être définie ici. Ce paramètre prendra effet après le redémarrage de BITWIN24.</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
@@ -1887,16 +1887,16 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Répertorier les port utilisant UPnP</translation>
     </message>
     <message>
-        <source>Enable automatic minting of MAG units to zMAG</source>
-        <translation>Activé l'auto-monnayage de MAG unités en zMAG</translation>
+        <source>Enable automatic minting of BITWIN24 units to zMAG</source>
+        <translation>Activé l'auto-monnayage de BITWIN24 unités en zMAG</translation>
     </message>
     <message>
         <source>Enable zMAG Automint</source>
         <translation>Activé ZMAG Auto-monnayage</translation>
     </message>
     <message>
-        <source>Percentage of incoming MAG which get automatically converted to zMAG via Zerocoin Protocol (min: 10%)</source>
-        <translation>Pourcentage des MAG entrants qui seront automatiquement convertis en zMAG via le protocole Zerocoin (min. 10%)</translation>
+        <source>Percentage of incoming BITWIN24 which get automatically converted to zMAG via Zerocoin Protocol (min: 10%)</source>
+        <translation>Pourcentage des BITWIN24 entrants qui seront automatiquement convertis en zMAG via le protocole Zerocoin (min. 10%)</translation>
     </message>
     <message>
         <source>Percentage of autominted zMAG</source>
@@ -1911,8 +1911,8 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Seuil de partage du Stake</translation>
     </message>
     <message>
-        <source>Connect to the MAG network through a SOCKS5 proxy.</source>
-        <translation>Se connetcer au réseau MAG via un proxy SOCKS5.</translation>
+        <source>Connect to the BITWIN24 network through a SOCKS5 proxy.</source>
+        <translation>Se connetcer au réseau BITWIN24 via un proxy SOCKS5.</translation>
     </message>
     <message>
         <source>Proxy &amp;IP:</source>
@@ -2066,8 +2066,8 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Solde total, incluant les pièces indisponibles.</translation>
     </message>
     <message>
-        <source>MAG Balance</source>
-        <translation>Solde de MAG</translation>
+        <source>BITWIN24 Balance</source>
+        <translation>Solde de BITWIN24</translation>
     </message>
     <message>
         <source>Pending:</source>
@@ -2090,8 +2090,8 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Solde courant bloqué dans des adresses témoin</translation>
     </message>
     <message>
-        <source>Your current MAG balance, unconfirmed and immature transactions included</source>
-        <translation>Votre solde MAG actuel, incluant les transactions non confirmées et immatures</translation>
+        <source>Your current BITWIN24 balance, unconfirmed and immature transactions included</source>
+        <translation>Votre solde BITWIN24 actuel, incluant les transactions non confirmées et immatures</translation>
     </message>
     <message>
         <source>zMAG Balance</source>
@@ -2110,8 +2110,8 @@ Immature: confirmed, but less than 1 mint of the same denomination after it was 
 Immature: confirmé, mais moins de 1 monnayer de la même dénomination après sa frappe</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the MAG network after a connection is established, but this process has not completed yet.</source>
-        <translation>Les informations affichées pourraient être périmées. Votre portefeuille se synchronise automatiquement avec le réseau MAG après l'établissement d'une connexion, mais ce processus n'est pas encore terminé.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BITWIN24 network after a connection is established, but this process has not completed yet.</source>
+        <translation>Les informations affichées pourraient être périmées. Votre portefeuille se synchronise automatiquement avec le réseau BITWIN24 après l'établissement d'une connexion, mais ce processus n'est pas encore terminé.</translation>
     </message>
     <message>
         <source>OVERVIEW</source>
@@ -2154,8 +2154,8 @@ Immature: confirmé, mais moins de 1 monnayer de la même dénomination après s
         <translation>Dépensable:</translation>
     </message>
     <message>
-        <source>Locked MAG or Masternode collaterals. These are excluded from zMAG minting.</source>
-        <translation>MAG Verrouillé ou Masternode collatéraux. Ceux-ci sont exclus de la monnayage zMAG.</translation>
+        <source>Locked BITWIN24 or Masternode collaterals. These are excluded from zMAG minting.</source>
+        <translation>BITWIN24 Verrouillé ou Masternode collatéraux. Ceux-ci sont exclus de la monnayage zMAG.</translation>
     </message>
     <message>
         <source>Locked:</source>
@@ -2226,8 +2226,8 @@ Pour activer Auto-monnayage, changez 'enablezeromint = 0' en 'enablezeromint = 1
         <translation>Impossible de démarrer bitwin24: gestionnaire click-to-pay</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid MAG address or malformed URI parameters.</source>
-        <translation>L'URI ne peut pas être analysée! Cela peut être dû à une adresse MAG invalide ou à des paramètres URI incorrectes.</translation>
+        <source>URI cannot be parsed! This can be caused by an invalid BITWIN24 address or malformed URI parameters.</source>
+        <translation>L'URI ne peut pas être analysée! Cela peut être dû à une adresse BITWIN24 invalide ou à des paramètres URI incorrectes.</translation>
     </message>
     <message>
         <source>Payment request file cannot be read! This can be caused by an invalid payment request file.</source>
@@ -2312,8 +2312,8 @@ Pour activer Auto-monnayage, changez 'enablezeromint = 0' en 'enablezeromint = 1
         <translation>Actions Zerocoin:</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the MAG network after a connection is established, but this process has not completed yet.</source>
-        <translation>Les informations affichées pourraient être périmées. Votre portefeuille se synchronise automatiquement avec le réseau MAG après l'établissement d'une connexion, mais ce processus n'est pas encore terminé.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BITWIN24 network after a connection is established, but this process has not completed yet.</source>
+        <translation>Les informations affichées pourraient être périmées. Votre portefeuille se synchronise automatiquement avec le réseau BITWIN24 après l'établissement d'une connexion, mais ce processus n'est pas encore terminé.</translation>
     </message>
     <message>
         <source>Mint Zerocoin</source>
@@ -2336,8 +2336,8 @@ Pour activer Auto-monnayage, changez 'enablezeromint = 0' en 'enablezeromint = 1
         <translation>Disponible pour Monnayage:</translation>
     </message>
     <message>
-        <source>0.000 000 00 MAG</source>
-        <translation>0.000 000 00 MAG</translation>
+        <source>0.000 000 00 BITWIN24</source>
+        <translation>0.000 000 00 BITWIN24</translation>
     </message>
     <message>
         <source>Reset Zerocoin Wallet DB. Deletes transactions that did not make it into the blockchain.</source>
@@ -2377,7 +2377,7 @@ Pour activer Auto-monnayage, changez 'enablezeromint = 0' en 'enablezeromint = 1
     </message>
     <message>
         <source>Enter an amount of BWI to convert to zMAG</source>
-        <translation>Entrez un montant de MAG à convertir en zMAG</translation>
+        <translation>Entrez un montant de BITWIN24 à convertir en zMAG</translation>
     </message>
     <message>
         <source>zMAG Control</source>
@@ -2436,8 +2436,8 @@ Les zMAG sont matures lorsqu'elles ont plus de 20 confirmations ET plus de 2 mon
         <translation>Payer à :</translation>
     </message>
     <message>
-        <source>The MAG address to send the payment to. Creates local payment to yourself when empty.</source>
-        <translation>L'adresse MAG à laquelle nevoyer le paiement. Créé un paiement à vous même lorsque ce champs est vide.</translation>
+        <source>The BITWIN24 address to send the payment to. Creates local payment to yourself when empty.</source>
+        <translation>L'adresse BITWIN24 à laquelle nevoyer le paiement. Créé un paiement à vous même lorsque ce champs est vide.</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2958,8 +2958,8 @@ Soit monnayer des dénominations plus élevées (moins d'intrants sont nécessai
         <translation>Montant</translation>
     </message>
     <message>
-        <source>Enter a MAG address (e.g. %1)</source>
-        <translation>Entrez uen adresse MAG (par ex. %1)</translation>
+        <source>Enter a BITWIN24 address (e.g. %1)</source>
+        <translation>Entrez uen adresse BITWIN24 (par ex. %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -3096,7 +3096,7 @@ Soit monnayer des dénominations plus élevées (moins d'intrants sont nécessai
         <translation>Chaîne de bloc</translation>
     </message>
     <message>
-        <source>Open the MAG debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <source>Open the BITWIN24 debug log file from the current data directory. This can take a few seconds for large log files.</source>
         <translation>Ouvrir le fichier journal de déboguage depuis le répertoire de données courant. Cela peut prendre quelques minutes pour les fichier journaux volumineux.</translation>
     </message>
     <message>
@@ -3312,8 +3312,8 @@ Soit monnayer des dénominations plus élevées (moins d'intrants sont nécessai
         <translation>Sortie:</translation>
     </message>
     <message>
-        <source>Welcome to the MAG RPC console.</source>
-        <translation>Bienvenue sur la console MAG RPC.</translation>
+        <source>Welcome to the BITWIN24 RPC console.</source>
+        <translation>Bienvenue sur la console BITWIN24 RPC.</translation>
     </message>
     <message>
         <source>&amp;Disconnect Node</source>
@@ -3439,16 +3439,16 @@ Soit monnayer des dénominations plus élevées (moins d'intrants sont nécessai
         <translation>Un label Un optionnel à associer à la nouvelle adresse de réception.</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the MAG network.</source>
-        <translation>Un message optionnel à ajouter à la demande de paiement, lequel sera affiché lorsque la demande sera ouverte. Note: Le message ne sera pas renvoyé avec le paiement sur le réseaux MAG.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the BITWIN24 network.</source>
+        <translation>Un message optionnel à ajouter à la demande de paiement, lequel sera affiché lorsque la demande sera ouverte. Note: Le message ne sera pas renvoyé avec le paiement sur le réseaux BITWIN24.</translation>
     </message>
     <message>
         <source>RECEIVE</source>
         <translation>RECEVOIR</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the MAG network.</source>
-        <translation>Un message optionnel à ajouter à la demande de paiement, lequel sera affiché lorsque la demande sera ouverte. &lt;br /&gt; Note: Le message ne sera pas renvoyé avec le paiement sur le réseaux MAG.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the BITWIN24 network.</source>
+        <translation>Un message optionnel à ajouter à la demande de paiement, lequel sera affiché lorsque la demande sera ouverte. &lt;br /&gt; Note: Le message ne sera pas renvoyé avec le paiement sur le réseaux BITWIN24.</translation>
     </message>
     <message>
         <source>Use this form to request payments. All fields are &lt;b&gt;optional&lt;/b&gt;.</source>
@@ -3676,8 +3676,8 @@ Soit monnayer des dénominations plus élevées (moins d'intrants sont nécessai
         <translation>Taille UTXO:</translation>
     </message>
     <message>
-        <source>0 MAG</source>
-        <translation>0 MAG</translation>
+        <source>0 BITWIN24</source>
+        <translation>0 BITWIN24</translation>
     </message>
     <message>
         <source>Transaction Fee:</source>
@@ -3728,8 +3728,8 @@ Soit monnayer des dénominations plus élevées (moins d'intrants sont nécessai
         <translation>Pièces automatiquement sélectionnées</translation>
     </message>
     <message>
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for MAG transactions than the network can process.</source>
-        <translation>Payer les frais minimum est convenable tant qu'il y a moins de volume de transactions que d'espace dans les blocs. &lt;br /&gt; Mais sachez que cela peut aboutir à une transaction qui ne se confirmera jamais lorsqu'il y aura plus de transactions MAG que le réseau ne peut en traiter.</translation>
+        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for BITWIN24 transactions than the network can process.</source>
+        <translation>Payer les frais minimum est convenable tant qu'il y a moins de volume de transactions que d'espace dans les blocs. &lt;br /&gt; Mais sachez que cela peut aboutir à une transaction qui ne se confirmera jamais lorsqu'il y aura plus de transactions BITWIN24 que le réseau ne peut en traiter.</translation>
     </message>
     <message>
         <source>normal</source>
@@ -3776,8 +3776,8 @@ Soit monnayer des dénominations plus élevées (moins d'intrants sont nécessai
         <translation>Ajouter un destinataire</translation>
     </message>
     <message>
-        <source>Anonymized MAG</source>
-        <translation>MAG anonymisé</translation>
+        <source>Anonymized BITWIN24</source>
+        <translation>BITWIN24 anonymisé</translation>
     </message>
     <message>
         <source>Balance:</source>
@@ -3824,8 +3824,8 @@ Soit monnayer des dénominations plus élevées (moins d'intrants sont nécessai
         <translation>L'outil de séparation de bloc ne fonctionne pas avec les adresses multiples. Réessayez.</translation>
     </message>
     <message>
-        <source>Warning: Invalid MAG address</source>
-        <translation>Attention: adresse MAG invalide</translation>
+        <source>Warning: Invalid BITWIN24 address</source>
+        <translation>Attention: adresse BITWIN24 invalide</translation>
     </message>
     <message>
         <source>%1 to %2</source>
@@ -3919,8 +3919,8 @@ Soit monnayer des dénominations plus élevées (moins d'intrants sont nécessai
         <translation>Payer à :</translation>
     </message>
     <message>
-        <source>The MAG address to send the payment to</source>
-        <translation>L'adresse MAG à laquelle envoyer le paiement</translation>
+        <source>The BITWIN24 address to send the payment to</source>
+        <translation>L'adresse BITWIN24 à laquelle envoyer le paiement</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -3981,8 +3981,8 @@ Soit monnayer des dénominations plus élevées (moins d'intrants sont nécessai
         <translation>Signer le message</translation>
     </message>
     <message>
-        <source>The MAG address to sign the message with</source>
-        <translation>L'adresse MAG avec laquelle signer le message</translation>
+        <source>The BITWIN24 address to sign the message with</source>
+        <translation>L'adresse BITWIN24 avec laquelle signer le message</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -4009,16 +4009,16 @@ Soit monnayer des dénominations plus élevées (moins d'intrants sont nécessai
         <translation>Copier la signature actuelle dans le presse-papier</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this MAG address</source>
-        <translation>Signer le message pour prouver que vous possédez cette adresse MAG</translation>
+        <source>Sign the message to prove you own this BITWIN24 address</source>
+        <translation>Signer le message pour prouver que vous possédez cette adresse BITWIN24</translation>
     </message>
     <message>
-        <source>The MAG address the message was signed with</source>
-        <translation>L'adresse MAG avec laquelle le message a été signé</translation>
+        <source>The BITWIN24 address the message was signed with</source>
+        <translation>L'adresse BITWIN24 avec laquelle le message a été signé</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified MAG address</source>
-        <translation>Vérifiez le message afin de vous assurer qu'il a été signé avec l'adresse MAG renseignée</translation>
+        <source>Verify the message to ensure it was signed with the specified BITWIN24 address</source>
+        <translation>Vérifiez le message afin de vous assurer qu'il a été signé avec l'adresse BITWIN24 renseignée</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -4080,8 +4080,8 @@ Soit monnayer des dénominations plus élevées (moins d'intrants sont nécessai
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>MAG Core</source>
-        <translation>MAG Core</translation>
+        <source>BITWIN24 Core</source>
+        <translation>BITWIN24 Core</translation>
     </message>
     </context>
 <context>
@@ -4152,32 +4152,32 @@ Soit monnayer des dénominations plus élevées (moins d'intrants sont nécessai
         <translation>Reçu via Obfuscation</translation>
     </message>
     <message>
-        <source>MAG Stake</source>
-        <translation>MAG Stake</translation>
+        <source>BITWIN24 Stake</source>
+        <translation>BITWIN24 Stake</translation>
     </message>
     <message>
         <source>zMAG Stake</source>
         <translation>zMAG Stake</translation>
     </message>
     <message>
-        <source>Converted MAG to zMAG</source>
-        <translation>MAG converti en zMAG</translation>
+        <source>Converted BITWIN24 to zMAG</source>
+        <translation>BITWIN24 converti en zMAG</translation>
     </message>
     <message>
         <source>Spent zMAG</source>
         <translation>zMAG dépensés</translation>
     </message>
     <message>
-        <source>Received MAG from zMAG</source>
-        <translation>MAG reçu depuis zMAG</translation>
+        <source>Received BITWIN24 from zMAG</source>
+        <translation>BITWIN24 reçu depuis zMAG</translation>
     </message>
     <message>
         <source>Minted Change as zMAG from zMAG Spend</source>
         <translation>Monnaie rendue à partir d'une dépense zMAG frappée comme zMAG </translation>
     </message>
     <message>
-        <source>Converted zMAG to MAG</source>
-        <translation>zMAG converti en MAG</translation>
+        <source>Converted zMAG to BITWIN24</source>
+        <translation>zMAG converti en BITWIN24</translation>
     </message>
     <message>
         <source>Anonymous (zMAG Transaction)</source>
@@ -4343,8 +4343,8 @@ Soit monnayer des dénominations plus élevées (moins d'intrants sont nécessai
         <translation>Une erreur est survenue lors de la tentative de sauvegarde de l'historique de transaction vers %1.</translation>
     </message>
     <message>
-        <source>Received MAG from zMAG</source>
-        <translation>MAG reçu depuis zMAG</translation>
+        <source>Received BITWIN24 from zMAG</source>
+        <translation>BITWIN24 reçu depuis zMAG</translation>
     </message>
     <message>
         <source>Zerocoin Spend, Change in zMAG</source>
@@ -4405,8 +4405,8 @@ Soit monnayer des dénominations plus élevées (moins d'intrants sont nécessai
 <context>
     <name>bitwin24-core</name>
     <message>
-        <source>Enable or disable staking functionality for MAG inputs (0-1, default: %u)</source>
-        <translation>Active ou désactive la fonctionnalité de staking pour les entrées MAG (0-1, par défaut: %u)</translation>
+        <source>Enable or disable staking functionality for BITWIN24 inputs (0-1, default: %u)</source>
+        <translation>Active ou désactive la fonctionnalité de staking pour les entrées BITWIN24 (0-1, par défaut: %u)</translation>
     </message>
     <message>
         <source>Enable or disable staking functionality for zMAG inputs (0-1, default: %u)</source>
@@ -4461,8 +4461,8 @@ Soit monnayer des dénominations plus élevées (moins d'intrants sont nécessai
         <translation>Erreur de chargement du fichier wallet.dat: Portefeuille corrompu</translation>
     </message>
     <message>
-        <source>Error loading wallet.dat: Wallet requires newer version of MAG Core</source>
-        <translation>Erreur de chargement du fichier wallet.dat: Le portefeuille nécessite une version plus récente du MAG core</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of BITWIN24 Core</source>
+        <translation>Erreur de chargement du fichier wallet.dat: Le portefeuille nécessite une version plus récente du BITWIN24 core</translation>
     </message>
     <message>
         <source>Error opening block database</source>
@@ -5053,8 +5053,8 @@ Soit monnayer des dénominations plus élevées (moins d'intrants sont nécessai
         <translation>Le portefeuille est vérouillé.</translation>
     </message>
     <message>
-        <source>Wallet needed to be rewritten: restart MAG Core to complete</source>
-        <translation>Le portefeuille doit être réécrit: redémarrez MAG Core pour terminer</translation>
+        <source>Wallet needed to be rewritten: restart BITWIN24 Core to complete</source>
+        <translation>Le portefeuille doit être réécrit: redémarrez BITWIN24 Core pour terminer</translation>
     </message>
     <message>
         <source>Wallet options:</source>

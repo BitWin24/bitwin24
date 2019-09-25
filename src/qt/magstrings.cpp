@@ -32,7 +32,7 @@ QT_TRANSLATE_NOOP("bitwin24-core", ""
 QT_TRANSLATE_NOOP("bitwin24-core", ""
 "Calculated accumulator checkpoint is not what is recorded by block index"),
 QT_TRANSLATE_NOOP("bitwin24-core", ""
-"Cannot obtain a lock on data directory %s. MAG Core is probably already "
+"Cannot obtain a lock on data directory %s. BITWIN24 Core is probably already "
 "running."),
 QT_TRANSLATE_NOOP("bitwin24-core", ""
 "Change automatic finalized budget voting behavior. mode=auto: Vote for only "
@@ -50,7 +50,7 @@ QT_TRANSLATE_NOOP("bitwin24-core", ""
 "Delete all zerocoin spends and mints that have been recorded to the "
 "blockchain database and reindex them (0-1, default: %u)"),
 QT_TRANSLATE_NOOP("bitwin24-core", ""
-"Disable all MAG specific functionality (Masternodes, Zerocoin, SwiftX, "
+"Disable all BITWIN24 specific functionality (Masternodes, Zerocoin, SwiftX, "
 "Budgeting) (0-1, default: %u)"),
 QT_TRANSLATE_NOOP("bitwin24-core", ""
 "Distributed under the MIT software license, see the accompanying file "
@@ -61,7 +61,7 @@ QT_TRANSLATE_NOOP("bitwin24-core", ""
 "Enable automatic wallet backups triggered after each zMAG minting (0-1, "
 "default: %u)"),
 QT_TRANSLATE_NOOP("bitwin24-core", ""
-"Enable or disable staking functionality for MAG inputs (0-1, default: %u)"),
+"Enable or disable staking functionality for BITWIN24 inputs (0-1, default: %u)"),
 QT_TRANSLATE_NOOP("bitwin24-core", ""
 "Enable or disable staking functionality for zMAG inputs (0-1, default: %u)"),
 QT_TRANSLATE_NOOP("bitwin24-core", ""
@@ -100,10 +100,10 @@ QT_TRANSLATE_NOOP("bitwin24-core", ""
 QT_TRANSLATE_NOOP("bitwin24-core", ""
 "Failed to find coin set amongst held coins with less than maxNumber of Spends"),
 QT_TRANSLATE_NOOP("bitwin24-core", ""
-"Fees (in MAG/Kb) smaller than this are considered zero fee for relaying "
+"Fees (in BITWIN24/Kb) smaller than this are considered zero fee for relaying "
 "(default: %s)"),
 QT_TRANSLATE_NOOP("bitwin24-core", ""
-"Fees (in MAG/Kb) smaller than this are considered zero fee for transaction "
+"Fees (in BITWIN24/Kb) smaller than this are considered zero fee for transaction "
 "creation (default: %s)"),
 QT_TRANSLATE_NOOP("bitwin24-core", ""
 "Flush database activity from memory pool to disk log every <n> megabytes "
@@ -192,15 +192,15 @@ QT_TRANSLATE_NOOP("bitwin24-core", ""
 "the OpenSSL Toolkit <https://www.openssl.org/> and cryptographic software "
 "written by Eric Young and UPnP software written by Thomas Bernard."),
 QT_TRANSLATE_NOOP("bitwin24-core", ""
-"Unable to bind to %s on this computer. MAG Core is probably already running."),
+"Unable to bind to %s on this computer. BITWIN24 Core is probably already running."),
 QT_TRANSLATE_NOOP("bitwin24-core", ""
 "Unable to locate enough Obfuscation denominated funds for this transaction."),
 QT_TRANSLATE_NOOP("bitwin24-core", ""
 "Unable to locate enough Obfuscation non-denominated funds for this "
-"transaction that are not equal 10000 MAG."),
+"transaction that are not equal 10000 BITWIN24."),
 QT_TRANSLATE_NOOP("bitwin24-core", ""
 "Unable to locate enough funds for this transaction that are not equal 10000 "
-"MAG."),
+"BITWIN24."),
 QT_TRANSLATE_NOOP("bitwin24-core", ""
 "Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: "
 "%s)"),
@@ -212,7 +212,7 @@ QT_TRANSLATE_NOOP("bitwin24-core", ""
 "pay if you send a transaction."),
 QT_TRANSLATE_NOOP("bitwin24-core", ""
 "Warning: Please check that your computer's date and time are correct! If "
-"your clock is wrong MAG Core will not work properly."),
+"your clock is wrong BITWIN24 Core will not work properly."),
 QT_TRANSLATE_NOOP("bitwin24-core", ""
 "Warning: The network does not appear to fully agree! Some miners appear to "
 "be experiencing issues."),
@@ -268,7 +268,7 @@ QT_TRANSLATE_NOOP("bitwin24-core", "Connect to a node to retrieve peer addresses
 QT_TRANSLATE_NOOP("bitwin24-core", "Connection options:"),
 QT_TRANSLATE_NOOP("bitwin24-core", "Copyright (C) 2009-%i The Bitcoin Core Developers"),
 QT_TRANSLATE_NOOP("bitwin24-core", "Copyright (C) 2014-%i The Dash Core Developers"),
-QT_TRANSLATE_NOOP("bitwin24-core", "Copyright (C) 2015-%i The MAG Core Developers"),
+QT_TRANSLATE_NOOP("bitwin24-core", "Copyright (C) 2015-%i The BITWIN24 Core Developers"),
 QT_TRANSLATE_NOOP("bitwin24-core", "Corrupted block database detected"),
 QT_TRANSLATE_NOOP("bitwin24-core", "Could not parse masternode.conf"),
 QT_TRANSLATE_NOOP("bitwin24-core", "Debugging/Testing options:"),
@@ -297,7 +297,7 @@ QT_TRANSLATE_NOOP("bitwin24-core", "Error initializing wallet database environme
 QT_TRANSLATE_NOOP("bitwin24-core", "Error loading block database"),
 QT_TRANSLATE_NOOP("bitwin24-core", "Error loading wallet.dat"),
 QT_TRANSLATE_NOOP("bitwin24-core", "Error loading wallet.dat: Wallet corrupted"),
-QT_TRANSLATE_NOOP("bitwin24-core", "Error loading wallet.dat: Wallet requires newer version of MAG Core"),
+QT_TRANSLATE_NOOP("bitwin24-core", "Error loading wallet.dat: Wallet requires newer version of BITWIN24 Core"),
 QT_TRANSLATE_NOOP("bitwin24-core", "Error opening block database"),
 QT_TRANSLATE_NOOP("bitwin24-core", "Error reading from database, shutting down."),
 QT_TRANSLATE_NOOP("bitwin24-core", "Error recovering public key."),
@@ -321,7 +321,7 @@ QT_TRANSLATE_NOOP("bitwin24-core", "Failed to read block"),
 QT_TRANSLATE_NOOP("bitwin24-core", "Failed to select a zerocoin"),
 QT_TRANSLATE_NOOP("bitwin24-core", "Failed to wipe zerocoinDB"),
 QT_TRANSLATE_NOOP("bitwin24-core", "Failed to write coin serial number into wallet"),
-QT_TRANSLATE_NOOP("bitwin24-core", "Fee (in MAG/kB) to add to transactions you send (default: %s)"),
+QT_TRANSLATE_NOOP("bitwin24-core", "Fee (in BITWIN24/kB) to add to transactions you send (default: %s)"),
 QT_TRANSLATE_NOOP("bitwin24-core", "Finalizing transaction."),
 QT_TRANSLATE_NOOP("bitwin24-core", "Force safe mode (default: %u)"),
 QT_TRANSLATE_NOOP("bitwin24-core", "Found enough users, signing ( waiting %s )"),
@@ -336,7 +336,7 @@ QT_TRANSLATE_NOOP("bitwin24-core", "Incompatible mode."),
 QT_TRANSLATE_NOOP("bitwin24-core", "Incompatible version."),
 QT_TRANSLATE_NOOP("bitwin24-core", "Incorrect or no genesis block found. Wrong datadir for network?"),
 QT_TRANSLATE_NOOP("bitwin24-core", "Information"),
-QT_TRANSLATE_NOOP("bitwin24-core", "Initialization sanity check failed. MAG Core is shutting down."),
+QT_TRANSLATE_NOOP("bitwin24-core", "Initialization sanity check failed. BITWIN24 Core is shutting down."),
 QT_TRANSLATE_NOOP("bitwin24-core", "Input is not valid."),
 QT_TRANSLATE_NOOP("bitwin24-core", "Insufficient funds"),
 QT_TRANSLATE_NOOP("bitwin24-core", "Insufficient funds."),
@@ -410,7 +410,7 @@ QT_TRANSLATE_NOOP("bitwin24-core", "Randomly drop 1 of every <n> network message
 QT_TRANSLATE_NOOP("bitwin24-core", "Randomly fuzz 1 of every <n> network messages"),
 QT_TRANSLATE_NOOP("bitwin24-core", "Rebuild block chain index from current blk000??.dat files"),
 QT_TRANSLATE_NOOP("bitwin24-core", "Receive and display P2P network alerts (default: %u)"),
-QT_TRANSLATE_NOOP("bitwin24-core", "Reindex the MAG and zMAG money supply statistics"),
+QT_TRANSLATE_NOOP("bitwin24-core", "Reindex the BITWIN24 and zMAG money supply statistics"),
 QT_TRANSLATE_NOOP("bitwin24-core", "Reindex the accumulator database"),
 QT_TRANSLATE_NOOP("bitwin24-core", "Reindexing zerocoin database..."),
 QT_TRANSLATE_NOOP("bitwin24-core", "Reindexing zerocoin failed"),
@@ -506,7 +506,7 @@ QT_TRANSLATE_NOOP("bitwin24-core", "Verifying wallet..."),
 QT_TRANSLATE_NOOP("bitwin24-core", "Version 1 zMAG require a security level of 100 to successfully spend."),
 QT_TRANSLATE_NOOP("bitwin24-core", "Wallet %s resides outside data directory %s"),
 QT_TRANSLATE_NOOP("bitwin24-core", "Wallet is locked."),
-QT_TRANSLATE_NOOP("bitwin24-core", "Wallet needed to be rewritten: restart MAG Core to complete"),
+QT_TRANSLATE_NOOP("bitwin24-core", "Wallet needed to be rewritten: restart BITWIN24 Core to complete"),
 QT_TRANSLATE_NOOP("bitwin24-core", "Wallet options:"),
 QT_TRANSLATE_NOOP("bitwin24-core", "Wallet window title"),
 QT_TRANSLATE_NOOP("bitwin24-core", "Warning"),

@@ -1,6 +1,6 @@
 // Copyright (c) 2012-2017 The Bitcoin Core developers
 // Copyright (c) 2016-2017 The PIVX developers
-// Copyright (c) 2018-present The MAG developers
+// Copyright (c) 2018-present The BITWIN24 developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -14,7 +14,7 @@
  * for both magd and bitwin24-qt, to make it harder for attackers to
  * target servers or GUI users specifically.
  */
-const std::string CLIENT_NAME("MAG Core");
+const std::string CLIENT_NAME("BITWIN24 Core");
 
 /**
  * Client version number

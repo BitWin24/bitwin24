@@ -35,9 +35,9 @@ def check_json_precision():
 def determine_db_dir():
     """Return the default location of the bitwin24 data directory"""
     if platform.system() == "Darwin":
-        return os.path.expanduser("~/Library/Application Support/MAG/")
+        return os.path.expanduser("~/Library/Application Support/BITWIN24/")
     elif platform.system() == "Windows":
-        return os.path.join(os.environ['APPDATA'], "MAG")
+        return os.path.join(os.environ['APPDATA'], "BITWIN24")
     return os.path.expanduser("~/.bitwin24")
 
 def read_bitcoin_config(dbdir):

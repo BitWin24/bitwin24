@@ -62,12 +62,12 @@
         <translation>Ontvangstadressen</translation>
     </message>
     <message>
-        <source>These are your MAG addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Dit zijn uw MAG adressen om betalingen mee te verzenden. Controleer altijd zowel het bedrag als het ontvangstadres voor het verzenden van geld.</translation>
+        <source>These are your BITWIN24 addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Dit zijn uw BITWIN24 adressen om betalingen mee te verzenden. Controleer altijd zowel het bedrag als het ontvangstadres voor het verzenden van geld.</translation>
     </message>
     <message>
-        <source>These are your MAG addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Dit zijn uw MAG adressen waarop betalingen kunnen worden ontvangen. Het wordt aangeraden om een nieuw ontvangstadres voor elke transactie te gebruiken.</translation>
+        <source>These are your BITWIN24 addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Dit zijn uw BITWIN24 adressen waarop betalingen kunnen worden ontvangen. Het wordt aangeraden om een nieuw ontvangstadres voor elke transactie te gebruiken.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -176,16 +176,16 @@
         <translation>Bevestig versleuteling van de portemonnee</translation>
     </message>
     <message>
-        <source>MAG will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your MAGs from being stolen by malware infecting your computer.</source>
-        <translation>MAG zal nu afsluiten om het versleutelingsproces te voltooien. Onthoud dat het versleutelen van uw portemonnee u niet volledig kan beschermen tegen malware infecties op uw computer die uw MAG's kunnen stelen.</translation>
+        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your MAGs from being stolen by malware infecting your computer.</source>
+        <translation>BITWIN24 zal nu afsluiten om het versleutelingsproces te voltooien. Onthoud dat het versleutelen van uw portemonnee u niet volledig kan beschermen tegen malware infecties op uw computer die uw BITWIN24's kunnen stelen.</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
         <translation>Weet u zeker dat u uw portemonnee wilt versleutelen?</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MAG&lt;/b&gt;!</source>
-        <translation>Waarschuwing: Als u uw portemonnee versleutelt en uw wachtwoord vergeet, zult u &lt;b&gt;AL UW MAG VERLIEZEN&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITWIN24&lt;/b&gt;!</source>
+        <translation>Waarschuwing: Als u uw portemonnee versleutelt en uw wachtwoord vergeet, zult u &lt;b&gt;AL UW BITWIN24 VERLIEZEN&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Wallet encrypted</source>
@@ -254,12 +254,12 @@
         <translation>Adres:</translation>
     </message>
     <message>
-        <source>Enter a MAG Address that you would like to encrypt using BIP 38. Enter a passphrase in the middle box. Press encrypt to compute the encrypted private key.</source>
-        <translation>Voer een MAG adres in dat u wilt coderen met BIP 38. Voer een wachtwoordzin in in het middelste vak. Druk op versleutelen om de versleutelde privé sleutel te berekenen.</translation>
+        <source>Enter a BITWIN24 Address that you would like to encrypt using BIP 38. Enter a passphrase in the middle box. Press encrypt to compute the encrypted private key.</source>
+        <translation>Voer een BITWIN24 adres in dat u wilt coderen met BIP 38. Voer een wachtwoordzin in in het middelste vak. Druk op versleutelen om de versleutelde privé sleutel te berekenen.</translation>
     </message>
     <message>
-        <source>The MAG address to encrypt</source>
-        <translation>Het MAG adres om te versleutelen</translation>
+        <source>The BITWIN24 address to encrypt</source>
+        <translation>Het BITWIN24 adres om te versleutelen</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -290,8 +290,8 @@
         <translation>Kopieer de huidige handtekening naar het systeemklembord</translation>
     </message>
     <message>
-        <source>Encrypt the private key for this MAG address</source>
-        <translation>Versleutel de privé sleutel voor dit MAG adres</translation>
+        <source>Encrypt the private key for this BITWIN24 address</source>
+        <translation>Versleutel de privé sleutel voor dit BITWIN24 adres</translation>
     </message>
     <message>
         <source>Reset all fields</source>
@@ -645,16 +645,16 @@
         <translation>Tabblad werkbalk</translation>
     </message>
     <message>
-        <source>MAG Core</source>
-        <translation>MAG Core</translation>
+        <source>BITWIN24 Core</source>
+        <translation>BITWIN24 Core</translation>
     </message>
     <message>
-        <source>Send coins to a MAG address</source>
-        <translation>Verstuur munten naar een MAG adres</translation>
+        <source>Send coins to a BITWIN24 address</source>
+        <translation>Verstuur munten naar een BITWIN24 adres</translation>
     </message>
     <message>
         <source>Request payments (generates QR codes and bitwin24: URIs)</source>
-        <translation>Vraag betaling aan (genereert QR codes en MAG: URI's)</translation>
+        <translation>Vraag betaling aan (genereert QR codes en BITWIN24: URI's)</translation>
     </message>
     <message>
         <source>&amp;Privacy</source>
@@ -669,24 +669,24 @@
         <translation>Bekijk masternodes</translation>
     </message>
     <message>
-        <source>&amp;About MAG Core</source>
-        <translation>&amp;Over MAG Core</translation>
+        <source>&amp;About BITWIN24 Core</source>
+        <translation>&amp;Over BITWIN24 Core</translation>
     </message>
     <message>
-        <source>Show information about MAG Core</source>
-        <translation>Toon informatie over MAG Kern</translation>
+        <source>Show information about BITWIN24 Core</source>
+        <translation>Toon informatie over BITWIN24 Kern</translation>
     </message>
     <message>
-        <source>Modify configuration options for MAG</source>
-        <translation>Wijzig MAG configuratie opties</translation>
+        <source>Modify configuration options for BITWIN24</source>
+        <translation>Wijzig BITWIN24 configuratie opties</translation>
     </message>
     <message>
-        <source>Sign messages with your MAG addresses to prove you own them</source>
-        <translation>Onderteken berichten met uw MAG adressen om te bewijzen dat deze adressen in uw bezit zijn</translation>
+        <source>Sign messages with your BITWIN24 addresses to prove you own them</source>
+        <translation>Onderteken berichten met uw BITWIN24 adressen om te bewijzen dat deze adressen in uw bezit zijn</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified MAG addresses</source>
-        <translation>Controleer berichten om te verzekeren dat deze ondertekend zijn met de gespecificeerde MAG adressen</translation>
+        <source>Verify messages to ensure they were signed with specified BITWIN24 addresses</source>
+        <translation>Controleer berichten om te verzekeren dat deze ondertekend zijn met de gespecificeerde BITWIN24 adressen</translation>
     </message>
     <message>
         <source>&amp;BIP38 tool</source>
@@ -717,8 +717,8 @@
         <translation>Open Masternode configuratiebestand</translation>
     </message>
     <message>
-        <source>Open a MAG: URI or payment request</source>
-        <translation>Open een MAG: URI of betaalverzoek</translation>
+        <source>Open a BITWIN24: URI or payment request</source>
+        <translation>Open een BITWIN24: URI of betaalverzoek</translation>
     </message>
     <message>
         <source>&amp;Blockchain explorer</source>
@@ -729,16 +729,16 @@
         <translation>Block verkenner venster</translation>
     </message>
     <message>
-        <source>Show the MAG Core help message to get a list with possible MAG command-line options</source>
-        <translation>Toon het MAG Core help bericht om een ​​lijst te krijgen met mogelijke MAG command line opties</translation>
+        <source>Show the BITWIN24 Core help message to get a list with possible BITWIN24 command-line options</source>
+        <translation>Toon het BITWIN24 Core help bericht om een ​​lijst te krijgen met mogelijke BITWIN24 command line opties</translation>
     </message>
     <message>
-        <source>MAG Core client</source>
-        <translation>MAG Core client</translation>
+        <source>BITWIN24 Core client</source>
+        <translation>BITWIN24 Core client</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to MAG network</source>
-        <translation><numerusform>%n actieve verbindingen met het MAG netwerk</numerusform><numerusform>%n actieve connectie(s) naar MAG netwerk</numerusform></translation>
+        <source>%n active connection(s) to BITWIN24 network</source>
+        <translation><numerusform>%n actieve verbindingen met het BITWIN24 netwerk</numerusform><numerusform>%n actieve connectie(s) naar BITWIN24 netwerk</numerusform></translation>
     </message>
     <message>
         <source>Synchronizing with network...</source>
@@ -1185,8 +1185,8 @@ MultiSend: %1</translation>
         <translation>Wijzig verzend adres</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid MAG address.</source>
-        <translation>Het ingevoerde adres: "%1" is geen geldig MAG adres.</translation>
+        <source>The entered address "%1" is not a valid BITWIN24 address.</source>
+        <translation>Het ingevoerde adres: "%1" is geen geldig BITWIN24 adres.</translation>
     </message>
     <message>
         <source>The entered address "%1" is already in the address book.</source>
@@ -1231,16 +1231,16 @@ MultiSend: %1</translation>
         <translation>versie</translation>
     </message>
     <message>
-        <source>MAG Core</source>
-        <translation>MAG Core</translation>
+        <source>BITWIN24 Core</source>
+        <translation>BITWIN24 Core</translation>
     </message>
     <message>
         <source>(%1-bit)</source>
         <translation>(%1-bit)</translation>
     </message>
     <message>
-        <source>About MAG Core</source>
-        <translation>Over MAG Core</translation>
+        <source>About BITWIN24 Core</source>
+        <translation>Over BITWIN24 Core</translation>
     </message>
     <message>
         <source>Command-line options</source>
@@ -1286,16 +1286,16 @@ MultiSend: %1</translation>
         <translation>Welkom</translation>
     </message>
     <message>
-        <source>Welcome to MAG Core.</source>
-        <translation>Welkom bij MAG Core.</translation>
+        <source>Welcome to BITWIN24 Core.</source>
+        <translation>Welkom bij BITWIN24 Core.</translation>
     </message>
     <message>
-        <source>As this is the first time the program is launched, you can choose where MAG Core will store its data.</source>
-        <translation>Aangezien dit de eerste keer is dat het programma is gestart, kun je kiezen waar MAG Core zijn data opslaat.</translation>
+        <source>As this is the first time the program is launched, you can choose where BITWIN24 Core will store its data.</source>
+        <translation>Aangezien dit de eerste keer is dat het programma is gestart, kun je kiezen waar BITWIN24 Core zijn data opslaat.</translation>
     </message>
     <message>
-        <source>MAG Core will download and store a copy of the MAG block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>MAG Core zal een kopie van de MAG blockchain downloaden en opslaan. Tenminste %1GB aan data zal worden opgeslagen in deze map en het zal over de tijd groeien. De portemonnee zal ook in deze map worden opgeslagen.</translation>
+        <source>BITWIN24 Core will download and store a copy of the BITWIN24 block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>BITWIN24 Core zal een kopie van de BITWIN24 blockchain downloaden en opslaan. Tenminste %1GB aan data zal worden opgeslagen in deze map en het zal over de tijd groeien. De portemonnee zal ook in deze map worden opgeslagen.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -1306,8 +1306,8 @@ MultiSend: %1</translation>
         <translation>Gebruik een aangepaste data directory:</translation>
     </message>
     <message>
-        <source>MAG Core</source>
-        <translation>MAG Core</translation>
+        <source>BITWIN24 Core</source>
+        <translation>BITWIN24 Core</translation>
     </message>
     <message>
         <source>Error: Specified data directory "%1" cannot be created.</source>
@@ -1448,12 +1448,12 @@ MultiSend: %1</translation>
         <translation>Vul het adres in om naar te verzenden</translation>
     </message>
     <message>
-        <source>MultiSend allows you to automatically send up to 100% of your stake or masternode reward to a list of other MAG addresses after it matures.
-To Add: enter percentage to give and MAG address to add to the MultiSend vector.
+        <source>MultiSend allows you to automatically send up to 100% of your stake or masternode reward to a list of other BITWIN24 addresses after it matures.
+To Add: enter percentage to give and BITWIN24 address to add to the MultiSend vector.
 To Delete: Enter address to delete and press delete.
 MultiSend will not be activated unless you have clicked Activate</source>
-        <translation>MultiSend stelt je in staat om automatisch tot 100% van uw stake of masternode beloning automatisch te verzenden naar een lijst van andere MAG adressen nadat het volwassen is. 
-Toevoegen: voer het te geven percentage in en MAG adres om toe te voegen aan de MultiSend vector.
+        <translation>MultiSend stelt je in staat om automatisch tot 100% van uw stake of masternode beloning automatisch te verzenden naar een lijst van andere BITWIN24 adressen nadat het volwassen is.
+Toevoegen: voer het te geven percentage in en BITWIN24 adres om toe te voegen aan de MultiSend vector.
 Verwijderen: Voer adres in om te verwijderen en druk op delete.
 MultiSend zal niet worden geactiveerd tenzij je op Activeer hebt geklikt</translation>
     </message>
@@ -1681,8 +1681,8 @@ Waas alsjeblieft geduldig nadat u op importeren hebt geklikt.</translation>
         <translation>Adres / Bedrag:</translation>
     </message>
     <message>
-        <source>Add destinations to send MAG to</source>
-        <translation>Voeg bestemmingen toe om MAG naar te verzenden</translation>
+        <source>Add destinations to send BITWIN24 to</source>
+        <translation>Voeg bestemmingen toe om BITWIN24 naar te verzenden</translation>
     </message>
     <message>
         <source>Add &amp;Destination</source>
@@ -1780,48 +1780,48 @@ Waas alsjeblieft geduldig nadat u op importeren hebt geklikt.</translation>
         <translation>Selecteer de privacy level.</translation>
     </message>
     <message>
-        <source>Use 2 separate masternodes to mix funds up to 10000 MAG</source>
-        <translation>Gebruik 2 aparte masternodes om fondsen te mixen tot 10000 MAG</translation>
+        <source>Use 2 separate masternodes to mix funds up to 10000 BITWIN24</source>
+        <translation>Gebruik 2 aparte masternodes om fondsen te mixen tot 10000 BITWIN24</translation>
     </message>
     <message>
-        <source>Use 8 separate masternodes to mix funds up to 10000 MAG</source>
-        <translation>Gebruik 8 aparte masternodes om fondsen te mixen tot 10000 MAG</translation>
+        <source>Use 8 separate masternodes to mix funds up to 10000 BITWIN24</source>
+        <translation>Gebruik 8 aparte masternodes om fondsen te mixen tot 10000 BITWIN24</translation>
     </message>
     <message>
         <source>Use 16 separate masternodes</source>
         <translation>Gebruik 16 aparte masternodes</translation>
     </message>
     <message>
-        <source>This option is the quickest and will cost about ~0.025 MAG to anonymize 10000 MAG</source>
-        <translation>Deze optie is het snelst en kost ongeveer ~0,025 MAG om 10000 MAG te anonimiseren</translation>
+        <source>This option is the quickest and will cost about ~0.025 BITWIN24 to anonymize 10000 BITWIN24</source>
+        <translation>Deze optie is het snelst en kost ongeveer ~0,025 BITWIN24 om 10000 BITWIN24 te anonimiseren</translation>
     </message>
     <message>
-        <source>This option is moderately fast and will cost about 0.05 MAG to anonymize 10000 MAG</source>
-        <translation>Deze optie is gematigd snel en kost ongeveer 0,05 MAG om 10000 MAG te anonimiseren</translation>
+        <source>This option is moderately fast and will cost about 0.05 BITWIN24 to anonymize 10000 BITWIN24</source>
+        <translation>Deze optie is gematigd snel en kost ongeveer 0,05 BITWIN24 om 10000 BITWIN24 te anonimiseren</translation>
     </message>
     <message>
         <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
         <translation>Dit is de langzaamste en veiligste optie. Het gebruik van maximale anonimiteit kost</translation>
     </message>
     <message>
-        <source>0.1 MAG per 10000 MAG you anonymize.</source>
-        <translation>je anonimiseert 0,1 MAG per 10000 MAG.</translation>
+        <source>0.1 BITWIN24 per 10000 BITWIN24 you anonymize.</source>
+        <translation>je anonimiseert 0,1 BITWIN24 per 10000 BITWIN24.</translation>
     </message>
     <message>
         <source>Obfuscation Configuration</source>
         <translation>Verduistering configuratie</translation>
     </message>
     <message>
-        <source>Obfuscation was successfully set to basic (%1 and 2 rounds). You can change this at any time by opening MAG's configuration screen.</source>
-        <translation>Verduistering is succesvol ingesteld op basic (%1 en 2 rondes). Je kunt dit op elk gewenst moment wijzigen door het configuratiescherm van MAG te openen.</translation>
+        <source>Obfuscation was successfully set to basic (%1 and 2 rounds). You can change this at any time by opening BITWIN24's configuration screen.</source>
+        <translation>Verduistering is succesvol ingesteld op basic (%1 en 2 rondes). Je kunt dit op elk gewenst moment wijzigen door het configuratiescherm van BITWIN24 te openen.</translation>
     </message>
     <message>
-        <source>Obfuscation was successfully set to high (%1 and 8 rounds). You can change this at any time by opening MAG's configuration screen.</source>
-        <translation>Verduistering is succesvol ingesteld op hoog (%1 en 8 rondes). U kunt dit op elk gewenst moment wijzigen door het configuratiescherm van MAG te openen.</translation>
+        <source>Obfuscation was successfully set to high (%1 and 8 rounds). You can change this at any time by opening BITWIN24's configuration screen.</source>
+        <translation>Verduistering is succesvol ingesteld op hoog (%1 en 8 rondes). U kunt dit op elk gewenst moment wijzigen door het configuratiescherm van BITWIN24 te openen.</translation>
     </message>
     <message>
-        <source>Obfuscation was successfully set to maximum (%1 and 16 rounds). You can change this at any time by opening MAG's configuration screen.</source>
-        <translation>Verduistering is succesvol ingesteld op hoog (%1 en 16 rondes). U kunt dit op elk gewenst moment wijzigen door het configuratiescherm van MAG te openen.</translation>
+        <source>Obfuscation was successfully set to maximum (%1 and 16 rounds). You can change this at any time by opening BITWIN24's configuration screen.</source>
+        <translation>Verduistering is succesvol ingesteld op hoog (%1 en 16 rondes). U kunt dit op elk gewenst moment wijzigen door het configuratiescherm van BITWIN24 te openen.</translation>
     </message>
 </context>
 <context>
@@ -1882,8 +1882,8 @@ Waas alsjeblieft geduldig nadat u op importeren hebt geklikt.</translation>
         <translation>Als je de uitgaven van onbevestigde wijzigingen uitschakelt, de wijziging van een transactie&lt;br/&gt;kan niet worden gebruikt tot die transactie tenminste één bevestiging heeft.&lt;br/&gt;Dit beïnvloedt ook hoe uw saldo is berekend.</translation>
     </message>
     <message>
-        <source>Automatically open the MAG client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Open de MAG client poort automatisch op de router. Dit werkt alleen als je router UPnP ondersteunt en het is ingeschakeld.</translation>
+        <source>Automatically open the BITWIN24 client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Open de BITWIN24 client poort automatisch op de router. Dit werkt alleen als je router UPnP ondersteunt en het is ingeschakeld.</translation>
     </message>
     <message>
         <source>Accept connections from outside</source>
@@ -1902,12 +1902,12 @@ Waas alsjeblieft geduldig nadat u op importeren hebt geklikt.</translation>
         <translation>Expert</translation>
     </message>
     <message>
-        <source>Automatically start MAG after logging in to the system.</source>
-        <translation>MAG automatisch opstarten na inloggen op het systeem.</translation>
+        <source>Automatically start BITWIN24 after logging in to the system.</source>
+        <translation>BITWIN24 automatisch opstarten na inloggen op het systeem.</translation>
     </message>
     <message>
-        <source>&amp;Start MAG on system login</source>
-        <translation>&amp;MAG starten bij systeemlogin</translation>
+        <source>&amp;Start BITWIN24 on system login</source>
+        <translation>&amp;BITWIN24 starten bij systeemlogin</translation>
     </message>
     <message>
         <source>Whether to show coin control features or not.</source>
@@ -1934,8 +1934,8 @@ Waas alsjeblieft geduldig nadat u op importeren hebt geklikt.</translation>
         <translation>&amp;Netwerk</translation>
     </message>
     <message>
-        <source>The user interface language can be set here. This setting will take effect after restarting MAG.</source>
-        <translation>De gebruikersinterface taal kan hier ingesteld worden. Deze instelling zal uitgevoerd na herstart van MAG.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting BITWIN24.</source>
+        <translation>De gebruikersinterface taal kan hier ingesteld worden. Deze instelling zal uitgevoerd na herstart van BITWIN24.</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
@@ -1948,24 +1948,24 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Map poort gebruikt &amp;UPnP</translation>
     </message>
     <message>
-        <source>Enable automatic minting of MAG units to zMAG</source>
-        <translation>Schakel automatisch slaan van MAG-eenheden in op zMAG</translation>
+        <source>Enable automatic minting of BITWIN24 units to zMAG</source>
+        <translation>Schakel automatisch slaan van BITWIN24-eenheden in op zMAG</translation>
     </message>
     <message>
         <source>Enable zMAG Automint</source>
         <translation>Schakel zMAG Automint in</translation>
     </message>
     <message>
-        <source>Percentage of incoming MAG which get automatically converted to zMAG via Zerocoin Protocol (min: 10%)</source>
-        <translation>Percentage inkomende MAG die automatisch wordt omgezet naar zMAG via Zerocoin Protocol (min: 10%)</translation>
+        <source>Percentage of incoming BITWIN24 which get automatically converted to zMAG via Zerocoin Protocol (min: 10%)</source>
+        <translation>Percentage inkomende BITWIN24 die automatisch wordt omgezet naar zMAG via Zerocoin Protocol (min: 10%)</translation>
     </message>
     <message>
         <source>Percentage of autominted zMAG</source>
         <translation>Percentage autominted zMAG</translation>
     </message>
     <message>
-        <source>Wait with automatic conversion to Zerocoin until enough MAG for this denomination is available</source>
-        <translation>Wacht met automatische omzetting naar Zerocoin totdat er genoeg MAG voor deze denominatie beschikbaar is</translation>
+        <source>Wait with automatic conversion to Zerocoin until enough BITWIN24 for this denomination is available</source>
+        <translation>Wacht met automatische omzetting naar Zerocoin totdat er genoeg BITWIN24 voor deze denominatie beschikbaar is</translation>
     </message>
     <message>
         <source>Preferred Automint zMAG Denomination</source>
@@ -1976,8 +1976,8 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Inzet splitdrempel:</translation>
     </message>
     <message>
-        <source>Connect to the MAG network through a SOCKS5 proxy.</source>
-        <translation>Maak verbinding met het MAG netwerk via een SOCKS5 proxy.</translation>
+        <source>Connect to the BITWIN24 network through a SOCKS5 proxy.</source>
+        <translation>Maak verbinding met het BITWIN24 netwerk via een SOCKS5 proxy.</translation>
     </message>
     <message>
         <source>Proxy &amp;IP:</source>
@@ -2131,8 +2131,8 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Totaal saldo, inclusief alle niet-beschikbare munten.</translation>
     </message>
     <message>
-        <source>MAG Balance</source>
-        <translation>MAG Saldi</translation>
+        <source>BITWIN24 Balance</source>
+        <translation>BITWIN24 Saldi</translation>
     </message>
     <message>
         <source>Pending:</source>
@@ -2155,8 +2155,8 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Huidige vergrendelde balans in alleen-lezen-adressen</translation>
     </message>
     <message>
-        <source>Your current MAG balance, unconfirmed and immature transactions included</source>
-        <translation>Uw huidige MAG-saldo, onbevestigde en onvolgroeide transacties inbegrepen</translation>
+        <source>Your current BITWIN24 balance, unconfirmed and immature transactions included</source>
+        <translation>Uw huidige BITWIN24-saldo, onbevestigde en onvolgroeide transacties inbegrepen</translation>
     </message>
     <message>
         <source>zMAG Balance</source>
@@ -2175,8 +2175,8 @@ Immature: confirmed, but less than 1 mint of the same denomination after it was 
 Onvolwassen: bevestigd, maar minder dan 1 mint van dezelfde denominatie nadat het gemint was.</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the MAG network after a connection is established, but this process has not completed yet.</source>
-        <translation>De weergegeven informatie kan verouderd zijn. Je portemonnee synchroniseert automatisch met het MAG netwerk nadat een verbinding is opgezet, maar dit proces is nog niet afgerond.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BITWIN24 network after a connection is established, but this process has not completed yet.</source>
+        <translation>De weergegeven informatie kan verouderd zijn. Je portemonnee synchroniseert automatisch met het BITWIN24 netwerk nadat een verbinding is opgezet, maar dit proces is nog niet afgerond.</translation>
     </message>
     <message>
         <source>OVERVIEW</source>
@@ -2219,8 +2219,8 @@ Onvolwassen: bevestigd, maar minder dan 1 mint van dezelfde denominatie nadat he
         <translation>Uitgeefbaar:</translation>
     </message>
     <message>
-        <source>Locked MAG or Masternode collaterals. These are excluded from zMAG minting.</source>
-        <translation>Vergrendelde MAG of Masternode onderpanden. Deze zijn uitgesloten van de zMAG muntage.</translation>
+        <source>Locked BITWIN24 or Masternode collaterals. These are excluded from zMAG minting.</source>
+        <translation>Vergrendelde BITWIN24 of Masternode onderpanden. Deze zijn uitgesloten van de zMAG muntage.</translation>
     </message>
     <message>
         <source>Locked:</source>
@@ -2292,8 +2292,8 @@ Om AutoMint in te schakelend verander je 'enablezeromint=0' naar 'enablezeromint
         <translation>Kan bitwin24 niet starten: click-to-pay handler</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid MAG address or malformed URI parameters.</source>
-        <translation>URL kan niet ontleed worden! Dit kan worden veroorzaakt door een ongeldig MAG adres of misvormde URL parameters.</translation>
+        <source>URI cannot be parsed! This can be caused by an invalid BITWIN24 address or malformed URI parameters.</source>
+        <translation>URL kan niet ontleed worden! Dit kan worden veroorzaakt door een ongeldig BITWIN24 adres of misvormde URL parameters.</translation>
     </message>
     <message>
         <source>Payment request file cannot be read! This can be caused by an invalid payment request file.</source>
@@ -2378,8 +2378,8 @@ Om AutoMint in te schakelend verander je 'enablezeromint=0' naar 'enablezeromint
         <translation>Zerocoin Acties:</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the MAG network after a connection is established, but this process has not completed yet.</source>
-        <translation>De weergegeven informatie kan verouderd zijn. Je portemonnee synchroniseert automatisch met het MAG netwerk nadat een verbinding is opgezet, maar dit proces is nog niet afgerond.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BITWIN24 network after a connection is established, but this process has not completed yet.</source>
+        <translation>De weergegeven informatie kan verouderd zijn. Je portemonnee synchroniseert automatisch met het BITWIN24 netwerk nadat een verbinding is opgezet, maar dit proces is nog niet afgerond.</translation>
     </message>
     <message>
         <source>Mint Zerocoin</source>
@@ -2402,8 +2402,8 @@ Om AutoMint in te schakelend verander je 'enablezeromint=0' naar 'enablezeromint
         <translation>Beschikbaar voor minting:</translation>
     </message>
     <message>
-        <source>0.000 000 00 MAG</source>
-        <translation>0.000 000 00 MAG</translation>
+        <source>0.000 000 00 BITWIN24</source>
+        <translation>0.000 000 00 BITWIN24</translation>
     </message>
     <message>
         <source>Reset Zerocoin Wallet DB. Deletes transactions that did not make it into the blockchain.</source>
@@ -2443,7 +2443,7 @@ Om AutoMint in te schakelend verander je 'enablezeromint=0' naar 'enablezeromint
     </message>
     <message>
         <source>Enter an amount of BWI to convert to zMAG</source>
-        <translation>Vul het aantal MAG in om te converteren naar zMAG</translation>
+        <translation>Vul het aantal BITWIN24 in om te converteren naar zMAG</translation>
     </message>
     <message>
         <source>zMAG Control</source>
@@ -2502,8 +2502,8 @@ zBWI zijn volwassen wanneer zij meer dan 20 bevestigingen hebben EN meer dan 2 m
         <translation>Betaal &amp;Naar:</translation>
     </message>
     <message>
-        <source>The MAG address to send the payment to. Creates local payment to yourself when empty.</source>
-        <translation>Het MAG adres om de betaling naar te verzenden. Maakt lokale betaling aan jezelf als je leeg bent.</translation>
+        <source>The BITWIN24 address to send the payment to. Creates local payment to yourself when empty.</source>
+        <translation>Het BITWIN24 adres om de betaling naar te verzenden. Maakt lokale betaling aan jezelf als je leeg bent.</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2988,7 +2988,7 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
     </message>
     <message numerus="yes">
         <source>PrivacyDialog</source>
-        <comment>Enter an amount of MAG to convert to zMAG</comment>
+        <comment>Enter an amount of BITWIN24 to convert to zMAG</comment>
         <translation><numerusform>PrivacyDialoog</numerusform><numerusform>PrivacyDialog</numerusform></translation>
     </message>
     <message>
@@ -3031,8 +3031,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Hoeveelheid</translation>
     </message>
     <message>
-        <source>Enter a MAG address (e.g. %1)</source>
-        <translation>Voer een MAG adres in (b.v. %1)</translation>
+        <source>Enter a BITWIN24 address (e.g. %1)</source>
+        <translation>Voer een BITWIN24 adres in (b.v. %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -3169,8 +3169,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Blockchain</translation>
     </message>
     <message>
-        <source>Open the MAG debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Open het MAG debug log bestand uit de huidige data directory. Dit kan enkele seconden duren voor grote logbestanden.</translation>
+        <source>Open the BITWIN24 debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Open het BITWIN24 debug log bestand uit de huidige data directory. Dit kan enkele seconden duren voor grote logbestanden.</translation>
     </message>
     <message>
         <source>Number of Masternodes</source>
@@ -3385,8 +3385,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Uit:</translation>
     </message>
     <message>
-        <source>Welcome to the MAG RPC console.</source>
-        <translation>Welkom bij de MAG RPC console.</translation>
+        <source>Welcome to the BITWIN24 RPC console.</source>
+        <translation>Welkom bij de BITWIN24 RPC console.</translation>
     </message>
     <message>
         <source>&amp;Disconnect Node</source>
@@ -3512,16 +3512,16 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Een optioneel label om te associëren met het nieuwe ontvangstadres.</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the MAG network.</source>
-        <translation>Een optioneel bericht dat aan het betalingsverzoek wordt gehecht, dat wordt weergegeven wanneer het verzoek wordt geopend. Opmerking: het bericht wordt niet verzonden met de betaling via het MAG netwerk.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the BITWIN24 network.</source>
+        <translation>Een optioneel bericht dat aan het betalingsverzoek wordt gehecht, dat wordt weergegeven wanneer het verzoek wordt geopend. Opmerking: het bericht wordt niet verzonden met de betaling via het BITWIN24 netwerk.</translation>
     </message>
     <message>
         <source>RECEIVE</source>
         <translation>ontvangen</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the MAG network.</source>
-        <translation>Een optioneel bericht dat aan het betalingsverzoek wordt gehecht, dat wordt weergegeven wanneer het verzoek wordt geopend.&lt;br&gt;Opmerking: het bericht wordt niet verzonden met de betaling via het MAG netwerk.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the BITWIN24 network.</source>
+        <translation>Een optioneel bericht dat aan het betalingsverzoek wordt gehecht, dat wordt weergegeven wanneer het verzoek wordt geopend.&lt;br&gt;Opmerking: het bericht wordt niet verzonden met de betaling via het BITWIN24 netwerk.</translation>
     </message>
     <message>
         <source>Use this form to request payments. All fields are &lt;b&gt;optional&lt;/b&gt;.</source>
@@ -3749,8 +3749,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>UTXO grootte:</translation>
     </message>
     <message>
-        <source>0 MAG</source>
-        <translation>0 MAG</translation>
+        <source>0 BITWIN24</source>
+        <translation>0 BITWIN24</translation>
     </message>
     <message>
         <source>Transaction Fee:</source>
@@ -3813,8 +3813,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Als de aangepaste vergoeding is ingesteld op 1000 uMAGs en de transactie is slechts 250 bytes, dan betaalt per kilobyte alleen 250 uMAG's in vergoeding,&lt;br /&gt;terwijl "totaal minstens" 1000 uMAG's betaalt. Voor transacties die groter zijn dan een kilobyte, betalen beiden per kilobyte.</translation>
     </message>
     <message>
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for MAG transactions than the network can process.</source>
-        <translation>Alleen de minimale vergoeding betalen is prima, zolang er minder transactie volume is dan ruimte in de blokken. &lt;br /&gt;Maar wees ervan bewust dat dit kan leiden tot een nooit bevestigende transactie wanneer er meer vraag is naar MAG transacties dan het netwerk kan verwerken.</translation>
+        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for BITWIN24 transactions than the network can process.</source>
+        <translation>Alleen de minimale vergoeding betalen is prima, zolang er minder transactie volume is dan ruimte in de blokken. &lt;br /&gt;Maar wees ervan bewust dat dit kan leiden tot een nooit bevestigende transactie wanneer er meer vraag is naar BITWIN24 transacties dan het netwerk kan verwerken.</translation>
     </message>
     <message>
         <source>normal</source>
@@ -3861,8 +3861,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Voeg &amp;ontvanger toe</translation>
     </message>
     <message>
-        <source>Anonymized MAG</source>
-        <translation>Geanonimiseerde MAG</translation>
+        <source>Anonymized BITWIN24</source>
+        <translation>Geanonimiseerde BITWIN24</translation>
     </message>
     <message>
         <source>Balance:</source>
@@ -3909,8 +3909,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Het split block tool werkt niet met meerdere adressen. Probeer het nog eens.</translation>
     </message>
     <message>
-        <source>Warning: Invalid MAG address</source>
-        <translation>Waarschuwing: Ongeldig MAG adres</translation>
+        <source>Warning: Invalid BITWIN24 address</source>
+        <translation>Waarschuwing: Ongeldig BITWIN24 adres</translation>
     </message>
     <message>
         <source>%1 to %2</source>
@@ -4012,8 +4012,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Betaal &amp;Naar:</translation>
     </message>
     <message>
-        <source>The MAG address to send the payment to</source>
-        <translation>Het MAG adres om de betaling naar te verzenden</translation>
+        <source>The BITWIN24 address to send the payment to</source>
+        <translation>Het BITWIN24 adres om de betaling naar te verzenden</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -4052,8 +4052,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Bericht:</translation>
     </message>
     <message>
-        <source>A message that was attached to the MAG: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the MAG network.</source>
-        <translation>Een bericht dat is gehecht aan de MAG: URI die bij de transactie wordt opgeslagen voor uw referentie. Opmerking: dit bericht wordt niet verzonden via het MAG netwerk.</translation>
+        <source>A message that was attached to the BITWIN24: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the BITWIN24 network.</source>
+        <translation>Een bericht dat is gehecht aan de BITWIN24: URI die bij de transactie wordt opgeslagen voor uw referentie. Opmerking: dit bericht wordt niet verzonden via het BITWIN24 netwerk.</translation>
     </message>
     <message>
         <source>This is an unverified payment request.</source>
@@ -4079,8 +4079,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
 <context>
     <name>ShutdownWindow</name>
     <message>
-        <source>MAG Core is shutting down...</source>
-        <translation>MAG Core is aan het afsluiten...</translation>
+        <source>BITWIN24 Core is shutting down...</source>
+        <translation>BITWIN24 Core is aan het afsluiten...</translation>
     </message>
     <message>
         <source>Do not shut down the computer until this window disappears.</source>
@@ -4102,8 +4102,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Je kunt berichten met je adressen ondertekenen om te bewijzen dat je ze bezit. Wees voorzichtig om niets vaags te ondertekenen, omdat phishing aanvallen je misschien kunnen proberen om je identiteit over te geven. Teken alleen volledig gedetailleerde verklaringen aan waar je mee akkoord gaat.</translation>
     </message>
     <message>
-        <source>The MAG address to sign the message with</source>
-        <translation>Het MAG adres om het bericht met te ondertekenen</translation>
+        <source>The BITWIN24 address to sign the message with</source>
+        <translation>Het BITWIN24 adres om het bericht met te ondertekenen</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -4134,16 +4134,16 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Kopieer de huidige handtekening naar het systeemklembord</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this MAG address</source>
-        <translation>Onderteken het bericht om te bewijzen dat u het MAG adres bezit</translation>
+        <source>Sign the message to prove you own this BITWIN24 address</source>
+        <translation>Onderteken het bericht om te bewijzen dat u het BITWIN24 adres bezit</translation>
     </message>
     <message>
-        <source>The MAG address the message was signed with</source>
-        <translation>Het MAG adres waarmee het bericht was ondertekend</translation>
+        <source>The BITWIN24 address the message was signed with</source>
+        <translation>Het BITWIN24 adres waarmee het bericht was ondertekend</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified MAG address</source>
-        <translation>Controleer een bericht om te verifiëren dat het ondertekend is door het gespecificeerde MAG adres</translation>
+        <source>Verify the message to ensure it was signed with the specified BITWIN24 address</source>
+        <translation>Controleer een bericht om te verifiëren dat het ondertekend is door het gespecificeerde BITWIN24 adres</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -4229,8 +4229,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>MAG Core</source>
-        <translation>MAG Kern</translation>
+        <source>BITWIN24 Core</source>
+        <translation>BITWIN24 Kern</translation>
     </message>
     <message>
         <source>Version %1</source>
@@ -4245,8 +4245,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>De Dash Kernontwikkelaars</translation>
     </message>
     <message>
-        <source>The MAG Core developers</source>
-        <translation>De MAG Kernontwikkelaars</translation>
+        <source>The BITWIN24 Core developers</source>
+        <translation>De BITWIN24 Kernontwikkelaars</translation>
     </message>
     <message>
         <source>[testnet]</source>
@@ -4525,8 +4525,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Verkregen via verduistering</translation>
     </message>
     <message>
-        <source>MAG Stake</source>
-        <translation>MAG Stake</translation>
+        <source>BITWIN24 Stake</source>
+        <translation>BITWIN24 Stake</translation>
     </message>
     <message>
         <source>zMAG Stake</source>
@@ -4549,24 +4549,24 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Verduistering creëert denominaties</translation>
     </message>
     <message>
-        <source>Converted MAG to zMAG</source>
-        <translation>Geconverteerde MAG naar zMAG</translation>
+        <source>Converted BITWIN24 to zMAG</source>
+        <translation>Geconverteerde BITWIN24 naar zMAG</translation>
     </message>
     <message>
         <source>Spent zMAG</source>
         <translation>Bestede zMAG</translation>
     </message>
     <message>
-        <source>Received MAG from zMAG</source>
-        <translation>Ontvangen MAG van zMAG</translation>
+        <source>Received BITWIN24 from zMAG</source>
+        <translation>Ontvangen BITWIN24 van zMAG</translation>
     </message>
     <message>
         <source>Minted Change as zMAG from zMAG Spend</source>
         <translation>Gemint wisselgeld als zMAG van bestede zMAG</translation>
     </message>
     <message>
-        <source>Converted zMAG to MAG</source>
-        <translation>Geconverteerde zMAG naar MAG</translation>
+        <source>Converted zMAG to BITWIN24</source>
+        <translation>Geconverteerde zMAG naar BITWIN24</translation>
     </message>
     <message>
         <source>Anonymous (zMAG Transaction)</source>
@@ -4784,8 +4784,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Exporteren succesvol</translation>
     </message>
     <message>
-        <source>Received MAG from zMAG</source>
-        <translation>Ontvangen MAG van zMAG</translation>
+        <source>Received BITWIN24 from zMAG</source>
+        <translation>Ontvangen BITWIN24 van zMAG</translation>
     </message>
     <message>
         <source>Zerocoin Spend, Change in zMAG</source>
@@ -4825,8 +4825,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Verzend Munten</translation>
     </message>
     <message>
-        <source>SwiftX doesn't support sending values that high yet. Transactions are currently limited to %1 MAG.</source>
-        <translation>SwiftTX ondersteunt geen verzendwaarden die zo hoog zijn. Transacties zijn momenteel beperkt tot %1 MAG.</translation>
+        <source>SwiftX doesn't support sending values that high yet. Transactions are currently limited to %1 BITWIN24.</source>
+        <translation>SwiftTX ondersteunt geen verzendwaarden die zo hoog zijn. Transacties zijn momenteel beperkt tot %1 BITWIN24.</translation>
     </message>
 </context>
 <context>
@@ -4910,8 +4910,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Het berekende accumulatie controlepunt is niet wat wordt geregistreerd door de blokindex</translation>
     </message>
     <message>
-        <source>Cannot obtain a lock on data directory %s. MAG Core is probably already running.</source>
-        <translation>Kan geen vergrendeling op data directory %s verkrijgen. MAG Core loopt waarschijnlijk al.</translation>
+        <source>Cannot obtain a lock on data directory %s. BITWIN24 Core is probably already running.</source>
+        <translation>Kan geen vergrendeling op data directory %s verkrijgen. BITWIN24 Core loopt waarschijnlijk al.</translation>
     </message>
     <message>
         <source>Change automatic finalized budget voting behavior. mode=auto: Vote for only exact finalized budget match to my generated budget. (string, default: auto)</source>
@@ -4942,8 +4942,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Schakel automatische portemonnee back-ups in geactiveerd na elke geminte zMAG (0-1, standaard: %u)</translation>
     </message>
     <message>
-        <source>Enable or disable staking functionality for MAG inputs (0-1, default: %u)</source>
-        <translation>In- of uitschakelen staking functionaliteit voor MAG inputs (0-1, standaard: %u)</translation>
+        <source>Enable or disable staking functionality for BITWIN24 inputs (0-1, default: %u)</source>
+        <translation>In- of uitschakelen staking functionaliteit voor BITWIN24 inputs (0-1, standaard: %u)</translation>
     </message>
     <message>
         <source>Enable or disable staking functionality for zMAG inputs (0-1, default: %u)</source>
@@ -4982,12 +4982,12 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Uitvoeren commando wanneer het beste blok verandert (%s in cmd is vervangen door block hash)</translation>
     </message>
     <message>
-        <source>Fees (in MAG/Kb) smaller than this are considered zero fee for relaying (default: %s)</source>
-        <translation>Kosten (in MAG/Kb) kleiner dan dit worden beschouwd als zero fee voor heruitzending (standaard: %s)</translation>
+        <source>Fees (in BITWIN24/Kb) smaller than this are considered zero fee for relaying (default: %s)</source>
+        <translation>Kosten (in BITWIN24/Kb) kleiner dan dit worden beschouwd als zero fee voor heruitzending (standaard: %s)</translation>
     </message>
     <message>
-        <source>Fees (in MAG/Kb) smaller than this are considered zero fee for transaction creation (default: %s)</source>
-        <translation>Kosten (in MAG/Kb) kleiner dan dit worden beschouwd als zero fee voor transactie verrichting (standaard: %s)</translation>
+        <source>Fees (in BITWIN24/Kb) smaller than this are considered zero fee for transaction creation (default: %s)</source>
+        <translation>Kosten (in BITWIN24/Kb) kleiner dan dit worden beschouwd als zero fee voor transactie verrichting (standaard: %s)</translation>
     </message>
     <message>
         <source>Flush database activity from memory pool to disk log every &lt;n&gt; megabytes (default: %u)</source>
@@ -5086,20 +5086,20 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in de OpenSSL Toolkit &lt;https://www.openssl.org/&gt; en cryptografische software geschreven door Eric Young en UPnP software geschreven door Thomas Bernard.</translation>
     </message>
     <message>
-        <source>Unable to bind to %s on this computer. MAG Core is probably already running.</source>
-        <translation>Niet mogelijk te binden aan %s op deze computer. MAG Core loopt waarschijnlijk al.</translation>
+        <source>Unable to bind to %s on this computer. BITWIN24 Core is probably already running.</source>
+        <translation>Niet mogelijk te binden aan %s op deze computer. BITWIN24 Core loopt waarschijnlijk al.</translation>
     </message>
     <message>
         <source>Unable to locate enough Obfuscation denominated funds for this transaction.</source>
         <translation>Kan niet genoeg verduistering gedenomineerde fondsen voor deze transactie vinden.</translation>
     </message>
     <message>
-        <source>Unable to locate enough Obfuscation non-denominated funds for this transaction that are not equal 10000 MAG.</source>
-        <translation>Kan niet genoeg verduistering niet gedenomineerde fondsen voor deze transactie vinden die niet gelijk zijn aan 10000 MAG.</translation>
+        <source>Unable to locate enough Obfuscation non-denominated funds for this transaction that are not equal 10000 BITWIN24.</source>
+        <translation>Kan niet genoeg verduistering niet gedenomineerde fondsen voor deze transactie vinden die niet gelijk zijn aan 10000 BITWIN24.</translation>
     </message>
     <message>
-        <source>Unable to locate enough funds for this transaction that are not equal 10000 MAG.</source>
-        <translation>Kan niet genoeg fondsen voor deze transactie vinden die niet gelijk zijn aan 10000 MAG.</translation>
+        <source>Unable to locate enough funds for this transaction that are not equal 10000 BITWIN24.</source>
+        <translation>Kan niet genoeg fondsen voor deze transactie vinden die niet gelijk zijn aan 10000 BITWIN24.</translation>
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: %s)</source>
@@ -5114,8 +5114,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Waarschuwing: -paytxfee is zeer hoog ingesteld! Dit zijn de transactie kosten die je betaalt als je een transactie verstuurt.</translation>
     </message>
     <message>
-        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong MAG Core will not work properly.</source>
-        <translation>Waarschuwing: Controleer of de datum en tijd van je computer juist zijn! Als je klok verkeerd staat, werkt MAG Core niet goed.</translation>
+        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong BITWIN24 Core will not work properly.</source>
+        <translation>Waarschuwing: Controleer of de datum en tijd van je computer juist zijn! Als je klok verkeerd staat, werkt BITWIN24 Core niet goed.</translation>
     </message>
     <message>
         <source>Warning: The network does not appear to fully agree! Some miners appear to be experiencing issues.</source>
@@ -5266,8 +5266,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Copyright (C) 2014-%i The Dash Kernontwikkelaars</translation>
     </message>
     <message>
-        <source>Copyright (C) 2015-%i The MAG Core Developers</source>
-        <translation>Copyright (C) 2015-%i The MAG Kernontwikkelaars</translation>
+        <source>Copyright (C) 2015-%i The BITWIN24 Core Developers</source>
+        <translation>Copyright (C) 2015-%i The BITWIN24 Kernontwikkelaars</translation>
     </message>
     <message>
         <source>Corrupted block database detected</source>
@@ -5354,8 +5354,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Error tijdens het laden van wallet.dat: Portemonnee corrupt</translation>
     </message>
     <message>
-        <source>Error loading wallet.dat: Wallet requires newer version of MAG Core</source>
-        <translation>Fout bij het laden van wallet.dat: Portemonnee vereist een nieuwere versie van MAG Core</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of BITWIN24 Core</source>
+        <translation>Fout bij het laden van wallet.dat: Portemonnee vereist een nieuwere versie van BITWIN24 Core</translation>
     </message>
     <message>
         <source>Error opening block database</source>
@@ -5410,8 +5410,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Mislukt om block te lezen</translation>
     </message>
     <message>
-        <source>Fee (in MAG/kB) to add to transactions you send (default: %s)</source>
-        <translation>Fee (in MAG/kB) om toe te voegen aan transacties die je verzendt (standaard: %s)</translation>
+        <source>Fee (in BITWIN24/kB) to add to transactions you send (default: %s)</source>
+        <translation>Fee (in BITWIN24/kB) om toe te voegen aan transacties die je verzendt (standaard: %s)</translation>
     </message>
     <message>
         <source>Finalizing transaction.</source>
@@ -5470,8 +5470,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Informatie</translation>
     </message>
     <message>
-        <source>Initialization sanity check failed. MAG Core is shutting down.</source>
-        <translation>Initialisatie saniteitscontrole mislukt. MAG Core wordt afgesloten.</translation>
+        <source>Initialization sanity check failed. BITWIN24 Core is shutting down.</source>
+        <translation>Initialisatie saniteitscontrole mislukt. BITWIN24 Core wordt afgesloten.</translation>
     </message>
     <message>
         <source>Input is not valid.</source>
@@ -5542,8 +5542,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Percentage automatisch geminte Zerocoin (10-100, standaard: %u)</translation>
     </message>
     <message>
-        <source>Reindex the MAG and zMAG money supply statistics</source>
-        <translation>Indexeer de MAG- en zMAG-geldvoorraadstatistieken opnieuw</translation>
+        <source>Reindex the BITWIN24 and zMAG money supply statistics</source>
+        <translation>Indexeer de BITWIN24- en zMAG-geldvoorraadstatistieken opnieuw</translation>
     </message>
     <message>
         <source>Reindexing zerocoin database...</source>
@@ -5582,8 +5582,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
 </translation>
     </message>
     <message>
-        <source>Disable all MAG specific functionality (Masternodes, Zerocoin, SwiftX, Budgeting) (0-1, default: %u)</source>
-        <translation>Schakel alle specifieke MAG functionaliteit uit (Masternodes, Zerocoin, SwiftTX, Budgeting) (0-1, standaard: %u)</translation>
+        <source>Disable all BITWIN24 specific functionality (Masternodes, Zerocoin, SwiftX, Budgeting) (0-1, default: %u)</source>
+        <translation>Schakel alle specifieke BITWIN24 functionaliteit uit (Masternodes, Zerocoin, SwiftTX, Budgeting) (0-1, standaard: %u)</translation>
     </message>
     <message>
         <source>Enable SwiftX, show confirmations for locked transactions (bool, default: %s)</source>
@@ -6294,8 +6294,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Portemonnee is vergrendeld.</translation>
     </message>
     <message>
-        <source>Wallet needed to be rewritten: restart MAG Core to complete</source>
-        <translation>Wallet moest worden herschreven: start MAG Core opnieuw om te voltooien</translation>
+        <source>Wallet needed to be rewritten: restart BITWIN24 Core to complete</source>
+        <translation>Wallet moest worden herschreven: start BITWIN24 Core opnieuw om te voltooien</translation>
     </message>
     <message>
         <source>Wallet options:</source>

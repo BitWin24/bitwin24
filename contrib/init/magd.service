@@ -1,5 +1,5 @@
 [Unit]
-Description=MAG's distributed currency daemon
+Description=BITWIN24's distributed currency daemon
 After=network.target
 
 [Service]

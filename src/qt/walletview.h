@@ -136,7 +136,7 @@ public slots:
     /** Show progress dialog e.g. for rescan */
     void showProgress(const QString& title, int nProgress);
 
-    /** Update selected MAG amount from transactionview */
+    /** Update selected BITWIN24 amount from transactionview */
     void trxAmount(QString amount);
 
 signals:

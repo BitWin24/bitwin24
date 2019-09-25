@@ -19,14 +19,14 @@ BEGIN
     BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
-            VALUE "CompanyName",        "MAG"
-            VALUE "FileDescription",    "MAG Core (OSS GUI client for MAG)"
+            VALUE "CompanyName",        "BITWIN24"
+            VALUE "FileDescription",    "BITWIN24 Core (OSS GUI client for BITWIN24)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
             VALUE "InternalName",       "bitwin24-qt"
             VALUE "LegalCopyright",     COPYRIGHT_STR
             VALUE "LegalTrademarks1",   "Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php."
             VALUE "OriginalFilename",   "bitwin24-qt.exe"
-            VALUE "ProductName",        "MAG Core"
+            VALUE "ProductName",        "BITWIN24 Core"
             VALUE "ProductVersion",     VER_PRODUCTVERSION_STR
         END
     END

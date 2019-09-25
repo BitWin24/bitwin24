@@ -331,7 +331,7 @@
                                 <string>Total Merchant Balance</string>
                               </property>
                               <property name="text">
-                                <string>0 MAG</string>
+                                <string>0 BITWIN24</string>
                               </property>
                               <property name="alignment">
                                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -771,7 +771,7 @@
                            <string>Information about the BitWin24 merchant statistics.</string>
                           </property>
                           <property name="text">
-                           <string>MAG Merchant Stats:</string>
+                           <string>BITWIN24 Merchant Stats:</string>
                           </property>
                           <property name="alignment">
                            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -839,7 +839,7 @@
                            </font>
                           </property>
                           <property name="toolTip">
-                           <string>Total Amount of MAG traded on merchant network</string>
+                           <string>Total Amount of BITWIN24 traded on merchant network</string>
                           </property>
                           <property name="text">
                            <string>Total Traded:</string>
@@ -877,10 +877,10 @@
                            </font>
                           </property>
                           <property name="toolTip">
-                           <string>Total amount of MAG traded on merchant network</string>
+                           <string>Total amount of BITWIN24 traded on merchant network</string>
                           </property>
                           <property name="text">
-                           <string>0 MAG</string>
+                           <string>0 BITWIN24</string>
                           </property>
                           <property name="alignment">
                            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -929,7 +929,7 @@
                            <string>Amount traded during the past 7 days.</string>
                           </property>
                           <property name="text">
-                           <string>0 MAG</string>
+                           <string>0 BITWIN24</string>
                           </property>
                           <property name="textFormat">
                            <enum>Qt::RichText</enum>
@@ -981,7 +981,7 @@
                            <string>Amount traded during the past 24 hours.</string>
                           </property>
                           <property name="text">
-                           <string>0 MAG</string>
+                           <string>0 BITWIN24</string>
                           </property>
                           <property name="textFormat">
                            <enum>Qt::RichText</enum>

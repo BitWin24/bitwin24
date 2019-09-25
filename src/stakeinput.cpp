@@ -164,7 +164,7 @@ bool CZBWIStake::MarkSpent(CWallet *pwallet, const uint256& txid)
     return true;
 }
 
-//!MAG Stake
+//!BITWIN24 Stake
 bool CBitWin24Stake::SetInput(CTransaction txPrev, unsigned int n)
 {
     this->txFrom = txPrev;
@@ -240,7 +240,7 @@ bool CBitWin24Stake::GetModifier(uint64_t& nStakeModifier)
 
 CDataStream CBitWin24Stake::GetUniqueness()
 {
-    //The unique identifier for a MAG stake is the outpoint
+    //The unique identifier for a BITWIN24 stake is the outpoint
     CDataStream ss(SER_NETWORK, 0);
     ss << nPosition << txFrom.GetHash();
     return ss;

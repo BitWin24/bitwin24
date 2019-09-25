@@ -62,12 +62,12 @@
         <translation>Vastaanottavat osoitteet</translation>
     </message>
     <message>
-        <source>These are your MAG addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Nämä ovat sinun MAG osoitteesi maksujen lähetystä varten. Tarkista aina määrä ja vastaanottava osoite ennen kolikoiden lähettämistä.</translation>
+        <source>These are your BITWIN24 addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Nämä ovat sinun BITWIN24 osoitteesi maksujen lähetystä varten. Tarkista aina määrä ja vastaanottava osoite ennen kolikoiden lähettämistä.</translation>
     </message>
     <message>
-        <source>These are your MAG addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Nämä ovat sinun MAG osoitteesi maksujen vastaanottamista varten. On suositeltavaa käyttää uutta vastaanottavaa osoitetta jokaiselle uudelle rahansiirrolle.</translation>
+        <source>These are your BITWIN24 addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Nämä ovat sinun BITWIN24 osoitteesi maksujen vastaanottamista varten. On suositeltavaa käyttää uutta vastaanottavaa osoitetta jokaiselle uudelle rahansiirrolle.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -172,15 +172,15 @@
         <translation>Vahvista lompakon salaus</translation>
     </message>
     <message>
-        <source>MAG will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your MAGs from being stolen by malware infecting your computer.</source>
-        <translation>MAG sulkeutuu salausprosessin ajaksi. Muista, että lompakon salaus ei voi täysin suojella MAGien varkaudelta, jos tietokoneesi sisältää haittaohjelmia.</translation>
+        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your MAGs from being stolen by malware infecting your computer.</source>
+        <translation>BITWIN24 sulkeutuu salausprosessin ajaksi. Muista, että lompakon salaus ei voi täysin suojella MAGien varkaudelta, jos tietokoneesi sisältää haittaohjelmia.</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
         <translation>Oletko varma että tahdot salata lompakkosi?</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MAG&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITWIN24&lt;/b&gt;!</source>
         <translation>Varoitus: Jos salaat lompakkosi ja unohdat salausavaimesi, &lt;b&gt;menetät kaikki MAGisi&lt;/b&gt;</translation>
     </message>
     <message>
@@ -565,12 +565,12 @@
         <translation>&amp;Apua</translation>
     </message>
     <message>
-        <source>MAG Core</source>
-        <translation>MAG Ydin</translation>
+        <source>BITWIN24 Core</source>
+        <translation>BITWIN24 Ydin</translation>
     </message>
     <message>
-        <source>Send coins to a MAG address</source>
-        <translation>Lähetä kolikkoja MAG osoitteeseen</translation>
+        <source>Send coins to a BITWIN24 address</source>
+        <translation>Lähetä kolikkoja BITWIN24 osoitteeseen</translation>
     </message>
     <message>
         <source>Request payments (generates QR codes and bitwin24: URIs)</source>
@@ -585,24 +585,24 @@
         <translation>Selaa masternodeja</translation>
     </message>
     <message>
-        <source>&amp;About MAG Core</source>
-        <translation>MAG Core &amp;ytimestä</translation>
+        <source>&amp;About BITWIN24 Core</source>
+        <translation>BITWIN24 Core &amp;ytimestä</translation>
     </message>
     <message>
-        <source>Show information about MAG Core</source>
-        <translation>Näytä tietoja MAG Ytimestä</translation>
+        <source>Show information about BITWIN24 Core</source>
+        <translation>Näytä tietoja BITWIN24 Ytimestä</translation>
     </message>
     <message>
-        <source>Modify configuration options for MAG</source>
-        <translation>Muokkaa konfiguraatio vaihtoehtoja MAG:lle</translation>
+        <source>Modify configuration options for BITWIN24</source>
+        <translation>Muokkaa konfiguraatio vaihtoehtoja BITWIN24:lle</translation>
     </message>
     <message>
-        <source>Sign messages with your MAG addresses to prove you own them</source>
+        <source>Sign messages with your BITWIN24 addresses to prove you own them</source>
         <translation>Allekirjoita viestejä todistaaksesi, että omistat ne.</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified MAG addresses</source>
-        <translation>Vahvista viestit varmistaaksesi, että ne allekirjoitettiin tietyllä MAG osoiteella.</translation>
+        <source>Verify messages to ensure they were signed with specified BITWIN24 addresses</source>
+        <translation>Vahvista viestit varmistaaksesi, että ne allekirjoitettiin tietyllä BITWIN24 osoiteella.</translation>
     </message>
     <message>
         <source>&amp;BIP38 tool</source>
@@ -633,8 +633,8 @@
         <translation>Avaa Masternode konfiguraatiotiedosto</translation>
     </message>
     <message>
-        <source>Open a MAG: URI or payment request</source>
-        <translation>Avaa MAG: URI tai pyydä maksua</translation>
+        <source>Open a BITWIN24: URI or payment request</source>
+        <translation>Avaa BITWIN24: URI tai pyydä maksua</translation>
     </message>
     <message>
         <source>&amp;Blockchain explorer</source>
@@ -645,12 +645,12 @@
         <translation>Lohkon tutkija näkymä</translation>
     </message>
     <message>
-        <source>Show the MAG Core help message to get a list with possible MAG command-line options</source>
-        <translation>Näytä MAG Ydin apuviesti saadaksesi lista mahdollisista MAG komentolinja komennoista.</translation>
+        <source>Show the BITWIN24 Core help message to get a list with possible BITWIN24 command-line options</source>
+        <translation>Näytä BITWIN24 Ydin apuviesti saadaksesi lista mahdollisista BITWIN24 komentolinja komennoista.</translation>
     </message>
     <message>
-        <source>MAG Core client</source>
-        <translation>MAG Ydin asiakasohjelma</translation>
+        <source>BITWIN24 Core client</source>
+        <translation>BITWIN24 Ydin asiakasohjelma</translation>
     </message>
     <message>
         <source>Synchronizing with network...</source>
@@ -908,8 +908,8 @@
 <context>
     <name>HelpMessageDialog</name>
     <message>
-        <source>MAG Core</source>
-        <translation>MAG Ydin</translation>
+        <source>BITWIN24 Core</source>
+        <translation>BITWIN24 Ydin</translation>
     </message>
     <message>
         <source>Usage:</source>
@@ -927,12 +927,12 @@
         <translation>Tervetuloa</translation>
     </message>
     <message>
-        <source>Welcome to MAG Core.</source>
-        <translation>Tervetuloa MAG Ytimeen.</translation>
+        <source>Welcome to BITWIN24 Core.</source>
+        <translation>Tervetuloa BITWIN24 Ytimeen.</translation>
     </message>
     <message>
-        <source>MAG Core</source>
-        <translation>MAG Ydin</translation>
+        <source>BITWIN24 Core</source>
+        <translation>BITWIN24 Ydin</translation>
     </message>
     <message>
         <source>Error</source>
@@ -1128,32 +1128,32 @@ Please check the address and try again.</source>
         <translation>Valitse yksityisyyden taso.</translation>
     </message>
     <message>
-        <source>Use 2 separate masternodes to mix funds up to 10000 MAG</source>
-        <translation>Käytä 2 erillistä masternodea sekoittaaksesi enintään 10000 MAG</translation>
+        <source>Use 2 separate masternodes to mix funds up to 10000 BITWIN24</source>
+        <translation>Käytä 2 erillistä masternodea sekoittaaksesi enintään 10000 BITWIN24</translation>
     </message>
     <message>
-        <source>Use 8 separate masternodes to mix funds up to 10000 MAG</source>
-        <translation>Käytä 8 erillistä masternodea sekoittaaksesi enintään 10000 MAG</translation>
+        <source>Use 8 separate masternodes to mix funds up to 10000 BITWIN24</source>
+        <translation>Käytä 8 erillistä masternodea sekoittaaksesi enintään 10000 BITWIN24</translation>
     </message>
     <message>
         <source>Use 16 separate masternodes</source>
         <translation>Käytä 16 erillistä masternodea</translation>
     </message>
     <message>
-        <source>This option is the quickest and will cost about ~0.025 MAG to anonymize 10000 MAG</source>
-        <translation>Tämä vaihtoehto on nopein ja maksaa noin ~0.025 MAG anonymoidaksesi 10000 MAG</translation>
+        <source>This option is the quickest and will cost about ~0.025 BITWIN24 to anonymize 10000 BITWIN24</source>
+        <translation>Tämä vaihtoehto on nopein ja maksaa noin ~0.025 BITWIN24 anonymoidaksesi 10000 BITWIN24</translation>
     </message>
     <message>
-        <source>This option is moderately fast and will cost about 0.05 MAG to anonymize 10000 MAG</source>
-        <translation>Tämä vaihtoehto on suhteellisen nopea ja maksaa 0.05 MAG anonymoidaksesi 10000 MAG</translation>
+        <source>This option is moderately fast and will cost about 0.05 BITWIN24 to anonymize 10000 BITWIN24</source>
+        <translation>Tämä vaihtoehto on suhteellisen nopea ja maksaa 0.05 BITWIN24 anonymoidaksesi 10000 BITWIN24</translation>
     </message>
     <message>
         <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
         <translation>Tämä on hitain ja turvallisin vaihtoehto. Täydesti anonymisoiminen ei maksa mitään.</translation>
     </message>
     <message>
-        <source>0.1 MAG per 10000 MAG you anonymize.</source>
-        <translation>0.1 per 10000 MAG, jotka anonymisoit.</translation>
+        <source>0.1 BITWIN24 per 10000 BITWIN24 you anonymize.</source>
+        <translation>0.1 per 10000 BITWIN24, jotka anonymisoit.</translation>
     </message>
     <message>
         <source>Obfuscation Configuration</source>
@@ -1202,12 +1202,12 @@ Please check the address and try again.</source>
         <translation>Ekspertti</translation>
     </message>
     <message>
-        <source>Automatically start MAG after logging in to the system.</source>
-        <translation>Automaattisesti käynnistä MAG kun kirjaudut sisään.</translation>
+        <source>Automatically start BITWIN24 after logging in to the system.</source>
+        <translation>Automaattisesti käynnistä BITWIN24 kun kirjaudut sisään.</translation>
     </message>
     <message>
-        <source>&amp;Start MAG on system login</source>
-        <translation>&amp;Aloita MAG järjestelmän kirjautumisessa</translation>
+        <source>&amp;Start BITWIN24 on system login</source>
+        <translation>&amp;Aloita BITWIN24 järjestelmän kirjautumisessa</translation>
     </message>
     <message>
         <source>Enable coin &amp;control features</source>
@@ -1226,12 +1226,12 @@ Please check the address and try again.</source>
         <translation>&amp;Verkko</translation>
     </message>
     <message>
-        <source>The user interface language can be set here. This setting will take effect after restarting MAG.</source>
+        <source>The user interface language can be set here. This setting will take effect after restarting BITWIN24.</source>
         <translation>Käyttöliittymän kielen voi säätää täällä. Tämä asetus tulee voimaan uudelleenkäynnistettyäsi lompakon.</translation>
     </message>
     <message>
-        <source>Connect to the MAG network through a SOCKS5 proxy.</source>
-        <translation>Yhdistä MAG verkkoon SOCKS5 proxyn kautta</translation>
+        <source>Connect to the BITWIN24 network through a SOCKS5 proxy.</source>
+        <translation>Yhdistä BITWIN24 verkkoon SOCKS5 proxyn kautta</translation>
     </message>
     <message>
         <source>Proxy &amp;IP:</source>
@@ -1535,8 +1535,8 @@ Please check the address and try again.</source>
         <translation>Lohko ketju</translation>
     </message>
     <message>
-        <source>Open the MAG debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Avaa MAG debug loki nykyisestä sijainnista. Tämä voi kestää muutaman sekunnin suurille lokeille</translation>
+        <source>Open the BITWIN24 debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Avaa BITWIN24 debug loki nykyisestä sijainnista. Tämä voi kestää muutaman sekunnin suurille lokeille</translation>
     </message>
     <message>
         <source>Number of Masternodes</source>
@@ -1647,8 +1647,8 @@ Please check the address and try again.</source>
         <translation>Ulos:</translation>
     </message>
     <message>
-        <source>Welcome to the MAG RPC console.</source>
-        <translation>Tervetuloa MAG RPC konsoliin.</translation>
+        <source>Welcome to the BITWIN24 RPC console.</source>
+        <translation>Tervetuloa BITWIN24 RPC konsoliin.</translation>
     </message>
     <message>
         <source>never</source>
@@ -1686,12 +1686,12 @@ Please check the address and try again.</source>
         <translation>Vaihtoehtoinen nimike uudelle vastaanottavalle osoitteelle</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the MAG network.</source>
-        <translation>Vaihtoehtoinen viesti joka liitetään maksupyyntöön, joka näytetään kun pyyntö avataan. Huomio: Viestiä ei lähetetä maksun mukana MAG verkolle.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the BITWIN24 network.</source>
+        <translation>Vaihtoehtoinen viesti joka liitetään maksupyyntöön, joka näytetään kun pyyntö avataan. Huomio: Viestiä ei lähetetä maksun mukana BITWIN24 verkolle.</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the MAG network.</source>
-        <translation>Vaihtoehtoinen viesti, joka liitetään maksupyyntöö, joka näytetään kun pyyntö avataan. &lt;br&gt; Huomio: Tätä viestiä ei lähetetä maksun mukana MAG  verkolle.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the BITWIN24 network.</source>
+        <translation>Vaihtoehtoinen viesti, joka liitetään maksupyyntöö, joka näytetään kun pyyntö avataan. &lt;br&gt; Huomio: Tätä viestiä ei lähetetä maksun mukana BITWIN24  verkolle.</translation>
     </message>
     <message>
         <source>Use this form to request payments. All fields are &lt;b&gt;optional&lt;/b&gt;.</source>
@@ -1887,8 +1887,8 @@ Please check the address and try again.</source>
         <translation>Muutos:</translation>
     </message>
     <message>
-        <source>0 MAG</source>
-        <translation>0 MAG</translation>
+        <source>0 BITWIN24</source>
+        <translation>0 BITWIN24</translation>
     </message>
     <message>
         <source>Choose...</source>
@@ -1963,8 +1963,8 @@ Please check the address and try again.</source>
         <translation>Kopioi taksa</translation>
     </message>
     <message>
-        <source>Warning: Invalid MAG address</source>
-        <translation>Varoitus: Virheellinen MAG osoite</translation>
+        <source>Warning: Invalid BITWIN24 address</source>
+        <translation>Varoitus: Virheellinen BITWIN24 osoite</translation>
     </message>
     <message>
         <source>Are you sure you want to send?</source>
@@ -2014,8 +2014,8 @@ Please check the address and try again.</source>
         <translation>Tämä on normaali maksu.</translation>
     </message>
     <message>
-        <source>The MAG address to send the payment to</source>
-        <translation>MAG osoite johon maksu lähetetään</translation>
+        <source>The BITWIN24 address to send the payment to</source>
+        <translation>BITWIN24 osoite johon maksu lähetetään</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2057,8 +2057,8 @@ Please check the address and try again.</source>
 <context>
     <name>ShutdownWindow</name>
     <message>
-        <source>MAG Core is shutting down...</source>
-        <translation>MAG core sammuu...</translation>
+        <source>BITWIN24 Core is shutting down...</source>
+        <translation>BITWIN24 core sammuu...</translation>
     </message>
     <message>
         <source>Do not shut down the computer until this window disappears.</source>
@@ -2076,8 +2076,8 @@ Please check the address and try again.</source>
         <translation>Voit allekirjoittaa viestejä osoitteillasi todistaaksesi, että omistat ne. Ole varovainen ettet allekirjoita mitään kummallista, sillä kalasteluyritykset saattavat yrittää huijata sinut luovuttamaan tietoja. Allekirjoita vain täysin yksityiskohtaisia sanomia, jotka hyväksyt.</translation>
     </message>
     <message>
-        <source>The MAG address to sign the message with</source>
-        <translation>MAG osoite, jolla viesti allekirjoitetaan</translation>
+        <source>The BITWIN24 address to sign the message with</source>
+        <translation>BITWIN24 osoite, jolla viesti allekirjoitetaan</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2108,16 +2108,16 @@ Please check the address and try again.</source>
         <translation>Kopioi nykyinen allekirjoitus järjestelmän leikepöydälle</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this MAG address</source>
-        <translation>Allekirjoita viesti todistaaksesi, että omistat tämän MAG osoitteen</translation>
+        <source>Sign the message to prove you own this BITWIN24 address</source>
+        <translation>Allekirjoita viesti todistaaksesi, että omistat tämän BITWIN24 osoitteen</translation>
     </message>
     <message>
-        <source>The MAG address the message was signed with</source>
-        <translation>MAG osoite, jolla viesti allekirjoitettiin</translation>
+        <source>The BITWIN24 address the message was signed with</source>
+        <translation>BITWIN24 osoite, jolla viesti allekirjoitettiin</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified MAG address</source>
-        <translation>Vahvista että viesti on allekirjoitettu kyseessä olevalla MAG osoitteella.</translation>
+        <source>Verify the message to ensure it was signed with the specified BITWIN24 address</source>
+        <translation>Vahvista että viesti on allekirjoitettu kyseessä olevalla BITWIN24 osoitteella.</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -2199,8 +2199,8 @@ Please check the address and try again.</source>
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>MAG Core</source>
-        <translation>MAG Ydin</translation>
+        <source>BITWIN24 Core</source>
+        <translation>BITWIN24 Ydin</translation>
     </message>
     <message>
         <source>Version %1</source>
@@ -2215,8 +2215,8 @@ Please check the address and try again.</source>
         <translation>Dash Core kehittäjät</translation>
     </message>
     <message>
-        <source>The MAG Core developers</source>
-        <translation>MAG core kehittäjät</translation>
+        <source>The BITWIN24 Core developers</source>
+        <translation>BITWIN24 core kehittäjät</translation>
     </message>
     <message>
         <source>[testnet]</source>
@@ -2568,8 +2568,8 @@ Please check the address and try again.</source>
         <translation>Virhe ladattaessa wallet.dat tiedostoa: Lompakko korruptoitunut</translation>
     </message>
     <message>
-        <source>Error loading wallet.dat: Wallet requires newer version of MAG Core</source>
-        <translation>Virhe ladattaessa wallet.dat tiedostoa: Lompakko vaatii uudemman version MAG Coresta</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of BITWIN24 Core</source>
+        <translation>Virhe ladattaessa wallet.dat tiedostoa: Lompakko vaatii uudemman version BITWIN24 Coresta</translation>
     </message>
     <message>
         <source>Error reading from database, shutting down.</source>

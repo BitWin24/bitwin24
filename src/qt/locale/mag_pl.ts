@@ -144,8 +144,8 @@
         <translation>Czy na pewno chcesz zakodować portfel?</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR MAG&lt;/b&gt;!</source>
-        <translation>Ostrzeżenie: Jeżeli zakodujesz portfel i stracisz do niego hasło , UTRACISZ WSZYSTKIE MAG!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITWIN24&lt;/b&gt;!</source>
+        <translation>Ostrzeżenie: Jeżeli zakodujesz portfel i stracisz do niego hasło , UTRACISZ WSZYSTKIE BITWIN24!</translation>
     </message>
     <message>
         <source>Wallet encrypted</source>
@@ -509,12 +509,12 @@
         <translation>&amp;Pomoc</translation>
     </message>
     <message>
-        <source>MAG Core</source>
-        <translation>&amp;Rdzeń MAG</translation>
+        <source>BITWIN24 Core</source>
+        <translation>&amp;Rdzeń BITWIN24</translation>
     </message>
     <message>
-        <source>Send coins to a MAG address</source>
-        <translation>Wyślij monety do adresu MAG</translation>
+        <source>Send coins to a BITWIN24 address</source>
+        <translation>Wyślij monety do adresu BITWIN24</translation>
     </message>
     <message>
         <source>Request payments (generates QR codes and bitwin24: URIs)</source>
@@ -529,24 +529,24 @@
         <translation>Przeglądaj masternodes</translation>
     </message>
     <message>
-        <source>&amp;About MAG Core</source>
+        <source>&amp;About BITWIN24 Core</source>
         <translation>&amp;O rdzeniu bitcoina</translation>
     </message>
     <message>
-        <source>Show information about MAG Core</source>
+        <source>Show information about BITWIN24 Core</source>
         <translation>Pokaż informacje o rdzeniu bitcoina</translation>
     </message>
     <message>
-        <source>Modify configuration options for MAG</source>
-        <translation>Modyfikuj opcje konfiguracji MAG</translation>
+        <source>Modify configuration options for BITWIN24</source>
+        <translation>Modyfikuj opcje konfiguracji BITWIN24</translation>
     </message>
     <message>
-        <source>Sign messages with your MAG addresses to prove you own them</source>
-        <translation>Zatwierdź wiadomość z twoimi adresami MAG, by udowodnić, że jesteś w ich posiadaniu</translation>
+        <source>Sign messages with your BITWIN24 addresses to prove you own them</source>
+        <translation>Zatwierdź wiadomość z twoimi adresami BITWIN24, by udowodnić, że jesteś w ich posiadaniu</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified MAG addresses</source>
-        <translation>Zweryfikuj wiadomości by upewnić się, że zostały zatwierdzone z podanego adresu MAG</translation>
+        <source>Verify messages to ensure they were signed with specified BITWIN24 addresses</source>
+        <translation>Zweryfikuj wiadomości by upewnić się, że zostały zatwierdzone z podanego adresu BITWIN24</translation>
     </message>
     <message>
         <source>&amp;BIP38 tool</source>
@@ -573,8 +573,8 @@
         <translation>Otwórz &amp;Plik konfiguracji Masternode</translation>
     </message>
     <message>
-        <source>Open a MAG: URI or payment request</source>
-        <translation>Otwórz MAG: URI i żądanie zapłaty</translation>
+        <source>Open a BITWIN24: URI or payment request</source>
+        <translation>Otwórz BITWIN24: URI i żądanie zapłaty</translation>
     </message>
     <message>
         <source>&amp;Blockchain explorer</source>
@@ -585,12 +585,12 @@
         <translation>Okno eksplorera bloków</translation>
     </message>
     <message>
-        <source>Show the MAG Core help message to get a list with possible MAG command-line options</source>
-        <translation>Pokaż wiadomość pomocy rdzenia MAG, aby dostać listę możliwych opcji MAG command-line</translation>
+        <source>Show the BITWIN24 Core help message to get a list with possible BITWIN24 command-line options</source>
+        <translation>Pokaż wiadomość pomocy rdzenia BITWIN24, aby dostać listę możliwych opcji BITWIN24 command-line</translation>
     </message>
     <message>
-        <source>MAG Core client</source>
-        <translation>Rdzeń MAG klient</translation>
+        <source>BITWIN24 Core client</source>
+        <translation>Rdzeń BITWIN24 klient</translation>
     </message>
     <message>
         <source>Synchronizing with network...</source>
@@ -899,8 +899,8 @@ MultiWysyłlka: %1</translation>
 <context>
     <name>HelpMessageDialog</name>
     <message>
-        <source>MAG Core</source>
-        <translation>&amp;Rdzeń MAG</translation>
+        <source>BITWIN24 Core</source>
+        <translation>&amp;Rdzeń BITWIN24</translation>
     </message>
     </context>
 <context>
@@ -914,8 +914,8 @@ MultiWysyłlka: %1</translation>
         <translation>Użyj niestandardowej ścieżki danych</translation>
     </message>
     <message>
-        <source>MAG Core</source>
-        <translation>&amp;Rdzeń MAG</translation>
+        <source>BITWIN24 Core</source>
+        <translation>&amp;Rdzeń BITWIN24</translation>
     </message>
     <message>
         <source>Error</source>
@@ -1190,12 +1190,12 @@ Proszę sprawdzić adres i spróbować ponownie</translation>
         <translation>Zezwól na przychodzące połączenia</translation>
     </message>
     <message>
-        <source>Automatically start MAG after logging in to the system.</source>
-        <translation>Automatycznie uruchom MAG po zalogowaniu do systemu</translation>
+        <source>Automatically start BITWIN24 after logging in to the system.</source>
+        <translation>Automatycznie uruchom BITWIN24 po zalogowaniu do systemu</translation>
     </message>
     <message>
-        <source>&amp;Start MAG on system login</source>
-        <translation>&amp;Uruchom MAG podczas logowania do systemu</translation>
+        <source>&amp;Start BITWIN24 on system login</source>
+        <translation>&amp;Uruchom BITWIN24 podczas logowania do systemu</translation>
     </message>
     <message>
         <source>Whether to show coin control features or not.</source>
@@ -1214,8 +1214,8 @@ Proszę sprawdzić adres i spróbować ponownie</translation>
         <translation>&amp;Sieć</translation>
     </message>
     <message>
-        <source>The user interface language can be set here. This setting will take effect after restarting MAG.</source>
-        <translation>Język interfejsu użytkownika może być wybrany tutaj. Ustawienia ulegną zmianie po restarcie MAG</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting BITWIN24.</source>
+        <translation>Język interfejsu użytkownika może być wybrany tutaj. Ustawienia ulegną zmianie po restarcie BITWIN24</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
@@ -1224,8 +1224,8 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</source
 https://www.transifex.com/bitwin24-project/bitwin24-project-translations </translation>
     </message>
     <message>
-        <source>Connect to the MAG network through a SOCKS5 proxy.</source>
-        <translation>Połącz z siecią MAG poprzez SOCKS5 proxy.</translation>
+        <source>Connect to the BITWIN24 network through a SOCKS5 proxy.</source>
+        <translation>Połącz z siecią BITWIN24 poprzez SOCKS5 proxy.</translation>
     </message>
     <message>
         <source>Proxy &amp;IP:</source>
@@ -1463,8 +1463,8 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations </trans
         <translation>Liczba</translation>
     </message>
     <message>
-        <source>Enter a MAG address (e.g. %1)</source>
-        <translation>Wprowadź adres MAG (np. %1)</translation>
+        <source>Enter a BITWIN24 address (e.g. %1)</source>
+        <translation>Wprowadź adres BITWIN24 (np. %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -1894,8 +1894,8 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations </trans
         <translation>Alt+P</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this MAG address</source>
-        <translation>Zatwierdź wiadomość, aby udowodnić, że podany adres MAG jest w twoim posiadaniu</translation>
+        <source>Sign the message to prove you own this BITWIN24 address</source>
+        <translation>Zatwierdź wiadomość, aby udowodnić, że podany adres BITWIN24 jest w twoim posiadaniu</translation>
     </message>
     <message>
         <source>Clear &amp;All</source>
@@ -1929,8 +1929,8 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations </trans
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>MAG Core</source>
-        <translation>&amp;Rdzeń MAG</translation>
+        <source>BITWIN24 Core</source>
+        <translation>&amp;Rdzeń BITWIN24</translation>
     </message>
     </context>
 <context>

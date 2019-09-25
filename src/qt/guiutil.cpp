@@ -102,7 +102,7 @@ void setupAddressWidget(QValidatedLineEdit* widget, QWidget* parent)
     widget->setFont(bitcoinAddressFont());
     // We don't want translators to use own addresses in translations
     // and this is the only place, where this address is supplied.
-    widget->setPlaceholderText(QObject::tr("Enter a MAG address (e.g. %1)").arg("D7VFR83SQbiezrW72hjcWJtcfip5krte2Z"));
+    widget->setPlaceholderText(QObject::tr("Enter a BITWIN24 address (e.g. %1)").arg("D7VFR83SQbiezrW72hjcWJtcfip5krte2Z"));
     widget->setValidator(new BitcoinAddressEntryValidator(parent));
     widget->setCheckValidator(new BitcoinAddressCheckValidator(parent));
 }
@@ -118,7 +118,7 @@ void setupAmountWidget(QLineEdit* widget, QWidget* parent)
 
 bool parseBitcoinURI(const QUrl& uri, SendCoinsRecipient* out)
 {
-    // return if URI is not valid or is no MAG: URI
+    // return if URI is not valid or is no BITWIN24: URI
     if (!uri.isValid() || uri.scheme() != QString(URI_SCHEME))
         return false;
 
@@ -149,7 +149,7 @@ bool parseBitcoinURI(const QUrl& uri, SendCoinsRecipient* out)
             fShouldReturnFalse = false;
         } else if (i->first == "amount") {
             if (!i->second.isEmpty()) {
-                if (!BitcoinUnits::parse(BitcoinUnits::MAG, i->second, &rv.amount)) {
+                if (!BitcoinUnits::parse(BitcoinUnits::BITWIN24, i->second, &rv.amount)) {
                     return false;
                 }
             }
@@ -184,7 +184,7 @@ QString formatBitcoinURI(const SendCoinsRecipient& info)
     int paramCount = 0;
 
     if (info.amount) {
-        ret += QString("?amount=%1").arg(BitcoinUnits::format(BitcoinUnits::MAG, info.amount, false, BitcoinUnits::separatorNever));
+        ret += QString("?amount=%1").arg(BitcoinUnits::format(BitcoinUnits::BITWIN24, info.amount, false, BitcoinUnits::separatorNever));
         paramCount++;
     }
 
@@ -570,12 +570,12 @@ bool DHMSTableWidgetItem::operator<(QTableWidgetItem const& item) const
 #ifdef WIN32
 boost::filesystem::path static StartupShortcutPath()
 {
-    return GetSpecialFolderPath(CSIDL_STARTUP) / "MAG.lnk";
+    return GetSpecialFolderPath(CSIDL_STARTUP) / "BITWIN24.lnk";
 }
 
 bool GetStartOnSystemStartup()
 {
-    // check for MAG.lnk
+    // check for BITWIN24.lnk
     return boost::filesystem::exists(StartupShortcutPath());
 }
 
@@ -688,7 +688,7 @@ bool SetStartOnSystemStartup(bool fAutoStart)
         // Write a bitwin24.desktop file to the autostart directory:
         optionFile << "[Desktop Entry]\n";
         optionFile << "Type=Application\n";
-        optionFile << "Name=MAG\n";
+        optionFile << "Name=BITWIN24\n";
         optionFile << "Exec=" << pszExePath << " -min\n";
         optionFile << "Terminal=false\n";
         optionFile << "Hidden=false\n";

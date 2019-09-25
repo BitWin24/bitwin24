@@ -35,7 +35,7 @@ class TxViewDelegate : public QAbstractItemDelegate
 {
     Q_OBJECT
 public:
-    TxViewDelegate() : QAbstractItemDelegate(), unit(BitcoinUnits::MAG)
+    TxViewDelegate() : QAbstractItemDelegate(), unit(BitcoinUnits::BITWIN24)
     {
     }
 
@@ -200,12 +200,12 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
         nWatchOnlyLockedBalance = pwalletMain->GetLockedWatchOnlyBalance();
     }
 
-    // MAG Balance
+    // BITWIN24 Balance
     CAmount nTotalBalance = balance + unconfirmedBalance;
     CAmount magAvailableBalance = balance - immatureBalance - nLockedBalance;
     CAmount nUnlockedBalance = nTotalBalance - nLockedBalance;
 
-    // MAG Watch-Only Balance
+    // BITWIN24 Watch-Only Balance
     CAmount nTotalWatchBalance = watchOnlyBalance + watchUnconfBalance;
     CAmount nAvailableWatchBalance = watchOnlyBalance - watchImmatureBalance - nWatchOnlyLockedBalance;
 
@@ -220,7 +220,7 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
     CAmount availableTotalBalance = magAvailableBalance + matureZerocoinBalance;
     CAmount sumTotalBalance = nTotalBalance + zerocoinBalance;
 
-    // MAG labels
+    // BITWIN24 labels
     ui->labelBalance->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, magAvailableBalance, false, BitcoinUnits::separatorAlways));
     ui->labelUnconfirmed->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, unconfirmedBalance, false, BitcoinUnits::separatorAlways));
     ui->labelImmature->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, immatureBalance, false, BitcoinUnits::separatorAlways));
@@ -265,28 +265,28 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
 
     bool showWatchOnly = nTotalWatchBalance != 0;
 
-    // MAG Available
+    // BITWIN24 Available
     bool showMAGAvailable = settingShowAllBalances || magAvailableBalance != nTotalBalance;
     bool showWatchOnlyMAGAvailable = showMAGAvailable || nAvailableWatchBalance != nTotalWatchBalance;
     ui->labelBalanceText->setVisible(showMAGAvailable || showWatchOnlyMAGAvailable);
     ui->labelBalance->setVisible(showMAGAvailable || showWatchOnlyMAGAvailable);
     ui->labelWatchAvailable->setVisible(showWatchOnlyMAGAvailable && showWatchOnly);
 
-    // MAG Pending
+    // BITWIN24 Pending
     bool showMAGPending = settingShowAllBalances || unconfirmedBalance != 0;
     bool showWatchOnlyMAGPending = showMAGPending || watchUnconfBalance != 0;
     ui->labelPendingText->setVisible(showMAGPending || showWatchOnlyMAGPending);
     ui->labelUnconfirmed->setVisible(showMAGPending || showWatchOnlyMAGPending);
     ui->labelWatchPending->setVisible(showWatchOnlyMAGPending && showWatchOnly);
 
-    // MAG Immature
+    // BITWIN24 Immature
     bool showMAGImmature = settingShowAllBalances || immatureBalance != 0;
     bool showWatchOnlyImmature = showMAGImmature || watchImmatureBalance != 0;
     ui->labelImmatureText->setVisible(showMAGImmature || showWatchOnlyImmature);
     ui->labelImmature->setVisible(showMAGImmature || showWatchOnlyImmature); // for symmetry reasons also show immature label when the watch-only one is shown
     ui->labelWatchImmature->setVisible(showWatchOnlyImmature && showWatchOnly); // show watch-only immature balance
 
-    // MAG Locked
+    // BITWIN24 Locked
     bool showMAGLocked = settingShowAllBalances || nLockedBalance != 0;
     bool showWatchOnlyMAGLocked = showMAGLocked || nWatchOnlyLockedBalance != 0;
     ui->labelLockedBalanceText->setVisible(showMAGLocked || showWatchOnlyMAGLocked);
@@ -374,7 +374,7 @@ void OverviewPage::setWalletModel(WalletModel* model)
         connect(model, SIGNAL(notifyWatchonlyChanged(bool)), this, SLOT(updateWatchOnlyLabels(bool)));
     }
 
-    // update the display unit, to not use the default ("MAG")
+    // update the display unit, to not use the default ("BITWIN24")
     updateDisplayUnit();
 }
 

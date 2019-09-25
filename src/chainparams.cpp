@@ -2,7 +2,7 @@
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2018 The PIVX developers
-// Copyright (c) 2018-present The MAG developers
+// Copyright (c) 2018-present The BITWIN24 developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -122,14 +122,14 @@ public:
         nRejectBlockOutdatedMajority = 950;
         nToCheckBlockUpgradeMajority = 1000;
         nMinerThreads = 0;
-        nTargetTimespan = 1 * 60; // MAG: 1 day
-        nTargetSpacing = 1 * 60;  // MAG: 1 minute
+        nTargetTimespan = 1 * 60; // BITWIN24: 1 day
+        nTargetSpacing = 1 * 60;  // BITWIN24: 1 minute
         nMaturity = 100;
         nMasternodeCountDrift = 20;
 
-        // The mainnet swap amount of 37334000 was determined based on money supply 36757502.29915683 MAG @ block 416959.
-        // 576500 MAG were added to this amount to represent the expected POW production at a rate of 960 blocks/day 
-        // with 100 MAG reward for 6 days along with POS production at 7% per stake.
+        // The mainnet swap amount of 37334000 was determined based on money supply 36757502.29915683 BITWIN24 @ block 416959.
+        // 576500 BITWIN24 were added to this amount to represent the expected POW production at a rate of 960 blocks/day
+        // with 100 BITWIN24 reward for 6 days along with POS production at 7% per stake.
         nSwapAmount = 37334000 * COIN; // Amount of coins generated for the swap.
         nSwapPoWBlocks = 10; // Number of PoW blocks used to generate the Swap amount.
         nSwapCoinbaseValue = nSwapAmount / nSwapPoWBlocks; // The swap amount will be distributed uniformly through PoW coinbase.
@@ -336,8 +336,8 @@ public:
         nRejectBlockOutdatedMajority = 950;
         nToCheckBlockUpgradeMajority = 1000;
         nMinerThreads = 1;
-        nTargetTimespan = 24 * 60 * 60; // MAG: 1 day
-        nTargetSpacing = 1 * 60;        // MAG: 1 minutes
+        nTargetTimespan = 24 * 60 * 60; // BITWIN24: 1 day
+        nTargetSpacing = 1 * 60;        // BITWIN24: 1 minutes
         bnProofOfWorkLimit = ~uint256(0) >> 1;
         genesis.nTime = 1540944002;
         genesis.nNonce = 2;

@@ -38,7 +38,7 @@ public:
         Encrypt,        /** Encrypt unencrypted wallet */
         ToggleLock,     /** Toggle wallet lock state */
         ChangePass,     /** Change passphrase */
-        Send_MAG,       /** Send MAG */
+        Send_MAG,       /** Send BITWIN24 */
         Send_zMAG,      /** Send zMAG */
         Mint_zMAG,      /** Mint zMAG */
         BIP_38,         /** BIP38 menu */

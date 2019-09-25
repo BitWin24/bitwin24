@@ -344,7 +344,7 @@ QString TransactionTableModel::formatTxType(const TransactionRecord* wtx) const
     case TransactionRecord::SendToSelf:
         return tr("Payment to yourself");
     case TransactionRecord::StakeMint:
-        return tr("MAG Stake");
+        return tr("BITWIN24 Stake");
     case TransactionRecord::StakeZMAG:
         return tr("zMAG Stake");
     case TransactionRecord::Generated:
@@ -360,15 +360,15 @@ QString TransactionTableModel::formatTxType(const TransactionRecord* wtx) const
     case TransactionRecord::Obfuscated:
         return tr("Obfuscated");
     case TransactionRecord::ZerocoinMint:
-        return tr("Converted MAG to zMAG");
+        return tr("Converted BITWIN24 to zMAG");
     case TransactionRecord::ZerocoinSpend:
         return tr("Spent zMAG");
     case TransactionRecord::RecvFromZerocoinSpend:
-        return tr("Received MAG from zMAG");
+        return tr("Received BITWIN24 from zMAG");
     case TransactionRecord::ZerocoinSpend_Change_zBWI:
         return tr("Minted Change as zMAG from zMAG Spend");
     case TransactionRecord::ZerocoinSpend_FromMe:
-        return tr("Converted zMAG to MAG");
+        return tr("Converted zMAG to BITWIN24");
 
     default:
         return QString();

@@ -53,9 +53,9 @@ static const int MAX_URI_LENGTH = 255;
 /* Number of frames in spinner animation */
 #define SPINNER_FRAMES 35
 
-#define QAPP_ORG_NAME "MAG"
+#define QAPP_ORG_NAME "BITWIN24"
 #define QAPP_ORG_DOMAIN "bitwin24network.io"
-#define QAPP_APP_NAME_DEFAULT "MAG-Qt"
-#define QAPP_APP_NAME_TESTNET "MAG-Qt-testnet"
+#define QAPP_APP_NAME_DEFAULT "BITWIN24-Qt"
+#define QAPP_APP_NAME_TESTNET "BITWIN24-Qt-testnet"
 
 #endif // BITCOIN_QT_GUICONSTANTS_H

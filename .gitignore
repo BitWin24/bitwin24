@@ -86,7 +86,7 @@ src/qt/test/moc*.cpp
 *.qm
 Makefile
 bitwin24-qt
-MAG-Qt.app
+BITWIN24-Qt.app
 
 # Unit-tests
 Makefile.test

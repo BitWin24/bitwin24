@@ -1,14 +1,14 @@
 .TH MAGD "1" "February 2017" "magd 2.1.4.1"
 .SH NAME
-MAG \- peer-to-peer network based digital currency
+BITWIN24 \- peer-to-peer network based digital currency
 .SH SYNOPSIS
 magd [options] <command> [params]
 .TP
 magd [options] help <command> \- Get help for a command
 .SH DESCRIPTION
-This  manual page documents the magd program. MAG is a peer-to-peer digital currency. Peer-to-peer (P2P) means that there is no central authority to issue new money or keep track of transactions. Instead, these tasks are managed collectively by the nodes of the network. Advantages:
+This  manual page documents the magd program. BITWIN24 is a peer-to-peer digital currency. Peer-to-peer (P2P) means that there is no central authority to issue new money or keep track of transactions. Instead, these tasks are managed collectively by the nodes of the network. Advantages:
 
-MAG can be sent easily through the Internet, without having to trust middlemen. Transactions are designed to be irreversible. Be safe from instability caused by fractional reserve banking and central banks. The limited inflation of the MAG system’s money supply is distributed evenly (by CPU power) throughout the network, not monopolized by banks.
+BITWIN24 can be sent easily through the Internet, without having to trust middlemen. Transactions are designed to be irreversible. Be safe from instability caused by fractional reserve banking and central banks. The limited inflation of the BITWIN24 system’s money supply is distributed evenly (by CPU power) throughout the network, not monopolized by banks.
 
 .SH OPTIONS
 .TP
@@ -98,7 +98,7 @@ Returns the number of connections to other nodes.
 Returns the proof-of-work difficulty as a multiple of the minimum difficulty.
 .TP
 \fBgetgenerate\fR
-Returns boolean true if server is trying to generate MAG, false otherwise.
+Returns boolean true if server is trying to generate BITWIN24, false otherwise.
 .TP
 \fBsetgenerate 'generate' ['genproclimit']\fR
 Generation is limited to ['genproclimit'] processors, \-1 is unlimited.
@@ -169,7 +169,7 @@ Returns a list of the last ['count'] transactions for 'account' \- for all accou
 Moves funds between accounts.
 .TP
 \fBsendfrom* <'account'> <'magaddress'> <'amount'> ['minconf=1'] ['comment'] ['comment-to']\fR
-Sends amount from account's balance to 'magaddress'. This method will fail if there is less than amount MAG with ['minconf'] confirmations in the account's balance (unless account is the empty-string-named default account; it behaves like the *sendtoaddress* method). Returns transaction ID on success.
+Sends amount from account's balance to 'magaddress'. This method will fail if there is less than amount BITWIN24 with ['minconf'] confirmations in the account's balance (unless account is the empty-string-named default account; it behaves like the *sendtoaddress* method). Returns transaction ID on success.
 .TP
 \fBsendtoaddress 'magaddress' 'amount' ['comment'] ['comment-to']\fR
 Sends amount from the server's available balance to 'magaddress'. amount is a real and is rounded to the nearest 0.01. Returns transaction id on success.
@@ -178,7 +178,7 @@ Sends amount from the server's available balance to 'magaddress'. amount is a re
 Stops the bitwin24 server.
 .TP
 \fBvalidateaddress 'magaddress'\fR
-Checks that 'magaddress' looks like a proper MAG address. Returns an object containing:
+Checks that 'magaddress' looks like a proper BITWIN24 address. Returns an object containing:
 
     "isvalid" : true or false.
     "ismine"  : true if the address is in the server's wallet.

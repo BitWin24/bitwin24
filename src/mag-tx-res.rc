@@ -16,8 +16,8 @@ BEGIN
     BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
-            VALUE "CompanyName",        "MAG"
-            VALUE "FileDescription",    "bitwin24-tx (CLI MAG transaction editor utility)"
+            VALUE "CompanyName",        "BITWIN24"
+            VALUE "FileDescription",    "bitwin24-tx (CLI BITWIN24 transaction editor utility)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
             VALUE "InternalName",       "bitwin24-tx"
             VALUE "LegalCopyright",     COPYRIGHT_STR

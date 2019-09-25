@@ -126,7 +126,7 @@ public:
 };
 
 /**
- * MAG RPC command dispatcher.
+ * BITWIN24 RPC command dispatcher.
  */
 class CRPCTable
 {

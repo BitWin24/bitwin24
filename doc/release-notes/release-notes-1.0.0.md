@@ -1,23 +1,23 @@
-MAG Core version *1.0.0* is now available from:  <https://github.com/bitwin24network/bitwin24/releases>
+BITWIN24 Core version *1.0.0* is now available from:  <https://github.com/bitwin24network/bitwin24/releases>
 
 Please report bugs using the issue tracker at github: <https://github.com/bitwin24network/bitwin24/issues>
 
 Mandatory Update
 ==============
 
-MAG Core v1.0.0 is a mandatory update for all users on BitWin24 Network. This release contains a new core base (PIVx 3.1 fork) and major protocol changes that are not backwards compatible with any older versions of BitWin24 clients.
+BITWIN24 Core v1.0.0 is a mandatory update for all users on BitWin24 Network. This release contains a new core base (PIVx 3.1 fork) and major protocol changes that are not backwards compatible with any older versions of BitWin24 clients.
 
 Existing users have up till November 12, 2018 to Swap their coins on [Cryptopia Exchange](https://support.cryptopia.co.nz/csm?id=kb_article&sys_id=7eb0d4e8dbe1a780d7e096888a961908). If you have not done so and missed the deadline, please contact us _now_.
 
 How to Install / Upgrade
 ==============
 
-If you are running an older version, shut it down. Wait until it has completely shut down (which might take a few minutes for older versions), then run the installer (on Windows) or just copy over /Applications/MAG-Qt (on Mac) or magd/bitwin24-qt (on Linux).
+If you are running an older version, shut it down. Wait until it has completely shut down (which might take a few minutes for older versions), then run the installer (on Windows) or just copy over /Applications/BITWIN24-Qt (on Mac) or magd/bitwin24-qt (on Linux).
 
 Compatibility
 ==============
 
-MAG Core is extensively tested on multiple operating systems using
+BITWIN24 Core is extensively tested on multiple operating systems using
 the Linux kernel, macOS 10.8+, and Windows Vista and later.
 
 Microsoft ended support for Windows XP on [April 8th, 2014](https://www.microsoft.com/en-us/WindowsForBusiness/end-of-xp-support),
@@ -25,7 +25,7 @@ No attempt is made to prevent installing or running the software on Windows XP, 
 can still do so at your own risk but be aware that there are known instabilities and issues.
 Please do not report issues about Windows XP to the issue tracker.
 
-MAG Core should also work on most other Unix-like systems but is not
+BITWIN24 Core should also work on most other Unix-like systems but is not
 frequently tested on them.
 
 ### :exclamation::exclamation::exclamation: MacOS 10.13 High Sierra :exclamation::exclamation::exclamation:
@@ -43,7 +43,7 @@ User Experience
 
 ### Graphical User Interface
 
-The visual layout of the MAG Qt wallet has undergone a complete overhaul.
+The visual layout of the BITWIN24 Qt wallet has undergone a complete overhaul.
 The overview tab has been simplified greatly to display only balances that are active or relevant, also a reward section has been added.
 A merchant tab, which lets you login to your [merchant dashboard](https://merchant.bitwin24network.io/) (can be turned off in the options) is also present.
 
@@ -67,4 +67,4 @@ Initial release.
 - Bitcoin Core Team
 - Dash Team
 - PIVx Team
-- MAG Team
+- BITWIN24 Team

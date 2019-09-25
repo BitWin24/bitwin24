@@ -29,7 +29,7 @@
 #include <boost/filesystem/path.hpp>
 #include <boost/thread/exceptions.hpp>
 
-//MAG only features
+//BITWIN24 only features
 
 extern bool fMasterNode;
 extern bool fLiteMode;

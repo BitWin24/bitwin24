@@ -27,7 +27,7 @@ public:
 };
 
 
-// zBITWIN24Stake can take two forms
+// zBWIStake can take two forms
 // 1) the stake candidate, which is a zcmint that is attempted to be staked
 // 2) a staked zbwi, which is a zcspend that has successfully staked
 class CZBWIStake : public CStakeInput

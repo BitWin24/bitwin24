@@ -557,7 +557,7 @@
     </message>
     <message>
         <location line="+11"/>
-        <source>Privacy Actions for zBITWIN24</source>
+        <source>Privacy Actions for zBWI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2457,22 +2457,22 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</source
     </message>
     <message>
         <location line="-169"/>
-        <source>Enable automatic minting of BITWIN24 units to zBITWIN24</source>
+        <source>Enable automatic minting of BITWIN24 units to zBWI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+6"/>
-        <source>Enable zBITWIN24 Automint</source>
+        <source>Enable zBWI Automint</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+9"/>
-        <source>Percentage of incoming BITWIN24 which get automatically converted to zBITWIN24 via Zerocoin Protocol (min: 10%)</source>
+        <source>Percentage of incoming BITWIN24 which get automatically converted to zBWI via Zerocoin Protocol (min: 10%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Percentage of autominted zBITWIN24</source>
+        <source>Percentage of autominted zBWI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2483,7 +2483,7 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</source
     </message>
     <message>
         <location line="-13"/>
-        <source>Preferred Automint zBITWIN24 Denomination</source>
+        <source>Preferred Automint zBWI Denomination</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2729,14 +2729,14 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</source
     </message>
     <message>
         <location line="+96"/>
-        <source>zBITWIN24 Balance</source>
+        <source>zBWI Balance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+53"/>
         <location line="+17"/>
         <source>Mature: more than 20 confirmation and more than 1 mint of the same denomination after it was minted.
-These zBITWIN24 are spendable.</source>
+These zBWI are spendable.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2809,7 +2809,7 @@ Immature: confirmed, but less than 1 mint of the same denomination after it was 
     <message>
         <location line="+191"/>
         <location line="+19"/>
-        <source>Locked BITWIN24 or Masternode collaterals. These are excluded from zBITWIN24 minting.</source>
+        <source>Locked BITWIN24 or Masternode collaterals. These are excluded from zBWI minting.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2825,7 +2825,7 @@ Immature: confirmed, but less than 1 mint of the same denomination after it was 
     <message>
         <location line="+58"/>
         <location line="+19"/>
-        <source>Your current zBITWIN24 balance, unconfirmed and immature zBITWIN24 included.</source>
+        <source>Your current zBWI balance, unconfirmed and immature zBWI included.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2841,7 +2841,7 @@ Immature: confirmed, but less than 1 mint of the same denomination after it was 
     </message>
     <message>
         <location line="+106"/>
-        <source>Current percentage of zBITWIN24.
+        <source>Current percentage of zBWI.
 If AutoMint is enabled this percentage will settle around the configured AutoMint percentage (default = 10%).
 </source>
         <translation type="unfinished"></translation>
@@ -3032,7 +3032,7 @@ To enable AutoMint change &apos;enablezeromint=0&apos; to &apos;enablezeromint=1
     <message>
         <location line="-371"/>
         <location line="+651"/>
-        <source>zBITWIN24</source>
+        <source>zBWI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3098,17 +3098,17 @@ To enable AutoMint change &apos;enablezeromint=0&apos; to &apos;enablezeromint=1
     <message>
         <location line="+182"/>
         <location line="+52"/>
-        <source>Enter an amount of BWI to convert to zBITWIN24</source>
+        <source>Enter an amount of BWI to convert to zBWI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+301"/>
-        <source>zBITWIN24 Control</source>
+        <source>zBWI Control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>zBITWIN24 Selected:</source>
+        <source>zBWI Selected:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3136,7 +3136,7 @@ To enable AutoMint change &apos;enablezeromint=0&apos; to &apos;enablezeromint=1
     </message>
     <message>
         <location line="+7"/>
-        <source>Available (mature and spendable) zBITWIN24 for spending</source>
+        <source>Available (mature and spendable) zBWI for spending</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3146,9 +3146,9 @@ To enable AutoMint change &apos;enablezeromint=0&apos; to &apos;enablezeromint=1
     </message>
     <message>
         <location line="+16"/>
-        <source>Available (mature and spendable) zBITWIN24 for spending
+        <source>Available (mature and spendable) zBWI for spending
 
-zBITWIN24 are mature when they have more than 20 confirmations AND more than 2 mints of the same denomination after them were minted</source>
+zBWI are mature when they have more than 20 confirmations AND more than 2 mints of the same denomination after them were minted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3163,7 +3163,7 @@ zBITWIN24 are mature when they have more than 20 confirmations AND more than 2 m
         <location line="+31"/>
         <location line="+31"/>
         <location line="+31"/>
-        <source>0 zBITWIN24</source>
+        <source>0 zBWI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3254,7 +3254,7 @@ zBITWIN24 are mature when they have more than 20 confirmations AND more than 2 m
     <message>
         <location line="+68"/>
         <location line="+38"/>
-        <source>Total Balance including unconfirmed and immature zBITWIN24</source>
+        <source>Total Balance including unconfirmed and immature zBWI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3287,14 +3287,14 @@ Immature: confirmed, but less than 1 mint of the same denomination after it was 
     </message>
     <message>
         <location line="+40"/>
-        <source>Show the current status of automatic zBITWIN24 minting.
+        <source>Show the current status of automatic zBWI minting.
 
 To change the status (restart required):
 - enable: add &apos;enablezeromint=1&apos; to bitwin24.conf
 - disable: add &apos;enablezeromint=0&apos; to bitwin24.conf
 
 To change the percentage (no restart required):
-- menu Settings-&gt;Options-&gt;Percentage of autominted zBITWIN24
+- menu Settings-&gt;Options-&gt;Percentage of autominted zBWI
 
 </source>
         <translation type="unfinished"></translation>
@@ -3547,12 +3547,12 @@ Maximum allowed: </source>
     </message>
     <message>
         <location line="+34"/>
-        <source>zBITWIN24 Spend #: </source>
+        <source>zBWI Spend #: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+16"/>
-        <source>zBITWIN24 Mint</source>
+        <source>zBWI Mint</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3573,13 +3573,13 @@ Maximum allowed: </source>
     <message>
         <location line="+12"/>
         <location line="+4"/>
-        <source>zBITWIN24 is currently disabled due to maintenance.</source>
+        <source>zBWI is currently disabled due to maintenance.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-639"/>
         <location line="+111"/>
-        <source>zBITWIN24 is currently undergoing maintenance.</source>
+        <source>zBWI is currently undergoing maintenance.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3690,7 +3690,7 @@ Maximum allowed: </source>
     </message>
     <message>
         <location line="+0"/>
-        <source> zBITWIN24 in </source>
+        <source> zBWI in </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3767,13 +3767,13 @@ Maximum allowed: </source>
     <message>
         <location line="+24"/>
         <location line="+32"/>
-        <source>Version 1 zBITWIN24 require a security level of 100 to successfully spend.</source>
+        <source>Version 1 zBWI require a security level of 100 to successfully spend.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-31"/>
         <location line="+32"/>
-        <source>Failed to spend zBITWIN24</source>
+        <source>Failed to spend zBWI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3801,7 +3801,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     <message numerus="yes">
         <location line="+336"/>
         <source>PrivacyDialog</source>
-        <comment>Enter an amount of BITWIN24 to convert to zBITWIN24</comment>
+        <comment>Enter an amount of BITWIN24 to convert to zBWI</comment>
         <translation type="unfinished">
             <numerusform></numerusform>
             <numerusform></numerusform>
@@ -4232,7 +4232,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+29"/>
-        <source>Custom zBITWIN24 Backup Path:</source>
+        <source>Custom zBWI Backup Path:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4864,12 +4864,12 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+907"/>
-        <source>If the custom fee is set to 1000 uBITWIN24s and the transaction is only 250 bytes, then &quot;per kilobyte&quot; only pays 250 uBITWIN24s in fee,&lt;br /&gt;while &quot;at least&quot; pays 1000 uBITWIN24s. For transactions bigger than a kilobyte both pay by kilobyte.</source>
+        <source>If the custom fee is set to 1000 uBWIs and the transaction is only 250 bytes, then &quot;per kilobyte&quot; only pays 250 uBWIs in fee,&lt;br /&gt;while &quot;at least&quot; pays 1000 uBWIs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+16"/>
-        <source>If the custom fee is set to 1000 uBITWIN24s and the transaction is only 250 bytes, then &quot;per kilobyte&quot; only pays 250 uBITWIN24s in fee,&lt;br /&gt;while &quot;total at least&quot; pays 1000 uBITWIN24s. For transactions bigger than a kilobyte both pay by kilobyte.</source>
+        <source>If the custom fee is set to 1000 uBWIs and the transaction is only 250 bytes, then &quot;per kilobyte&quot; only pays 250 uBWIs in fee,&lt;br /&gt;while &quot;total at least&quot; pays 1000 uBWIs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5815,7 +5815,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+2"/>
-        <source>zBITWIN24 Stake</source>
+        <source>zBWI Stake</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5840,37 +5840,37 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+4"/>
-        <source>Converted BITWIN24 to zBITWIN24</source>
+        <source>Converted BITWIN24 to zBWI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Spent zBITWIN24</source>
+        <source>Spent zBWI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Received BITWIN24 from zBITWIN24</source>
+        <source>Received BITWIN24 from zBWI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Minted Change as zBITWIN24 from zBITWIN24 Spend</source>
+        <source>Minted Change as zBWI from zBWI Spend</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Converted zBITWIN24 to BITWIN24</source>
+        <source>Converted zBWI to BITWIN24</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+56"/>
-        <source>Anonymous (zBITWIN24 Transaction)</source>
+        <source>Anonymous (zBWI Transaction)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Anonymous (zBITWIN24 Stake)</source>
+        <source>Anonymous (zBWI Stake)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6134,12 +6134,12 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="-280"/>
-        <source>Received BITWIN24 from zBITWIN24</source>
+        <source>Received BITWIN24 from zBWI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Zerocoin Spend, Change in zBITWIN24</source>
+        <source>Zerocoin Spend, Change in zBWI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6227,7 +6227,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     <name>ZBWIControlDialog</name>
     <message>
         <location filename="../forms/zbwicontroldialog.ui" line="+20"/>
-        <source>Select zBITWIN24 to Spend</source>
+        <source>Select zBWI to Spend</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6243,7 +6243,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="-7"/>
-        <source>zBITWIN24</source>
+        <source>zBWI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6326,7 +6326,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+5"/>
-        <source>Enable automatic wallet backups triggered after each zBITWIN24 minting (0-1, default: %u)</source>
+        <source>Enable automatic wallet backups triggered after each zBWI minting (0-1, default: %u)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6336,7 +6336,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+2"/>
-        <source>Enable or disable staking functionality for zBITWIN24 inputs (0-1, default: %u)</source>
+        <source>Enable or disable staking functionality for zBWI inputs (0-1, default: %u)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7091,7 +7091,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+9"/>
-        <source>Reindex the BITWIN24 and zBITWIN24 money supply statistics</source>
+        <source>Reindex the BITWIN24 and zBWI money supply statistics</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7183,7 +7183,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+24"/>
-        <source>Specify custom backup path to add a copy of any automatic zBITWIN24 backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup. If backuppath is set as well, 4 backups will happen</source>
+        <source>Specify custom backup path to add a copy of any automatic zBWI backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup. If backuppath is set as well, 4 backups will happen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7808,7 +7808,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+1"/>
-        <source>Syncing zBITWIN24 wallet...</source>
+        <source>Syncing zBWI wallet...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7993,7 +7993,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+1"/>
-        <source>Value is below the smallest available denomination (= 1) of zBITWIN24</source>
+        <source>Value is below the smallest available denomination (= 1) of zBWI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8013,7 +8013,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <location line="+1"/>
-        <source>Version 1 zBITWIN24 require a security level of 100 to successfully spend.</source>
+        <source>Version 1 zBWI require a security level of 100 to successfully spend.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

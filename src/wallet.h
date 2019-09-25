@@ -89,7 +89,7 @@ enum AvailableCoinsType {
     STAKABLE_COINS = 6                          // UTXO's that are valid for staking
 };
 
-// Possible states for zBITWIN24 send
+// Possible states for zBWI send
 enum ZerocoinSpendStatus {
     ZBWI_SPEND_OKAY = 0,                            // No error
     ZBWI_SPEND_ERROR = 1,                           // Unspecified class of errors, more details are (hopefully) in the returning text

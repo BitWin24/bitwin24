@@ -165,31 +165,31 @@ bool CZBWIStake::MarkSpent(CWallet *pwallet, const uint256& txid)
 }
 
 //!MAG Stake
-bool CMagStake::SetInput(CTransaction txPrev, unsigned int n)
+bool CBitWin24Stake::SetInput(CTransaction txPrev, unsigned int n)
 {
     this->txFrom = txPrev;
     this->nPosition = n;
     return true;
 }
 
-bool CMagStake::GetTxFrom(CTransaction& tx)
+bool CBitWin24Stake::GetTxFrom(CTransaction& tx)
 {
     tx = txFrom;
     return true;
 }
 
-bool CMagStake::CreateTxIn(CWallet* pwallet, CTxIn& txIn, uint256 hashTxOut)
+bool CBitWin24Stake::CreateTxIn(CWallet* pwallet, CTxIn& txIn, uint256 hashTxOut)
 {
     txIn = CTxIn(txFrom.GetHash(), nPosition);
     return true;
 }
 
-CAmount CMagStake::GetValue()
+CAmount CBitWin24Stake::GetValue()
 {
     return txFrom.vout[nPosition].nValue;
 }
 
-bool CMagStake::CreateTxOuts(CWallet* pwallet, vector<CTxOut>& vout, CAmount nTotal)
+bool CBitWin24Stake::CreateTxOuts(CWallet* pwallet, vector<CTxOut>& vout, CAmount nTotal)
 {
     vector<valtype> vSolutions;
     txnouttype whichType;
@@ -224,7 +224,7 @@ bool CMagStake::CreateTxOuts(CWallet* pwallet, vector<CTxOut>& vout, CAmount nTo
     return true;
 }
 
-bool CMagStake::GetModifier(uint64_t& nStakeModifier)
+bool CBitWin24Stake::GetModifier(uint64_t& nStakeModifier)
 {
     int nStakeModifierHeight = 0;
     int64_t nStakeModifierTime = 0;
@@ -238,7 +238,7 @@ bool CMagStake::GetModifier(uint64_t& nStakeModifier)
     return true;
 }
 
-CDataStream CMagStake::GetUniqueness()
+CDataStream CBitWin24Stake::GetUniqueness()
 {
     //The unique identifier for a MAG stake is the outpoint
     CDataStream ss(SER_NETWORK, 0);
@@ -247,7 +247,7 @@ CDataStream CMagStake::GetUniqueness()
 }
 
 //The block that the UTXO was added to the chain
-CBlockIndex* CMagStake::GetIndexFrom()
+CBlockIndex* CBitWin24Stake::GetIndexFrom()
 {
     uint256 hashBlock = 0;
     CTransaction tx;

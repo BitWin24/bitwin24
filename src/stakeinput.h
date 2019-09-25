@@ -63,13 +63,13 @@ public:
     uint32_t GetChecksum();
 };
 
-class CMagStake : public CStakeInput
+class CBitWin24Stake : public CStakeInput
 {
 private:
     CTransaction txFrom;
     unsigned int nPosition;
 public:
-    CMagStake()
+    CBitWin24Stake()
     {
         this->pindexFrom = nullptr;
     }

@@ -1,4 +1,4 @@
-dnl Copyright (c) 2018 The BITWIN24 Core developers
+dnl Copyright (c) 2019 The BITWIN24 Core developers
 dnl Distributed under the MIT software license, see the accompanying
 dnl file COPYING or http://www.opensource.org/licenses/mit-license.php.
 

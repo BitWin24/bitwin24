@@ -1,5 +1,6 @@
 // Copyright (c) 2018 The PIVX developers
-// Copyright (c) 2018-present The BITWIN24 developers
+// Copyright (c) 2018 The MAC developers
+// Copyright (c) 2019 The BITWIN24 developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 

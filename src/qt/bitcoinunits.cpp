@@ -66,7 +66,7 @@ QString BitcoinUnits::name(int unit)
         }
     } else {
         switch (unit) {
-        case BITWIN24:
+        case BWI:
             return QString("tBWI");
         case mBWI:
             return QString("mtBWI");

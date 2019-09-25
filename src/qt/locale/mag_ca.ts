@@ -1302,8 +1302,8 @@
         <translation>0</translation>
     </message>
     <message>
-        <source>zMAG</source>
-        <translation>zMAG</translation>
+        <source>zBWI</source>
+        <translation>zBWI</translation>
     </message>
     <message>
         <source>0.000 000 00 BITWIN24</source>
@@ -1322,8 +1322,8 @@
         <translation>Import:</translation>
     </message>
     <message>
-        <source>0 zMAG</source>
-        <translation>0 zMAG</translation>
+        <source>0 zBWI</source>
+        <translation>0 zBWI</translation>
     </message>
     <message>
         <source>Alt+A</source>
@@ -1969,8 +1969,8 @@
         <translation>0</translation>
     </message>
     <message>
-        <source>zMAG</source>
-        <translation>zMAG</translation>
+        <source>zBWI</source>
+        <translation>zBWI</translation>
     </message>
     </context>
 <context>

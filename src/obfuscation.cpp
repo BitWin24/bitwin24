@@ -37,7 +37,7 @@ map<uint256, CObfuscationBroadcastTx> mapObfuscationBroadcastTxes;
 // Keep track of the active Masternode
 CActiveMasternode activeMasternode;
 
-/* *** BEGIN OBFUSCATION MAGIC - BITWIN24 **********
+/* *** BEGIN OBFUSCATION BWIIC - BITWIN24 **********
     Copyright (c) 2014-2015, Dash Developers
         eduffield - evan@dashpay.io
         udjinm6   - udjinm6@dashpay.io
@@ -1917,10 +1917,10 @@ void CObfuscationPool::GetDenominationsToString(int nDenom, std::string& strDeno
 {
     // Function returns as follows:
     //
-    // bit 0 - 100MAG+1 ( bit on if present )
-    // bit 1 - 10MAG+1
-    // bit 2 - 1MAG+1
-    // bit 3 - .1MAG+1
+    // bit 0 - 100BWI+1 ( bit on if present )
+    // bit 1 - 10BWI+1
+    // bit 2 - 1BWI+1
+    // bit 3 - .1BWI+1
     // bit 3 - non-denom
 
 
@@ -1990,10 +1990,10 @@ int CObfuscationPool::GetDenominations(const std::vector<CTxOut>& vout, bool fSi
 
     // Function returns as follows:
     //
-    // bit 0 - 100MAG+1 ( bit on if present )
-    // bit 1 - 10MAG+1
-    // bit 2 - 1MAG+1
-    // bit 3 - .1MAG+1
+    // bit 0 - 100BWI+1 ( bit on if present )
+    // bit 1 - 10BWI+1
+    // bit 2 - 1BWI+1
+    // bit 3 - .1BWI+1
 
     return denom;
 }

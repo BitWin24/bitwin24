@@ -99,7 +99,7 @@ TransactionView::TransactionView(QWidget* parent) : QWidget(parent), model(0), t
 
     typeWidget->addItem(tr("To yourself"), TransactionFilterProxy::TYPE(TransactionRecord::SendToSelf));
     typeWidget->addItem(tr("Mined"), TransactionFilterProxy::TYPE(TransactionRecord::Generated));
-    typeWidget->addItem(tr("Minted"), TransactionFilterProxy::TYPE(TransactionRecord::StakeMint) | TransactionFilterProxy::TYPE(TransactionRecord::StakeZMAG));
+    typeWidget->addItem(tr("Minted"), TransactionFilterProxy::TYPE(TransactionRecord::StakeMint) | TransactionFilterProxy::TYPE(TransactionRecord::StakeZBWI));
     typeWidget->addItem(tr("Masternode Reward"), TransactionFilterProxy::TYPE(TransactionRecord::MNReward));
     typeWidget->addItem(tr("Other"), TransactionFilterProxy::TYPE(TransactionRecord::Other));
     typeWidget->setCurrentIndex(settings.value("transactionType").toInt());

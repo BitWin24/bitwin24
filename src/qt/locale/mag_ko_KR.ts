@@ -176,8 +176,8 @@
         <translation>지갑 암호화 확인</translation>
     </message>
     <message>
-        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your MAGs from being stolen by malware infecting your computer.</source>
-        <translation>MAG는 이제 암호화 프로세스를 마치기 위해 닫힐것입니다. 지갑을 암호화하더라도 맬웨어로 인한 MAGs 의 도난당하는 것을 완벽하게 보호 할 수는 없습니다.</translation>
+        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your BWIs from being stolen by malware infecting your computer.</source>
+        <translation>BWI는 이제 암호화 프로세스를 마치기 위해 닫힐것입니다. 지갑을 암호화하더라도 맬웨어로 인한 BWIs 의 도난당하는 것을 완벽하게 보호 할 수는 없습니다.</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -185,7 +185,7 @@
     </message>
     <message>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITWIN24&lt;/b&gt;!</source>
-        <translation>경고: 지갑 암호화 후 암호를 분실하게 되면 &lt;b&gt;모든 MAG를 잃게 됩니다&lt;/b&gt;!</translation>
+        <translation>경고: 지갑 암호화 후 암호를 분실하게 되면 &lt;b&gt;모든 BWI를 잃게 됩니다&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Wallet encrypted</source>
@@ -433,8 +433,8 @@
         <translation>겨래내역 보기</translation>
     </message>
     <message>
-        <source>Privacy Actions for zMAG</source>
-        <translation>zMAG 생성 및 관리</translation>
+        <source>Privacy Actions for zBWI</source>
+        <translation>zBWI 생성 및 관리</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
@@ -678,7 +678,7 @@
     </message>
     <message>
         <source>Modify configuration options for BITWIN24</source>
-        <translation>MAG에 대한 구성 옵션 수정</translation>
+        <translation>BWI에 대한 구성 옵션 수정</translation>
     </message>
     <message>
         <source>Sign messages with your BITWIN24 addresses to prove you own them</source>
@@ -1682,7 +1682,7 @@ Please be patient after clicking import.</source>
     </message>
     <message>
         <source>Add destinations to send BITWIN24 to</source>
-        <translation>MAG를 보낼 목적지 추가</translation>
+        <translation>BWI를 보낼 목적지 추가</translation>
     </message>
     <message>
         <source>Add &amp;Destination</source>
@@ -1793,11 +1793,11 @@ Please be patient after clicking import.</source>
     </message>
     <message>
         <source>This option is the quickest and will cost about ~0.025 BITWIN24 to anonymize 10000 BITWIN24</source>
-        <translation>이 옵션은 가장 빠르게 전송되며 10000 BITWIN24 익명화에 약 ~0.025 MAG의 비용이 들어갑니다.</translation>
+        <translation>이 옵션은 가장 빠르게 전송되며 10000 BITWIN24 익명화에 약 ~0.025 BWI의 비용이 들어갑니다.</translation>
     </message>
     <message>
         <source>This option is moderately fast and will cost about 0.05 BITWIN24 to anonymize 10000 BITWIN24</source>
-        <translation>이 옵션은 중간 정도의 속도로 전송되며 10000 BITWIN24 익명화에 약 0.05 MAG의 비용이 들어갑니다.</translation>
+        <translation>이 옵션은 중간 정도의 속도로 전송되며 10000 BITWIN24 익명화에 약 0.05 BWI의 비용이 들어갑니다.</translation>
     </message>
     <message>
         <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
@@ -1813,15 +1813,15 @@ Please be patient after clicking import.</source>
     </message>
     <message>
         <source>Obfuscation was successfully set to basic (%1 and 2 rounds). You can change this at any time by opening BITWIN24's configuration screen.</source>
-        <translation>난독화가 성공적으로 높게 설정되었습니다.(%1 및 2 rounds) MAG의 설정 화면을 열어 언제든지 다시 변경할 수 있습니다.</translation>
+        <translation>난독화가 성공적으로 높게 설정되었습니다.(%1 및 2 rounds) BWI의 설정 화면을 열어 언제든지 다시 변경할 수 있습니다.</translation>
     </message>
     <message>
         <source>Obfuscation was successfully set to high (%1 and 8 rounds). You can change this at any time by opening BITWIN24's configuration screen.</source>
-        <translation>난독화가 성공적으로 높게 설정되었습니다.(%1 및 8 rounds) MAG의 설정 화면을 열어 언제든지 다시 변경할 수 있습니다.</translation>
+        <translation>난독화가 성공적으로 높게 설정되었습니다.(%1 및 8 rounds) BWI의 설정 화면을 열어 언제든지 다시 변경할 수 있습니다.</translation>
     </message>
     <message>
         <source>Obfuscation was successfully set to maximum (%1 and 16 rounds). You can change this at any time by opening BITWIN24's configuration screen.</source>
-        <translation>난독화가 성공적으로 높게 설정되었습니다.(%1 및 16 rounds) MAG의 설정 화면을 열어 언제든지 다시 변경할 수 있습니다.</translation>
+        <translation>난독화가 성공적으로 높게 설정되었습니다.(%1 및 16 rounds) BWI의 설정 화면을 열어 언제든지 다시 변경할 수 있습니다.</translation>
     </message>
 </context>
 <context>
@@ -1903,7 +1903,7 @@ Please be patient after clicking import.</source>
     </message>
     <message>
         <source>Automatically start BITWIN24 after logging in to the system.</source>
-        <translation>시스템 로그인 후 MAG을 자동으로 시작합니다.</translation>
+        <translation>시스템 로그인 후 BWI을 자동으로 시작합니다.</translation>
     </message>
     <message>
         <source>&amp;Start BITWIN24 on system login</source>
@@ -1935,7 +1935,7 @@ Please be patient after clicking import.</source>
     </message>
     <message>
         <source>The user interface language can be set here. This setting will take effect after restarting BITWIN24.</source>
-        <translation>사용자 인터페이스 언어를 설정할 수 있습니다. 이 설정은 MAG을 다시 시작한 후에 적용됩니다.</translation>
+        <translation>사용자 인터페이스 언어를 설정할 수 있습니다. 이 설정은 BWI을 다시 시작한 후에 적용됩니다.</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
@@ -1948,28 +1948,28 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>&amp;UPnp를 사용하여 포트 매핑</translation>
     </message>
     <message>
-        <source>Enable automatic minting of BITWIN24 units to zMAG</source>
-        <translation>보상받은 MAG를 zMAG로 자동변환 활성화</translation>
+        <source>Enable automatic minting of BITWIN24 units to zBWI</source>
+        <translation>보상받은 BWI를 zBWI로 자동변환 활성화</translation>
     </message>
     <message>
-        <source>Enable zMAG Automint</source>
-        <translation>zMAG 자동생성 활성화</translation>
+        <source>Enable zBWI Automint</source>
+        <translation>zBWI 자동생성 활성화</translation>
     </message>
     <message>
-        <source>Percentage of incoming BITWIN24 which get automatically converted to zMAG via Zerocoin Protocol (min: 10%)</source>
-        <translation>MAG수신시 자동변환 zMAG 비율 (최소값:10%)</translation>
+        <source>Percentage of incoming BITWIN24 which get automatically converted to zBWI via Zerocoin Protocol (min: 10%)</source>
+        <translation>BWI수신시 자동변환 zBWI 비율 (최소값:10%)</translation>
     </message>
     <message>
-        <source>Percentage of autominted zMAG</source>
-        <translation>자동 변환되는 zMAG 비율</translation>
+        <source>Percentage of autominted zBWI</source>
+        <translation>자동 변환되는 zBWI 비율</translation>
     </message>
     <message>
         <source>Wait with automatic conversion to Zerocoin until enough BITWIN24 for this denomination is available</source>
-        <translation>이 디노미네이션의 MAG가 충분해질 때까지 Zerocoin으로 자동전환은 보류됩니다.</translation>
+        <translation>이 디노미네이션의 BWI가 충분해질 때까지 Zerocoin으로 자동전환은 보류됩니다.</translation>
     </message>
     <message>
-        <source>Preferred Automint zMAG Denomination</source>
-        <translation>선호하는 자동생성 zMAG 디노미네이션 </translation>
+        <source>Preferred Automint zBWI Denomination</source>
+        <translation>선호하는 자동생성 zBWI 디노미네이션 </translation>
     </message>
     <message>
         <source>Stake split threshold:</source>
@@ -2159,14 +2159,14 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>현재 BITWIN24 잔액, 미확정, 생성중인 코인 포함</translation>
     </message>
     <message>
-        <source>zMAG Balance</source>
-        <translation>zMAG 잔액</translation>
+        <source>zBWI Balance</source>
+        <translation>zBWI 잔액</translation>
     </message>
     <message>
         <source>Mature: more than 20 confirmation and more than 1 mint of the same denomination after it was minted.
-These zMAG are spendable.</source>
+These zBWI are spendable.</source>
         <translation>성숙한 : 그것이 발행 된 후 같은 명칭의 20 개 이상의 확인 및 1 개 민트.
-이 zMAG는 쓸만합니다.</translation>
+이 zBWI는 쓸만합니다.</translation>
     </message>
     <message>
         <source>Unconfirmed: less than 20 confirmations
@@ -2219,8 +2219,8 @@ Immature: confirmed, but less than 1 mint of the same denomination after it was 
         <translation>출금 가능 액수:</translation>
     </message>
     <message>
-        <source>Locked BITWIN24 or Masternode collaterals. These are excluded from zMAG minting.</source>
-        <translation>잠금 BITWIN24 또는 Masternode collaterals. 이들은 zMAG minting에서 제외됩니다.</translation>
+        <source>Locked BITWIN24 or Masternode collaterals. These are excluded from zBWI minting.</source>
+        <translation>잠금 BITWIN24 또는 Masternode collaterals. 이들은 zBWI minting에서 제외됩니다.</translation>
     </message>
     <message>
         <source>Locked:</source>
@@ -2231,8 +2231,8 @@ Immature: confirmed, but less than 1 mint of the same denomination after it was 
         <translation>미승인:</translation>
     </message>
     <message>
-        <source>Your current zMAG balance, unconfirmed and immature zMAG included.</source>
-        <translation>zMAG 잔액, 미확정, 생성중인 zMAG 포함.</translation>
+        <source>Your current zBWI balance, unconfirmed and immature zBWI included.</source>
+        <translation>zBWI 잔액, 미확정, 생성중인 zBWI 포함.</translation>
     </message>
     <message>
         <source>Recent transactions</source>
@@ -2243,10 +2243,10 @@ Immature: confirmed, but less than 1 mint of the same denomination after it was 
         <translation>동기화되지 않음</translation>
     </message>
     <message>
-        <source>Current percentage of zMAG.
+        <source>Current percentage of zBWI.
 If AutoMint is enabled this percentage will settle around the configured AutoMint percentage (default = 10%).
 </source>
-        <translation>현재 zMAG의 백분율 .
+        <translation>현재 zBWI의 백분율 .
 자동 저장 기능이 활성화 된 경우이 비율은 구성된 자동 저장 비율 (기본값 = 10 %)을 기준으로 정해집니다.</translation>
     </message>
     <message>
@@ -2288,7 +2288,7 @@ To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in bitwin24.c
     </message>
     <message>
         <source>Cannot start bitwin24: click-to-pay handler</source>
-        <translation>MAG을 시작할 수 없습니다: 결제하기 위한 클릭 처리</translation>
+        <translation>BWI을 시작할 수 없습니다: 결제하기 위한 클릭 처리</translation>
     </message>
     <message>
         <source>URI cannot be parsed! This can be caused by an invalid BITWIN24 address or malformed URI parameters.</source>
@@ -2389,8 +2389,8 @@ To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in bitwin24.c
         <translation>0</translation>
     </message>
     <message>
-        <source>zMAG</source>
-        <translation>zMAG</translation>
+        <source>zBWI</source>
+        <translation>zBWI</translation>
     </message>
     <message>
         <source>Available for minting are coins which are confirmed and not locked or Masternode collaterals.</source>
@@ -2441,16 +2441,16 @@ To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in bitwin24.c
         <translation>프라이버시</translation>
     </message>
     <message>
-        <source>Enter an amount of BWI to convert to zMAG</source>
-        <translation>zMAG로 변환할 BITWIN24 수량을 입력하세요.</translation>
+        <source>Enter an amount of BWI to convert to zBWI</source>
+        <translation>zBWI로 변환할 BITWIN24 수량을 입력하세요.</translation>
     </message>
     <message>
-        <source>zMAG Control</source>
-        <translation>zMAG 컨트롤</translation>
+        <source>zBWI Control</source>
+        <translation>zBWI 컨트롤</translation>
     </message>
     <message>
-        <source>zMAG Selected:</source>
-        <translation>선택된 zMAG :</translation>
+        <source>zBWI Selected:</source>
+        <translation>선택된 zBWI :</translation>
     </message>
     <message>
         <source>Quantity Selected:</source>
@@ -2465,24 +2465,24 @@ To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in bitwin24.c
         <translation>제로코인 보내기</translation>
     </message>
     <message>
-        <source>Available (mature and spendable) zMAG for spending</source>
-        <translation>전송 가능한 zMAG</translation>
+        <source>Available (mature and spendable) zBWI for spending</source>
+        <translation>전송 가능한 zBWI</translation>
     </message>
     <message>
         <source>Available Balance:</source>
         <translation>가능한 잔액:</translation>
     </message>
     <message>
-        <source>Available (mature and spendable) zMAG for spending
+        <source>Available (mature and spendable) zBWI for spending
 
-zMAG are mature when they have more than 20 confirmations AND more than 2 mints of the same denomination after them were minted</source>
-        <translation>지출에 사용할 수있는 성숙한 소비재 zMAG
+zBWI are mature when they have more than 20 confirmations AND more than 2 mints of the same denomination after them were minted</source>
+        <translation>지출에 사용할 수있는 성숙한 소비재 zBWI
 
-zMAG는 성명서가 20 개 이상 있고 명칭이 동일하지 않은 2 개 이상의 민트가 작성되었을 때 성숙합니다.</translation>
+zBWI는 성명서가 20 개 이상 있고 명칭이 동일하지 않은 2 개 이상의 민트가 작성되었을 때 성숙합니다.</translation>
     </message>
     <message>
-        <source>0 zMAG</source>
-        <translation>0 zMAG</translation>
+        <source>0 zBWI</source>
+        <translation>0 zBWI</translation>
     </message>
     <message>
         <source>Security Level for Zerocoin Transactions. More is better, but needs more time and resources.</source>
@@ -2502,7 +2502,7 @@ zMAG는 성명서가 20 개 이상 있고 명칭이 동일하지 않은 2 개 �
     </message>
     <message>
         <source>The BITWIN24 address to send the payment to. Creates local payment to yourself when empty.</source>
-        <translation>MAG를 전송할 BITWIN24 주소입니다. 비어있을 때 자신에게 지불할 주소를 생성합니다.</translation>
+        <translation>BWI를 전송할 BITWIN24 주소입니다. 비어있을 때 자신에게 지불할 주소를 생성합니다.</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2553,7 +2553,7 @@ zMAG는 성명서가 20 개 이상 있고 명칭이 동일하지 않은 2 개 �
         <translation>제로코인 상태 :</translation>
     </message>
     <message>
-        <source>Total Balance including unconfirmed and immature zMAG</source>
+        <source>Total Balance including unconfirmed and immature zBWI</source>
         <translation>승인중이거나, 생성중인 제로코인도 포함된 전체 잔액입니다.</translation>
     </message>
     <message>
@@ -2575,24 +2575,24 @@ Immature: confirmed, but less than 1 mint of the same denomination after it was 
 미성숙 : 확인되었지만 발행 된 후 같은 종파 1 개 미만</translation>
     </message>
     <message>
-        <source>Show the current status of automatic zMAG minting.
+        <source>Show the current status of automatic zBWI minting.
 
 To change the status (restart required):
 - enable: add 'enablezeromint=1' to bitwin24.conf
 - disable: add 'enablezeromint=0' to bitwin24.conf
 
 To change the percentage (no restart required):
-- menu Settings-&gt;Options-&gt;Percentage of autominted zMAG
+- menu Settings-&gt;Options-&gt;Percentage of autominted zBWI
 
 </source>
-        <translation>현재 zMAG 자동 생성 상태를 보여줍니다.
+        <translation>현재 zBWI 자동 생성 상태를 보여줍니다.
 
 자동생성 상태를 변경하시려면 (지갑 재시작 필요함):
 - 활성화: 'enablezeromint=1' 를 bitwin24.conf 파일에 추가
 - 비활성화: 'enablezeromint=0' 를 bitwin24.conf 파일에 추가
 
 자동 생성 비율 변경하시려면 (지갑 재시작 필요없음):
-- 메뉴 설정-&gt;옵션-&gt;zMAG 자동생성 비율
+- 메뉴 설정-&gt;옵션-&gt;zBWI 자동생성 비율
 
 </translation>
     </message>
@@ -2789,12 +2789,12 @@ Maximum allowed: </source>
 가능한 최대값 :</translation>
     </message>
     <message>
-        <source>zMAG Spend #: </source>
-        <translation>zMAG 전송 # :</translation>
+        <source>zBWI Spend #: </source>
+        <translation>zBWI 전송 # :</translation>
     </message>
     <message>
-        <source>zMAG Mint</source>
-        <translation>zMAG 생성</translation>
+        <source>zBWI Mint</source>
+        <translation>zBWI 생성</translation>
     </message>
     <message>
         <source> &lt;b&gt;enabled&lt;/b&gt;.</source>
@@ -2809,12 +2809,12 @@ Maximum allowed: </source>
         <translation> 구성된 목표 비율 : &lt;b&gt;</translation>
     </message>
     <message>
-        <source>zMAG is currently disabled due to maintenance.</source>
-        <translation>zMAG는 현재 점검중이라 사용하실수 없습니다.</translation>
+        <source>zBWI is currently disabled due to maintenance.</source>
+        <translation>zBWI는 현재 점검중이라 사용하실수 없습니다.</translation>
     </message>
     <message>
-        <source>zMAG is currently undergoing maintenance.</source>
-        <translation>zMAG는 현재 점검중입니다.</translation>
+        <source>zBWI is currently undergoing maintenance.</source>
+        <translation>zBWI는 현재 점검중입니다.</translation>
     </message>
     <message>
         <source>Denom. with value &lt;b&gt;1&lt;/b&gt;:</source>
@@ -2901,8 +2901,8 @@ Maximum allowed: </source>
         <translation>성공적으로 발행됨</translation>
     </message>
     <message>
-        <source> zMAG in </source>
-        <translation> zMAG in </translation>
+        <source> zBWI in </source>
+        <translation> zBWI in </translation>
     </message>
     <message>
         <source> sec. Used denominations:
@@ -2961,12 +2961,12 @@ Maximum allowed: </source>
         <translation>코인 전송 확인</translation>
     </message>
     <message>
-        <source>Version 1 zMAG require a security level of 100 to successfully spend.</source>
-        <translation>zMAG 버전 1은 성공적으로 보내기 위해서 100 시큐리티 레벨이 필요합니다.</translation>
+        <source>Version 1 zBWI require a security level of 100 to successfully spend.</source>
+        <translation>zBWI 버전 1은 성공적으로 보내기 위해서 100 시큐리티 레벨이 필요합니다.</translation>
     </message>
     <message>
-        <source>Failed to spend zMAG</source>
-        <translation>zMAG 전송 실패</translation>
+        <source>Failed to spend zBWI</source>
+        <translation>zBWI 전송 실패</translation>
     </message>
     <message>
         <source>Failed to fetch mint associated with serial hash</source>
@@ -2987,7 +2987,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message numerus="yes">
         <source>PrivacyDialog</source>
-        <comment>Enter an amount of BITWIN24 to convert to zMAG</comment>
+        <comment>Enter an amount of BITWIN24 to convert to zBWI</comment>
         <translation><numerusform>PrivacyDialog</numerusform></translation>
     </message>
     <message>
@@ -3304,8 +3304,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>맞춤 백업 경로 :</translation>
     </message>
     <message>
-        <source>Custom zMAG Backup Path:</source>
-        <translation>맞춤 zMAG 백업 경로 :</translation>
+        <source>Custom zBWI Backup Path:</source>
+        <translation>맞춤 zBWI 백업 경로 :</translation>
     </message>
     <message>
         <source>Custom Backups Threshold:</source>
@@ -3805,12 +3805,12 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>자동으로 선택됩니다.</translation>
     </message>
     <message>
-        <source>If the custom fee is set to 1000 uMAGs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uMAGs in fee,&lt;br /&gt;while "at least" pays 1000 uMAGs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
-        <translation>트랜잭션이 250바이트 인 경우 사용자 지정 수수료가 1000 uMAGs로 설정되고,&lt;br /&gt;1000 uMAGs 안에는 최소 "킬로바이트당" 250 uMAGs 만 지불합니다. 1 킬로바이트보다 큰 트랜잭션의 경우 모두 킬로바이트 단위로 지불합니다.</translation>
+        <source>If the custom fee is set to 1000 uBWIs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uBWIs in fee,&lt;br /&gt;while "at least" pays 1000 uBWIs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
+        <translation>트랜잭션이 250바이트 인 경우 사용자 지정 수수료가 1000 uBWIs로 설정되고,&lt;br /&gt;1000 uBWIs 안에는 최소 "킬로바이트당" 250 uBWIs 만 지불합니다. 1 킬로바이트보다 큰 트랜잭션의 경우 모두 킬로바이트 단위로 지불합니다.</translation>
     </message>
     <message>
-        <source>If the custom fee is set to 1000 uMAGs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uMAGs in fee,&lt;br /&gt;while "total at least" pays 1000 uMAGs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
-        <translation>트랜잭션이 250바이트 인 경우 사용자 지정 수수료가 1000 uMAGs로 설정되고,&lt;br /&gt;1000 uMAGs 안에는 전체에서 최소 "킬로바이트당" 250 uMAGs 만 지불합니다. 1 킬로바이트보다 큰 트랜잭션의 경우 모두 킬로바이트 단위로 지불합니다.</translation>
+        <source>If the custom fee is set to 1000 uBWIs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uBWIs in fee,&lt;br /&gt;while "total at least" pays 1000 uBWIs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
+        <translation>트랜잭션이 250바이트 인 경우 사용자 지정 수수료가 1000 uBWIs로 설정되고,&lt;br /&gt;1000 uBWIs 안에는 전체에서 최소 "킬로바이트당" 250 uBWIs 만 지불합니다. 1 킬로바이트보다 큰 트랜잭션의 경우 모두 킬로바이트 단위로 지불합니다.</translation>
     </message>
     <message>
         <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for BITWIN24 transactions than the network can process.</source>
@@ -4530,8 +4530,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>BITWIN24 stake</translation>
     </message>
     <message>
-        <source>zMAG Stake</source>
-        <translation>zMAG stake</translation>
+        <source>zBWI Stake</source>
+        <translation>zBWI stake</translation>
     </message>
     <message>
         <source>Obfuscation Denominate</source>
@@ -4550,32 +4550,32 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>난독화 표시 만들기</translation>
     </message>
     <message>
-        <source>Converted BITWIN24 to zMAG</source>
-        <translation>MAG를 zMAG로 변환</translation>
+        <source>Converted BITWIN24 to zBWI</source>
+        <translation>BWI를 zBWI로 변환</translation>
     </message>
     <message>
-        <source>Spent zMAG</source>
-        <translation>zMAG 사용</translation>
+        <source>Spent zBWI</source>
+        <translation>zBWI 사용</translation>
     </message>
     <message>
-        <source>Received BITWIN24 from zMAG</source>
-        <translation>zMAG를 MAG로 받음</translation>
+        <source>Received BITWIN24 from zBWI</source>
+        <translation>zBWI를 BWI로 받음</translation>
     </message>
     <message>
-        <source>Minted Change as zMAG from zMAG Spend</source>
-        <translation>zMAG 전송후 남은 zMAG로 잔돈 생성</translation>
+        <source>Minted Change as zBWI from zBWI Spend</source>
+        <translation>zBWI 전송후 남은 zBWI로 잔돈 생성</translation>
     </message>
     <message>
-        <source>Converted zMAG to BITWIN24</source>
-        <translation>zMAG를 MAG로 변환</translation>
+        <source>Converted zBWI to BITWIN24</source>
+        <translation>zBWI를 BWI로 변환</translation>
     </message>
     <message>
-        <source>Anonymous (zMAG Transaction)</source>
-        <translation>Anonymous (zMAG 거래)</translation>
+        <source>Anonymous (zBWI Transaction)</source>
+        <translation>Anonymous (zBWI 거래)</translation>
     </message>
     <message>
-        <source>Anonymous (zMAG Stake)</source>
-        <translation>Anonymous (zMAG 스테이킹)</translation>
+        <source>Anonymous (zBWI Stake)</source>
+        <translation>Anonymous (zBWI 스테이킹)</translation>
     </message>
     <message>
         <source>Sent to</source>
@@ -4785,12 +4785,12 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>내보내기 성공</translation>
     </message>
     <message>
-        <source>Received BITWIN24 from zMAG</source>
-        <translation>zMAG를 MAG로 받음</translation>
+        <source>Received BITWIN24 from zBWI</source>
+        <translation>zBWI를 BWI로 받음</translation>
     </message>
     <message>
-        <source>Zerocoin Spend, Change in zMAG</source>
-        <translation>제로코인 전송, 잔돈은 zMAG</translation>
+        <source>Zerocoin Spend, Change in zBWI</source>
+        <translation>제로코인 전송, 잔돈은 zBWI</translation>
     </message>
     <message>
         <source>The transaction history was successfully saved to %1.</source>
@@ -4827,7 +4827,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <source>SwiftX doesn't support sending values that high yet. Transactions are currently limited to %1 BITWIN24.</source>
-        <translation>SwiftTX는 아직 높은 값을 전송하는 것을 지원하지 않습니다. 트랜잭션은 현재 %1 MAG로 제한됩니다.</translation>
+        <translation>SwiftTX는 아직 높은 값을 전송하는 것을 지원하지 않습니다. 트랜잭션은 현재 %1 BWI로 제한됩니다.</translation>
     </message>
 </context>
 <context>
@@ -4860,8 +4860,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
 <context>
     <name>ZBWIControlDialog</name>
     <message>
-        <source>Select zMAG to Spend</source>
-        <translation>사용할 zMAG 선택</translation>
+        <source>Select zBWI to Spend</source>
+        <translation>사용할 zBWI 선택</translation>
     </message>
     <message>
         <source>Quantity</source>
@@ -4872,8 +4872,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>0</translation>
     </message>
     <message>
-        <source>zMAG</source>
-        <translation>zMAG</translation>
+        <source>zBWI</source>
+        <translation>zBWI</translation>
     </message>
     <message>
         <source>Select/Deselect All</source>
@@ -4939,16 +4939,16 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>MIT 소프트웨어 라이센스에 따라 배포, 첨부 파일 COPYING 또는 &lt;http://www.opensource.org/licenses/mit-license.php&gt; 를 참조하십시오.</translation>
     </message>
     <message>
-        <source>Enable automatic wallet backups triggered after each zMAG minting (0-1, default: %u)</source>
-        <translation>Enable automatic wallet backups triggered after each zMAG minting (0-1, default: %u)</translation>
+        <source>Enable automatic wallet backups triggered after each zBWI minting (0-1, default: %u)</source>
+        <translation>Enable automatic wallet backups triggered after each zBWI minting (0-1, default: %u)</translation>
     </message>
     <message>
         <source>Enable or disable staking functionality for BITWIN24 inputs (0-1, default: %u)</source>
         <translation>Enable or disable staking functionality for BITWIN24 inputs (0-1, default: %u)</translation>
     </message>
     <message>
-        <source>Enable or disable staking functionality for zMAG inputs (0-1, default: %u)</source>
-        <translation>Enable or disable staking functionality for zMAG inputs (0-1, default: %u)</translation>
+        <source>Enable or disable staking functionality for zBWI inputs (0-1, default: %u)</source>
+        <translation>Enable or disable staking functionality for zBWI inputs (0-1, default: %u)</translation>
     </message>
     <message>
         <source>Enable spork administration functionality with the appropriate private key.</source>
@@ -5096,11 +5096,11 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <source>Unable to locate enough Obfuscation non-denominated funds for this transaction that are not equal 10000 BITWIN24.</source>
-        <translation>이 트랜잭션를 위해 난독화 표기가 안된 충분한 금액을 찾을 수 없습니다. 10000 MAG과 일치하지 않음.</translation>
+        <translation>이 트랜잭션를 위해 난독화 표기가 안된 충분한 금액을 찾을 수 없습니다. 10000 BWI과 일치하지 않음.</translation>
     </message>
     <message>
         <source>Unable to locate enough funds for this transaction that are not equal 10000 BITWIN24.</source>
-        <translation>트랜잭션에 대한 충분한 금액을 찾을 수 없습니다. 10000 MAG와 같지 않음</translation>
+        <translation>트랜잭션에 대한 충분한 금액을 찾을 수 없습니다. 10000 BWI와 같지 않음</translation>
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: %s)</source>
@@ -5540,11 +5540,11 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <source>Percentage of automatically minted Zerocoin  (1-100, default: %u)</source>
-        <translation>자동생성 zMAG 비율  (1-100, default: %u)</translation>
+        <translation>자동생성 zBWI 비율  (1-100, default: %u)</translation>
     </message>
     <message>
-        <source>Reindex the BITWIN24 and zMAG money supply statistics</source>
-        <translation>BITWIN24 및 zMAG 공급량 다시 색인</translation>
+        <source>Reindex the BITWIN24 and zBWI money supply statistics</source>
+        <translation>BITWIN24 및 zBWI 공급량 다시 색인</translation>
     </message>
     <message>
         <source>Reindexing zerocoin database...</source>
@@ -5584,7 +5584,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <source>Disable all BITWIN24 specific functionality (Masternodes, Zerocoin, SwiftX, Budgeting) (0-1, default: %u)</source>
-        <translation>MAG의 모든 특정 기능들을 비활성화합니다(마스터노드, 난독화, SwiftTX, Budgeting) (0-1, 기본값: %u)</translation>
+        <translation>BWI의 모든 특정 기능들을 비활성화합니다(마스터노드, 난독화, SwiftTX, Budgeting) (0-1, 기본값: %u)</translation>
     </message>
     <message>
         <source>Enable SwiftX, show confirmations for locked transactions (bool, default: %s)</source>
@@ -5619,8 +5619,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>자동생성 제로코인 선호 디노미네이션 (1/5/10/50/100/500/1000/5000) 0사용안됨, 기본값 : %u)</translation>
     </message>
     <message>
-        <source>Specify custom backup path to add a copy of any automatic zMAG backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup. If backuppath is set as well, 4 backups will happen</source>
-        <translation>Specify custom backup path to add a copy of any automatic zMAG backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup. If backuppath is set as well, 4 backups will happen</translation>
+        <source>Specify custom backup path to add a copy of any automatic zBWI backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup. If backuppath is set as well, 4 backups will happen</source>
+        <translation>Specify custom backup path to add a copy of any automatic zBWI backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup. If backuppath is set as well, 4 backups will happen</translation>
     </message>
     <message>
         <source>Specify custom backup path to add a copy of any wallet backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup.</source>
@@ -6119,8 +6119,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>sporks와 동기화 중입니다...</translation>
     </message>
     <message>
-        <source>Syncing zMAG wallet...</source>
-        <translation>zMAG 지갑 동기화중...</translation>
+        <source>Syncing zBWI wallet...</source>
+        <translation>zBWI 지갑 동기화중...</translation>
     </message>
     <message>
         <source>The coin spend has been used</source>
@@ -6267,8 +6267,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>JSON-RPC 연결 사용자 이름</translation>
     </message>
     <message>
-        <source>Value is below the smallest available denomination (= 1) of zMAG</source>
-        <translation>Value is below the smallest available denomination (= 1) of zMAG</translation>
+        <source>Value is below the smallest available denomination (= 1) of zBWI</source>
+        <translation>Value is below the smallest available denomination (= 1) of zBWI</translation>
     </message>
     <message>
         <source>Value more than Obfuscation pool maximum allows.</source>
@@ -6283,8 +6283,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>지갑 인증 중...</translation>
     </message>
     <message>
-        <source>Version 1 zMAG require a security level of 100 to successfully spend.</source>
-        <translation>zMAG 버전 1은 성공적으로 보내기 위해서 100 시큐리티 레벨이 필요합니다.</translation>
+        <source>Version 1 zBWI require a security level of 100 to successfully spend.</source>
+        <translation>zBWI 버전 1은 성공적으로 보내기 위해서 100 시큐리티 레벨이 필요합니다.</translation>
     </message>
     <message>
         <source>Wallet %s resides outside data directory %s</source>
@@ -6328,7 +6328,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message>
         <source>You don't have enough Zerocoins in your wallet</source>
-        <translation>지갑에 zMAG 가 부족합니다.</translation>
+        <translation>지갑에 zBWI 가 부족합니다.</translation>
     </message>
     <message>
         <source>You need to rebuild the database using -reindex to change -txindex</source>

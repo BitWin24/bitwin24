@@ -55,9 +55,9 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet* 
             return parts;
 
         if (wtx.IsZerocoinSpend() && (fZSpendFromMe || wallet->zbwiTracker->HasMintTx(hash))) {
-            //zMAG stake reward
+            //zBWI stake reward
             sub.involvesWatchAddress = false;
-            sub.type = TransactionRecord::StakeZMAG;
+            sub.type = TransactionRecord::StakeZBWI;
             sub.address = mapValue["zerocoinmint"];
             sub.credit = 0;
             for (const CTxOut& out : wtx.vout) {
@@ -308,10 +308,10 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet* 
     return parts;
 }
 
-bool IsZMAGType(TransactionRecord::Type type)
+bool IsZBWIType(TransactionRecord::Type type)
 {
     switch (type) {
-        case TransactionRecord::StakeZMAG:
+        case TransactionRecord::StakeZBWI:
         case TransactionRecord::ZerocoinMint:
         case TransactionRecord::ZerocoinSpend:
         case TransactionRecord::RecvFromZerocoinSpend:
@@ -360,7 +360,7 @@ void TransactionRecord::updateStatus(const CWalletTx& wtx)
         }
     }
     // For generated transactions, determine maturity
-    else if (type == TransactionRecord::Generated || type == TransactionRecord::StakeMint || type == TransactionRecord::StakeZMAG || type == TransactionRecord::MNReward) {
+    else if (type == TransactionRecord::Generated || type == TransactionRecord::StakeMint || type == TransactionRecord::StakeZBWI || type == TransactionRecord::MNReward) {
         if (nBlocksToMaturity > 0) {
             status.status = TransactionStatus::Immature;
             status.matures_in = nBlocksToMaturity;

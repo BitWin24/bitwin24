@@ -176,8 +176,8 @@
         <translation>Bekräfta plånboks krypering</translation>
     </message>
     <message>
-        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your MAGs from being stolen by malware infecting your computer.</source>
-        <translation>BITWIN24 kommer att stängas ner nu för att färdigställa kryperingsprocessen. Kom ihåg att kryptering av din plånbok inte kan säkerställa dina MAGs från att bli stulna av skadeprogram som infekterat din dator.</translation>
+        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your BWIs from being stolen by malware infecting your computer.</source>
+        <translation>BITWIN24 kommer att stängas ner nu för att färdigställa kryperingsprocessen. Kom ihåg att kryptering av din plånbok inte kan säkerställa dina BWIs från att bli stulna av skadeprogram som infekterat din dator.</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -433,8 +433,8 @@
         <translation>Bläddra i transaktions historiken</translation>
     </message>
     <message>
-        <source>Privacy Actions for zMAG</source>
-        <translation>Integritets funktioner för zMAG</translation>
+        <source>Privacy Actions for zBWI</source>
+        <translation>Integritets funktioner för zBWI</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
@@ -1935,28 +1935,28 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Kartlägg port med &amp;UPnP</translation>
     </message>
     <message>
-        <source>Enable automatic minting of BITWIN24 units to zMAG</source>
-        <translation>Tillåt automatisk prägling med BITWIN24 enheter till zMAG</translation>
+        <source>Enable automatic minting of BITWIN24 units to zBWI</source>
+        <translation>Tillåt automatisk prägling med BITWIN24 enheter till zBWI</translation>
     </message>
     <message>
-        <source>Enable zMAG Automint</source>
-        <translation>Tillåt zMAG Autoprägling</translation>
+        <source>Enable zBWI Automint</source>
+        <translation>Tillåt zBWI Autoprägling</translation>
     </message>
     <message>
-        <source>Percentage of incoming BITWIN24 which get automatically converted to zMAG via Zerocoin Protocol (min: 10%)</source>
-        <translation>Procent av inkommande BITWIN24 som automatiskt konverteras till zMAG via Zerocoin Protokollet (min: 10%)</translation>
+        <source>Percentage of incoming BITWIN24 which get automatically converted to zBWI via Zerocoin Protocol (min: 10%)</source>
+        <translation>Procent av inkommande BITWIN24 som automatiskt konverteras till zBWI via Zerocoin Protokollet (min: 10%)</translation>
     </message>
     <message>
-        <source>Percentage of autominted zMAG</source>
-        <translation>Procent av autopräglade zMAG</translation>
+        <source>Percentage of autominted zBWI</source>
+        <translation>Procent av autopräglade zBWI</translation>
     </message>
     <message>
         <source>Wait with automatic conversion to Zerocoin until enough BITWIN24 for this denomination is available</source>
         <translation>Vänta med automatisk omvandling till Zerocoin tills tillräckligt många BITWIN24 för denna valör är tillgängliga</translation>
     </message>
     <message>
-        <source>Preferred Automint zMAG Denomination</source>
-        <translation>Preferens på zMAG valör i autoprägling</translation>
+        <source>Preferred Automint zBWI Denomination</source>
+        <translation>Preferens på zBWI valör i autoprägling</translation>
     </message>
     <message>
         <source>Stake split threshold:</source>
@@ -2134,14 +2134,14 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Ditt nuvarande BITWIN24 saldo, obekräftade och omogna transaktioner är inkluderade</translation>
     </message>
     <message>
-        <source>zMAG Balance</source>
-        <translation>zMAG Saldo</translation>
+        <source>zBWI Balance</source>
+        <translation>zBWI Saldo</translation>
     </message>
     <message>
         <source>Mature: more than 20 confirmation and more than 1 mint of the same denomination after it was minted.
-These zMAG are spendable.</source>
+These zBWI are spendable.</source>
         <translation>Mogna: över 20 bekräftelser och över 1 prägling av samma valör efter den blev myntad.
-Dessa zMAG kan spenderas.</translation>
+Dessa zBWI kan spenderas.</translation>
     </message>
     <message>
         <source>Unconfirmed: less than 20 confirmations
@@ -2194,8 +2194,8 @@ Omogna: bekräftade men under 1 myntning av samma valör efter den blev präglad
         <translation>Spenderbar:</translation>
     </message>
     <message>
-        <source>Locked BITWIN24 or Masternode collaterals. These are excluded from zMAG minting.</source>
-        <translation>Låsta BITWIN24 eller masternode som säkerhet. Dessa är uteslutna från zMAG minting.</translation>
+        <source>Locked BITWIN24 or Masternode collaterals. These are excluded from zBWI minting.</source>
+        <translation>Låsta BITWIN24 eller masternode som säkerhet. Dessa är uteslutna från zBWI minting.</translation>
     </message>
     <message>
         <source>Locked:</source>
@@ -2206,8 +2206,8 @@ Omogna: bekräftade men under 1 myntning av samma valör efter den blev präglad
         <translation>Obekräftade:</translation>
     </message>
     <message>
-        <source>Your current zMAG balance, unconfirmed and immature zMAG included.</source>
-        <translation>Ditt nuvarande zMAG saldo, obekräftade och omogna zMAG inräknade.</translation>
+        <source>Your current zBWI balance, unconfirmed and immature zBWI included.</source>
+        <translation>Ditt nuvarande zBWI saldo, obekräftade och omogna zBWI inräknade.</translation>
     </message>
     <message>
         <source>Recent transactions</source>
@@ -2218,10 +2218,10 @@ Omogna: bekräftade men under 1 myntning av samma valör efter den blev präglad
         <translation>osynkroniserad</translation>
     </message>
     <message>
-        <source>Current percentage of zMAG.
+        <source>Current percentage of zBWI.
 If AutoMint is enabled this percentage will settle around the configured AutoMint percentage (default = 10%).
 </source>
-        <translation>Nuvarande procent zMAG.
+        <translation>Nuvarande procent zBWI.
 Om AutoMint är tillåten så kommer denna procent att vara som den konfigurerade AutoMint procenten (standard = 10%).
 </translation>
     </message>
@@ -2365,8 +2365,8 @@ För att aktivera AutoMint ändra 'enablezeromint=0' till 'enablezeromint=1' i b
         <translation>0</translation>
     </message>
     <message>
-        <source>zMAG</source>
-        <translation>zMAG</translation>
+        <source>zBWI</source>
+        <translation>zBWI</translation>
     </message>
     <message>
         <source>Available for minting are coins which are confirmed and not locked or Masternode collaterals.</source>
@@ -2417,16 +2417,16 @@ För att aktivera AutoMint ändra 'enablezeromint=0' till 'enablezeromint=1' i b
         <translation>SEKRETESS</translation>
     </message>
     <message>
-        <source>Enter an amount of BWI to convert to zMAG</source>
-        <translation>Mata in en mängd BITWIN24 att konvertera till zMAG</translation>
+        <source>Enter an amount of BWI to convert to zBWI</source>
+        <translation>Mata in en mängd BITWIN24 att konvertera till zBWI</translation>
     </message>
     <message>
-        <source>zMAG Control</source>
-        <translation>zMAG Kontroll</translation>
+        <source>zBWI Control</source>
+        <translation>zBWI Kontroll</translation>
     </message>
     <message>
-        <source>zMAG Selected:</source>
-        <translation>Valda zMAG:</translation>
+        <source>zBWI Selected:</source>
+        <translation>Valda zBWI:</translation>
     </message>
     <message>
         <source>Quantity Selected:</source>
@@ -2441,24 +2441,24 @@ För att aktivera AutoMint ändra 'enablezeromint=0' till 'enablezeromint=1' i b
         <translation>Spendera Zerocoin</translation>
     </message>
     <message>
-        <source>Available (mature and spendable) zMAG for spending</source>
-        <translation>Tillgängliga (mogna och spenderbara) zMAG att spendera</translation>
+        <source>Available (mature and spendable) zBWI for spending</source>
+        <translation>Tillgängliga (mogna och spenderbara) zBWI att spendera</translation>
     </message>
     <message>
         <source>Available Balance:</source>
         <translation>Tillgängligt Saldo:</translation>
     </message>
     <message>
-        <source>Available (mature and spendable) zMAG for spending
+        <source>Available (mature and spendable) zBWI for spending
 
-zMAG are mature when they have more than 20 confirmations AND more than 2 mints of the same denomination after them were minted</source>
-        <translation>Tillgängliga (mogna och spenderbara) zMAG att spendera
+zBWI are mature when they have more than 20 confirmations AND more than 2 mints of the same denomination after them were minted</source>
+        <translation>Tillgängliga (mogna och spenderbara) zBWI att spendera
 
-zMAG är mogna när de har över 20 bekräftelser OCH över 2 präglingar av samma valör efter de är myntade.</translation>
+zBWI är mogna när de har över 20 bekräftelser OCH över 2 präglingar av samma valör efter de är myntade.</translation>
     </message>
     <message>
-        <source>0 zMAG</source>
-        <translation>0 zMAG</translation>
+        <source>0 zBWI</source>
+        <translation>0 zBWI</translation>
     </message>
     <message>
         <source>Security Level for Zerocoin Transactions. More is better, but needs more time and resources.</source>
@@ -2529,8 +2529,8 @@ zMAG är mogna när de har över 20 bekräftelser OCH över 2 präglingar av sam
         <translation>Zerocoin Stats:</translation>
     </message>
     <message>
-        <source>Total Balance including unconfirmed and immature zMAG</source>
-        <translation>Totalt Saldo, obekräftade och omogna zMAG inkluderade</translation>
+        <source>Total Balance including unconfirmed and immature zBWI</source>
+        <translation>Totalt Saldo, obekräftade och omogna zBWI inkluderade</translation>
     </message>
     <message>
         <source>Total Zerocoin  Balance:</source>
@@ -2551,24 +2551,24 @@ Immature: confirmed, but less than 1 mint of the same denomination after it was 
 Omogna: bekräftade men under 1 mint av samma valör efter den blev mintad</translation>
     </message>
     <message>
-        <source>Show the current status of automatic zMAG minting.
+        <source>Show the current status of automatic zBWI minting.
 
 To change the status (restart required):
 - enable: add 'enablezeromint=1' to bitwin24.conf
 - disable: add 'enablezeromint=0' to bitwin24.conf
 
 To change the percentage (no restart required):
-- menu Settings-&gt;Options-&gt;Percentage of autominted zMAG
+- menu Settings-&gt;Options-&gt;Percentage of autominted zBWI
 
 </source>
-        <translation>Visa den nuvarande statusen av automatisk zMAG minting.
+        <translation>Visa den nuvarande statusen av automatisk zBWI minting.
 
 För att ändra statusen (omstart krävs):
 -aktivera: lägg till 'enablezeromint=1' i bitwin24.conf
 -inaktivera: lägg till 'enablezeromint=0' i bitwin24.conf
 
 För att ändra procenten (ingen omstart krävs):
--meny Inställningar-&gt;Alternativ-&gt;Procent på autominted zMAG
+-meny Inställningar-&gt;Alternativ-&gt;Procent på autominted zBWI
 
 </translation>
     </message>
@@ -2765,12 +2765,12 @@ Maximum allowed: </source>
 Högsta tillåtna:</translation>
     </message>
     <message>
-        <source>zMAG Spend #: </source>
-        <translation>zMAG spendering #:</translation>
+        <source>zBWI Spend #: </source>
+        <translation>zBWI spendering #:</translation>
     </message>
     <message>
-        <source>zMAG Mint</source>
-        <translation>zMAG Prägling</translation>
+        <source>zBWI Mint</source>
+        <translation>zBWI Prägling</translation>
     </message>
     <message>
         <source> &lt;b&gt;enabled&lt;/b&gt;.</source>
@@ -2785,12 +2785,12 @@ Högsta tillåtna:</translation>
         <translation>Konfigurerat procent mål: &lt;b&gt;</translation>
     </message>
     <message>
-        <source>zMAG is currently disabled due to maintenance.</source>
-        <translation>zMAG är för nuvarande inaktiverat p.g.a. underhåll.</translation>
+        <source>zBWI is currently disabled due to maintenance.</source>
+        <translation>zBWI är för nuvarande inaktiverat p.g.a. underhåll.</translation>
     </message>
     <message>
-        <source>zMAG is currently undergoing maintenance.</source>
-        <translation>zMAG genomgår för tillfället underhåll.</translation>
+        <source>zBWI is currently undergoing maintenance.</source>
+        <translation>zBWI genomgår för tillfället underhåll.</translation>
     </message>
     <message>
         <source>Denom. with value &lt;b&gt;1&lt;/b&gt;:</source>
@@ -2877,8 +2877,8 @@ Högsta tillåtna:</translation>
         <translation>Framgångsrikt Myntade</translation>
     </message>
     <message>
-        <source> zMAG in </source>
-        <translation>zMAG i</translation>
+        <source> zBWI in </source>
+        <translation>zBWI i</translation>
     </message>
     <message>
         <source> sec. Used denominations:
@@ -2937,12 +2937,12 @@ Högsta tillåtna:</translation>
         <translation>Bekräfta att skicka mynt</translation>
     </message>
     <message>
-        <source>Version 1 zMAG require a security level of 100 to successfully spend.</source>
-        <translation>Version 1 zMAG kräver en säkerhetsnivå på 100 för att kunna spenderas med framgång.</translation>
+        <source>Version 1 zBWI require a security level of 100 to successfully spend.</source>
+        <translation>Version 1 zBWI kräver en säkerhetsnivå på 100 för att kunna spenderas med framgång.</translation>
     </message>
     <message>
-        <source>Failed to spend zMAG</source>
-        <translation>Misslyckades med att spendera zMAG</translation>
+        <source>Failed to spend zBWI</source>
+        <translation>Misslyckades med att spendera zBWI</translation>
     </message>
     <message>
         <source>Failed to fetch mint associated with serial hash</source>
@@ -2964,7 +2964,7 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
     </message>
     <message numerus="yes">
         <source>PrivacyDialog</source>
-        <comment>Enter an amount of BITWIN24 to convert to zMAG</comment>
+        <comment>Enter an amount of BITWIN24 to convert to zBWI</comment>
         <translation><numerusform>SekretessRuta</numerusform><numerusform>SekretessDialog</numerusform></translation>
     </message>
     <message>
@@ -3261,8 +3261,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Vanlig Backup Sökväg:</translation>
     </message>
     <message>
-        <source>Custom zMAG Backup Path:</source>
-        <translation>Vanlig zMAG Backup Sökväg:</translation>
+        <source>Custom zBWI Backup Path:</source>
+        <translation>Vanlig zBWI Backup Sökväg:</translation>
     </message>
     <message>
         <source>Custom Backups Threshold:</source>
@@ -3729,12 +3729,12 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Mynt automatiskt valda</translation>
     </message>
     <message>
-        <source>If the custom fee is set to 1000 uMAGs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uMAGs in fee,&lt;br /&gt;while "at least" pays 1000 uMAGs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
-        <translation>Om 1000 uMAGs är den valda skräddarsydda avgiften och transaktionen är bara 250 bytes så kommer "per kilobyte" bara betala 250 uMAGs i avgift,&lt;br /&gt;medans "minst" betalar 1000 uMAGs. För transaktioner större än en kilobyte så betalar båda per kilobyte.</translation>
+        <source>If the custom fee is set to 1000 uBWIs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uBWIs in fee,&lt;br /&gt;while "at least" pays 1000 uBWIs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
+        <translation>Om 1000 uBWIs är den valda skräddarsydda avgiften och transaktionen är bara 250 bytes så kommer "per kilobyte" bara betala 250 uBWIs i avgift,&lt;br /&gt;medans "minst" betalar 1000 uBWIs. För transaktioner större än en kilobyte så betalar båda per kilobyte.</translation>
     </message>
     <message>
-        <source>If the custom fee is set to 1000 uMAGs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uMAGs in fee,&lt;br /&gt;while "total at least" pays 1000 uMAGs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
-        <translation>Om 1000 uMAGs är den valda skräddarsydda avgiften och transaktionen är bara 250 bytes så kommer "per kilobyte" bara betala 250 uMAGs i avgift,&lt;br /&gt;medans "minst totalt" betalar 1000 uMAGs. För transaktioner större än en kilobyte så betalar båda per kilobyte.</translation>
+        <source>If the custom fee is set to 1000 uBWIs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uBWIs in fee,&lt;br /&gt;while "total at least" pays 1000 uBWIs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
+        <translation>Om 1000 uBWIs är den valda skräddarsydda avgiften och transaktionen är bara 250 bytes så kommer "per kilobyte" bara betala 250 uBWIs i avgift,&lt;br /&gt;medans "minst totalt" betalar 1000 uBWIs. För transaktioner större än en kilobyte så betalar båda per kilobyte.</translation>
     </message>
     <message>
         <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for BITWIN24 transactions than the network can process.</source>
@@ -4445,8 +4445,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>BITWIN24 staking</translation>
     </message>
     <message>
-        <source>zMAG Stake</source>
-        <translation>zMAG Staking</translation>
+        <source>zBWI Stake</source>
+        <translation>zBWI Staking</translation>
     </message>
     <message>
         <source>Obfuscation Denominate</source>
@@ -4465,32 +4465,32 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Obfuscation Skapa tecken</translation>
     </message>
     <message>
-        <source>Converted BITWIN24 to zMAG</source>
-        <translation>Konvertera BITWIN24 till zMAG</translation>
+        <source>Converted BITWIN24 to zBWI</source>
+        <translation>Konvertera BITWIN24 till zBWI</translation>
     </message>
     <message>
-        <source>Spent zMAG</source>
-        <translation>Spendera zMAG</translation>
+        <source>Spent zBWI</source>
+        <translation>Spendera zBWI</translation>
     </message>
     <message>
-        <source>Received BITWIN24 from zMAG</source>
-        <translation>Mottog BITWIN24 från zMAG</translation>
+        <source>Received BITWIN24 from zBWI</source>
+        <translation>Mottog BITWIN24 från zBWI</translation>
     </message>
     <message>
-        <source>Minted Change as zMAG from zMAG Spend</source>
-        <translation>Myntad Växel som zMAG från zMAG Spendering</translation>
+        <source>Minted Change as zBWI from zBWI Spend</source>
+        <translation>Myntad Växel som zBWI från zBWI Spendering</translation>
     </message>
     <message>
-        <source>Converted zMAG to BITWIN24</source>
-        <translation>Konverterad zMAG till BITWIN24</translation>
+        <source>Converted zBWI to BITWIN24</source>
+        <translation>Konverterad zBWI till BITWIN24</translation>
     </message>
     <message>
-        <source>Anonymous (zMAG Transaction)</source>
-        <translation>Anonym (zMAG Transaktion)</translation>
+        <source>Anonymous (zBWI Transaction)</source>
+        <translation>Anonym (zBWI Transaktion)</translation>
     </message>
     <message>
-        <source>Anonymous (zMAG Stake)</source>
-        <translation>Anonym (zMAG Stake)</translation>
+        <source>Anonymous (zBWI Stake)</source>
+        <translation>Anonym (zBWI Stake)</translation>
     </message>
     <message>
         <source>Sent to</source>
@@ -4700,12 +4700,12 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Exportering Lyckat</translation>
     </message>
     <message>
-        <source>Received BITWIN24 from zMAG</source>
-        <translation>Mottog BITWIN24 från zMAG</translation>
+        <source>Received BITWIN24 from zBWI</source>
+        <translation>Mottog BITWIN24 från zBWI</translation>
     </message>
     <message>
-        <source>Zerocoin Spend, Change in zMAG</source>
-        <translation>Zerocoin spendera, Växel i zMAG</translation>
+        <source>Zerocoin Spend, Change in zBWI</source>
+        <translation>Zerocoin spendera, Växel i zBWI</translation>
     </message>
     <message>
         <source>The transaction history was successfully saved to %1.</source>
@@ -4775,8 +4775,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
 <context>
     <name>ZBWIControlDialog</name>
     <message>
-        <source>Select zMAG to Spend</source>
-        <translation>Välj zMAG att Spendera</translation>
+        <source>Select zBWI to Spend</source>
+        <translation>Välj zBWI att Spendera</translation>
     </message>
     <message>
         <source>Quantity</source>
@@ -4787,8 +4787,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>0</translation>
     </message>
     <message>
-        <source>zMAG</source>
-        <translation>zMAG</translation>
+        <source>zBWI</source>
+        <translation>zBWI</translation>
     </message>
     <message>
         <source>Select/Deselect All</source>
@@ -4854,16 +4854,16 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Distribuerad under MIT mjukvarulicensen, se medföljande fil COPYING eller &lt;http://www.opensource.org/licenses/mit-license.php&gt;.</translation>
     </message>
     <message>
-        <source>Enable automatic wallet backups triggered after each zMAG minting (0-1, default: %u)</source>
-        <translation>Aktivera automatisk plånboksbackup efter varje zMAG minting (0-1, standard: %u)</translation>
+        <source>Enable automatic wallet backups triggered after each zBWI minting (0-1, default: %u)</source>
+        <translation>Aktivera automatisk plånboksbackup efter varje zBWI minting (0-1, standard: %u)</translation>
     </message>
     <message>
         <source>Enable or disable staking functionality for BITWIN24 inputs (0-1, default: %u)</source>
         <translation>Aktivera eller avaktivera staking funktionalitet för BITWIN24 inmatningar (0-1, standard: %u)</translation>
     </message>
     <message>
-        <source>Enable or disable staking functionality for zMAG inputs (0-1, default: %u)</source>
-        <translation>Aktivera eller avaktivera staking funktionalitet för zMAG inmatningar (0-1, standard: %u)</translation>
+        <source>Enable or disable staking functionality for zBWI inputs (0-1, default: %u)</source>
+        <translation>Aktivera eller avaktivera staking funktionalitet för zBWI inmatningar (0-1, standard: %u)</translation>
     </message>
     <message>
         <source>Enable spork administration functionality with the appropriate private key.</source>
@@ -5458,8 +5458,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Procent automatiskt mintad Zerocoin (1-100, default: %u)</translation>
     </message>
     <message>
-        <source>Reindex the BITWIN24 and zMAG money supply statistics</source>
-        <translation>Indexera BITWIN24 och zMAG pengarna tillgång statistik på nytt</translation>
+        <source>Reindex the BITWIN24 and zBWI money supply statistics</source>
+        <translation>Indexera BITWIN24 och zBWI pengarna tillgång statistik på nytt</translation>
     </message>
     <message>
         <source>Reindexing zerocoin database...</source>
@@ -5534,8 +5534,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Valör aatt föredra för automatiskt mintad Zerocoin (1/5/10/50/100/500/1000/5000), 0 för ingen preface. standard: %u)</translation>
     </message>
     <message>
-        <source>Specify custom backup path to add a copy of any automatic zMAG backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup. If backuppath is set as well, 4 backups will happen</source>
-        <translation>Specifiera skräddarsydd backup väg att lägga till en kopia av alla automatisk zMAG backup. Om satt som dir, varje backup genererar en tidsstämplad fil. Om satt som fil, skriver över den filen vid varje backup. Om backupvägen också är satt, 4 backups kommer hända</translation>
+        <source>Specify custom backup path to add a copy of any automatic zBWI backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup. If backuppath is set as well, 4 backups will happen</source>
+        <translation>Specifiera skräddarsydd backup väg att lägga till en kopia av alla automatisk zBWI backup. Om satt som dir, varje backup genererar en tidsstämplad fil. Om satt som fil, skriver över den filen vid varje backup. Om backupvägen också är satt, 4 backups kommer hända</translation>
     </message>
     <message>
         <source>Specify custom backup path to add a copy of any wallet backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup.</source>
@@ -6034,8 +6034,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Synkroniserar sporks...</translation>
     </message>
     <message>
-        <source>Syncing zMAG wallet...</source>
-        <translation>Synkroniserar zMAG plånbok...</translation>
+        <source>Syncing zBWI wallet...</source>
+        <translation>Synkroniserar zBWI plånbok...</translation>
     </message>
     <message>
         <source>The coin spend has been used</source>
@@ -6182,8 +6182,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Användarnamn för JSON-RPC anslutningar</translation>
     </message>
     <message>
-        <source>Value is below the smallest available denomination (= 1) of zMAG</source>
-        <translation>Värde är under den minsta tillgängliga valören (=1) av zMAG</translation>
+        <source>Value is below the smallest available denomination (= 1) of zBWI</source>
+        <translation>Värde är under den minsta tillgängliga valören (=1) av zBWI</translation>
     </message>
     <message>
         <source>Value more than Obfuscation pool maximum allows.</source>
@@ -6198,8 +6198,8 @@ Minta antingen högre valörer (så att färre inputs behövs) eller spendera mi
         <translation>Verifierar plånbok</translation>
     </message>
     <message>
-        <source>Version 1 zMAG require a security level of 100 to successfully spend.</source>
-        <translation>Version 1 zMAG kräver en säkerhetsnivå på 100 för att kunna spenderas med framgång.</translation>
+        <source>Version 1 zBWI require a security level of 100 to successfully spend.</source>
+        <translation>Version 1 zBWI kräver en säkerhetsnivå på 100 för att kunna spenderas med framgång.</translation>
     </message>
     <message>
         <source>Wallet %s resides outside data directory %s</source>

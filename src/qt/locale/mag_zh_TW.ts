@@ -43,11 +43,11 @@
     </message>
     <message>
         <source>Choose the address to send coins to</source>
-        <translation>選擇要匯出MAG幣的位址</translation>
+        <translation>選擇要匯出BWI幣的位址</translation>
     </message>
     <message>
         <source>Choose the address to receive coins with</source>
-        <translation>選擇要接收MAG幣的位址</translation>
+        <translation>選擇要接收BWI幣的位址</translation>
     </message>
     <message>
         <source>C&amp;hoose</source>
@@ -164,7 +164,7 @@
         <translation>錢包確認加密</translation>
     </message>
     <message>
-        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your MAGs from being stolen by malware infecting your computer.</source>
+        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your BWIs from being stolen by malware infecting your computer.</source>
         <translation>BITWIN24 現在會關閉程式來處理加密流程, 請注意, 僅僅是加密你的錢包並不能完全保護你的 BITWIN24 幣被可疑軟體或病毒偷走的風險.</translation>
     </message>
     <message>
@@ -626,7 +626,7 @@
     </message>
     <message>
         <source>Open a BITWIN24: URI or payment request</source>
-        <translation>打開MAG: 位址或付款請求 </translation>
+        <translation>打開BWI: 位址或付款請求 </translation>
     </message>
     <message>
         <source>&amp;Blockchain explorer</source>

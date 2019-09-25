@@ -172,7 +172,7 @@
         <translation>Potvrdite šifriranje novčanika</translation>
     </message>
     <message>
-        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your MAGs from being stolen by malware infecting your computer.</source>
+        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your BWIs from being stolen by malware infecting your computer.</source>
         <translation>BITWIN24 se sada zatvara kako bi dovršio proces šifriranja. Ne zaboravite da šifriranje vašeg novčanika ne može u potpunosti zaštititi vaše BITWIN24 od krađe zlonamjernog softvera koji zarazi vaše računalo.</translation>
     </message>
     <message>
@@ -181,7 +181,7 @@
     </message>
     <message>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITWIN24&lt;/b&gt;!</source>
-        <translation>Upozorenje: Ako šifrirate svoj novčanik i izgubite vašu zaporku, vi ćete1 IZGUBITI ĆE TE SAV VAŠ MAG1!</translation>
+        <translation>Upozorenje: Ako šifrirate svoj novčanik i izgubite vašu zaporku, vi ćete1 IZGUBITI ĆE TE SAV VAŠ BWI1!</translation>
     </message>
     <message>
         <source>Wallet encrypted</source>
@@ -397,8 +397,8 @@
         <translation>Pregledajte povijest transakcija</translation>
     </message>
     <message>
-        <source>Privacy Actions for zMAG</source>
-        <translation>Aktivnosti na privatnost za zMAG</translation>
+        <source>Privacy Actions for zBWI</source>
+        <translation>Aktivnosti na privatnost za zBWI</translation>
     </message>
     <message>
         <source>E&amp;xit</source>

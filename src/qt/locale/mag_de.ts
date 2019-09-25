@@ -176,8 +176,8 @@
         <translation>Verschlüsselung der Wallet bestätigen</translation>
     </message>
     <message>
-        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your MAGs from being stolen by malware infecting your computer.</source>
-        <translation>Die Anwendung wird nun geschlossen um die Verschlüsselung abzuschließen. Bitte bedenken Sie, dass auch die Verschlüsselung nicht sicher vor Diebstahl ihrer MAGs durch Schadsoftware schützt, die ihren Computer befällt.</translation>
+        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your BWIs from being stolen by malware infecting your computer.</source>
+        <translation>Die Anwendung wird nun geschlossen um die Verschlüsselung abzuschließen. Bitte bedenken Sie, dass auch die Verschlüsselung nicht sicher vor Diebstahl ihrer BWIs durch Schadsoftware schützt, die ihren Computer befällt.</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -185,7 +185,7 @@
     </message>
     <message>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITWIN24&lt;/b&gt;!</source>
-        <translation>Warnung: Wenn Sie Ihre Wallet verschlüsseln und Ihre Passphrase verlieren, &lt;b&gt;verlieren Sie alle ihre MAGs&lt;/b&gt;!</translation>
+        <translation>Warnung: Wenn Sie Ihre Wallet verschlüsseln und Ihre Passphrase verlieren, &lt;b&gt;verlieren Sie alle ihre BWIs&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Wallet encrypted</source>
@@ -433,8 +433,8 @@
         <translation>Transaktionsverlauf durchsuchen</translation>
     </message>
     <message>
-        <source>Privacy Actions for zMAG</source>
-        <translation>Datenschutzmaßnahmen für zMAG</translation>
+        <source>Privacy Actions for zBWI</source>
+        <translation>Datenschutzmaßnahmen für zBWI</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
@@ -1804,15 +1804,15 @@ Bitte haben Sie etwas Geduld, nachdem Sie auf Importieren geklickt haben.</trans
     </message>
     <message>
         <source>Obfuscation was successfully set to basic (%1 and 2 rounds). You can change this at any time by opening BITWIN24's configuration screen.</source>
-        <translation>Verschleierung erfolgreich auf normal gesetzt (%1 und 2 Runden). Sie können dies jederzeit in den MAGs Konfigurationen ändern.</translation>
+        <translation>Verschleierung erfolgreich auf normal gesetzt (%1 und 2 Runden). Sie können dies jederzeit in den BWIs Konfigurationen ändern.</translation>
     </message>
     <message>
         <source>Obfuscation was successfully set to high (%1 and 8 rounds). You can change this at any time by opening BITWIN24's configuration screen.</source>
-        <translation>Verschleierung erfolgreich auf hohen gesetzt (%1 und 8 Runden). Sie können dies jederzeit in den MAGs Konfigurationen ändern.</translation>
+        <translation>Verschleierung erfolgreich auf hohen gesetzt (%1 und 8 Runden). Sie können dies jederzeit in den BWIs Konfigurationen ändern.</translation>
     </message>
     <message>
         <source>Obfuscation was successfully set to maximum (%1 and 16 rounds). You can change this at any time by opening BITWIN24's configuration screen.</source>
-        <translation>Verschleierung erfolgreich auf maximal gesetzt (%1 und 16 Runden). Sie können dies jederzeit in den MAGs Konfigurationen ändern.</translation>
+        <translation>Verschleierung erfolgreich auf maximal gesetzt (%1 und 16 Runden). Sie können dies jederzeit in den BWIs Konfigurationen ändern.</translation>
     </message>
 </context>
 <context>
@@ -1939,28 +1939,28 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Port mit &amp;UPnP mappen</translation>
     </message>
     <message>
-        <source>Enable automatic minting of BITWIN24 units to zMAG</source>
-        <translation>Aktivieren Sie die automatische Prägung von BITWIN24-Einheiten zu zMAG</translation>
+        <source>Enable automatic minting of BITWIN24 units to zBWI</source>
+        <translation>Aktivieren Sie die automatische Prägung von BITWIN24-Einheiten zu zBWI</translation>
     </message>
     <message>
-        <source>Enable zMAG Automint</source>
-        <translation>Aktivieren Sie zMAG Automint</translation>
+        <source>Enable zBWI Automint</source>
+        <translation>Aktivieren Sie zBWI Automint</translation>
     </message>
     <message>
-        <source>Percentage of incoming BITWIN24 which get automatically converted to zMAG via Zerocoin Protocol (min: 10%)</source>
-        <translation>Anteil des eingehenden BITWIN24, welcher automatisch zu zMAG via Zerocoin Protokoll konvertiert wird (min: 10%)</translation>
+        <source>Percentage of incoming BITWIN24 which get automatically converted to zBWI via Zerocoin Protocol (min: 10%)</source>
+        <translation>Anteil des eingehenden BITWIN24, welcher automatisch zu zBWI via Zerocoin Protokoll konvertiert wird (min: 10%)</translation>
     </message>
     <message>
-        <source>Percentage of autominted zMAG</source>
-        <translation>Prozentsatz der automatisierten zMAG</translation>
+        <source>Percentage of autominted zBWI</source>
+        <translation>Prozentsatz der automatisierten zBWI</translation>
     </message>
     <message>
         <source>Wait with automatic conversion to Zerocoin until enough BITWIN24 for this denomination is available</source>
         <translation>Warte mit automatischer Konvertierung zu Zerocoin, bis genügend BITWIN24 für diese Stückelung verfügbar ist</translation>
     </message>
     <message>
-        <source>Preferred Automint zMAG Denomination</source>
-        <translation>Bevorzugte automatisierte zMAG Stückelung </translation>
+        <source>Preferred Automint zBWI Denomination</source>
+        <translation>Bevorzugte automatisierte zBWI Stückelung </translation>
     </message>
     <message>
         <source>Stake split threshold:</source>
@@ -2150,14 +2150,14 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Ihr aktueller BITWIN24-Saldo, unbestätigte und unreife Transaktionen sind enthalten</translation>
     </message>
     <message>
-        <source>zMAG Balance</source>
-        <translation>zMAG Bilanzen</translation>
+        <source>zBWI Balance</source>
+        <translation>zBWI Bilanzen</translation>
     </message>
     <message>
         <source>Mature: more than 20 confirmation and more than 1 mint of the same denomination after it was minted.
-These zMAG are spendable.</source>
+These zBWI are spendable.</source>
         <translation>Ausgereift: Mehr als 20 Bestätigungen und mehr als 1 Prägungen der selben Stückelung nach erfolgter Prägung.
-Diese zMAG sind Verwendbar.</translation>
+Diese zBWI sind Verwendbar.</translation>
     </message>
     <message>
         <source>Unconfirmed: less than 20 confirmations
@@ -2210,8 +2210,8 @@ Unreif: Bestätigt, aber keine Prägung in der selben Stückelung seit erfolgter
         <translation>Verfügbar:</translation>
     </message>
     <message>
-        <source>Locked BITWIN24 or Masternode collaterals. These are excluded from zMAG minting.</source>
-        <translation>Gesperrte BITWIN24 oder Masternode Pfand. Diese sind vom zMAG Prägen ausgeschlossen.</translation>
+        <source>Locked BITWIN24 or Masternode collaterals. These are excluded from zBWI minting.</source>
+        <translation>Gesperrte BITWIN24 oder Masternode Pfand. Diese sind vom zBWI Prägen ausgeschlossen.</translation>
     </message>
     <message>
         <source>Locked:</source>
@@ -2222,8 +2222,8 @@ Unreif: Bestätigt, aber keine Prägung in der selben Stückelung seit erfolgter
         <translation>Unbestätigt:</translation>
     </message>
     <message>
-        <source>Your current zMAG balance, unconfirmed and immature zMAG included.</source>
-        <translation>Ihre aktuelle zMAG-Bilanz, unbestätigte und unreife zMAG enthalten.</translation>
+        <source>Your current zBWI balance, unconfirmed and immature zBWI included.</source>
+        <translation>Ihre aktuelle zBWI-Bilanz, unbestätigte und unreife zBWI enthalten.</translation>
     </message>
     <message>
         <source>Recent transactions</source>
@@ -2234,10 +2234,10 @@ Unreif: Bestätigt, aber keine Prägung in der selben Stückelung seit erfolgter
         <translation>nicht synchron</translation>
     </message>
     <message>
-        <source>Current percentage of zMAG.
+        <source>Current percentage of zBWI.
 If AutoMint is enabled this percentage will settle around the configured AutoMint percentage (default = 10%).
 </source>
-        <translation>Aktueller Prozentsatz an zMAG.
+        <translation>Aktueller Prozentsatz an zBWI.
 Falls das automatische Prägen aktiviert ist, wird sich dieser Prozentsatz um den eingestellten Prozentsatz fürs automatisierte Prägen einpendeln (Standard = 10%).
 </translation>
     </message>
@@ -2381,8 +2381,8 @@ Um das automatische Prägen zu aktivieren ändere 'enablezeromint=0' zu 'enablez
         <translation>0</translation>
     </message>
     <message>
-        <source>zMAG</source>
-        <translation>zMAG</translation>
+        <source>zBWI</source>
+        <translation>zBWI</translation>
     </message>
     <message>
         <source>Available for minting are coins which are confirmed and not locked or Masternode collaterals.</source>
@@ -2433,16 +2433,16 @@ Um das automatische Prägen zu aktivieren ändere 'enablezeromint=0' zu 'enablez
         <translation>PRIVATSPHÄRE</translation>
     </message>
     <message>
-        <source>Enter an amount of BWI to convert to zMAG</source>
-        <translation>Geben Sie den Betrag ein, den sie von BITWIN24 in zMAG umwandeln möchten</translation>
+        <source>Enter an amount of BWI to convert to zBWI</source>
+        <translation>Geben Sie den Betrag ein, den sie von BITWIN24 in zBWI umwandeln möchten</translation>
     </message>
     <message>
-        <source>zMAG Control</source>
-        <translation>zMAG Control</translation>
+        <source>zBWI Control</source>
+        <translation>zBWI Control</translation>
     </message>
     <message>
-        <source>zMAG Selected:</source>
-        <translation>zMAG ausgewählt:</translation>
+        <source>zBWI Selected:</source>
+        <translation>zBWI ausgewählt:</translation>
     </message>
     <message>
         <source>Quantity Selected:</source>
@@ -2457,24 +2457,24 @@ Um das automatische Prägen zu aktivieren ändere 'enablezeromint=0' zu 'enablez
         <translation>Überweise Zerocoin</translation>
     </message>
     <message>
-        <source>Available (mature and spendable) zMAG for spending</source>
-        <translation>Verfügbare (ausgereifte und aufwendbare) zMAG zum Überweisen</translation>
+        <source>Available (mature and spendable) zBWI for spending</source>
+        <translation>Verfügbare (ausgereifte und aufwendbare) zBWI zum Überweisen</translation>
     </message>
     <message>
         <source>Available Balance:</source>
         <translation>Verfügbare Bilanz:</translation>
     </message>
     <message>
-        <source>Available (mature and spendable) zMAG for spending
+        <source>Available (mature and spendable) zBWI for spending
 
-zMAG are mature when they have more than 20 confirmations AND more than 2 mints of the same denomination after them were minted</source>
-        <translation>Verfügbare (ausgereifte und aufwendbare) zMAG zum Überweisen
+zBWI are mature when they have more than 20 confirmations AND more than 2 mints of the same denomination after them were minted</source>
+        <translation>Verfügbare (ausgereifte und aufwendbare) zBWI zum Überweisen
 
-zMAG sind ausgereift wenn sie mehr als 20 Bestätigungen und mehr als 2 Prägungen in der selben Stückelung nach erfolgter Prägung halten.</translation>
+zBWI sind ausgereift wenn sie mehr als 20 Bestätigungen und mehr als 2 Prägungen in der selben Stückelung nach erfolgter Prägung halten.</translation>
     </message>
     <message>
-        <source>0 zMAG</source>
-        <translation>0 zMAG</translation>
+        <source>0 zBWI</source>
+        <translation>0 zBWI</translation>
     </message>
     <message>
         <source>Security Level for Zerocoin Transactions. More is better, but needs more time and resources.</source>
@@ -2545,8 +2545,8 @@ zMAG sind ausgereift wenn sie mehr als 20 Bestätigungen und mehr als 2 Prägung
         <translation>Zerocoin Statistiken:</translation>
     </message>
     <message>
-        <source>Total Balance including unconfirmed and immature zMAG</source>
-        <translation>Totales Guthaben, einschließlich unbestätigter und unreifer zMAG</translation>
+        <source>Total Balance including unconfirmed and immature zBWI</source>
+        <translation>Totales Guthaben, einschließlich unbestätigter und unreifer zBWI</translation>
     </message>
     <message>
         <source>Total Zerocoin  Balance:</source>
@@ -2567,24 +2567,24 @@ Immature: confirmed, but less than 1 mint of the same denomination after it was 
 Unreif: Bestätigt, aber keine Prägung in der selben Stückelung seit erfolgter Prägung</translation>
     </message>
     <message>
-        <source>Show the current status of automatic zMAG minting.
+        <source>Show the current status of automatic zBWI minting.
 
 To change the status (restart required):
 - enable: add 'enablezeromint=1' to bitwin24.conf
 - disable: add 'enablezeromint=0' to bitwin24.conf
 
 To change the percentage (no restart required):
-- menu Settings-&gt;Options-&gt;Percentage of autominted zMAG
+- menu Settings-&gt;Options-&gt;Percentage of autominted zBWI
 
 </source>
-        <translation>Zeigt den aktuellen Status der automatischen zMAG-Prägung an
+        <translation>Zeigt den aktuellen Status der automatischen zBWI-Prägung an
 
 Um den Status zu ändern (Neustart erforderlich): 
 - enable: füge 'enablezeromint = 1' zu bitwin24.conf hinzu
 - disable: füge 'enablezeromint = 0' zu bitwin24.conf hinzu
 
 Um den Prozentsatz zu ändern (kein Neustart erforderlich): 
-- Menü Einstellungen-&gt; Optionen-&gt; Prozentsatz der autom. zMAG
+- Menü Einstellungen-&gt; Optionen-&gt; Prozentsatz der autom. zBWI
 </translation>
     </message>
     <message>
@@ -2780,12 +2780,12 @@ Maximum allowed: </source>
 Maximal erlaubt:</translation>
     </message>
     <message>
-        <source>zMAG Spend #: </source>
-        <translation>zMAG Ausgeben #:</translation>
+        <source>zBWI Spend #: </source>
+        <translation>zBWI Ausgeben #:</translation>
     </message>
     <message>
-        <source>zMAG Mint</source>
-        <translation>zMAG Prägen</translation>
+        <source>zBWI Mint</source>
+        <translation>zBWI Prägen</translation>
     </message>
     <message>
         <source> &lt;b&gt;enabled&lt;/b&gt;.</source>
@@ -2800,12 +2800,12 @@ Maximal erlaubt:</translation>
         <translation>Konfigurierter Zielprozentsatz: &lt;b&gt;</translation>
     </message>
     <message>
-        <source>zMAG is currently disabled due to maintenance.</source>
-        <translation>zMAG ist aktuell deaktiviert aufgrund von Wartungsarbeiten.</translation>
+        <source>zBWI is currently disabled due to maintenance.</source>
+        <translation>zBWI ist aktuell deaktiviert aufgrund von Wartungsarbeiten.</translation>
     </message>
     <message>
-        <source>zMAG is currently undergoing maintenance.</source>
-        <translation>zMAG unterliegt momentan Wartungsarbeiten.</translation>
+        <source>zBWI is currently undergoing maintenance.</source>
+        <translation>zBWI unterliegt momentan Wartungsarbeiten.</translation>
     </message>
     <message>
         <source>Denom. with value &lt;b&gt;1&lt;/b&gt;:</source>
@@ -2892,8 +2892,8 @@ Maximal erlaubt:</translation>
         <translation>Erfolgreich geprägt</translation>
     </message>
     <message>
-        <source> zMAG in </source>
-        <translation> zMAG in </translation>
+        <source> zBWI in </source>
+        <translation> zBWI in </translation>
     </message>
     <message>
         <source> sec. Used denominations:
@@ -2952,12 +2952,12 @@ Maximal erlaubt:</translation>
         <translation>Sende Coins bestätigen</translation>
     </message>
     <message>
-        <source>Version 1 zMAG require a security level of 100 to successfully spend.</source>
-        <translation>Version 1 zMAG benötigen eine Sicherheitsstufe von 100 um erfolgreich ausgegeben werden zu können.</translation>
+        <source>Version 1 zBWI require a security level of 100 to successfully spend.</source>
+        <translation>Version 1 zBWI benötigen eine Sicherheitsstufe von 100 um erfolgreich ausgegeben werden zu können.</translation>
     </message>
     <message>
-        <source>Failed to spend zMAG</source>
-        <translation>zMAG Überweisung fehlgeschlagen</translation>
+        <source>Failed to spend zBWI</source>
+        <translation>zBWI Überweisung fehlgeschlagen</translation>
     </message>
     <message>
         <source>Failed to fetch mint associated with serial hash</source>
@@ -2979,7 +2979,7 @@ Präge entweder höhere Stückelungen (damit weniger Eingaben benötigt werdenn)
     </message>
     <message numerus="yes">
         <source>PrivacyDialog</source>
-        <comment>Enter an amount of BITWIN24 to convert to zMAG</comment>
+        <comment>Enter an amount of BITWIN24 to convert to zBWI</comment>
         <translation><numerusform>PrivacyDialog</numerusform><numerusform>PrivacyDialog</numerusform></translation>
     </message>
     <message>
@@ -3296,8 +3296,8 @@ Präge entweder höhere Stückelungen (damit weniger Eingaben benötigt werdenn)
         <translation>Benutzerdefinierter Sicherungspfad:</translation>
     </message>
     <message>
-        <source>Custom zMAG Backup Path:</source>
-        <translation>Benutzerdefinierter zMAG Sicherungspfad:</translation>
+        <source>Custom zBWI Backup Path:</source>
+        <translation>Benutzerdefinierter zBWI Sicherungspfad:</translation>
     </message>
     <message>
         <source>Custom Backups Threshold:</source>
@@ -3665,7 +3665,7 @@ Präge entweder höhere Stückelungen (damit weniger Eingaben benötigt werdenn)
     <name>SendCoinsDialog</name>
     <message>
         <source>Send Coins</source>
-        <translation>MAGs überweisen</translation>
+        <translation>BWIs überweisen</translation>
     </message>
     <message>
         <source>SEND</source>
@@ -3796,12 +3796,12 @@ Präge entweder höhere Stückelungen (damit weniger Eingaben benötigt werdenn)
         <translation>Coins automatisch ausgewählt</translation>
     </message>
     <message>
-        <source>If the custom fee is set to 1000 uMAGs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uMAGs in fee,&lt;br /&gt;while "at least" pays 1000 uMAGs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
-        <translation>Wenn die kundenspezifische Gebühr auf 1000 uMAGs eingestellt ist und die Transaktion nur 250 Bytes beträgt, dann zahlt man "pro Kilobyte" nur 250 uMAGs an Gebühren,&lt;br /&gt;während man "mindestens" 1000 uMAGs bezahlt. Für Transaktionen, die größer sind als ein Kilobyte, bezahlen sie per Kilobyte.</translation>
+        <source>If the custom fee is set to 1000 uBWIs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uBWIs in fee,&lt;br /&gt;while "at least" pays 1000 uBWIs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
+        <translation>Wenn die kundenspezifische Gebühr auf 1000 uBWIs eingestellt ist und die Transaktion nur 250 Bytes beträgt, dann zahlt man "pro Kilobyte" nur 250 uBWIs an Gebühren,&lt;br /&gt;während man "mindestens" 1000 uBWIs bezahlt. Für Transaktionen, die größer sind als ein Kilobyte, bezahlen sie per Kilobyte.</translation>
     </message>
     <message>
-        <source>If the custom fee is set to 1000 uMAGs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uMAGs in fee,&lt;br /&gt;while "total at least" pays 1000 uMAGs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
-        <translation>Wenn die kundenspezifische Gebühr auf 1000 uMAGs eingestellt ist und die Transaktion nur 250 Bytes beträgt, dann zahlt man "pro Kilobyte" nur 250 uMAGs an Gebühren,&lt;br /&gt;während man "insgesamt mindestens" 1000 uMAGs bezahlt. Für Transaktionen, die größer sind als ein Kilobyte, bezahlen sie per Kilobyte.</translation>
+        <source>If the custom fee is set to 1000 uBWIs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uBWIs in fee,&lt;br /&gt;while "total at least" pays 1000 uBWIs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
+        <translation>Wenn die kundenspezifische Gebühr auf 1000 uBWIs eingestellt ist und die Transaktion nur 250 Bytes beträgt, dann zahlt man "pro Kilobyte" nur 250 uBWIs an Gebühren,&lt;br /&gt;während man "insgesamt mindestens" 1000 uBWIs bezahlt. Für Transaktionen, die größer sind als ein Kilobyte, bezahlen sie per Kilobyte.</translation>
     </message>
     <message>
         <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for BITWIN24 transactions than the network can process.</source>
@@ -4411,7 +4411,7 @@ Präge entweder höhere Stückelungen (damit weniger Eingaben benötigt werdenn)
     </message>
     <message>
         <source>Generated coins must mature %1 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to "not accepted" and it won't be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.</source>
-        <translation>Erzeugte MAGs müssen %1 Blöcke lang reifen, bevor sie ausgegeben werden können. Als Sie diesen Block erzeugten, wurde er an das Netzwerk übertragen, um ihn der Blockkette hinzuzufügen. Falls dies fehlschlägt wird der Status in "nicht angenommen" geändert und Sie werden keine MAGs gutgeschrieben bekommen. Das kann gelegentlich passieren, wenn ein anderer Knoten einen Block fast zeitgleich erzeugt.</translation>
+        <translation>Erzeugte BWIs müssen %1 Blöcke lang reifen, bevor sie ausgegeben werden können. Als Sie diesen Block erzeugten, wurde er an das Netzwerk übertragen, um ihn der Blockkette hinzuzufügen. Falls dies fehlschlägt wird der Status in "nicht angenommen" geändert und Sie werden keine BWIs gutgeschrieben bekommen. Das kann gelegentlich passieren, wenn ein anderer Knoten einen Block fast zeitgleich erzeugt.</translation>
     </message>
     <message>
         <source>Debug information</source>
@@ -4520,8 +4520,8 @@ Präge entweder höhere Stückelungen (damit weniger Eingaben benötigt werdenn)
         <translation>BITWIN24 Stake</translation>
     </message>
     <message>
-        <source>zMAG Stake</source>
-        <translation>zMAG Stake</translation>
+        <source>zBWI Stake</source>
+        <translation>zBWI Stake</translation>
     </message>
     <message>
         <source>Obfuscation Denominate</source>
@@ -4540,32 +4540,32 @@ Präge entweder höhere Stückelungen (damit weniger Eingaben benötigt werdenn)
         <translation>Verschleierung Erzeugung der Stückelung</translation>
     </message>
     <message>
-        <source>Converted BITWIN24 to zMAG</source>
-        <translation>Umgewandeltes BITWIN24 zu zMAG</translation>
+        <source>Converted BITWIN24 to zBWI</source>
+        <translation>Umgewandeltes BITWIN24 zu zBWI</translation>
     </message>
     <message>
-        <source>Spent zMAG</source>
-        <translation>Ausgegebene zMAG</translation>
+        <source>Spent zBWI</source>
+        <translation>Ausgegebene zBWI</translation>
     </message>
     <message>
-        <source>Received BITWIN24 from zMAG</source>
-        <translation>Empfangene BITWIN24 von zMAG</translation>
+        <source>Received BITWIN24 from zBWI</source>
+        <translation>Empfangene BITWIN24 von zBWI</translation>
     </message>
     <message>
-        <source>Minted Change as zMAG from zMAG Spend</source>
-        <translation>Geprägtes zMAG Wechselgeld aus zMAG Überweisung</translation>
+        <source>Minted Change as zBWI from zBWI Spend</source>
+        <translation>Geprägtes zBWI Wechselgeld aus zBWI Überweisung</translation>
     </message>
     <message>
-        <source>Converted zMAG to BITWIN24</source>
-        <translation>Umgewandeltes zMAG zu BITWIN24</translation>
+        <source>Converted zBWI to BITWIN24</source>
+        <translation>Umgewandeltes zBWI zu BITWIN24</translation>
     </message>
     <message>
-        <source>Anonymous (zMAG Transaction)</source>
-        <translation>Anonym (zMAG Transaktion)</translation>
+        <source>Anonymous (zBWI Transaction)</source>
+        <translation>Anonym (zBWI Transaktion)</translation>
     </message>
     <message>
-        <source>Anonymous (zMAG Stake)</source>
-        <translation>Anonym (zMAG Stake)</translation>
+        <source>Anonymous (zBWI Stake)</source>
+        <translation>Anonym (zBWI Stake)</translation>
     </message>
     <message>
         <source>Sent to</source>
@@ -4775,12 +4775,12 @@ Präge entweder höhere Stückelungen (damit weniger Eingaben benötigt werdenn)
         <translation>Exportieren erfolgreich</translation>
     </message>
     <message>
-        <source>Received BITWIN24 from zMAG</source>
-        <translation>Empfangene BITWIN24 von zMAG</translation>
+        <source>Received BITWIN24 from zBWI</source>
+        <translation>Empfangene BITWIN24 von zBWI</translation>
     </message>
     <message>
-        <source>Zerocoin Spend, Change in zMAG</source>
-        <translation>Zerocoin Überweisung, Wechselgeld in zMAG</translation>
+        <source>Zerocoin Spend, Change in zBWI</source>
+        <translation>Zerocoin Überweisung, Wechselgeld in zBWI</translation>
     </message>
     <message>
         <source>The transaction history was successfully saved to %1.</source>
@@ -4813,7 +4813,7 @@ Präge entweder höhere Stückelungen (damit weniger Eingaben benötigt werdenn)
     <name>WalletModel</name>
     <message>
         <source>Send Coins</source>
-        <translation>MAGs überweisen</translation>
+        <translation>BWIs überweisen</translation>
     </message>
     <message>
         <source>SwiftX doesn't support sending values that high yet. Transactions are currently limited to %1 BITWIN24.</source>
@@ -4850,8 +4850,8 @@ Präge entweder höhere Stückelungen (damit weniger Eingaben benötigt werdenn)
 <context>
     <name>ZBWIControlDialog</name>
     <message>
-        <source>Select zMAG to Spend</source>
-        <translation>Wählen Sie die zMAG aus, die Sie ausgeben möchten</translation>
+        <source>Select zBWI to Spend</source>
+        <translation>Wählen Sie die zBWI aus, die Sie ausgeben möchten</translation>
     </message>
     <message>
         <source>Quantity</source>
@@ -4862,8 +4862,8 @@ Präge entweder höhere Stückelungen (damit weniger Eingaben benötigt werdenn)
         <translation>0</translation>
     </message>
     <message>
-        <source>zMAG</source>
-        <translation>zMAG</translation>
+        <source>zBWI</source>
+        <translation>zBWI</translation>
     </message>
     <message>
         <source>Select/Deselect All</source>
@@ -4929,16 +4929,16 @@ Präge entweder höhere Stückelungen (damit weniger Eingaben benötigt werdenn)
         <translation>Veröffentlicht unter der MIT-Software-Lizenz, siehe die beigelegte Datei COPYING oder &lt;http://www.opensource.org/licenses/mit-license.php&gt;.</translation>
     </message>
     <message>
-        <source>Enable automatic wallet backups triggered after each zMAG minting (0-1, default: %u)</source>
-        <translation>Aktiviere nach jeder zMAG-Prägung ausgelöste automatische Wallet-Backups (0-1, Standard: %u)</translation>
+        <source>Enable automatic wallet backups triggered after each zBWI minting (0-1, default: %u)</source>
+        <translation>Aktiviere nach jeder zBWI-Prägung ausgelöste automatische Wallet-Backups (0-1, Standard: %u)</translation>
     </message>
     <message>
         <source>Enable or disable staking functionality for BITWIN24 inputs (0-1, default: %u)</source>
         <translation>Aktiviere oder deaktiviere Staking-Funktionalität für BITWIN24 Eingänge (0-1, default: %u)</translation>
     </message>
     <message>
-        <source>Enable or disable staking functionality for zMAG inputs (0-1, default: %u)</source>
-        <translation>Aktiviere oder deaktiviere Staking-Funktionalität für zMAG Eingänge (0-1, default: %u)</translation>
+        <source>Enable or disable staking functionality for zBWI inputs (0-1, default: %u)</source>
+        <translation>Aktiviere oder deaktiviere Staking-Funktionalität für zBWI Eingänge (0-1, default: %u)</translation>
     </message>
     <message>
         <source>Enable spork administration functionality with the appropriate private key.</source>
@@ -5533,8 +5533,8 @@ Präge entweder höhere Stückelungen (damit weniger Eingaben benötigt werdenn)
         <translation>Prozent automatisch geprägter Zerocoins (1-100, Standard: %u)</translation>
     </message>
     <message>
-        <source>Reindex the BITWIN24 and zMAG money supply statistics</source>
-        <translation>Die Geldmengenstatistik BITWIN24 und zMAG neu indizieren</translation>
+        <source>Reindex the BITWIN24 and zBWI money supply statistics</source>
+        <translation>Die Geldmengenstatistik BITWIN24 und zBWI neu indizieren</translation>
     </message>
     <message>
         <source>Reindexing zerocoin database...</source>
@@ -5609,8 +5609,8 @@ Präge entweder höhere Stückelungen (damit weniger Eingaben benötigt werdenn)
         <translation>Bervorzugte Stückelung für automatisch geprägte Zerocoins (1/5/10/50/100/500/1000/5000), 0 falls keine bestimmte Stückelung präferiert wird. Standard: %u)</translation>
     </message>
     <message>
-        <source>Specify custom backup path to add a copy of any automatic zMAG backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup. If backuppath is set as well, 4 backups will happen</source>
-        <translation>Benutzerdefinierten Sicherungspfad festlegen, in den Kopien von allen automatischen zMAG-Sicherungen abgelegt werden. Wenn ein Verzeichnis ausgewählt ist, wird jede Sicherung als Datei mit Zeitstempel erstellt. Wenn eine Datei ausgewählt ist, wird diese Datei bei jeder Sicherung überschrieben. Wenn der Sicherungspfad auch festgelegt ist, werden 4 Sicherungen erstellt.</translation>
+        <source>Specify custom backup path to add a copy of any automatic zBWI backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup. If backuppath is set as well, 4 backups will happen</source>
+        <translation>Benutzerdefinierten Sicherungspfad festlegen, in den Kopien von allen automatischen zBWI-Sicherungen abgelegt werden. Wenn ein Verzeichnis ausgewählt ist, wird jede Sicherung als Datei mit Zeitstempel erstellt. Wenn eine Datei ausgewählt ist, wird diese Datei bei jeder Sicherung überschrieben. Wenn der Sicherungspfad auch festgelegt ist, werden 4 Sicherungen erstellt.</translation>
     </message>
     <message>
         <source>Specify custom backup path to add a copy of any wallet backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup.</source>
@@ -6109,8 +6109,8 @@ Präge entweder höhere Stückelungen (damit weniger Eingaben benötigt werdenn)
         <translation>Synchronisiere Sporks....</translation>
     </message>
     <message>
-        <source>Syncing zMAG wallet...</source>
-        <translation>Synchronisiere zMAG Wallet... </translation>
+        <source>Syncing zBWI wallet...</source>
+        <translation>Synchronisiere zBWI Wallet... </translation>
     </message>
     <message>
         <source>The coin spend has been used</source>
@@ -6257,8 +6257,8 @@ Präge entweder höhere Stückelungen (damit weniger Eingaben benötigt werdenn)
         <translation>Benutzername für JSON-RPC-Verbindungen</translation>
     </message>
     <message>
-        <source>Value is below the smallest available denomination (= 1) of zMAG</source>
-        <translation>Der Betrag ist unterhalb des kleinsten Wertes (=1) an zMAG</translation>
+        <source>Value is below the smallest available denomination (= 1) of zBWI</source>
+        <translation>Der Betrag ist unterhalb des kleinsten Wertes (=1) an zBWI</translation>
     </message>
     <message>
         <source>Value more than Obfuscation pool maximum allows.</source>
@@ -6273,8 +6273,8 @@ Präge entweder höhere Stückelungen (damit weniger Eingaben benötigt werdenn)
         <translation>Verifiziere Wallet...</translation>
     </message>
     <message>
-        <source>Version 1 zMAG require a security level of 100 to successfully spend.</source>
-        <translation>Version 1 zMAG benötigen eine Sicherheitsstufe von 100 um erfolgreich ausgegeben werden zu können.</translation>
+        <source>Version 1 zBWI require a security level of 100 to successfully spend.</source>
+        <translation>Version 1 zBWI benötigen eine Sicherheitsstufe von 100 um erfolgreich ausgegeben werden zu können.</translation>
     </message>
     <message>
         <source>Wallet %s resides outside data directory %s</source>

@@ -1948,28 +1948,28 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Карта порта, использующего &amp;UPnP</translation>
     </message>
     <message>
-        <source>Enable automatic minting of BITWIN24 units to zMAG</source>
-        <translation>Невозможно автоматически отчеканить единицы BITWIN24 для zMAG</translation>
+        <source>Enable automatic minting of BITWIN24 units to zBWI</source>
+        <translation>Невозможно автоматически отчеканить единицы BITWIN24 для zBWI</translation>
     </message>
     <message>
-        <source>Enable zMAG Automint</source>
-        <translation>Невозможно авточеканка  zMAG</translation>
+        <source>Enable zBWI Automint</source>
+        <translation>Невозможно авточеканка  zBWI</translation>
     </message>
     <message>
-        <source>Percentage of incoming BITWIN24 which get automatically converted to zMAG via Zerocoin Protocol (min: 10%)</source>
-        <translation>Процент приходящих BITWIN24, которые автоматически конвертируются в zMAG благодаря Zerocoin протоколу (min: 10%)</translation>
+        <source>Percentage of incoming BITWIN24 which get automatically converted to zBWI via Zerocoin Protocol (min: 10%)</source>
+        <translation>Процент приходящих BITWIN24, которые автоматически конвертируются в zBWI благодаря Zerocoin протоколу (min: 10%)</translation>
     </message>
     <message>
-        <source>Percentage of autominted zMAG</source>
-        <translation>Процент  авточеканненых zMAG</translation>
+        <source>Percentage of autominted zBWI</source>
+        <translation>Процент  авточеканненых zBWI</translation>
     </message>
     <message>
         <source>Wait with automatic conversion to Zerocoin until enough BITWIN24 for this denomination is available</source>
         <translation>Подождите с автоматическим преобразованием в Zerocoin, пока не будет достаточно BITWIN24 для этой номинации.</translation>
     </message>
     <message>
-        <source>Preferred Automint zMAG Denomination</source>
-        <translation>Предпочитаемый номинал авточеканной  монеты  zMAG</translation>
+        <source>Preferred Automint zBWI Denomination</source>
+        <translation>Предпочитаемый номинал авточеканной  монеты  zBWI</translation>
     </message>
     <message>
         <source>Stake split threshold:</source>
@@ -2159,13 +2159,13 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Ваш текущий BITWIN24  баланс, включая неподтвержденные и незрелые транзакции</translation>
     </message>
     <message>
-        <source>zMAG Balance</source>
-        <translation>Баланс zMAG</translation>
+        <source>zBWI Balance</source>
+        <translation>Баланс zBWI</translation>
     </message>
     <message>
         <source>Mature: more than 20 confirmation and more than 1 mint of the same denomination after it was minted.
-These zMAG are spendable.</source>
-        <translation>Зрелые: более 20 подтверждений и более 1 чеканки одного и того же наименования после того, как оно было отчеканено. Эти zMAG можно потратить.</translation>
+These zBWI are spendable.</source>
+        <translation>Зрелые: более 20 подтверждений и более 1 чеканки одного и того же наименования после того, как оно было отчеканено. Эти zBWI можно потратить.</translation>
     </message>
     <message>
         <source>Unconfirmed: less than 20 confirmations
@@ -2218,8 +2218,8 @@ Immature: confirmed, but less than 1 mint of the same denomination after it was 
         <translation>Расходуемый:</translation>
     </message>
     <message>
-        <source>Locked BITWIN24 or Masternode collaterals. These are excluded from zMAG minting.</source>
-        <translation>Заблокированно дополнительное обеспечение BITWIN24 или Masternode. Они исключены из чеканки zMAG.</translation>
+        <source>Locked BITWIN24 or Masternode collaterals. These are excluded from zBWI minting.</source>
+        <translation>Заблокированно дополнительное обеспечение BITWIN24 или Masternode. Они исключены из чеканки zBWI.</translation>
     </message>
     <message>
         <source>Locked:</source>
@@ -2230,8 +2230,8 @@ Immature: confirmed, but less than 1 mint of the same denomination after it was 
         <translation>Неподтвержденный:</translation>
     </message>
     <message>
-        <source>Your current zMAG balance, unconfirmed and immature zMAG included.</source>
-        <translation>Ваш текущий zMAG баланс, включая неподтвержденные и незрелые транзакции</translation>
+        <source>Your current zBWI balance, unconfirmed and immature zBWI included.</source>
+        <translation>Ваш текущий zBWI баланс, включая неподтвержденные и незрелые транзакции</translation>
     </message>
     <message>
         <source>Recent transactions</source>
@@ -2242,10 +2242,10 @@ Immature: confirmed, but less than 1 mint of the same denomination after it was 
         <translation>несинронизировано</translation>
     </message>
     <message>
-        <source>Current percentage of zMAG.
+        <source>Current percentage of zBWI.
 If AutoMint is enabled this percentage will settle around the configured AutoMint percentage (default = 10%).
 </source>
-        <translation>Текущий процент от zMAG.
+        <translation>Текущий процент от zBWI.
 Если АвтоЧеканка включена, этот процент будет располагаться на настроенном проценте АвтоЧеканка  (по умолчанию = 10%).
 </translation>
     </message>
@@ -2389,8 +2389,8 @@ To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in bitwin24.c
         <translation>0</translation>
     </message>
     <message>
-        <source>zMAG</source>
-        <translation>zMAG</translation>
+        <source>zBWI</source>
+        <translation>zBWI</translation>
     </message>
     <message>
         <source>Available for minting are coins which are confirmed and not locked or Masternode collaterals.</source>
@@ -2441,16 +2441,16 @@ To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in bitwin24.c
         <translation>КОНФИДЕНЦИАЛЬНОСТЬ</translation>
     </message>
     <message>
-        <source>Enter an amount of BWI to convert to zMAG</source>
-        <translation>Введите сумму в BWI для  конвертации в zMAG</translation>
+        <source>Enter an amount of BWI to convert to zBWI</source>
+        <translation>Введите сумму в BWI для  конвертации в zBWI</translation>
     </message>
     <message>
-        <source>zMAG Control</source>
-        <translation>Контроль zMAG</translation>
+        <source>zBWI Control</source>
+        <translation>Контроль zBWI</translation>
     </message>
     <message>
-        <source>zMAG Selected:</source>
-        <translation>Выбрано zMAG:</translation>
+        <source>zBWI Selected:</source>
+        <translation>Выбрано zBWI:</translation>
     </message>
     <message>
         <source>Quantity Selected:</source>
@@ -2465,24 +2465,24 @@ To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in bitwin24.c
         <translation>Потратить Zerocoin</translation>
     </message>
     <message>
-        <source>Available (mature and spendable) zMAG for spending</source>
-        <translation>Доступный (зрелый и расходуемый) zMAG для расходов</translation>
+        <source>Available (mature and spendable) zBWI for spending</source>
+        <translation>Доступный (зрелый и расходуемый) zBWI для расходов</translation>
     </message>
     <message>
         <source>Available Balance:</source>
         <translation>Доступный Баланс :</translation>
     </message>
     <message>
-        <source>Available (mature and spendable) zMAG for spending
+        <source>Available (mature and spendable) zBWI for spending
 
-zMAG are mature when they have more than 20 confirmations AND more than 2 mints of the same denomination after them were minted</source>
-        <translation>Доступный (зрелый и затратный) zMAG для расходов
+zBWI are mature when they have more than 20 confirmations AND more than 2 mints of the same denomination after them were minted</source>
+        <translation>Доступный (зрелый и затратный) zBWI для расходов
 
-zMAG are mature when they have more than 20 confirmations AND more than 2 mints of the same denomination after them were minted</translation>
+zBWI are mature when they have more than 20 confirmations AND more than 2 mints of the same denomination after them were minted</translation>
     </message>
     <message>
-        <source>0 zMAG</source>
-        <translation>0 zMAG</translation>
+        <source>0 zBWI</source>
+        <translation>0 zBWI</translation>
     </message>
     <message>
         <source>Security Level for Zerocoin Transactions. More is better, but needs more time and resources.</source>
@@ -2553,8 +2553,8 @@ zMAG are mature when they have more than 20 confirmations AND more than 2 mints 
         <translation>Zerocoin Stats:</translation>
     </message>
     <message>
-        <source>Total Balance including unconfirmed and immature zMAG</source>
-        <translation>Общий баланс, включая неподтвержденные и незрелые zMAG</translation>
+        <source>Total Balance including unconfirmed and immature zBWI</source>
+        <translation>Общий баланс, включая неподтвержденные и незрелые zBWI</translation>
     </message>
     <message>
         <source>Total Zerocoin  Balance:</source>
@@ -2575,24 +2575,24 @@ Immature: confirmed, but less than 1 mint of the same denomination after it was 
 Незрелый: подтвержден, но менее 1 чеканок того же наименования после того, как он был отчеканен</translation>
     </message>
     <message>
-        <source>Show the current status of automatic zMAG minting.
+        <source>Show the current status of automatic zBWI minting.
 
 To change the status (restart required):
 - enable: add 'enablezeromint=1' to bitwin24.conf
 - disable: add 'enablezeromint=0' to bitwin24.conf
 
 To change the percentage (no restart required):
-- menu Settings-&gt;Options-&gt;Percentage of autominted zMAG
+- menu Settings-&gt;Options-&gt;Percentage of autominted zBWI
 
 </source>
-        <translation>Показать текущий статус автоматической чеканки zMAG.
+        <translation>Показать текущий статус автоматической чеканки zBWI.
 
 Чтобы изменить статус (требуется перезагрузка):
 - включить: добавить 'enablezeromint = 1' в bitwin24.conf
 - отключить: добавить 'enablezeromint = 0' в bitwin24.conf
 
 Чтобы изменить процент (не требуется перезагрузка):
-- меню Настройки-&gt; Параметры-&gt; Процент авторизованного zMAG</translation>
+- меню Настройки-&gt; Параметры-&gt; Процент авторизованного zBWI</translation>
     </message>
     <message>
         <source>AutoMint Status</source>
@@ -2787,12 +2787,12 @@ Maximum allowed: </source>
 Максимально допустимое:</translation>
     </message>
     <message>
-        <source>zMAG Spend #: </source>
-        <translation>zMAG Тратить #: </translation>
+        <source>zBWI Spend #: </source>
+        <translation>zBWI Тратить #: </translation>
     </message>
     <message>
-        <source>zMAG Mint</source>
-        <translation>чеканка zMAG</translation>
+        <source>zBWI Mint</source>
+        <translation>чеканка zBWI</translation>
     </message>
     <message>
         <source> &lt;b&gt;enabled&lt;/b&gt;.</source>
@@ -2807,12 +2807,12 @@ Maximum allowed: </source>
         <translation> Настроенный целевой процент: &lt;b&gt;</translation>
     </message>
     <message>
-        <source>zMAG is currently disabled due to maintenance.</source>
-        <translation>zMAG в настоящее время отключен от обслуживания.</translation>
+        <source>zBWI is currently disabled due to maintenance.</source>
+        <translation>zBWI в настоящее время отключен от обслуживания.</translation>
     </message>
     <message>
-        <source>zMAG is currently undergoing maintenance.</source>
-        <translation>В настоящее время zMAG проходит техническое обслуживание.</translation>
+        <source>zBWI is currently undergoing maintenance.</source>
+        <translation>В настоящее время zBWI проходит техническое обслуживание.</translation>
     </message>
     <message>
         <source>Denom. with value &lt;b&gt;1&lt;/b&gt;:</source>
@@ -2899,8 +2899,8 @@ Maximum allowed: </source>
         <translation>Создан успешно</translation>
     </message>
     <message>
-        <source> zMAG in </source>
-        <translation> zMAG в</translation>
+        <source> zBWI in </source>
+        <translation> zBWI в</translation>
     </message>
     <message>
         <source> sec. Used denominations:
@@ -2959,12 +2959,12 @@ Maximum allowed: </source>
         <translation>Подтвердить отправку монет</translation>
     </message>
     <message>
-        <source>Version 1 zMAG require a security level of 100 to successfully spend.</source>
-        <translation>Для версии 1 zMAG требуется уровень безопасности 100, который можно успешно тратить.</translation>
+        <source>Version 1 zBWI require a security level of 100 to successfully spend.</source>
+        <translation>Для версии 1 zBWI требуется уровень безопасности 100, который можно успешно тратить.</translation>
     </message>
     <message>
-        <source>Failed to spend zMAG</source>
-        <translation>Не удалось провести zMAG</translation>
+        <source>Failed to spend zBWI</source>
+        <translation>Не удалось провести zBWI</translation>
     </message>
     <message>
         <source>Failed to fetch mint associated with serial hash</source>
@@ -2986,7 +2986,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message numerus="yes">
         <source>PrivacyDialog</source>
-        <comment>Enter an amount of BITWIN24 to convert to zMAG</comment>
+        <comment>Enter an amount of BITWIN24 to convert to zBWI</comment>
         <translation><numerusform>PrivacyDialog</numerusform><numerusform>PrivacyDialog</numerusform><numerusform>PrivacyDialog</numerusform><numerusform>PrivacyDialog</numerusform></translation>
     </message>
     <message>
@@ -3303,8 +3303,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Пользовательский путь резервного копирования:</translation>
     </message>
     <message>
-        <source>Custom zMAG Backup Path:</source>
-        <translation>Пользовательский путь резервного копирования zMAG:</translation>
+        <source>Custom zBWI Backup Path:</source>
+        <translation>Пользовательский путь резервного копирования zBWI:</translation>
     </message>
     <message>
         <source>Custom Backups Threshold:</source>
@@ -3804,12 +3804,12 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Монеты автоматически выбираются</translation>
     </message>
     <message>
-        <source>If the custom fee is set to 1000 uMAGs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uMAGs in fee,&lt;br /&gt;while "at least" pays 1000 uMAGs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
-        <translation>Если пользовательская плата установлена в 1000 uMAGs, а транзакция составляет всего 250 байт, тогда «за килобайт» платит только 250 uMAGs,&lt;br /&gt;а «по крайней мере» платит 1000 uMAG. Для транзакций, превышающих килобайт, оплата за килобайт</translation>
+        <source>If the custom fee is set to 1000 uBWIs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uBWIs in fee,&lt;br /&gt;while "at least" pays 1000 uBWIs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
+        <translation>Если пользовательская плата установлена в 1000 uBWIs, а транзакция составляет всего 250 байт, тогда «за килобайт» платит только 250 uBWIs,&lt;br /&gt;а «по крайней мере» платит 1000 uBWI. Для транзакций, превышающих килобайт, оплата за килобайт</translation>
     </message>
     <message>
-        <source>If the custom fee is set to 1000 uMAGs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uMAGs in fee,&lt;br /&gt;while "total at least" pays 1000 uMAGs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
-        <translation>Если пользовательская плата установлена в 1000 uMAGs, а транзакция составляет всего 250 байт, тогда «за килобайт» платит только 250 uMAGs,&lt;br /&gt;а «по крайней мере» платит 1000 uMAG. Для транзакций, превышающих килобайт, оплата за килобайт</translation>
+        <source>If the custom fee is set to 1000 uBWIs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uBWIs in fee,&lt;br /&gt;while "total at least" pays 1000 uBWIs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
+        <translation>Если пользовательская плата установлена в 1000 uBWIs, а транзакция составляет всего 250 байт, тогда «за килобайт» платит только 250 uBWIs,&lt;br /&gt;а «по крайней мере» платит 1000 uBWI. Для транзакций, превышающих килобайт, оплата за килобайт</translation>
     </message>
     <message>
         <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for BITWIN24 transactions than the network can process.</source>
@@ -4528,8 +4528,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Доля BITWIN24</translation>
     </message>
     <message>
-        <source>zMAG Stake</source>
-        <translation>Доля zMAG</translation>
+        <source>zBWI Stake</source>
+        <translation>Доля zBWI</translation>
     </message>
     <message>
         <source>Obfuscation Denominate</source>
@@ -4548,32 +4548,32 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Обфускация Создание конфессий</translation>
     </message>
     <message>
-        <source>Converted BITWIN24 to zMAG</source>
-        <translation>Преобразованный BITWIN24 в zMAG</translation>
+        <source>Converted BITWIN24 to zBWI</source>
+        <translation>Преобразованный BITWIN24 в zBWI</translation>
     </message>
     <message>
-        <source>Spent zMAG</source>
-        <translation>потраченный zMAG</translation>
+        <source>Spent zBWI</source>
+        <translation>потраченный zBWI</translation>
     </message>
     <message>
-        <source>Received BITWIN24 from zMAG</source>
-        <translation>Полученный BITWIN24 от zMAG</translation>
+        <source>Received BITWIN24 from zBWI</source>
+        <translation>Полученный BITWIN24 от zBWI</translation>
     </message>
     <message>
-        <source>Minted Change as zMAG from zMAG Spend</source>
-        <translation>созданная  замена  zMAG из потраенного zMAG </translation>
+        <source>Minted Change as zBWI from zBWI Spend</source>
+        <translation>созданная  замена  zBWI из потраенного zBWI </translation>
     </message>
     <message>
-        <source>Converted zMAG to BITWIN24</source>
-        <translation>Преобразованный zMAG to BITWIN24</translation>
+        <source>Converted zBWI to BITWIN24</source>
+        <translation>Преобразованный zBWI to BITWIN24</translation>
     </message>
     <message>
-        <source>Anonymous (zMAG Transaction)</source>
-        <translation>Анонимный (транзакция zMAG)</translation>
+        <source>Anonymous (zBWI Transaction)</source>
+        <translation>Анонимный (транзакция zBWI)</translation>
     </message>
     <message>
-        <source>Anonymous (zMAG Stake)</source>
-        <translation>Анонимный (ставка zMAG)</translation>
+        <source>Anonymous (zBWI Stake)</source>
+        <translation>Анонимный (ставка zBWI)</translation>
     </message>
     <message>
         <source>Sent to</source>
@@ -4783,12 +4783,12 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Экспортирование произошло успешно</translation>
     </message>
     <message>
-        <source>Received BITWIN24 from zMAG</source>
-        <translation>Полученный BITWIN24 от zMAG</translation>
+        <source>Received BITWIN24 from zBWI</source>
+        <translation>Полученный BITWIN24 от zBWI</translation>
     </message>
     <message>
-        <source>Zerocoin Spend, Change in zMAG</source>
-        <translation>Потратить Zerocoin, Преобразовать в zMAG</translation>
+        <source>Zerocoin Spend, Change in zBWI</source>
+        <translation>Потратить Zerocoin, Преобразовать в zBWI</translation>
     </message>
     <message>
         <source>The transaction history was successfully saved to %1.</source>
@@ -4858,8 +4858,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
 <context>
     <name>ZBWIControlDialog</name>
     <message>
-        <source>Select zMAG to Spend</source>
-        <translation>Выберите zMAG чтобы потратить</translation>
+        <source>Select zBWI to Spend</source>
+        <translation>Выберите zBWI чтобы потратить</translation>
     </message>
     <message>
         <source>Quantity</source>
@@ -4870,8 +4870,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>0</translation>
     </message>
     <message>
-        <source>zMAG</source>
-        <translation>zMAG</translation>
+        <source>zBWI</source>
+        <translation>zBWI</translation>
     </message>
     <message>
         <source>Select/Deselect All</source>
@@ -4937,16 +4937,16 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Распространяется по лицензии программного обеспечения MIT, см. Сопроводительный файл COPYING или &lt;http://www.opensource.org/licenses/mit-license.php&gt;.</translation>
     </message>
     <message>
-        <source>Enable automatic wallet backups triggered after each zMAG minting (0-1, default: %u)</source>
-        <translation>Включить автоматическое резервное копирование кошелька, запускаемое после каждого чеканки zMAG (0-1, по умолчанию: %u)</translation>
+        <source>Enable automatic wallet backups triggered after each zBWI minting (0-1, default: %u)</source>
+        <translation>Включить автоматическое резервное копирование кошелька, запускаемое после каждого чеканки zBWI (0-1, по умолчанию: %u)</translation>
     </message>
     <message>
         <source>Enable or disable staking functionality for BITWIN24 inputs (0-1, default: %u)</source>
         <translation>Включение или отключение функций разбивки для входов BITWIN24 (0-1, по умолчанию: %u)</translation>
     </message>
     <message>
-        <source>Enable or disable staking functionality for zMAG inputs (0-1, default: %u)</source>
-        <translation>Включение или отключение функций разбивки для входов zMAG (0-1, по умолчанию: %u)</translation>
+        <source>Enable or disable staking functionality for zBWI inputs (0-1, default: %u)</source>
+        <translation>Включение или отключение функций разбивки для входов zBWI (0-1, по умолчанию: %u)</translation>
     </message>
     <message>
         <source>Enable spork administration functionality with the appropriate private key.</source>
@@ -5541,8 +5541,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Процент автоматически отчеканенного Zerocoin (1-100, по умолчанию: %u)</translation>
     </message>
     <message>
-        <source>Reindex the BITWIN24 and zMAG money supply statistics</source>
-        <translation>Reindex статистика денежной массы BITWIN24 и zMAG</translation>
+        <source>Reindex the BITWIN24 and zBWI money supply statistics</source>
+        <translation>Reindex статистика денежной массы BITWIN24 и zBWI</translation>
     </message>
     <message>
         <source>Reindexing zerocoin database...</source>
@@ -5617,8 +5617,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Предпочтительный номинал для автоматически чеканившегося Zerocoin (1/5/10/50/100/500/1000/5000), 0 без предпочтений. default: %u)</translation>
     </message>
     <message>
-        <source>Specify custom backup path to add a copy of any automatic zMAG backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup. If backuppath is set as well, 4 backups will happen</source>
-        <translation>Укажите собственный путь резервного копирования, чтобы добавить копию любой автоматической резервной копии zMAG. Если задано как dir, каждая резервная копия генерирует файл с отметкой времени. Если он установлен как файл, он будет переписывать в этот файл каждую резервную копию. Если также установлен резервный путь, произойдет 4 резервных копии</translation>
+        <source>Specify custom backup path to add a copy of any automatic zBWI backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup. If backuppath is set as well, 4 backups will happen</source>
+        <translation>Укажите собственный путь резервного копирования, чтобы добавить копию любой автоматической резервной копии zBWI. Если задано как dir, каждая резервная копия генерирует файл с отметкой времени. Если он установлен как файл, он будет переписывать в этот файл каждую резервную копию. Если также установлен резервный путь, произойдет 4 резервных копии</translation>
     </message>
     <message>
         <source>Specify custom backup path to add a copy of any wallet backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup.</source>
@@ -6117,8 +6117,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Синхронизация спорков ...</translation>
     </message>
     <message>
-        <source>Syncing zMAG wallet...</source>
-        <translation>Синхронизация zMAG кошелька ...</translation>
+        <source>Syncing zBWI wallet...</source>
+        <translation>Синхронизация zBWI кошелька ...</translation>
     </message>
     <message>
         <source>The coin spend has been used</source>
@@ -6265,7 +6265,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Имя пользователя для соединений JSON-RPC</translation>
     </message>
     <message>
-        <source>Value is below the smallest available denomination (= 1) of zMAG</source>
+        <source>Value is below the smallest available denomination (= 1) of zBWI</source>
         <translation>Значение ниже наименьшего доступного номинала (= 1) zBWI</translation>
     </message>
     <message>
@@ -6281,8 +6281,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Проверка кошелька ...</translation>
     </message>
     <message>
-        <source>Version 1 zMAG require a security level of 100 to successfully spend.</source>
-        <translation>Для версии 1 zMAG требуется уровень безопасности 100, который можно успешно тратить.</translation>
+        <source>Version 1 zBWI require a security level of 100 to successfully spend.</source>
+        <translation>Для версии 1 zBWI требуется уровень безопасности 100, который можно успешно тратить.</translation>
     </message>
     <message>
         <source>Wallet %s resides outside data directory %s</source>

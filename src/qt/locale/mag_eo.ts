@@ -176,8 +176,8 @@
         <translation>Konfirmi monerĉifrado</translation>
     </message>
     <message>
-        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your MAGs from being stolen by malware infecting your computer.</source>
-        <translation>BITWIN24 fermos nun por fini ĉifran procezon. Memoru ke ĉifri vian monujon ne povas plene protekti viajn MAGs de esti ŝtelita per malware infektanta vian komputilon.</translation>
+        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your BWIs from being stolen by malware infecting your computer.</source>
+        <translation>BITWIN24 fermos nun por fini ĉifran procezon. Memoru ke ĉifri vian monujon ne povas plene protekti viajn BWIs de esti ŝtelita per malware infektanta vian komputilon.</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -433,8 +433,8 @@
         <translation>&amp;Foliumi transakcio historio</translation>
     </message>
     <message>
-        <source>Privacy Actions for zMAG</source>
-        <translation>Privataj agoj por zMAG</translation>
+        <source>Privacy Actions for zBWI</source>
+        <translation>Privataj agoj por zBWI</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
@@ -1799,8 +1799,8 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Via aktuala BITWIN24 totalo, nekonformita kaj nematurita transakcioj inkluzivita</translation>
     </message>
     <message>
-        <source>zMAG Balance</source>
-        <translation>zMAG kvanto</translation>
+        <source>zBWI Balance</source>
+        <translation>zBWI kvanto</translation>
     </message>
     <message>
         <source>Unconfirmed: less than 20 confirmations
@@ -1870,8 +1870,8 @@ Nematura: konfirmita, sed malpli ol 1 minto el la samo nomado post ĝin estis mi
         <translation>0</translation>
     </message>
     <message>
-        <source>zMAG</source>
-        <translation>zMAG</translation>
+        <source>zBWI</source>
+        <translation>zBWI</translation>
     </message>
     <message>
         <source>0.000 000 00 BITWIN24</source>
@@ -1890,12 +1890,12 @@ Nematura: konfirmita, sed malpli ol 1 minto el la samo nomado post ĝin estis mi
         <translation>Kvanto</translation>
     </message>
     <message>
-        <source>zMAG Control</source>
-        <translation>zMAG kontrolu</translation>
+        <source>zBWI Control</source>
+        <translation>zBWI kontrolu</translation>
     </message>
     <message>
-        <source>zMAG Selected:</source>
-        <translation>Elektita zMAG</translation>
+        <source>zBWI Selected:</source>
+        <translation>Elektita zBWI</translation>
     </message>
     <message>
         <source>Quantity Selected:</source>
@@ -1906,12 +1906,12 @@ Nematura: konfirmita, sed malpli ol 1 minto el la samo nomado post ĝin estis mi
         <translation>Elspezi zerocoin</translation>
     </message>
     <message>
-        <source>Available (mature and spendable) zMAG for spending</source>
-        <translation>Havebla (matura kaj elspezebla) zMAG por elspezi</translation>
+        <source>Available (mature and spendable) zBWI for spending</source>
+        <translation>Havebla (matura kaj elspezebla) zBWI por elspezi</translation>
     </message>
     <message>
-        <source>0 zMAG</source>
-        <translation>0 zMAG</translation>
+        <source>0 zBWI</source>
+        <translation>0 zBWI</translation>
     </message>
     <message>
         <source>Pay &amp;To:</source>
@@ -2373,7 +2373,7 @@ Nematura: konfirmita, sed malpli ol 1 minto el la samo nomado post ĝin estis mi
     </message>
     <message>
         <source>The BITWIN24 address to send the payment to</source>
-        <translation>MAGC adreso por sendi la pago al</translation>
+        <translation>BWIC adreso por sendi la pago al</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -2655,8 +2655,8 @@ Nematura: konfirmita, sed malpli ol 1 minto el la samo nomado post ĝin estis mi
         <translation>0</translation>
     </message>
     <message>
-        <source>zMAG</source>
-        <translation>zMAG</translation>
+        <source>zBWI</source>
+        <translation>zBWI</translation>
     </message>
     <message>
         <source>Is Spendable</source>

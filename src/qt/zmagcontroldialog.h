@@ -2,8 +2,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef ZMAGCONTROLDIALOG_H
-#define ZMAGCONTROLDIALOG_H
+#ifndef ZBWICONTROLDIALOG_H
+#define ZBWICONTROLDIALOG_H
 
 #include <QDialog>
 #include <QTreeWidgetItem>
@@ -53,4 +53,4 @@ private slots:
     void ButtonAllClicked();
 };
 
-#endif // ZMAGCONTROLDIALOG_H
+#endif // ZBWICONTROLDIALOG_H

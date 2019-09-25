@@ -176,7 +176,7 @@
         <translation>Potvrdi šifriranje novčanika</translation>
     </message>
     <message>
-        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your MAGs from being stolen by malware infecting your computer.</source>
+        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your BWIs from being stolen by malware infecting your computer.</source>
         <translation>BITWIN24 se sada zatvara kako bi dovršio proces šifriranja. Ne zaboravite da šifriranje vašeg novčanika ne može u potpunosti zaštititi vaše BITWIN24 od krađe zlonamjernog softvera koji zarazi vaše računalo.</translation>
     </message>
     <message>
@@ -185,7 +185,7 @@
     </message>
     <message>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITWIN24&lt;/b&gt;!</source>
-        <translation>Upozorenje: Ako šifrirate svoj novčanik i izgubite zaporku, 1 izgubit ćete sve Vaše MAGove 1 !</translation>
+        <translation>Upozorenje: Ako šifrirate svoj novčanik i izgubite zaporku, 1 izgubit ćete sve Vaše BWIove 1 !</translation>
     </message>
     <message>
         <source>Wallet encrypted</source>
@@ -433,8 +433,8 @@
         <translation>Pregled povijesti transakcija</translation>
     </message>
     <message>
-        <source>Privacy Actions for zMAG</source>
-        <translation>Postavke privatnosti za zMAG</translation>
+        <source>Privacy Actions for zBWI</source>
+        <translation>Postavke privatnosti za zBWI</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
@@ -734,7 +734,7 @@
     </message>
     <message>
         <source>BITWIN24 Core client</source>
-        <translation>MAGX Core Klijent</translation>
+        <translation>BWIX Core Klijent</translation>
     </message>
     <message numerus="yes">
         <source>%n active connection(s) to BITWIN24 network</source>
@@ -1948,28 +1948,28 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
 </translation>
     </message>
     <message>
-        <source>Enable automatic minting of BITWIN24 units to zMAG</source>
-        <translation>Omogućite automint BITWIN24 jedinica na zMAG</translation>
+        <source>Enable automatic minting of BITWIN24 units to zBWI</source>
+        <translation>Omogućite automint BITWIN24 jedinica na zBWI</translation>
     </message>
     <message>
-        <source>Enable zMAG Automint</source>
-        <translation>Omogući zMAG Automint</translation>
+        <source>Enable zBWI Automint</source>
+        <translation>Omogući zBWI Automint</translation>
     </message>
     <message>
-        <source>Percentage of incoming BITWIN24 which get automatically converted to zMAG via Zerocoin Protocol (min: 10%)</source>
-        <translation>Postotak dolaznih BITWIN24 koji se automatski pretvara u zMAG putem protokola Zerocoin (min: 10%)</translation>
+        <source>Percentage of incoming BITWIN24 which get automatically converted to zBWI via Zerocoin Protocol (min: 10%)</source>
+        <translation>Postotak dolaznih BITWIN24 koji se automatski pretvara u zBWI putem protokola Zerocoin (min: 10%)</translation>
     </message>
     <message>
-        <source>Percentage of autominted zMAG</source>
-        <translation>Postotak automatiziranog zMAG</translation>
+        <source>Percentage of autominted zBWI</source>
+        <translation>Postotak automatiziranog zBWI</translation>
     </message>
     <message>
         <source>Wait with automatic conversion to Zerocoin until enough BITWIN24 for this denomination is available</source>
         <translation>Pričekajte s automatskom pretvorbom u Zerocoin dok ne bude dostupno dovoljno BITWIN24 za apoen</translation>
     </message>
     <message>
-        <source>Preferred Automint zMAG Denomination</source>
-        <translation>Preferirana Automint zMAG denominacijad</translation>
+        <source>Preferred Automint zBWI Denomination</source>
+        <translation>Preferirana Automint zBWI denominacijad</translation>
     </message>
     <message>
         <source>Stake split threshold:</source>
@@ -2159,14 +2159,14 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Uključena je vaša trenutna bilanca BITWIN24, nepotvrđene i nezrele transakcije</translation>
     </message>
     <message>
-        <source>zMAG Balance</source>
-        <translation>zMAG Bilanca</translation>
+        <source>zBWI Balance</source>
+        <translation>zBWI Bilanca</translation>
     </message>
     <message>
         <source>Mature: more than 20 confirmation and more than 1 mint of the same denomination after it was minted.
-These zMAG are spendable.</source>
+These zBWI are spendable.</source>
         <translation>Mature: više od 20 potvrda i više od 1 mint od iste denominacije nakon što je mintan.
-Ti zMAGs se mogu potrošiti.</translation>
+Ti zBWIs se mogu potrošiti.</translation>
     </message>
     <message>
         <source>Unconfirmed: less than 20 confirmations
@@ -2219,8 +2219,8 @@ Nezreli: potvrđeno, ali manje od 1 minta iste denominacije nakon mintanja</tran
         <translation>Po potrošiti:</translation>
     </message>
     <message>
-        <source>Locked BITWIN24 or Masternode collaterals. These are excluded from zMAG minting.</source>
-        <translation>Zaključani BITWIN24 ili Masternode kolateral. Oni su isključeni iz zMAG kovanja.</translation>
+        <source>Locked BITWIN24 or Masternode collaterals. These are excluded from zBWI minting.</source>
+        <translation>Zaključani BITWIN24 ili Masternode kolateral. Oni su isključeni iz zBWI kovanja.</translation>
     </message>
     <message>
         <source>Locked:</source>
@@ -2231,8 +2231,8 @@ Nezreli: potvrđeno, ali manje od 1 minta iste denominacije nakon mintanja</tran
         <translation>Nepotvrđeno:</translation>
     </message>
     <message>
-        <source>Your current zMAG balance, unconfirmed and immature zMAG included.</source>
-        <translation>Vaša trenutačna zMAG bilanca, nepotvrđena i nezrela zMAG.</translation>
+        <source>Your current zBWI balance, unconfirmed and immature zBWI included.</source>
+        <translation>Vaša trenutačna zBWI bilanca, nepotvrđena i nezrela zBWI.</translation>
     </message>
     <message>
         <source>Recent transactions</source>
@@ -2243,10 +2243,10 @@ Nezreli: potvrđeno, ali manje od 1 minta iste denominacije nakon mintanja</tran
         <translation>nije sinkronizirano</translation>
     </message>
     <message>
-        <source>Current percentage of zMAG.
+        <source>Current percentage of zBWI.
 If AutoMint is enabled this percentage will settle around the configured AutoMint percentage (default = 10%).
 </source>
-        <translation>Trenutni postotak zMAG.
+        <translation>Trenutni postotak zBWI.
 Ako je omogućeno automatsko navođenje, ovaj postotak će se podmiriti oko konfiguriranog postotka automatskog navođenja (zadano = 10%).
 </translation>
     </message>
@@ -2390,8 +2390,8 @@ Da biste omogućili, promjenite postavke AutoMint 'enablezeromint=0' na 'enablez
         <translation>0</translation>
     </message>
     <message>
-        <source>zMAG</source>
-        <translation>zMAG</translation>
+        <source>zBWI</source>
+        <translation>zBWI</translation>
     </message>
     <message>
         <source>Available for minting are coins which are confirmed and not locked or Masternode collaterals.</source>
@@ -2442,16 +2442,16 @@ Da biste omogućili, promjenite postavke AutoMint 'enablezeromint=0' na 'enablez
         <translation>PRIVATNOST</translation>
     </message>
     <message>
-        <source>Enter an amount of BWI to convert to zMAG</source>
-        <translation>Unesite iznos BWI za pretvorbu u zMAG</translation>
+        <source>Enter an amount of BWI to convert to zBWI</source>
+        <translation>Unesite iznos BWI za pretvorbu u zBWI</translation>
     </message>
     <message>
-        <source>zMAG Control</source>
-        <translation>Upravljanje zMAG</translation>
+        <source>zBWI Control</source>
+        <translation>Upravljanje zBWI</translation>
     </message>
     <message>
-        <source>zMAG Selected:</source>
-        <translation>zMAG Odabrani:</translation>
+        <source>zBWI Selected:</source>
+        <translation>zBWI Odabrani:</translation>
     </message>
     <message>
         <source>Quantity Selected:</source>
@@ -2466,24 +2466,24 @@ Da biste omogućili, promjenite postavke AutoMint 'enablezeromint=0' na 'enablez
         <translation>Potroši Zerocoin</translation>
     </message>
     <message>
-        <source>Available (mature and spendable) zMAG for spending</source>
-        <translation>Dostupni (zreli) zMAG za potrošnju</translation>
+        <source>Available (mature and spendable) zBWI for spending</source>
+        <translation>Dostupni (zreli) zBWI za potrošnju</translation>
     </message>
     <message>
         <source>Available Balance:</source>
         <translation>Dostupna Bilanca:</translation>
     </message>
     <message>
-        <source>Available (mature and spendable) zMAG for spending
+        <source>Available (mature and spendable) zBWI for spending
 
-zMAG are mature when they have more than 20 confirmations AND more than 2 mints of the same denomination after them were minted</source>
-        <translation>Dostupni (zreli) zMAG za potrošnju
+zBWI are mature when they have more than 20 confirmations AND more than 2 mints of the same denomination after them were minted</source>
+        <translation>Dostupni (zreli) zBWI za potrošnju
 
-zMAG su zreli kada imaju više od 20 potvrda I više od 2 mint od iste denominacije nakon što su bili mintani</translation>
+zBWI su zreli kada imaju više od 20 potvrda I više od 2 mint od iste denominacije nakon što su bili mintani</translation>
     </message>
     <message>
-        <source>0 zMAG</source>
-        <translation>0 zMAG</translation>
+        <source>0 zBWI</source>
+        <translation>0 zBWI</translation>
     </message>
     <message>
         <source>Security Level for Zerocoin Transactions. More is better, but needs more time and resources.</source>
@@ -2554,8 +2554,8 @@ zMAG su zreli kada imaju više od 20 potvrda I više od 2 mint od iste denominac
         <translation>Statistike Zerocoina:</translation>
     </message>
     <message>
-        <source>Total Balance including unconfirmed and immature zMAG</source>
-        <translation>Ukupni saldo uključujući nepotvrđeni i nedovršeni zMAG</translation>
+        <source>Total Balance including unconfirmed and immature zBWI</source>
+        <translation>Ukupni saldo uključujući nepotvrđeni i nedovršeni zBWI</translation>
     </message>
     <message>
         <source>Total Zerocoin  Balance:</source>
@@ -2576,24 +2576,24 @@ Immature: confirmed, but less than 1 mint of the same denomination after it was 
 Nezreli: potvrđeno, ali manje od 1 minta iste denominacije nakon mintanja</translation>
     </message>
     <message>
-        <source>Show the current status of automatic zMAG minting.
+        <source>Show the current status of automatic zBWI minting.
 
 To change the status (restart required):
 - enable: add 'enablezeromint=1' to bitwin24.conf
 - disable: add 'enablezeromint=0' to bitwin24.conf
 
 To change the percentage (no restart required):
-- menu Settings-&gt;Options-&gt;Percentage of autominted zMAG
+- menu Settings-&gt;Options-&gt;Percentage of autominted zBWI
 
 </source>
-        <translation>Pokažite trenutačni status automatskog zMAG mintanja.
+        <translation>Pokažite trenutačni status automatskog zBWI mintanja.
 
 Da biste promijenili status (potrebno je ponovno pokretanje):
 - omogući: dodajte 'enablezeromint = 1' u bitwin24.conf
 - onemogućiti: dodajte 'enablezeromint = 0' na bitwin24.conf
 
 Promjena postotka (nije potrebno ponovno pokretanje):
-- izbornik Postavke-&gt; Opcije-&gt; Postotak zMAG</translation>
+- izbornik Postavke-&gt; Opcije-&gt; Postotak zBWI</translation>
     </message>
     <message>
         <source>AutoMint Status</source>
@@ -2787,12 +2787,12 @@ Maximum allowed: </source>
 Maksimalno dopušteno:</translation>
     </message>
     <message>
-        <source>zMAG Spend #: </source>
-        <translation>zMAG utrošeno #: </translation>
+        <source>zBWI Spend #: </source>
+        <translation>zBWI utrošeno #: </translation>
     </message>
     <message>
-        <source>zMAG Mint</source>
-        <translation>zMAG Mint</translation>
+        <source>zBWI Mint</source>
+        <translation>zBWI Mint</translation>
     </message>
     <message>
         <source> &lt;b&gt;enabled&lt;/b&gt;.</source>
@@ -2807,12 +2807,12 @@ Maksimalno dopušteno:</translation>
         <translation> Konfigirani ciljani postotak: &lt;b&gt;</translation>
     </message>
     <message>
-        <source>zMAG is currently disabled due to maintenance.</source>
-        <translation>Zbog održavanja zMAG je trenutačno onemogućen.</translation>
+        <source>zBWI is currently disabled due to maintenance.</source>
+        <translation>Zbog održavanja zBWI je trenutačno onemogućen.</translation>
     </message>
     <message>
-        <source>zMAG is currently undergoing maintenance.</source>
-        <translation>Radovi u tijeku na zMAG.</translation>
+        <source>zBWI is currently undergoing maintenance.</source>
+        <translation>Radovi u tijeku na zBWI.</translation>
     </message>
     <message>
         <source>Denom. with value &lt;b&gt;1&lt;/b&gt;:</source>
@@ -2899,8 +2899,8 @@ Maksimalno dopušteno:</translation>
         <translation>Uspješno mintano</translation>
     </message>
     <message>
-        <source> zMAG in </source>
-        <translation> ulazni zMAG </translation>
+        <source> zBWI in </source>
+        <translation> ulazni zBWI </translation>
     </message>
     <message>
         <source> sec. Used denominations:
@@ -2958,12 +2958,12 @@ Maksimalno dopušteno:</translation>
         <translation>Potvrdite slanje novca</translation>
     </message>
     <message>
-        <source>Version 1 zMAG require a security level of 100 to successfully spend.</source>
-        <translation>Verzija 1 zMAG zahtjeva sigurnosnu razinu 100 da se uspješno utroši.</translation>
+        <source>Version 1 zBWI require a security level of 100 to successfully spend.</source>
+        <translation>Verzija 1 zBWI zahtjeva sigurnosnu razinu 100 da se uspješno utroši.</translation>
     </message>
     <message>
-        <source>Failed to spend zMAG</source>
-        <translation>Neuspjelo trošenje zMAG</translation>
+        <source>Failed to spend zBWI</source>
+        <translation>Neuspjelo trošenje zBWI</translation>
     </message>
     <message>
         <source>Failed to fetch mint associated with serial hash</source>
@@ -2984,7 +2984,7 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
     </message>
     <message numerus="yes">
         <source>PrivacyDialog</source>
-        <comment>Enter an amount of BITWIN24 to convert to zMAG</comment>
+        <comment>Enter an amount of BITWIN24 to convert to zBWI</comment>
         <translation><numerusform>PrivacyDialog</numerusform><numerusform>PrivacyDialog</numerusform><numerusform>PrivacyDialog</numerusform></translation>
     </message>
     <message>
@@ -3302,8 +3302,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Put prilagođenog sigurnosnog kopiranja:</translation>
     </message>
     <message>
-        <source>Custom zMAG Backup Path:</source>
-        <translation>Prilagođeni put zMAG sigurnosne kopije:</translation>
+        <source>Custom zBWI Backup Path:</source>
+        <translation>Prilagođeni put zBWI sigurnosne kopije:</translation>
     </message>
     <message>
         <source>Custom Backups Threshold:</source>
@@ -3805,12 +3805,12 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Kovanice se automatski odabiru</translation>
     </message>
     <message>
-        <source>If the custom fee is set to 1000 uMAGs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uMAGs in fee,&lt;br /&gt;while "at least" pays 1000 uMAGs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
-        <translation>Ako je prilagođena naknada postavljena na 1000 uMAG-ova, a transakcija je samo 250 bajta, tada "po kilobajtu" se plaća samo 250 uMAG-a, dok se "barem" plaća 1000 uMAG-ova. Za transakcije veće od kilobajta, oboje plaćaju po kilobajtu.</translation>
+        <source>If the custom fee is set to 1000 uBWIs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uBWIs in fee,&lt;br /&gt;while "at least" pays 1000 uBWIs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
+        <translation>Ako je prilagođena naknada postavljena na 1000 uBWI-ova, a transakcija je samo 250 bajta, tada "po kilobajtu" se plaća samo 250 uBWI-a, dok se "barem" plaća 1000 uBWI-ova. Za transakcije veće od kilobajta, oboje plaćaju po kilobajtu.</translation>
     </message>
     <message>
-        <source>If the custom fee is set to 1000 uMAGs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uMAGs in fee,&lt;br /&gt;while "total at least" pays 1000 uMAGs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
-        <translation>Ako je prilagođena naknada postavljena na 1000 uMAG, a transakcija je samo 250 bajta, tada "po kilobajtu" plaća se samo 250 uMAG-ova, a "ukupno barem" plaća 1000 uMAG-ova. Za transakcije veće od kilobajta, oboje plaćaju po kilobajtu.</translation>
+        <source>If the custom fee is set to 1000 uBWIs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uBWIs in fee,&lt;br /&gt;while "total at least" pays 1000 uBWIs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
+        <translation>Ako je prilagođena naknada postavljena na 1000 uBWI, a transakcija je samo 250 bajta, tada "po kilobajtu" plaća se samo 250 uBWI-ova, a "ukupno barem" plaća 1000 uBWI-ova. Za transakcije veće od kilobajta, oboje plaćaju po kilobajtu.</translation>
     </message>
     <message>
         <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for BITWIN24 transactions than the network can process.</source>
@@ -4530,8 +4530,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>BITWIN24 Stake</translation>
     </message>
     <message>
-        <source>zMAG Stake</source>
-        <translation>zMAG Stake</translation>
+        <source>zBWI Stake</source>
+        <translation>zBWI Stake</translation>
     </message>
     <message>
         <source>Obfuscation Denominate</source>
@@ -4550,32 +4550,32 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Prikrivanje Stvara Denominacije</translation>
     </message>
     <message>
-        <source>Converted BITWIN24 to zMAG</source>
-        <translation>Pretvoreni BITWIN24 u zMAG</translation>
+        <source>Converted BITWIN24 to zBWI</source>
+        <translation>Pretvoreni BITWIN24 u zBWI</translation>
     </message>
     <message>
-        <source>Spent zMAG</source>
-        <translation>Utrošeni zMAG</translation>
+        <source>Spent zBWI</source>
+        <translation>Utrošeni zBWI</translation>
     </message>
     <message>
-        <source>Received BITWIN24 from zMAG</source>
-        <translation>Primljeni BITWIN24 od zMAG</translation>
+        <source>Received BITWIN24 from zBWI</source>
+        <translation>Primljeni BITWIN24 od zBWI</translation>
     </message>
     <message>
-        <source>Minted Change as zMAG from zMAG Spend</source>
-        <translation>Mintana razlika zMAG od zMAG Utroška</translation>
+        <source>Minted Change as zBWI from zBWI Spend</source>
+        <translation>Mintana razlika zBWI od zBWI Utroška</translation>
     </message>
     <message>
-        <source>Converted zMAG to BITWIN24</source>
-        <translation>Pretvoreni zMAG u BITWIN24</translation>
+        <source>Converted zBWI to BITWIN24</source>
+        <translation>Pretvoreni zBWI u BITWIN24</translation>
     </message>
     <message>
-        <source>Anonymous (zMAG Transaction)</source>
-        <translation>Anonimno (zMAG Transakcija)</translation>
+        <source>Anonymous (zBWI Transaction)</source>
+        <translation>Anonimno (zBWI Transakcija)</translation>
     </message>
     <message>
-        <source>Anonymous (zMAG Stake)</source>
-        <translation>Anonimno (zMAG Stake)</translation>
+        <source>Anonymous (zBWI Stake)</source>
+        <translation>Anonimno (zBWI Stake)</translation>
     </message>
     <message>
         <source>Sent to</source>
@@ -4785,12 +4785,12 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Izvoz uspješan</translation>
     </message>
     <message>
-        <source>Received BITWIN24 from zMAG</source>
-        <translation>Primljeni BITWIN24 od zMAG</translation>
+        <source>Received BITWIN24 from zBWI</source>
+        <translation>Primljeni BITWIN24 od zBWI</translation>
     </message>
     <message>
-        <source>Zerocoin Spend, Change in zMAG</source>
-        <translation>Zerocoin Utrošeno, Razlika (ostatak) u zMAG</translation>
+        <source>Zerocoin Spend, Change in zBWI</source>
+        <translation>Zerocoin Utrošeno, Razlika (ostatak) u zBWI</translation>
     </message>
     <message>
         <source>The transaction history was successfully saved to %1.</source>
@@ -4860,8 +4860,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
 <context>
     <name>ZBWIControlDialog</name>
     <message>
-        <source>Select zMAG to Spend</source>
-        <translation>Odabrani zMAG za utrošiti</translation>
+        <source>Select zBWI to Spend</source>
+        <translation>Odabrani zBWI za utrošiti</translation>
     </message>
     <message>
         <source>Quantity</source>
@@ -4872,8 +4872,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>0</translation>
     </message>
     <message>
-        <source>zMAG</source>
-        <translation>zMAG</translation>
+        <source>zBWI</source>
+        <translation>zBWI</translation>
     </message>
     <message>
         <source>Select/Deselect All</source>
@@ -4939,16 +4939,16 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Distribuirano pod MIT softverskom licencom, pogledajte priloženu datoteku COPYING ili &lt;http://www.opensource.org/licenses/mit-license.php&gt;.</translation>
     </message>
     <message>
-        <source>Enable automatic wallet backups triggered after each zMAG minting (0-1, default: %u)</source>
-        <translation>Omogući automatsko sigurnosno kopiranje novčanika nakon svakog zMAG mintanja (0-1, default: %u)</translation>
+        <source>Enable automatic wallet backups triggered after each zBWI minting (0-1, default: %u)</source>
+        <translation>Omogući automatsko sigurnosno kopiranje novčanika nakon svakog zBWI mintanja (0-1, default: %u)</translation>
     </message>
     <message>
         <source>Enable or disable staking functionality for BITWIN24 inputs (0-1, default: %u)</source>
         <translation>Omogući ili onemogući staking funkcionalnosti za BITWIN24 unose (0-1, default: %u)</translation>
     </message>
     <message>
-        <source>Enable or disable staking functionality for zMAG inputs (0-1, default: %u)</source>
-        <translation>Omogući ili onemogući staking funkcionalnosti za zMAG unose (0-1, default: %u)</translation>
+        <source>Enable or disable staking functionality for zBWI inputs (0-1, default: %u)</source>
+        <translation>Omogući ili onemogući staking funkcionalnosti za zBWI unose (0-1, default: %u)</translation>
     </message>
     <message>
         <source>Enable spork administration functionality with the appropriate private key.</source>
@@ -5544,8 +5544,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Postotak automatskog kovanog Zerocoina (1-100, zadano: %u)</translation>
     </message>
     <message>
-        <source>Reindex the BITWIN24 and zMAG money supply statistics</source>
-        <translation>Ponovno indeksirati statistiku BITWIN24 i zMAG ponude novca</translation>
+        <source>Reindex the BITWIN24 and zBWI money supply statistics</source>
+        <translation>Ponovno indeksirati statistiku BITWIN24 i zBWI ponude novca</translation>
     </message>
     <message>
         <source>Reindexing zerocoin database...</source>
@@ -5619,8 +5619,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Preferirana denominacija za automatski ovjereni Zerocoin (1/5/10/50/100/500/1000/5000), 0 bez preferencije. zadana vrijednost: %u)</translation>
     </message>
     <message>
-        <source>Specify custom backup path to add a copy of any automatic zMAG backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup. If backuppath is set as well, 4 backups will happen</source>
-        <translation>Navedite put prilagođenog sigurnosnog kopiranja da biste dodali kopiju bilo koje automatske zMAG sigurnosne kopije. Ako je postavljeno kao dir, svaka sigurnosna kopija generira vremensku datoteku. Ako je postavljen kao datoteka, prepisat će na tu datoteku svaku kopiju. Ako je postavljen backuppath, dogodit će se 4 sigurnosne kopije</translation>
+        <source>Specify custom backup path to add a copy of any automatic zBWI backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup. If backuppath is set as well, 4 backups will happen</source>
+        <translation>Navedite put prilagođenog sigurnosnog kopiranja da biste dodali kopiju bilo koje automatske zBWI sigurnosne kopije. Ako je postavljeno kao dir, svaka sigurnosna kopija generira vremensku datoteku. Ako je postavljen kao datoteka, prepisat će na tu datoteku svaku kopiju. Ako je postavljen backuppath, dogodit će se 4 sigurnosne kopije</translation>
     </message>
     <message>
         <source>Specify custom backup path to add a copy of any wallet backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup.</source>
@@ -6119,8 +6119,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Sinkronizacija sporka...</translation>
     </message>
     <message>
-        <source>Syncing zMAG wallet...</source>
-        <translation>Sinkronizacija zMAG novčanika...</translation>
+        <source>Syncing zBWI wallet...</source>
+        <translation>Sinkronizacija zBWI novčanika...</translation>
     </message>
     <message>
         <source>The coin spend has been used</source>
@@ -6267,8 +6267,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Korisničko ime za JSON-RPC veze</translation>
     </message>
     <message>
-        <source>Value is below the smallest available denomination (= 1) of zMAG</source>
-        <translation>Vrijednost je niža od najmanje dostupne denominacije (= 1) zMAG-a</translation>
+        <source>Value is below the smallest available denomination (= 1) of zBWI</source>
+        <translation>Vrijednost je niža od najmanje dostupne denominacije (= 1) zBWI-a</translation>
     </message>
     <message>
         <source>Value more than Obfuscation pool maximum allows.</source>
@@ -6283,8 +6283,8 @@ Either mint higher denominations (so fewer inputs are needed) or reduce the amou
         <translation>Provjera novčanika...</translation>
     </message>
     <message>
-        <source>Version 1 zMAG require a security level of 100 to successfully spend.</source>
-        <translation>Verzija 1 zMAG zahtjeva sigurnosnu razinu 100 da se uspješno utroši.</translation>
+        <source>Version 1 zBWI require a security level of 100 to successfully spend.</source>
+        <translation>Verzija 1 zBWI zahtjeva sigurnosnu razinu 100 da se uspješno utroši.</translation>
     </message>
     <message>
         <source>Wallet %s resides outside data directory %s</source>

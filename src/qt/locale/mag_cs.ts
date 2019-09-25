@@ -397,8 +397,8 @@
         <translation>Procházet historii transakcí</translation>
     </message>
     <message>
-        <source>Privacy Actions for zMAG</source>
-        <translation>Řešení soukromí pro zMAG</translation>
+        <source>Privacy Actions for zBWI</source>
+        <translation>Řešení soukromí pro zBWI</translation>
     </message>
     <message>
         <source>E&amp;xit</source>

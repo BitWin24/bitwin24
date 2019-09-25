@@ -75,7 +75,7 @@ AskPassphraseDialog::AskPassphraseDialog(Mode mode, QWidget* parent, WalletModel
     }
 
     // Set checkbox "For anonymization, automint, and staking only" depending on from where we were called
-    if (context == Context::Unlock_Menu || context == Context::Mint_zMAG || context == Context::BIP_38) {
+    if (context == Context::Unlock_Menu || context == Context::Mint_zBWI || context == Context::BIP_38) {
         ui->anonymizationCheckBox->setChecked(true);
     }
     else {
@@ -83,7 +83,7 @@ AskPassphraseDialog::AskPassphraseDialog(Mode mode, QWidget* parent, WalletModel
     }
 
     // It doesn't make sense to show the checkbox for sending BITWIN24 because you wouldn't check it anyway.
-    if (context == Context::Send_MAG || context == Context::Send_zMAG) {
+    if (context == Context::Send_BWI || context == Context::Send_zBWI) {
         ui->anonymizationCheckBox->hide();
     }
 
@@ -133,7 +133,7 @@ void AskPassphraseDialog::accept()
                         "<qt>" +
                             tr("BITWIN24 will close now to finish the encryption process. "
                                "Remember that encrypting your wallet cannot fully protect "
-                               "your MAGs from being stolen by malware infecting your computer.") +
+                               "your BWIs from being stolen by malware infecting your computer.") +
                             "<br><br><b>" +
                             tr("IMPORTANT: Any previous backups you have made of your wallet file "
                                "should be replaced with the newly generated, encrypted wallet file. "

@@ -181,7 +181,7 @@
       <string>Asks</string>
      </property>
     </widget>
-    <widget class="QLabel" name="MAGSupply">
+    <widget class="QLabel" name="BWISupply">
      <property name="geometry">
       <rect>
        <x>540</x>
@@ -197,7 +197,7 @@
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLabel" name="MAGDemand">
+    <widget class="QLabel" name="BWIDemand">
      <property name="geometry">
       <rect>
        <x>160</x>
@@ -432,7 +432,7 @@
     <attribute name="title">
      <string>Buy</string>
     </attribute>
-    <widget class="QPushButton" name="BuyMAG">
+    <widget class="QPushButton" name="BuyBWI">
      <property name="geometry">
       <rect>
        <x>30</x>
@@ -1707,7 +1707,7 @@
       <string>BITWIN24</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="UnitsInputMAG">
+    <widget class="QLineEdit" name="UnitsInputBWI">
      <property name="geometry">
       <rect>
        <x>310</x>
@@ -1741,7 +1741,7 @@
       </font>
      </property>
     </widget>
-    <widget class="QPushButton" name="SellMAGBTN">
+    <widget class="QPushButton" name="SellBWIBTN">
      <property name="geometry">
       <rect>
        <x>30</x>
@@ -1782,7 +1782,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="MAGAvailableLabel">
+       <widget class="QLabel" name="BWIAvailableLabel">
         <property name="palette">
          <palette>
           <active>
@@ -2213,7 +2213,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="labelMAG">
+       <widget class="QLabel" name="labelBWI">
         <property name="font">
          <font>
           <weight>75</weight>
@@ -2733,7 +2733,7 @@
       <string>TextLabel</string>
      </property>
     </widget>
-    <widget class="QLabel" name="MAGBalanceLabel">
+    <widget class="QLabel" name="BWIBalanceLabel">
      <property name="geometry">
       <rect>
        <x>150</x>
@@ -2784,7 +2784,7 @@
       <string>BTC Balance:</string>
      </property>
     </widget>
-    <widget class="QLabel" name="MAGAvailableLabel_2">
+    <widget class="QLabel" name="BWIAvailableLabel_2">
      <property name="geometry">
       <rect>
        <x>150</x>
@@ -2835,7 +2835,7 @@
       <string>BITWIN24 Pending:</string>
      </property>
     </widget>
-    <widget class="QLabel" name="MAGPendingLabel">
+    <widget class="QLabel" name="BWIPendingLabel">
      <property name="geometry">
       <rect>
        <x>150</x>

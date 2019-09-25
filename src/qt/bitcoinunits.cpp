@@ -110,9 +110,9 @@ qint64 BitcoinUnits::factor(int unit)
     switch (unit) {
     case BITWIN24:
         return 100000000;
-    case mMAG:
+    case mBWI:
         return 100000;
-    case uMAG:
+    case uBWI:
         return 100;
     default:
         return 100000000;
@@ -124,9 +124,9 @@ int BitcoinUnits::decimals(int unit)
     switch (unit) {
     case BITWIN24:
         return 8;
-    case mMAG:
+    case mBWI:
         return 5;
-    case uMAG:
+    case uBWI:
         return 2;
     default:
         return 0;

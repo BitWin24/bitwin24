@@ -1757,7 +1757,7 @@ UniValue walletpassphrase(const UniValue& params, bool fHelp)
         throw runtime_error(
             "walletpassphrase \"passphrase\" timeout ( anonymizeonly )\n"
             "\nStores the wallet decryption key in memory for 'timeout' seconds.\n"
-            "This is needed prior to performing transactions related to private keys such as sending MAGs\n"
+            "This is needed prior to performing transactions related to private keys such as sending BWIs\n"
 
             "\nArguments:\n"
             "1. \"passphrase\"     (string, required) The wallet passphrase\n"
@@ -1922,7 +1922,7 @@ UniValue encryptwallet(const UniValue& params, bool fHelp)
             "\nExamples:\n"
             "\nEncrypt you wallet\n" +
             HelpExampleCli("encryptwallet", "\"my pass phrase\"") +
-            "\nNow set the passphrase to use the wallet, such as for signing or sending MAGs\n" +
+            "\nNow set the passphrase to use the wallet, such as for signing or sending BWIs\n" +
             HelpExampleCli("walletpassphrase", "\"my pass phrase\"") +
             "\nNow we can so something like sign\n" +
             HelpExampleCli("signmessage", "\"magaddress\" \"test message\"") +
@@ -1966,7 +1966,7 @@ UniValue lockunspent(const UniValue& params, bool fHelp)
             "lockunspent unlock [{\"txid\":\"txid\",\"vout\":n},...]\n"
             "\nUpdates list of temporarily unspendable outputs.\n"
             "Temporarily lock (unlock=false) or unlock (unlock=true) specified transaction outputs.\n"
-            "A locked transaction output will not be chosen by automatic coin selection, when spending MAGs.\n"
+            "A locked transaction output will not be chosen by automatic coin selection, when spending BWIs.\n"
             "Locks are stored in memory only. Nodes start with zero locked outputs, and the locked output list\n"
             "is always cleared (by virtue of process exit) when a node stops or fails.\n"
             "Also see the listunspent call\n"
@@ -2536,11 +2536,11 @@ UniValue getzerocoinbalance(const UniValue& params, bool fHelp)
     if (fHelp || params.size() != 0)
         throw runtime_error(
             "getzerocoinbalance\n"
-            "\nReturn the wallet's total zMAG balance.\n" +
+            "\nReturn the wallet's total zBWI balance.\n" +
             HelpRequiringPassphrase() + "\n"
 
             "\nResult:\n"
-            "amount         (numeric) Total zMAG balance.\n"
+            "amount         (numeric) Total zBWI balance.\n"
 
             "\nExamples:\n" +
             HelpExampleCli("getzerocoinbalance", "") + HelpExampleRpc("getzerocoinbalance", ""));
@@ -2564,7 +2564,7 @@ UniValue listmintedzerocoins(const UniValue& params, bool fHelp)
     if (fHelp || params.size() != 0)
         throw runtime_error(
             "listmintedzerocoins\n"
-            "\nList all zMAG mints in the wallet.\n" +
+            "\nList all zBWI mints in the wallet.\n" +
             HelpRequiringPassphrase() + "\n"
 
             "\nResult:\n"
@@ -2640,7 +2640,7 @@ UniValue listspentzerocoins(const UniValue& params, bool fHelp)
     if (fHelp || params.size() != 0)
         throw runtime_error(
             "listspentzerocoins\n"
-            "\nList all the spent zMAG mints in the wallet.\n" +
+            "\nList all the spent zBWI mints in the wallet.\n" +
             HelpRequiringPassphrase() + "\n"
 
             "\nResult:\n"
@@ -2672,11 +2672,11 @@ UniValue mintzerocoin(const UniValue& params, bool fHelp)
     if (fHelp || params.size() < 1 || params.size() > 2)
         throw runtime_error(
             "mintzerocoin amount ( utxos )\n"
-            "\nMint the specified zMAG amount\n" +
+            "\nMint the specified zBWI amount\n" +
             HelpRequiringPassphrase() + "\n"
 
             "\nArguments:\n"
-            "1. amount      (numeric, required) Enter an amount of BWI to convert to zMAG\n"
+            "1. amount      (numeric, required) Enter an amount of BWI to convert to zBWI\n"
             "2. utxos       (string, optional) A json array of objects.\n"
             "                   Each object needs the txid (string) and vout (numeric)\n"
             "  [\n"
@@ -2720,7 +2720,7 @@ UniValue mintzerocoin(const UniValue& params, bool fHelp)
 
     int64_t nTime = GetTimeMillis();
     if(!Params().ZeroCoinEnabled() || GetAdjustedTime() > GetSporkValue(SPORK_16_ZEROCOIN_MAINTENANCE_MODE))
-        throw JSONRPCError(RPC_WALLET_ERROR, "zMAG is currently disabled due to maintenance.");
+        throw JSONRPCError(RPC_WALLET_ERROR, "zBWI is currently disabled due to maintenance.");
 
     EnsureWalletIsUnlocked(true);
 
@@ -2783,7 +2783,7 @@ UniValue spendzerocoin(const UniValue& params, bool fHelp)
     if (fHelp || params.size() > 5 || params.size() < 4)
         throw runtime_error(
             "spendzerocoin amount mintchange minimizechange securitylevel ( \"address\" )\n"
-            "\nSpend zMAG to a BITWIN24 address.\n" +
+            "\nSpend zBWI to a BITWIN24 address.\n" +
             HelpRequiringPassphrase() + "\n"
 
             "\nArguments:\n"
@@ -2828,13 +2828,13 @@ UniValue spendzerocoin(const UniValue& params, bool fHelp)
     LOCK2(cs_main, pwalletMain->cs_wallet);
 
     if(!Params().ZeroCoinEnabled() || GetAdjustedTime() > GetSporkValue(SPORK_16_ZEROCOIN_MAINTENANCE_MODE))
-        throw JSONRPCError(RPC_WALLET_ERROR, "zMAG is currently disabled due to maintenance.");
+        throw JSONRPCError(RPC_WALLET_ERROR, "zBWI is currently disabled due to maintenance.");
 
     EnsureWalletIsUnlocked();
 
     int64_t nTimeStart = GetTimeMillis();
     CAmount nAmount = AmountFromValue(params[0]);   // Spending amount
-    bool fMintChange = params[1].get_bool();        // Mint change to zMAG
+    bool fMintChange = params[1].get_bool();        // Mint change to zBWI
     bool fMinimizeChange = params[2].get_bool();    // Minimize change
     int nSecurityLevel = params[3].get_int();       // Security level
 
@@ -2932,7 +2932,7 @@ UniValue resetmintzerocoin(const UniValue& params, bool fHelp)
     LOCK2(cs_main, pwalletMain->cs_wallet);
 
     CWalletDB walletdb(pwalletMain->strWalletFile);
-    CzMAGTracker* zbwiTracker = pwalletMain->zbwiTracker.get();
+    CzBWITracker* zbwiTracker = pwalletMain->zbwiTracker.get();
     set<CMintMeta> setMints = zbwiTracker->ListMints(false, false, true);
     vector<CMintMeta> vMintsToFind(setMints.begin(), setMints.end());
     vector<CMintMeta> vMintsMissing;
@@ -2985,7 +2985,7 @@ UniValue resetspentzerocoin(const UniValue& params, bool fHelp)
     LOCK2(cs_main, pwalletMain->cs_wallet);
 
     CWalletDB walletdb(pwalletMain->strWalletFile);
-    CzMAGTracker* zbwiTracker = pwalletMain->zbwiTracker.get();
+    CzBWITracker* zbwiTracker = pwalletMain->zbwiTracker.get();
     set<CMintMeta> setMints = zbwiTracker->ListMints(false, false, false);
     list<CZerocoinSpend> listSpends = walletdb.ListSpentCoins();
     list<CZerocoinSpend> listUnconfirmedSpends;
@@ -3090,7 +3090,7 @@ UniValue exportzerocoins(const UniValue& params, bool fHelp)
 
             "\nArguments:\n"
             "1. \"include_spent\"        (bool, required) Include mints that have already been spent\n"
-            "2. \"denomination\"         (integer, optional) Export a specific denomination of zMAG\n"
+            "2. \"denomination\"         (integer, optional) Export a specific denomination of zBWI\n"
 
             "\nResult:\n"
             "[                   (array of json object)\n"
@@ -3102,8 +3102,8 @@ UniValue exportzerocoins(const UniValue& params, bool fHelp)
             "    \"t\": \"txid\",    (string) The txid that the coin was minted in\n"
             "    \"h\": n,         (numeric) The height the tx was added to the blockchain\n"
             "    \"u\": used,      (boolean) Whether the mint has been spent\n"
-            "    \"v\": version,   (numeric) The version of the zMAG\n"
-            "    \"k\": \"privkey\"  (string) The zMAG private key (V2+ zMAG only)\n"
+            "    \"v\": version,   (numeric) The version of the zBWI\n"
+            "    \"k\": \"privkey\"  (string) The zBWI private key (V2+ zBWI only)\n"
             "  }\n"
             "  ,...\n"
             "]\n"
@@ -3122,7 +3122,7 @@ UniValue exportzerocoins(const UniValue& params, bool fHelp)
     if (params.size() == 2)
         denomination = libzerocoin::IntToZerocoinDenomination(params[1].get_int());
 
-    CzMAGTracker* zbwiTracker = pwalletMain->zbwiTracker.get();
+    CzBWITracker* zbwiTracker = pwalletMain->zbwiTracker.get();
     set<CMintMeta> setMints = zbwiTracker->ListMints(!fIncludeSpent, false, false);
 
     UniValue jsonList(UniValue::VARR);
@@ -3173,7 +3173,7 @@ UniValue importzerocoins(const UniValue& params, bool fHelp)
             "\nResult:\n"
             "{\n"
             "  \"added\": n,        (numeric) The quantity of zerocoin mints that were added\n"
-            "  \"value\": amount    (numeric) The total zMAG value of zerocoin mints that were added\n"
+            "  \"value\": amount    (numeric) The total zBWI value of zerocoin mints that were added\n"
             "}\n"
 
             "\nExamples\n" +
@@ -3253,7 +3253,7 @@ UniValue reconsiderzerocoins(const UniValue& params, bool fHelp)
     if(fHelp || !params.empty())
         throw runtime_error(
             "reconsiderzerocoins\n"
-            "\nCheck archived zMAG list to see if any mints were added to the blockchain.\n" +
+            "\nCheck archived zBWI list to see if any mints were added to the blockchain.\n" +
             HelpRequiringPassphrase() + "\n"
 
             "\nResult:\n"
@@ -3322,7 +3322,7 @@ UniValue setzbwiseed(const UniValue& params, bool fHelp)
     uint256 seed;
     seed.SetHex(params[0].get_str());
 
-    CzMAGWallet* zwallet = pwalletMain->getZWallet();
+    CzBWIWallet* zwallet = pwalletMain->getZWallet();
     bool fSuccess = zwallet->SetMasterSeed(seed, true);
     if (fSuccess)
         zwallet->SyncWithChain();
@@ -3338,18 +3338,18 @@ UniValue getzbwiseed(const UniValue& params, bool fHelp)
     if(fHelp || !params.empty())
         throw runtime_error(
             "getzbwiseed\n"
-            "\nCheck archived zMAG list to see if any mints were added to the blockchain.\n" +
+            "\nCheck archived zBWI list to see if any mints were added to the blockchain.\n" +
             HelpRequiringPassphrase() + "\n"
 
             "\nResult\n"
-            "\"seed\" : s,  (string) The deterministic zMAG seed.\n"
+            "\"seed\" : s,  (string) The deterministic zBWI seed.\n"
 
             "\nExamples\n" +
             HelpExampleCli("getzbwiseed", "") + HelpExampleRpc("getzbwiseed", ""));
 
     EnsureWalletIsUnlocked();
 
-    CzMAGWallet* zwallet = pwalletMain->getZWallet();
+    CzBWIWallet* zwallet = pwalletMain->getZWallet();
     uint256 seed = zwallet->GetMasterSeed();
 
     UniValue ret(UniValue::VOBJ);
@@ -3363,12 +3363,12 @@ UniValue generatemintlist(const UniValue& params, bool fHelp)
     if(fHelp || params.size() != 2)
         throw runtime_error(
             "generatemintlist\n"
-            "\nShow mints that are derived from the deterministic zMAG seed.\n" +
+            "\nShow mints that are derived from the deterministic zBWI seed.\n" +
             HelpRequiringPassphrase() + "\n"
 
             "\nArguments\n"
-            "1. \"count\"  : n,  (numeric) Which sequential zMAG to start with.\n"
-            "2. \"range\"  : n,  (numeric) How many zMAG to generate.\n"
+            "1. \"count\"  : n,  (numeric) Which sequential zBWI to start with.\n"
+            "2. \"range\"  : n,  (numeric) How many zBWI to generate.\n"
 
             "\nResult:\n"
             "[\n"
@@ -3388,7 +3388,7 @@ UniValue generatemintlist(const UniValue& params, bool fHelp)
 
     int nCount = params[0].get_int();
     int nRange = params[1].get_int();
-    CzMAGWallet* zwallet = pwalletMain->zwalletMain;
+    CzBWIWallet* zwallet = pwalletMain->zwalletMain;
 
     UniValue arrRet(UniValue::VARR);
     for (int i = nCount; i < nCount + nRange; i++) {
@@ -3411,13 +3411,13 @@ UniValue dzbwistate(const UniValue& params, bool fHelp) {
     if (fHelp || params.size() != 0)
         throw runtime_error(
                 "dzbwistate\n"
-                        "\nThe current state of the mintpool of the deterministic zMAG wallet.\n" +
+                        "\nThe current state of the mintpool of the deterministic zBWI wallet.\n" +
                 HelpRequiringPassphrase() + "\n"
 
                         "\nExamples\n" +
                 HelpExampleCli("mintpoolstatus", "") + HelpExampleRpc("mintpoolstatus", ""));
 
-    CzMAGWallet* zwallet = pwalletMain->zwalletMain;
+    CzBWIWallet* zwallet = pwalletMain->zwalletMain;
     UniValue obj(UniValue::VOBJ);
     int nCount, nCountLastUsed;
     zwallet->GetState(nCount, nCountLastUsed);
@@ -3428,7 +3428,7 @@ UniValue dzbwistate(const UniValue& params, bool fHelp) {
 }
 
 
-void static SearchThread(CzMAGWallet* zwallet, int nCountStart, int nCountEnd)
+void static SearchThread(CzBWIWallet* zwallet, int nCountStart, int nCountEnd)
 {
     LogPrintf("%s: start=%d end=%d\n", __func__, nCountStart, nCountEnd);
     CWalletDB walletDB(pwalletMain->strWalletFile);
@@ -3445,7 +3445,7 @@ void static SearchThread(CzMAGWallet* zwallet, int nCountStart, int nCountEnd)
             CBigNum bnSerial;
             CBigNum bnRandomness;
             CKey key;
-            zwallet->SeedToZMAG(zerocoinSeed, bnValue, bnSerial, bnRandomness, key);
+            zwallet->SeedToZBWI(zerocoinSeed, bnValue, bnSerial, bnRandomness, key);
 
             uint256 hashPubcoin = GetPubCoinHash(bnValue);
             zwallet->AddToMintPool(make_pair(hashPubcoin, i), true);
@@ -3463,12 +3463,12 @@ UniValue searchdzbwi(const UniValue& params, bool fHelp)
     if(fHelp || params.size() != 3)
         throw runtime_error(
             "searchdzbwi\n"
-            "\nMake an extended search for deterministically generated zMAG that have not yet been recognized by the wallet.\n" +
+            "\nMake an extended search for deterministically generated zBWI that have not yet been recognized by the wallet.\n" +
             HelpRequiringPassphrase() + "\n"
 
             "\nArguments\n"
-            "1. \"count\"       (numeric) Which sequential zMAG to start with.\n"
-            "2. \"range\"       (numeric) How many zMAG to generate.\n"
+            "1. \"count\"       (numeric) Which sequential zBWI to start with.\n"
+            "2. \"range\"       (numeric) How many zBWI to generate.\n"
             "3. \"threads\"     (numeric) How many threads should this operation consume.\n"
 
             "\nExamples\n" +
@@ -3486,7 +3486,7 @@ UniValue searchdzbwi(const UniValue& params, bool fHelp)
 
     int nThreads = params[2].get_int();
 
-    CzMAGWallet* zwallet = pwalletMain->zwalletMain;
+    CzBWIWallet* zwallet = pwalletMain->zwalletMain;
 
     boost::thread_group* dzbwiThreads = new boost::thread_group();
     int nRangePerThread = nRange / nThreads;

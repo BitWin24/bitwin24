@@ -909,16 +909,16 @@ bool ContextualCheckZerocoinMint(const CTransaction& tx, const PublicCoin& coin,
 
 bool ContextualCheckZerocoinSpend(const CTransaction& tx, const CoinSpend& spend, CBlockIndex* pindex, const uint256& hashBlock)
 {
-    //Check to see if the zMAG is properly signed
+    //Check to see if the zBWI is properly signed
     if (pindex->nHeight >= Params().Zerocoin_Block_V2_Start()) {
         if (!spend.HasValidSignature())
-            return error("%s: V2 zMAG spend does not have a valid signature", __func__);
+            return error("%s: V2 zBWI spend does not have a valid signature", __func__);
 
         libzerocoin::SpendType expectedType = libzerocoin::SpendType::SPEND;
         if (tx.IsCoinStake())
             expectedType = libzerocoin::SpendType::STAKE;
         if (spend.getSpendType() != expectedType) {
-            return error("%s: trying to spend zMAG without the correct spend type. txid=%s", __func__,
+            return error("%s: trying to spend zBWI without the correct spend type. txid=%s", __func__,
                          tx.GetHash().GetHex());
         }
     }
@@ -926,14 +926,14 @@ bool ContextualCheckZerocoinSpend(const CTransaction& tx, const CoinSpend& spend
     //Reject serial's that are already in the blockchain
     int nHeightTx = 0;
     if (IsSerialInBlockchain(spend.getCoinSerialNumber(), nHeightTx))
-        return error("%s : zMAG spend with serial %s is already in block %d\n", __func__,
+        return error("%s : zBWI spend with serial %s is already in block %d\n", __func__,
                      spend.getCoinSerialNumber().GetHex(), nHeightTx);
 
     //Reject serial's that are not in the acceptable value range
     bool fUseV1Params = spend.getVersion() < libzerocoin::PrivateCoin::PUBKEY_VERSION;
     if (pindex->nHeight > Params().Zerocoin_Block_EnforceSerialRange() &&
         !spend.HasValidSerial(Params().Zerocoin_Params(fUseV1Params)))
-        return error("%s : zMAG spend with serial %s from tx %s is not in valid range\n", __func__,
+        return error("%s : zBWI spend with serial %s from tx %s is not in valid range\n", __func__,
                      spend.getCoinSerialNumber().GetHex(), tx.GetHash().GetHex());
 
     return true;
@@ -1241,7 +1241,7 @@ bool AcceptToMemoryPool(CTxMemPool& pool, CValidationState& state, const CTransa
             //Check that txid is not already in the chain
             int nHeightTx = 0;
             if (IsTransactionInChain(tx.GetHash(), nHeightTx))
-                return state.Invalid(error("AcceptToMemoryPool : zMAG spend tx %s already in block %d",
+                return state.Invalid(error("AcceptToMemoryPool : zBWI spend tx %s already in block %d",
                                            tx.GetHash().GetHex(), nHeightTx), REJECT_DUPLICATE, "bad-txns-inputs-spent");
 
             //Check for double spending of serial #'s
@@ -1279,7 +1279,7 @@ bool AcceptToMemoryPool(CTxMemPool& pool, CValidationState& state, const CTransa
                 }
             }
 
-            // Check that zMAG mints are not already known
+            // Check that zBWI mints are not already known
             if (tx.IsZerocoinMint()) {
                 for (auto& out : tx.vout) {
                     if (!out.IsZerocoinMint())
@@ -2022,7 +2022,7 @@ CAmount GetSeeSaw(const CAmount& blockValue, int nMasternodeCount, int nHeight)
     return ret;
 }
 
-int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCount, bool isZMAGStake)
+int64_t GetMasternodePayment(int nHeight, int64_t blockValue, int nMasternodeCount, bool isZBWIStake)
 {
     int64_t ret = 0;
     if (nHeight > Params().LAST_POW_BLOCK()) {
@@ -2550,7 +2550,7 @@ void ThreadScriptCheck()
     scriptcheckqueue.Thread();
 }
 
-void RecalculateZMAGMinted()
+void RecalculateZBWIMinted()
 {
     CBlockIndex *pindex = chainActive[Params().Zerocoin_StartHeight()];
     int nHeightEnd = chainActive.Height();
@@ -2577,14 +2577,14 @@ void RecalculateZMAGMinted()
     }
 }
 
-void RecalculateZMAGSpent()
+void RecalculateZBWISpent()
 {
     CBlockIndex* pindex = chainActive[Params().Zerocoin_StartHeight()];
     while (true) {
         if (pindex->nHeight % 1000 == 0)
             LogPrintf("%s : block %d...\n", __func__, pindex->nHeight);
 
-        //Rewrite zMAG supply
+        //Rewrite zBWI supply
         CBlock block;
         assert(ReadBlockFromDisk(block, pindex));
 
@@ -2593,13 +2593,13 @@ void RecalculateZMAGSpent()
         //Reset the supply to previous block
         pindex->mapZerocoinSupply = pindex->pprev->mapZerocoinSupply;
 
-        //Add mints to zMAG supply
+        //Add mints to zBWI supply
         for (auto denom : libzerocoin::zerocoinDenomList) {
             long nDenomAdded = count(pindex->vMintDenominationsInBlock.begin(), pindex->vMintDenominationsInBlock.end(), denom);
             pindex->mapZerocoinSupply.at(denom) += nDenomAdded;
         }
 
-        //Remove spends from zMAG supply
+        //Remove spends from zBWI supply
         for (auto denom : listDenomsSpent)
             pindex->mapZerocoinSupply.at(denom)--;
 
@@ -2613,7 +2613,7 @@ void RecalculateZMAGSpent()
     }
 }
 
-bool RecalculateMAGSupply(int nHeightStart)
+bool RecalculateBWISupply(int nHeightStart)
 {
     if (nHeightStart > chainActive.Height())
         return false;
@@ -2733,7 +2733,7 @@ bool ReindexAccumulators(list<uint256>& listMissingCheckpoints, string& strError
     return true;
 }
 
-bool UpdateZMAGSupply(const CBlock& block, CBlockIndex* pindex)
+bool UpdateZBWISupply(const CBlock& block, CBlockIndex* pindex)
 {
     std::list<CZerocoinMint> listMints;
     bool fFilterInvalid = pindex->nHeight >= Params().Zerocoin_Block_RecalculateAccumulators();
@@ -2912,7 +2912,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
                     return state.DoS(100, error("%s: failed to add block %s with invalid zerocoinspend", __func__, tx.GetHash().GetHex()), REJECT_INVALID);
             }
 
-            // Check that zMAG mints are not already known
+            // Check that zBWI mints are not already known
             if (tx.IsZerocoinMint()) {
                 for (auto& out : tx.vout) {
                     if (!out.IsZerocoinMint())
@@ -2941,7 +2941,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
                 }
             }
 
-            // Check that zMAG mints are not already known
+            // Check that zBWI mints are not already known
             if (tx.IsZerocoinMint()) {
                 for (auto& out : tx.vout) {
                     if (!out.IsZerocoinMint())
@@ -2989,14 +2989,14 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
 
     //A one-time event where money supply counts were off and recalculated on a certain block.
     if (pindex->nHeight == Params().Zerocoin_Block_RecalculateAccumulators() + 1) {
-        RecalculateZMAGMinted();
-        RecalculateZMAGSpent();
-        RecalculateMAGSupply(Params().Zerocoin_StartHeight());
+        RecalculateZBWIMinted();
+        RecalculateZBWISpent();
+        RecalculateBWISupply(Params().Zerocoin_StartHeight());
     }
 
-    //Track zMAG money supply in the block index
-    if (!UpdateZMAGSupply(block, pindex))
-        return state.DoS(100, error("%s: Failed to calculate new zMAG supply for block=%s height=%d", __func__,
+    //Track zBWI money supply in the block index
+    if (!UpdateZBWISupply(block, pindex))
+        return state.DoS(100, error("%s: Failed to calculate new zBWI supply for block=%s height=%d", __func__,
                                     block.GetHash().GetHex(), pindex->nHeight), REJECT_INVALID);
 
     // track money supply and mint amount info
@@ -3058,7 +3058,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
         setDirtyBlockIndex.insert(pindex);
     }
 
-    //Record zMAG serials
+    //Record zBWI serials
     set<uint256> setAddedTx;
     for (pair<CoinSpend, uint256> pSpend : vSpends) {
         // Send signal to wallet if this is ours
@@ -3199,7 +3199,7 @@ void static UpdateTip(CBlockIndex* pindexNew)
 {
     chainActive.SetTip(pindexNew);
 
-    // If turned on AutoZeromint will automatically convert BITWIN24 to zMAG
+    // If turned on AutoZeromint will automatically convert BITWIN24 to zBWI
     if (pwalletMain->isZeromintEnabled ())
         pwalletMain->AutoZeromint ();
 
@@ -4065,13 +4065,13 @@ bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW, bo
         if (!CheckTransaction(tx, fZerocoinActive, chainActive.Height() + 1 >= Params().Zerocoin_Block_EnforceSerialRange(), state))
             return error("CheckBlock() : CheckTransaction failed");
 
-        // double check that there are no double spent zMAG spends in this block
+        // double check that there are no double spent zBWI spends in this block
         if (tx.IsZerocoinSpend()) {
             for (const CTxIn& txIn : tx.vin) {
                 if (txIn.scriptSig.IsZerocoinSpend()) {
                     libzerocoin::CoinSpend spend = TxInToZerocoinSpend(txIn);
                     if (count(vBlockSerials.begin(), vBlockSerials.end(), spend.getCoinSerialNumber()))
-                        return state.DoS(100, error("%s : Double spending of zMAG serial %s in block\n Block: %s",
+                        return state.DoS(100, error("%s : Double spending of zBWI serial %s in block\n Block: %s",
                                                     __func__, spend.getCoinSerialNumber().GetHex(), block.ToString()));
                     vBlockSerials.emplace_back(spend.getCoinSerialNumber());
                 }
@@ -4267,21 +4267,21 @@ bool AcceptBlockHeader(const CBlock& block, CValidationState& state, CBlockIndex
 bool ContextualCheckZerocoinStake(int nHeight, CStakeInput* stake)
 {
     if (nHeight < Params().Zerocoin_Block_V2_Start())
-        return error("%s: zMAG stake block is less than allowed start height", __func__);
+        return error("%s: zBWI stake block is less than allowed start height", __func__);
 
-    if (CZBWIStake* zMAG = dynamic_cast<CZBWIStake*>(stake)) {
-        CBlockIndex* pindexFrom = zMAG->GetIndexFrom();
+    if (CZBWIStake* zBWI = dynamic_cast<CZBWIStake*>(stake)) {
+        CBlockIndex* pindexFrom = zBWI->GetIndexFrom();
         if (!pindexFrom)
-            return error("%s: failed to get index associated with zMAG stake checksum", __func__);
+            return error("%s: failed to get index associated with zBWI stake checksum", __func__);
 
         if (chainActive.Height() - pindexFrom->nHeight < Params().Zerocoin_RequiredStakeDepth())
-            return error("%s: zMAG stake does not have required confirmation depth", __func__);
+            return error("%s: zBWI stake does not have required confirmation depth", __func__);
 
         //The checksum needs to be the exact checksum from 200 blocks ago
         uint256 nCheckpoint200 = chainActive[nHeight - Params().Zerocoin_RequiredStakeDepth()]->nAccumulatorCheckpoint;
-        uint32_t nChecksum200 = ParseChecksum(nCheckpoint200, libzerocoin::AmountToZerocoinDenomination(zMAG->GetValue()));
-        if (nChecksum200 != zMAG->GetChecksum())
-            return error("%s: accumulator checksum is different than the block 200 blocks previous. stake=%d block200=%d", __func__, zMAG->GetChecksum(), nChecksum200);
+        uint32_t nChecksum200 = ParseChecksum(nCheckpoint200, libzerocoin::AmountToZerocoinDenomination(zBWI->GetValue()));
+        if (nChecksum200 != zBWI->GetChecksum())
+            return error("%s: accumulator checksum is different than the block 200 blocks previous. stake=%d block200=%d", __func__, zBWI->GetChecksum(), nChecksum200);
     } else {
         return error("%s: dynamic_cast of stake ptr failed", __func__);
     }
@@ -4331,8 +4331,8 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CBlockIndex** ppindex, 
         if (!stake)
             return error("%s: null stake ptr", __func__);
 
-        if (stake->IsZMAG() && !ContextualCheckZerocoinStake(pindexPrev->nHeight, stake.get()))
-            return state.DoS(100, error("%s: staked zMAG fails context checks", __func__));
+        if (stake->IsZBWI() && !ContextualCheckZerocoinStake(pindexPrev->nHeight, stake.get()))
+            return state.DoS(100, error("%s: staked zBWI fails context checks", __func__));
 
         uint256 hash = block.GetHash();
         if(!mapProofOfStake.count(hash)) // add to mapProofOfStake
@@ -4460,7 +4460,7 @@ bool ProcessNewBlock(CValidationState& state, CNode* pfrom, CBlock* pblock, CDis
         }
     }
     if (nMints || nSpends)
-        LogPrintf("%s : block contains %d zMAG mints and %d zMAG spends\n", __func__, nMints, nSpends);
+        LogPrintf("%s : block contains %d zBWI mints and %d zBWI spends\n", __func__, nMints, nSpends);
 
     if (!CheckBlockSignature(*pblock))
         return error("ProcessNewBlock() : bad proof-of-stake block signature");

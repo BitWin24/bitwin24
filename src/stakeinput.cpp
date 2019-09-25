@@ -40,7 +40,7 @@ uint32_t CZBWIStake::GetChecksum()
     return nChecksum;
 }
 
-// The zMAG block index is the first appearance of the accumulator checksum that was used in the spend
+// The zBWI block index is the first appearance of the accumulator checksum that was used in the spend
 // note that this also means when staking that this checksum should be from a block that is beyond 60 minutes old and
 // 100 blocks deep.
 CBlockIndex* CZBWIStake::GetIndexFrom()
@@ -93,7 +93,7 @@ bool CZBWIStake::GetModifier(uint64_t& nStakeModifier)
 
 CDataStream CZBWIStake::GetUniqueness()
 {
-    //The unique identifier for a zMAG is a hash of the serial
+    //The unique identifier for a zBWI is a hash of the serial
     CDataStream ss(SER_GETHASH, 0);
     ss << hashSerial;
     return ss;
@@ -122,23 +122,23 @@ bool CZBWIStake::CreateTxIn(CWallet* pwallet, CTxIn& txIn, uint256 hashTxOut)
 
 bool CZBWIStake::CreateTxOuts(CWallet* pwallet, vector<CTxOut>& vout, CAmount nTotal)
 {
-    //Create an output returning the zMAG that was staked
+    //Create an output returning the zBWI that was staked
     CTxOut outReward;
     libzerocoin::CoinDenomination denomStaked = libzerocoin::AmountToZerocoinDenomination(this->GetValue());
     CDeterministicMint dMint;
-    if (!pwallet->CreateZMAGOutPut(denomStaked, outReward, dMint))
-        return error("%s: failed to create zMAG output", __func__);
+    if (!pwallet->CreateZBWIOutPut(denomStaked, outReward, dMint))
+        return error("%s: failed to create zBWI output", __func__);
     vout.emplace_back(outReward);
 
     //Add new staked denom to our wallet
     if (!pwallet->DatabaseMint(dMint))
-        return error("%s: failed to database the staked zMAG", __func__);
+        return error("%s: failed to database the staked zBWI", __func__);
 
     for (unsigned int i = 0; i < 3; i++) {
         CTxOut out;
         CDeterministicMint dMintReward;
-        if (!pwallet->CreateZMAGOutPut(libzerocoin::CoinDenomination::ZQ_ONE, out, dMintReward))
-            return error("%s: failed to create zMAG output", __func__);
+        if (!pwallet->CreateZBWIOutPut(libzerocoin::CoinDenomination::ZQ_ONE, out, dMintReward))
+            return error("%s: failed to create zBWI output", __func__);
         vout.emplace_back(out);
 
         if (!pwallet->DatabaseMint(dMintReward))
@@ -155,7 +155,7 @@ bool CZBWIStake::GetTxFrom(CTransaction& tx)
 
 bool CZBWIStake::MarkSpent(CWallet *pwallet, const uint256& txid)
 {
-    CzMAGTracker* zbwiTracker = pwallet->zbwiTracker.get();
+    CzBWITracker* zbwiTracker = pwallet->zbwiTracker.get();
     CMintMeta meta;
     if (!zbwiTracker->GetMetaFromStakeHash(hashSerial, meta))
         return error("%s: tracker does not have serialhash", __func__);

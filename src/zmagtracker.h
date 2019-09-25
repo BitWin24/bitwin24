@@ -2,15 +2,15 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITWIN24_ZMAGTRACKER_H
-#define BITWIN24_ZMAGTRACKER_H
+#ifndef BITWIN24_ZBWITRACKER_H
+#define BITWIN24_ZBWITRACKER_H
 
 #include "primitives/zerocoin.h"
 #include <list>
 
 class CDeterministicMint;
 
-class CzMAGTracker
+class CzBWITracker
 {
 private:
     bool fInitialized;
@@ -19,8 +19,8 @@ private:
     std::map<uint256, uint256> mapPendingSpends; //serialhash, txid of spend
     bool UpdateStatusInternal(const std::set<uint256>& setMempool, CMintMeta& mint);
 public:
-    CzMAGTracker(std::string strWalletFile);
-    ~CzMAGTracker();
+    CzBWITracker(std::string strWalletFile);
+    ~CzBWITracker();
     void Add(const CDeterministicMint& dMint, bool isNew = false, bool isArchived = false);
     void Add(const CZerocoinMint& mint, bool isNew = false, bool isArchived = false);
     bool Archive(CMintMeta& meta);

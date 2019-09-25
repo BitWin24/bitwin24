@@ -172,7 +172,7 @@
         <translation>Підтвердження шифрування гаманця</translation>
     </message>
     <message>
-        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your MAGs from being stolen by malware infecting your computer.</source>
+        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your BWIs from being stolen by malware infecting your computer.</source>
         <translation>BITWIN24 зараз закриється, щоб завершити процес шифрування. Пам'ятайте, що шифрування гаманця не може повністю захистити ваші BITWIN24'и від крадіжки зловмисним програмним забезпеченням, що заражає ваш комп'ютер.</translation>
     </message>
     <message>

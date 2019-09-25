@@ -176,7 +176,7 @@
         <translation>Bevestig versleuteling van de portemonnee</translation>
     </message>
     <message>
-        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your MAGs from being stolen by malware infecting your computer.</source>
+        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your BWIs from being stolen by malware infecting your computer.</source>
         <translation>BITWIN24 zal nu afsluiten om het versleutelingsproces te voltooien. Onthoud dat het versleutelen van uw portemonnee u niet volledig kan beschermen tegen malware infecties op uw computer die uw BITWIN24's kunnen stelen.</translation>
     </message>
     <message>
@@ -433,8 +433,8 @@
         <translation>Blader door transactiegescheidenis</translation>
     </message>
     <message>
-        <source>Privacy Actions for zMAG</source>
-        <translation>Privacy Acties voor zMAG</translation>
+        <source>Privacy Actions for zBWI</source>
+        <translation>Privacy Acties voor zBWI</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
@@ -1948,28 +1948,28 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Map poort gebruikt &amp;UPnP</translation>
     </message>
     <message>
-        <source>Enable automatic minting of BITWIN24 units to zMAG</source>
-        <translation>Schakel automatisch slaan van BITWIN24-eenheden in op zMAG</translation>
+        <source>Enable automatic minting of BITWIN24 units to zBWI</source>
+        <translation>Schakel automatisch slaan van BITWIN24-eenheden in op zBWI</translation>
     </message>
     <message>
-        <source>Enable zMAG Automint</source>
-        <translation>Schakel zMAG Automint in</translation>
+        <source>Enable zBWI Automint</source>
+        <translation>Schakel zBWI Automint in</translation>
     </message>
     <message>
-        <source>Percentage of incoming BITWIN24 which get automatically converted to zMAG via Zerocoin Protocol (min: 10%)</source>
-        <translation>Percentage inkomende BITWIN24 die automatisch wordt omgezet naar zMAG via Zerocoin Protocol (min: 10%)</translation>
+        <source>Percentage of incoming BITWIN24 which get automatically converted to zBWI via Zerocoin Protocol (min: 10%)</source>
+        <translation>Percentage inkomende BITWIN24 die automatisch wordt omgezet naar zBWI via Zerocoin Protocol (min: 10%)</translation>
     </message>
     <message>
-        <source>Percentage of autominted zMAG</source>
-        <translation>Percentage autominted zMAG</translation>
+        <source>Percentage of autominted zBWI</source>
+        <translation>Percentage autominted zBWI</translation>
     </message>
     <message>
         <source>Wait with automatic conversion to Zerocoin until enough BITWIN24 for this denomination is available</source>
         <translation>Wacht met automatische omzetting naar Zerocoin totdat er genoeg BITWIN24 voor deze denominatie beschikbaar is</translation>
     </message>
     <message>
-        <source>Preferred Automint zMAG Denomination</source>
-        <translation>Gewenste Automint zMAG denominatie</translation>
+        <source>Preferred Automint zBWI Denomination</source>
+        <translation>Gewenste Automint zBWI denominatie</translation>
     </message>
     <message>
         <source>Stake split threshold:</source>
@@ -2159,12 +2159,12 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Uw huidige BITWIN24-saldo, onbevestigde en onvolgroeide transacties inbegrepen</translation>
     </message>
     <message>
-        <source>zMAG Balance</source>
-        <translation>zMAG-saldo</translation>
+        <source>zBWI Balance</source>
+        <translation>zBWI-saldo</translation>
     </message>
     <message>
         <source>Mature: more than 20 confirmation and more than 1 mint of the same denomination after it was minted.
-These zMAG are spendable.</source>
+These zBWI are spendable.</source>
         <translation>Volwassen: meer dan 20 bevestigingen en meer dan 1 mint van dezelfde denominatie nadat het gemint was.
 Deze zPIB zijn besteedbaar.</translation>
     </message>
@@ -2219,8 +2219,8 @@ Onvolwassen: bevestigd, maar minder dan 1 mint van dezelfde denominatie nadat he
         <translation>Uitgeefbaar:</translation>
     </message>
     <message>
-        <source>Locked BITWIN24 or Masternode collaterals. These are excluded from zMAG minting.</source>
-        <translation>Vergrendelde BITWIN24 of Masternode onderpanden. Deze zijn uitgesloten van de zMAG muntage.</translation>
+        <source>Locked BITWIN24 or Masternode collaterals. These are excluded from zBWI minting.</source>
+        <translation>Vergrendelde BITWIN24 of Masternode onderpanden. Deze zijn uitgesloten van de zBWI muntage.</translation>
     </message>
     <message>
         <source>Locked:</source>
@@ -2231,8 +2231,8 @@ Onvolwassen: bevestigd, maar minder dan 1 mint van dezelfde denominatie nadat he
         <translation>Onbevestigd:</translation>
     </message>
     <message>
-        <source>Your current zMAG balance, unconfirmed and immature zMAG included.</source>
-        <translation>Uw huidige zMAG-saldo, onbevestigde en onvolgroeide zMAG inbegrepen.</translation>
+        <source>Your current zBWI balance, unconfirmed and immature zBWI included.</source>
+        <translation>Uw huidige zBWI-saldo, onbevestigde en onvolgroeide zBWI inbegrepen.</translation>
     </message>
     <message>
         <source>Recent transactions</source>
@@ -2243,10 +2243,10 @@ Onvolwassen: bevestigd, maar minder dan 1 mint van dezelfde denominatie nadat he
         <translation>niet gesynchroniseerd</translation>
     </message>
     <message>
-        <source>Current percentage of zMAG.
+        <source>Current percentage of zBWI.
 If AutoMint is enabled this percentage will settle around the configured AutoMint percentage (default = 10%).
 </source>
-        <translation>Huidige percentage van zMAG
+        <translation>Huidige percentage van zBWI
 Als AutoMint ingeschakeld is zal deze percentage afhangen van de geconfigureerde AutoMint percentage (standaard = 10%).
 </translation>
     </message>
@@ -2390,8 +2390,8 @@ Om AutoMint in te schakelend verander je 'enablezeromint=0' naar 'enablezeromint
         <translation>0</translation>
     </message>
     <message>
-        <source>zMAG</source>
-        <translation>zMAG</translation>
+        <source>zBWI</source>
+        <translation>zBWI</translation>
     </message>
     <message>
         <source>Available for minting are coins which are confirmed and not locked or Masternode collaterals.</source>
@@ -2442,16 +2442,16 @@ Om AutoMint in te schakelend verander je 'enablezeromint=0' naar 'enablezeromint
         <translation>PRIVACY</translation>
     </message>
     <message>
-        <source>Enter an amount of BWI to convert to zMAG</source>
-        <translation>Vul het aantal BITWIN24 in om te converteren naar zMAG</translation>
+        <source>Enter an amount of BWI to convert to zBWI</source>
+        <translation>Vul het aantal BITWIN24 in om te converteren naar zBWI</translation>
     </message>
     <message>
-        <source>zMAG Control</source>
-        <translation>zMAG Control</translation>
+        <source>zBWI Control</source>
+        <translation>zBWI Control</translation>
     </message>
     <message>
-        <source>zMAG Selected:</source>
-        <translation>zMAG geselecteerd:</translation>
+        <source>zBWI Selected:</source>
+        <translation>zBWI geselecteerd:</translation>
     </message>
     <message>
         <source>Quantity Selected:</source>
@@ -2466,24 +2466,24 @@ Om AutoMint in te schakelend verander je 'enablezeromint=0' naar 'enablezeromint
         <translation>Besteed Zerocoin</translation>
     </message>
     <message>
-        <source>Available (mature and spendable) zMAG for spending</source>
-        <translation>Beschikbare (volwassen en uitgeefbaar) zMAG voor besteding</translation>
+        <source>Available (mature and spendable) zBWI for spending</source>
+        <translation>Beschikbare (volwassen en uitgeefbaar) zBWI voor besteding</translation>
     </message>
     <message>
         <source>Available Balance:</source>
         <translation>Beschikbaar saldo:</translation>
     </message>
     <message>
-        <source>Available (mature and spendable) zMAG for spending
+        <source>Available (mature and spendable) zBWI for spending
 
-zMAG are mature when they have more than 20 confirmations AND more than 2 mints of the same denomination after them were minted</source>
-        <translation>Beschikbare (volwwassen en uitgeefbaar) zMAG voor besteding
+zBWI are mature when they have more than 20 confirmations AND more than 2 mints of the same denomination after them were minted</source>
+        <translation>Beschikbare (volwwassen en uitgeefbaar) zBWI voor besteding
 
 zBWI zijn volwassen wanneer zij meer dan 20 bevestigingen hebben EN meer dan 2 muntages van dezelfde denominaties nadat zij gemunt zijn.</translation>
     </message>
     <message>
-        <source>0 zMAG</source>
-        <translation>0 zMAG</translation>
+        <source>0 zBWI</source>
+        <translation>0 zBWI</translation>
     </message>
     <message>
         <source>Security Level for Zerocoin Transactions. More is better, but needs more time and resources.</source>
@@ -2554,8 +2554,8 @@ zBWI zijn volwassen wanneer zij meer dan 20 bevestigingen hebben EN meer dan 2 m
         <translation>Zerocoin Statistieken:</translation>
     </message>
     <message>
-        <source>Total Balance including unconfirmed and immature zMAG</source>
-        <translation>Totale Saldi, inclusief onbevestigde en onvolwassen zMAG</translation>
+        <source>Total Balance including unconfirmed and immature zBWI</source>
+        <translation>Totale Saldi, inclusief onbevestigde en onvolwassen zBWI</translation>
     </message>
     <message>
         <source>Total Zerocoin  Balance:</source>
@@ -2576,24 +2576,24 @@ Immature: confirmed, but less than 1 mint of the same denomination after it was 
 Onvolwassen: bevestigd, maar minder dan 1 mint van dezelfde denominatie nadat het gemint was.</translation>
     </message>
     <message>
-        <source>Show the current status of automatic zMAG minting.
+        <source>Show the current status of automatic zBWI minting.
 
 To change the status (restart required):
 - enable: add 'enablezeromint=1' to bitwin24.conf
 - disable: add 'enablezeromint=0' to bitwin24.conf
 
 To change the percentage (no restart required):
-- menu Settings-&gt;Options-&gt;Percentage of autominted zMAG
+- menu Settings-&gt;Options-&gt;Percentage of autominted zBWI
 
 </source>
-        <translation>Toon de huidige status van automatische zMAG-markering.
+        <translation>Toon de huidige status van automatische zBWI-markering.
 
 Om de status te wijzigen (opnieuw opstarten vereist): 
 - enable: voeg 'enablezeromint = 1' toe aan bitwin24.conf
 - uitschakelen: voeg 'enablezeromint = 0' toe aan bitwin24.conf
 
 Om het percentage te wijzigen (geen herstart vereist): 
-- menu Instellingen-&gt; Opties-&gt; Percentage van geautomatiseerde zMAG
+- menu Instellingen-&gt; Opties-&gt; Percentage van geautomatiseerde zBWI
 </translation>
     </message>
     <message>
@@ -2789,12 +2789,12 @@ Maximum allowed: </source>
 Maximaal toegestaan:</translation>
     </message>
     <message>
-        <source>zMAG Spend #: </source>
-        <translation>zMAG besteed #:</translation>
+        <source>zBWI Spend #: </source>
+        <translation>zBWI besteed #:</translation>
     </message>
     <message>
-        <source>zMAG Mint</source>
-        <translation>zMAG mint</translation>
+        <source>zBWI Mint</source>
+        <translation>zBWI mint</translation>
     </message>
     <message>
         <source> &lt;b&gt;enabled&lt;/b&gt;.</source>
@@ -2809,12 +2809,12 @@ Maximaal toegestaan:</translation>
         <translation>Geconfigureerd doelpercentage:&lt;b&gt;</translation>
     </message>
     <message>
-        <source>zMAG is currently disabled due to maintenance.</source>
-        <translation>zMAG is momenteel uitgeschakeld vanwege onderhoud.</translation>
+        <source>zBWI is currently disabled due to maintenance.</source>
+        <translation>zBWI is momenteel uitgeschakeld vanwege onderhoud.</translation>
     </message>
     <message>
-        <source>zMAG is currently undergoing maintenance.</source>
-        <translation>zMAG wordt momenteel onderhouden.</translation>
+        <source>zBWI is currently undergoing maintenance.</source>
+        <translation>zBWI wordt momenteel onderhouden.</translation>
     </message>
     <message>
         <source>Denom. with value &lt;b&gt;1&lt;/b&gt;:</source>
@@ -2901,8 +2901,8 @@ Maximaal toegestaan:</translation>
         <translation>Succesvol gemint</translation>
     </message>
     <message>
-        <source> zMAG in </source>
-        <translation> zMAG in </translation>
+        <source> zBWI in </source>
+        <translation> zBWI in </translation>
     </message>
     <message>
         <source> sec. Used denominations:
@@ -2961,12 +2961,12 @@ Maximaal toegestaan:</translation>
         <translation>Bevestig verzending coins</translation>
     </message>
     <message>
-        <source>Version 1 zMAG require a security level of 100 to successfully spend.</source>
-        <translation>Versie 1 zMAG vereist een beveiligingsniveau van 100 om succesvol te besteden.</translation>
+        <source>Version 1 zBWI require a security level of 100 to successfully spend.</source>
+        <translation>Versie 1 zBWI vereist een beveiligingsniveau van 100 om succesvol te besteden.</translation>
     </message>
     <message>
-        <source>Failed to spend zMAG</source>
-        <translation>Mislukt om zMAG te besteden.</translation>
+        <source>Failed to spend zBWI</source>
+        <translation>Mislukt om zBWI te besteden.</translation>
     </message>
     <message>
         <source>Failed to fetch mint associated with serial hash</source>
@@ -2988,7 +2988,7 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
     </message>
     <message numerus="yes">
         <source>PrivacyDialog</source>
-        <comment>Enter an amount of BITWIN24 to convert to zMAG</comment>
+        <comment>Enter an amount of BITWIN24 to convert to zBWI</comment>
         <translation><numerusform>PrivacyDialoog</numerusform><numerusform>PrivacyDialog</numerusform></translation>
     </message>
     <message>
@@ -3305,8 +3305,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Aangepast back-up pad:</translation>
     </message>
     <message>
-        <source>Custom zMAG Backup Path:</source>
-        <translation>Aangepast zMAG back-up pad:</translation>
+        <source>Custom zBWI Backup Path:</source>
+        <translation>Aangepast zBWI back-up pad:</translation>
     </message>
     <message>
         <source>Custom Backups Threshold:</source>
@@ -3805,12 +3805,12 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Munten automatisch geselecteerd</translation>
     </message>
     <message>
-        <source>If the custom fee is set to 1000 uMAGs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uMAGs in fee,&lt;br /&gt;while "at least" pays 1000 uMAGs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
-        <translation>Als de aangepaste vergoeding is ingesteld op 1000 uMAGs en de transactie is slechts 250 bytes, dan betaalt per kilobyte alleen 250 uMAG's in vergoeding,&lt;br /&gt;terwijl "minstens" 1000 uMAG's betaalt. Voor transacties die groter zijn dan een kilobyte, betalen beiden per kilobyte.</translation>
+        <source>If the custom fee is set to 1000 uBWIs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uBWIs in fee,&lt;br /&gt;while "at least" pays 1000 uBWIs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
+        <translation>Als de aangepaste vergoeding is ingesteld op 1000 uBWIs en de transactie is slechts 250 bytes, dan betaalt per kilobyte alleen 250 uBWI's in vergoeding,&lt;br /&gt;terwijl "minstens" 1000 uBWI's betaalt. Voor transacties die groter zijn dan een kilobyte, betalen beiden per kilobyte.</translation>
     </message>
     <message>
-        <source>If the custom fee is set to 1000 uMAGs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uMAGs in fee,&lt;br /&gt;while "total at least" pays 1000 uMAGs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
-        <translation>Als de aangepaste vergoeding is ingesteld op 1000 uMAGs en de transactie is slechts 250 bytes, dan betaalt per kilobyte alleen 250 uMAG's in vergoeding,&lt;br /&gt;terwijl "totaal minstens" 1000 uMAG's betaalt. Voor transacties die groter zijn dan een kilobyte, betalen beiden per kilobyte.</translation>
+        <source>If the custom fee is set to 1000 uBWIs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uBWIs in fee,&lt;br /&gt;while "total at least" pays 1000 uBWIs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
+        <translation>Als de aangepaste vergoeding is ingesteld op 1000 uBWIs en de transactie is slechts 250 bytes, dan betaalt per kilobyte alleen 250 uBWI's in vergoeding,&lt;br /&gt;terwijl "totaal minstens" 1000 uBWI's betaalt. Voor transacties die groter zijn dan een kilobyte, betalen beiden per kilobyte.</translation>
     </message>
     <message>
         <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for BITWIN24 transactions than the network can process.</source>
@@ -4529,8 +4529,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>BITWIN24 Stake</translation>
     </message>
     <message>
-        <source>zMAG Stake</source>
-        <translation>zMAG Stake</translation>
+        <source>zBWI Stake</source>
+        <translation>zBWI Stake</translation>
     </message>
     <message>
         <source>Obfuscation Denominate</source>
@@ -4549,32 +4549,32 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Verduistering creëert denominaties</translation>
     </message>
     <message>
-        <source>Converted BITWIN24 to zMAG</source>
-        <translation>Geconverteerde BITWIN24 naar zMAG</translation>
+        <source>Converted BITWIN24 to zBWI</source>
+        <translation>Geconverteerde BITWIN24 naar zBWI</translation>
     </message>
     <message>
-        <source>Spent zMAG</source>
-        <translation>Bestede zMAG</translation>
+        <source>Spent zBWI</source>
+        <translation>Bestede zBWI</translation>
     </message>
     <message>
-        <source>Received BITWIN24 from zMAG</source>
-        <translation>Ontvangen BITWIN24 van zMAG</translation>
+        <source>Received BITWIN24 from zBWI</source>
+        <translation>Ontvangen BITWIN24 van zBWI</translation>
     </message>
     <message>
-        <source>Minted Change as zMAG from zMAG Spend</source>
-        <translation>Gemint wisselgeld als zMAG van bestede zMAG</translation>
+        <source>Minted Change as zBWI from zBWI Spend</source>
+        <translation>Gemint wisselgeld als zBWI van bestede zBWI</translation>
     </message>
     <message>
-        <source>Converted zMAG to BITWIN24</source>
-        <translation>Geconverteerde zMAG naar BITWIN24</translation>
+        <source>Converted zBWI to BITWIN24</source>
+        <translation>Geconverteerde zBWI naar BITWIN24</translation>
     </message>
     <message>
-        <source>Anonymous (zMAG Transaction)</source>
-        <translation>Anonieme (zMAG transactie)</translation>
+        <source>Anonymous (zBWI Transaction)</source>
+        <translation>Anonieme (zBWI transactie)</translation>
     </message>
     <message>
-        <source>Anonymous (zMAG Stake)</source>
-        <translation>Anonieme (zMAG stake)</translation>
+        <source>Anonymous (zBWI Stake)</source>
+        <translation>Anonieme (zBWI stake)</translation>
     </message>
     <message>
         <source>Sent to</source>
@@ -4784,12 +4784,12 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Exporteren succesvol</translation>
     </message>
     <message>
-        <source>Received BITWIN24 from zMAG</source>
-        <translation>Ontvangen BITWIN24 van zMAG</translation>
+        <source>Received BITWIN24 from zBWI</source>
+        <translation>Ontvangen BITWIN24 van zBWI</translation>
     </message>
     <message>
-        <source>Zerocoin Spend, Change in zMAG</source>
-        <translation>Zerocoin besteed, wisselgeld in zMAG</translation>
+        <source>Zerocoin Spend, Change in zBWI</source>
+        <translation>Zerocoin besteed, wisselgeld in zBWI</translation>
     </message>
     <message>
         <source>The transaction history was successfully saved to %1.</source>
@@ -4859,8 +4859,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
 <context>
     <name>ZBWIControlDialog</name>
     <message>
-        <source>Select zMAG to Spend</source>
-        <translation>Selecteer zMAG om te besteden</translation>
+        <source>Select zBWI to Spend</source>
+        <translation>Selecteer zBWI om te besteden</translation>
     </message>
     <message>
         <source>Quantity</source>
@@ -4871,8 +4871,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>0</translation>
     </message>
     <message>
-        <source>zMAG</source>
-        <translation>zMAG</translation>
+        <source>zBWI</source>
+        <translation>zBWI</translation>
     </message>
     <message>
         <source>Select/Deselect All</source>
@@ -4938,16 +4938,16 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Gedistribueerd onder de MIT software licentie, zie het bijgevoegde bestand COPYING of &lt;http://www.opensource.org/licenses/mit-license.php&gt;.</translation>
     </message>
     <message>
-        <source>Enable automatic wallet backups triggered after each zMAG minting (0-1, default: %u)</source>
-        <translation>Schakel automatische portemonnee back-ups in geactiveerd na elke geminte zMAG (0-1, standaard: %u)</translation>
+        <source>Enable automatic wallet backups triggered after each zBWI minting (0-1, default: %u)</source>
+        <translation>Schakel automatische portemonnee back-ups in geactiveerd na elke geminte zBWI (0-1, standaard: %u)</translation>
     </message>
     <message>
         <source>Enable or disable staking functionality for BITWIN24 inputs (0-1, default: %u)</source>
         <translation>In- of uitschakelen staking functionaliteit voor BITWIN24 inputs (0-1, standaard: %u)</translation>
     </message>
     <message>
-        <source>Enable or disable staking functionality for zMAG inputs (0-1, default: %u)</source>
-        <translation>In- of uitschakelen staking functionaliteit voor zMAG inputs (0-1, standaard: %u)</translation>
+        <source>Enable or disable staking functionality for zBWI inputs (0-1, default: %u)</source>
+        <translation>In- of uitschakelen staking functionaliteit voor zBWI inputs (0-1, standaard: %u)</translation>
     </message>
     <message>
         <source>Enable spork administration functionality with the appropriate private key.</source>
@@ -5542,8 +5542,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Percentage automatisch geminte Zerocoin (10-100, standaard: %u)</translation>
     </message>
     <message>
-        <source>Reindex the BITWIN24 and zMAG money supply statistics</source>
-        <translation>Indexeer de BITWIN24- en zMAG-geldvoorraadstatistieken opnieuw</translation>
+        <source>Reindex the BITWIN24 and zBWI money supply statistics</source>
+        <translation>Indexeer de BITWIN24- en zBWI-geldvoorraadstatistieken opnieuw</translation>
     </message>
     <message>
         <source>Reindexing zerocoin database...</source>
@@ -5618,8 +5618,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Voorkeur denominatie voor automatisch minted Zerocoin (1/5/10/50/100/500/1000/5000), 0 voor geen voorkeur. standaard: %u)</translation>
     </message>
     <message>
-        <source>Specify custom backup path to add a copy of any automatic zMAG backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup. If backuppath is set as well, 4 backups will happen</source>
-        <translation>Specificeer aangepast back-up pad om een kopie van elke automatische zMAG back-up toe te voegen. Indien ingesteld als dir zal elke back-up een bestand genereren met een tijdstempel. Indien ingesteld als file zal elke back-up herschreven worden naar dat bestand. Indien backuppath ook is ingesteld zullen 4 back-ups gedaan worden.</translation>
+        <source>Specify custom backup path to add a copy of any automatic zBWI backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup. If backuppath is set as well, 4 backups will happen</source>
+        <translation>Specificeer aangepast back-up pad om een kopie van elke automatische zBWI back-up toe te voegen. Indien ingesteld als dir zal elke back-up een bestand genereren met een tijdstempel. Indien ingesteld als file zal elke back-up herschreven worden naar dat bestand. Indien backuppath ook is ingesteld zullen 4 back-ups gedaan worden.</translation>
     </message>
     <message>
         <source>Specify custom backup path to add a copy of any wallet backup. If set as dir, every backup generates a timestamped file. If set as file, will rewrite to that file every backup.</source>
@@ -6118,8 +6118,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Synchroniseren sporks...</translation>
     </message>
     <message>
-        <source>Syncing zMAG wallet...</source>
-        <translation>Synchroniseren zMAG portemonnee...</translation>
+        <source>Syncing zBWI wallet...</source>
+        <translation>Synchroniseren zBWI portemonnee...</translation>
     </message>
     <message>
         <source>The coin spend has been used</source>
@@ -6266,8 +6266,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Gebruikersnaam voor JSON-RPC verbindingen</translation>
     </message>
     <message>
-        <source>Value is below the smallest available denomination (= 1) of zMAG</source>
-        <translation>Waarde is minder dan de kleinst beschikbare denominatie (=1) van zMAG</translation>
+        <source>Value is below the smallest available denomination (= 1) of zBWI</source>
+        <translation>Waarde is minder dan de kleinst beschikbare denominatie (=1) van zBWI</translation>
     </message>
     <message>
         <source>Value more than Obfuscation pool maximum allows.</source>
@@ -6282,8 +6282,8 @@ Ofwel het munten van hogere denominaties (dus minder invoer nodig) of het te bes
         <translation>Portemonnee verifiëren...</translation>
     </message>
     <message>
-        <source>Version 1 zMAG require a security level of 100 to successfully spend.</source>
-        <translation>Versie 1 zMAG vereist een beveiligingsniveau van 100 om succesvol uit te geven.</translation>
+        <source>Version 1 zBWI require a security level of 100 to successfully spend.</source>
+        <translation>Versie 1 zBWI vereist een beveiligingsniveau van 100 om succesvol uit te geven.</translation>
     </message>
     <message>
         <source>Wallet %s resides outside data directory %s</source>

@@ -58,8 +58,8 @@ public:
      */
     enum Unit {
         BITWIN24,
-        mMAG,
-        uMAG
+        mBWI,
+        uBWI
     };
 
     enum SeparatorStyle {

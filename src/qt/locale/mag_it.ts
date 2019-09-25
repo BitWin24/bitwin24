@@ -176,7 +176,7 @@
         <translation>Conferma cifratura portafoglio</translation>
     </message>
     <message>
-        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your MAGs from being stolen by malware infecting your computer.</source>
+        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your BWIs from being stolen by malware infecting your computer.</source>
         <translation>BITWIN24 verrà ora chiuso per completare il processo di cifratura. Ricorda che crittografare il tuo portafoglio non protegge completamente i tuoi BITWIN24 dal furto da parte di software malevoli che potrebbero infettare il tuo computer.</translation>
     </message>
     <message>
@@ -433,8 +433,8 @@
         <translation>Espora la cronologia delle transazioni</translation>
     </message>
     <message>
-        <source>Privacy Actions for zMAG</source>
-        <translation>Operazioni di privacy per zMAG</translation>
+        <source>Privacy Actions for zBWI</source>
+        <translation>Operazioni di privacy per zBWI</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
@@ -738,7 +738,7 @@
     </message>
     <message numerus="yes">
         <source>%n active connection(s) to BITWIN24 network</source>
-        <translation><numerusform>%n connessione attiva alla rete MAGX</numerusform><numerusform>%n connessioni attive alla rete MAGX</numerusform></translation>
+        <translation><numerusform>%n connessione attiva alla rete BWIX</numerusform><numerusform>%n connessioni attive alla rete BWIX</numerusform></translation>
     </message>
     <message>
         <source>Synchronizing with network...</source>
@@ -1127,7 +1127,7 @@ MultiSend: %1</translation>
     </message>
     <message>
         <source>Can vary +/- %1 umag per input.</source>
-        <translation>Può variare di +/- %1 uMAG per input.</translation>
+        <translation>Può variare di +/- %1 uBWI per input.</translation>
     </message>
     <message>
         <source>(no label)</source>
@@ -1275,7 +1275,7 @@ MultiSend: %1</translation>
     </message>
     <message>
         <source>Welcome to BITWIN24 Core.</source>
-        <translation>Benvenuto in MAGX Core.</translation>
+        <translation>Benvenuto in BWIX Core.</translation>
     </message>
     <message>
         <source>As this is the first time the program is launched, you can choose where BITWIN24 Core will store its data.</source>
@@ -1713,24 +1713,24 @@ Per favore controlla l'indirizzo e riprova nuovamente.</translation>
         <translation>Mappa la porta utilizzando &amp;UPnP</translation>
     </message>
     <message>
-        <source>Enable automatic minting of BITWIN24 units to zMAG</source>
-        <translation>Attiva il conio automatico di unità BITWIN24 in zMAG</translation>
+        <source>Enable automatic minting of BITWIN24 units to zBWI</source>
+        <translation>Attiva il conio automatico di unità BITWIN24 in zBWI</translation>
     </message>
     <message>
-        <source>Enable zMAG Automint</source>
-        <translation>Attiva Conio automatico zMAG</translation>
+        <source>Enable zBWI Automint</source>
+        <translation>Attiva Conio automatico zBWI</translation>
     </message>
     <message>
-        <source>Percentage of incoming BITWIN24 which get automatically converted to zMAG via Zerocoin Protocol (min: 10%)</source>
-        <translation>Percentuale di BITWIN24 in entrata che viene automaticamente convertita in zMAG attraverso il protocollo Zerocoin (min: 10%)</translation>
+        <source>Percentage of incoming BITWIN24 which get automatically converted to zBWI via Zerocoin Protocol (min: 10%)</source>
+        <translation>Percentuale di BITWIN24 in entrata che viene automaticamente convertita in zBWI attraverso il protocollo Zerocoin (min: 10%)</translation>
     </message>
     <message>
-        <source>Percentage of autominted zMAG</source>
-        <translation>Percentuale di zMAG Percentuale di zMAG da coniare automaticamente</translation>
+        <source>Percentage of autominted zBWI</source>
+        <translation>Percentuale di zBWI Percentuale di zBWI da coniare automaticamente</translation>
     </message>
     <message>
-        <source>Preferred Automint zMAG Denomination</source>
-        <translation>Denominazione preferita conio automatico zMAG</translation>
+        <source>Preferred Automint zBWI Denomination</source>
+        <translation>Denominazione preferita conio automatico zBWI</translation>
     </message>
     <message>
         <source>Proxy &amp;IP:</source>
@@ -1808,14 +1808,14 @@ Per favore controlla l'indirizzo e riprova nuovamente.</translation>
         <translation>Il tuo saldo BITWIN24 corrente, incluse le transazioni non confermate e non mature</translation>
     </message>
     <message>
-        <source>zMAG Balance</source>
-        <translation>Bilancio zMAG</translation>
+        <source>zBWI Balance</source>
+        <translation>Bilancio zBWI</translation>
     </message>
     <message>
         <source>Mature: more than 20 confirmation and more than 1 mint of the same denomination after it was minted.
-These zMAG are spendable.</source>
+These zBWI are spendable.</source>
         <translation>Maturi: più di 20 conferme e più di 1 conio della stessa denominazione dopo il conio.
-Questi zMAG sono spendibili.</translation>
+Questi zBWI sono spendibili.</translation>
     </message>
     <message>
         <source>OVERVIEW</source>
@@ -1846,8 +1846,8 @@ Questi zMAG sono spendibili.</translation>
         <translation>Spendibili:</translation>
     </message>
     <message>
-        <source>Locked BITWIN24 or Masternode collaterals. These are excluded from zMAG minting.</source>
-        <translation>BITWIN24 bloccati o collaterali Masternodo. Questi sono esclusi dal conio di zMAG.</translation>
+        <source>Locked BITWIN24 or Masternode collaterals. These are excluded from zBWI minting.</source>
+        <translation>BITWIN24 bloccati o collaterali Masternodo. Questi sono esclusi dal conio di zBWI.</translation>
     </message>
     <message>
         <source>Locked:</source>
@@ -1858,18 +1858,18 @@ Questi zMAG sono spendibili.</translation>
         <translation>Non confermati:</translation>
     </message>
     <message>
-        <source>Your current zMAG balance, unconfirmed and immature zMAG included.</source>
-        <translation>Il tuo saldo zMAG corrente, inclusi zMAG non confermati e non maturi</translation>
+        <source>Your current zBWI balance, unconfirmed and immature zBWI included.</source>
+        <translation>Il tuo saldo zBWI corrente, inclusi zBWI non confermati e non maturi</translation>
     </message>
     <message>
         <source>Recent transactions</source>
         <translation>Transazioni recenti</translation>
     </message>
     <message>
-        <source>Current percentage of zMAG.
+        <source>Current percentage of zBWI.
 If AutoMint is enabled this percentage will settle around the configured AutoMint percentage (default = 10%).
 </source>
-        <translation>Percentuale corrente di zMAG.
+        <translation>Percentuale corrente di zBWI.
 Se il conio automatico è attivato questa percentuale si stabilizzerà all'incirca sulla percentuale stabilita per il conio automatico (percentuale prestabilita = 10%).
 </translation>
     </message>
@@ -1933,8 +1933,8 @@ Per attivare il Conio automatico cambiare 'enablezeromint=0' in 'enablezeromint=
         <translation>0</translation>
     </message>
     <message>
-        <source>zMAG</source>
-        <translation>zMAG</translation>
+        <source>zBWI</source>
+        <translation>zBWI</translation>
     </message>
     <message>
         <source>0.000 000 00 BITWIN24</source>
@@ -1961,16 +1961,16 @@ Per attivare il Conio automatico cambiare 'enablezeromint=0' in 'enablezeromint=
         <translation>PRIVACY</translation>
     </message>
     <message>
-        <source>Enter an amount of BWI to convert to zMAG</source>
-        <translation>Immetti un importo di BITWIN24 da convertire in zMAG</translation>
+        <source>Enter an amount of BWI to convert to zBWI</source>
+        <translation>Immetti un importo di BITWIN24 da convertire in zBWI</translation>
     </message>
     <message>
-        <source>zMAG Control</source>
-        <translation>Controllo zMAG</translation>
+        <source>zBWI Control</source>
+        <translation>Controllo zBWI</translation>
     </message>
     <message>
-        <source>zMAG Selected:</source>
-        <translation>zMAG selezionati:</translation>
+        <source>zBWI Selected:</source>
+        <translation>zBWI selezionati:</translation>
     </message>
     <message>
         <source>Quantity Selected:</source>
@@ -1981,23 +1981,23 @@ Per attivare il Conio automatico cambiare 'enablezeromint=0' in 'enablezeromint=
         <translation>Spendi Zerocoin</translation>
     </message>
     <message>
-        <source>Available (mature and spendable) zMAG for spending</source>
-        <translation>zMAG disponibili disponibili per essere spesi (maturi e spendibili)</translation>
+        <source>Available (mature and spendable) zBWI for spending</source>
+        <translation>zBWI disponibili disponibili per essere spesi (maturi e spendibili)</translation>
     </message>
     <message>
         <source>Available Balance:</source>
         <translation>Bilancio Disponibile:</translation>
     </message>
     <message>
-        <source>Available (mature and spendable) zMAG for spending
+        <source>Available (mature and spendable) zBWI for spending
 
-zMAG are mature when they have more than 20 confirmations AND more than 2 mints of the same denomination after them were minted</source>
-        <translation>zMAG disponibili disponibili per essere spesi (maturi e spendibili)
-Gli zMAG sono maturi quando hanno più di 20 conferme E più di 2 conii della stessa denominazione dopo che sono stati coniati</translation>
+zBWI are mature when they have more than 20 confirmations AND more than 2 mints of the same denomination after them were minted</source>
+        <translation>zBWI disponibili disponibili per essere spesi (maturi e spendibili)
+Gli zBWI sono maturi quando hanno più di 20 conferme E più di 2 conii della stessa denominazione dopo che sono stati coniati</translation>
     </message>
     <message>
-        <source>0 zMAG</source>
-        <translation>0 zMAG</translation>
+        <source>0 zBWI</source>
+        <translation>0 zBWI</translation>
     </message>
     <message>
         <source>Pay &amp;To:</source>
@@ -2040,31 +2040,31 @@ Gli zMAG sono maturi quando hanno più di 20 conferme E più di 2 conii della st
         <translation>Statistiche Zerocoin:</translation>
     </message>
     <message>
-        <source>Total Balance including unconfirmed and immature zMAG</source>
-        <translation>Saldo totale inclusi zMAG non confermati e non maturi</translation>
+        <source>Total Balance including unconfirmed and immature zBWI</source>
+        <translation>Saldo totale inclusi zBWI non confermati e non maturi</translation>
     </message>
     <message>
         <source>Total Zerocoin  Balance:</source>
         <translation>Saldo totale Zerocoin:</translation>
     </message>
     <message>
-        <source>Show the current status of automatic zMAG minting.
+        <source>Show the current status of automatic zBWI minting.
 
 To change the status (restart required):
 - enable: add 'enablezeromint=1' to bitwin24.conf
 - disable: add 'enablezeromint=0' to bitwin24.conf
 
 To change the percentage (no restart required):
-- menu Settings-&gt;Options-&gt;Percentage of autominted zMAG
+- menu Settings-&gt;Options-&gt;Percentage of autominted zBWI
 
 </source>
-        <translation>Mostra lo stato corrente del conio automatico zMAG.
+        <translation>Mostra lo stato corrente del conio automatico zBWI.
 Per cambiare lo stato (riavvio necessario):
 - attivato: aggiungi 'enablezeromint=1' a bitwin24.conf
 - disattivato: aggiungi 'enablezeromint=0' a bitwin24.conf
 
 Per cambiare la percentuale (riavvio non necessario):
-- menu Impostazioni-&gt;Opzioni-&gt;Percentuale di zMAG da coniare automaticamente
+- menu Impostazioni-&gt;Opzioni-&gt;Percentuale di zBWI da coniare automaticamente
 
 </translation>
     </message>
@@ -2209,8 +2209,8 @@ Per cambiare la percentuale (riavvio non necessario):
         <translation>Copia ammontare</translation>
     </message>
     <message>
-        <source>zMAG Mint</source>
-        <translation>Conio zMAG</translation>
+        <source>zBWI Mint</source>
+        <translation>Conio zBWI</translation>
     </message>
     <message>
         <source>AutoMint Status:</source>
@@ -2672,8 +2672,8 @@ Per cambiare la percentuale (riavvio non necessario):
         <translation>0</translation>
     </message>
     <message>
-        <source>zMAG</source>
-        <translation>zMAG</translation>
+        <source>zBWI</source>
+        <translation>zBWI</translation>
     </message>
     </context>
 <context>

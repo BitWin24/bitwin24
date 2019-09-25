@@ -172,8 +172,8 @@
         <translation>Confirmar encriptação da carteira</translation>
     </message>
     <message>
-        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your MAGs from being stolen by malware infecting your computer.</source>
-        <translation>BITWIN24 encerrará para terminar o processo de encriptação. Lembre-se que encriptar sua carteira não protege completamente suas MAGs contra roubo por malware infectando seu computador.</translation>
+        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your BWIs from being stolen by malware infecting your computer.</source>
+        <translation>BITWIN24 encerrará para terminar o processo de encriptação. Lembre-se que encriptar sua carteira não protege completamente suas BWIs contra roubo por malware infectando seu computador.</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>

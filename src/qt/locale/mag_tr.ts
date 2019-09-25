@@ -176,7 +176,7 @@
         <translation>cüzdan şifrelemesini onayla</translation>
     </message>
     <message>
-        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your MAGs from being stolen by malware infecting your computer.</source>
+        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your BWIs from being stolen by malware infecting your computer.</source>
         <translation>BITWIN24 şifreleme işlemini tamamlamak için şimdi kapanacaktır. Cüzdanınızı şifrelemenin, BITWIN24'lerinizi bilgisayarınıza bulaşan kötücül yazılımlar tarafından çalınmasına tamamen engelleyemediğini unutmayın</translation>
     </message>
     <message>
@@ -433,8 +433,8 @@
         <translation>İşlem geçmişini ara</translation>
     </message>
     <message>
-        <source>Privacy Actions for zMAG</source>
-        <translation>Gizlilik Aksiyonları zMAG</translation>
+        <source>Privacy Actions for zBWI</source>
+        <translation>Gizlilik Aksiyonları zBWI</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
@@ -1911,24 +1911,24 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Map port using &amp;UPnP</translation>
     </message>
     <message>
-        <source>Enable zMAG Automint</source>
-        <translation>zMAG Otomatik basımı etkinleştir</translation>
+        <source>Enable zBWI Automint</source>
+        <translation>zBWI Otomatik basımı etkinleştir</translation>
     </message>
     <message>
-        <source>Percentage of incoming BITWIN24 which get automatically converted to zMAG via Zerocoin Protocol (min: 10%)</source>
-        <translation>Zerocoin Protokolü üzerinden otomatik olarak zMAG'ye dönüştürülen gelen BITWIN24 yüzdesi (dakika: 10%)</translation>
+        <source>Percentage of incoming BITWIN24 which get automatically converted to zBWI via Zerocoin Protocol (min: 10%)</source>
+        <translation>Zerocoin Protokolü üzerinden otomatik olarak zBWI'ye dönüştürülen gelen BITWIN24 yüzdesi (dakika: 10%)</translation>
     </message>
     <message>
-        <source>Percentage of autominted zMAG</source>
-        <translation>Otomatikleştirilmiş zMAG yüzdesi</translation>
+        <source>Percentage of autominted zBWI</source>
+        <translation>Otomatikleştirilmiş zBWI yüzdesi</translation>
     </message>
     <message>
         <source>Wait with automatic conversion to Zerocoin until enough BITWIN24 for this denomination is available</source>
         <translation>Bu mezhebi için yeterli BITWIN24 bulunana kadar Zerocoin'e otomatik dönüşümle birlikte bekleyin</translation>
     </message>
     <message>
-        <source>Preferred Automint zMAG Denomination</source>
-        <translation>Tercih edilen Automint zMAG Nominal değeri</translation>
+        <source>Preferred Automint zBWI Denomination</source>
+        <translation>Tercih edilen Automint zBWI Nominal değeri</translation>
     </message>
     <message>
         <source>Connect to the BITWIN24 network through a SOCKS5 proxy.</source>
@@ -2102,8 +2102,8 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Güncel BITWIN24 bakiyeniz, onaylanmamış ve olgunlaşmamış işlemler dahil</translation>
     </message>
     <message>
-        <source>zMAG Balance</source>
-        <translation>zMAG Bakiyesi</translation>
+        <source>zBWI Balance</source>
+        <translation>zBWI Bakiyesi</translation>
     </message>
     <message>
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BITWIN24 network after a connection is established, but this process has not completed yet.</source>
@@ -2150,8 +2150,8 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Harcanabilir:</translation>
     </message>
     <message>
-        <source>Locked BITWIN24 or Masternode collaterals. These are excluded from zMAG minting.</source>
-        <translation>Kilitli BITWIN24 veya Masternode teminatları. Bunlar zMAG matlaştırmadan çıkarılır.</translation>
+        <source>Locked BITWIN24 or Masternode collaterals. These are excluded from zBWI minting.</source>
+        <translation>Kilitli BITWIN24 veya Masternode teminatları. Bunlar zBWI matlaştırmadan çıkarılır.</translation>
     </message>
     <message>
         <source>Locked:</source>
@@ -2162,8 +2162,8 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>onaylanmamış:</translation>
     </message>
     <message>
-        <source>Your current zMAG balance, unconfirmed and immature zMAG included.</source>
-        <translation>Güncel zMAG bakiyeniz, onaylanmamış ve olgunlaşmamış zMAG'ler dahil.</translation>
+        <source>Your current zBWI balance, unconfirmed and immature zBWI included.</source>
+        <translation>Güncel zBWI bakiyeniz, onaylanmamış ve olgunlaşmamış zBWI'ler dahil.</translation>
     </message>
     <message>
         <source>Recent transactions</source>
@@ -2174,10 +2174,10 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>senkronizasyon dışı</translation>
     </message>
     <message>
-        <source>Current percentage of zMAG.
+        <source>Current percentage of zBWI.
 If AutoMint is enabled this percentage will settle around the configured AutoMint percentage (default = 10%).
 </source>
-        <translation>Mevcut zMAG yüzdesi.
+        <translation>Mevcut zBWI yüzdesi.
 AutoMint etkinleştirilirse, bu yüzde, yapılandırılmış AutoMint yüzdesi etrafında düzelir (varsayılan = 10%).
 </translation>
     </message>
@@ -2321,8 +2321,8 @@ To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in bitwin24.c
         <translation>0</translation>
     </message>
     <message>
-        <source>zMAG</source>
-        <translation>zMAG</translation>
+        <source>zBWI</source>
+        <translation>zBWI</translation>
     </message>
     <message>
         <source>Available for minting are coins which are confirmed and not locked or Masternode collaterals.</source>
@@ -2385,24 +2385,24 @@ To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in bitwin24.c
         <translation>Harca Zerocoin</translation>
     </message>
     <message>
-        <source>Available (mature and spendable) zMAG for spending</source>
-        <translation>Mevcut (olgun ve harcanabilir) harcama için zMAG</translation>
+        <source>Available (mature and spendable) zBWI for spending</source>
+        <translation>Mevcut (olgun ve harcanabilir) harcama için zBWI</translation>
     </message>
     <message>
         <source>Available Balance:</source>
         <translation>Kullanılabilir Bakiye:</translation>
     </message>
     <message>
-        <source>Available (mature and spendable) zMAG for spending
+        <source>Available (mature and spendable) zBWI for spending
 
-zMAG are mature when they have more than 20 confirmations AND more than 2 mints of the same denomination after them were minted</source>
-        <translation>Mevcut (olgun ve harcanabilir) harcama için zMAG
+zBWI are mature when they have more than 20 confirmations AND more than 2 mints of the same denomination after them were minted</source>
+        <translation>Mevcut (olgun ve harcanabilir) harcama için zBWI
 
-zMAG, 20'den fazla teyit bulunduğunda olgunlaşır ve bundan sonra aynı mezhepten 2 kat fazla darphane çekilir.</translation>
+zBWI, 20'den fazla teyit bulunduğunda olgunlaşır ve bundan sonra aynı mezhepten 2 kat fazla darphane çekilir.</translation>
     </message>
     <message>
-        <source>0 zMAG</source>
-        <translation>0 zMAG</translation>
+        <source>0 zBWI</source>
+        <translation>0 zBWI</translation>
     </message>
     <message>
         <source>Security Level for Zerocoin Transactions. More is better, but needs more time and resources.</source>
@@ -2473,8 +2473,8 @@ zMAG, 20'den fazla teyit bulunduğunda olgunlaşır ve bundan sonra aynı mezhep
         <translation>Zerocoin durumu:</translation>
     </message>
     <message>
-        <source>Total Balance including unconfirmed and immature zMAG</source>
-        <translation>Doğrulanmamış ve olgunlaşmamış zMAG dahil toplam bakiye</translation>
+        <source>Total Balance including unconfirmed and immature zBWI</source>
+        <translation>Doğrulanmamış ve olgunlaşmamış zBWI dahil toplam bakiye</translation>
     </message>
     <message>
         <source>Total Zerocoin  Balance:</source>
@@ -2649,12 +2649,12 @@ Maximum allowed: </source>
 Maksimum bırakılan: </translation>
     </message>
     <message>
-        <source>zMAG is currently disabled due to maintenance.</source>
-        <translation>zMAG bakım nedeniyle şu an kullanıma kapalı.</translation>
+        <source>zBWI is currently disabled due to maintenance.</source>
+        <translation>zBWI bakım nedeniyle şu an kullanıma kapalı.</translation>
     </message>
     <message>
-        <source>zMAG is currently undergoing maintenance.</source>
-        <translation>zMAG halen bakım alıyor.</translation>
+        <source>zBWI is currently undergoing maintenance.</source>
+        <translation>zBWI halen bakım alıyor.</translation>
     </message>
     <message>
         <source>AutoMint Status:</source>
@@ -2677,8 +2677,8 @@ Maksimum bırakılan: </translation>
         <translation>Başarılı şekilde mint edildi</translation>
     </message>
     <message>
-        <source> zMAG in </source>
-        <translation> zMAG in </translation>
+        <source> zBWI in </source>
+        <translation> zBWI in </translation>
     </message>
     <message>
         <source> sec. Used denominations:
@@ -3484,12 +3484,12 @@ Ya daha yüksek mezhepleri daraltın (daha az girdi gereklidir) veya harcama mik
         <translation>Koinler otomatik seçildi</translation>
     </message>
     <message>
-        <source>If the custom fee is set to 1000 uMAGs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uMAGs in fee,&lt;br /&gt;while "at least" pays 1000 uMAGs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
-        <translation>Özel ücret 1000 uMAG olarak ayarlanmış ve işlem sadece 250 bayt ise, "kilobayt başına" ücret karşılığında yalnızca 250 uMAG öder,&lt;br /&gt;"en az" ise 1000 uMAG öder. Bir kilobayttan daha büyük işlemler için kilobayt ödersiniz.</translation>
+        <source>If the custom fee is set to 1000 uBWIs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uBWIs in fee,&lt;br /&gt;while "at least" pays 1000 uBWIs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
+        <translation>Özel ücret 1000 uBWI olarak ayarlanmış ve işlem sadece 250 bayt ise, "kilobayt başına" ücret karşılığında yalnızca 250 uBWI öder,&lt;br /&gt;"en az" ise 1000 uBWI öder. Bir kilobayttan daha büyük işlemler için kilobayt ödersiniz.</translation>
     </message>
     <message>
-        <source>If the custom fee is set to 1000 uMAGs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uMAGs in fee,&lt;br /&gt;while "total at least" pays 1000 uMAGs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
-        <translation>Özel ücret 1000 uMAG olarak ayarlanırsa ve işlem sadece 250 bayt ise, "kilobayt başına" ücret karşılığında yalnızca 250 uMAG ücreti verilir,&lt;br /&gt;"toplam en az" ise 1000 uMAG ödüyor. Bir kilobayttan daha büyük işlemler için kilobayt ödersiniz.</translation>
+        <source>If the custom fee is set to 1000 uBWIs and the transaction is only 250 bytes, then "per kilobyte" only pays 250 uBWIs in fee,&lt;br /&gt;while "total at least" pays 1000 uBWIs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
+        <translation>Özel ücret 1000 uBWI olarak ayarlanırsa ve işlem sadece 250 bayt ise, "kilobayt başına" ücret karşılığında yalnızca 250 uBWI ücreti verilir,&lt;br /&gt;"toplam en az" ise 1000 uBWI ödüyor. Bir kilobayttan daha büyük işlemler için kilobayt ödersiniz.</translation>
     </message>
     <message>
         <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for BITWIN24 transactions than the network can process.</source>
@@ -4474,8 +4474,8 @@ Ya daha yüksek mezhepleri daraltın (daha az girdi gereklidir) veya harcama mik
         <translation>0</translation>
     </message>
     <message>
-        <source>zMAG</source>
-        <translation>zMAG</translation>
+        <source>zBWI</source>
+        <translation>zBWI</translation>
     </message>
     <message>
         <source>Select/Deselect All</source>

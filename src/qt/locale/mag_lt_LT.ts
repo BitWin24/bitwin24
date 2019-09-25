@@ -176,7 +176,7 @@
         <translation>Patvirtinkite piniginės užšifravimą.</translation>
     </message>
     <message>
-        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your MAGs from being stolen by malware infecting your computer.</source>
+        <source>BITWIN24 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your BWIs from being stolen by malware infecting your computer.</source>
         <translation>Dabar BITWIN24 išsijungs, kad būtų užbaigtas šifravimo procesas. Atminkite, kad jūsų piniginės užšifravimas negali visiškai apsaugoti jūsų BITWIN24 nuo kenkėjiškų programų, užkrėsto jūsų kompiuterio.</translation>
     </message>
     <message>
@@ -433,8 +433,8 @@
         <translation>Naršyti pavedimų istoriją</translation>
     </message>
     <message>
-        <source>Privacy Actions for zMAG</source>
-        <translation>zMAG Saugumo Veiksmai </translation>
+        <source>Privacy Actions for zBWI</source>
+        <translation>zBWI Saugumo Veiksmai </translation>
     </message>
     <message>
         <source>E&amp;xit</source>
@@ -1890,24 +1890,24 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Įrašyti prievadą naudojant &amp;UPnP</translation>
     </message>
     <message>
-        <source>Enable automatic minting of BITWIN24 units to zMAG</source>
-        <translation>Įgalinti automatinį konvertavimą iš BITWIN24 į zMAG</translation>
+        <source>Enable automatic minting of BITWIN24 units to zBWI</source>
+        <translation>Įgalinti automatinį konvertavimą iš BITWIN24 į zBWI</translation>
     </message>
     <message>
-        <source>Enable zMAG Automint</source>
-        <translation>Įgalinti zMAG Automatinį nukaldinima</translation>
+        <source>Enable zBWI Automint</source>
+        <translation>Įgalinti zBWI Automatinį nukaldinima</translation>
     </message>
     <message>
-        <source>Percentage of incoming BITWIN24 which get automatically converted to zMAG via Zerocoin Protocol (min: 10%)</source>
-        <translation>Procentas gauto BITWIN24, kuris automatiškai bus konvertuotas į zMAG naudojant Zerocoin Protokolą (min: 10%)</translation>
+        <source>Percentage of incoming BITWIN24 which get automatically converted to zBWI via Zerocoin Protocol (min: 10%)</source>
+        <translation>Procentas gauto BITWIN24, kuris automatiškai bus konvertuotas į zBWI naudojant Zerocoin Protokolą (min: 10%)</translation>
     </message>
     <message>
-        <source>Percentage of autominted zMAG</source>
-        <translation>Automatiškai sukurtų zMAG procentas</translation>
+        <source>Percentage of autominted zBWI</source>
+        <translation>Automatiškai sukurtų zBWI procentas</translation>
     </message>
     <message>
-        <source>Preferred Automint zMAG Denomination</source>
-        <translation>Pageidautinas zMAG Automatinio Nukaldinimo Nominalas</translation>
+        <source>Preferred Automint zBWI Denomination</source>
+        <translation>Pageidautinas zBWI Automatinio Nukaldinimo Nominalas</translation>
     </message>
     <message>
         <source>Connect to the BITWIN24 network through a SOCKS5 proxy.</source>
@@ -2057,14 +2057,14 @@ https://www.transifex.com/bitwin24-project/bitwin24-project-translations</transl
         <translation>Jūsų dabartinis BITWIN24 balansas, įskaitant nepatvirtintus ir nesubrendusius sandorius</translation>
     </message>
     <message>
-        <source>zMAG Balance</source>
-        <translation>zMAG Balansas</translation>
+        <source>zBWI Balance</source>
+        <translation>zBWI Balansas</translation>
     </message>
     <message>
         <source>Mature: more than 20 confirmation and more than 1 mint of the same denomination after it was minted.
-These zMAG are spendable.</source>
+These zBWI are spendable.</source>
         <translation>Subrendę: daugiau nei 20 patvirtinimų ir daugiau nei 1 konvertacija to pačio nominalo, kai jis jau buvo konvertuotas.
-Šiuos zMAG galima išleisti.</translation>
+Šiuos zBWI galima išleisti.</translation>
     </message>
     <message>
         <source>Unconfirmed: less than 20 confirmations
@@ -2117,8 +2117,8 @@ Nesubrendusios: patvirtintos, bet mažiau nei 1 konvertacijos to pačio nominalo
         <translation>Prienamas išleidimui:</translation>
     </message>
     <message>
-        <source>Locked BITWIN24 or Masternode collaterals. These are excluded from zMAG minting.</source>
-        <translation>Užrakinti BITWIN24 arba Masternode užstatai. Jie yra neįtraukti į zMAG kalimą.</translation>
+        <source>Locked BITWIN24 or Masternode collaterals. These are excluded from zBWI minting.</source>
+        <translation>Užrakinti BITWIN24 arba Masternode užstatai. Jie yra neįtraukti į zBWI kalimą.</translation>
     </message>
     <message>
         <source>Locked:</source>
@@ -2222,8 +2222,8 @@ Nesubrendusios: patvirtintos, bet mažiau nei 1 konvertacijos to pačio nominalo
         <translation>0</translation>
     </message>
     <message>
-        <source>zMAG</source>
-        <translation>zMAG</translation>
+        <source>zBWI</source>
+        <translation>zBWI</translation>
     </message>
     <message>
         <source>Available for minting are coins which are confirmed and not locked or Masternode collaterals.</source>
@@ -2266,12 +2266,12 @@ Nesubrendusios: patvirtintos, bet mažiau nei 1 konvertacijos to pačio nominalo
         <translation>PRIVATUMAS</translation>
     </message>
     <message>
-        <source>zMAG Control</source>
+        <source>zBWI Control</source>
         <translation>zBWI Kontrolė</translation>
     </message>
     <message>
-        <source>zMAG Selected:</source>
-        <translation>Pasirinkta zMAG:</translation>
+        <source>zBWI Selected:</source>
+        <translation>Pasirinkta zBWI:</translation>
     </message>
     <message>
         <source>Quantity Selected:</source>
@@ -2290,8 +2290,8 @@ Nesubrendusios: patvirtintos, bet mažiau nei 1 konvertacijos to pačio nominalo
         <translation>Prieinamas Balansas: </translation>
     </message>
     <message>
-        <source>0 zMAG</source>
-        <translation>0 zMAG</translation>
+        <source>0 zBWI</source>
+        <translation>0 zBWI</translation>
     </message>
     <message>
         <source>Security Level:</source>
@@ -2338,8 +2338,8 @@ Nesubrendusios: patvirtintos, bet mažiau nei 1 konvertacijos to pačio nominalo
         <translation>Zerocoin Statistika:</translation>
     </message>
     <message>
-        <source>Total Balance including unconfirmed and immature zMAG</source>
-        <translation>Bendras balansas, įskaitant nepatvirtintą ir nesubrendusį zMAG</translation>
+        <source>Total Balance including unconfirmed and immature zBWI</source>
+        <translation>Bendras balansas, įskaitant nepatvirtintą ir nesubrendusį zBWI</translation>
     </message>
     <message>
         <source>Total Zerocoin  Balance:</source>
@@ -2516,12 +2516,12 @@ Nesubrendusios: patvirtintos, bet mažiau nei 1 konvertacijos tos pačio nominal
         <translation>Kopijuoti sumą</translation>
     </message>
     <message>
-        <source>zMAG Spend #: </source>
-        <translation>zMAG Išleidimas #:</translation>
+        <source>zBWI Spend #: </source>
+        <translation>zBWI Išleidimas #:</translation>
     </message>
     <message>
-        <source>zMAG Mint</source>
-        <translation>zMAG Konvertavimas</translation>
+        <source>zBWI Mint</source>
+        <translation>zBWI Konvertavimas</translation>
     </message>
     <message>
         <source> &lt;b&gt;enabled&lt;/b&gt;.</source>
@@ -2628,8 +2628,8 @@ Nesubrendusios: patvirtintos, bet mažiau nei 1 konvertacijos tos pačio nominal
         <translation>su Saugumo Lygmeniu</translation>
     </message>
     <message>
-        <source>Failed to spend zMAG</source>
-        <translation>Nepavyko išleisti zMAG</translation>
+        <source>Failed to spend zBWI</source>
+        <translation>Nepavyko išleisti zBWI</translation>
     </message>
     <message>
         <source>serial: </source>
@@ -3455,8 +3455,8 @@ Nesubrendusios: patvirtintos, bet mažiau nei 1 konvertacijos tos pačio nominal
         <translation>0</translation>
     </message>
     <message>
-        <source>zMAG</source>
-        <translation>zMAG</translation>
+        <source>zBWI</source>
+        <translation>zBWI</translation>
     </message>
     </context>
 <context>

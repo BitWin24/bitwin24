@@ -546,7 +546,7 @@ std::string HelpMessage(HelpMessageMode mode)
 #endif // ENABLE_WALLET
         strUsage += HelpMessageOpt("-reindexzerocoin=<n>", strprintf(_("Delete all zerocoin spends and mints that have been recorded to the blockchain database and reindex them (0-1, default: %u)"), 0));
     }
-//    strUsage += "  -anonymizebitwin24amount=<n>     " + strprintf(_("Keep N BITWIN24 anonymized (default: %u)"), 0) + "\n";
+//    strUsage += "  -anonymizezbiamount=<n>     " + strprintf(_("Keep N BWI anonymized (default: %u)"), 0) + "\n";
 //    strUsage += "  -liquidityprovider=<n>       " + strprintf(_("Provide liquidity to Obfuscation by infrequently mixing coins on a continual basis (0-100, default: %u, 1=very frequent, high fees, 100=very infrequent, low fees)"), 0) + "\n";
 
     strUsage += HelpMessageGroup(_("SwiftX options:"));
@@ -1836,7 +1836,7 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
 //        nZeromintPercentage = 99999;
 //    }
 //
-//    nAnonymizeBWIAmount = GetArg("-anonymizebitwin24amount", 0);
+//    nAnonymizeBWIAmount = GetArg("-anonymizezbiamount", 0);
 //    if (nAnonymizeBWIAmount > 999999) nAnonymizeBWIAmount = 999999;
 //    if (nAnonymizeBWIAmount < 2) nAnonymizeBWIAmount = 2;
 

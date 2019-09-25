@@ -46,7 +46,7 @@
       <key>CFBundleTypeRole</key>
       <string>Editor</string>
       <key>CFBundleURLName</key>
-      <string>io.bitwin24.MagPayment</string>
+      <string>io.bitwin24.BitWin24Payment</string>
       <key>CFBundleURLSchemes</key>
       <array>
         <string>bitwin24</string>

@@ -177,7 +177,7 @@ void MerchantDialog::on_merchantRefreshAccount_clicked()
     refreshAccountData();
 }
 
-void MerchantDialog::on_refreshMagStats_clicked()
+void MerchantDialog::on_refreshBitWin24Stats_clicked()
 {
     refreshStats();
 }

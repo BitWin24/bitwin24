@@ -1098,7 +1098,7 @@
                        </layout>
                       </item>
                       <item>
-                       <widget class="QPushButton" name="refreshMagStats">
+                       <widget class="QPushButton" name="refreshBitWin24Stats">
                         <property name="text">
                          <string>Refresh Stats</string>
                         </property>

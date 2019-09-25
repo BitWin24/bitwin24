@@ -1827,7 +1827,7 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
     }
 
 // XX42 Remove/refactor code below. Until then provide safe defaults
-    nAnonymizeMagAmount = 2;
+    nAnonymizeBWIAmount = 2;
 
 //    nLiquidityProvider = GetArg("-liquidityprovider", 0); //0-100
 //    if (nLiquidityProvider != 0) {
@@ -1836,9 +1836,9 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
 //        nZeromintPercentage = 99999;
 //    }
 //
-//    nAnonymizeMagAmount = GetArg("-anonymizebitwin24amount", 0);
-//    if (nAnonymizeMagAmount > 999999) nAnonymizeMagAmount = 999999;
-//    if (nAnonymizeMagAmount < 2) nAnonymizeMagAmount = 2;
+//    nAnonymizeBWIAmount = GetArg("-anonymizebitwin24amount", 0);
+//    if (nAnonymizeBWIAmount > 999999) nAnonymizeBWIAmount = 999999;
+//    if (nAnonymizeBWIAmount < 2) nAnonymizeBWIAmount = 2;
 
     fEnableSwiftTX = GetBoolArg("-enableswifttx", fEnableSwiftTX);
     nSwiftTXDepth = GetArg("-swifttxdepth", nSwiftTXDepth);
@@ -1852,7 +1852,7 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
 
     LogPrintf("fLiteMode %d\n", fLiteMode);
     LogPrintf("nSwiftTXDepth %d\n", nSwiftTXDepth);
-    LogPrintf("Anonymize BITWIN24 Amount %d\n", nAnonymizeMagAmount);
+    LogPrintf("Anonymize BITWIN24 Amount %d\n", nAnonymizeBWIAmount);
     LogPrintf("Budget Mode %s\n", strBudgetMode.c_str());
 
     /* Denominations

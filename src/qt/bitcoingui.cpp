@@ -357,7 +357,7 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
     QSettings settings;
     if (settings.value("fShowMerchantTab").toBool()) {
         merchantAction = new QAction(QIcon(":/icons/merchant"), tr("&Merchant"), this);
-        merchantAction->setStatusTip(tr("Magnet Merchant"));
+        merchantAction->setStatusTip(tr("BitWin24 Merchant"));
         merchantAction->setToolTip(merchantAction->statusTip());
         merchantAction->setCheckable(true);
 #ifdef Q_OS_MAC

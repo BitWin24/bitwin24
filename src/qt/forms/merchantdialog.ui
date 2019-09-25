@@ -768,7 +768,7 @@
                             </size>
                           </property>
                           <property name="toolTip">
-                           <string>Information about the Magnet merchant statistics.</string>
+                           <string>Information about the BitWin24 merchant statistics.</string>
                           </property>
                           <property name="text">
                            <string>MAG Merchant Stats:</string>

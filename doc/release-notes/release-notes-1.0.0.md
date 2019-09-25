@@ -5,7 +5,7 @@ Please report bugs using the issue tracker at github: <https://github.com/bitwin
 Mandatory Update
 ==============
 
-MAG Core v1.0.0 is a mandatory update for all users on Magnet Network. This release contains a new core base (PIVx 3.1 fork) and major protocol changes that are not backwards compatible with any older versions of Magnet clients.
+MAG Core v1.0.0 is a mandatory update for all users on BitWin24 Network. This release contains a new core base (PIVx 3.1 fork) and major protocol changes that are not backwards compatible with any older versions of BitWin24 clients.
 
 Existing users have up till November 12, 2018 to Swap their coins on [Cryptopia Exchange](https://support.cryptopia.co.nz/csm?id=kb_article&sys_id=7eb0d4e8dbe1a780d7e096888a961908). If you have not done so and missed the deadline, please contact us _now_.
 

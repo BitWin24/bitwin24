@@ -4,8 +4,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef MAG_PUBKEY_H
-#define MAG_PUBKEY_H
+#ifndef BITWIN24_PUBKEY_H
+#define BITWIN24_PUBKEY_H
 
 #include "hash.h"
 #include "serialize.h"
@@ -268,4 +268,4 @@ public:
     ~ECCVerifyHandle();
 };
 
-#endif // MAG_PUBKEY_H
+#endif // BITWIN24_PUBKEY_H

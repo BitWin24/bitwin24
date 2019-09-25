@@ -91,23 +91,23 @@ enum AvailableCoinsType {
 
 // Possible states for zBITWIN24 send
 enum ZerocoinSpendStatus {
-    ZMAG_SPEND_OKAY = 0,                            // No error
-    ZMAG_SPEND_ERROR = 1,                           // Unspecified class of errors, more details are (hopefully) in the returning text
-    ZMAG_WALLET_LOCKED = 2,                         // Wallet was locked
-    ZMAG_COMMIT_FAILED = 3,                         // Commit failed, reset status
-    ZMAG_ERASE_SPENDS_FAILED = 4,                   // Erasing spends during reset failed
-    ZMAG_ERASE_NEW_MINTS_FAILED = 5,                // Erasing new mints during reset failed
-    ZMAG_TRX_FUNDS_PROBLEMS = 6,                    // Everything related to available funds
-    ZMAG_TRX_CREATE = 7,                            // Everything related to create the transaction
-    ZMAG_TRX_CHANGE = 8,                            // Everything related to transaction change
-    ZMAG_TXMINT_GENERAL = 9,                        // General errors in MintToTxIn
-    ZMAG_INVALID_COIN = 10,                         // Selected mint coin is not valid
-    ZMAG_FAILED_ACCUMULATOR_INITIALIZATION = 11,    // Failed to initialize witness
-    ZMAG_INVALID_WITNESS = 12,                      // Spend coin transaction did not verify
-    ZMAG_BAD_SERIALIZATION = 13,                    // Transaction verification failed
-    ZMAG_SPENT_USED_ZMAG = 14,                      // Coin has already been spend
-    ZMAG_TX_TOO_LARGE = 15,                          // The transaction is larger than the max tx size
-    ZMAG_SPEND_V1_SEC_LEVEL                         // Spend is V1 and security level is not set to 100
+    ZBWI_SPEND_OKAY = 0,                            // No error
+    ZBWI_SPEND_ERROR = 1,                           // Unspecified class of errors, more details are (hopefully) in the returning text
+    ZBWI_WALLET_LOCKED = 2,                         // Wallet was locked
+    ZBWI_COMMIT_FAILED = 3,                         // Commit failed, reset status
+    ZBWI_ERASE_SPENDS_FAILED = 4,                   // Erasing spends during reset failed
+    ZBWI_ERASE_NEW_MINTS_FAILED = 5,                // Erasing new mints during reset failed
+    ZBWI_TRX_FUNDS_PROBLEMS = 6,                    // Everything related to available funds
+    ZBWI_TRX_CREATE = 7,                            // Everything related to create the transaction
+    ZBWI_TRX_CHANGE = 8,                            // Everything related to transaction change
+    ZBWI_TXMINT_GENERAL = 9,                        // General errors in MintToTxIn
+    ZBWI_INVALID_COIN = 10,                         // Selected mint coin is not valid
+    ZBWI_FAILED_ACCUMULATOR_INITIALIZATION = 11,    // Failed to initialize witness
+    ZBWI_INVALID_WITNESS = 12,                      // Spend coin transaction did not verify
+    ZBWI_BAD_SERIALIZATION = 13,                    // Transaction verification failed
+    ZBWI_SPENT_USED_ZBWI = 14,                      // Coin has already been spend
+    ZBWI_TX_TOO_LARGE = 15,                          // The transaction is larger than the max tx size
+    ZBWI_SPEND_V1_SEC_LEVEL                         // Spend is V1 and security level is not set to 100
 };
 
 struct CompactTallyItem {
@@ -215,7 +215,7 @@ public:
     void ReconsiderZerocoins(std::list<CZerocoinMint>& listMintsRestored, std::list<CDeterministicMint>& listDMintsRestored);
     void ZBWIBackupWallet();
     bool GetZerocoinKey(const CBigNum& bnSerial, CKey& key);
-    bool CreateZMAGOutPut(libzerocoin::CoinDenomination denomination, CTxOut& outMint, CDeterministicMint& dMint);
+    bool CreateZBWIOutPut(libzerocoin::CoinDenomination denomination, CTxOut& outMint, CDeterministicMint& dMint);
     bool GetMint(const uint256& hashSerial, CZerocoinMint& mint);
     bool GetMintFromStakeHash(const uint256& hashStake, CZerocoinMint& mint);
     bool DatabaseMint(CDeterministicMint& dMint);
@@ -237,13 +237,13 @@ public:
      */
     mutable CCriticalSection cs_wallet;
 
-    CzMAGWallet* zwalletMain;
+    CzBWIWallet* zwalletMain;
 
     bool fFileBacked;
     bool fWalletUnlockAnonymizeOnly;
     std::string strWalletFile;
     bool fBackupMints;
-    std::unique_ptr<CzMAGTracker> zbwiTracker;
+    std::unique_ptr<CzBWITracker> zbwiTracker;
 
     std::set<int64_t> setKeyPool;
     std::map<CKeyID, CKeyMetadata> mapKeyMetadata;
@@ -328,13 +328,13 @@ public:
         return nZeromintPercentage;
     }
 
-    void setZWallet(CzMAGWallet* zwallet)
+    void setZWallet(CzBWIWallet* zwallet)
     {
         zwalletMain = zwallet;
-        zbwiTracker = std::unique_ptr<CzMAGTracker>(new CzMAGTracker(strWalletFile));
+        zbwiTracker = std::unique_ptr<CzBWITracker>(new CzBWITracker(strWalletFile));
     }
 
-    CzMAGWallet* getZWallet() { return zwalletMain; }
+    CzBWIWallet* getZWallet() { return zwalletMain; }
 
     bool isZeromintEnabled()
     {
@@ -672,8 +672,8 @@ public:
     /** MultiSig address added */
     boost::signals2::signal<void(bool fHaveMultiSig)> NotifyMultiSigChanged;
 
-    /** zMAG reset */
-    boost::signals2::signal<void()> NotifyzMAGReset;
+    /** zBWI reset */
+    boost::signals2::signal<void()> NotifyzBWIReset;
 
     /** notify wallet file backed up */
     boost::signals2::signal<void (const bool& fSuccess, const std::string& filename)> NotifyWalletBacked;

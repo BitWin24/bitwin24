@@ -3,8 +3,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef MAG_ACCUMULATORCHECKPOINTS_JSON_H
-#define MAG_ACCUMULATORCHECKPOINTS_JSON_H
+#ifndef BITWIN24_ACCUMULATORCHECKPOINTS_JSON_H
+#define BITWIN24_ACCUMULATORCHECKPOINTS_JSON_H
 
 #include <string>
 std::string GetMainCheckpoints() {

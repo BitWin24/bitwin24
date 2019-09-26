@@ -1463,10 +1463,10 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
                 // Recalculate money supply for blocks that are impacted by accounting issue after zerocoin activation
                 if (GetBoolArg("-reindexmoneysupply", false)) {
                     if (chainActive.Height() > Params().Zerocoin_StartHeight()) {
-                        RecalculateZBITWIN24Minted();
-                        RecalculateZBITWIN24Spent();
+                        RecalculateZBWIMinted();
+                        RecalculateZBWISpent();
                     }
-                    RecalculateBITWIN24Supply(1);
+                    RecalculateBWISupply(1);
                 }
 
                 // Force recalculation of accumulators.

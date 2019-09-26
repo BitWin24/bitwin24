@@ -22,7 +22,7 @@ public:
     virtual CAmount GetValue() = 0;
     virtual bool CreateTxOuts(CWallet* pwallet, vector<CTxOut>& vout, CAmount nTotal) = 0;
     virtual bool GetModifier(uint64_t& nStakeModifier) = 0;
-    virtual bool IsZBITWIN24() = 0;
+    virtual bool IsZBWI() = 0;
     virtual CDataStream GetUniqueness() = 0;
 };
 
@@ -57,7 +57,7 @@ public:
     bool CreateTxIn(CWallet* pwallet, CTxIn& txIn, uint256 hashTxOut = 0) override;
     bool CreateTxOuts(CWallet* pwallet, vector<CTxOut>& vout, CAmount nTotal) override;
     bool MarkSpent(CWallet* pwallet, const uint256& txid);
-    bool IsZBITWIN24() override { return true; }
+    bool IsZBWI() override { return true; }
     int GetChecksumHeightFromMint();
     int GetChecksumHeightFromSpend();
     uint32_t GetChecksum();
@@ -83,7 +83,7 @@ public:
     CDataStream GetUniqueness() override;
     bool CreateTxIn(CWallet* pwallet, CTxIn& txIn, uint256 hashTxOut = 0) override;
     bool CreateTxOuts(CWallet* pwallet, vector<CTxOut>& vout, CAmount nTotal) override;
-    bool IsZBITWIN24() override { return false; }
+    bool IsZBWI() override { return false; }
 };
 
 

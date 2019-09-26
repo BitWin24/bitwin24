@@ -41,7 +41,7 @@
         <file alias="tx_input">res/icons/tx_input.png</file>
         <file alias="tx_output">res/icons/tx_output.png</file>
         <file alias="tx_inout">res/icons/tx_inout.png</file>
-        <file alias="unit_bitwin24">res/icons/unit_bitwin24.png</file>
+        <file alias="unit_bwi">res/icons/unit_bwi.png</file>
         <file alias="unit_mbwi">res/icons/unit_mbwi.png</file>
         <file alias="unit_ubwi">res/icons/unit_ubwi.png</file>
         <file alias="unit_tbwi">res/icons/unit_tbwi.png</file>

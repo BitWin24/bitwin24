@@ -438,7 +438,7 @@
                         </widget>
                        </item>
                        <item>
-                        <widget class="QLabel" name="labelBITWIN24Percent">
+                        <widget class="QLabel" name="labelBWIPercent">
                          <property name="text">
                           <string notr="true">0 %</string>
                          </property>

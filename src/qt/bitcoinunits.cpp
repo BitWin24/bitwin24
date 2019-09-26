@@ -20,7 +20,7 @@ QList<BitcoinUnits::Unit> BitcoinUnits::availableUnits()
 {
     QList<BitcoinUnits::Unit> unitlist;
     unitlist.append(BWI);
-    unitlist.append(mbwi);
+    unitlist.append(mBWI);
     unitlist.append(uBWI);
     return unitlist;
 }
@@ -29,7 +29,7 @@ bool BitcoinUnits::valid(int unit)
 {
     switch (unit) {
     case BWI:
-    case mbwi:
+    case mBWI:
     case uBWI:
         return true;
     default:
@@ -42,7 +42,7 @@ QString BitcoinUnits::id(int unit)
     switch (unit) {
     case BWI:
         return QString("BWI");
-    case mbwi:
+    case mBWI:
         return QString("mBWI");
     case uBWI:
         return QString::fromUtf8("uBWI");
@@ -57,7 +57,7 @@ QString BitcoinUnits::name(int unit)
         switch (unit) {
         case BWI:
             return QString("BWI");
-        case mbwi:
+        case mBWI:
             return QString("mBWI");
         case uBWI:
             return QString::fromUtf8("μBWI");

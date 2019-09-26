@@ -1,10 +1,11 @@
 // Copyright (c) 2017-2018 The PIVX developers
-// Copyright (c) 2018-present The MAG developers
+// Copyright (c) 2018 The MAC developers
+// Copyright (c) 2019 The BITWIN24 developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef MAG_ACCUMULATORMAP_H
-#define MAG_ACCUMULATORMAP_H
+#ifndef BITWIN24_ACCUMULATORMAP_H
+#define BITWIN24_ACCUMULATORMAP_H
 
 #include "libzerocoin/Accumulator.h"
 #include "libzerocoin/Coin.h"
@@ -26,4 +27,4 @@ public:
     void Reset();
     void Reset(libzerocoin::ZerocoinParams* params2);
 };
-#endif //MAG_ACCUMULATORMAP_H
+#endif //BITWIN24_ACCUMULATORMAP_H

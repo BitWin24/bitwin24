@@ -1,40 +1,40 @@
-MAG Core
+BITWIN24 Core
 =====================
 
 Setup
 ---------------------
-[MAG Core](https://magnetwork.io/wallet) is the original MAG client and it builds the backbone of the network. However, it downloads and stores the entire history of MAG transactions; depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more. Thankfully you only have to do this once.
+[BITWIN24 Core](https://bitwin24work.io/wallet) is the original BITWIN24 client and it builds the backbone of the network. However, it downloads and stores the entire history of BITWIN24 transactions; depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more. Thankfully you only have to do this once.
 
 Running
 ---------------------
-The following are some helpful notes on how to run MAG on your native platform.
+The following are some helpful notes on how to run BITWIN24 on your native platform.
 
 ### Unix
 
 Unpack the files into a directory and run:
 
-- bin/32/mag-qt (GUI, 32-bit) or bin/32/magd (headless, 32-bit)
-- bin/64/mag-qt (GUI, 64-bit) or bin/64/magd (headless, 64-bit)
+- bin/32/bitwin24-qt (GUI, 32-bit) or bin/32/bitwin24d (headless, 32-bit)
+- bin/64/bitwin24-qt (GUI, 64-bit) or bin/64/bitwin24d (headless, 64-bit)
 
 ### Windows
 
-Unpack the files into a directory, and then run mag-qt.exe.
+Unpack the files into a directory, and then run bitwin24-qt.exe.
 
 ### OSX
 
-Drag MAG-Qt to your applications folder, and then run MAG-Qt.
+Drag BITWIN24-Qt to your applications folder, and then run BITWIN24-Qt.
 
 ### Need Help?
 
-* See the documentation at the [MAG Wiki](https://en.bitcoin.it/wiki/Main_Page) ***TODO***
+* See the documentation at the [BITWIN24 Wiki](https://en.bitcoin.it/wiki/Main_Page) ***TODO***
 for help and more information.
-* Ask for help on [BitcoinTalk](https://bitcointalk.org/index.php?topic=2402932) or on the [MAG Forum](http://forum.magnetwork.io/).
-* Join our Discord server [Discord Server](https://discord.magnetwork.io)
-* Join one of our Slack groups [MAG Slack Groups](https://magnetwork.io/slack-logins/) (Main community is replaced by Discord).
+* Ask for help on [BitcoinTalk](https://bitcointalk.org/index.php?topic=2402932) or on the [BITWIN24 Forum](http://forum.bitwin24work.io/).
+* Join our Discord server [Discord Server](https://discord.bitwin24work.io)
+* Join one of our Slack groups [BITWIN24 Slack Groups](https://bitwin24work.io/slack-logins/) (Main community is replaced by Discord).
 
 Building
 ---------------------
-The following are developer notes on how to build MAG on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
+The following are developer notes on how to build BITWIN24 on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
 
 - [OSX Build Notes](build-osx.md)
 - [Unix Build Notes](build-unix.md)
@@ -42,7 +42,7 @@ The following are developer notes on how to build MAG on your native platform. T
 
 Development
 ---------------------
-The Mag repo's [root README](https://github.com/MAG-Project/MAG/blob/master/README.md) contains relevant information on the development process and automated testing.
+The BitWin24 repo's [root README](https://github.com/BITWIN24-Project/BITWIN24/blob/master/README.md) contains relevant information on the development process and automated testing.
 
 - [Developer Notes](developer-notes.md)
 - [Multiwallet Qt Development](multiwallet-qt.md)
@@ -56,8 +56,8 @@ The Mag repo's [root README](https://github.com/MAG-Project/MAG/blob/master/READ
 
 ### Resources
 
-* Discuss on the [BitcoinTalk](https://bitcointalk.org/index.php?topic=1262920.0) or the [MAG](http://forum.magnetwork.io/) forum.
-* Join the [MAG-Dev](https://mag-dev.slack.com/) Slack group ([Sign-Up](https://mag-dev.herokuapp.com/)).
+* Discuss on the [BitcoinTalk](https://bitcointalk.org/index.php?topic=1262920.0) or the [BITWIN24](http://forum.bitwin24work.io/) forum.
+* Join the [BITWIN24-Dev](https://bitwin24-dev.slack.com/) Slack group ([Sign-Up](https://bitwin24-dev.herokuapp.com/)).
 
 ### Miscellaneous
 - [Assets Attribution](assets-attribution.md)

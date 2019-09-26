@@ -118,11 +118,11 @@ UniValue blockToJSON(const CBlock& block, const CBlockIndex* blockindex, bool tx
 
     result.push_back(Pair("moneysupply",ValueFromAmount(blockindex->nMoneySupply)));
 
-    UniValue zmagObj(UniValue::VOBJ);
+    UniValue zbwiObj(UniValue::VOBJ);
     for (auto denom : libzerocoin::zerocoinDenomList) {
-        zmagObj.push_back(Pair(to_string(denom), ValueFromAmount(blockindex->mapZerocoinSupply.at(denom) * (denom*COIN))));
+        zbwiObj.push_back(Pair(to_string(denom), ValueFromAmount(blockindex->mapZerocoinSupply.at(denom) * (denom*COIN))));
     }
-    zmagObj.push_back(Pair("total", ValueFromAmount(blockindex->GetZerocoinSupply())));
+    zbwiObj.push_back(Pair("total", ValueFromAmount(blockindex->GetZerocoinSupply())));
 
     return result;
 }
@@ -242,7 +242,7 @@ UniValue getrawmempool(const UniValue& params, bool fHelp)
             "{                           (json object)\n"
             "  \"transactionid\" : {       (json object)\n"
             "    \"size\" : n,             (numeric) transaction size in bytes\n"
-            "    \"fee\" : n,              (numeric) transaction fee in mag\n"
+            "    \"fee\" : n,              (numeric) transaction fee in bitwin24\n"
             "    \"time\" : n,             (numeric) local time transaction entered pool in seconds since 1 Jan 1970 GMT\n"
             "    \"height\" : n,           (numeric) block height when transaction entered pool\n"
             "    \"startingpriority\" : n, (numeric) priority when transaction entered pool\n"
@@ -472,8 +472,8 @@ UniValue gettxout(const UniValue& params, bool fHelp)
             "     \"hex\" : \"hex\",        (string) \n"
             "     \"reqSigs\" : n,          (numeric) Number of required signatures\n"
             "     \"type\" : \"pubkeyhash\", (string) The type, eg pubkeyhash\n"
-            "     \"addresses\" : [          (array of string) array of mag addresses\n"
-            "     \"magaddress\"   	 	(string) mag address\n"
+            "     \"addresses\" : [          (array of string) array of bitwin24 addresses\n"
+            "     \"bitwin24address\"   	 	(string) bitwin24 address\n"
             "        ,...\n"
             "     ]\n"
             "  },\n"

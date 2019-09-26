@@ -1,5 +1,5 @@
 ---
-name: "mag-dmg-signer"
+name: "bitwin24-dmg-signer"
 suites:
 - "trusty"
 architectures:
@@ -7,10 +7,10 @@ architectures:
 packages:
 - "faketime"
 remotes:
-- "url": "https://github.com/magnetwork/mag-detached-sigs.git"
+- "url": "https://github.com/bitwin24work/bitwin24-detached-sigs.git"
   "dir": "signature"
 files:
-- "mag-osx-unsigned.tar.gz"
+- "bitwin24-osx-unsigned.tar.gz"
 script: |
   WRAP_DIR=$HOME/wrapped
   mkdir -p ${WRAP_DIR}
@@ -27,11 +27,11 @@ script: |
     chmod +x ${WRAP_DIR}/${prog}
   done
 
-  UNSIGNED=mag-osx-unsigned.tar.gz
-  SIGNED=mag-osx-signed.dmg
+  UNSIGNED=bitwin24-osx-unsigned.tar.gz
+  SIGNED=bitwin24-osx-signed.dmg
 
   tar -xf ${UNSIGNED}
   OSX_VOLNAME="$(cat osx_volname)"
   ./detached-sig-apply.sh ${UNSIGNED} signature/osx
-  ${WRAP_DIR}/genisoimage -no-cache-inodes -D -l -probe -V "Mag-Qt" -no-pad -r -dir-mode 0755 -apple -o uncompressed.dmg signed-app
+  ${WRAP_DIR}/genisoimage -no-cache-inodes -D -l -probe -V "BitWin24-Qt" -no-pad -r -dir-mode 0755 -apple -o uncompressed.dmg signed-app
   ${WRAP_DIR}/dmg dmg uncompressed.dmg ${OUTDIR}/${SIGNED}

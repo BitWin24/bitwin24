@@ -1,4 +1,4 @@
-// Copyright (c) 2018-present The MAG developers
+// Copyright (c) 2018-present The BITWIN24 developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -70,7 +70,7 @@ private:
     
 private slots:
     void on_merchantSignIn_clicked();
-    void on_refreshMagStats_clicked();
+    void on_refreshBitWin24Stats_clicked();
     void on_merchantSignOut_clicked();
     void on_merchantWebsite_clicked();
     void on_merchantSignUp_clicked();

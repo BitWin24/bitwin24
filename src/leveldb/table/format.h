@@ -65,7 +65,7 @@ class Footer {
 
   // Encoded length of a Footer.  Note that the serialization of a
   // Footer will always occupy exactly this many bytes.  It consists
-  // of two block handles and a magic number.
+  // of two block handles and a bitwin24ic number.
   enum {
     kEncodedLength = 2*BlockHandle::kMaxEncodedLength + 8
   };

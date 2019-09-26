@@ -5,8 +5,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef MAG_UINT256_H
-#define MAG_UINT256_H
+#ifndef BITWIN24_UINT256_H
+#define BITWIN24_UINT256_H
 
 #include <assert.h>
 #include <cstring>
@@ -410,4 +410,4 @@ inline uint512 uint512S(const std::string& str)
     return rv;
 }
 
-#endif // MAG_UINT256_H
+#endif // BITWIN24_UINT256_H

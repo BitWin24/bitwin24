@@ -7,7 +7,7 @@
 #define BITCOIN_NETBASE_H
 
 #if defined(HAVE_CONFIG_H)
-#include "config/mag-config.h"
+#include "config/bitwin24-config.h"
 #endif
 
 #include "compat.h"

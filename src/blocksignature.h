@@ -1,10 +1,11 @@
 // Copyright (c) 2017 The PIVX developers
-// Copyright (c) 2018-present The MAG developers
+// Copyright (c) 2018 The MAC developers
+// Copyright (c) 2019 The BITWIN24 developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef MAG_BLOCKSIGNATURE_H
-#define MAG_BLOCKSIGNATURE_H
+#ifndef BITWIN24_BLOCKSIGNATURE_H
+#define BITWIN24_BLOCKSIGNATURE_H
 
 #include "key.h"
 #include "primitives/block.h"
@@ -14,4 +15,4 @@ bool SignBlockWithKey(CBlock& block, const CKey& key);
 bool SignBlock(CBlock& block, const CKeyStore& keystore);
 bool CheckBlockSignature(const CBlock& block);
 
-#endif //MAG_BLOCKSIGNATURE_H
+#endif //BITWIN24_BLOCKSIGNATURE_H

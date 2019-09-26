@@ -1,6 +1,7 @@
 // Copyright (c) 2014-2016 The Dash developers
 // Copyright (c) 2015-2018 The PIVX developers
-// Copyright (c) 2018-present The MAG developers
+// Copyright (c) 2018 The MAC developers
+// Copyright (c) 2019 The BITWIN24 developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -13,7 +14,7 @@
 #include "spork.h"
 
 //
-// Bootup the Masternode, look for a 10000 MAG input and register on the network
+// Bootup the Masternode, look for a 10000 BITWIN24 input and register on the network
 //
 void CActiveMasternode::ManageStatus()
 {

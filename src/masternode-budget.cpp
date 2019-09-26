@@ -1,6 +1,7 @@
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2018 The PIVX developers
-// Copyright (c) 2018-present The MAG developers
+// Copyright (c) 2018 The MAC developers
+// Copyright (c) 2019 The BITWIN24 developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -60,8 +61,8 @@ bool IsBudgetCollateralValid(uint256 nTxCollateralHash, uint256 nExpectedHash, s
         }
         if (fBudgetFinalization) {
             // Collateral for budget finalization
-            // Note: there are still old valid budgets out there, but the check for the new 5 MAG finalization collateral
-            //       will also cover the old 50 MAG finalization collateral.
+            // Note: there are still old valid budgets out there, but the check for the new 5 BITWIN24 finalization collateral
+            //       will also cover the old 50 BITWIN24 finalization collateral.
             LogPrint("mnbudget", "Final Budget: o.scriptPubKey(%s) == findScript(%s) ?\n", o.scriptPubKey.ToString(), findScript.ToString());
             if (o.scriptPubKey == findScript) {
                 LogPrint("mnbudget", "Final Budget: o.nValue(%ld) >= BUDGET_FEE_TX(%ld) ?\n", o.nValue, BUDGET_FEE_TX);
@@ -292,8 +293,8 @@ bool CBudgetDB::Write(const CBudgetManager& objToSave)
 
     // serialize, checksum data up to that point, then append checksum
     CDataStream ssObj(SER_DISK, CLIENT_VERSION);
-    ssObj << strMagicMessage;                   // masternode cache file specific magic message
-    ssObj << FLATDATA(Params().MessageStart()); // network specific magic number
+    ssObj << strMagicMessage;                   // masternode cache file specific bitwin24ic message
+    ssObj << FLATDATA(Params().MessageStart()); // network specific bitwin24ic number
     ssObj << objToSave;
     uint256 hash = Hash(ssObj.begin(), ssObj.end());
     ssObj << hash;
@@ -363,7 +364,7 @@ CBudgetDB::ReadResult CBudgetDB::Read(CBudgetManager& objToLoad, bool fDryRun)
     unsigned char pchMsgTmp[4];
     std::string strMagicMessageTmp;
     try {
-        // de-serialize file header (masternode cache file specific magic message) and ..
+        // de-serialize file header (masternode cache file specific bitwin24ic message) and ..
         ssObj >> strMagicMessageTmp;
 
         // ... verify the message matches predefined one
@@ -373,7 +374,7 @@ CBudgetDB::ReadResult CBudgetDB::Read(CBudgetManager& objToLoad, bool fDryRun)
         }
 
 
-        // de-serialize file header (network specific magic number) and ..
+        // de-serialize file header (network specific bitwin24ic number) and ..
         ssObj >> FLATDATA(pchMsgTmp);
 
         // ... verify the network matches ours

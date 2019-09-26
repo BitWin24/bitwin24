@@ -4,8 +4,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef MAG_SERIALIZE_H
-#define MAG_SERIALIZE_H
+#ifndef BITWIN24_SERIALIZE_H
+#define BITWIN24_SERIALIZE_H
 
 #include <algorithm>
 #include <assert.h>
@@ -965,4 +965,4 @@ public:
     }
 };
 
-#endif // MAG_SERIALIZE_H
+#endif // BITWIN24_SERIALIZE_H

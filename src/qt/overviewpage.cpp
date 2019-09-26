@@ -35,7 +35,7 @@ class TxViewDelegate : public QAbstractItemDelegate
 {
     Q_OBJECT
 public:
-    TxViewDelegate() : QAbstractItemDelegate(), unit(BitcoinUnits::MAG)
+    TxViewDelegate() : QAbstractItemDelegate(), unit(BitcoinUnits::BWI)
     {
     }
 
@@ -150,7 +150,7 @@ OverviewPage::~OverviewPage()
     delete ui;
 }
 
-void OverviewPage::getPercentage(CAmount nUnlockedBalance, CAmount nZerocoinBalance, QString& sMAGPercentage, QString& szMAGPercentage)
+void OverviewPage::getPercentage(CAmount nUnlockedBalance, CAmount nZerocoinBalance, QString& sBWIPercentage, QString& szBWIPercentage)
 {
     int nPrecision = 2;
     double dzPercentage = 0.0;
@@ -169,8 +169,8 @@ void OverviewPage::getPercentage(CAmount nUnlockedBalance, CAmount nZerocoinBala
 
     double dPercentage = 100.0 - dzPercentage;
 
-    szMAGPercentage = "(" + QLocale(QLocale::system()).toString(dzPercentage, 'f', nPrecision) + " %)";
-    sMAGPercentage = "(" + QLocale(QLocale::system()).toString(dPercentage, 'f', nPrecision) + " %)";
+    szBWIPercentage = "(" + QLocale(QLocale::system()).toString(dzPercentage, 'f', nPrecision) + " %)";
+    sBWIPercentage = "(" + QLocale(QLocale::system()).toString(dPercentage, 'f', nPrecision) + " %)";
 
 }
 
@@ -200,16 +200,16 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
         nWatchOnlyLockedBalance = pwalletMain->GetLockedWatchOnlyBalance();
     }
 
-    // MAG Balance
+    // BITWIN24 Balance
     CAmount nTotalBalance = balance + unconfirmedBalance;
-    CAmount magAvailableBalance = balance - immatureBalance - nLockedBalance;
+    CAmount bitwin24AvailableBalance = balance - immatureBalance - nLockedBalance;
     CAmount nUnlockedBalance = nTotalBalance - nLockedBalance;
 
-    // MAG Watch-Only Balance
+    // BITWIN24 Watch-Only Balance
     CAmount nTotalWatchBalance = watchOnlyBalance + watchUnconfBalance;
     CAmount nAvailableWatchBalance = watchOnlyBalance - watchImmatureBalance - nWatchOnlyLockedBalance;
 
-    // zMAG Balance
+    // zBWI Balance
     CAmount matureZerocoinBalance = zerocoinBalance - unconfirmedZerocoinBalance - immatureZerocoinBalance;
 
     // Percentages
@@ -217,11 +217,11 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
     QString sPercentage = "";
     getPercentage(nUnlockedBalance, zerocoinBalance, sPercentage, szPercentage);
     // Combined balances
-    CAmount availableTotalBalance = magAvailableBalance + matureZerocoinBalance;
+    CAmount availableTotalBalance = bitwin24AvailableBalance + matureZerocoinBalance;
     CAmount sumTotalBalance = nTotalBalance + zerocoinBalance;
 
-    // MAG labels
-    ui->labelBalance->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, magAvailableBalance, false, BitcoinUnits::separatorAlways));
+    // BITWIN24 labels
+    ui->labelBalance->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, bitwin24AvailableBalance, false, BitcoinUnits::separatorAlways));
     ui->labelUnconfirmed->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, unconfirmedBalance, false, BitcoinUnits::separatorAlways));
     ui->labelImmature->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, immatureBalance, false, BitcoinUnits::separatorAlways));
     ui->labelLockedBalance->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, nLockedBalance, false, BitcoinUnits::separatorAlways));
@@ -244,15 +244,15 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
     ui->labelStakeRewards->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, stakeEarnings, false, BitcoinUnits::separatorAlways));
 
     // Adjust bubble-help according to AutoMint settings
-    QString automintHelp = tr("Current percentage of zMAG.\nIf AutoMint is enabled this percentage will settle around the configured AutoMint percentage (default = 10%).\n");
+    QString automintHelp = tr("Current percentage of zBWI.\nIf AutoMint is enabled this percentage will settle around the configured AutoMint percentage (default = 10%).\n");
     bool fEnableZeromint = GetBoolArg("-enablezeromint", Params().ZeroCoinEnabled());
     int nZeromintPercentage = GetArg("-zeromintpercentage", 1);
     if (fEnableZeromint) {
         automintHelp += tr("AutoMint is currently enabled and set to ") + QString::number(nZeromintPercentage) + "%.\n";
-        automintHelp += tr("To disable AutoMint add 'enablezeromint=0' in mag.conf.");
+        automintHelp += tr("To disable AutoMint add 'enablezeromint=0' in bitwin24.conf.");
     }
     else {
-        automintHelp += tr("AutoMint is currently disabled.\nTo enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in mag.conf");
+        automintHelp += tr("AutoMint is currently disabled.\nTo enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in bitwin24.conf");
     }
 
     // Only show most balances if they are non-zero for the sake of simplicity
@@ -265,33 +265,33 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
 
     bool showWatchOnly = nTotalWatchBalance != 0;
 
-    // MAG Available
-    bool showMAGAvailable = settingShowAllBalances || magAvailableBalance != nTotalBalance;
-    bool showWatchOnlyMAGAvailable = showMAGAvailable || nAvailableWatchBalance != nTotalWatchBalance;
-    ui->labelBalanceText->setVisible(showMAGAvailable || showWatchOnlyMAGAvailable);
-    ui->labelBalance->setVisible(showMAGAvailable || showWatchOnlyMAGAvailable);
-    ui->labelWatchAvailable->setVisible(showWatchOnlyMAGAvailable && showWatchOnly);
+    // BITWIN24 Available
+    bool showBWIAvailable = settingShowAllBalances || bitwin24AvailableBalance != nTotalBalance;
+    bool showWatchOnlyBWIAvailable = showBWIAvailable || nAvailableWatchBalance != nTotalWatchBalance;
+    ui->labelBalanceText->setVisible(showBWIAvailable || showWatchOnlyBWIAvailable);
+    ui->labelBalance->setVisible(showBWIAvailable || showWatchOnlyBWIAvailable);
+    ui->labelWatchAvailable->setVisible(showWatchOnlyBWIAvailable && showWatchOnly);
 
-    // MAG Pending
-    bool showMAGPending = settingShowAllBalances || unconfirmedBalance != 0;
-    bool showWatchOnlyMAGPending = showMAGPending || watchUnconfBalance != 0;
-    ui->labelPendingText->setVisible(showMAGPending || showWatchOnlyMAGPending);
-    ui->labelUnconfirmed->setVisible(showMAGPending || showWatchOnlyMAGPending);
-    ui->labelWatchPending->setVisible(showWatchOnlyMAGPending && showWatchOnly);
+    // BITWIN24 Pending
+    bool showBWIPending = settingShowAllBalances || unconfirmedBalance != 0;
+    bool showWatchOnlyBWIPending = showBWIPending || watchUnconfBalance != 0;
+    ui->labelPendingText->setVisible(showBWIPending || showWatchOnlyBWIPending);
+    ui->labelUnconfirmed->setVisible(showBWIPending || showWatchOnlyBWIPending);
+    ui->labelWatchPending->setVisible(showWatchOnlyBWIPending && showWatchOnly);
 
-    // MAG Immature
-    bool showMAGImmature = settingShowAllBalances || immatureBalance != 0;
-    bool showWatchOnlyImmature = showMAGImmature || watchImmatureBalance != 0;
-    ui->labelImmatureText->setVisible(showMAGImmature || showWatchOnlyImmature);
-    ui->labelImmature->setVisible(showMAGImmature || showWatchOnlyImmature); // for symmetry reasons also show immature label when the watch-only one is shown
+    // BITWIN24 Immature
+    bool showBWIImmature = settingShowAllBalances || immatureBalance != 0;
+    bool showWatchOnlyImmature = showBWIImmature || watchImmatureBalance != 0;
+    ui->labelImmatureText->setVisible(showBWIImmature || showWatchOnlyImmature);
+    ui->labelImmature->setVisible(showBWIImmature || showWatchOnlyImmature); // for symmetry reasons also show immature label when the watch-only one is shown
     ui->labelWatchImmature->setVisible(showWatchOnlyImmature && showWatchOnly); // show watch-only immature balance
 
-    // MAG Locked
-    bool showMAGLocked = settingShowAllBalances || nLockedBalance != 0;
-    bool showWatchOnlyMAGLocked = showMAGLocked || nWatchOnlyLockedBalance != 0;
-    ui->labelLockedBalanceText->setVisible(showMAGLocked || showWatchOnlyMAGLocked);
-    ui->labelLockedBalance->setVisible(showMAGLocked || showWatchOnlyMAGLocked);
-    ui->labelWatchLocked->setVisible(showWatchOnlyMAGLocked && showWatchOnly);
+    // BITWIN24 Locked
+    bool showBWILocked = settingShowAllBalances || nLockedBalance != 0;
+    bool showWatchOnlyBWILocked = showBWILocked || nWatchOnlyLockedBalance != 0;
+    ui->labelLockedBalanceText->setVisible(showBWILocked || showWatchOnlyBWILocked);
+    ui->labelLockedBalance->setVisible(showBWILocked || showWatchOnlyBWILocked);
+    ui->labelWatchLocked->setVisible(showWatchOnlyBWILocked && showWatchOnly);
 
     // Masternode and Stake Earnings.
     ui->labelStakeRewards->setVisible(true);
@@ -301,8 +301,8 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
 
     // Percent split
     //bool showPercentages = ! (zerocoinBalance == 0 && nTotalBalance == 0);
-    ui->labelMAGPercent->setVisible(false);
-    ui->labelzMAGPercent->setVisible(false);
+    ui->labelBWIPercent->setVisible(false);
+    ui->labelzBWIPercent->setVisible(false);
 
     static int cachedTxLocks = 0;
 
@@ -374,7 +374,7 @@ void OverviewPage::setWalletModel(WalletModel* model)
         connect(model, SIGNAL(notifyWatchonlyChanged(bool)), this, SLOT(updateWatchOnlyLabels(bool)));
     }
 
-    // update the display unit, to not use the default ("MAG")
+    // update the display unit, to not use the default ("BITWIN24")
     updateDisplayUnit();
 }
 

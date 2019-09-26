@@ -344,9 +344,9 @@ QString TransactionTableModel::formatTxType(const TransactionRecord* wtx) const
     case TransactionRecord::SendToSelf:
         return tr("Payment to yourself");
     case TransactionRecord::StakeMint:
-        return tr("MAG Stake");
-    case TransactionRecord::StakeZMAG:
-        return tr("zMAG Stake");
+        return tr("BITWIN24 Stake");
+    case TransactionRecord::StakeZBWI:
+        return tr("zBWI Stake");
     case TransactionRecord::Generated:
         return tr("Mined");
     case TransactionRecord::ObfuscationDenominate:
@@ -360,15 +360,15 @@ QString TransactionTableModel::formatTxType(const TransactionRecord* wtx) const
     case TransactionRecord::Obfuscated:
         return tr("Obfuscated");
     case TransactionRecord::ZerocoinMint:
-        return tr("Converted MAG to zMAG");
+        return tr("Converted BITWIN24 to zBWI");
     case TransactionRecord::ZerocoinSpend:
-        return tr("Spent zMAG");
+        return tr("Spent zBWI");
     case TransactionRecord::RecvFromZerocoinSpend:
-        return tr("Received MAG from zMAG");
-    case TransactionRecord::ZerocoinSpend_Change_zMag:
-        return tr("Minted Change as zMAG from zMAG Spend");
+        return tr("Received BITWIN24 from zBWI");
+    case TransactionRecord::ZerocoinSpend_Change_zBWI:
+        return tr("Minted Change as zBWI from zBWI Spend");
     case TransactionRecord::ZerocoinSpend_FromMe:
-        return tr("Converted zMAG to MAG");
+        return tr("Converted zBWI to BITWIN24");
 
     default:
         return QString();
@@ -380,7 +380,7 @@ QVariant TransactionTableModel::txAddressDecoration(const TransactionRecord* wtx
     switch (wtx->type) {
     case TransactionRecord::Generated:
     case TransactionRecord::StakeMint:
-    case TransactionRecord::StakeZMAG:
+    case TransactionRecord::StakeZBWI:
     case TransactionRecord::MNReward:
         return QIcon(":/icons/tx_mined");
     case TransactionRecord::RecvWithObfuscation:
@@ -423,10 +423,10 @@ QString TransactionTableModel::formatTxToAddress(const TransactionRecord* wtx, b
     case TransactionRecord::SendToOther:
         return QString::fromStdString(wtx->address) + watchAddress;
     case TransactionRecord::ZerocoinMint:
-    case TransactionRecord::ZerocoinSpend_Change_zMag:
-        return tr("Anonymous (zMAG Transaction)");
-    case TransactionRecord::StakeZMAG:
-        return tr("Anonymous (zMAG Stake)");
+    case TransactionRecord::ZerocoinSpend_Change_zBWI:
+        return tr("Anonymous (zBWI Transaction)");
+    case TransactionRecord::StakeZBWI:
+        return tr("Anonymous (zBWI Stake)");
     case TransactionRecord::SendToSelf:
     default:
         return tr("(n/a)") + watchAddress;
@@ -575,7 +575,7 @@ QVariant TransactionTableModel::data(const QModelIndex& index, int role) const
     case Qt::ForegroundRole:
         // Minted
         if (rec->type == TransactionRecord::Generated || rec->type == TransactionRecord::StakeMint ||
-                rec->type == TransactionRecord::StakeZMAG || rec->type == TransactionRecord::MNReward) {
+                rec->type == TransactionRecord::StakeZBWI || rec->type == TransactionRecord::MNReward) {
             if (rec->status.status == TransactionStatus::Conflicted || rec->status.status == TransactionStatus::NotAccepted)
                 return COLOR_ORPHAN;
             else

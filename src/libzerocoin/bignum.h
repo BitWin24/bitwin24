@@ -7,7 +7,7 @@
 #define BITCOIN_BIGNUM_H
 
 #if defined HAVE_CONFIG_H
-#include "mag-config.h"
+#include "bitwin24-config.h"
 #endif
 
 #include <stdexcept>

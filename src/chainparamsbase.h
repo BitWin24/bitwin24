@@ -1,6 +1,7 @@
 // Copyright (c) 2014 The Bitcoin developers
 // Copyright (c) 2017 The PIVX developers
-// Copyright (c) 2018-present The MAG developers
+// Copyright (c) 2018 The MAC developers
+// Copyright (c) 2019 The BITWIN24 developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -11,8 +12,8 @@
 #include <vector>
 
 /**
- * CBaseChainParams defines the base parameters (shared between mag-cli and magd)
- * of a given instance of the Mag system.
+ * CBaseChainParams defines the base parameters (shared between bitwin24-cli and bitwin24d)
+ * of a given instance of the BitWin24 system.
  */
 class CBaseChainParams
 {

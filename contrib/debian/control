@@ -1,4 +1,4 @@
-Source: mag
+Source: bitwin24
 Section: utils
 Priority: optional
 Maintainer: Jonas Smedegaard <dr@jones.dk> ***TODO***
@@ -22,15 +22,15 @@ Build-Depends: debhelper,
  libqrencode-dev,
  libprotobuf-dev, protobuf-compiler
 Standards-Version: 3.9.2
-Homepage: http://www.magnetwork.io
-Vcs-Git: git://github.com/magnetwork/MAG.git
-Vcs-Browser: https://github.com/magnetwork/MAG
+Homepage: http://www.bitwin24work.io
+Vcs-Git: git://github.com/bitwin24work/BITWIN24.git
+Vcs-Browser: https://github.com/bitwin24work/BITWIN24
 
-Package: magd
+Package: bitwin24d
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: peer-to-peer network based digital currency - daemon
- MAG is a free open source peer-to-peer electronic cash system that
+ BITWIN24 is a free open source peer-to-peer electronic cash system that
  is completely decentralized, without the need for a central server or
  trusted parties.  Users hold the crypto keys to their own money and
  transact directly with each other, with the help of a P2P network to
@@ -39,14 +39,14 @@ Description: peer-to-peer network based digital currency - daemon
  Full transaction history is stored locally at each client.  This
  requires 1+ GB of space, slowly growing.
  .
- This package provides the daemon, magd, and the CLI tool
- mag-cli to interact with the daemon.
+ This package provides the daemon, bitwin24d, and the CLI tool
+ bitwin24-cli to interact with the daemon.
 
-Package: mag-qt
+Package: bitwin24-qt
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: peer-to-peer network based digital currency - Qt GUI
- MAG is a free open source peer-to-peer electronic cash system that
+ BITWIN24 is a free open source peer-to-peer electronic cash system that
  is completely decentralized, without the need for a central server or
  trusted parties.  Users hold the crypto keys to their own money and
  transact directly with each other, with the help of a P2P network to
@@ -55,4 +55,4 @@ Description: peer-to-peer network based digital currency - Qt GUI
  Full transaction history is stored locally at each client.  This
  requires 1+ GB of space, slowly growing.
  .
- This package provides Mag-Qt, a GUI for MAG based on Qt.
+ This package provides BitWin24-Qt, a GUI for BITWIN24 based on Qt.

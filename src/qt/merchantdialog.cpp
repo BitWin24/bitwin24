@@ -1,4 +1,4 @@
-// Copyright (c) 2018-present The MAG developers
+// Copyright (c) 2018-present The BITWIN24 developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -45,7 +45,7 @@ MerchantDialog::MerchantDialog(QWidget* parent) : QDialog(parent, Qt::WindowSyst
     retain.setRetainSizeWhenHidden(true);
     ui->merchantTransactions->setSizePolicy(retain);
 
-    ui->merchantSignUp->setText("<a href=\"https://merchant.magnetwork.io/\">Sign up for MAG Merchant Account</a>");
+    ui->merchantSignUp->setText("<a href=\"https://merchant.bitwin24work.io/\">Sign up for BITWIN24 Merchant Account</a>");
     ui->merchantSignUp->setTextFormat(Qt::RichText);
     ui->merchantSignUp->setTextInteractionFlags(Qt::TextBrowserInteraction);
     ui->merchantSignUp->setOpenExternalLinks(true);    
@@ -65,11 +65,11 @@ MerchantDialog::MerchantDialog(QWidget* parent) : QDialog(parent, Qt::WindowSyst
                     QVariantMap map = doc.object().toVariantMap();
                     if (map.contains("ivusers")) {
                         // Process stats.
-                        ui->labelStats1Amount->setText(map["iv7d"].toString() + tr(" MAG"));
-                        ui->labelStats2Amount->setText(map["iv1d"].toString() + tr(" MAG"));
+                        ui->labelStats1Amount->setText(map["iv7d"].toString() + tr(" BITWIN24"));
+                        ui->labelStats2Amount->setText(map["iv1d"].toString() + tr(" BITWIN24"));
                         ui->labelStats3Amount->setText(map["ivcount"].toString());
                         ui->labelStats4Amount->setText(map["ivusers"].toString());
-                        ui->labelStatsMerchantAmount->setText(map["ivtotal"].toString() + tr(" MAG"));
+                        ui->labelStatsMerchantAmount->setText(map["ivtotal"].toString() + tr(" BITWIN24"));
                     }
                     else if (map.contains("token")) {
                         // Process login.
@@ -85,7 +85,7 @@ MerchantDialog::MerchantDialog(QWidget* parent) : QDialog(parent, Qt::WindowSyst
                     }
                     else if (map.contains("data")) {
                         QVariantMap dataMap = qvariant_cast<QVariantMap>(map["data"]);
-                        ui->labelMerchantAmount->setText(dataMap["balance"].toString() + tr(" MAG"));
+                        ui->labelMerchantAmount->setText(dataMap["balance"].toString() + tr(" BITWIN24"));
                         ui->labelMerchantNameValue->setText(dataMap["name"].toString());
                         ui->labelMerchantEmailValue->setText(dataMap["email"].toString());
                         ui->labelMerchantAddressValue->setText(dataMap["address"].toString());
@@ -177,20 +177,20 @@ void MerchantDialog::on_merchantRefreshAccount_clicked()
     refreshAccountData();
 }
 
-void MerchantDialog::on_refreshMagStats_clicked()
+void MerchantDialog::on_refreshBitWin24Stats_clicked()
 {
     refreshStats();
 }
 
 void MerchantDialog::on_merchantSignUp_clicked()
 {
-  //  QString link = "https://merchant.magnetwork.io/accounts/?up=true";
+  //  QString link = "https://merchant.bitwin24work.io/accounts/?up=true";
 //    QDesktopServices::openUrl(QUrl(link));
 }
 
 void MerchantDialog::on_merchantWebsite_clicked()
 {
-    QString link = "https://merchant.magnetwork.io";
+    QString link = "https://merchant.bitwin24work.io";
     QDesktopServices::openUrl(QUrl(link));
 }
 
@@ -206,7 +206,7 @@ void MerchantDialog::on_merchantSignIn_clicked()
         conf.setPeerVerifyMode(QSslSocket::VerifyNone);
         request.setSslConfiguration(conf);
         request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-        request.setUrl(QUrl("https://walletbackend.magnetwork.io:8711/.account/appsignin"));
+        request.setUrl(QUrl("https://walletbackend.bitwin24work.io:8711/.account/appsignin"));
 
         QJsonObject body;
         body.insert(QString("email"), ui->labelLoginEmail->text());
@@ -226,7 +226,7 @@ void MerchantDialog::on_merchantSignOut_clicked()
         conf.setPeerVerifyMode(QSslSocket::VerifyNone);
         request.setSslConfiguration(conf);
         request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-        request.setUrl(QUrl("https://walletbackend.magnetwork.io:8711/.account/appsignout"));
+        request.setUrl(QUrl("https://walletbackend.bitwin24work.io:8711/.account/appsignout"));
 
         QJsonObject body;
         body.insert(QString("token"), token);
@@ -255,7 +255,7 @@ void MerchantDialog::refreshStats()
     conf.setPeerVerifyMode(QSslSocket::VerifyNone);
     request.setSslConfiguration(conf);
 
-    request.setUrl(QUrl("https://walletbackend.magnetwork.io:8711/.tools/stats"));
+    request.setUrl(QUrl("https://walletbackend.bitwin24work.io:8711/.tools/stats"));
     networkManager->post(request, "");
 }
 
@@ -268,7 +268,7 @@ void MerchantDialog::refreshAccountData()
         conf.setPeerVerifyMode(QSslSocket::VerifyNone);
         request.setSslConfiguration(conf);
         request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-        request.setUrl(QUrl("https://walletbackend.magnetwork.io:8711/.account/getdata"));
+        request.setUrl(QUrl("https://walletbackend.bitwin24work.io:8711/.account/getdata"));
 
         QJsonObject body;
         body.insert(QString("token"), token);

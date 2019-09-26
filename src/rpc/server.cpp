@@ -266,11 +266,11 @@ UniValue stop(const UniValue& params, bool fHelp)
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "stop\n"
-            "\nStop MAG server.");
+            "\nStop BITWIN24 server.");
     // Event loop will exit after current HTTP requests have been handled, so
     // this reply will get back to the client.
     StartShutdown();
-    return "MAG server stopping";
+    return "BITWIN24 server stopping";
 }
 
 
@@ -352,37 +352,37 @@ static const CRPCCommand vRPCCommands[] =
         {"hidden", "reconsiderblock", &reconsiderblock, true, true, false},
         {"hidden", "setmocktime", &setmocktime, true, false, false},
 
-        /* MAG features */
-        {"mag", "masternode", &masternode, true, true, false},
-        {"mag", "listmasternodes", &listmasternodes, true, true, false},
-        {"mag", "getmasternodecount", &getmasternodecount, true, true, false},
-        {"mag", "masternodeconnect", &masternodeconnect, true, true, false},
-        {"mag", "createmasternodebroadcast", &createmasternodebroadcast, true, true, false},
-        {"mag", "decodemasternodebroadcast", &decodemasternodebroadcast, true, true, false},
-        {"mag", "relaymasternodebroadcast", &relaymasternodebroadcast, true, true, false},
-        {"mag", "masternodecurrent", &masternodecurrent, true, true, false},
-        {"mag", "masternodedebug", &masternodedebug, true, true, false},
-        {"mag", "startmasternode", &startmasternode, true, true, false},
-        {"mag", "createmasternodekey", &createmasternodekey, true, true, false},
-        {"mag", "getmasternodeoutputs", &getmasternodeoutputs, true, true, false},
-        {"mag", "listmasternodeconf", &listmasternodeconf, true, true, false},
-        {"mag", "getmasternodestatus", &getmasternodestatus, true, true, false},
-        {"mag", "getmasternodewinners", &getmasternodewinners, true, true, false},
-        {"mag", "getmasternodescores", &getmasternodescores, true, true, false},
-        {"mag", "mnbudget", &mnbudget, true, true, false},
-        {"mag", "preparebudget", &preparebudget, true, true, false},
-        {"mag", "submitbudget", &submitbudget, true, true, false},
-        {"mag", "mnbudgetvote", &mnbudgetvote, true, true, false},
-        {"mag", "getbudgetvotes", &getbudgetvotes, true, true, false},
-        {"mag", "getnextsuperblock", &getnextsuperblock, true, true, false},
-        {"mag", "getbudgetprojection", &getbudgetprojection, true, true, false},
-        {"mag", "getbudgetinfo", &getbudgetinfo, true, true, false},
-        {"mag", "mnbudgetrawvote", &mnbudgetrawvote, true, true, false},
-        {"mag", "mnfinalbudget", &mnfinalbudget, true, true, false},
-        {"mag", "checkbudgets", &checkbudgets, true, true, false},
-        {"mag", "mnsync", &mnsync, true, true, false},
-        {"mag", "spork", &spork, true, true, false},
-        {"mag", "getpoolinfo", &getpoolinfo, true, true, false},
+        /* BITWIN24 features */
+        {"bitwin24", "masternode", &masternode, true, true, false},
+        {"bitwin24", "listmasternodes", &listmasternodes, true, true, false},
+        {"bitwin24", "getmasternodecount", &getmasternodecount, true, true, false},
+        {"bitwin24", "masternodeconnect", &masternodeconnect, true, true, false},
+        {"bitwin24", "createmasternodebroadcast", &createmasternodebroadcast, true, true, false},
+        {"bitwin24", "decodemasternodebroadcast", &decodemasternodebroadcast, true, true, false},
+        {"bitwin24", "relaymasternodebroadcast", &relaymasternodebroadcast, true, true, false},
+        {"bitwin24", "masternodecurrent", &masternodecurrent, true, true, false},
+        {"bitwin24", "masternodedebug", &masternodedebug, true, true, false},
+        {"bitwin24", "startmasternode", &startmasternode, true, true, false},
+        {"bitwin24", "createmasternodekey", &createmasternodekey, true, true, false},
+        {"bitwin24", "getmasternodeoutputs", &getmasternodeoutputs, true, true, false},
+        {"bitwin24", "listmasternodeconf", &listmasternodeconf, true, true, false},
+        {"bitwin24", "getmasternodestatus", &getmasternodestatus, true, true, false},
+        {"bitwin24", "getmasternodewinners", &getmasternodewinners, true, true, false},
+        {"bitwin24", "getmasternodescores", &getmasternodescores, true, true, false},
+        {"bitwin24", "mnbudget", &mnbudget, true, true, false},
+        {"bitwin24", "preparebudget", &preparebudget, true, true, false},
+        {"bitwin24", "submitbudget", &submitbudget, true, true, false},
+        {"bitwin24", "mnbudgetvote", &mnbudgetvote, true, true, false},
+        {"bitwin24", "getbudgetvotes", &getbudgetvotes, true, true, false},
+        {"bitwin24", "getnextsuperblock", &getnextsuperblock, true, true, false},
+        {"bitwin24", "getbudgetprojection", &getbudgetprojection, true, true, false},
+        {"bitwin24", "getbudgetinfo", &getbudgetinfo, true, true, false},
+        {"bitwin24", "mnbudgetrawvote", &mnbudgetrawvote, true, true, false},
+        {"bitwin24", "mnfinalbudget", &mnfinalbudget, true, true, false},
+        {"bitwin24", "checkbudgets", &checkbudgets, true, true, false},
+        {"bitwin24", "mnsync", &mnsync, true, true, false},
+        {"bitwin24", "spork", &spork, true, true, false},
+        {"bitwin24", "getpoolinfo", &getpoolinfo, true, true, false},
 
 #ifdef ENABLE_WALLET
         /* Wallet */
@@ -596,7 +596,7 @@ std::vector<std::string> CRPCTable::listCommands() const
 
 std::string HelpExampleCli(string methodname, string args)
 {
-    return "> mag-cli " + methodname + " " + args + "\n";
+    return "> bitwin24-cli " + methodname + " " + args + "\n";
 }
 
 std::string HelpExampleRpc(string methodname, string args)

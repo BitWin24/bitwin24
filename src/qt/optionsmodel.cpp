@@ -5,7 +5,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/mag-config.h"
+#include "config/bitwin24-config.h"
 #endif
 
 #include "optionsmodel.h"
@@ -62,7 +62,7 @@ void OptionsModel::Init()
 
     // Display
     if (!settings.contains("nDisplayUnit"))
-        settings.setValue("nDisplayUnit", BitcoinUnits::MAG);
+        settings.setValue("nDisplayUnit", BitcoinUnits::BWI);
     nDisplayUnit = settings.value("nDisplayUnit").toInt();
 
     if (!settings.contains("strThirdPartyTxUrls"))
@@ -89,10 +89,10 @@ void OptionsModel::Init()
         settings.setValue("nPreferredDenom", 0);
     nPreferredDenom = settings.value("nPreferredDenom", "0").toLongLong();
 
-    if (!settings.contains("nAnonymizeMagAmount"))
-        settings.setValue("nAnonymizeMagAmount", 1000);
+    if (!settings.contains("nAnonymizeBWIAmount"))
+        settings.setValue("nAnonymizeBWIAmount", 1000);
 
-    nAnonymizeMagAmount = settings.value("nAnonymizeMagAmount").toLongLong();
+    nAnonymizeBWIAmount = settings.value("nAnonymizeBWIAmount").toLongLong();
 
     if (!settings.contains("fShowMasternodesTab"))
         settings.setValue("fShowMasternodesTab", masternodeConfig.getCount());
@@ -169,8 +169,8 @@ void OptionsModel::Init()
         SoftSetArg("-zeromintpercentage", settings.value("nZeromintPercentage").toString().toStdString());
     if (settings.contains("nPreferredDenom"))
         SoftSetArg("-preferredDenom", settings.value("nPreferredDenom").toString().toStdString());
-    if (settings.contains("nAnonymizeMagAmount"))
-        SoftSetArg("-anonymizemagamount", settings.value("nAnonymizeMagAmount").toString().toStdString());
+    if (settings.contains("nAnonymizeBWIAmount"))
+        SoftSetArg("-anonymizebwiamount", settings.value("nAnonymizeBWIAmount").toString().toStdString());
 
     language = settings.value("language").toString();
 }
@@ -181,7 +181,7 @@ void OptionsModel::Reset()
 
     // Remove all entries from our QSettings object
     settings.clear();
-    resetSettings = true; // Needed in mag.cpp during shotdown to also remove the window positions
+    resetSettings = true; // Needed in bitwin24.cpp during shotdown to also remove the window positions
 
     // default setting for OptionsModel::StartAtStartup - disabled
     if (GUIUtil::GetStartOnSystemStartup())
@@ -263,8 +263,8 @@ QVariant OptionsModel::data(const QModelIndex& index, int role) const
             return QVariant(nZeromintPercentage);
         case ZeromintPrefDenom:
             return QVariant(nPreferredDenom);
-        case AnonymizeMagAmount:
-            return QVariant(nAnonymizeMagAmount);
+        case AnonymizeBWIAmount:
+            return QVariant(nAnonymizeBWIAmount);
         case Listen:
             return settings.value("fListen");
         default:
@@ -399,10 +399,10 @@ bool OptionsModel::setData(const QModelIndex& index, const QVariant& value, int 
             emit hideZeroBalancesChanged(fHideZeroBalances);
             break;
 
-        case AnonymizeMagAmount:
-            nAnonymizeMagAmount = value.toInt();
-            settings.setValue("nAnonymizeMagAmount", nAnonymizeMagAmount);
-            emit anonymizeMagAmountChanged(nAnonymizeMagAmount);
+        case AnonymizeBWIAmount:
+            nAnonymizeBWIAmount = value.toInt();
+            settings.setValue("nAnonymizeBWIAmount", nAnonymizeBWIAmount);
+            emit anonymizeBWIAmountChanged(nAnonymizeBWIAmount);
             break;
         case CoinControlFeatures:
             fCoinControlFeatures = value.toBool();

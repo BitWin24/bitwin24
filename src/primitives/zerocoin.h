@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef MAG_ZEROCOIN_H
-#define MAG_ZEROCOIN_H
+#ifndef BITWIN24_ZEROCOIN_H
+#define BITWIN24_ZEROCOIN_H
 
 #include <amount.h>
 #include <limits.h>
@@ -247,4 +247,4 @@ public:
     int GetNeededSpends();
 };
 
-#endif //MAG_ZEROCOIN_H
+#endif //BITWIN24_ZEROCOIN_H

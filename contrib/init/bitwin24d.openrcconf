@@ -1,0 +1,26 @@
+# /etc/conf.d/bitwin24d: config file for /etc/init.d/bitwin24d
+
+# Config file location
+#BITCOIND_CONFIGFILE="/etc/bitwin24/bitwin24.conf"
+
+# What directory to write pidfile to?  (created and owned by $BITCOIND_USER)
+#BITCOIND_PIDDIR="/var/run/bitwin24d"
+
+# What filename to give the pidfile
+#BITCOIND_PIDFILE="${BITCOIND_PIDDIR}/bitwin24d.pid"
+
+# Where to write bitwin24d data (be mindful that the blockchain is large)
+#BITCOIND_DATADIR="/var/lib/bitwin24d"
+
+# User and group to own bitwin24d process
+#BITCOIND_USER="bitwin24"
+#BITCOIND_GROUP="bitwin24"
+
+# Path to bitwin24d executable
+#BITCOIND_BIN="/usr/bin/bitwin24d"
+
+# Nice value to run bitwin24d under
+#BITCOIND_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+BITCOIND_OPTS=""

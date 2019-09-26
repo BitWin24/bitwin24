@@ -1,7 +1,7 @@
-TOR SUPPORT IN MAG
+TOR SUPPORT IN BITWIN24
 =======================
 
-It is possible to run MAG as a Tor hidden service, and connect to such services.
+It is possible to run BITWIN24 as a Tor hidden service, and connect to such services.
 
 The following directions assume you have a Tor proxy running on port 9050. Many
 distributions default to having a SOCKS proxy listening on port 9050, but others
@@ -10,10 +10,10 @@ port. See [Tor Project FAQ:TBBSocksPort](https://www.torproject.org/docs/faq.htm
 for how to properly configure Tor.
 
 
-Run MAG behind a Tor proxy
+Run BITWIN24 behind a Tor proxy
 ----------------------------------
 
-The first step is running MAG behind a Tor proxy. This will already make all
+The first step is running BITWIN24 behind a Tor proxy. This will already make all
 outgoing connections be anonymized, but more is possible.
 ```
 -proxy=ip:port  Set the proxy server. If SOCKS5 is selected (default), this proxy
@@ -38,15 +38,15 @@ outgoing connections be anonymized, but more is possible.
 An example how to start the client if the Tor proxy is running on local host on
 port 9050 and only allows .onion nodes to connect:
 ```
-./magd -onion=127.0.0.1:9050 -onlynet=tor -listen=0 -addnode=dnetzj6l4cvo2fxy.onion:989
+./bitwin24d -onion=127.0.0.1:9050 -onlynet=tor -listen=0 -addnode=dnetzj6l4cvo2fxy.onion:989
 ```
 
 In a typical situation, this suffices to run behind a Tor proxy:
 ```
-./magd -proxy=127.0.0.1:9050
+./bitwin24d -proxy=127.0.0.1:9050
 ```
 
-Run a MAG hidden server
+Run a BITWIN24 hidden server
 -------------------------------
 
 If you configure your Tor system accordingly, it is possible to make your node also
@@ -69,12 +69,12 @@ NumEntryGuards 8
 ```
 
 The directory can be different of course, but (both) port numbers should be equal to
-your magd's P2P listen port (17172 by default).
+your bitwin24d's P2P listen port (17172 by default).
 ```
--externalip=X   You can tell mag about its publicly reachable address using
+-externalip=X   You can tell bitwin24 about its publicly reachable address using
                 this option, and this can be a .onion address. Given the above
                 configuration, you can find your onion address in
-                /var/lib/tor/mag-service/hostname. Onion addresses are given
+                /var/lib/tor/bitwin24-service/hostname. Onion addresses are given
                 preference for your node to advertize itself with, for connections
                 coming from unroutable addresses (such as 127.0.0.1, where the
                 Tor proxy typically runs).
@@ -92,14 +92,14 @@ your magd's P2P listen port (17172 by default).
 
 In a typical situation, where you're only reachable via Tor, this should suffice:
 ```
-./magd -proxy=127.0.0.1:9050 -externalip=dnetzj6l4cvo2fxy.onion:989 -listen
+./bitwin24d -proxy=127.0.0.1:9050 -externalip=dnetzj6l4cvo2fxy.onion:989 -listen
 ```
 
 (obviously, replace the Onion address with your own). If you don't care too much
 about hiding your node, and want to be reachable on IPv4 as well, additionally
 specify:
 ```
-./magd ... -discover
+./bitwin24d ... -discover
 ```
 
 and open port 17172 on your firewall (or use -upnp).
@@ -107,10 +107,10 @@ and open port 17172 on your firewall (or use -upnp).
 If you only want to use Tor to reach onion addresses, but not use it as a proxy
 for normal IPv4/IPv6 communication, use:
 ```
-./magd -onion=127.0.0.1:9050 -externalip=dnetzj6l4cvo2fxy.onion:989 -discover
+./bitwin24d -onion=127.0.0.1:9050 -externalip=dnetzj6l4cvo2fxy.onion:989 -discover
 ```
 
-List of known MAG Tor relays
+List of known BITWIN24 Tor relays
 ------------------------------------
 ```
 y5kcscnhpygvvnjn.onion:989

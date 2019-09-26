@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef MAG_MINTPOOL_H
-#define MAG_MINTPOOL_H
+#ifndef BITWIN24_MINTPOOL_H
+#define BITWIN24_MINTPOOL_H
 
 #include <map>
 #include <list>
@@ -50,4 +50,4 @@ public:
 };
 
 
-#endif //MAG_MINTPOOL_H
+#endif //BITWIN24_MINTPOOL_H

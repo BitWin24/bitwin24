@@ -19,18 +19,18 @@ BitcoinUnits::BitcoinUnits(QObject* parent) : QAbstractListModel(parent),
 QList<BitcoinUnits::Unit> BitcoinUnits::availableUnits()
 {
     QList<BitcoinUnits::Unit> unitlist;
-    unitlist.append(MAG);
-    unitlist.append(mMAG);
-    unitlist.append(uMAG);
+    unitlist.append(BWI);
+    unitlist.append(mBWI);
+    unitlist.append(uBWI);
     return unitlist;
 }
 
 bool BitcoinUnits::valid(int unit)
 {
     switch (unit) {
-    case MAG:
-    case mMAG:
-    case uMAG:
+    case BWI:
+    case mBWI:
+    case uBWI:
         return true;
     default:
         return false;
@@ -40,12 +40,12 @@ bool BitcoinUnits::valid(int unit)
 QString BitcoinUnits::id(int unit)
 {
     switch (unit) {
-    case MAG:
-        return QString("mag");
-    case mMAG:
-        return QString("mmag");
-    case uMAG:
-        return QString::fromUtf8("umag");
+    case BWI:
+        return QString("BWI");
+    case mBWI:
+        return QString("mBWI");
+    case uBWI:
+        return QString::fromUtf8("uBWI");
     default:
         return QString("???");
     }
@@ -55,23 +55,23 @@ QString BitcoinUnits::name(int unit)
 {
     if (Params().NetworkID() == CBaseChainParams::MAIN) {
         switch (unit) {
-        case MAG:
-            return QString("MAG");
-        case mMAG:
-            return QString("mMAG");
-        case uMAG:
-            return QString::fromUtf8("μMAG");
+        case BWI:
+            return QString("BWI");
+        case mBWI:
+            return QString("mBWI");
+        case uBWI:
+            return QString::fromUtf8("μBWI");
         default:
             return QString("???");
         }
     } else {
         switch (unit) {
-        case MAG:
-            return QString("tMAG");
-        case mMAG:
-            return QString("mtMAG");
-        case uMAG:
-            return QString::fromUtf8("μtMAG");
+        case BWI:
+            return QString("tBWI");
+        case mBWI:
+            return QString("mtBWI");
+        case uBWI:
+            return QString::fromUtf8("μtBWI");
         default:
             return QString("???");
         }
@@ -82,23 +82,23 @@ QString BitcoinUnits::description(int unit)
 {
     if (Params().NetworkID() == CBaseChainParams::MAIN) {
         switch (unit) {
-        case MAG:
-            return QString("MAG");
-        case mMAG:
-            return QString("Milli-MAG (1 / 1" THIN_SP_UTF8 "000)");
-        case uMAG:
-            return QString("Micro-MAG (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+        case BWI:
+            return QString("BWI");
+        case mBWI:
+            return QString("Milli-BWI (1 / 1" THIN_SP_UTF8 "000)");
+        case uBWI:
+            return QString("Micro-BWI (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
         default:
             return QString("???");
         }
     } else {
         switch (unit) {
-        case MAG:
-            return QString("TestMAGs");
-        case mMAG:
-            return QString("Milli-TestMAG (1 / 1" THIN_SP_UTF8 "000)");
-        case uMAG:
-            return QString("Micro-TestMAG (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+        case BWI:
+            return QString("TestBWIs");
+        case mBWI:
+            return QString("Milli-TestBWI (1 / 1" THIN_SP_UTF8 "000)");
+        case uBWI:
+            return QString("Micro-TestBWI (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
         default:
             return QString("???");
         }
@@ -108,11 +108,11 @@ QString BitcoinUnits::description(int unit)
 qint64 BitcoinUnits::factor(int unit)
 {
     switch (unit) {
-    case MAG:
+    case BWI:
         return 100000000;
-    case mMAG:
+    case mBWI:
         return 100000;
-    case uMAG:
+    case uBWI:
         return 100;
     default:
         return 100000000;
@@ -122,11 +122,11 @@ qint64 BitcoinUnits::factor(int unit)
 int BitcoinUnits::decimals(int unit)
 {
     switch (unit) {
-    case MAG:
+    case BWI:
         return 8;
-    case mMAG:
+    case mBWI:
         return 5;
-    case uMAG:
+    case uBWI:
         return 2;
     default:
         return 0;

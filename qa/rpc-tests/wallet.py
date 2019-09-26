@@ -8,8 +8,8 @@
 # Does the following:
 #   a) creates 3 nodes, with an empty chain (no blocks).
 #   b) node0 mines a block
-#   c) node1 mines 32 blocks, so now node 0 has 60001mag, node 1 has 4250mag, node2 has none.
-#   d) node0 sends 601 mag to node2, in two transactions (301 mag, then 300 mag).
+#   c) node1 mines 32 blocks, so now node 0 has 60001bitwin24, node 1 has 4250bitwin24, node2 has none.
+#   d) node0 sends 601 bitwin24 to node2, in two transactions (301 bitwin24, then 300 bitwin24).
 #   e) node0 mines a block, collects the fee on the second transaction
 #   f) node1 mines 16 blocks, to mature node0's just-mined block
 #   g) check that node0 has 100-21, node2 has 21

@@ -1,12 +1,13 @@
 // Copyright (c) 2018 The PIVX developers
-// Copyright (c) 2018-present The MAG developers
+// Copyright (c) 2018 The MAC developers
+// Copyright (c) 2019 The BITWIN24 developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 
 
-#ifndef MAG_INVALID_SERIALS_JSON_H
-#define MAG_INVALID_SERIALS_JSON_H
+#ifndef BITWIN24_INVALID_SERIALS_JSON_H
+#define BITWIN24_INVALID_SERIALS_JSON_H
 
 #include <string>
 
@@ -1190,4 +1191,4 @@ std::string LoadInvalidSerials()
     return str;
 }
 
-#endif //MAG_INVALID_SERIALS_JSON_H
+#endif //BITWIN24_INVALID_SERIALS_JSON_H

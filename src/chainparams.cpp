@@ -2,7 +2,8 @@
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2018 The PIVX developers
-// Copyright (c) 2018-present The MAG developers
+// Copyright (c) 2018 The MAC developers
+// Copyright (c) 2019 The BITWIN24 developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -122,14 +123,14 @@ public:
         nRejectBlockOutdatedMajority = 950;
         nToCheckBlockUpgradeMajority = 1000;
         nMinerThreads = 0;
-        nTargetTimespan = 1 * 60; // MAG: 1 day
-        nTargetSpacing = 1 * 60;  // MAG: 1 minute
+        nTargetTimespan = 1 * 60; // BITWIN24: 1 day
+        nTargetSpacing = 1 * 60;  // BITWIN24: 1 minute
         nMaturity = 100;
         nMasternodeCountDrift = 20;
 
-        // The mainnet swap amount of 37334000 was determined based on money supply 36757502.29915683 MAG @ block 416959.
-        // 576500 MAG were added to this amount to represent the expected POW production at a rate of 960 blocks/day 
-        // with 100 MAG reward for 6 days along with POS production at 7% per stake.
+        // The mainnet swap amount of 37334000 was determined based on money supply 36757502.29915683 BITWIN24 @ block 416959.
+        // 576500 BITWIN24 were added to this amount to represent the expected POW production at a rate of 960 blocks/day
+        // with 100 BITWIN24 reward for 6 days along with POS production at 7% per stake.
         nSwapAmount = 37334000 * COIN; // Amount of coins generated for the swap.
         nSwapPoWBlocks = 10; // Number of PoW blocks used to generate the Swap amount.
         nSwapCoinbaseValue = nSwapAmount / nSwapPoWBlocks; // The swap amount will be distributed uniformly through PoW coinbase.
@@ -188,7 +189,7 @@ public:
         assert(hashGenesisBlock == uint256("0x0000015b2f14a08ed3848d7fd94da692498ed46ae927693c75fc4317a5e6ae2c"));
         assert(genesis.hashMerkleRoot == uint256("0xdac56c8d5e16e7bad2fbe36227dfc6da136c4b8d8869c0094616e1f7852566d6"));
 
-//        vSeeds.push_back(CDNSSeedData("magnetwork.io", "satoshi.magnetwork.io"));   // Primary DNS Seeder
+//        vSeeds.push_back(CDNSSeedData("bitwin24work.io", "satoshi.bitwin24work.io"));   // Primary DNS Seeder
 //        vSeeds.push_back(CDNSSeedData("litemint.com", "satoshi.litemint.com"));     // Secondary DNS Seeder
 //        vSeeds.push_back(CDNSSeedData("35.241.249.95", "35.241.249.95"));
 //        vSeeds.push_back(CDNSSeedData("35.227.76.49", "35.227.76.49"));
@@ -234,7 +235,7 @@ public:
         nRequiredAccumulation = 1;
         nDefaultSecurityLevel = 100; //full security level for accumulators
         nZerocoinHeaderVersion = 4; //Block headers must be this version once zerocoin is active
-        nZerocoinRequiredStakeDepth = 200; //The required confirmations for a zmag to be stakable
+        nZerocoinRequiredStakeDepth = 200; //The required confirmations for a zbwi to be stakable
 
         nBudget_Fee_Confirmations = 6; // Number of confirmations for the finalization fee
     }
@@ -276,20 +277,20 @@ public:
 
         vFixedSeeds.clear();
         vSeeds.clear();
-//        vSeeds.push_back(CDNSSeedData("magnetwork.io", "nakamoto.magnetwork.io"));
+//        vSeeds.push_back(CDNSSeedData("bitwin24work.io", "nakamoto.bitwin24work.io"));
 //        vSeeds.push_back(CDNSSeedData("litemint.com", "nakamoto.litemint.com"));
 //        vSeeds.push_back(CDNSSeedData("35.241.249.95", "35.241.249.95"));
 //        vSeeds.push_back(CDNSSeedData("35.227.76.49", "35.227.76.49"));
 //        vSeeds.push_back(CDNSSeedData("35.190.191.73", "35.190.191.73"));
         
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 65); // Testnet mag addresses start with 'T'
-        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 10);  // Testnet mag script addresses start with '5'
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 65); // Testnet bitwin24 addresses start with 'T'
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 10);  // Testnet bitwin24 script addresses start with '5'
         base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 135);     // Testnet private keys start with 'w'
-        // Testnet mag BIP32 pubkeys start with 'DRKV'
+        // Testnet bitwin24 BIP32 pubkeys start with 'DRKV'
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x3a)(0x80)(0x61)(0xa0).convert_to_container<std::vector<unsigned char> >();
-        // Testnet mag BIP32 prvkeys start with 'DRKP'
+        // Testnet bitwin24 BIP32 prvkeys start with 'DRKP'
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x3a)(0x80)(0x58)(0x37).convert_to_container<std::vector<unsigned char> >();
-        // Testnet mag BIP44 coin type is '1' (All coin's testnet default)
+        // Testnet bitwin24 BIP44 coin type is '1' (All coin's testnet default)
         base58Prefixes[EXT_COIN_TYPE] = boost::assign::list_of(0x80)(0x00)(0x00)(0x01).convert_to_container<std::vector<unsigned char> >();
 
         convertSeed6(vFixedSeeds, pnSeed6_test, ARRAYLEN(pnSeed6_test));
@@ -336,8 +337,8 @@ public:
         nRejectBlockOutdatedMajority = 950;
         nToCheckBlockUpgradeMajority = 1000;
         nMinerThreads = 1;
-        nTargetTimespan = 24 * 60 * 60; // MAG: 1 day
-        nTargetSpacing = 1 * 60;        // MAG: 1 minutes
+        nTargetTimespan = 24 * 60 * 60; // BITWIN24: 1 day
+        nTargetSpacing = 1 * 60;        // BITWIN24: 1 minutes
         bnProofOfWorkLimit = ~uint256(0) >> 1;
         genesis.nTime = 1540944002;
         genesis.nNonce = 2;

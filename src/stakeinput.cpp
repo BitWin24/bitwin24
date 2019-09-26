@@ -9,7 +9,7 @@
 #include "stakeinput.h"
 #include "wallet.h"
 
-CZMagStake::CZMagStake(const libzerocoin::CoinSpend& spend)
+CZBWIStake::CZBWIStake(const libzerocoin::CoinSpend& spend)
 {
     this->nChecksum = spend.getAccumulatorChecksum();
     this->denom = spend.getDenomination();
@@ -19,7 +19,7 @@ CZMagStake::CZMagStake(const libzerocoin::CoinSpend& spend)
     fMint = false;
 }
 
-int CZMagStake::GetChecksumHeightFromMint()
+int CZBWIStake::GetChecksumHeightFromMint()
 {
     int nHeightChecksum = chainActive.Height() - Params().Zerocoin_RequiredStakeDepth();
 
@@ -30,20 +30,20 @@ int CZMagStake::GetChecksumHeightFromMint()
     return GetChecksumHeight(nChecksum, denom);
 }
 
-int CZMagStake::GetChecksumHeightFromSpend()
+int CZBWIStake::GetChecksumHeightFromSpend()
 {
     return GetChecksumHeight(nChecksum, denom);
 }
 
-uint32_t CZMagStake::GetChecksum()
+uint32_t CZBWIStake::GetChecksum()
 {
     return nChecksum;
 }
 
-// The zMAG block index is the first appearance of the accumulator checksum that was used in the spend
+// The zBWI block index is the first appearance of the accumulator checksum that was used in the spend
 // note that this also means when staking that this checksum should be from a block that is beyond 60 minutes old and
 // 100 blocks deep.
-CBlockIndex* CZMagStake::GetIndexFrom()
+CBlockIndex* CZBWIStake::GetIndexFrom()
 {
     if (pindexFrom)
         return pindexFrom;
@@ -65,13 +65,13 @@ CBlockIndex* CZMagStake::GetIndexFrom()
     return pindexFrom;
 }
 
-CAmount CZMagStake::GetValue()
+CAmount CZBWIStake::GetValue()
 {
     return denom * COIN;
 }
 
 //Use the first accumulator checkpoint that occurs 60 minutes after the block being staked from
-bool CZMagStake::GetModifier(uint64_t& nStakeModifier)
+bool CZBWIStake::GetModifier(uint64_t& nStakeModifier)
 {
     CBlockIndex* pindex = GetIndexFrom();
     if (!pindex)
@@ -91,15 +91,15 @@ bool CZMagStake::GetModifier(uint64_t& nStakeModifier)
     }
 }
 
-CDataStream CZMagStake::GetUniqueness()
+CDataStream CZBWIStake::GetUniqueness()
 {
-    //The unique identifier for a zMAG is a hash of the serial
+    //The unique identifier for a zBWI is a hash of the serial
     CDataStream ss(SER_GETHASH, 0);
     ss << hashSerial;
     return ss;
 }
 
-bool CZMagStake::CreateTxIn(CWallet* pwallet, CTxIn& txIn, uint256 hashTxOut)
+bool CZBWIStake::CreateTxIn(CWallet* pwallet, CTxIn& txIn, uint256 hashTxOut)
 {
     CBlockIndex* pindexCheckpoint = GetIndexFrom();
     if (!pindexCheckpoint)
@@ -120,25 +120,25 @@ bool CZMagStake::CreateTxIn(CWallet* pwallet, CTxIn& txIn, uint256 hashTxOut)
     return true;
 }
 
-bool CZMagStake::CreateTxOuts(CWallet* pwallet, vector<CTxOut>& vout, CAmount nTotal)
+bool CZBWIStake::CreateTxOuts(CWallet* pwallet, vector<CTxOut>& vout, CAmount nTotal)
 {
-    //Create an output returning the zMAG that was staked
+    //Create an output returning the zBWI that was staked
     CTxOut outReward;
     libzerocoin::CoinDenomination denomStaked = libzerocoin::AmountToZerocoinDenomination(this->GetValue());
     CDeterministicMint dMint;
-    if (!pwallet->CreateZMAGOutPut(denomStaked, outReward, dMint))
-        return error("%s: failed to create zMAG output", __func__);
+    if (!pwallet->CreateZBWIOutPut(denomStaked, outReward, dMint))
+        return error("%s: failed to create zBWI output", __func__);
     vout.emplace_back(outReward);
 
     //Add new staked denom to our wallet
     if (!pwallet->DatabaseMint(dMint))
-        return error("%s: failed to database the staked zMAG", __func__);
+        return error("%s: failed to database the staked zBWI", __func__);
 
     for (unsigned int i = 0; i < 3; i++) {
         CTxOut out;
         CDeterministicMint dMintReward;
-        if (!pwallet->CreateZMAGOutPut(libzerocoin::CoinDenomination::ZQ_ONE, out, dMintReward))
-            return error("%s: failed to create zMAG output", __func__);
+        if (!pwallet->CreateZBWIOutPut(libzerocoin::CoinDenomination::ZQ_ONE, out, dMintReward))
+            return error("%s: failed to create zBWI output", __func__);
         vout.emplace_back(out);
 
         if (!pwallet->DatabaseMint(dMintReward))
@@ -148,48 +148,48 @@ bool CZMagStake::CreateTxOuts(CWallet* pwallet, vector<CTxOut>& vout, CAmount nT
     return true;
 }
 
-bool CZMagStake::GetTxFrom(CTransaction& tx)
+bool CZBWIStake::GetTxFrom(CTransaction& tx)
 {
     return false;
 }
 
-bool CZMagStake::MarkSpent(CWallet *pwallet, const uint256& txid)
+bool CZBWIStake::MarkSpent(CWallet *pwallet, const uint256& txid)
 {
-    CzMAGTracker* zmagTracker = pwallet->zmagTracker.get();
+    CzBWITracker* zbwiTracker = pwallet->zbwiTracker.get();
     CMintMeta meta;
-    if (!zmagTracker->GetMetaFromStakeHash(hashSerial, meta))
+    if (!zbwiTracker->GetMetaFromStakeHash(hashSerial, meta))
         return error("%s: tracker does not have serialhash", __func__);
 
-    zmagTracker->SetPubcoinUsed(meta.hashPubcoin, txid);
+    zbwiTracker->SetPubcoinUsed(meta.hashPubcoin, txid);
     return true;
 }
 
-//!MAG Stake
-bool CMagStake::SetInput(CTransaction txPrev, unsigned int n)
+//!BITWIN24 Stake
+bool CBitWin24Stake::SetInput(CTransaction txPrev, unsigned int n)
 {
     this->txFrom = txPrev;
     this->nPosition = n;
     return true;
 }
 
-bool CMagStake::GetTxFrom(CTransaction& tx)
+bool CBitWin24Stake::GetTxFrom(CTransaction& tx)
 {
     tx = txFrom;
     return true;
 }
 
-bool CMagStake::CreateTxIn(CWallet* pwallet, CTxIn& txIn, uint256 hashTxOut)
+bool CBitWin24Stake::CreateTxIn(CWallet* pwallet, CTxIn& txIn, uint256 hashTxOut)
 {
     txIn = CTxIn(txFrom.GetHash(), nPosition);
     return true;
 }
 
-CAmount CMagStake::GetValue()
+CAmount CBitWin24Stake::GetValue()
 {
     return txFrom.vout[nPosition].nValue;
 }
 
-bool CMagStake::CreateTxOuts(CWallet* pwallet, vector<CTxOut>& vout, CAmount nTotal)
+bool CBitWin24Stake::CreateTxOuts(CWallet* pwallet, vector<CTxOut>& vout, CAmount nTotal)
 {
     vector<valtype> vSolutions;
     txnouttype whichType;
@@ -224,7 +224,7 @@ bool CMagStake::CreateTxOuts(CWallet* pwallet, vector<CTxOut>& vout, CAmount nTo
     return true;
 }
 
-bool CMagStake::GetModifier(uint64_t& nStakeModifier)
+bool CBitWin24Stake::GetModifier(uint64_t& nStakeModifier)
 {
     int nStakeModifierHeight = 0;
     int64_t nStakeModifierTime = 0;
@@ -238,16 +238,16 @@ bool CMagStake::GetModifier(uint64_t& nStakeModifier)
     return true;
 }
 
-CDataStream CMagStake::GetUniqueness()
+CDataStream CBitWin24Stake::GetUniqueness()
 {
-    //The unique identifier for a MAG stake is the outpoint
+    //The unique identifier for a BITWIN24 stake is the outpoint
     CDataStream ss(SER_NETWORK, 0);
     ss << nPosition << txFrom.GetHash();
     return ss;
 }
 
 //The block that the UTXO was added to the chain
-CBlockIndex* CMagStake::GetIndexFrom()
+CBlockIndex* CBitWin24Stake::GetIndexFrom()
 {
     uint256 hashBlock = 0;
     CTransaction tx;

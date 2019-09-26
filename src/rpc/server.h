@@ -126,7 +126,7 @@ public:
 };
 
 /**
- * MAG RPC command dispatcher.
+ * BITWIN24 RPC command dispatcher.
  */
 class CRPCTable
 {
@@ -258,11 +258,11 @@ extern UniValue importzerocoins(const UniValue& params, bool fHelp);
 extern UniValue exportzerocoins(const UniValue& params, bool fHelp);
 extern UniValue reconsiderzerocoins(const UniValue& params, bool fHelp);
 extern UniValue getspentzerocoinamount(const UniValue& params, bool fHelp);
-extern UniValue setzmagseed(const UniValue& params, bool fHelp);
-extern UniValue getzmagseed(const UniValue& params, bool fHelp);
+extern UniValue setzbwiseed(const UniValue& params, bool fHelp);
+extern UniValue getzbwiseed(const UniValue& params, bool fHelp);
 extern UniValue generatemintlist(const UniValue& params, bool fHelp);
-extern UniValue searchdzmag(const UniValue& params, bool fHelp);
-extern UniValue dzmagstate(const UniValue& params, bool fHelp);
+extern UniValue searchdzbwi(const UniValue& params, bool fHelp);
+extern UniValue dzbwistate(const UniValue& params, bool fHelp);
 
 extern UniValue getrawtransaction(const UniValue& params, bool fHelp); // in rpc/rawtransaction.cpp
 extern UniValue listunspent(const UniValue& params, bool fHelp);

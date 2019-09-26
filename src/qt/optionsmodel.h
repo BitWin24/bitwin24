@@ -48,7 +48,7 @@ public:
         ZeromintPercentage,  // int
         ZeromintPrefDenom,   // int
         HideZeroBalances,    // bool
-        AnonymizeMagAmount, //int
+        AnonymizeBWIAmount, //int
         ShowMasternodesTab,  // bool
         ShowMerchantTab,    // bool
         Listen,              // bool
@@ -101,7 +101,7 @@ signals:
     void zeromintEnableChanged(bool);
     void zeromintPercentageChanged(int);
     void preferredDenomChanged(int);
-    void anonymizeMagAmountChanged(int);
+    void anonymizeBWIAmountChanged(int);
     void coinControlFeaturesChanged(bool);
     void hideZeroBalancesChanged(bool);
 };

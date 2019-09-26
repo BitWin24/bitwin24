@@ -44,13 +44,13 @@ the first key in the successive data block.  The value is the
 BlockHandle for the data block.
 
 5. At the very end of the file is a fixed length footer that contains
-the BlockHandle of the metaindex and index blocks as well as a magic number.
+the BlockHandle of the metaindex and index blocks as well as a bitwin24ic number.
 
         metaindex_handle: char[p];     // Block handle for metaindex
         index_handle:     char[q];     // Block handle for index
         padding:          char[40-p-q];// zeroed bytes to make fixed length
                                        // (40==2*BlockHandle::kMaxEncodedLength)
-        magic:            fixed64;     // == 0xdb4775248b80fb57 (little-endian)
+        bitwin24ic:            fixed64;     // == 0xdb4775248b80fb57 (little-endian)
 
 ## "filter" Meta Block
 

@@ -758,13 +758,13 @@ QWidget#PrivacyDialog QLabel {
 border:0px solid #000;
 }
 
-QWidget#PrivacyDialog QLabel#zMAGLabel {
+QWidget#PrivacyDialog QLabel#zBWILabel {
 font-size:14px;
 color:#ffffff;
 background-color:#a0b5b4;
 }
 
-QWidget#PrivacyDialog QLabel#oMAGLabel {
+QWidget#PrivacyDialog QLabel#oBWILabel {
 font-size:14px;
 color:#ffffff;
 background-color:#a0b5b4;
@@ -967,12 +967,12 @@ QDialog#HelpMessageDialog QScrollBar:vertical, QDialog#HelpMessageDialog QScroll
 border:0;
 }
 
-/* About Mag Dialog */
-QDialog#AboutDialog QLabel#label, QDialog#AboutDialog QLabel#copyrightLabel, QDialog#AboutDialog QLabel#label_2 { /* About Mag Contents */
+/* About BitWin24 Dialog */
+QDialog#AboutDialog QLabel#label, QDialog#AboutDialog QLabel#copyrightLabel, QDialog#AboutDialog QLabel#label_2 { /* About BitWin24 Contents */
 margin-left:10px;
 }
 
-QDialog#AboutDialog QLabel#label_2 { /* Margin for About Mag text */
+QDialog#AboutDialog QLabel#label_2 { /* Margin for About BitWin24 text */
 margin-right:10px;
 }
 
@@ -999,7 +999,7 @@ background-color:#ffffff;
 
 QLabel#labelOverviewHeaderRight {
 qproperty-alignment: 'AlignVCenter | AlignRight';
-background-image: url(':/images/mag_logo_horizontal');
+background-image: url(':/images/bitwin24_logo_horizontal');
 background-repeat: no-repeat;
 background-position: Right;
 }
@@ -1011,7 +1011,7 @@ background-repeat: no-repeat;
 background-position: Center;
 }
 
-QWidget .QFrame#frame_Header { /* Header with Page-Title and MAG-image */
+QWidget .QFrame#frame_Header { /* Header with Page-Title and BITWIN24-image */
 min-width:400px;
 background-color:#ffffff;
 }
@@ -1059,7 +1059,7 @@ font-weight:normal;
 /* min-height:30px; */
 }
 
-QWidget .QFrame#frame_Balances .QLabel#label_5 { /* MAG Balances Label */
+QWidget .QFrame#frame_Balances .QLabel#label_5 { /* BITWIN24 Balances Label */
 qproperty-alignment: 'AlignVCenter | AlignLeft';
 min-width:160px;
 background-color:transparent;
@@ -1183,7 +1183,7 @@ font-size:12px;
 margin-left:16px;
 }
 
-QWidget .QFrame#frame_Balances .QLabel#labelLockedBalanceText { /* Available zMAG Label */
+QWidget .QFrame#frame_Balances .QLabel#labelLockedBalanceText { /* Available zBWI Label */
 qproperty-alignment: 'AlignVCenter | AlignLeft';
 min-width:160px;
 color:#91aaa8;
@@ -1193,7 +1193,7 @@ font-weight:bold;
 font-size:12px;
 }
 
-QWidget .QFrame#frame_Balances .QLabel#labelLockedBalance { /* Available zMAG Balance */
+QWidget .QFrame#frame_Balances .QLabel#labelLockedBalance { /* Available zBWI Balance */
 qproperty-alignment: 'AlignVCenter | AlignLeft';
 font-size:12px;
 font-weight:bold;
@@ -1201,7 +1201,7 @@ color:#a0b5b4;
 margin-left:0px;
 }
 
-QWidget .QFrame#frame_Balances .QLabel#labelWatchLocked { /* Available zMAG Balance */
+QWidget .QFrame#frame_Balances .QLabel#labelWatchLocked { /* Available zBWI Balance */
 qproperty-alignment: 'AlignVCenter | AlignLeft';
 font-size:12px;
 margin-left:16px;
@@ -1224,7 +1224,7 @@ background-repeat:no-repeat;
 background-position:left;
 }
 
-QWidget .QFrame#frame_ZerocoinBalances .QLabel#labelzBalanceText { /* Available zMAG Label */
+QWidget .QFrame#frame_ZerocoinBalances .QLabel#labelzBalanceText { /* Available zBWI Label */
 qproperty-alignment: 'AlignVCenter | AlignLeft';
 min-width:160px;
 color:#91aaa8;
@@ -1234,7 +1234,7 @@ font-weight:bold;
 font-size:12px;
 }
 
-QWidget .QFrame#frame_ZerocoinBalances .QLabel#labelzBalance { /* Available zMAG Balance */
+QWidget .QFrame#frame_ZerocoinBalances .QLabel#labelzBalance { /* Available zBWI Balance */
 qproperty-alignment: 'AlignVCenter | AlignLeft';
 font-size:12px;
 font-weight:bold;
@@ -1289,7 +1289,7 @@ margin-right:5px;
 padding-right:5px;
 }
 
-QWidget .QFrame#frame_CombinedBalances .QLabel#labelBalanceTextz { /* Available MAG Label */
+QWidget .QFrame#frame_CombinedBalances .QLabel#labelBalanceTextz { /* Available BITWIN24 Label */
 qproperty-alignment: 'AlignVCenter | AlignLeft';
 min-width:160px;
 color:#91aaa8;
@@ -1299,14 +1299,14 @@ font-weight:bold;
 font-size:12px;
 }
 
-QWidget .QFrame#frame_CombinedBalances .QLabel#labelBalancez { /* Available MAG Balance */
+QWidget .QFrame#frame_CombinedBalances .QLabel#labelBalancez { /* Available BITWIN24 Balance */
 qproperty-alignment: 'AlignVCenter | AlignLeft';
 font-size:26px;
 font-weight:normal;
 color:#91aaa8;
 }
 
-QWidget .QFrame#frame_CombinedBalances .QLabel#labelzBalanceTextz { /* Available zMAG Label */
+QWidget .QFrame#frame_CombinedBalances .QLabel#labelzBalanceTextz { /* Available zBWI Label */
 qproperty-alignment: 'AlignVCenter | AlignLeft';
 min-width:160px;
 color:#91aaa8;
@@ -1316,7 +1316,7 @@ font-weight:bold;
 font-size:12px;
 }
 
-QWidget .QFrame#frame_CombinedBalances .QLabel#labelzBalancez { /* Available zMAG Balance */
+QWidget .QFrame#frame_CombinedBalances .QLabel#labelzBalancez { /* Available zBWI Balance */
 qproperty-alignment: 'AlignVCenter | AlignLeft';
 font-size:12px;
 font-weight:bold;
@@ -1636,7 +1636,7 @@ QDialog#CoinControlDialog .CoinControlTreeWidget#treeWidget::indicator { /* Coin
 
 }
 
-QDialog#ZMagControlDialog .QTreeWidget#treeWidget { /* zMAG Control Widget Container */
+QDialog#ZBWIControlDialog .QTreeWidget#treeWidget { /* zBWI Control Widget Container */
 outline:0;
 background-color:#ffffff;
 border:1px solid #333;

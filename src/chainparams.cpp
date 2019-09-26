@@ -115,7 +115,7 @@ public:
         pchMessageStart[2] = 0x2c;
         pchMessageStart[3] = 0x6e;
         vAlertPubKey = ParseHex("0457cbd0e4325dbcdf526f4b27d459383b7ddca9bb4bdfa61ada823a3f8522b6f9c7afbc4375f51ed22989de3eced8612dd99f110936fe313938d22b5f838c775a");
-        nDefaultPort = 17172;
+        nDefaultPort = 24072;
         bnProofOfWorkLimit = (~uint256(0) >> 6);
         nSubsidyHalvingInterval = 210000;
         nMaxReorganizationDepth = 100;
@@ -131,7 +131,7 @@ public:
         // The mainnet swap amount of 37334000 was determined based on money supply 36757502.29915683 BITWIN24 @ block 416959.
         // 576500 BITWIN24 were added to this amount to represent the expected POW production at a rate of 960 blocks/day
         // with 100 BITWIN24 reward for 6 days along with POS production at 7% per stake.
-        nSwapAmount = 37334000 * COIN; // Amount of coins generated for the swap.
+        nSwapAmount = 6999900 * COIN; // Amount of coins generated for the swap.
         nSwapPoWBlocks = 10; // Number of PoW blocks used to generate the Swap amount.
         nSwapCoinbaseValue = nSwapAmount / nSwapPoWBlocks; // The swap amount will be distributed uniformly through PoW coinbase.
    

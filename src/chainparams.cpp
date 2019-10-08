@@ -178,22 +178,52 @@ public:
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
         genesis.nVersion = 1;
-        genesis.nTime = 1540944123;
+        genesis.nTime = 1570534200;
         genesis.nBits = 0x1e0ffff0;
-        genesis.nNonce = 924596;
+        genesis.nNonce = 44464419;
+
+#define mylog(val) { \
+            FILE* f = fopen("/home/s/my.log", "a"); \
+            fseek ( f , 0 , SEEK_END ); \
+            fwrite(val, strlen(val), 1, f); \
+            fwrite("\n", 1, 1, f); \
+            fclose(f); \
+        }
+
+        uint256 target = uint256("0x0000008ba8d21c3cbfb51712812199b3a911d7954c8fdbece6e61e1be3143dc8");
+        while (1)
+        {
+            break;
+            if(genesis.GetHash() > target)
+            {
+                genesis.nNonce++;
+                continue;
+            }
+
+            mylog("genesis.GetHash().ToString().c_str()");
+            mylog(genesis.GetHash().ToString().c_str());
+
+            mylog("genesis.hashMerkleRoot.ToString().c_str()");
+            mylog(genesis.hashMerkleRoot.ToString().c_str());
+
+            mylog("std::to_string(genesis.nNonce).data()");
+            mylog(std::to_string(genesis.nNonce).data());
+
+            break;
+        }
 
         hashGenesisBlock = genesis.GetHash();
         string strHexHash = genesis.GetHash().GetHex();
         string strmerkle = genesis.hashMerkleRoot.GetHex();
         string test = genesis.ToString();
-        assert(hashGenesisBlock == uint256("0x0000015b2f14a08ed3848d7fd94da692498ed46ae927693c75fc4317a5e6ae2c"));
-        assert(genesis.hashMerkleRoot == uint256("0xdac56c8d5e16e7bad2fbe36227dfc6da136c4b8d8869c0094616e1f7852566d6"));
+//        assert(hashGenesisBlock == uint256("0x0000015b2f14a08ed3848d7fd94da692498ed46ae927693c75fc4317a5e6ae2c"));
+//        assert(genesis.hashMerkleRoot == uint256("0xdac56c8d5e16e7bad2fbe36227dfc6da136c4b8d8869c0094616e1f7852566d6"));
 
 //        vSeeds.push_back(CDNSSeedData("bitwin24work.io", "satoshi.bitwin24work.io"));   // Primary DNS Seeder
 //        vSeeds.push_back(CDNSSeedData("litemint.com", "satoshi.litemint.com"));     // Secondary DNS Seeder
 //        vSeeds.push_back(CDNSSeedData("35.241.249.95", "35.241.249.95"));
 //        vSeeds.push_back(CDNSSeedData("35.227.76.49", "35.227.76.49"));
-//        vSeeds.push_back(CDNSSeedData("35.190.191.73", "35.190.191.73"));
+        vSeeds.push_back(CDNSSeedData("212.3.122.178", "212.3.122.178"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 38); // Start with 'G'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 15); // Start with '7'

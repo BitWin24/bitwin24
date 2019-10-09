@@ -178,9 +178,9 @@ public:
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
         genesis.nVersion = 1;
-        genesis.nTime = 1570534200;
+        genesis.nTime = 1570597200;
         genesis.nBits = 0x1e0ffff0;
-        genesis.nNonce = 44464419;
+        genesis.nNonce = 4582435;
 
 #define mylog(val) { \
             FILE* f = fopen("/home/s/my.log", "a"); \

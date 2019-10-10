@@ -1935,9 +1935,9 @@ Please be patient after clicking import.</source>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/bitwin24-project/bitwin24-project-translations</source>
+https://www.transifex.com/BitWin24/BitWin24-translations</source>
         <translation>Липсващ език или непълен превод? Помогнете с преводите тук:
-https://www.transifex.com/bitwin24-project/bitwin24-project-translations</translation>
+https://www.transifex.com/BitWin24/BitWin24-translations</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>

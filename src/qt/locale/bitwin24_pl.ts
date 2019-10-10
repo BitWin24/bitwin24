@@ -1219,9 +1219,9 @@ Proszę sprawdzić adres i spróbować ponownie</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/bitwin24-project/bitwin24-project-translations</source>
+https://www.transifex.com/BitWin24/BitWin24-translations</source>
         <translation>Brakuje języka bądź nieukończona pełnego tłumaczenia? Pomóż w tłumaczeniu tutaj:
-https://www.transifex.com/bitwin24-project/bitwin24-project-translations </translation>
+https://www.transifex.com/BitWin24/BitWin24-translations </translation>
     </message>
     <message>
         <source>Connect to the BITWIN24 network through a SOCKS5 proxy.</source>

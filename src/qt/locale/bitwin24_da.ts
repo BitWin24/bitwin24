@@ -1939,9 +1939,9 @@ Vær tålmodig efter at du har klikket på import.</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/bitwin24-project/bitwin24-project-translations</source>
+https://www.transifex.com/BitWin24/BitWin24-translations</source>
         <translation>Det valgte sprog mangler, eller oversættelsen er mangelfuld. Hjælp ved at bidrage med oversættelser her:
-https://www.transifex.com/bitwin24-project/bitwin24-project-translations</translation>
+https://www.transifex.com/BitWin24/BitWin24-translations</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>

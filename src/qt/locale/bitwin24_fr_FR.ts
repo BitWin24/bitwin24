@@ -1878,9 +1878,9 @@ S'il vous plaît soyez patient après avoir cliqué sur l'importation.</translat
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/bitwin24-project/bitwin24-project-translations</source>
+https://www.transifex.com/BitWin24/BitWin24-translations</source>
         <translation>Langue manquante ou traduction incomplète? Aidez-nous à traduire ce projet ici:
-https://www.transifex.com/bitwin24-project/bitwin24-project-translations</translation>
+https://www.transifex.com/BitWin24/BitWin24-translations</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>

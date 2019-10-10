@@ -1,6 +1,6 @@
-BITWIN24 Core version *1.0.0* is now available from:  <https://github.com/bitwin24work/bitwin24/releases>
+BITWIN24 Core version *1.0.0* is now available from:  <https://github.com/BitWin24/bitwin24/releases>
 
-Please report bugs using the issue tracker at github: <https://github.com/bitwin24work/bitwin24/issues>
+Please report bugs using the issue tracker at github: <https://github.com/BitWin24/bitwin24/issues>
 
 Mandatory Update
 ==============
@@ -45,7 +45,7 @@ User Experience
 
 The visual layout of the BITWIN24 Qt wallet has undergone a complete overhaul.
 The overview tab has been simplified greatly to display only balances that are active or relevant, also a reward section has been added.
-A merchant tab, which lets you login to your [merchant dashboard](https://merchant.bitwin24work.io/) (can be turned off in the options) is also present.
+A merchant tab, which lets you login to your [merchant dashboard](https://merchant.BitWin24.io/) (can be turned off in the options) is also present.
 
 ### Wallet Options
 

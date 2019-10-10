@@ -3,7 +3,7 @@ BITWIN24 Core
 
 Setup
 ---------------------
-[BITWIN24 Core](https://bitwin24work.io/wallet) is the original BITWIN24 client and it builds the backbone of the network. However, it downloads and stores the entire history of BITWIN24 transactions; depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more. Thankfully you only have to do this once.
+[BITWIN24 Core](https://BitWin24.io/wallet) is the original BITWIN24 client and it builds the backbone of the network. However, it downloads and stores the entire history of BITWIN24 transactions; depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to a day or more. Thankfully you only have to do this once.
 
 Running
 ---------------------
@@ -28,9 +28,9 @@ Drag BITWIN24-Qt to your applications folder, and then run BITWIN24-Qt.
 
 * See the documentation at the [BITWIN24 Wiki](https://en.bitcoin.it/wiki/Main_Page) ***TODO***
 for help and more information.
-* Ask for help on [BitcoinTalk](https://bitcointalk.org/index.php?topic=2402932) or on the [BITWIN24 Forum](http://forum.bitwin24work.io/).
-* Join our Discord server [Discord Server](https://discord.bitwin24work.io)
-* Join one of our Slack groups [BITWIN24 Slack Groups](https://bitwin24work.io/slack-logins/) (Main community is replaced by Discord).
+* Ask for help on [BitcoinTalk](https://bitcointalk.org/index.php?topic=2402932) or on the [BITWIN24 Forum](http://forum.BitWin24.io/).
+* Join our Discord server [Discord Server](https://discord.BitWin24.io)
+* Join one of our Slack groups [BITWIN24 Slack Groups](https://BitWin24.io/slack-logins/) (Main community is replaced by Discord).
 
 Building
 ---------------------
@@ -56,7 +56,7 @@ The BitWin24 repo's [root README](https://github.com/BITWIN24-Project/BITWIN24/b
 
 ### Resources
 
-* Discuss on the [BitcoinTalk](https://bitcointalk.org/index.php?topic=1262920.0) or the [BITWIN24](http://forum.bitwin24work.io/) forum.
+* Discuss on the [BitcoinTalk](https://bitcointalk.org/index.php?topic=1262920.0) or the [BITWIN24](http://forum.BitWin24.io/) forum.
 * Join the [BITWIN24-Dev](https://bitwin24-dev.slack.com/) Slack group ([Sign-Up](https://bitwin24-dev.herokuapp.com/)).
 
 ### Miscellaneous

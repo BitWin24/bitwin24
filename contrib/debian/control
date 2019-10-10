@@ -22,9 +22,9 @@ Build-Depends: debhelper,
  libqrencode-dev,
  libprotobuf-dev, protobuf-compiler
 Standards-Version: 3.9.2
-Homepage: http://www.bitwin24work.io
-Vcs-Git: git://github.com/bitwin24work/BITWIN24.git
-Vcs-Browser: https://github.com/bitwin24work/BITWIN24
+Homepage: http://www.BitWin24.io
+Vcs-Git: git://github.com/BitWin24/BITWIN24.git
+Vcs-Browser: https://github.com/BitWin24/BITWIN24
 
 Package: bitwin24d
 Architecture: any

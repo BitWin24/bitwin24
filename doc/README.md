@@ -42,7 +42,7 @@ The following are developer notes on how to build BITWIN24 on your native platfo
 
 Development
 ---------------------
-The BitWin24 repo's [root README](https://github.com/BITWIN24-Project/BITWIN24/blob/master/README.md) contains relevant information on the development process and automated testing.
+The BitWin24 repo's [root README](https://github.com/BitWin24/BITWIN24/blob/master/README.md) contains relevant information on the development process and automated testing.
 
 - [Developer Notes](developer-notes.md)
 - [Multiwallet Qt Development](multiwallet-qt.md)

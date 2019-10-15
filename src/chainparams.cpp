@@ -127,11 +127,13 @@ public:
         nTargetSpacing = 1 * 60;  // BITWIN24: 1 minute
         nMaturity = 100;
         nMasternodeCountDrift = 20;
+        nBlockReward = 5 * COIN;
+        nMaxSupply = 400000000 * COIN;
 
         // The mainnet swap amount of 37334000 was determined based on money supply 36757502.29915683 BITWIN24 @ block 416959.
         // 576500 BITWIN24 were added to this amount to represent the expected POW production at a rate of 960 blocks/day
         // with 100 BITWIN24 reward for 6 days along with POS production at 7% per stake.
-        nSwapAmount = 6989700 * COIN; // Amount of coins generated for the swap.
+        nSwapAmount = 7000000 * COIN; // Amount of coins generated for the swap.
         nSwapPoWBlocks = 10; // Number of PoW blocks used to generate the Swap amount.
         nSwapCoinbaseValue = nSwapAmount / nSwapPoWBlocks; // The swap amount will be distributed uniformly through PoW coinbase.
    
@@ -172,7 +174,7 @@ public:
         txNew.vin.resize(1);
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig = CScript() << 486604799 << CScriptNum(4) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
-        txNew.vout[0].nValue = 200 * COIN;
+        txNew.vout[0].nValue = 0 * COIN;
         txNew.vout[0].scriptPubKey = CScript() << ParseHex("045777AA773E88BBBF2B31FB859D4E3C73B527B6F1FB12FFFDD6B331AB585C1CBD0CCBAF0E40B947235A49B04A806AE3C38FBC23BAB96CCF3252A312BE0BB0E61C") << OP_CHECKSIG;
         genesis.vtx.push_back(txNew);
         genesis.hashPrevBlock = 0;
@@ -293,8 +295,10 @@ public:
         pchMessageStart[3] = 0xf9;
         vAlertPubKey = ParseHex("042abb9fbdbdad29ed411ffc04c465f3f3a0e0f0ae183b4777886f771bdc143481eb0ad3c5fb67ecbcd0568f5f602039fde73015975d998f242d7fe5c3d2a059ce");
         nDefaultPort = 17174;
+        nBlockReward = 5 * COIN;
+        nMaxSupply = 400000000 * COIN;
 
-        nSwapAmount = 37000000 * COIN; // Amount of coins generated for the swap.
+        nSwapAmount = 7000000 * COIN; // Amount of coins generated for the swap.
         nSwapPoWBlocks = 10; // Number of PoW blocks used to generate the Swap amount.
         nSwapCoinbaseValue = nSwapAmount / nSwapPoWBlocks; // The swap amount will be distributed uniformly through PoW coinbase.
 
@@ -370,6 +374,9 @@ public:
         nTargetTimespan = 24 * 60 * 60; // BITWIN24: 1 day
         nTargetSpacing = 1 * 60;        // BITWIN24: 1 minutes
         bnProofOfWorkLimit = ~uint256(0) >> 1;
+        nBlockReward = 5 * COIN;
+        nMaxSupply = 400000000 * COIN;
+
         genesis.nTime = 1540944002;
         genesis.nNonce = 2;
 

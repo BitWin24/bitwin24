@@ -115,7 +115,6 @@ const string strMessageMagic = "DarkNet Signed Message:\n";
 // Constants for coinbase value.
 // Credit @PtSm (Discord)
 static const int HalvingMonths = 12;
-static const int64_t RewardDecrease = 50 * CENT;
 
 // Masternode percentages.
 static const int64_t FirstYearMasternodesPercentage[HalvingMonths] = { 80, 80, 75, 75, 70, 70, 67, 67, 64, 64, 60, 60 };
@@ -1772,13 +1771,16 @@ int64_t GetBlockValue(int nHeight)
             nSubsidy = Params().SwapCoinbaseValue();
         }
         else {
-            nSubsidy = 100 * COIN; // Initial BITWIN24 chain coinbase value after 1st halving.
+            nSubsidy = Params().BlockReward();
         }
 
         return nSubsidy;
     } 
     else {
-        return 5 * COIN;
+        CAmount currentSupply = (nHeight - Params().SwapPoWBlocks()) * Params().BlockReward() + Params().SwapAmount();
+        if (currentSupply + Params().BlockReward() > Params().MaxSupply())
+            return 0;
+        return Params().BlockReward();
     }    
 }
 

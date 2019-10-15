@@ -1773,15 +1773,14 @@ int64_t GetBlockValue(int nHeight)
         else {
             nSubsidy = Params().BlockReward();
         }
-
-        return nSubsidy;
-    } 
+    }
     else {
         CAmount currentSupply = (nHeight - Params().SwapPoWBlocks()) * Params().BlockReward() + Params().SwapAmount();
-        if (currentSupply + Params().BlockReward() > Params().MaxSupply())
-            return 0;
-        return Params().BlockReward();
-    }    
+        if ((currentSupply + Params().BlockReward()) <= Params().MaxSupply())
+            nSubsidy = Params().BlockReward();
+    }
+
+    return nSubsidy;
 }
 
 CAmount GetSeeSaw(const CAmount& blockValue, int nMasternodeCount, int nHeight)

@@ -116,7 +116,6 @@ const string strMessageMagic = "DarkNet Signed Message:\n";
 // Credit @PtSm (Discord)
 static const int HalvingMonths = 12;
 static const int64_t RewardDecrease = 50 * CENT;
-static const int64_t FirstYearRewardMultiplier[HalvingMonths] = { 35 * COIN, 35 * COIN, 30 * COIN, 30 * COIN, 25 * COIN, 20 * COIN, 17 * COIN + 50 * CENT, 15 * COIN, 12 * COIN + 50 * CENT, 10 * COIN, 7 * COIN + 50 * CENT, 5 * COIN + 50 * CENT };
 
 // Masternode percentages.
 static const int64_t FirstYearMasternodesPercentage[HalvingMonths] = { 80, 80, 75, 75, 70, 70, 67, 67, 64, 64, 60, 60 };
@@ -1778,13 +1777,8 @@ int64_t GetBlockValue(int nHeight)
 
         return nSubsidy;
     } 
-    else {      
-        const int currentPeriod = nHeight / 43800; // ((365 * 24 * 60) / 12)
-        int64_t nSubsidy = (currentPeriod < HalvingMonths) ?
-            FirstYearRewardMultiplier[currentPeriod] :
-            FirstYearRewardMultiplier[HalvingMonths - 1] - RewardDecrease * int64_t(currentPeriod / HalvingMonths);
-
-        return std::max<int64_t>(nSubsidy, RewardDecrease);
+    else {
+        return 5 * COIN;
     }    
 }
 

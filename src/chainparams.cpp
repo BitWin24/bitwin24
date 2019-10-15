@@ -133,7 +133,7 @@ public:
         // The mainnet swap amount of 37334000 was determined based on money supply 36757502.29915683 BITWIN24 @ block 416959.
         // 576500 BITWIN24 were added to this amount to represent the expected POW production at a rate of 960 blocks/day
         // with 100 BITWIN24 reward for 6 days along with POS production at 7% per stake.
-        nSwapAmount = 6998990 * COIN; // Amount of coins generated for the swap.
+        nSwapAmount = 6998995 * COIN; // Amount of coins generated for the swap.
         nSwapPoWBlocks = 10; // Number of PoW blocks used to generate the Swap amount.
         nSwapCoinbaseValue = nSwapAmount / nSwapPoWBlocks; // The swap amount will be distributed uniformly through PoW coinbase.
    
@@ -141,7 +141,7 @@ public:
 
         // Start PoS/Staking when the PoW coinbase has completed a confirmation cycle.
         // Excluding Swap blocks.
-        nLastPOWBlock = nMaturity * 2 + nSwapPoWBlocks + 1;                                                        
+        nLastPOWBlock = nMaturity * 2 + nSwapPoWBlocks + 1;
         nModifierUpdateBlock = 1;
 
         nMaxMoneyOut = nSwapAmount;
@@ -268,7 +268,7 @@ public:
         nBlockReward = 5 * COIN;
         nMaxSupply = 400000000 * COIN;
 
-        nSwapAmount = 6998990 * COIN; // Amount of coins generated for the swap.
+        nSwapAmount = 6999005 * COIN; // Amount of coins generated for the swap.
         nSwapPoWBlocks = 10; // Number of PoW blocks used to generate the Swap amount.
         nSwapCoinbaseValue = nSwapAmount / nSwapPoWBlocks; // The swap amount will be distributed uniformly through PoW coinbase.
 

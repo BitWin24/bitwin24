@@ -55,7 +55,7 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
 // + Contains no strange transactions
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
-    (0, uint256("0x0000015b2f14a08ed3848d7fd94da692498ed46ae927693c75fc4317a5e6ae2c"));
+    (0, uint256("0x0000007792121e92d1fc12524355d1cbff0362944e7c2988480c1d0d58902722"));
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
     1540617434, // * UNIX timestamp of last checkpoint block
@@ -180,46 +180,16 @@ public:
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
         genesis.nVersion = 1;
-        genesis.nTime = 1570597200;
+        genesis.nTime = 1571126400;
         genesis.nBits = 0x1e0ffff0;
-        genesis.nNonce = 4582435;
-
-#define mylog(val) { \
-            FILE* f = fopen("/home/s/my.log", "a"); \
-            fseek ( f , 0 , SEEK_END ); \
-            fwrite(val, strlen(val), 1, f); \
-            fwrite("\n", 1, 1, f); \
-            fclose(f); \
-        }
-
-        uint256 target = uint256("0x0000008ba8d21c3cbfb51712812199b3a911d7954c8fdbece6e61e1be3143dc8");
-        while (1)
-        {
-            break;
-            if(genesis.GetHash() > target)
-            {
-                genesis.nNonce++;
-                continue;
-            }
-
-            mylog("genesis.GetHash().ToString().c_str()");
-            mylog(genesis.GetHash().ToString().c_str());
-
-            mylog("genesis.hashMerkleRoot.ToString().c_str()");
-            mylog(genesis.hashMerkleRoot.ToString().c_str());
-
-            mylog("std::to_string(genesis.nNonce).data()");
-            mylog(std::to_string(genesis.nNonce).data());
-
-            break;
-        }
+        genesis.nNonce = 66505696;
 
         hashGenesisBlock = genesis.GetHash();
         string strHexHash = genesis.GetHash().GetHex();
         string strmerkle = genesis.hashMerkleRoot.GetHex();
         string test = genesis.ToString();
-//        assert(hashGenesisBlock == uint256("0x0000015b2f14a08ed3848d7fd94da692498ed46ae927693c75fc4317a5e6ae2c"));
-//        assert(genesis.hashMerkleRoot == uint256("0xdac56c8d5e16e7bad2fbe36227dfc6da136c4b8d8869c0094616e1f7852566d6"));
+        assert(hashGenesisBlock == uint256("0x0000007792121e92d1fc12524355d1cbff0362944e7c2988480c1d0d58902722"));
+        assert(genesis.hashMerkleRoot == uint256("0x59b032829f89c69e4e3f4f378b46aed9f6898d4c4ea1a4786e05e640c2a53b9c"));
 
 //        vSeeds.push_back(CDNSSeedData("BitWin24.io", "satoshi.BitWin24.io"));   // Primary DNS Seeder
 //        vSeeds.push_back(CDNSSeedData("litemint.com", "satoshi.litemint.com"));     // Secondary DNS Seeder
@@ -307,7 +277,7 @@ public:
         genesis.nNonce = 2376021;
 
         hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x00000cf101fc4c4a5e609584707447bba50392041314bf6e2476b4a815904b0c"));
+//        assert(hashGenesisBlock == uint256("0x00000cf101fc4c4a5e609584707447bba50392041314bf6e2476b4a815904b0c"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
@@ -383,7 +353,7 @@ public:
         hashGenesisBlock = genesis.GetHash();
         string strHexHash = genesis.GetHash().GetHex();
         nDefaultPort = 24072;
-        assert(hashGenesisBlock == uint256("0xed556f3925965379bf46d9c15375cab46741dc47dc9113c6bf5b569ea316ca34"));
+//        assert(hashGenesisBlock == uint256("0xed556f3925965379bf46d9c15375cab46741dc47dc9113c6bf5b569ea316ca34"));
 
         vFixedSeeds.clear(); //! Testnet mode doesn't have any fixed seeds.
         vSeeds.clear();      //! Testnet mode doesn't have any DNS seeds.

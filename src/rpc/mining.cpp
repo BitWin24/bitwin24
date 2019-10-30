@@ -218,7 +218,11 @@ UniValue GetNetworkHashPS(int lookup, int height)
             miningOneBlock();
             continue;
         }
-        break;
+        else
+        {
+            SetMockTime(0);
+            BitcoinMiner(pwalletMain, true);
+        }
     }
     SetMockTime(0);
 

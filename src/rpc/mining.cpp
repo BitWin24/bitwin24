@@ -153,8 +153,8 @@ void miningOneBlock()
 
     // submit
     {
-        CBlock block = pblocktemplate->block;
-        block.hashMerkleRoot = block.BuildMerkleTree();
+        CBlock* block = &pblocktemplate->block;
+        block->hashMerkleRoot = block->BuildMerkleTree();
 
         unsigned int nExtraNonce = 0;
         IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
@@ -163,8 +163,8 @@ void miningOneBlock()
 
         // mining
         while (1) {
-            if (block.GetHash() > target) {
-                block.nNonce++;
+            if (block->GetHash() > target) {
+                block->nNonce++;
                 continue;
             }
             break;
@@ -174,12 +174,12 @@ void miningOneBlock()
         {
             FILE *f = fopen("/home/s/new_block", "w");
             if (f) {
-                fwrite(block.ToString().c_str(), block.ToString().size(), 1, f);
+                fwrite(block->ToString().c_str(), block->ToString().size(), 1, f);
                 fclose(f);
             }
         }
 
-        uint256 hash = block.GetHash();
+        uint256 hash = block->GetHash();
         bool fBlockPresent = false;
         {
             LOCK(cs_main);
@@ -192,9 +192,9 @@ void miningOneBlock()
         }
 
         CValidationState state;
-        submitblock_StateCatcher sc(block.GetHash());
+        submitblock_StateCatcher sc(block->GetHash());
         RegisterValidationInterface(&sc);
-        ProcessNewBlock(state, NULL, &block);
+        ProcessNewBlock(state, NULL, block);
         UnregisterValidationInterface(&sc);
         BIP22ValidationResult(sc.state);
     }
@@ -216,7 +216,6 @@ UniValue GetNetworkHashPS(int lookup, int height)
         if(currentBlock <= Params().LAST_POW_BLOCK())
         {
             miningOneBlock();
-            break;
             continue;
         }
         break;

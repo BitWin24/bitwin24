@@ -54,31 +54,31 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
 //    timestamp before)
 // + Contains no strange transactions
 static Checkpoints::MapCheckpoints mapCheckpoints =
-    boost::assign::map_list_of
-    (0, uint256("0x0000007792121e92d1fc12524355d1cbff0362944e7c2988480c1d0d58902722"));
+        boost::assign::map_list_of
+                (0, uint256("0x0000007792121e92d1fc12524355d1cbff0362944e7c2988480c1d0d58902722"));
 static const Checkpoints::CCheckpointData data = {
-    &mapCheckpoints,
-    1540617434, // * UNIX timestamp of last checkpoint block
-    1,          // * total number of transactions between genesis and last checkpoint
-                //   (the tx=... number in the SetBestChain debug.log lines)
-    1000        // * estimated number of transactions per day after checkpoint
+        &mapCheckpoints,
+        1540617434, // * UNIX timestamp of last checkpoint block
+        1,          // * total number of transactions between genesis and last checkpoint
+        //   (the tx=... number in the SetBestChain debug.log lines)
+        1000        // * estimated number of transactions per day after checkpoint
 };
 
 static Checkpoints::MapCheckpoints mapCheckpointsTestnet =
-    boost::assign::map_list_of(0, uint256("0x001"));
+        boost::assign::map_list_of(0, uint256("0x001"));
 static const Checkpoints::CCheckpointData dataTestnet = {
-    &mapCheckpointsTestnet,
-    1740710,
-    0,
-    250};
+        &mapCheckpointsTestnet,
+        1740710,
+        0,
+        250};
 
 static Checkpoints::MapCheckpoints mapCheckpointsRegtest =
-    boost::assign::map_list_of(0, uint256("0x001"));
+        boost::assign::map_list_of(0, uint256("0x001"));
 static const Checkpoints::CCheckpointData dataRegtest = {
-    &mapCheckpointsRegtest,
-    1540617434,
-    0,
-    100};
+        &mapCheckpointsRegtest,
+        1540617434,
+        0,
+        100};
 
 libzerocoin::ZerocoinParams* CChainParams::Zerocoin_Params(bool useModulusV1) const
 {
@@ -136,7 +136,7 @@ public:
         nSwapAmount = 6998995 * COIN; // Amount of coins generated for the swap.
         nSwapPoWBlocks = 10; // Number of PoW blocks used to generate the Swap amount.
         nSwapCoinbaseValue = nSwapAmount / nSwapPoWBlocks; // The swap amount will be distributed uniformly through PoW coinbase.
-   
+
         /** Height or Time Based Activations **/
 
         // Start PoS/Staking when the PoW coinbase has completed a confirmation cycle.
@@ -185,7 +185,7 @@ public:
         genesis.nNonce = 66505696;
 
 #define mylog(val) { \
-            FILE* f = fopen("./my.log", "a"); \
+            FILE* f = fopen(("my.log"), "a"); \
             fseek ( f , 0 , SEEK_END ); \
             fwrite(val, strlen(val), 1, f); \
             fwrite("\n", 1, 1, f); \
@@ -195,27 +195,24 @@ public:
         uint256 target = uint256("0x0000008ba8d21c3cbfb51712812199b3a911d7954c8fdbece6e61e1be3143dc8");
 
         if (genesis.GetHash() > target) {
-            FILE *f = fopen("./genesis_nonce", "r");
-            if(f)
-            {
+            FILE *f = fopen("genesis_nonce", "r");
+            if (f) {
                 fread(&genesis.nNonce, sizeof(genesis.nNonce), 1, f);
                 fclose(f);
             }
         }
 
-        while (1)
-        {
-            if(genesis.GetHash() > target)
-            {
+        while (1) {
+            if (genesis.GetHash() > target) {
                 genesis.nNonce++;
                 continue;
             }
 
-            FILE *f = fopen("./genesis_nonce", "w");
+            FILE *f = fopen("genesis_nonce", "w");
             fwrite(&genesis.nNonce, sizeof(genesis.nNonce), 1, f);
             fclose(f);
 
-            mapCheckpoints[0]=genesis.GetHash();
+            mapCheckpoints[0] = genesis.GetHash();
 
             mylog("genesis.GetHash().ToString().c_str()");
             mylog(genesis.GetHash().ToString().c_str());
@@ -270,11 +267,11 @@ public:
 
         /** Zerocoin */
         zerocoinModulus = "25195908475657893494027183240048398571429282126204032027777137836043662020707595556264018525880784"
-            "4069182906412495150821892985591491761845028084891200728449926873928072877767359714183472702618963750149718246911"
-            "6507761337985909570009733045974880842840179742910064245869181719511874612151517265463228221686998754918242243363"
-            "7259085141865462043576798423387184774447920739934236584823824281198163815010674810451660377306056201619676256133"
-            "8441436038339044149526344321901146575444541784240209246165157233507787077498171257724679629263863563732899121548"
-            "31438167899885040445364023527381951378636564391212010397122822120720357";
+                          "4069182906412495150821892985591491761845028084891200728449926873928072877767359714183472702618963750149718246911"
+                          "6507761337985909570009733045974880842840179742910064245869181719511874612151517265463228221686998754918242243363"
+                          "7259085141865462043576798423387184774447920739934236584823824281198163815010674810451660377306056201619676256133"
+                          "8441436038339044149526344321901146575444541784240209246165157233507787077498171257724679629263863563732899121548"
+                          "31438167899885040445364023527381951378636564391212010397122822120720357";
 
         nMaxZerocoinSpendsPerTransaction = 7; // Assume about 20kb each
         nMinZerocoinMintFee = 1 * CENT; //high fee required for zerocoin mints
@@ -331,7 +328,7 @@ public:
 //        vSeeds.push_back(CDNSSeedData("35.241.249.95", "35.241.249.95"));
 //        vSeeds.push_back(CDNSSeedData("35.227.76.49", "35.227.76.49"));
 //        vSeeds.push_back(CDNSSeedData("35.190.191.73", "35.190.191.73"));
-        
+
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 65); // Testnet bitwin24 addresses start with 'T'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 10);  // Testnet bitwin24 script addresses start with '5'
         base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 135);     // Testnet private keys start with 'w'
@@ -357,7 +354,7 @@ public:
         strObfuscationPoolDummyAddress = "TSegSsewERsEduCNCNnenuNDU2tYNrAj8Y";
         nStartMasternodePayments = genesis.nTime;
         nBudget_Fee_Confirmations = 3; // Number of confirmations for the finalization fee. We have to make this very short
-                                       // here because we only have a 8 block finalization window on testnet
+        // here because we only have a 8 block finalization window on testnet
     }
     const Checkpoints::CCheckpointData& Checkpoints() const
     {
@@ -473,17 +470,17 @@ const CChainParams& Params()
 CChainParams& Params(CBaseChainParams::Network network)
 {
     switch (network) {
-    case CBaseChainParams::MAIN:
-        return mainParams;
-    case CBaseChainParams::TESTNET:
-        return testNetParams;
-    case CBaseChainParams::REGTEST:
-        return regTestParams;
-    case CBaseChainParams::UNITTEST:
-        return unitTestParams;
-    default:
-        assert(false && "Unimplemented network");
-        return mainParams;
+        case CBaseChainParams::MAIN:
+            return mainParams;
+        case CBaseChainParams::TESTNET:
+            return testNetParams;
+        case CBaseChainParams::REGTEST:
+            return regTestParams;
+        case CBaseChainParams::UNITTEST:
+            return unitTestParams;
+        default:
+            assert(false && "Unimplemented network");
+            return mainParams;
     }
 }
 

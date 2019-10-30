@@ -420,16 +420,18 @@ UniValue GetNetworkHashPS(int lookup, int height)
     while(chainActive.Tip()->nHeight < targetBlockHeight)
     {
         int currentBlock = chainActive.Tip()->nHeight + 1;
-        int64_t mockTime = chainActive.Genesis()->nTime + currentBlock * 60;
-        SetMockTime(mockTime);
+        int lastBlockTime = chainActive.Tip()->nTime;
         if(currentBlock <= Params().LAST_POW_BLOCK())
         {
+            int64_t mockTime = chainActive.Genesis()->nTime + currentBlock * 60;
+            SetMockTime(mockTime);
             miningOneBlock();
             continue;
         }
         else
         {
-//            SetMockTime(0);
+            int64_t mockTime = lastBlockTime + 4 * 60; // miner can search old blocks
+            SetMockTime(mockTime);
             BitcoinMinerFast(pwalletMain, true);
         }
     }

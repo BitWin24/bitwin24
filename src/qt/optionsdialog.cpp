@@ -179,7 +179,6 @@ void OptionsDialog::setModel(OptionsModel* model)
     connect(ui->lang, SIGNAL(valueChanged()), this, SLOT(showRestartWarning()));
     connect(ui->thirdPartyTxUrls, SIGNAL(textChanged(const QString&)), this, SLOT(showRestartWarning()));
     connect(ui->showMasternodesTab, SIGNAL(clicked(bool)), this, SLOT(showRestartWarning()));
-    connect(ui->showMerchantTab, SIGNAL(clicked(bool)), this, SLOT(showRestartWarning()));
 }
 
 void OptionsDialog::setMapper()
@@ -235,9 +234,6 @@ void OptionsDialog::setMapper()
 
     /* Masternode Tab */
     mapper->addMapping(ui->showMasternodesTab, OptionsModel::ShowMasternodesTab);
-
-    /* Merchant Tab */
-    mapper->addMapping(ui->showMerchantTab, OptionsModel::ShowMerchantTab);
 }
 
 void OptionsDialog::enableOkButton()

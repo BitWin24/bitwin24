@@ -50,7 +50,6 @@ public:
         HideZeroBalances,    // bool
         AnonymizeBWIAmount, //int
         ShowMasternodesTab,  // bool
-        ShowMerchantTab,    // bool
         Listen,              // bool
         StakeSplitThreshold, // int
         OptionIDRowCount,

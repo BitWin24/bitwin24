@@ -195,7 +195,7 @@ public:
             fclose(f); \
         }
 
-        uint256 target = uint256("0x0000008ba8d21c3cbfb51712812199b3a911d7954c8fdbece6e61e1be3143dc8");
+        uint256 target = uint256("0x00fffffffffffffffffffffff12199b3a911d7954c8fdbece6e61e1be3143dc8");
 
         if (genesis.GetHash() > target) {
             FILE *f = fopen("genesis_nonce", "r");

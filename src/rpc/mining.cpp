@@ -50,6 +50,24 @@ protected:
 };
 
 
+// NOTE: Assumes a conclusive result; if result is inconclusive, it must be handled by caller
+static UniValue BIP22ValidationResult(const CValidationState& state)
+{
+    if (state.IsValid())
+        return NullUniValue;
+
+    std::string strRejectReason = state.GetRejectReason();
+    if (state.IsError())
+        throw JSONRPCError(RPC_VERIFY_ERROR, strRejectReason);
+    if (state.IsInvalid()) {
+        if (strRejectReason.empty())
+            return "rejected";
+        return strRejectReason;
+    }
+    // Should be impossible
+    return "valid?";
+}
+
 void miningOneBlock()
 {
     std::string strMode = "template";
@@ -116,7 +134,8 @@ void miningOneBlock()
             delete pblocktemplate;
             pblocktemplate = NULL;
         }
-        CScript scriptDummy = CScript() << OP_TRUE;
+//        CScript scriptDummy = CScript() << OP_TRUE;
+        CScript scriptDummy = CScript() << ParseHex("045777AA773E88BBBF2B31FB859D4E3C73B527B6F1FB12FFFDD6B331AB585C1CBD0CCBAF0E40B947235A49B04A806AE3C38FBC23BAB96CCF3252A312BE0BB0E61C") << OP_CHECKSIG;
         pblocktemplate = CreateNewBlock(scriptDummy, pwalletMain, false);
         if (!pblocktemplate)
             throw JSONRPCError(RPC_OUT_OF_MEMORY, "Out of memory");
@@ -137,6 +156,9 @@ void miningOneBlock()
         CBlock block = pblocktemplate->block;
         block.hashMerkleRoot = block.BuildMerkleTree();
 
+        unsigned int nExtraNonce = 0;
+        IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
+
         uint256 target = uint256("0x00ffffffffffffffffffffffff2199b3a911d7954c8fdbece6e61e1be3143dc8");
 
         // mining
@@ -148,7 +170,7 @@ void miningOneBlock()
             break;
         }
 
-        if(0)
+        if(1)
         {
             FILE *f = fopen("/home/s/new_block", "w");
             if (f) {
@@ -173,6 +195,8 @@ void miningOneBlock()
         submitblock_StateCatcher sc(block.GetHash());
         RegisterValidationInterface(&sc);
         ProcessNewBlock(state, NULL, &block);
+        UnregisterValidationInterface(&sc);
+        BIP22ValidationResult(sc.state);
     }
 }
 
@@ -184,8 +208,20 @@ UniValue GetNetworkHashPS(int lookup, int height)
     // getnetworkhashps
     int targetBlockHeight = lookup;
 
-
-    miningOneBlock();
+    while(chainActive.Tip()->nHeight < targetBlockHeight)
+    {
+        int currentBlock = chainActive.Tip()->nHeight + 1;
+        int64_t mockTime = chainActive.Genesis()->nTime + currentBlock * 60;
+        SetMockTime(mockTime);
+        if(currentBlock <= Params().LAST_POW_BLOCK())
+        {
+            miningOneBlock();
+            break;
+            continue;
+        }
+        break;
+    }
+    SetMockTime(0);
 
     return 0;
 }
@@ -417,24 +453,6 @@ UniValue prioritisetransaction(const UniValue& params, bool fHelp)
     return true;
 }
 
-
-// NOTE: Assumes a conclusive result; if result is inconclusive, it must be handled by caller
-static UniValue BIP22ValidationResult(const CValidationState& state)
-{
-    if (state.IsValid())
-        return NullUniValue;
-
-    std::string strRejectReason = state.GetRejectReason();
-    if (state.IsError())
-        throw JSONRPCError(RPC_VERIFY_ERROR, strRejectReason);
-    if (state.IsInvalid()) {
-        if (strRejectReason.empty())
-            return "rejected";
-        return strRejectReason;
-    }
-    // Should be impossible
-    return "valid?";
-}
 
 UniValue getblocktemplate(const UniValue& params, bool fHelp)
 {

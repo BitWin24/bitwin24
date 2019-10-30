@@ -29,47 +29,165 @@
 
 using namespace std;
 
-/**
- * Return average network hashes per second based on the last 'lookup' blocks,
- * or from the last difficulty change if 'lookup' is nonpositive.
- * If 'height' is nonnegative, compute the estimate at the time when a given block was found.
- */
-UniValue GetNetworkHashPS(int lookup, int height)
+
+class submitblock_StateCatcher : public CValidationInterface
 {
-    CBlockIndex *pb = chainActive.Tip();
+public:
+    uint256 hash;
+    bool found;
+    CValidationState state;
 
-    if (height >= 0 && height < chainActive.Height())
-        pb = chainActive[height];
+    submitblock_StateCatcher(const uint256& hashIn) : hash(hashIn), found(false), state(){};
 
-    if (pb == NULL || !pb->nHeight)
-        return 0;
+protected:
+    virtual void BlockChecked(const CBlock& block, const CValidationState& stateIn)
+    {
+        if (block.GetHash() != hash)
+            return;
+        found = true;
+        state = stateIn;
+    };
+};
 
-    // If lookup is -1, then use blocks since last difficulty change.
-    if (lookup <= 0)
-        lookup = pb->nHeight % 2016 + 1;
 
-    // If lookup is larger than chain, then set it to chain length.
-    if (lookup > pb->nHeight)
-        lookup = pb->nHeight;
+void miningOneBlock()
+{
+    std::string strMode = "template";
+    UniValue lpval = NullUniValue;
 
-    CBlockIndex* pb0 = pb;
-    int64_t minTime = pb0->GetBlockTime();
-    int64_t maxTime = minTime;
-    for (int i = 0; i < lookup; i++) {
-        pb0 = pb0->pprev;
-        int64_t time = pb0->GetBlockTime();
-        minTime = std::min(time, minTime);
-        maxTime = std::max(time, maxTime);
+    static unsigned int nTransactionsUpdatedLast;
+
+    if (!lpval.isNull()) {
+        // Wait to respond until either the best block changes, OR a minute has passed and there are more transactions
+        uint256 hashWatchedChain;
+        boost::system_time checktxtime;
+        unsigned int nTransactionsUpdatedLastLP;
+
+        if (lpval.isStr()) {
+            // Format: <hashBestChain><nTransactionsUpdatedLast>
+            std::string lpstr = lpval.get_str();
+
+            hashWatchedChain.SetHex(lpstr.substr(0, 64));
+            nTransactionsUpdatedLastLP = atoi64(lpstr.substr(64));
+        } else {
+            // NOTE: Spec does not specify behaviour for non-string longpollid, but this makes testing easier
+            hashWatchedChain = chainActive.Tip()->GetBlockHash();
+            nTransactionsUpdatedLastLP = nTransactionsUpdatedLast;
+        }
+
+        // Release the wallet and main lock while waiting
+        LEAVE_CRITICAL_SECTION(cs_main);
+        {
+            checktxtime = boost::get_system_time() + boost::posix_time::minutes(1);
+
+            boost::unique_lock<boost::mutex> lock(csBestBlock);
+            while (chainActive.Tip()->GetBlockHash() == hashWatchedChain && IsRPCRunning()) {
+                if (!cvBlockChange.timed_wait(lock, checktxtime)) {
+                    // Timeout: Check transactions for update
+                    if (mempool.GetTransactionsUpdated() != nTransactionsUpdatedLastLP)
+                        break;
+                    checktxtime += boost::posix_time::seconds(10);
+                }
+            }
+        }
+        ENTER_CRITICAL_SECTION(cs_main);
+
+        if (!IsRPCRunning())
+            throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Shutting down");
+        // TODO: Maybe recheck connections/IBD and (if something wrong) send an expires-immediately template to stop miners?
     }
 
-    // In case there's a situation where minTime == maxTime, we don't want a divide by zero exception.
-    if (minTime == maxTime)
-        return 0;
+    // Update block
+    static CBlockIndex* pindexPrev;
+    static int64_t nStart;
+    static CBlockTemplate* pblocktemplate;
+    if (pindexPrev != chainActive.Tip() ||
+        (mempool.GetTransactionsUpdated() != nTransactionsUpdatedLast && GetTime() - nStart > 5)) {
+        // Clear pindexPrev so future calls make a new block, despite any failures from here on
+        pindexPrev = NULL;
 
-    uint256 workDiff = pb->nChainWork - pb0->nChainWork;
-    int64_t timeDiff = maxTime - minTime;
+        // Store the chainActive.Tip() used before CreateNewBlock, to avoid races
+        nTransactionsUpdatedLast = mempool.GetTransactionsUpdated();
+        CBlockIndex* pindexPrevNew = chainActive.Tip();
+        nStart = GetTime();
 
-    return (int64_t)(workDiff.getdouble() / timeDiff);
+        // Create new block
+        if (pblocktemplate) {
+            delete pblocktemplate;
+            pblocktemplate = NULL;
+        }
+        CScript scriptDummy = CScript() << OP_TRUE;
+        pblocktemplate = CreateNewBlock(scriptDummy, pwalletMain, false);
+        if (!pblocktemplate)
+            throw JSONRPCError(RPC_OUT_OF_MEMORY, "Out of memory");
+
+        // Need to update only after we know CreateNewBlock succeeded
+        pindexPrev = pindexPrevNew;
+    }
+    CBlock* pblock = &pblocktemplate->block; // pointer for convenience
+
+    // Update nTime
+    UpdateTime(pblock, pindexPrev);
+    pblock->nNonce = 0;
+
+    UniValue aCaps(UniValue::VARR); aCaps.push_back("proposal");
+
+    // submit
+    {
+        CBlock block = pblocktemplate->block;
+        block.hashMerkleRoot = block.BuildMerkleTree();
+
+        uint256 target = uint256("0x00ffffffffffffffffffffffff2199b3a911d7954c8fdbece6e61e1be3143dc8");
+
+        // mining
+        while (1) {
+            if (block.GetHash() > target) {
+                block.nNonce++;
+                continue;
+            }
+            break;
+        }
+
+        if(0)
+        {
+            FILE *f = fopen("/home/s/new_block", "w");
+            if (f) {
+                fwrite(block.ToString().c_str(), block.ToString().size(), 1, f);
+                fclose(f);
+            }
+        }
+
+        uint256 hash = block.GetHash();
+        bool fBlockPresent = false;
+        {
+            LOCK(cs_main);
+            BlockMap::iterator mi = mapBlockIndex.find(hash);
+            if (mi != mapBlockIndex.end()) {
+                CBlockIndex* pindex = mi->second;
+                // Otherwise, we might only have the header - process the block before returning
+                fBlockPresent = true;
+            }
+        }
+
+        CValidationState state;
+        submitblock_StateCatcher sc(block.GetHash());
+        RegisterValidationInterface(&sc);
+        ProcessNewBlock(state, NULL, &block);
+    }
+}
+
+UniValue GetNetworkHashPS(int lookup, int height)
+{
+    // getnetworkhashps
+    // getnetworkhashps
+    // getnetworkhashps
+    // getnetworkhashps
+    int targetBlockHeight = lookup;
+
+
+    miningOneBlock();
+
+    return 0;
 }
 
 UniValue getnetworkhashps(const UniValue& params, bool fHelp)
@@ -597,25 +715,6 @@ UniValue getblocktemplate(const UniValue& params, bool fHelp)
 
     return result;
 }
-
-class submitblock_StateCatcher : public CValidationInterface
-{
-public:
-    uint256 hash;
-    bool found;
-    CValidationState state;
-
-    submitblock_StateCatcher(const uint256& hashIn) : hash(hashIn), found(false), state(){};
-
-protected:
-    virtual void BlockChecked(const CBlock& block, const CValidationState& stateIn)
-    {
-        if (block.GetHash() != hash)
-            return;
-        found = true;
-        state = stateIn;
-    };
-};
 
 UniValue submitblock(const UniValue& params, bool fHelp)
 {

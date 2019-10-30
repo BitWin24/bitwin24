@@ -180,22 +180,67 @@ public:
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
         genesis.nVersion = 1;
-        genesis.nTime = 1571126400;
+        genesis.nTime = 1572411600;
         genesis.nBits = 0x1e0ffff0;
         genesis.nNonce = 66505696;
+
+#define mylog(val) { \
+            FILE* f = fopen("./my.log", "a"); \
+            fseek ( f , 0 , SEEK_END ); \
+            fwrite(val, strlen(val), 1, f); \
+            fwrite("\n", 1, 1, f); \
+            fclose(f); \
+        }
+
+        uint256 target = uint256("0x0000008ba8d21c3cbfb51712812199b3a911d7954c8fdbece6e61e1be3143dc8");
+
+        if (genesis.GetHash() > target) {
+            FILE *f = fopen("./genesis_nonce", "r");
+            if(f)
+            {
+                fread(&genesis.nNonce, sizeof(genesis.nNonce), 1, f);
+                fclose(f);
+            }
+        }
+
+        while (1)
+        {
+            if(genesis.GetHash() > target)
+            {
+                genesis.nNonce++;
+                continue;
+            }
+
+            FILE *f = fopen("./genesis_nonce", "w");
+            fwrite(&genesis.nNonce, sizeof(genesis.nNonce), 1, f);
+            fclose(f);
+
+            mapCheckpoints[0]=genesis.GetHash();
+
+            mylog("genesis.GetHash().ToString().c_str()");
+            mylog(genesis.GetHash().ToString().c_str());
+
+            mylog("genesis.hashMerkleRoot.ToString().c_str()");
+            mylog(genesis.hashMerkleRoot.ToString().c_str());
+
+            mylog("std::to_string(genesis.nNonce).data()");
+            mylog(std::to_string(genesis.nNonce).data());
+
+            break;
+        }
 
         hashGenesisBlock = genesis.GetHash();
         string strHexHash = genesis.GetHash().GetHex();
         string strmerkle = genesis.hashMerkleRoot.GetHex();
         string test = genesis.ToString();
-        assert(hashGenesisBlock == uint256("0x0000007792121e92d1fc12524355d1cbff0362944e7c2988480c1d0d58902722"));
-        assert(genesis.hashMerkleRoot == uint256("0x59b032829f89c69e4e3f4f378b46aed9f6898d4c4ea1a4786e05e640c2a53b9c"));
+//        assert(hashGenesisBlock == uint256("0x0000007792121e92d1fc12524355d1cbff0362944e7c2988480c1d0d58902722"));
+//        assert(genesis.hashMerkleRoot == uint256("0x59b032829f89c69e4e3f4f378b46aed9f6898d4c4ea1a4786e05e640c2a53b9c"));
 
 //        vSeeds.push_back(CDNSSeedData("BitWin24.io", "satoshi.BitWin24.io"));   // Primary DNS Seeder
 //        vSeeds.push_back(CDNSSeedData("litemint.com", "satoshi.litemint.com"));     // Secondary DNS Seeder
 //        vSeeds.push_back(CDNSSeedData("35.241.249.95", "35.241.249.95"));
 //        vSeeds.push_back(CDNSSeedData("35.227.76.49", "35.227.76.49"));
-        vSeeds.push_back(CDNSSeedData("142.93.170.77", "142.93.170.77"));
+//        vSeeds.push_back(CDNSSeedData("142.93.170.77", "142.93.170.77"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 38); // Start with 'G'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 15); // Start with '7'

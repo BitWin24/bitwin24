@@ -182,7 +182,7 @@ public:
         genesis.nVersion = 1;
         genesis.nTime = 1572494400;
         genesis.nBits = 0x1e0ffff0;
-        genesis.nNonce = 66505696;
+        genesis.nNonce = 92133373;
 
         hashGenesisBlock = genesis.GetHash();
         string strHexHash = genesis.GetHash().GetHex();

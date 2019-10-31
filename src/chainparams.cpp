@@ -55,7 +55,7 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
 // + Contains no strange transactions
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
-    (0, uint256("0x0000007792121e92d1fc12524355d1cbff0362944e7c2988480c1d0d58902722"));
+    (0, uint256("0x000000772114d8a6c2b9a36be07cc74b05a67db48bdacb1cac16aa96b3f29308"));
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
     1540617434, // * UNIX timestamp of last checkpoint block
@@ -180,7 +180,7 @@ public:
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
         genesis.nVersion = 1;
-        genesis.nTime = 1571126400;
+        genesis.nTime = 1572494400;
         genesis.nBits = 0x1e0ffff0;
         genesis.nNonce = 66505696;
 
@@ -188,7 +188,7 @@ public:
         string strHexHash = genesis.GetHash().GetHex();
         string strmerkle = genesis.hashMerkleRoot.GetHex();
         string test = genesis.ToString();
-        assert(hashGenesisBlock == uint256("0x0000007792121e92d1fc12524355d1cbff0362944e7c2988480c1d0d58902722"));
+        assert(hashGenesisBlock == uint256("0x000000772114d8a6c2b9a36be07cc74b05a67db48bdacb1cac16aa96b3f29308"));
         assert(genesis.hashMerkleRoot == uint256("0x59b032829f89c69e4e3f4f378b46aed9f6898d4c4ea1a4786e05e640c2a53b9c"));
 
 //        vSeeds.push_back(CDNSSeedData("BitWin24.io", "satoshi.BitWin24.io"));   // Primary DNS Seeder

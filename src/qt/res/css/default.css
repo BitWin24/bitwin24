@@ -55,17 +55,17 @@ background-color:#011C2A;
 
 QTabBar::tab {
 background:#002F49;
-color:#02273B;
+color:#80939D;
 }
 
 QTabBar::tab:selected {
-background: qlineargradient(y1:1, y2: 1, stop: 0 #8aa09f, stop: 0.1 #8aa09f, stop: 0.101 #7c8282, stop: 0.9 #7c8282, stop: 0.901 #8aa09f, stop: 1 #8aa09f);
-color:#02273B;
+background: qlineargradient(y1:1, y2: 1, stop: 0 #011C2A, stop: 0.1 #011C2A, stop: 0.101 #011C2A, stop: 0.9 #011C2A, stop: 0.901 #011C2A, stop: 1 #011C2A);
+color:#fff;
 }
 
 QTabBar::tab:hover {
-background: qlineargradient(y1:1, y2: 1, stop: 0 #b0c1c0, stop: 0.1 #b0c1c0, stop: 0.101 #7c8282, stop: 0.9 #7c8282, stop: 0.901 #b0c1c0, stop: 1 #b0c1c0);
-color:#000;
+background: qlineargradient(y1:1, y2: 1, stop: 0 #02273B, stop: 0.1 #02273B, stop: 0.101 #02273B, stop: 0.9 #02273B, stop: 0.901 #02273B, stop: 1 #02273B);
+color:#fff;
 }
 
 QMenu {
@@ -151,21 +151,21 @@ padding-right:5px;
 }
 
 QTabWidget {
-background-color:#f2f2f2;
+background-color:#02273B;
 }
 
 QTabWidget::pane {
-background-color:#f2f2f2;
-border:1px solid #c2c2c2;
+background-color:rgb(155, 158, 160);
 }
 
 QTabBar {
-background-color:#f2f2f2;
-color:#333;
+background-color:#02273B;
+color:#fff;
 }
 
 QTabBar::tab:hover:!selected {
-background-color:#dedbe5;
+background-color:#1B3D4F;
+color: #fff;
 }
 
 QWidget {
@@ -294,20 +294,20 @@ background-color: #f2f2f2;
 }
 
 QComboBox { /* Dropdown Menus */
-border:1px solid #002F49;
+border:1px solid #80939D;
 padding: 3px 5px 3px 5px;
 background:#02273B;
 min-height:25px;
-color:#80939D;
+color:#fff;
 }
 
 QComboBox:checked {
-background:#f2f2f2;
+background:#011C2A;
 }
 
 QComboBox:editable {
-background:#777c7c;
-color:#616161;
+background:#1B3D4F;
+color:#80939D;
 border:0px solid transparent;
 }
 
@@ -322,7 +322,7 @@ border-image: url(':/images/downArrow') 0 0 0 0 stretch stretch;
 
 QComboBox QListView {
 background:#02273B;
-border:1px solid #333;
+border:1px solid #80939D;
 padding-right:1px;
 padding-left:1px;
 color:#FFFFFF;
@@ -342,7 +342,8 @@ background:#fff;
 
 QComboBox::item:selected {
 border:0px solid transparent;
-background:#f2f2f2;
+background:#011C2A;
+color: #fff;
 }
 
 QComboBox::indicator {
@@ -455,12 +456,14 @@ border:0;
 
 .QTableView { /* Table - has to be selected as a class otherwise it throws off QCalendarWidget */
 background:transparent;
-border:1px solid #333;
+border: 0.5px solid #fff;
 }
 
 QTableView::item { /* Table Item */
 background-color:#02273B;
 font-size:12px;
+color: #fff;
+border: 0px;
 }
 
 QTableView::item:selected { /* Table Item Selected */
@@ -470,8 +473,7 @@ color:#fff;
 
 QTableWidget { /* Table Background */
 background-color: #02273B;
-alternate-background-color: yellow;
-border:1px solid #333;
+border:1px solid #fff;
 }
 
 QTableWidget:focus, QTableView, QTableView:focus { /* Remove focus outline */
@@ -633,6 +635,7 @@ background-color: #02273B;
 
 QDialog .QTabWidget {
 border-bottom:1px solid #333;
+color: #fff
 }
 
 QDialog .QTabWidget::pane {
@@ -1768,10 +1771,12 @@ background-color:#02273B;
 
 QWidget#MasternodeList .QFrame#frame_BG .QFrame#frame_Content .QTabWidget#tabWidget .QWidget#tabMyMasternodes {
 background-color:#02273B;
+color: #fff;
 }
 
 QWidget#MasternodeList .QFrame#frame_BG .QFrame#frame_Content .QTabWidget#tabWidget .QWidget#tabAllMasternodes {
 background-color:#02273B;
+color: #fff;
 }
 
 /********************************* CALENDAR WIDGET **************************************/

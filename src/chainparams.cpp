@@ -127,7 +127,7 @@ public:
         nTargetSpacing = 1 * 60;  // BITWIN24: 1 minute
         nMaturity = 100;
         nMasternodeCountDrift = 20;
-        nBlockReward = 3 * COIN;
+        nBlockReward = 5 * COIN;
         nMaxSupply = 21000000 * COIN;
 
         // The mainnet swap amount of 37334000 was determined based on money supply 36757502.29915683 BITWIN24 @ block 416959.

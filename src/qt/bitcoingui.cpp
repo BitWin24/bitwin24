@@ -355,19 +355,6 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
 
 #ifdef ENABLE_WALLET
     QSettings settings;
-    if (settings.value("fShowMerchantTab").toBool()) {
-        merchantAction = new QAction(QIcon(":/icons/merchant"), tr("&Merchant"), this);
-        merchantAction->setStatusTip(tr("BitWin24 Merchant"));
-        merchantAction->setToolTip(merchantAction->statusTip());
-        merchantAction->setCheckable(true);
-#ifdef Q_OS_MAC
-        merchantAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_7));
-#else
-        merchantAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_7));
-#endif
-        tabGroup->addAction(merchantAction);
-    }
-
     if (settings.value("fShowMasternodesTab").toBool()) {
         masternodeAction = new QAction(QIcon(":/icons/masternodes"), tr("&Masternodes"), this);
         masternodeAction->setStatusTip(tr("Browse masternodes"));
@@ -394,10 +381,6 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
     if (Params().ZeroCoinEnabled()) {
         connect(privacyAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
         connect(privacyAction, SIGNAL(triggered()), this, SLOT(gotoPrivacyPage()));
-    }
-    if (settings.value("fShowMerchantTab").toBool()) {
-        connect(merchantAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
-        connect(merchantAction, SIGNAL(triggered()), this, SLOT(gotoMerchantPage()));
     }
     connect(historyAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(historyAction, SIGNAL(triggered()), this, SLOT(gotoHistoryPage()));
@@ -590,9 +573,6 @@ void BitcoinGUI::createToolBars()
         if (settings.value("fShowMasternodesTab").toBool()) {
             toolbar->addAction(masternodeAction);
         }
-        if (settings.value("fShowMerchantTab").toBool()) {
-            toolbar->addAction(merchantAction);
-        }
         toolbar->setMovable(false); // remove unused icon in upper left corner
         toolbar->setOrientation(Qt::Vertical);
         toolbar->setIconSize(QSize(40,40));
@@ -695,9 +675,6 @@ void BitcoinGUI::setWalletActionsEnabled(bool enabled)
         privacyAction->setEnabled(enabled);
     }
     QSettings settings;
-    if (settings.value("fShowMerchantTab").toBool()) {
-        merchantAction->setEnabled(enabled);
-    }
     historyAction->setEnabled(enabled);
     if (settings.value("fShowMasternodesTab").toBool()) {
         masternodeAction->setEnabled(enabled);
@@ -757,9 +734,6 @@ void BitcoinGUI::createTrayIconMenu()
         trayIconMenu->addAction(privacyAction);
     }
     QSettings settings;
-    if (settings.value("fShowMerchantTab").toBool()) {
-        trayIconMenu->addAction(merchantAction);
-    }
     trayIconMenu->addSeparator();
     trayIconMenu->addAction(signMessageAction);
     trayIconMenu->addAction(verifyMessageAction);
@@ -860,15 +834,6 @@ void BitcoinGUI::gotoPrivacyPage()
     if (Params().ZeroCoinEnabled()) {
         privacyAction->setChecked(true);
         if (walletFrame) walletFrame->gotoPrivacyPage();
-    }
-}
-
-void BitcoinGUI::gotoMerchantPage()
-{
-    QSettings settings;
-    if (settings.value("fShowMerchantTab").toBool()) {
-        merchantAction->setChecked(true);
-        if (walletFrame) walletFrame->gotoMerchantPage();
     }
 }
 

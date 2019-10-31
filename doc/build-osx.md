@@ -52,6 +52,10 @@ Instructions: Homebrew
         export LDFLAGS+=-L/usr/local/opt/openssl/lib
         export CPPFLAGS+=-I/usr/local/opt/openssl/include
 
+or:
+        export LDFLAGS="-L/usr/local/opt/openssl/lib"
+        export CPPFLAGS="-I/usr/local/opt/openssl/include"
+
 3.  Build bitwin24d:
 
         ./autogen.sh

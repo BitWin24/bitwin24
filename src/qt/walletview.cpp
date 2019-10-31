@@ -128,11 +128,6 @@ WalletView::WalletView(QWidget* parent) : QStackedWidget(parent),
     }
 
     QSettings settings;
-    if (settings.value("fShowMerchantTab").toBool()) {
-        merchantPage = new MerchantDialog();
-        addWidget(merchantPage);
-    }
-
     addWidget(receiveCoinsPage);
     addWidget(sendCoinsPage);
     addWidget(explorerWindow);
@@ -284,16 +279,6 @@ void WalletView::gotoPrivacyPage()
 {
     if (Params().ZeroCoinEnabled()) {
         setCurrentWidget(privacyPage);
-        // Refresh UI-elements in case coins were locked/unlocked in CoinControl
-        walletModel->emitBalanceChanged();
-    }
-}
-
-void WalletView::gotoMerchantPage()
-{
-    QSettings settings;
-    if (settings.value("fShowMerchantTab").toBool()) {
-        setCurrentWidget(merchantPage);
         // Refresh UI-elements in case coins were locked/unlocked in CoinControl
         walletModel->emitBalanceChanged();
     }

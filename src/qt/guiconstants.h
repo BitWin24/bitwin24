@@ -32,7 +32,7 @@ static const bool DEFAULT_SPLASHSCREEN = true;
 /* Transaction list -- TX status decoration - offline */
 #define COLOR_TX_STATUS_OFFLINE QColor(192, 192, 192)
 /* Transaction list -- TX status decoration - default color */
-#define COLOR_BLACK QColor(51, 51, 51)
+#define COLOR_BLACK QColor(255, 255, 255)
 /* Transaction list -- TX status decoration - conflicted (LIGHT RED) */
 #define COLOR_CONFLICTED QColor(200, 100, 100)
 /* Transaction list -- TX status decoration - orphan (Light Gray #D3D3D3) */

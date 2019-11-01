@@ -276,7 +276,7 @@ void BitcoinMinerFast(CWallet* pwallet, bool fProofOfStake)
             {
                 if (GetTime() - mapHashedBlocks[chainActive.Tip()->nHeight] < max(pwallet->nHashInterval, (unsigned int)1)) // wait half of the nHashDrift with max wait of 3 minutes
                 {
-//                    MilliSleep(5000);
+                    SetMockTime(GetTime() + 1);
                     continue;
                 }
             }
@@ -379,7 +379,7 @@ void BitcoinMinerFast(CWallet* pwallet, bool fProofOfStake)
                         nHPSTimerStart = GetTimeMillis();
                         nHashCounter = 0;
                         static int64_t nLogTime;
-                        if (GetTime() - nLogTime > 30 * 60) {
+                        if (GetTime() - nLogTime > 330 * 60) {
                             nLogTime = GetTime();
                             LogPrintf("hashmeter %6.0f khash/s\n", dHashesPerSec / 1000.0);
                         }
@@ -421,6 +421,7 @@ UniValue GetNetworkHashPS(int lookup, int height)
     {
         int currentBlock = chainActive.Tip()->nHeight + 1;
         int lastBlockTime = chainActive.Tip()->nTime;
+        int skipTime = 0;
         if(currentBlock <= Params().LAST_POW_BLOCK())
         {
             int64_t mockTime = chainActive.Genesis()->nTime + currentBlock * 60;
@@ -430,9 +431,18 @@ UniValue GetNetworkHashPS(int lookup, int height)
         }
         else
         {
-            int64_t mockTime = lastBlockTime + 4 * 60; // miner can search old blocks
+            int64_t mockTime = lastBlockTime + (4+skipTime) * 60; // miner can search old blocks
             SetMockTime(mockTime);
             BitcoinMinerFast(pwalletMain, true);
+            if(lastBlockTime == chainActive.Tip()->nTime)
+                return -1;
+//                skipTime++;
+//            else
+//                skipTime = 0;
+
+//            return -2;
+//            if(skipTime > 2)
+//                return -1;
         }
     }
     SetMockTime(0);

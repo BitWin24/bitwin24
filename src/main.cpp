@@ -1775,9 +1775,19 @@ int64_t GetBlockValue(int nHeight)
         }
     }
     else {
-        CAmount currentSupply = (nHeight - Params().SwapPoWBlocks()) * Params().BlockReward() + Params().SwapAmount();
-        if ((currentSupply + Params().BlockReward()) <= Params().MaxSupply())
-            nSubsidy = Params().BlockReward();
+        const int reward2Star = 5150;
+        if (nHeight < reward2Star) {
+            const CAmount currentSupply = (nHeight - Params().SwapPoWBlocks()) * Params().BlockReward()
+                                          + Params().SwapAmount();
+            if ((currentSupply + Params().BlockReward()) <= Params().MaxSupply())
+                nSubsidy = Params().BlockReward();
+        } else {
+            const CAmount supplyBeforeReward2 = (reward2Star - Params().SwapPoWBlocks()) * Params().BlockReward()
+                                                + Params().SwapAmount();
+            const CAmount currentSupply = (nHeight - reward2Star) * Params().BlockReward2() + supplyBeforeReward2;
+            if ((currentSupply + Params().BlockReward2()) <= Params().MaxSupply())
+                nSubsidy = Params().BlockReward2();
+        }
     }
 
     return nSubsidy;

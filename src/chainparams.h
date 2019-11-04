@@ -134,6 +134,7 @@ public:
     CAmount InvalidAmountFiltered() const { return nInvalidAmountFiltered; };
 
     CAmount BlockReward() const { return nBlockReward; }
+    CAmount BlockReward2() const { return nBlockReward2; }
     CAmount MaxSupply() const { return nMaxSupply; }
 
 protected:
@@ -204,6 +205,7 @@ protected:
     int nBlockZerocoinV2;
 
     CAmount nBlockReward;
+    CAmount nBlockReward2;
     CAmount nMaxSupply;
 };
 

@@ -1782,7 +1782,7 @@ int64_t GetBlockValue(int nHeight)
             if ((currentSupply + Params().BlockReward()) <= Params().MaxSupply())
                 nSubsidy = Params().BlockReward();
         } else {
-            const CAmount supplyBeforeReward2 = (reward2Star - Params().SwapPoWBlocks()) * Params().BlockReward()
+            const CAmount supplyBeforeReward2 = (reward2Star - Params().SwapPoWBlocks() - 1) * Params().BlockReward()
                                                 + Params().SwapAmount();
             const CAmount currentSupply = (nHeight - reward2Star) * Params().BlockReward2() + supplyBeforeReward2;
             if ((currentSupply + Params().BlockReward2()) <= Params().MaxSupply())

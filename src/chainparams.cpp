@@ -192,13 +192,7 @@ public:
         assert(hashGenesisBlock == uint256("0x000000772114d8a6c2b9a36be07cc74b05a67db48bdacb1cac16aa96b3f29308"));
         assert(genesis.hashMerkleRoot == uint256("0x59b032829f89c69e4e3f4f378b46aed9f6898d4c4ea1a4786e05e640c2a53b9c"));
 
-//        vSeeds.push_back(CDNSSeedData("BitWin24.io", "satoshi.BitWin24.io"));   // Primary DNS Seeder
-//        vSeeds.push_back(CDNSSeedData("litemint.com", "satoshi.litemint.com"));     // Secondary DNS Seeder
-//        vSeeds.push_back(CDNSSeedData("35.241.249.95", "35.241.249.95"));
-//        vSeeds.push_back(CDNSSeedData("35.227.76.49", "35.227.76.49"));
-        vSeeds.push_back(CDNSSeedData("142.93.170.77", "142.93.170.77"));
-        vSeeds.push_back(CDNSSeedData("46.101.138.89", "46.101.138.89"));
-        vSeeds.push_back(CDNSSeedData("165.22.88.46", "165.22.88.46"));
+        vSeeds.push_back(CDNSSeedData("167.172.160.11", "167.172.160.11"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 38); // Start with 'G'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 15); // Start with '7'

@@ -221,7 +221,7 @@ public:
         fZeroCoinEnabled = false;
 
         nPoolMaxTransactions = 3;
-        strSporkKey = "043306b8b174192b112b453536cc899e862351b8b408640de8a150876447c9a62eb7f4125ae9ecd965f45ecf2e5bb259e32fcf7cec84cedbb3fb67ecdab15a2081";
+        strSporkKey = "04955AD7A25E39ED4A9DDC0977972909E6221092EB706F380687CDDF4A520DCE4E87E2576E2353615075FF0CFFBD0777A04AA51834FF64D58622ACB37CB7FAD425";
         strSporkKeyOld = "043306b8b174192b112b453536cc899e862351b8b408640de8a150876447c9a62eb7f4125ae9ecd965f45ecf2e5bb259e32fcf7cec84cedbb3fb67ecdab15a2081";
         strObfuscationPoolDummyAddress = "GSkW1Z9n94rdjfHd1VWVXfDgcDkMXhYNWr";
         nStartMasternodePayments = genesis.nTime;

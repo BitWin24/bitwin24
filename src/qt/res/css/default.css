@@ -35,6 +35,10 @@ QStatusBar {
 background-color:#02273B;
 }
 
+QStatusBar QLabel {
+    color:#fff;
+}
+
 .QFrame {
 background-color:transparent;
 border:0px solid #02273B;
@@ -73,17 +77,17 @@ background-color:#011C2A;
 }
 
 QMenu::item {
-color:#333;
+color:#fff;
 }
 
 QMenu::item:selected {
 background-color:#011C2A;
-color:#333;
+color:#fff;
 }
 
 QToolBar {
 background-color: qlineargradient(y1:0, y2: 1, stop: 0 #011D2C, stop: 0.75 #011D2C, stop: 0 #02273B, stop: 0 #02273B);
-border:0px solid #333;
+border:0px solid #fff;
 padding:1;
 margin:0;
 width: 70px;
@@ -130,7 +134,7 @@ background-color:#02273B;
 }
 
 QProgressBar {
-color: #646464;
+color: #fff;
 border:0px solid grey;
 border-radius:5px;
 background-color:transparent;
@@ -145,7 +149,7 @@ width: 20px;
 
 QLabel#progressBarLabel {
 background-color:transparent;
-color: #777c7c;
+color: #fff;
 padding-left:5px;
 padding-right:5px;
 }
@@ -176,7 +180,7 @@ outline:0; /* Remove Annoying Focus Rectangle */
 
 QGroupBox {
 background-color:#02273B;
-color:#333;
+color:#fff;
 }
 
 QToolTip {
@@ -191,6 +195,14 @@ font-size:12px;
 color:#FFFFFF;
 }
 
+.QLabel {
+color:#FFFFFF;
+}
+
+QRadioButton {
+color:#FFFFFF;
+}
+
 .QRadioButton { /* Radio Button Labels */
 color:#FFFFFF;
 }
@@ -199,7 +211,12 @@ color:#FFFFFF;
 color:#FFFFFF;
 }
 
+QCheckBox::indicator {
+    color:#fff;
+}
+
 .QCheckBox:hover {
+background-color:#02273B;
 }
 
 .QValidatedLineEdit, .QLineEdit, .QTextEdit { /* Text Entry Fields */
@@ -870,6 +887,7 @@ QWidget#MerchantDialog QLabel#labelMerchantLoginStatus {
 /* Encrypt Wallet and Change Passphrase Dialog */
 QDialog#AskPassphraseDialog QLabel#passLabel1, QDialog#AskPassphraseDialog QLabel#passLabel2, QDialog#AskPassphraseDialog QLabel#passLabel3 {
 qproperty-alignment: 'AlignVCenter | AlignRight';
+color:#FFFFFF;
 }
 
 /* Options Dialog */
@@ -890,6 +908,7 @@ padding-bottom:1px;
 QDialog#OptionsDialog > QLabel {
 qproperty-alignment: 'AlignVCenter';
 min-height:20px;
+color:#FFFFFF;
 }
 
 QDialog#OptionsDialog QWidget#tabDisplay QValueComboBox {
@@ -905,14 +924,17 @@ padding-bottom:8px;
 
 QDialog#OptionsDialog QCheckBox {
 min-height:20px;
+color:#FFFFFF;
 }
 
 QDialog#OptionsDialog QCheckBox#displayAddresses {
 min-height:33px;
+color:#FFFFFF;
 }
 
 QDialog#OptionsDialog QLabel#labelStakeSplitThresholdText {
 font-size:16px;
+color:#FFFFFF;
 }
 
 /**************************** TOOLS MENU ************************************************/
@@ -1458,7 +1480,7 @@ background-color:#02273B;
 
 
 QDialog#SendCoinsDialog .QCheckBox#checkUseObfuscation { /* Obfuscation Checkbox */
-color:#616161;
+color:#FFFFFF;
 font-weight:bold;
 /*background: qradialgradient(cx:0.5, cy:0.5, radius: 0.5, fx:0.5, fy:0.5, stop:0 rgba(248, 246, 246, 128), stop: 1 rgba(0, 0, 0, 0));*/
 border-radius:5px;
@@ -1467,7 +1489,7 @@ padding-bottom:18px;
 }
 
 QDialog#SendCoinsDialog .QCheckBox#checkSwiftTX { /* SwiftTX Checkbox */
-color:#616161;
+color:#FFFFFF;
 font-weight:bold;
 /*background: qradialgradient(cx:0.5, cy:0.5, radius: 0.5, fx:0.5, fy:0.5, stop:0 rgba(248, 246, 246, 128), stop: 1 rgba(0, 0, 0, 0));*/
 border-radius:5px;

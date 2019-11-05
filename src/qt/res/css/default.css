@@ -169,7 +169,7 @@ color: #fff;
 }
 
 QWidget {
-selection-background-color:#002F49; /* Object highlight color */
+selection-background-color:#1A6186; /* Object highlight color */
 selection-color:#fff;
 outline:0; /* Remove Annoying Focus Rectangle */
 }
@@ -230,8 +230,8 @@ background-color:#e7e7e7;
 /* .QValidatedLineEdit:checked, .QLineEdit:checked */
 
 .QValidatedLineEdit:disabled, .QLineEdit:disabled, .QTextEdit:disabled {
-color: #002F49;
-background-color:#f2f2f2;
+color: #80939D;
+background-color:#1B3D4F;
 }
 
 .QPlainTextEdit {
@@ -483,7 +483,7 @@ background:transparent;
 
 QTreeWidget { /* Tree Background */
 background-color:#02273B;
-alternate-background-color:#f2f2f2;
+alternate-background-color:#011C2A;
 color:#fff;
 }
 
@@ -661,7 +661,7 @@ border-right: 1px solid #d7d7d7;
 }
 
 QDialog .QTabWidget QTabBar::tab:selected, QDialog .QTabWidget QTabBar::tab:hover {
-background-color:#02273B;
+background-color:#15577B;
 color:#fff;
 }
 
@@ -933,6 +933,14 @@ color:#FFFFFF;
 
 QDialog#RPCConsole QPushButton#openDebugLogfileButton {
 max-width:60px;
+}
+
+QMainWindow#BlockExplorer {
+    background-color:#011C2A;
+}
+
+QMainWindow#BlockExplorer QScrollArea *{
+    background-color:#011C2A;
 }
 
 QDialog#RPCConsole QTextEdit#messagesWidget { /* Console Messages Window */
@@ -1625,7 +1633,7 @@ background-image: url(':/images/qtreeview_selected');
 background-repeat:no-repeat;
 background-position:center;
 background-color:#02273B;
-color:#FFFFFF;
+color:#011C2A;
 }
 
 QDialog#CoinControlDialog .CoinControlTreeWidget#treeWidget::branch:checked { /* Coin Control Branch Icon */

@@ -1792,7 +1792,7 @@ int64_t GetBlockValue(int nHeight, int nMasternodeCount)
                 currentPhaseMultiplier = 500;
             else if (nMoneySupply < 19000000 * COIN)
                 currentPhaseMultiplier = 125;
-            else if (nMoneySupply < 20000000 * COIN)
+            else if (nMoneySupply >= 19000000 * COIN)
                 currentPhaseMultiplier = 60;
 
             const int64_t collateral = 3000 * COIN;

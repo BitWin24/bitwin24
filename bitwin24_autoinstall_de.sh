@@ -187,7 +187,7 @@ cd ~
 rm -rf /usr/local/bin/bitwin24*
 wget https://github.com/BitWin24/bitwin24/releases/download/v0.0.4/bitwin24-0.0.4-x86_64-linux-gnu.tar.gz
 tar -xzvf bitwin24-0.0.4-x86_64-linux-gnu.tar.gz
-cd /root/bitwin24-0.0.4/bin/
+cd /root/bitwin24-1.0.0/bin/
 sudo chmod -R 755 bitwin24-cli
 sudo chmod -R 755 bitwin24d
 cp -p -r bitwin24d /usr/local/bin

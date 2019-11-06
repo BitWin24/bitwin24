@@ -1760,6 +1760,29 @@ double ConvertBitsToDouble(unsigned int nBits)
     return dDiff;
 }
 
+int64_t GetPhaseMultiplier(int nHeight)
+{
+    int64_t currentPhaseMultiplier = 0;
+
+    if(chainActive.Tip()->nHeight >= nHeight)
+    {
+        int64_t nMoneySupply = chainActive[nHeight]->nMoneySupply;
+
+        if (nMoneySupply < 14000000 * COIN)
+            currentPhaseMultiplier = 2000;
+        else if (nMoneySupply < 17000000 * COIN)
+            currentPhaseMultiplier = 1000;
+        else if (nMoneySupply < 18000000 * COIN)
+            currentPhaseMultiplier = 500;
+        else if (nMoneySupply < 19000000 * COIN)
+            currentPhaseMultiplier = 125;
+        else if (nMoneySupply >= 19000000 * COIN)
+            currentPhaseMultiplier = 60;
+    }
+
+    return currentPhaseMultiplier;
+}
+
 int64_t GetBlockValue(int nHeight, int nMasternodeCount)
 {
     int64_t nSubsidy = 0;
@@ -1780,17 +1803,7 @@ int64_t GetBlockValue(int nHeight, int nMasternodeCount)
             if ((nMoneySupply + Params().BlockReward2()) <= Params().MaxSupply())
                 nSubsidy = Params().BlockReward2();
         } else {
-            int64_t currentPhaseMultiplier = 0;
-            if (nMoneySupply < 14000000 * COIN)
-                currentPhaseMultiplier = 2000;
-            else if (nMoneySupply < 17000000 * COIN)
-                currentPhaseMultiplier = 1000;
-            else if (nMoneySupply < 18000000 * COIN)
-                currentPhaseMultiplier = 500;
-            else if (nMoneySupply < 19000000 * COIN)
-                currentPhaseMultiplier = 125;
-            else if (nMoneySupply >= 19000000 * COIN)
-                currentPhaseMultiplier = 60;
+            int64_t currentPhaseMultiplier = GetPhaseMultiplier(nHeight);
 
             const int64_t collateral = 3000 * COIN;
             const int64_t newSubsidy = nMasternodeCount * collateral / Params().BlocksPerYear()
@@ -1798,10 +1811,35 @@ int64_t GetBlockValue(int nHeight, int nMasternodeCount)
 
             if ((nMoneySupply + newSubsidy) <= Params().MaxSupply())
                 nSubsidy = newSubsidy;
+            else
+                nSubsidy = Params().MaxSupply() - nMoneySupply;
         }
     }
 
     return nSubsidy;
+}
+
+/** returns:
+ * -1 if reward not based on block height
+ * -2 if reward is trimmed
+ * */
+int GetMasternodeCountBasedOnBlockReward(int nHeight, CAmount reward)
+{
+    if(nHeight < 250)
+        return -1;
+
+    if ((nMoneySupply + GetBlockValue(nHeight, mnodeman.size())) == Params().MaxSupply())
+        return -2;
+
+    int nMasternodeCount = 0;
+
+    int64_t currentPhaseMultiplier = GetPhaseMultiplier(nHeight);
+
+    const int64_t collateral = 3000 * COIN;
+
+    nMasternodeCount = reward / collateral * Params().BlocksPerYear() / currentPhaseMultiplier * 1000;
+
+    return nMasternodeCount;
 }
 
 int64_t GetMasternodePayment(int64_t blockValue)
@@ -2788,6 +2826,17 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     CAmount nExpectedMint = GetBlockValue(pindex->pprev->nHeight);
     if (block.IsProofOfWork())
         nExpectedMint += nFees;
+    if(pindex->pprev->nHeight >= 250)
+    {
+        // can't validate, just accept
+        nExpectedMint = pindex->nMoneySupply - pindex->pprev->nMoneySupply;
+        int masternodeCount = GetMasternodeCountBasedOnBlockReward(pindex->pprev->nHeight, nExpectedMint);
+        if(masternodeCount > mnodeman.size() + Params().MasternodeTolerance()
+            || masternodeCount < mnodeman.size() - Params().MasternodeTolerance())
+            return state.DoS(100, error("ConnectBlock() : unexpected number of masternodes, %d not in %d +/-%d",
+                                        masternodeCount, mnodeman.size(), Params().MasternodeTolerance()),
+                             REJECT_INVALID, "bad-cb-amount");
+    }
 
     //Check that the block does not overmint
     if (!IsBlockValueValid(block, nExpectedMint, pindex->nMint)) {

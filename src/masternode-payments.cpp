@@ -316,7 +316,7 @@ void CMasternodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_t nFe
         }
     }
 
-    CAmount blockValue = GetBlockValue(pindexPrev->nHeight);
+    CAmount blockValue = GetBlockValue(pindexPrev->nHeight, mnodeman.size());
     CAmount masternodePayment = GetMasternodePayment(blockValue);
 
     if (hasPayment) {
@@ -538,7 +538,7 @@ bool CMasternodeBlockPayees::IsTransactionValid(const CTransaction& txNew)
 
     std::string strPayeesPossible = "";
 
-    CAmount nReward = GetBlockValue(nBlockHeight);
+    CAmount nReward = GetBlockValue(nBlockHeight, mnodeman.size());
 
     CAmount requiredMasternodePayment = GetMasternodePayment(nReward);
 

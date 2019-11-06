@@ -229,6 +229,11 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
 
 bool ActivateBestChain(CValidationState& state, CBlock* pblock = NULL, bool fAlreadyChecked = false);
 CAmount GetBlockValue(int nHeight, int nMasternodeCount = 0);
+/** returns:
+ * -1 if reward not based on block height
+ * -2 if reward is trimmed*/
+int GetMasternodeCountBasedOnBlockReward(int nHeight, CAmount reward);
+int64_t GetPhaseMultiplier(int nHeight);
 
 /** Create a new block index entry for a given block hash */
 CBlockIndex* InsertBlockIndex(uint256 hash);

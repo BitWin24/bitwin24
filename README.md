@@ -15,9 +15,3 @@ We also strongly believe that the incentivized two-tier model brought about by m
 <tr><td>Max Coin Supply</td><td>21 000 000 BWI
 <tr><td>Premine for ICO</td><td>7 000 000 BWI
 </table>
-
-
-### POS Rewards Breakdown
-
-![Masternodes vs Coinbase](https://BitWin24.io/images/supply2.png)
-![BitWin24 Supply](https://BitWin24.io/images/supply1.png)

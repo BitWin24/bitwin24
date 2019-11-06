@@ -185,15 +185,15 @@ fi
 #Installing Daemon
 cd ~
 rm -rf /usr/local/bin/bitwin24*
-wget http://142.93.170.77/0.0.2/bitwin24-1.0.0-x86_64-linux-gnu.tar.gz
-tar -xzvf bitwin24-1.0.0-x86_64-linux-gnu.tar.gz
-cd /root/bitwin24-1.0.0/bin/
+wget https://github.com/BitWin24/bitwin24/releases/download/v0.0.4/bitwin24-0.0.4-x86_64-linux-gnu.tar.gz
+tar -xzvf bitwin24-0.0.4-x86_64-linux-gnu.tar.gz
+cd /root/bitwin24-0.0.4/bin/
 sudo chmod -R 755 bitwin24-cli
 sudo chmod -R 755 bitwin24d
 cp -p -r bitwin24d /usr/local/bin
 cp -p -r bitwin24-cli /usr/local/bin
 bitwin24-cli stop
-rm ~/bitwin24-1.0.0-x86_64-linux-gnu.tar.gz*
+rm ~/bitwin24-0.0.4-x86_64-linux-gnu.tar.gz*
  
 sleep 5
  #Create datadir

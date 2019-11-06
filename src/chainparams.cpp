@@ -131,6 +131,7 @@ public:
         nBlockReward2 = 0.5 * COIN;
         nMaxSupply = 21000000 * COIN;
         nBlocksPerYear = 365 * 24 * 60;
+        nMasternodeTolerance = 2;
 
         // The mainnet swap amount of 37334000 was determined based on money supply 36757502.29915683 BITWIN24 @ block 416959.
         // 576500 BITWIN24 were added to this amount to represent the expected POW production at a rate of 960 blocks/day

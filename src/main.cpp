@@ -1822,24 +1822,30 @@ int64_t GetBlockValue(int nHeight, int nMasternodeCount)
 /** returns:
  * -1 if reward not based on block height
  * -2 if reward is trimmed
+ * -3 unknown
  * */
 int GetMasternodeCountBasedOnBlockReward(int nHeight, CAmount reward)
 {
     if(nHeight < 250)
         return -1;
 
+    int masternodeCount = 0;
+
+    if(chainActive.Tip()->nHeight >= nHeight)
+        return -3
+
+    int64_t nMoneySupply = chainActive[nHeight]->nMoneySupply;
+
     if ((nMoneySupply + GetBlockValue(nHeight, mnodeman.size())) == Params().MaxSupply())
         return -2;
-
-    int nMasternodeCount = 0;
 
     int64_t currentPhaseMultiplier = GetPhaseMultiplier(nHeight);
 
     const int64_t collateral = 3000 * COIN;
 
-    nMasternodeCount = reward / collateral * Params().BlocksPerYear() / currentPhaseMultiplier * 1000;
+    masternodeCount = reward / collateral * Params().BlocksPerYear() / currentPhaseMultiplier * 1000;
 
-    return nMasternodeCount;
+    return masternodeCount;
 }
 
 int64_t GetMasternodePayment(int64_t blockValue)

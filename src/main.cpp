@@ -1760,7 +1760,7 @@ double ConvertBitsToDouble(unsigned int nBits)
     return dDiff;
 }
 
-int64_t GetBlockValue(int nHeight)
+int64_t GetBlockValue(int nHeight, int nMasternodeCount)
 {
     int64_t nSubsidy = 0;
     if (nHeight >= 0 && nHeight <= Params().LAST_POW_BLOCK()) {
@@ -1773,12 +1773,34 @@ int64_t GetBlockValue(int nHeight)
     }
     else {
         int64_t nMoneySupply = chainActive.Tip()->nMoneySupply;
-        if (nHeight < 5150) {
+        if (nHeight < 230) {
             if ((nMoneySupply + Params().BlockReward()) <= Params().MaxSupply())
                 nSubsidy = Params().BlockReward();
-        } else {
+        } else if (nHeight < 250) {
             if ((nMoneySupply + Params().BlockReward2()) <= Params().MaxSupply())
                 nSubsidy = Params().BlockReward2();
+        } else {
+            if(nMasternodeCount == 0)
+                nMasternodeCount = mnodeman.size();
+
+            int64_t currentPhaseMultiplier = 0;
+            if (nMoneySupply < 14000000 * COIN)
+                currentPhaseMultiplier = 2000;
+            else if (nMoneySupply < 17000000 * COIN)
+                currentPhaseMultiplier = 1000;
+            else if (nMoneySupply < 18000000 * COIN)
+                currentPhaseMultiplier = 500;
+            else if (nMoneySupply < 19000000 * COIN)
+                currentPhaseMultiplier = 125;
+            else if (nMoneySupply < 20000000 * COIN)
+                currentPhaseMultiplier = 60;
+
+            const int64_t collateral = 3000 * COIN;
+            const int64_t newSubsidy = nMasternodeCount * collateral / Params().BlocksPerYear()
+                                       * currentPhaseMultiplier / 1000;
+
+            if ((nMoneySupply + newSubsidy) <= Params().MaxSupply())
+                nSubsidy = newSubsidy;
         }
     }
 

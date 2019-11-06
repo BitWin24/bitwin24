@@ -137,6 +137,8 @@ public:
     CAmount BlockReward2() const { return nBlockReward2; }
     CAmount MaxSupply() const { return nMaxSupply; }
 
+    CAmount BlocksPerYear() const { return nBlocksPerYear; }
+
 protected:
     CChainParams() {}
 
@@ -207,6 +209,8 @@ protected:
     CAmount nBlockReward;
     CAmount nBlockReward2;
     CAmount nMaxSupply;
+
+    int nBlocksPerYear;
 };
 
 /**

@@ -1780,9 +1780,6 @@ int64_t GetBlockValue(int nHeight, int nMasternodeCount)
             if ((nMoneySupply + Params().BlockReward2()) <= Params().MaxSupply())
                 nSubsidy = Params().BlockReward2();
         } else {
-            if(nMasternodeCount == 0)
-                nMasternodeCount = mnodeman.size();
-
             int64_t currentPhaseMultiplier = 0;
             if (nMoneySupply < 14000000 * COIN)
                 currentPhaseMultiplier = 2000;

@@ -8,17 +8,17 @@
 # Usage:
 # bash bitwin24_autoinstall.sh
 #
-
+#
 #Color codes
 RED='\033[0;91m'
 GREEN='\033[1;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
-
+#
 #TCP port
 PORT=24072
 RPC=1315
-
+#
 #Clear keyboard input buffer
 function clear_stdin { while read -r -t 0; do read -r; done; }
 

@@ -115,7 +115,7 @@ public:
         pchMessageStart[2] = 0x2c;
         pchMessageStart[3] = 0x6e;
         vAlertPubKey = ParseHex("0457cbd0e4325dbcdf526f4b27d459383b7ddca9bb4bdfa61ada823a3f8522b6f9c7afbc4375f51ed22989de3eced8612dd99f110936fe313938d22b5f838c775a");
-        nDefaultPort = 24072;
+        nDefaultPort = 34072;
         bnProofOfWorkLimit = (~uint256(0) >> 6);
         nSubsidyHalvingInterval = 210000;
         nMaxReorganizationDepth = 100;
@@ -194,7 +194,7 @@ public:
         assert(hashGenesisBlock == uint256("0x000000772114d8a6c2b9a36be07cc74b05a67db48bdacb1cac16aa96b3f29308"));
         assert(genesis.hashMerkleRoot == uint256("0x59b032829f89c69e4e3f4f378b46aed9f6898d4c4ea1a4786e05e640c2a53b9c"));
 
-        vSeeds.push_back(CDNSSeedData("167.172.160.11", "167.172.160.11"));
+//        vSeeds.push_back(CDNSSeedData("167.172.160.11", "167.172.160.11"));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 38); // Start with 'G'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 15); // Start with '7'
@@ -284,7 +284,7 @@ public:
 //        vSeeds.push_back(CDNSSeedData("litemint.com", "nakamoto.litemint.com"));
 //        vSeeds.push_back(CDNSSeedData("35.241.249.95", "35.241.249.95"));
 //        vSeeds.push_back(CDNSSeedData("35.227.76.49", "35.227.76.49"));
-//        vSeeds.push_back(CDNSSeedData("35.190.191.73", "35.190.191.73"));
+        vSeeds.push_back(CDNSSeedData("212.3.122.178", "212.3.122.178"));
         
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 65); // Testnet bitwin24 addresses start with 'T'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 10);  // Testnet bitwin24 script addresses start with '5'
@@ -351,7 +351,7 @@ public:
 
         hashGenesisBlock = genesis.GetHash();
         string strHexHash = genesis.GetHash().GetHex();
-        nDefaultPort = 24072;
+        nDefaultPort = 34072;
 //        assert(hashGenesisBlock == uint256("0xed556f3925965379bf46d9c15375cab46741dc47dc9113c6bf5b569ea316ca34"));
 
         vFixedSeeds.clear(); //! Testnet mode doesn't have any fixed seeds.

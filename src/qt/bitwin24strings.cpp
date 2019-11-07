@@ -235,10 +235,10 @@ QT_TRANSLATE_NOOP("bitwin24-core", ""
 QT_TRANSLATE_NOOP("bitwin24-core", ""
 "You must specify a masternodeprivkey in the configuration. Please see "
 "documentation for help."),
-QT_TRANSLATE_NOOP("bitwin24-core", "(24072 could be used only on mainnet)"),
+QT_TRANSLATE_NOOP("bitwin24-core", "(34072 could be used only on mainnet)"),
 QT_TRANSLATE_NOOP("bitwin24-core", "(default: %s)"),
 QT_TRANSLATE_NOOP("bitwin24-core", "(default: 1)"),
-QT_TRANSLATE_NOOP("bitwin24-core", "(must be 24072 for mainnet)"),
+QT_TRANSLATE_NOOP("bitwin24-core", "(must be 34072 for mainnet)"),
 QT_TRANSLATE_NOOP("bitwin24-core", "<category> can be:"),
 QT_TRANSLATE_NOOP("bitwin24-core", "Accept command line and JSON-RPC commands"),
 QT_TRANSLATE_NOOP("bitwin24-core", "Accept connections from outside (default: 1 if no -proxy or -connect)"),

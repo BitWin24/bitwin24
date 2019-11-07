@@ -445,7 +445,7 @@ boost::filesystem::path GetDefaultDataDir()
     return pathRet / "BITWIN24";
 #else
     // Unix
-    return pathRet / ".bitwin24_test";
+    return pathRet / ".bitwin24";
 #endif
 #endif
 }

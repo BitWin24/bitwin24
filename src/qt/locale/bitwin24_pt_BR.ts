@@ -3728,8 +3728,8 @@ https://www.transifex.com/BitWin24/BitWin24-translations</translation>
         <translation>Você deve especificar uma masternodeprivkey na configuração. Favor verificar o manual para obter ajuda.</translation>
     </message>
     <message>
-        <source>(34072 could be used only on mainnet)</source>
-        <translation>(34072 could be used only on mainnet)</translation>
+        <source>(24072 could be used only on mainnet)</source>
+        <translation>(24072 could be used only on mainnet)</translation>
     </message>
     <message>
         <source>(default: %s)</source>
@@ -3740,8 +3740,8 @@ https://www.transifex.com/BitWin24/BitWin24-translations</translation>
         <translation>(padrão: 1)</translation>
     </message>
     <message>
-        <source>(must be 34072 for mainnet)</source>
-        <translation>(deve ser 34072 para mainnet)</translation>
+        <source>(must be 24072 for mainnet)</source>
+        <translation>(deve ser 24072 para mainnet)</translation>
     </message>
     <message>
         <source>Accept connections from outside (default: 1 if no -proxy or -connect)</source>

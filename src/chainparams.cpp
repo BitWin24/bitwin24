@@ -115,7 +115,7 @@ public:
         pchMessageStart[2] = 0x2c;
         pchMessageStart[3] = 0x6e;
         vAlertPubKey = ParseHex("0457cbd0e4325dbcdf526f4b27d459383b7ddca9bb4bdfa61ada823a3f8522b6f9c7afbc4375f51ed22989de3eced8612dd99f110936fe313938d22b5f838c775a");
-        nDefaultPort = 34072;
+        nDefaultPort = 24072;
         bnProofOfWorkLimit = (~uint256(0) >> 6);
         nSubsidyHalvingInterval = 210000;
         nMaxReorganizationDepth = 100;
@@ -284,7 +284,7 @@ public:
 //        vSeeds.push_back(CDNSSeedData("litemint.com", "nakamoto.litemint.com"));
 //        vSeeds.push_back(CDNSSeedData("35.241.249.95", "35.241.249.95"));
 //        vSeeds.push_back(CDNSSeedData("35.227.76.49", "35.227.76.49"));
-        vSeeds.push_back(CDNSSeedData("212.3.122.178", "212.3.122.178"));
+        vSeeds.push_back(CDNSSeedData("134.209.244.29", "134.209.244.29"));
         
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 65); // Testnet bitwin24 addresses start with 'T'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 10);  // Testnet bitwin24 script addresses start with '5'
@@ -351,7 +351,7 @@ public:
 
         hashGenesisBlock = genesis.GetHash();
         string strHexHash = genesis.GetHash().GetHex();
-        nDefaultPort = 34072;
+        nDefaultPort = 24072;
 //        assert(hashGenesisBlock == uint256("0xed556f3925965379bf46d9c15375cab46741dc47dc9113c6bf5b569ea316ca34"));
 
         vFixedSeeds.clear(); //! Testnet mode doesn't have any fixed seeds.

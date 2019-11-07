@@ -231,7 +231,9 @@ bool ActivateBestChain(CValidationState& state, CBlock* pblock = NULL, bool fAlr
 CAmount GetBlockValue(int nHeight, int nMasternodeCount = 0);
 /** returns:
  * -1 if reward not based on block height
- * -2 if reward is trimmed*/
+ * -2 if reward is trimmed
+ * -3 unknown
+ * */
 int GetMasternodeCountBasedOnBlockReward(int nHeight, CAmount reward);
 int64_t GetPhaseMultiplier(int nHeight);
 

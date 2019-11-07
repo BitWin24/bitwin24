@@ -2836,12 +2836,15 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     {
         // can't validate, just accept
         nExpectedMint = pindex->nMoneySupply - pindex->pprev->nMoneySupply;
-        int masternodeCount = GetMasternodeCountBasedOnBlockReward(pindex->pprev->nHeight, nExpectedMint);
-        if(masternodeCount > mnodeman.size() + Params().MasternodeTolerance()
-            || masternodeCount < mnodeman.size() - Params().MasternodeTolerance())
-            return state.DoS(100, error("ConnectBlock() : unexpected number of masternodes, %d not in %d +/-%d",
-                                        masternodeCount, mnodeman.size(), Params().MasternodeTolerance()),
-                             REJECT_INVALID, "bad-cb-amount");
+        if(!IsInitialBlockDownload())
+        {
+            int masternodeCount = GetMasternodeCountBasedOnBlockReward(pindex->pprev->nHeight, nExpectedMint);
+            if(masternodeCount > mnodeman.size() + Params().MasternodeTolerance()
+               || masternodeCount < mnodeman.size() - Params().MasternodeTolerance())
+                return state.DoS(100, error("ConnectBlock() : unexpected number of masternodes, %d not in %d +/-%d",
+                                            masternodeCount, mnodeman.size(), Params().MasternodeTolerance()),
+                                 REJECT_INVALID, "bad-cb-amount");
+        }
     }
 
     //Check that the block does not overmint

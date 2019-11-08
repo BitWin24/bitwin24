@@ -1804,16 +1804,24 @@ int64_t GetBlockValue(int nHeight, int nMasternodeCount)
             if ((nMoneySupply + Params().BlockReward2()) <= Params().MaxSupply())
                 nSubsidy = Params().BlockReward2();
         } else {
-            int64_t currentPhaseMultiplier = GetPhaseMultiplier(nHeight);
-
-            const int64_t collateral = 3000 * COIN;
-            const int64_t newSubsidy = nMasternodeCount * collateral / Params().BlocksPerYear()
-                                       * currentPhaseMultiplier / 1000;
-
-            if ((nMoneySupply + newSubsidy) <= Params().MaxSupply())
-                nSubsidy = newSubsidy;
+            if(nHeight <= chainActive.Height())
+            {
+                // for old blocks the number of masternodes is unknown, the return value from the block
+                return chainActive[nHeight]->nMoneySupply - chainActive[nHeight - 1]->nMoneySupply;
+            }
             else
-                nSubsidy = Params().MaxSupply() - nMoneySupply;
+            {
+                int64_t currentPhaseMultiplier = GetPhaseMultiplier(nHeight);
+
+                const int64_t collateral = 3000 * COIN;
+                const int64_t newSubsidy = nMasternodeCount * collateral / Params().BlocksPerYear()
+                                           * currentPhaseMultiplier / 1000;
+
+                if ((nMoneySupply + newSubsidy) <= Params().MaxSupply())
+                    nSubsidy = newSubsidy;
+                else
+                    nSubsidy = Params().MaxSupply() - nMoneySupply;
+            }
         }
     }
 

@@ -1764,21 +1764,22 @@ int64_t GetPhaseMultiplier(int nHeight)
 {
     int64_t currentPhaseMultiplier = 0;
 
-    if(chainActive.Tip()->nHeight >= nHeight)
-    {
-        int64_t nMoneySupply = chainActive[nHeight]->nMoneySupply;
+    int64_t nMoneySupply = 0;
+    if(chainActive.Tip()->nHeight < nHeight)
+        nMoneySupply = chainActive[chainActive.Tip()->nHeight]->nMoneySupply;
+    else
+        nMoneySupply = chainActive[nHeight]->nMoneySupply;
 
-        if (nMoneySupply < 14000000 * COIN)
-            currentPhaseMultiplier = 2000;
-        else if (nMoneySupply < 17000000 * COIN)
-            currentPhaseMultiplier = 1000;
-        else if (nMoneySupply < 18000000 * COIN)
-            currentPhaseMultiplier = 500;
-        else if (nMoneySupply < 19000000 * COIN)
-            currentPhaseMultiplier = 125;
-        else if (nMoneySupply >= 19000000 * COIN)
-            currentPhaseMultiplier = 60;
-    }
+    if (nMoneySupply < 14000000 * COIN)
+        currentPhaseMultiplier = 2000;
+    else if (nMoneySupply < 17000000 * COIN)
+        currentPhaseMultiplier = 1000;
+    else if (nMoneySupply < 18000000 * COIN)
+        currentPhaseMultiplier = 500;
+    else if (nMoneySupply < 19000000 * COIN)
+        currentPhaseMultiplier = 125;
+    else if (nMoneySupply >= 19000000 * COIN)
+        currentPhaseMultiplier = 60;
 
     return currentPhaseMultiplier;
 }
@@ -2574,7 +2575,7 @@ bool UpdateZBWISupply(const CBlock& block, CBlockIndex* pindex)
             pindex->mapZerocoinSupply.at(denom)++;
 
             //Remove any of our own mints from the mintpool
-            if (pwalletMain) {
+            if (pwallet) {
                 if (pwalletMain->IsMyMint(m.GetValue())) {
                     pwalletMain->UpdateMint(m.GetValue(), pindex->nHeight, m.GetTxHash(), m.GetDenomination());
 

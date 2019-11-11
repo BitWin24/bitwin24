@@ -316,7 +316,8 @@ void CMasternodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_t nFe
         }
     }
 
-    CAmount blockValue = GetBlockValue(pindexPrev->nHeight, mnodeman.size());
+//    CAmount blockValue = GetBlockValue(pindexPrev->nHeight, mnodeman.size());
+    CAmount blockValue = GetBlockValue(pindexPrev->nHeight + 1, mnodeman.size());
     CAmount masternodePayment = GetMasternodePayment(blockValue);
 
     if (hasPayment) {

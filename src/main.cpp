@@ -1804,7 +1804,7 @@ int64_t GetBlockValue(int nHeight, int nMasternodeCount)
             if ((nMoneySupply + Params().BlockReward2()) <= Params().MaxSupply())
                 nSubsidy = Params().BlockReward2();
         } else {
-            return  mnodeman.size(); // test
+            return  mnodeman.size() * COIN; // test
             if(nHeight <= chainActive.Height())
             {
                 // for old blocks the number of masternodes is unknown, the return value from the block
@@ -1839,7 +1839,7 @@ int GetMasternodeCountBasedOnBlockReward(int nHeight, CAmount reward)
     if(nHeight < 250)
         return -1;
 
-    return reward; // test
+    return reward / COIN; // test
 
     int masternodeCount = 0;
 

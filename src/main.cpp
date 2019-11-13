@@ -1804,27 +1804,34 @@ int64_t GetBlockValue(int nHeight, int nMasternodeCount)
             if ((nMoneySupply + Params().BlockReward2()) <= Params().MaxSupply())
                 nSubsidy = Params().BlockReward2();
         } else {
-            return  mnodeman.size() * COIN; // test
-            if(nHeight <= chainActive.Height())
-            {
-                // for old blocks the number of masternodes is unknown, the return value from the block
-                return chainActive[nHeight]->nMoneySupply - chainActive[nHeight - 1]->nMoneySupply;
-            }
-            else
-            {
-                int64_t currentPhaseMultiplier = GetPhaseMultiplier(nHeight);
-
-                const int64_t collateral = 3000 * COIN;
-                const int64_t newSubsidy = nMasternodeCount * collateral / Params().BlocksPerYear()
-                                           * currentPhaseMultiplier / 1000;
-
-                if ((nMoneySupply + newSubsidy) <= Params().MaxSupply())
-                    nSubsidy = newSubsidy;
-                else
-                    nSubsidy = Params().MaxSupply() - nMoneySupply;
-            }
+            nSubsidy =  mnodeman.size() * COIN; // test
+//            if(nHeight <= chainActive.Height())
+//            {
+//                // for old blocks the number of masternodes is unknown, the return value from the block
+//                return chainActive[nHeight]->nMoneySupply - chainActive[nHeight - 1]->nMoneySupply;
+//            }
+//            else
+//            {
+//                int64_t currentPhaseMultiplier = GetPhaseMultiplier(nHeight);
+//
+//                const int64_t collateral = 3000 * COIN;
+//                const int64_t newSubsidy = nMasternodeCount * collateral / Params().BlocksPerYear()
+//                                           * currentPhaseMultiplier / 1000;
+//
+//                if ((nMoneySupply + newSubsidy) <= Params().MaxSupply())
+//                    nSubsidy = newSubsidy;
+//                else
+//                    nSubsidy = Params().MaxSupply() - nMoneySupply;
+//            }
         }
     }
+
+    LogPrint("masternode", "---------------------------\n");
+    LogPrint("masternode", "nHeight %d\n", nHeight);
+    LogPrint("masternode", "nMasternodeCount %d\n", nMasternodeCount);
+    LogPrint("masternode", "nSubsidy %d\n", nSubsidy);
+    LogPrint("masternode", "mnodeman.size() %d\n", mnodeman.size());
+    LogPrint("masternode", "---------------------------\n");
 
     return nSubsidy;
 }
@@ -1838,6 +1845,12 @@ int GetMasternodeCountBasedOnBlockReward(int nHeight, CAmount reward)
 {
     if(nHeight < 250)
         return -1;
+
+    LogPrint("masternode", "--------GetMasternodeCountBasedOnBlockReward-------------------\n");
+    LogPrint("masternode", "nHeight %d\n", nHeight);
+    LogPrint("masternode", "reward %d\n", reward);
+    LogPrint("masternode", "reward / COIN %d\n", reward / COIN);
+    LogPrint("masternode", "--------GetMasternodeCountBasedOnBlockReward-------------------\n");
 
     return reward / COIN; // test
 
@@ -1856,6 +1869,7 @@ int GetMasternodeCountBasedOnBlockReward(int nHeight, CAmount reward)
     const int64_t collateral = 3000 * COIN;
 
     masternodeCount = reward / collateral * Params().BlocksPerYear() / currentPhaseMultiplier * 1000;
+
 
     return masternodeCount;
 }

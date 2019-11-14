@@ -205,7 +205,6 @@ cd ~
 clear
 echo -e "${YELLOW}Creating bitwin24.conf...${NC}"
 
-    fi
 sleep 7
 done
     fi

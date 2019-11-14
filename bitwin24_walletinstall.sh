@@ -72,16 +72,9 @@ echo "So you want to install the BitWin24 wallet on linux? [y/n]"
 read DOSETUP
 
 if [[ $DOSETUP =~ "n" ]] ; then
-          read -e -p "Enter your private key:" genkey;
-              read -e -p "Confirm your private key: " genkey2;
+          exit 1
     fi
 
-#Confirming match
-  if [ $genkey = $genkey2 ]; then
-     echo -e "${GREEN}MATCH! ${NC} \a" 
-else 
-     echo -e "${RED} Error: Private keys do not match. Try again or let me generate one for you...${NC} \a";exit 1
-fi
 sleep .5
 clear
 
@@ -206,7 +199,7 @@ clear
 echo -e "${YELLOW}Creating bitwin24.conf...${NC}"
 
 sleep 7
-done
+
     
     #Stopping daemon to create bitwin24.conf
     bitwin24-cli stop

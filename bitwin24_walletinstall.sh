@@ -207,7 +207,6 @@ echo -e "${YELLOW}Creating bitwin24.conf...${NC}"
 
 sleep 7
 done
-    fi
     
     #Stopping daemon to create bitwin24.conf
     bitwin24-cli stop

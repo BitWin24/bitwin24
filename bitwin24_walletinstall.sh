@@ -1,12 +1,11 @@
-# BitWin24 Masternode Setup Script V1.0 for Ubuntu 16.04 LTS
+# BitWin24 Linux Wallet Setup Script V1.0 for Ubuntu 16.04 LTS
 #by mrx0rhk
 #!/bin/bash
 #
 # Script will attempt to autodetect primary public IP address
-# and generate masternode private key unless specified in command line
 #
 # Usage:
-# bash bitwin24_autoinstall.sh
+# bash bitwin24_walletinstall.sh
 #
 
 #Color codes
@@ -57,7 +56,7 @@ fi
 genkey=$1
 clear
 
-echo -e "${GREEN} ---------- BitWin24 MASTERNODE INSTALLER -----------
+echo -e "${GREEN} ---------- BitWin24 LINUX WALLET INSTALLER -----------
  |                                                  |
  |                                                  |
  |       The installation will install and run      |

@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 /**
  * @file       Accumulator.cpp
  *
@@ -20,6 +21,8 @@ namespace libzerocoin {
 
 //Accumulator class
 Accumulator::Accumulator(const AccumulatorAndProofParams* p, const CoinDenomination d): params(p) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!(params->initialized)) {
         throw std::runtime_error("Invalid parameters for accumulator");
     }
@@ -28,6 +31,8 @@ Accumulator::Accumulator(const AccumulatorAndProofParams* p, const CoinDenominat
 }
 
 Accumulator::Accumulator(const ZerocoinParams* p, const CoinDenomination d, const CBigNum bnValue) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     this->params = &(p->accumulatorParams);
     denomination = d;
 
@@ -42,11 +47,15 @@ Accumulator::Accumulator(const ZerocoinParams* p, const CoinDenomination d, cons
 }
 
 void Accumulator::increment(const CBigNum& bnValue) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Compute new accumulator = "old accumulator"^{element} mod N
     this->value = this->value.pow_mod(bnValue, this->params->accumulatorModulus);
 }
 
 void Accumulator::accumulate(const PublicCoin& coin) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Make sure we're initialized
     if(!(this->value)) {
         std::cout << "Accumulator is not initialized" << "\n";
@@ -71,38 +80,54 @@ void Accumulator::accumulate(const PublicCoin& coin) {
 }
 
 CoinDenomination Accumulator::getDenomination() const {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return this->denomination;
 }
 
 const CBigNum& Accumulator::getValue() const {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return this->value;
 }
 
 //Manually set accumulator value
 void Accumulator::setValue(CBigNum bnValue) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     this->value = bnValue;
 }
 
 Accumulator& Accumulator::operator += (const PublicCoin& c) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     this->accumulate(c);
     return *this;
 }
 
 bool Accumulator::operator == (const Accumulator rhs) const {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return this->value == rhs.value;
 }
 
 //AccumulatorWitness class
 AccumulatorWitness::AccumulatorWitness(const ZerocoinParams* p,
                                        const Accumulator& checkpoint, const PublicCoin coin): witness(checkpoint), element(coin) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 }
 
 void AccumulatorWitness::resetValue(const Accumulator& checkpoint, const PublicCoin coin) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     this->witness.setValue(checkpoint.getValue());
     this->element = coin;
 }
 
 void AccumulatorWitness::AddElement(const PublicCoin& c) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if(element.getValue() != c.getValue()) {
         witness += c;
     }
@@ -110,14 +135,20 @@ void AccumulatorWitness::AddElement(const PublicCoin& c) {
 
 //warning check pubcoin value & denom outside of this function!
 void AccumulatorWitness::addRawValue(const CBigNum& bnValue) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         witness.increment(bnValue);
 }
 
 const CBigNum& AccumulatorWitness::getValue() const {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return this->witness.getValue();
 }
 
 bool AccumulatorWitness::VerifyWitness(const Accumulator& a, const PublicCoin &publicCoin) const {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     Accumulator temp(witness);
     temp += element;
     if (!(temp == a)) {
@@ -133,6 +164,8 @@ bool AccumulatorWitness::VerifyWitness(const Accumulator& a, const PublicCoin &p
 
 AccumulatorWitness& AccumulatorWitness::operator +=(
     const PublicCoin& rhs) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     this->AddElement(rhs);
     return *this;
 }

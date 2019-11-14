@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2018 The PIVX developers
@@ -34,21 +35,31 @@ struct AddressTableEntry {
     QString pubcoin;
 
     AddressTableEntry() {}
-    AddressTableEntry(Type type, const QString &pubcoin):    type(type), pubcoin(pubcoin) {}
-    AddressTableEntry(Type type, const QString& label, const QString& address) : type(type), label(label), address(address) {}
+    AddressTableEntry(Type type, const QString &pubcoin):    type(type), pubcoin(pubcoin) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+}
+    AddressTableEntry(Type type, const QString& label, const QString& address) : type(type), label(label), address(address) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+}
 };
 
 struct AddressTableEntryLessThan {
     bool operator()(const AddressTableEntry& a, const AddressTableEntry& b) const
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         return a.address < b.address;
     }
     bool operator()(const AddressTableEntry& a, const QString& b) const
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         return a.address < b;
     }
     bool operator()(const QString& a, const AddressTableEntry& b) const
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         return a < b.address;
     }
 };
@@ -56,6 +67,8 @@ struct AddressTableEntryLessThan {
 /* Determine address type from address purpose */
 static AddressTableEntry::Type translateTransactionType(const QString& strPurpose, bool isMine)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     AddressTableEntry::Type addressType = AddressTableEntry::Hidden;
     // "refund" addresses aren't shown, and change addresses aren't in mapAddressBook at all.
     if (strPurpose == "send")
@@ -75,10 +88,14 @@ public:
     QList<AddressTableEntry> cachedAddressTable;
     AddressTableModel* parent;
 
-    AddressTablePriv(CWallet* wallet, AddressTableModel* parent) : wallet(wallet), parent(parent) {}
+    AddressTablePriv(CWallet* wallet, AddressTableModel* parent) : wallet(wallet), parent(parent) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+}
 
     void refreshAddressTable()
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         cachedAddressTable.clear();
         {
             LOCK(wallet->cs_wallet);
@@ -101,6 +118,8 @@ public:
 
     void updateEntry(const QString& address, const QString& label, bool isMine, const QString& purpose, int status)
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         // Find address / label in model
         QList<AddressTableEntry>::iterator lower = qLowerBound(
             cachedAddressTable.begin(), cachedAddressTable.end(), address, AddressTableEntryLessThan());
@@ -144,6 +163,8 @@ public:
     
     void updateEntry(const QString &pubCoin, const QString &isUsed, int status)
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         // Find address / label in model
         QList<AddressTableEntry>::iterator lower = qLowerBound(
                                                                cachedAddressTable.begin(), cachedAddressTable.end(), pubCoin, AddressTableEntryLessThan());
@@ -181,11 +202,15 @@ public:
 
     int size()
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         return cachedAddressTable.size();
     }
 
     AddressTableEntry* index(int idx)
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         if (idx >= 0 && idx < cachedAddressTable.size()) {
             return &cachedAddressTable[idx];
         } else {

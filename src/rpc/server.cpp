@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
@@ -74,6 +75,8 @@ void RPCTypeCheck(const UniValue& params,
                   const list<UniValue::VType>& typesExpected,
                   bool fAllowNull)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     unsigned int i = 0;
     BOOST_FOREACH(UniValue::VType t, typesExpected) {
         if (params.size() <= i)
@@ -93,6 +96,8 @@ void RPCTypeCheckObj(const UniValue& o,
                   const map<string, UniValue::VType>& typesExpected,
                   bool fAllowNull)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     BOOST_FOREACH(const PAIRTYPE(string, UniValue::VType)& t, typesExpected) {
         const UniValue& v = find_value(o, t.first);
         if (!fAllowNull && v.isNull())
@@ -108,11 +113,15 @@ void RPCTypeCheckObj(const UniValue& o,
 
 static inline int64_t roundint64(double d)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return (int64_t)(d > 0 ? d + 0.5 : d - 0.5);
 }
 
 CAmount AmountFromValue(const UniValue& value)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!value.isNum())
         throw JSONRPCError(RPC_TYPE_ERROR, "Amount is not a number");
 
@@ -127,6 +136,8 @@ CAmount AmountFromValue(const UniValue& value)
 
 UniValue ValueFromAmount(const CAmount& amount)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     bool sign = amount < 0;
     int64_t n_abs = (sign ? -amount : amount);
     int64_t quotient = n_abs / COIN;
@@ -137,6 +148,8 @@ UniValue ValueFromAmount(const CAmount& amount)
 
 uint256 ParseHashV(const UniValue& v, string strName)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     string strHex;
     if (v.isStr())
         strHex = v.get_str();
@@ -148,10 +161,14 @@ uint256 ParseHashV(const UniValue& v, string strName)
 }
 uint256 ParseHashO(const UniValue& o, string strKey)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return ParseHashV(find_value(o, strKey), strKey);
 }
 vector<unsigned char> ParseHexV(const UniValue& v, string strName)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     string strHex;
     if (v.isStr())
         strHex = v.get_str();
@@ -161,11 +178,15 @@ vector<unsigned char> ParseHexV(const UniValue& v, string strName)
 }
 vector<unsigned char> ParseHexO(const UniValue& o, string strKey)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return ParseHexV(find_value(o, strKey), strKey);
 }
 
 int ParseInt(const UniValue& o, string strKey)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     const UniValue& v = find_value(o, strKey);
     if (v.isNum())
         throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, " + strKey + "is not an int");
@@ -175,6 +196,8 @@ int ParseInt(const UniValue& o, string strKey)
 
 bool ParseBool(const UniValue& o, string strKey)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     const UniValue& v = find_value(o, strKey);
     if (v.isBool())
         throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, " + strKey + "is not a bool");
@@ -243,6 +266,8 @@ string CRPCTable::help(string strCommand) const
 
 UniValue help(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "help ( \"command\" )\n"
@@ -262,6 +287,8 @@ UniValue help(const UniValue& params, bool fHelp)
 
 UniValue stop(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Accept the deprecated and ignored 'detach' boolean argument
     if (fHelp || params.size() > 1)
         throw runtime_error(
@@ -458,6 +485,8 @@ const CRPCCommand *CRPCTable::operator[](const std::string &name) const
 
 bool StartRPC()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LogPrint("rpc", "Starting RPC\n");
     fRPCRunning = true;
     g_rpcSignals.Started();
@@ -466,6 +495,8 @@ bool StartRPC()
 
 void InterruptRPC()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LogPrint("rpc", "Interrupting RPC\n");
     // Interrupt e.g. running longpolls
     fRPCRunning = false;
@@ -473,6 +504,8 @@ void InterruptRPC()
 
 void StopRPC()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LogPrint("rpc", "Stopping RPC\n");
     deadlineTimers.clear();
     g_rpcSignals.Stopped();
@@ -480,17 +513,23 @@ void StopRPC()
 
 bool IsRPCRunning()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return fRPCRunning;
 }
 
 void SetRPCWarmupStatus(const std::string& newStatus)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs_rpcWarmup);
     rpcWarmupStatus = newStatus;
 }
 
 void SetRPCWarmupFinished()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs_rpcWarmup);
     assert(fRPCInWarmup);
     fRPCInWarmup = false;
@@ -498,6 +537,8 @@ void SetRPCWarmupFinished()
 
 bool RPCIsInWarmup(std::string* outStatus)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs_rpcWarmup);
     if (outStatus)
         *outStatus = rpcWarmupStatus;
@@ -537,6 +578,8 @@ void JSONRequest::parse(const UniValue& valRequest)
 
 static UniValue JSONRPCExecOne(const UniValue& req)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     UniValue rpc_result(UniValue::VOBJ);
 
     JSONRequest jreq;
@@ -557,6 +600,8 @@ static UniValue JSONRPCExecOne(const UniValue& req)
 
 std::string JSONRPCExecBatch(const UniValue& vReq)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     UniValue ret(UniValue::VARR);
     for (unsigned int reqIdx = 0; reqIdx < vReq.size(); reqIdx++)
         ret.push_back(JSONRPCExecOne(vReq[reqIdx]));
@@ -596,11 +641,15 @@ std::vector<std::string> CRPCTable::listCommands() const
 
 std::string HelpExampleCli(string methodname, string args)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return "> bitwin24-cli " + methodname + " " + args + "\n";
 }
 
 std::string HelpExampleRpc(string methodname, string args)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return "> curl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", "
            "\"method\": \"" +
            methodname + "\", \"params\": [" + args + "] }' -H 'content-type: text/plain;' http://127.0.0.1:24073/\n";
@@ -608,11 +657,15 @@ std::string HelpExampleRpc(string methodname, string args)
 
 void RPCRegisterTimerInterface(RPCTimerInterface *iface)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     timerInterfaces.push_back(iface);
 }
 
 void RPCUnregisterTimerInterface(RPCTimerInterface *iface)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::vector<RPCTimerInterface*>::iterator i = std::find(timerInterfaces.begin(), timerInterfaces.end(), iface);
     assert(i != timerInterfaces.end());
     timerInterfaces.erase(i);
@@ -620,6 +673,8 @@ void RPCUnregisterTimerInterface(RPCTimerInterface *iface)
 
 void RPCRunLater(const std::string& name, boost::function<void(void)> func, int64_t nSeconds)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (timerInterfaces.empty())
         throw JSONRPCError(RPC_INTERNAL_ERROR, "No timer handler registered for RPC");
     deadlineTimers.erase(name);

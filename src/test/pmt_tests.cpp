@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2012-2013 The Bitcoin Core developers
 // Copyright (c) 2017 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
@@ -20,6 +21,8 @@ class CPartialMerkleTreeTester : public CPartialMerkleTree
 public:
     // flip one bit in one of the hashes - this should break the authentication
     void Damage() {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         unsigned int n = rand() % vHash.size();
         int bit = rand() % 256;
         uint256 &hash = vHash[n];

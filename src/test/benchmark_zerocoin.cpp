@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 /**
  * @file       Benchmark.cpp
  *
@@ -57,18 +58,24 @@ public:
 
 	timeval start()
 	{
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 		gettimeofday(&this->timer[0], NULL);
 		return this->timer[0];
 	}
 
 	timeval stop()
 	{
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 		gettimeofday(&this->timer[1], NULL);
 		return this->timer[1];
 	}
 
 	int duration() const
 	{
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 		int secs(this->timer[1].tv_sec - this->timer[0].tv_sec);
 		int usecs(this->timer[1].tv_usec - this->timer[0].tv_usec);
 
@@ -88,6 +95,8 @@ Timer timer;
 void
 gLogTestResult(string testName, bool (*testPtr)())
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	string colorGreen(COLOR_STR_GREEN);
 	string colorNormal(COLOR_STR_NORMAL);
 	string colorRed(COLOR_STR_RED);
@@ -109,6 +118,8 @@ gLogTestResult(string testName, bool (*testPtr)())
 CBigNum
 gGetTestModulus()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	static CBigNum testModulus(0);
 
 	// TODO: should use a hard-coded RSA modulus for testing
@@ -130,6 +141,8 @@ gGetTestModulus()
 bool
 Testb_GenRSAModulus()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	CBigNum result = gGetTestModulus();
 
 	if (!result) {
@@ -143,6 +156,8 @@ Testb_GenRSAModulus()
 bool
 Testb_CalcParamSizes()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	bool result = true;
 #if 0
 
@@ -180,6 +195,8 @@ Testb_CalcParamSizes()
 bool
 Testb_GenerateGroupParams()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	uint32_t pLen = 1024, qLen = 256, count;
 	IntegerGroupParams group;
 
@@ -212,6 +229,8 @@ Testb_GenerateGroupParams()
 bool
 Testb_ParamGen()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	bool result = true;
 
 	try {
@@ -232,6 +251,8 @@ Testb_ParamGen()
 bool
 Testb_Accumulator()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	// This test assumes a list of coins were generated during
 	// the Testb_MintCoin() test.
 	if (ggCoins[0] == NULL) {
@@ -283,6 +304,8 @@ Testb_Accumulator()
 bool
 Testb_MintCoin()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	try {
 		// Generate a list of coins
 		timer.start();
@@ -302,6 +325,8 @@ Testb_MintCoin()
 bool
 Testb_MintAndSpend()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	try {
 		// This test assumes a list of coins were generated in Testb_MintCoin()
 		if (ggCoins[0] == NULL)
@@ -372,6 +397,8 @@ Testb_MintAndSpend()
 void
 Testb_RunAllTests()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	// Make a new set of parameters from a random RSA modulus
 	gg_Params = new ZerocoinParams(gGetTestModulus());
 

@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2018 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
@@ -21,6 +22,8 @@ using namespace std;
 
 void budgetToJSON(CBudgetProposal* pbudgetProposal, UniValue& bObj)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CTxDestination address1;
     ExtractDestination(pbudgetProposal->GetPayee(), address1);
     CBitcoinAddress address2(address1);
@@ -52,6 +55,8 @@ void budgetToJSON(CBudgetProposal* pbudgetProposal, UniValue& bObj)
 // Future removal of this command is planned to keep things clean.
 UniValue mnbudget(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     string strCommand;
     if (params.size() >= 1)
         strCommand = params[0].get_str();
@@ -153,6 +158,8 @@ UniValue mnbudget(const UniValue& params, bool fHelp)
 
 UniValue preparebudget(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     int nBlockMin = 0;
     CBlockIndex* pindexPrev = chainActive.Tip();
 
@@ -248,6 +255,8 @@ UniValue preparebudget(const UniValue& params, bool fHelp)
 
 UniValue submitbudget(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     int nBlockMin = 0;
     CBlockIndex* pindexPrev = chainActive.Tip();
 
@@ -340,6 +349,8 @@ UniValue submitbudget(const UniValue& params, bool fHelp)
 
 UniValue mnbudgetvote(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::string strCommand;
     if (params.size() >= 1) {
         strCommand = params[0].get_str();
@@ -601,6 +612,8 @@ UniValue mnbudgetvote(const UniValue& params, bool fHelp)
 
 UniValue getbudgetvotes(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (params.size() != 1)
         throw runtime_error(
             "getbudgetvotes \"proposal-name\"\n"
@@ -651,6 +664,8 @@ UniValue getbudgetvotes(const UniValue& params, bool fHelp)
 
 UniValue getnextsuperblock(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() != 0)
         throw runtime_error(
             "getnextsuperblock\n"
@@ -671,6 +686,8 @@ UniValue getnextsuperblock(const UniValue& params, bool fHelp)
 
 UniValue getbudgetprojection(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() != 0)
         throw runtime_error(
             "getbudgetprojection\n"
@@ -732,6 +749,8 @@ UniValue getbudgetprojection(const UniValue& params, bool fHelp)
 
 UniValue getbudgetinfo(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "getbudgetinfo ( \"proposal\" )\n"
@@ -797,6 +816,8 @@ UniValue getbudgetinfo(const UniValue& params, bool fHelp)
 
 UniValue mnbudgetrawvote(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() != 6)
         throw runtime_error(
             "mnbudgetrawvote \"masternode-tx-hash\" masternode-tx-index \"proposal-hash\" yes|no time \"vote-sig\"\n"
@@ -861,6 +882,8 @@ UniValue mnbudgetrawvote(const UniValue& params, bool fHelp)
 
 UniValue mnfinalbudget(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     string strCommand;
     if (params.size() >= 1)
         strCommand = params[0].get_str();
@@ -1040,6 +1063,8 @@ UniValue mnfinalbudget(const UniValue& params, bool fHelp)
 
 UniValue checkbudgets(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() != 0)
         throw runtime_error(
             "checkbudgets\n"

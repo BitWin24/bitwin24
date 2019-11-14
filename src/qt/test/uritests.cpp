@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2017 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
@@ -12,6 +13,8 @@
 
 void URITests::uriTests()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     SendCoinsRecipient rv;
     QUrl uri;
     uri.setUrl(QString("bitwin24:D72dLgywmL73JyTwQBfuU29CADz9yCJ99v?req-dontexist="));

@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Test program that can be called by the JSON test suite at
 // https://github.com/nst/JSONTestSuite.
 //
@@ -12,6 +13,8 @@ using namespace std;
 
 int main (int argc, char *argv[])
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     UniValue val;
     if (val.read(string(istreambuf_iterator<char>(cin),
                         istreambuf_iterator<char>()))) {

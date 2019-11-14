@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright 2014 BitPay Inc.
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -26,12 +27,16 @@ static bool test_failed = false;
 
 static std::string rtrim(std::string s)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     s.erase(s.find_last_not_of(" \n\r\t")+1);
     return s;
 }
 
 static void runtest(string filename, const string& jdata)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         string prefix = filename.substr(0, 4);
 
         bool wantPass = (prefix == "pass") || (prefix == "roun");
@@ -56,6 +61,8 @@ static void runtest(string filename, const string& jdata)
 
 static void runtest_file(const char *filename_)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         string basename(filename_);
         string filename = srcdir + "/" + basename;
         FILE *f = fopen(filename.c_str(), "r");
@@ -137,6 +144,8 @@ static const char *filenames[] = {
 // Test \u handling
 void unescape_unicode_test()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     UniValue val;
     bool testResult;
     // Escaped ASCII (quote)
@@ -159,6 +168,8 @@ void unescape_unicode_test()
 
 int main (int argc, char *argv[])
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     for (unsigned int fidx = 0; fidx < ARRAY_SIZE(filenames); fidx++) {
         runtest_file(filenames[fidx]);
     }

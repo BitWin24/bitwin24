@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2011-2014 The Bitcoin Core developers
 // Copyright (c) 2017 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
@@ -49,6 +50,8 @@ string FormatScriptFlags(unsigned int flags);
 UniValue
 read_json(const std::string& jsondata)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     UniValue v;
 
     if (!v.read(jsondata) || !v.isArray())
@@ -63,6 +66,8 @@ BOOST_AUTO_TEST_SUITE(script_tests)
 
 CMutableTransaction BuildCreditingTransaction(const CScript& scriptPubKey)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CMutableTransaction txCredit;
     txCredit.nVersion = 1;
     txCredit.nLockTime = 0;
@@ -79,6 +84,8 @@ CMutableTransaction BuildCreditingTransaction(const CScript& scriptPubKey)
 
 CMutableTransaction BuildSpendingTransaction(const CScript& scriptSig, const CMutableTransaction& txCredit)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CMutableTransaction txSpend;
     txSpend.nVersion = 1;
     txSpend.nLockTime = 0;
@@ -96,6 +103,8 @@ CMutableTransaction BuildSpendingTransaction(const CScript& scriptSig, const CMu
 
 void DoTest(const CScript& scriptPubKey, const CScript& scriptSig, int flags, bool expect, const std::string& message)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     ScriptError err;
     CMutableTransaction tx = BuildSpendingTransaction(scriptSig, BuildCreditingTransaction(scriptPubKey));
     CMutableTransaction tx2 = tx;
@@ -701,6 +710,8 @@ BOOST_AUTO_TEST_CASE(script_PushData)
 CScript
 sign_multisig(CScript scriptPubKey, std::vector<CKey> keys, CTransaction transaction)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     uint256 hash = SignatureHash(scriptPubKey, transaction, 0, SIGHASH_ALL);
 
     CScript result;
@@ -725,6 +736,8 @@ sign_multisig(CScript scriptPubKey, std::vector<CKey> keys, CTransaction transac
 CScript
 sign_multisig(CScript scriptPubKey, const CKey &key, CTransaction transaction)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::vector<CKey> keys;
     keys.push_back(key);
     return sign_multisig(scriptPubKey, keys, transaction);

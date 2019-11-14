@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
@@ -20,6 +21,8 @@ SendCoinsEntry::SendCoinsEntry(QWidget* parent) : QStackedWidget(parent),
                                                   ui(new Ui::SendCoinsEntry),
                                                   model(0)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     ui->setupUi(this);
 
     setCurrentWidget(ui->SendCoins);
@@ -48,12 +51,16 @@ SendCoinsEntry::~SendCoinsEntry()
 
 void SendCoinsEntry::on_pasteButton_clicked()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Paste text from clipboard into recipient field
     ui->payTo->setText(QApplication::clipboard()->text());
 }
 
 void SendCoinsEntry::on_addressBookButton_clicked()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!model)
         return;
     AddressBookPage dlg(AddressBookPage::ForSelection, AddressBookPage::SendingTab, this);
@@ -66,11 +73,15 @@ void SendCoinsEntry::on_addressBookButton_clicked()
 
 void SendCoinsEntry::on_payTo_textChanged(const QString& address)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     updateLabel(address);
 }
 
 void SendCoinsEntry::setModel(WalletModel* model)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     this->model = model;
 
     if (model && model->getOptionsModel())
@@ -81,6 +92,8 @@ void SendCoinsEntry::setModel(WalletModel* model)
 
 void SendCoinsEntry::clear()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // clear UI elements for normal payment
     ui->payTo->clear();
     ui->addAsLabel->clear();
@@ -103,11 +116,15 @@ void SendCoinsEntry::clear()
 
 void SendCoinsEntry::deleteClicked()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     emit removeEntry(this);
 }
 
 bool SendCoinsEntry::validate()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!model)
         return false;
 
@@ -144,6 +161,8 @@ bool SendCoinsEntry::validate()
 
 SendCoinsRecipient SendCoinsEntry::getValue()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Payment request
     if (recipient.paymentRequest.IsInitialized())
         return recipient;
@@ -159,6 +178,8 @@ SendCoinsRecipient SendCoinsEntry::getValue()
 
 QWidget* SendCoinsEntry::setupTabChain(QWidget* prev)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     QWidget::setTabOrder(prev, ui->payTo);
     QWidget::setTabOrder(ui->payTo, ui->addAsLabel);
     QWidget* w = ui->payAmount->setupTabChain(ui->addAsLabel);
@@ -170,6 +191,8 @@ QWidget* SendCoinsEntry::setupTabChain(QWidget* prev)
 
 void SendCoinsEntry::setValue(const SendCoinsRecipient& value)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     recipient = value;
 
     if (recipient.paymentRequest.IsInitialized()) // payment request
@@ -206,22 +229,30 @@ void SendCoinsEntry::setValue(const SendCoinsRecipient& value)
 
 void SendCoinsEntry::setAddress(const QString& address)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     ui->payTo->setText(address);
     ui->payAmount->setFocus();
 }
 
 bool SendCoinsEntry::isClear()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return ui->payTo->text().isEmpty() && ui->payTo_is->text().isEmpty() && ui->payTo_s->text().isEmpty();
 }
 
 void SendCoinsEntry::setFocus()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     ui->payTo->setFocus();
 }
 
 void SendCoinsEntry::updateDisplayUnit()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (model && model->getOptionsModel()) {
         // Update payAmount with the current unit
         ui->payAmount->setDisplayUnit(model->getOptionsModel()->getDisplayUnit());
@@ -232,6 +263,8 @@ void SendCoinsEntry::updateDisplayUnit()
 
 bool SendCoinsEntry::updateLabel(const QString& address)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!model)
         return false;
 

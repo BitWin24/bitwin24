@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 /**
  * @file       paramgen.cpp
  *
@@ -27,6 +28,8 @@ using namespace libzerocoin;
 void
 PrintWarning()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	cout << "Zerocoin parameter generation utility" << endl;
 	cout << "-------------------------------------" << endl << endl;
 	cout << "This utility generates an l-bit modulus N as the product of" << endl;
@@ -43,6 +46,8 @@ PrintWarning()
 
 void usage()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	printf("Usage:\n");
 	printf(" -b <numbits>\n");
 	printf(" -o <output file>\n");
@@ -52,6 +57,8 @@ void usage()
 
 int main(int argc, char **argv)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	static CBigNum resultModulus(0);
 	uint32_t numBits = DEFAULT_MODULUS_SIZE;
 	ofstream outfile;

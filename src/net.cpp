@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
@@ -66,7 +67,9 @@ struct ListenSocket {
     SOCKET socket;
     bool whitelisted;
 
-    ListenSocket(SOCKET socket, bool whitelisted) : socket(socket), whitelisted(whitelisted) {}
+    ListenSocket(SOCKET socket, bool whitelisted) : socket(socket), whitelisted(whitelisted) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+}
 };
 }
 
@@ -110,22 +113,30 @@ boost::condition_variable messageHandlerCondition;
 
 // Signals for message handling
 static CNodeSignals g_signals;
-CNodeSignals& GetNodeSignals() { return g_signals; }
+CNodeSignals& GetNodeSignals() {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+ return g_signals; }
 
 void AddOneShot(string strDest)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs_vOneShots);
     vOneShots.push_back(strDest);
 }
 
 unsigned short GetListenPort()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return (unsigned short)(GetArg("-port", Params().GetDefaultPort()));
 }
 
 // find 'best' local address for a particular peer
 bool GetLocal(CService& addr, const CNetAddr* paddrPeer)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!fListen)
         return false;
 
@@ -152,6 +163,8 @@ bool GetLocal(CService& addr, const CNetAddr* paddrPeer)
 // one by discovery.
 CAddress GetLocalAddress(const CNetAddr* paddrPeer)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CAddress ret(CService("0.0.0.0", GetListenPort()), 0);
     CService addr;
     if (GetLocal(addr, paddrPeer)) {
@@ -164,6 +177,8 @@ CAddress GetLocalAddress(const CNetAddr* paddrPeer)
 
 bool RecvLine(SOCKET hSocket, string& strLine)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     strLine = "";
     while (true) {
         char c;
@@ -205,6 +220,8 @@ bool RecvLine(SOCKET hSocket, string& strLine)
 
 int GetnScore(const CService& addr)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs_mapLocalHost);
     if (mapLocalHost.count(addr) == LOCAL_NONE)
         return 0;
@@ -214,6 +231,8 @@ int GetnScore(const CService& addr)
 // Is our peer's addrLocal potentially useful as an external IP source?
 bool IsPeerAddrLocalGood(CNode* pnode)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return fDiscover && pnode->addr.IsRoutable() && pnode->addrLocal.IsRoutable() &&
            !IsLimited(pnode->addrLocal.GetNetwork());
 }
@@ -221,6 +240,8 @@ bool IsPeerAddrLocalGood(CNode* pnode)
 // pushes our own address to a peer
 void AdvertizeLocal(CNode* pnode)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fListen && pnode->fSuccessfullyConnected) {
         CAddress addrLocal = GetLocalAddress(&pnode->addr);
         // If discovery is enabled, sometimes give our peer the address it
@@ -240,6 +261,8 @@ void AdvertizeLocal(CNode* pnode)
 // learn a new local address
 bool AddLocal(const CService& addr, int nScore)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!addr.IsRoutable())
         return false;
 
@@ -266,11 +289,15 @@ bool AddLocal(const CService& addr, int nScore)
 
 bool AddLocal(const CNetAddr& addr, int nScore)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return AddLocal(CService(addr, GetListenPort()), nScore);
 }
 
 bool RemoveLocal(const CService& addr)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs_mapLocalHost);
     LogPrintf("RemoveLocal(%s)\n", addr.ToString());
     mapLocalHost.erase(addr);
@@ -280,6 +307,8 @@ bool RemoveLocal(const CService& addr)
 /** Make a particular network entirely off-limits (no automatic connects to it) */
 void SetLimited(enum Network net, bool fLimited)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (net == NET_UNROUTABLE)
         return;
     LOCK(cs_mapLocalHost);
@@ -288,18 +317,24 @@ void SetLimited(enum Network net, bool fLimited)
 
 bool IsLimited(enum Network net)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs_mapLocalHost);
     return vfLimited[net];
 }
 
 bool IsLimited(const CNetAddr& addr)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return IsLimited(addr.GetNetwork());
 }
 
 /** vote for a local address */
 bool SeenLocal(const CService& addr)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     {
         LOCK(cs_mapLocalHost);
         if (mapLocalHost.count(addr) == 0)
@@ -313,6 +348,8 @@ bool SeenLocal(const CService& addr)
 /** check whether a given address is potentially local */
 bool IsLocal(const CService& addr)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs_mapLocalHost);
     return mapLocalHost.count(addr) > 0;
 }
@@ -320,6 +357,8 @@ bool IsLocal(const CService& addr)
 /** check whether a given network is one we can probably connect to */
 bool IsReachable(enum Network net)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs_mapLocalHost);
     return !vfLimited[net];
 }
@@ -327,12 +366,16 @@ bool IsReachable(enum Network net)
 /** check whether a given address is in a network we can probably connect to */
 bool IsReachable(const CNetAddr& addr)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     enum Network net = addr.GetNetwork();
     return IsReachable(net);
 }
 
 void AddressCurrentlyConnected(const CService& addr)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     addrman.Connected(addr);
 }
 
@@ -344,6 +387,8 @@ CCriticalSection CNode::cs_totalBytesSent;
 
 CNode* FindNode(const CNetAddr& ip)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs_vNodes);
     for (CNode* pnode : vNodes)
         if ((CNetAddr)pnode->addr == ip)
@@ -353,6 +398,8 @@ CNode* FindNode(const CNetAddr& ip)
 
 CNode* FindNode(const CSubNet& subNet)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs_vNodes);
     for (CNode* pnode : vNodes)
     if (subNet.Match((CNetAddr)pnode->addr))
@@ -362,6 +409,8 @@ CNode* FindNode(const CSubNet& subNet)
 
 CNode* FindNode(const std::string& addrName)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs_vNodes);
     for (CNode* pnode : vNodes)
         if (pnode->addrName == addrName)
@@ -371,6 +420,8 @@ CNode* FindNode(const std::string& addrName)
 
 CNode* FindNode(const CService& addr)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs_vNodes);
     for (CNode* pnode : vNodes) {
         if (Params().NetworkID() == CBaseChainParams::REGTEST) {
@@ -387,6 +438,8 @@ CNode* FindNode(const CService& addr)
 
 CNode* ConnectNode(CAddress addrConnect, const char* pszDest, bool obfuScationMaster)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (pszDest == NULL) {
         // we clean masternode connections in CMasternodeMan::ProcessMasternodeConnections()
         // so should be safe to skip this and connect to local Hot MN on CActiveMasternode::ManageStatus()
@@ -445,6 +498,8 @@ CNode* ConnectNode(CAddress addrConnect, const char* pszDest, bool obfuScationMa
 
 void CNode::CloseSocketDisconnect()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     fDisconnect = true;
     if (hSocket != INVALID_SOCKET) {
         LogPrint("net", "disconnecting peer=%d\n", id);
@@ -459,6 +514,8 @@ void CNode::CloseSocketDisconnect()
 
 bool CNode::DisconnectOldProtocol(int nVersionRequired, string strLastCommand)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     fDisconnect = false;
     if (nVersion < nVersionRequired) {
         LogPrintf("%s : peer=%d using obsolete version %i; disconnecting\n", __func__, id, nVersion);
@@ -471,6 +528,8 @@ bool CNode::DisconnectOldProtocol(int nVersionRequired, string strLastCommand)
 
 void CNode::PushVersion()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     int nBestHeight = g_signals.GetHeight().get_value_or(0);
 
     /// when NTP implemented, change to just nTime = GetAdjustedTime()
@@ -493,6 +552,8 @@ bool CNode::setBannedIsDirty;
 
 void CNode::ClearBanned()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     {
         LOCK(cs_setBanned);
         setBanned.clear();
@@ -504,6 +565,8 @@ void CNode::ClearBanned()
 
 bool CNode::IsBanned(CNetAddr ip)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     bool fResult = false;
     {
         LOCK(cs_setBanned);
@@ -521,6 +584,8 @@ bool CNode::IsBanned(CNetAddr ip)
 
 bool CNode::IsBanned(CSubNet subnet)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     bool fResult = false;
     {
         LOCK(cs_setBanned);
@@ -536,12 +601,16 @@ bool CNode::IsBanned(CSubNet subnet)
 
 void CNode::Ban(const CNetAddr& addr, const BanReason &banReason, int64_t bantimeoffset, bool sinceUnixEpoch)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CSubNet subNet(addr);
     Ban(subNet, banReason, bantimeoffset, sinceUnixEpoch);
 }
 
 void CNode::Ban(const CSubNet& subNet, const BanReason &banReason, int64_t bantimeoffset, bool sinceUnixEpoch)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CBanEntry banEntry(GetTime());
     banEntry.banReason = banReason;
     if (bantimeoffset <= 0)
@@ -574,12 +643,16 @@ void CNode::Ban(const CSubNet& subNet, const BanReason &banReason, int64_t banti
 
 bool CNode::Unban(const CNetAddr &addr)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CSubNet subNet(addr);
     return Unban(subNet);
 }
 
 bool CNode::Unban(const CSubNet &subNet)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     {
         LOCK(cs_setBanned);
         if (!setBanned.erase(subNet))
@@ -593,12 +666,16 @@ bool CNode::Unban(const CSubNet &subNet)
 
 void CNode::GetBanned(banmap_t &banMap)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs_setBanned);
     banMap = setBanned; //create a thread safe copy
 }
 
 void CNode::SetBanned(const banmap_t &banMap)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs_setBanned);
     setBanned = banMap;
     setBannedIsDirty = true;
@@ -606,6 +683,8 @@ void CNode::SetBanned(const banmap_t &banMap)
 
 void CNode::SweepBanned()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     int64_t now = GetTime();
 
     bool notifyUI = false;
@@ -635,12 +714,16 @@ void CNode::SweepBanned()
 
 bool CNode::BannedSetIsDirty()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs_setBanned);
     return setBannedIsDirty;
 }
 
 void CNode::SetBannedSetDirty(bool dirty)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs_setBanned); //reuse setBanned lock for the isDirty flag
     setBannedIsDirty = dirty;
 }
@@ -651,6 +734,8 @@ CCriticalSection CNode::cs_vWhitelistedRange;
 
 bool CNode::IsWhitelistedRange(const CNetAddr& addr)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs_vWhitelistedRange);
     BOOST_FOREACH (const CSubNet& subnet, vWhitelistedRange) {
         if (subnet.Match(addr))
@@ -661,6 +746,8 @@ bool CNode::IsWhitelistedRange(const CNetAddr& addr)
 
 void CNode::AddWhitelistedRange(const CSubNet& subnet)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs_vWhitelistedRange);
     vWhitelistedRange.push_back(subnet);
 }
@@ -669,6 +756,8 @@ void CNode::AddWhitelistedRange(const CSubNet& subnet)
 #define X(name) stats.name = name
 void CNode::copyStats(CNodeStats& stats)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     stats.nodeid = this->GetId();
     X(nServices);
     X(nLastSend);
@@ -707,6 +796,8 @@ void CNode::copyStats(CNodeStats& stats)
 // requires LOCK(cs_vRecvMsg)
 bool CNode::ReceiveMsgBytes(const char* pch, unsigned int nBytes)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     while (nBytes > 0) {
         // get current incomplete message, or create a new one
         if (vRecvMsg.empty() ||
@@ -744,6 +835,8 @@ bool CNode::ReceiveMsgBytes(const char* pch, unsigned int nBytes)
 
 int CNetMessage::readHeader(const char* pch, unsigned int nBytes)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // copy data to temporary parsing buffer
     unsigned int nRemaining = 24 - nHdrPos;
     unsigned int nCopy = std::min(nRemaining, nBytes);
@@ -774,6 +867,8 @@ int CNetMessage::readHeader(const char* pch, unsigned int nBytes)
 
 int CNetMessage::readData(const char* pch, unsigned int nBytes)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     unsigned int nRemaining = hdr.nMessageSize - nDataPos;
     unsigned int nCopy = std::min(nRemaining, nBytes);
 
@@ -792,6 +887,8 @@ int CNetMessage::readData(const char* pch, unsigned int nBytes)
 // requires LOCK(cs_vSend)
 void SocketSendData(CNode* pnode)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::deque<CSerializeData>::iterator it = pnode->vSendMsg.begin();
 
     while (it != pnode->vSendMsg.end()) {
@@ -836,6 +933,8 @@ static list<CNode*> vNodesDisconnected;
 
 void ThreadSocketHandler()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     unsigned int nPrevNodeCount = 0;
     while (true) {
         //
@@ -1219,6 +1318,8 @@ void MapPort(bool fUseUPnP)
 #else
 void MapPort(bool)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Intentionally left blank.
 }
 #endif
@@ -1226,6 +1327,8 @@ void MapPort(bool)
 
 void ThreadDNSAddressSeed()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // goal: only query DNS seeds if address need is acute
     if ((addrman.size() > 0) &&
         (!GetBoolArg("-forcednsseed", false))) {
@@ -1268,6 +1371,8 @@ void ThreadDNSAddressSeed()
 
 void DumpAddresses()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     int64_t nStart = GetTimeMillis();
 
     CAddrDB adb;
@@ -1279,12 +1384,16 @@ void DumpAddresses()
 
 void DumpData()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     DumpAddresses();
     DumpBanlist();
 }
 
 void static ProcessOneShot()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     string strDest;
     {
         LOCK(cs_vOneShots);
@@ -1303,6 +1412,8 @@ void static ProcessOneShot()
 
 void ThreadOpenConnections()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Connect to specific addresses
     if (mapArgs.count("-connect") && mapMultiArgs["-connect"].size() > 0) {
         for (int64_t nLoop = 0;; nLoop++) {
@@ -1396,6 +1507,8 @@ void ThreadOpenConnections()
 
 void ThreadOpenAddedConnections()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     {
         LOCK(cs_vAddedNodes);
         vAddedNodes = mapMultiArgs["-addnode"];
@@ -1464,6 +1577,8 @@ void ThreadOpenAddedConnections()
 // if successful, this moves the passed grant to the constructed node
 bool OpenNetworkConnection(const CAddress& addrConnect, CSemaphoreGrant* grantOutbound, const char* pszDest, bool fOneShot)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     //
     // Initiate outbound network connection
     //
@@ -1493,6 +1608,8 @@ bool OpenNetworkConnection(const CAddress& addrConnect, CSemaphoreGrant* grantOu
 
 void ThreadMessageHandler()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     boost::mutex condition_mutex;
     boost::unique_lock<boost::mutex> lock(condition_mutex);
 
@@ -1558,6 +1675,8 @@ void ThreadMessageHandler()
 // ppcoin: stake minter thread
 void static ThreadStakeMinter()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     boost::this_thread::interruption_point();
     LogPrintf("ThreadStakeMinter started\n");
     CWallet* pwallet = pwalletMain;
@@ -1574,6 +1693,8 @@ void static ThreadStakeMinter()
 
 bool BindListenPort(const CService& addrBind, string& strError, bool fWhitelisted)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     strError = "";
     int nOne = 1;
 
@@ -1662,6 +1783,8 @@ bool BindListenPort(const CService& addrBind, string& strError, bool fWhiteliste
 
 void static Discover(boost::thread_group& threadGroup)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!fDiscover)
         return;
 
@@ -1705,6 +1828,8 @@ void static Discover(boost::thread_group& threadGroup)
 
 void StartNode(boost::thread_group& threadGroup, CScheduler& scheduler)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     uiInterface.InitMessage(_("Loading addresses..."));
     // Load addresses for peers.dat
     int64_t nStart = GetTimeMillis();
@@ -1777,6 +1902,8 @@ void StartNode(boost::thread_group& threadGroup, CScheduler& scheduler)
 
 bool StopNode()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LogPrintf("StopNode()\n");
     MapPort(false);
     if (semOutbound)
@@ -1829,6 +1956,8 @@ public:
 
 void CExplicitNetCleanup::callCleanup()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Explicit call to destructor of CNetCleanup because it's not implicitly called
     // when the wallet is restarted from within the wallet itself.
     CNetCleanup* tmp = new CNetCleanup();
@@ -1837,6 +1966,8 @@ void CExplicitNetCleanup::callCleanup()
 
 void RelayTransaction(const CTransaction& tx)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
     ss.reserve(10000);
     ss << tx;
@@ -1845,6 +1976,8 @@ void RelayTransaction(const CTransaction& tx)
 
 void RelayTransaction(const CTransaction& tx, const CDataStream& ss)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CInv inv(MSG_TX, tx.GetHash());
     {
         LOCK(cs_mapRelay);
@@ -1873,6 +2006,8 @@ void RelayTransaction(const CTransaction& tx, const CDataStream& ss)
 
 void RelayTransactionLockReq(const CTransaction& tx, bool relayToAll)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CInv inv(MSG_TXLOCK_REQUEST, tx.GetHash());
 
     //broadcast the new lock
@@ -1887,6 +2022,8 @@ void RelayTransactionLockReq(const CTransaction& tx, bool relayToAll)
 
 void RelayInv(CInv& inv)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs_vNodes);
     BOOST_FOREACH (CNode* pnode, vNodes){
     		if((pnode->nServices==NODE_BLOOM_WITHOUT_MN) && inv.IsMasterNodeType())continue;
@@ -1897,30 +2034,40 @@ void RelayInv(CInv& inv)
 
 void CNode::RecordBytesRecv(uint64_t bytes)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs_totalBytesRecv);
     nTotalBytesRecv += bytes;
 }
 
 void CNode::RecordBytesSent(uint64_t bytes)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs_totalBytesSent);
     nTotalBytesSent += bytes;
 }
 
 uint64_t CNode::GetTotalBytesRecv()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs_totalBytesRecv);
     return nTotalBytesRecv;
 }
 
 uint64_t CNode::GetTotalBytesSent()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs_totalBytesSent);
     return nTotalBytesSent;
 }
 
 void CNode::Fuzz(int nChance)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!fSuccessfullyConnected) return; // Don't fuzz initial handshake
     if (GetRand(nChance) != 0) return;   // Fuzz 1 of every nChance messages
 
@@ -1964,6 +2111,8 @@ CAddrDB::CAddrDB()
 
 bool CAddrDB::Write(const CAddrMan& addr)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Generate random temporary filename
     unsigned short randv = 0;
     GetRandBytes((unsigned char*)&randv, sizeof(randv));
@@ -1997,6 +2146,8 @@ bool CAddrDB::Write(const CAddrMan& addr)
 
 bool CAddrDB::Read(CAddrMan& addr)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // open input file, and associate with CAutoFile
     FILE* file = fopen(pathAddr.string().c_str(), "rb");
     CAutoFile filein(file, SER_DISK, CLIENT_VERSION);
@@ -2047,11 +2198,17 @@ bool CAddrDB::Read(CAddrMan& addr)
     return true;
 }
 
-unsigned int ReceiveFloodSize() { return 1000 * GetArg("-maxreceivebuffer", 5 * 1000); }
-unsigned int SendBufferSize() { return 1000 * GetArg("-maxsendbuffer", 1 * 1000); }
+unsigned int ReceiveFloodSize() {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+ return 1000 * GetArg("-maxreceivebuffer", 5 * 1000); }
+unsigned int SendBufferSize() {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+ return 1000 * GetArg("-maxsendbuffer", 1 * 1000); }
 
 CNode::CNode(SOCKET hSocketIn, CAddress addrIn, std::string addrNameIn, bool fInboundIn) : ssSend(SER_NETWORK, INIT_PROTO_VERSION), setAddrKnown(5000)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     nServices = 0;
     hSocket = hSocketIn;
     nRecvVersion = INIT_PROTO_VERSION;
@@ -2116,6 +2273,8 @@ CNode::~CNode()
 
 void CNode::AskFor(const CInv& inv)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (mapAskFor.size() > MAPASKFOR_MAX_SZ)
         return;
     // We're using mapAskFor as a priority queue,
@@ -2146,6 +2305,8 @@ void CNode::AskFor(const CInv& inv)
 
 void CNode::BeginMessage(const char* pszCommand) EXCLUSIVE_LOCK_FUNCTION(cs_vSend)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     ENTER_CRITICAL_SECTION(cs_vSend);
     assert(ssSend.size() == 0);
     ssSend << CMessageHeader(pszCommand, 0);
@@ -2154,6 +2315,8 @@ void CNode::BeginMessage(const char* pszCommand) EXCLUSIVE_LOCK_FUNCTION(cs_vSen
 
 void CNode::AbortMessage() UNLOCK_FUNCTION(cs_vSend)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     ssSend.clear();
 
     LEAVE_CRITICAL_SECTION(cs_vSend);
@@ -2163,6 +2326,8 @@ void CNode::AbortMessage() UNLOCK_FUNCTION(cs_vSend)
 
 void CNode::EndMessage() UNLOCK_FUNCTION(cs_vSend)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // The -*messagestest options are intentionally not documented in the help message,
     // since they are only used during development to debug the networking code and are
     // not intended for end-users.
@@ -2214,6 +2379,8 @@ CBanDB::CBanDB()
 
 bool CBanDB::Write(const banmap_t& banSet)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Generate random temporary filename
     unsigned short randv = 0;
     GetRandBytes((unsigned char*)&randv, sizeof(randv));
@@ -2252,6 +2419,8 @@ bool CBanDB::Write(const banmap_t& banSet)
 
 bool CBanDB::Read(banmap_t& banSet)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // open input file, and associate with CAutoFile
     FILE *file = fopen(pathBanlist.string().c_str(), "rb");
     CAutoFile filein(file, SER_DISK, CLIENT_VERSION);
@@ -2306,6 +2475,8 @@ bool CBanDB::Read(banmap_t& banSet)
 
 void DumpBanlist()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CNode::SweepBanned(); // clean unused entries (if bantime has expired)
 
     if (!CNode::BannedSetIsDirty())

@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2016-2018 The PIVX developers
@@ -24,6 +25,8 @@ CTxMemPoolEntry::CTxMemPoolEntry() : nFee(0), nTxSize(0), nModSize(0), nTime(0),
 
 CTxMemPoolEntry::CTxMemPoolEntry(const CTransaction& _tx, const CAmount& _nFee, int64_t _nTime, double _dPriority, unsigned int _nHeight) : tx(_tx), nFee(_nFee), nTime(_nTime), dPriority(_dPriority), nHeight(_nHeight)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     nTxSize = ::GetSerializeSize(tx, SER_NETWORK, PROTOCOL_VERSION);
 
     nModSize = tx.CalculateModifiedSize(nTxSize);
@@ -31,12 +34,16 @@ CTxMemPoolEntry::CTxMemPoolEntry(const CTransaction& _tx, const CAmount& _nFee, 
 
 CTxMemPoolEntry::CTxMemPoolEntry(const CTxMemPoolEntry& other)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     *this = other;
 }
 
 double
 CTxMemPoolEntry::GetPriority(unsigned int currentHeight) const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CAmount nValueIn = tx.GetValueOut() + nFee;
     double deltaPriority = ((double)(currentHeight - nHeight) * nValueIn) / nModSize;
     double dResult = dPriority + deltaPriority;
@@ -55,6 +62,8 @@ private:
     template <typename T>
     std::vector<T> buf2vec(boost::circular_buffer<T> buf) const
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         std::vector<T> vec(buf.begin(), buf.end());
         return vec;
     }
@@ -64,24 +73,36 @@ public:
 
     void RecordFee(const CFeeRate& feeRate)
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         feeSamples.push_back(feeRate);
     }
 
     void RecordPriority(double priority)
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         prioritySamples.push_back(priority);
     }
 
-    size_t FeeSamples() const { return feeSamples.size(); }
+    size_t FeeSamples() const {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+ return feeSamples.size(); }
     size_t GetFeeSamples(std::vector<CFeeRate>& insertInto) const
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         BOOST_FOREACH (const CFeeRate& f, feeSamples)
             insertInto.push_back(f);
         return feeSamples.size();
     }
-    size_t PrioritySamples() const { return prioritySamples.size(); }
+    size_t PrioritySamples() const {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+ return prioritySamples.size(); }
     size_t GetPrioritySamples(std::vector<double>& insertInto) const
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         BOOST_FOREACH (double d, prioritySamples)
             insertInto.push_back(d);
         return prioritySamples.size();
@@ -93,6 +114,8 @@ public:
      */
     static bool AreSane(const CFeeRate fee, const CFeeRate& minRelayFee)
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         if (fee < CFeeRate(0))
             return false;
         if (fee.GetFeePerK() > minRelayFee.GetFeePerK() * 10000)
@@ -101,6 +124,8 @@ public:
     }
     static bool AreSane(const std::vector<CFeeRate>& vecFee, const CFeeRate& minRelayFee)
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         BOOST_FOREACH (CFeeRate fee, vecFee) {
             if (!AreSane(fee, minRelayFee))
                 return false;
@@ -109,10 +134,14 @@ public:
     }
     static bool AreSane(const double priority)
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         return priority >= 0;
     }
     static bool AreSane(const std::vector<double> vecPriority)
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         BOOST_FOREACH (double priority, vecPriority) {
             if (!AreSane(priority))
                 return false;
@@ -122,6 +151,8 @@ public:
 
     void Write(CAutoFile& fileout) const
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         std::vector<CFeeRate> vecFee = buf2vec(feeSamples);
         fileout << vecFee;
         std::vector<double> vecPriority = buf2vec(prioritySamples);
@@ -130,6 +161,8 @@ public:
 
     void Read(CAutoFile& filein, const CFeeRate& minRelayFee)
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         std::vector<CFeeRate> vecFee;
         filein >> vecFee;
         if (AreSane(vecFee, minRelayFee))
@@ -167,6 +200,8 @@ private:
      */
     void seenTxConfirm(const CFeeRate& feeRate, const CFeeRate& minRelayFee, double dPriority, int nBlocksAgo)
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         // Last entry records "everything else".
         int nBlocksTruncated = min(nBlocksAgo, (int)history.size() - 1);
         assert(nBlocksTruncated >= 0);
@@ -193,11 +228,15 @@ private:
 public:
     CMinerPolicyEstimator(int nEntries) : nBestSeenHeight(0)
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         history.resize(nEntries);
     }
 
     void seenBlock(const std::vector<CTxMemPoolEntry>& entries, int nBlockHeight, const CFeeRate minRelayFee)
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         if (nBlockHeight <= nBestSeenHeight) {
             // Ignore side chains and re-orgs; assuming they are random
             // they don't affect the estimate.
@@ -259,6 +298,8 @@ public:
      */
     CFeeRate estimateFee(int nBlocksToConfirm)
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         nBlocksToConfirm--;
 
         if (nBlocksToConfirm < 0 || nBlocksToConfirm >= (int)history.size())
@@ -292,6 +333,8 @@ public:
     }
     double estimatePriority(int nBlocksToConfirm)
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         nBlocksToConfirm--;
 
         if (nBlocksToConfirm < 0 || nBlocksToConfirm >= (int)history.size())
@@ -322,6 +365,8 @@ public:
 
     void Write(CAutoFile& fileout) const
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         fileout << nBestSeenHeight;
         fileout << history.size();
         BOOST_FOREACH (const CBlockAverage& entry, history) {
@@ -331,6 +376,8 @@ public:
 
     void Read(CAutoFile& filein, const CFeeRate& minRelayFee)
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         int nFileBestSeenHeight;
         filein >> nFileBestSeenHeight;
         size_t numEntries;
@@ -358,6 +405,8 @@ public:
 CTxMemPool::CTxMemPool(const CFeeRate& _minRelayFee) : nTransactionsUpdated(0),
                                                        minRelayFee(_minRelayFee)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Sanity checks off by default for performance, because otherwise
     // accepting transactions becomes O(N^2) where N is the number
     // of transactions in the pool
@@ -378,6 +427,8 @@ CTxMemPool::~CTxMemPool()
 
 void CTxMemPool::pruneSpent(const uint256& hashTx, CCoins& coins)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs);
 
     std::map<COutPoint, CInPoint>::iterator it = mapNextTx.lower_bound(COutPoint(hashTx, 0));
@@ -391,12 +442,16 @@ void CTxMemPool::pruneSpent(const uint256& hashTx, CCoins& coins)
 
 unsigned int CTxMemPool::GetTransactionsUpdated() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs);
     return nTransactionsUpdated;
 }
 
 void CTxMemPool::AddTransactionsUpdated(unsigned int n)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs);
     nTransactionsUpdated += n;
 }
@@ -404,6 +459,8 @@ void CTxMemPool::AddTransactionsUpdated(unsigned int n)
 
 bool CTxMemPool::addUnchecked(const uint256& hash, const CTxMemPoolEntry& entry)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Add to memory pool without checking anything.
     // Used by main.cpp AcceptToMemoryPool(), which DOES do
     // all the appropriate checks.
@@ -424,6 +481,8 @@ bool CTxMemPool::addUnchecked(const uint256& hash, const CTxMemPoolEntry& entry)
 
 void CTxMemPool::remove(const CTransaction& origTx, std::list<CTransaction>& removed, bool fRecursive)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Remove transaction from memory pool
     {
         LOCK(cs);
@@ -468,6 +527,8 @@ void CTxMemPool::remove(const CTransaction& origTx, std::list<CTransaction>& rem
 
 void CTxMemPool::removeCoinbaseSpends(const CCoinsViewCache* pcoins, unsigned int nMemPoolHeight)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Remove transactions spending a coinbase which are now immature
     LOCK(cs);
     list<CTransaction> transactionsToRemove;
@@ -493,6 +554,8 @@ void CTxMemPool::removeCoinbaseSpends(const CCoinsViewCache* pcoins, unsigned in
 
 void CTxMemPool::removeConflicts(const CTransaction& tx, std::list<CTransaction>& removed)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Remove transactions which depend on inputs of tx, recursively
     list<CTransaction> result;
     LOCK(cs);
@@ -512,6 +575,8 @@ void CTxMemPool::removeConflicts(const CTransaction& tx, std::list<CTransaction>
  */
 void CTxMemPool::removeForBlock(const std::vector<CTransaction>& vtx, unsigned int nBlockHeight, std::list<CTransaction>& conflicts)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs);
     std::vector<CTxMemPoolEntry> entries;
     BOOST_FOREACH (const CTransaction& tx, vtx) {
@@ -531,6 +596,8 @@ void CTxMemPool::removeForBlock(const std::vector<CTransaction>& vtx, unsigned i
 
 void CTxMemPool::clear()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs);
     mapTx.clear();
     mapNextTx.clear();
@@ -540,6 +607,8 @@ void CTxMemPool::clear()
 
 void CTxMemPool::check(const CCoinsViewCache* pcoins) const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!fSanityCheck)
         return;
 
@@ -614,6 +683,8 @@ void CTxMemPool::check(const CCoinsViewCache* pcoins) const
 
 void CTxMemPool::queryHashes(vector<uint256>& vtxid)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     vtxid.clear();
 
     LOCK(cs);

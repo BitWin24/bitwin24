@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2013 The Bitcoin Core developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -22,9 +23,13 @@ struct TestVector {
     std::string strHexMaster;
     std::vector<TestDerivation> vDerive;
 
-    TestVector(std::string strHexMasterIn) : strHexMaster(strHexMasterIn) {}
+    TestVector(std::string strHexMasterIn) : strHexMaster(strHexMasterIn) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+}
 
     TestVector& operator()(std::string pub, std::string prv, unsigned int nChild) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         vDerive.push_back(TestDerivation());
         TestDerivation &der = vDerive.back();
         der.pub = pub;
@@ -77,6 +82,8 @@ TestVector test2 =
      0);
 
 void RunTest(const TestVector &test) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::vector<unsigned char> seed = ParseHex(test.strHexMaster);
     CExtKey key;
     CExtPubKey pubkey;

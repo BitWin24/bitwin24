@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
@@ -38,17 +39,23 @@ static CCriticalSection cs_nWalletUnlockTime;
 
 std::string HelpRequiringPassphrase()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return pwalletMain && pwalletMain->IsCrypted() ? "\nRequires wallet passphrase to be set with walletpassphrase call." : "";
 }
 
 void EnsureWalletIsUnlocked(bool fAllowAnonOnly)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (pwalletMain->IsLocked() || (!fAllowAnonOnly && pwalletMain->fWalletUnlockAnonymizeOnly))
         throw JSONRPCError(RPC_WALLET_UNLOCK_NEEDED, "Error: Please enter the wallet passphrase with walletpassphrase first.");
 }
 
 void WalletTxToJSON(const CWalletTx& wtx, UniValue& entry)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     int confirms = wtx.GetDepthInMainChain(false);
     int confirmsTotal = GetIXConfirmations(wtx.GetHash()) + confirms;
     entry.push_back(Pair("confirmations", confirmsTotal));
@@ -74,6 +81,8 @@ void WalletTxToJSON(const CWalletTx& wtx, UniValue& entry)
 
 string AccountFromValue(const UniValue& value)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     string strAccount = value.get_str();
     if (strAccount == "*")
         throw JSONRPCError(RPC_WALLET_INVALID_ACCOUNT_NAME, "Invalid account name");
@@ -82,6 +91,8 @@ string AccountFromValue(const UniValue& value)
 
 UniValue getnewaddress(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "getnewaddress ( \"account\" )\n"
@@ -123,6 +134,8 @@ UniValue getnewaddress(const UniValue& params, bool fHelp)
 
 CBitcoinAddress GetAccountAddress(string strAccount, bool bForceNew = false)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CWalletDB walletdb(pwalletMain->strWalletFile);
 
     CAccount account;
@@ -157,6 +170,8 @@ CBitcoinAddress GetAccountAddress(string strAccount, bool bForceNew = false)
 
 UniValue getaccountaddress(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "getaccountaddress \"account\"\n"
@@ -186,6 +201,8 @@ UniValue getaccountaddress(const UniValue& params, bool fHelp)
 
 UniValue getrawchangeaddress(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "getrawchangeaddress\n"
@@ -218,6 +235,8 @@ UniValue getrawchangeaddress(const UniValue& params, bool fHelp)
 
 UniValue setaccount(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() < 1 || params.size() > 2)
         throw runtime_error(
             "setaccount \"bitwin24address\" \"account\"\n"
@@ -259,6 +278,8 @@ UniValue setaccount(const UniValue& params, bool fHelp)
 
 UniValue getaccount(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "getaccount \"bitwin24address\"\n"
@@ -289,6 +310,8 @@ UniValue getaccount(const UniValue& params, bool fHelp)
 
 UniValue getaddressesbyaccount(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "getaddressesbyaccount \"account\"\n"
@@ -323,6 +346,8 @@ UniValue getaddressesbyaccount(const UniValue& params, bool fHelp)
 
 void SendMoney(const CTxDestination& address, CAmount nValue, CWalletTx& wtxNew, bool fUseIX = false)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Check amount
     if (nValue <= 0)
         throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid amount");
@@ -355,6 +380,8 @@ void SendMoney(const CTxDestination& address, CAmount nValue, CWalletTx& wtxNew,
 
 UniValue sendtoaddress(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() < 2 || params.size() > 4)
         throw runtime_error(
             "sendtoaddress \"bitwin24address\" amount ( \"comment\" \"comment-to\" )\n"
@@ -403,6 +430,8 @@ UniValue sendtoaddress(const UniValue& params, bool fHelp)
 
 UniValue sendtoaddressix(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() < 2 || params.size() > 4)
         throw runtime_error(
             "sendtoaddressix \"bitwin24address\" amount ( \"comment\" \"comment-to\" )\n"
@@ -451,6 +480,8 @@ UniValue sendtoaddressix(const UniValue& params, bool fHelp)
 
 UniValue listaddressgroupings(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp)
         throw runtime_error(
             "listaddressgroupings\n"
@@ -497,6 +528,8 @@ UniValue listaddressgroupings(const UniValue& params, bool fHelp)
 
 UniValue signmessage(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() != 2)
         throw runtime_error(
             "signmessage \"bitwin24address\" \"message\"\n"
@@ -552,6 +585,8 @@ UniValue signmessage(const UniValue& params, bool fHelp)
 
 UniValue getreceivedbyaddress(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() < 1 || params.size() > 2)
         throw std::runtime_error(
             "getreceivedbyaddress \"bitwin24address\" ( minconf )\n"
@@ -608,6 +643,8 @@ UniValue getreceivedbyaddress(const UniValue& params, bool fHelp)
 
 UniValue getreceivedbyaccount(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() < 1 || params.size() > 2)
         throw runtime_error(
             "getreceivedbyaccount \"account\" ( minconf )\n"
@@ -662,6 +699,8 @@ UniValue getreceivedbyaccount(const UniValue& params, bool fHelp)
 
 CAmount GetAccountBalance(CWalletDB& walletdb, const string& strAccount, int nMinDepth, const isminefilter& filter)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CAmount nBalance = 0;
 
     // Tally wallet transactions
@@ -686,6 +725,8 @@ CAmount GetAccountBalance(CWalletDB& walletdb, const string& strAccount, int nMi
 
 CAmount GetAccountBalance(const string& strAccount, int nMinDepth, const isminefilter& filter)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CWalletDB walletdb(pwalletMain->strWalletFile);
     return GetAccountBalance(walletdb, strAccount, nMinDepth, filter);
 }
@@ -693,6 +734,8 @@ CAmount GetAccountBalance(const string& strAccount, int nMinDepth, const isminef
 
 UniValue getbalance(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() > 3)
         throw runtime_error(
             "getbalance ( \"account\" minconf includeWatchonly )\n"
@@ -769,6 +812,8 @@ UniValue getbalance(const UniValue& params, bool fHelp)
 
 UniValue getunconfirmedbalance(const UniValue &params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() > 0)
         throw runtime_error(
             "getunconfirmedbalance\n"
@@ -782,6 +827,8 @@ UniValue getunconfirmedbalance(const UniValue &params, bool fHelp)
 
 UniValue movecmd(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() < 3 || params.size() > 5)
         throw std::runtime_error(
             "move \"fromaccount\" \"toaccount\" amount ( minconf \"comment\" )\n"
@@ -852,6 +899,8 @@ UniValue movecmd(const UniValue& params, bool fHelp)
 
 UniValue sendfrom(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() < 3 || params.size() > 6)
         throw runtime_error(
             "sendfrom \"fromaccount\" \"tobitwin24address\" amount ( minconf \"comment\" \"comment-to\" )\n"
@@ -914,6 +963,8 @@ UniValue sendfrom(const UniValue& params, bool fHelp)
 
 UniValue sendmany(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() < 2 || params.size() > 4)
         throw runtime_error(
             "sendmany \"fromaccount\" {\"address\":amount,...} ( minconf \"comment\" )\n"
@@ -1001,6 +1052,8 @@ extern CScript _createmultisig_redeemScript(const UniValue& params);
 
 UniValue addmultisigaddress(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() < 2 || params.size() > 3)
         throw runtime_error(
             "addmultisigaddress nrequired [\"key\",...] ( \"account\" )\n"
@@ -1059,6 +1112,8 @@ struct tallyitem {
 
 UniValue ListReceived(const UniValue& params, bool fByAccounts)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Minimum confirmations
     int nMinDepth = 1;
     if (params.size() > 0)
@@ -1174,6 +1229,8 @@ UniValue ListReceived(const UniValue& params, bool fByAccounts)
 
 UniValue listreceivedbyaddress(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() > 3)
         throw runtime_error(
             "listreceivedbyaddress ( minconf includeempty includeWatchonly)\n"
@@ -1207,6 +1264,8 @@ UniValue listreceivedbyaddress(const UniValue& params, bool fHelp)
 
 UniValue listreceivedbyaccount(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() > 3)
         throw runtime_error(
             "listreceivedbyaccount ( minconf includeempty includeWatchonly)\n"
@@ -1239,6 +1298,8 @@ UniValue listreceivedbyaccount(const UniValue& params, bool fHelp)
 
 static void MaybePushAddress(UniValue & entry, const CTxDestination &dest)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CBitcoinAddress addr;
     if (addr.Set(dest))
         entry.push_back(Pair("address", addr.ToString()));
@@ -1246,6 +1307,8 @@ static void MaybePushAddress(UniValue & entry, const CTxDestination &dest)
 
 void ListTransactions(const CWalletTx& wtx, const string& strAccount, int nMinDepth, bool fLong, UniValue& ret, const isminefilter& filter)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CAmount nFee;
     string strSentAccount;
     list<COutputEntry> listReceived;
@@ -1309,6 +1372,8 @@ void ListTransactions(const CWalletTx& wtx, const string& strAccount, int nMinDe
 
 void AcentryToJSON(const CAccountingEntry& acentry, const string& strAccount, UniValue& ret)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     bool fAllAccounts = (strAccount == string("*"));
 
     if (fAllAccounts || acentry.strAccount == strAccount) {
@@ -1325,6 +1390,8 @@ void AcentryToJSON(const CAccountingEntry& acentry, const string& strAccount, Un
 
 UniValue listtransactions(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() > 4)
         throw runtime_error(
             "listtransactions ( \"account\" count from includeWatchonly)\n"
@@ -1447,6 +1514,8 @@ UniValue listtransactions(const UniValue& params, bool fHelp)
 
 UniValue listaccounts(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() > 2)
         throw runtime_error(
             "listaccounts ( minconf includeWatchonly)\n"
@@ -1523,6 +1592,8 @@ UniValue listaccounts(const UniValue& params, bool fHelp)
 
 UniValue listsinceblock(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp)
         throw runtime_error(
             "listsinceblock ( \"blockhash\" target-confirmations includeWatchonly)\n"
@@ -1611,6 +1682,8 @@ UniValue listsinceblock(const UniValue& params, bool fHelp)
 
 UniValue gettransaction(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() < 1 || params.size() > 2)
         throw runtime_error(
             "gettransaction \"txid\" ( includeWatchonly )\n"
@@ -1688,6 +1761,8 @@ UniValue gettransaction(const UniValue& params, bool fHelp)
 
 UniValue backupwallet(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "backupwallet \"destination\"\n"
@@ -1711,6 +1786,8 @@ UniValue backupwallet(const UniValue& params, bool fHelp)
 
 UniValue keypoolrefill(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "keypoolrefill ( newsize )\n"
@@ -1745,6 +1822,8 @@ UniValue keypoolrefill(const UniValue& params, bool fHelp)
 
 static void LockWallet(CWallet* pWallet)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs_nWalletUnlockTime);
     nWalletUnlockTime = 0;
     pWallet->fWalletUnlockAnonymizeOnly = false;
@@ -1753,6 +1832,8 @@ static void LockWallet(CWallet* pWallet)
 
 UniValue walletpassphrase(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (pwalletMain->IsCrypted() && (fHelp || params.size() < 2 || params.size() > 3))
         throw runtime_error(
             "walletpassphrase \"passphrase\" timeout ( anonymizeonly )\n"
@@ -1827,6 +1908,8 @@ UniValue walletpassphrase(const UniValue& params, bool fHelp)
 
 UniValue walletpassphrasechange(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (pwalletMain->IsCrypted() && (fHelp || params.size() != 2))
         throw runtime_error(
             "walletpassphrasechange \"oldpassphrase\" \"newpassphrase\"\n"
@@ -1870,6 +1953,8 @@ UniValue walletpassphrasechange(const UniValue& params, bool fHelp)
 
 UniValue walletlock(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (pwalletMain->IsCrypted() && (fHelp || params.size() != 0))
         throw runtime_error(
             "walletlock\n"
@@ -1906,6 +1991,8 @@ UniValue walletlock(const UniValue& params, bool fHelp)
 
 UniValue encryptwallet(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!pwalletMain->IsCrypted() && (fHelp || params.size() != 1))
         throw runtime_error(
             "encryptwallet \"passphrase\"\n"
@@ -1961,6 +2048,8 @@ UniValue encryptwallet(const UniValue& params, bool fHelp)
 
 UniValue lockunspent(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() < 1 || params.size() > 2)
         throw runtime_error(
             "lockunspent unlock [{\"txid\":\"txid\",\"vout\":n},...]\n"
@@ -2042,6 +2131,8 @@ UniValue lockunspent(const UniValue& params, bool fHelp)
 
 UniValue listlockunspent(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() > 0)
         throw runtime_error(
             "listlockunspent\n"
@@ -2089,6 +2180,8 @@ UniValue listlockunspent(const UniValue& params, bool fHelp)
 
 UniValue settxfee(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() < 1 || params.size() > 1)
         throw runtime_error(
             "settxfee amount\n"
@@ -2115,6 +2208,8 @@ UniValue settxfee(const UniValue& params, bool fHelp)
 
 UniValue getwalletinfo(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() != 0)
         throw runtime_error(
             "getwalletinfo\n"
@@ -2149,6 +2244,8 @@ UniValue getwalletinfo(const UniValue& params, bool fHelp)
 // ppcoin: reserve balance from being staked for network protection
 UniValue reservebalance(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() > 2)
         throw runtime_error(
             "reservebalance ( reserve amount )\n"
@@ -2194,6 +2291,8 @@ UniValue reservebalance(const UniValue& params, bool fHelp)
 // presstab HyperStake
 UniValue setstakesplitthreshold(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "setstakesplitthreshold value\n"
@@ -2240,6 +2339,8 @@ UniValue setstakesplitthreshold(const UniValue& params, bool fHelp)
 // presstab HyperStake
 UniValue getstakesplitthreshold(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() != 0)
         throw runtime_error(
             "getstakesplitthreshold\n"
@@ -2256,6 +2357,8 @@ UniValue getstakesplitthreshold(const UniValue& params, bool fHelp)
 
 UniValue autocombinerewards(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     bool fEnable;
     if (params.size() >= 1)
         fEnable = params[0].get_bool();
@@ -2290,6 +2393,8 @@ UniValue autocombinerewards(const UniValue& params, bool fHelp)
 
 UniValue printMultiSend()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     UniValue ret(UniValue::VARR);
     UniValue act(UniValue::VOBJ);
     act.push_back(Pair("MultiSendStake Activated?", pwalletMain->fMultiSendStake));
@@ -2318,6 +2423,8 @@ UniValue printMultiSend()
 
 UniValue printAddresses()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::vector<COutput> vCoins;
     pwalletMain->AvailableCoins(vCoins);
     std::map<std::string, double> mapAddresses;
@@ -2347,6 +2454,8 @@ UniValue printAddresses()
 
 unsigned int sumMultiSend()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     unsigned int sum = 0;
     for (unsigned int i = 0; i < pwalletMain->vMultiSend.size(); i++)
         sum += pwalletMain->vMultiSend[i].second;
@@ -2355,6 +2464,8 @@ unsigned int sumMultiSend()
 
 UniValue multisend(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CWalletDB walletdb(pwalletMain->strWalletFile);
     bool fFileBacked;
     //MultiSend Commands
@@ -2532,6 +2643,8 @@ UniValue multisend(const UniValue& params, bool fHelp)
 
 UniValue getzerocoinbalance(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 
     if (fHelp || params.size() != 0)
         throw runtime_error(
@@ -2560,6 +2673,8 @@ UniValue getzerocoinbalance(const UniValue& params, bool fHelp)
 
 UniValue listmintedzerocoins(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 
     if (fHelp || params.size() != 0)
         throw runtime_error(
@@ -2592,6 +2707,8 @@ UniValue listmintedzerocoins(const UniValue& params, bool fHelp)
 
 UniValue listzerocoinamounts(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 
     if (fHelp || params.size() != 0)
         throw runtime_error(
@@ -2636,6 +2753,8 @@ UniValue listzerocoinamounts(const UniValue& params, bool fHelp)
 
 UniValue listspentzerocoins(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 
     if (fHelp || params.size() != 0)
         throw runtime_error(
@@ -2669,6 +2788,8 @@ UniValue listspentzerocoins(const UniValue& params, bool fHelp)
 
 UniValue mintzerocoin(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() < 1 || params.size() > 2)
         throw runtime_error(
             "mintzerocoin amount ( utxos )\n"
@@ -2780,6 +2901,8 @@ UniValue mintzerocoin(const UniValue& params, bool fHelp)
 
 UniValue spendzerocoin(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() > 5 || params.size() < 4)
         throw runtime_error(
             "spendzerocoin amount mintchange minimizechange securitylevel ( \"address\" )\n"
@@ -2903,6 +3026,8 @@ UniValue spendzerocoin(const UniValue& params, bool fHelp)
 
 UniValue resetmintzerocoin(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "resetmintzerocoin ( fullscan )\n"
@@ -2963,6 +3088,8 @@ UniValue resetmintzerocoin(const UniValue& params, bool fHelp)
 
 UniValue resetspentzerocoin(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() != 0)
         throw runtime_error(
             "resetspentzerocoin\n"
@@ -3025,6 +3152,8 @@ UniValue resetspentzerocoin(const UniValue& params, bool fHelp)
 
 UniValue getarchivedzerocoin(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if(fHelp || params.size() != 0)
         throw runtime_error(
             "getarchivedzerocoin\n"
@@ -3082,6 +3211,8 @@ UniValue getarchivedzerocoin(const UniValue& params, bool fHelp)
 
 UniValue exportzerocoins(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if(fHelp || params.empty() || params.size() > 2)
         throw runtime_error(
             "exportzerocoins include_spent ( denomination )\n"
@@ -3158,6 +3289,8 @@ UniValue exportzerocoins(const UniValue& params, bool fHelp)
 
 UniValue importzerocoins(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if(fHelp || params.size() == 0)
         throw runtime_error(
             "importzerocoins importdata \n"
@@ -3250,6 +3383,8 @@ UniValue importzerocoins(const UniValue& params, bool fHelp)
 
 UniValue reconsiderzerocoins(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if(fHelp || !params.empty())
         throw runtime_error(
             "reconsiderzerocoins\n"
@@ -3301,6 +3436,8 @@ UniValue reconsiderzerocoins(const UniValue& params, bool fHelp)
 
 UniValue setzbwiseed(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if(fHelp || params.size() != 1)
         throw runtime_error(
             "setzbwiseed \"seed\"\n"
@@ -3335,6 +3472,8 @@ UniValue setzbwiseed(const UniValue& params, bool fHelp)
 
 UniValue getzbwiseed(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if(fHelp || !params.empty())
         throw runtime_error(
             "getzbwiseed\n"
@@ -3360,6 +3499,8 @@ UniValue getzbwiseed(const UniValue& params, bool fHelp)
 
 UniValue generatemintlist(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if(fHelp || params.size() != 2)
         throw runtime_error(
             "generatemintlist\n"
@@ -3408,6 +3549,8 @@ UniValue generatemintlist(const UniValue& params, bool fHelp)
 }
 
 UniValue dzbwistate(const UniValue& params, bool fHelp) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() != 0)
         throw runtime_error(
                 "dzbwistate\n"
@@ -3430,6 +3573,8 @@ UniValue dzbwistate(const UniValue& params, bool fHelp) {
 
 void static SearchThread(CzBWIWallet* zwallet, int nCountStart, int nCountEnd)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LogPrintf("%s: start=%d end=%d\n", __func__, nCountStart, nCountEnd);
     CWalletDB walletDB(pwalletMain->strWalletFile);
     try {
@@ -3460,6 +3605,8 @@ void static SearchThread(CzBWIWallet* zwallet, int nCountStart, int nCountEnd)
 
 UniValue searchdzbwi(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if(fHelp || params.size() != 3)
         throw runtime_error(
             "searchdzbwi\n"

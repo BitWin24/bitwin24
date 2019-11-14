@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2012-2013 The Bitcoin Core developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -18,12 +19,16 @@ class TestLocker
 public:
     bool Lock(const void *addr, size_t len)
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         last_lock_addr = addr;
         last_lock_len = len;
         return true;
     }
     bool Unlock(const void *addr, size_t len)
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         last_unlock_addr = addr;
         last_unlock_len = len;
         return true;

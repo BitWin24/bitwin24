@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2015 The Bitcoin Core developers
 // Copyright (c) 2016-2017 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
@@ -35,6 +36,8 @@ namespace
 
 void MakeSingleColorImage(QImage& img, const QColor& colorbase)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     img = img.convertToFormat(QImage::Format_ARGB32);
     for (int x = img.width(); x--;) {
         for (int y = img.height(); y--;) {
@@ -46,6 +49,8 @@ void MakeSingleColorImage(QImage& img, const QColor& colorbase)
 
 QIcon ColorizeIcon(const QIcon& ico, const QColor& colorbase)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     QIcon new_ico;
     QSize sz;
     Q_FOREACH (sz, ico.availableSizes()) {
@@ -58,6 +63,8 @@ QIcon ColorizeIcon(const QIcon& ico, const QColor& colorbase)
 
 QImage ColorizeImage(const QString& filename, const QColor& colorbase)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     QImage img(filename);
     MakeSingleColorImage(img, colorbase);
     return img;
@@ -65,6 +72,8 @@ QImage ColorizeImage(const QString& filename, const QColor& colorbase)
 
 QIcon ColorizeIcon(const QString& filename, const QColor& colorbase)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return QIcon(QPixmap::fromImage(ColorizeImage(filename, colorbase)));
 }
 }
@@ -77,6 +86,8 @@ PlatformStyle::PlatformStyle(const QString& name, bool imagesOnButtons, bool col
                                                                                                                     singleColor(0, 0, 0),
                                                                                                                     textColor(0, 0, 0)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Determine icon highlighting color
     if (colorizeIcons) {
         const QColor colorHighlightBg(QApplication::palette().color(QPalette::Highlight));
@@ -96,6 +107,8 @@ PlatformStyle::PlatformStyle(const QString& name, bool imagesOnButtons, bool col
 
 QImage PlatformStyle::SingleColorImage(const QString& filename) const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!colorizeIcons)
         return QImage(filename);
     return ColorizeImage(filename, SingleColor());
@@ -103,6 +116,8 @@ QImage PlatformStyle::SingleColorImage(const QString& filename) const
 
 QIcon PlatformStyle::SingleColorIcon(const QString& filename) const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!colorizeIcons)
         return QIcon(filename);
     return ColorizeIcon(filename, SingleColor());
@@ -110,6 +125,8 @@ QIcon PlatformStyle::SingleColorIcon(const QString& filename) const
 
 QIcon PlatformStyle::SingleColorIcon(const QIcon& icon) const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!colorizeIcons)
         return icon;
     return ColorizeIcon(icon, SingleColor());
@@ -117,16 +134,22 @@ QIcon PlatformStyle::SingleColorIcon(const QIcon& icon) const
 
 QIcon PlatformStyle::TextColorIcon(const QString& filename) const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return ColorizeIcon(filename, TextColor());
 }
 
 QIcon PlatformStyle::TextColorIcon(const QIcon& icon) const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return ColorizeIcon(icon, TextColor());
 }
 
 const PlatformStyle* PlatformStyle::instantiate(const QString& platformId)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     for (unsigned x = 0; x < platform_styles_count; ++x) {
         if (platformId == platform_styles[x].platformId) {
             return new PlatformStyle(

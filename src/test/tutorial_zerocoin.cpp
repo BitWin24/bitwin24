@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 /**
 * @file       tutorial.cpp
 *
@@ -48,6 +49,8 @@ using namespace std;
 bool
 ZerocoinTutorial()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	// The following simple code illustrates the call flow for Zerocoin
 	// applications. In a real currency network these operations would
 	// be split between individual payers/payees, network nodes and miners.

@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2017-2018 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -148,6 +149,8 @@ BOOST_AUTO_TEST_CASE(checkzerocoinmint_test)
 
 bool CheckZerocoinSpendNoDB(const CTransaction tx, string& strError)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     //max needed non-mint outputs should be 2 - one for redemption address and a possible 2nd for change
     if (tx.vout.size() > 2){
         int outs = 0;

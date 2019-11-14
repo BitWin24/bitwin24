@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2012-2014 The Bitcoin Core developers
 // Copyright (c) 2017 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
@@ -16,11 +17,15 @@ static const long offsets[] = { 1, 0x79, 0x80, 0x81, 0xFF, 0x7FFF, 0x8000, 0xFFF
 
 static bool verify(const CBigNum& bignum, const CScriptNum& scriptnum)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return bignum.getvch() == scriptnum.getvch() && bignum.getint() == scriptnum.getint();
 }
 
 static void CheckCreateVch(const long& num)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CBigNum bignum(num);
     CScriptNum scriptnum(num);
     BOOST_CHECK(verify(bignum, scriptnum));
@@ -36,6 +41,8 @@ static void CheckCreateVch(const long& num)
 
 static void CheckCreateInt(const long& num)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CBigNum bignum(num);
     CScriptNum scriptnum(num);
     BOOST_CHECK(verify(bignum, scriptnum));
@@ -47,6 +54,8 @@ static void CheckCreateInt(const long& num)
 
 static void CheckAdd(const long& num1, const long& num2)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     const CBigNum bignum1(num1);
     const CBigNum bignum2(num2);
     const CScriptNum scriptnum1(num1);
@@ -69,6 +78,8 @@ static void CheckAdd(const long& num1, const long& num2)
 
 static void CheckNegate(const long& num)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     const CBigNum bignum(num);
     const CScriptNum scriptnum(num);
 
@@ -79,6 +90,8 @@ static void CheckNegate(const long& num)
 
 static void CheckSubtract(const long& num1, const long& num2)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     const CBigNum bignum1(num1);
     const CBigNum bignum2(num2);
     const CScriptNum scriptnum1(num1);
@@ -105,6 +118,8 @@ static void CheckSubtract(const long& num1, const long& num2)
 
 static void CheckCompare(const long& num1, const long& num2)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     const CBigNum bignum1(num1);
     const CBigNum bignum2(num2);
     const CScriptNum scriptnum1(num1);
@@ -141,6 +156,8 @@ static void CheckCompare(const long& num1, const long& num2)
 
 static void RunCreate(const long& num)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CheckCreateInt(num);
     CScriptNum scriptnum(num);
     if (scriptnum.getvch().size() <= CScriptNum::nMaxNumSize)
@@ -153,6 +170,8 @@ static void RunCreate(const long& num)
 
 static void RunOperators(const long& num1, const int64_t& num2)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CheckAdd(num1, num2);
     CheckSubtract(num1, num2);
     CheckNegate(num1);

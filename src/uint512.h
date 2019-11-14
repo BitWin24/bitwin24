@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2017-2018 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -37,6 +38,8 @@ public:
  */
 inline uint512 uint512S(const char* str)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     uint512 rv;
     rv.SetHex(str);
     return rv;

@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2016-2018 The PIVX developers
@@ -20,6 +21,8 @@ using namespace libzerocoin;
 
 void static BatchWriteCoins(CLevelDBBatch& batch, const uint256& hash, const CCoins& coins)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (coins.IsPruned())
         batch.Erase(make_pair('c', hash));
     else
@@ -28,25 +31,35 @@ void static BatchWriteCoins(CLevelDBBatch& batch, const uint256& hash, const CCo
 
 void static BatchWriteHashBestChain(CLevelDBBatch& batch, const uint256& hash)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     batch.Write('B', hash);
 }
 
 CCoinsViewDB::CCoinsViewDB(size_t nCacheSize, bool fMemory, bool fWipe) : db(GetDataDir() / "chainstate", nCacheSize, fMemory, fWipe)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 }
 
 bool CCoinsViewDB::GetCoins(const uint256& txid, CCoins& coins) const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return db.Read(make_pair('c', txid), coins);
 }
 
 bool CCoinsViewDB::HaveCoins(const uint256& txid) const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return db.Exists(make_pair('c', txid));
 }
 
 uint256 CCoinsViewDB::GetBestBlock() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     uint256 hashBestChain;
     if (!db.Read('B', hashBestChain))
         return uint256(0);
@@ -55,6 +68,8 @@ uint256 CCoinsViewDB::GetBestBlock() const
 
 bool CCoinsViewDB::BatchWrite(CCoinsMap& mapCoins, const uint256& hashBlock)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CLevelDBBatch batch;
     size_t count = 0;
     size_t changed = 0;
@@ -76,30 +91,42 @@ bool CCoinsViewDB::BatchWrite(CCoinsMap& mapCoins, const uint256& hashBlock)
 
 CBlockTreeDB::CBlockTreeDB(size_t nCacheSize, bool fMemory, bool fWipe) : CLevelDBWrapper(GetDataDir() / "blocks" / "index", nCacheSize, fMemory, fWipe)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 }
 
 bool CBlockTreeDB::WriteBlockIndex(const CDiskBlockIndex& blockindex)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return Write(make_pair('b', blockindex.GetBlockHash()), blockindex);
 }
 
 bool CBlockTreeDB::WriteBlockFileInfo(int nFile, const CBlockFileInfo& info)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return Write(make_pair('f', nFile), info);
 }
 
 bool CBlockTreeDB::ReadBlockFileInfo(int nFile, CBlockFileInfo& info)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return Read(make_pair('f', nFile), info);
 }
 
 bool CBlockTreeDB::WriteLastBlockFile(int nFile)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return Write('l', nFile);
 }
 
 bool CBlockTreeDB::WriteReindexing(bool fReindexing)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fReindexing)
         return Write('R', '1');
     else
@@ -108,17 +135,23 @@ bool CBlockTreeDB::WriteReindexing(bool fReindexing)
 
 bool CBlockTreeDB::ReadReindexing(bool& fReindexing)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     fReindexing = Exists('R');
     return true;
 }
 
 bool CBlockTreeDB::ReadLastBlockFile(int& nFile)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return Read('l', nFile);
 }
 
 bool CCoinsViewDB::GetStats(CCoinsStats& stats) const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     /* It seems that there are no "const iterators" for LevelDB.  Since we
        only need read operations on it, use a const-cast to get around
        that restriction.  */
@@ -173,11 +206,15 @@ bool CCoinsViewDB::GetStats(CCoinsStats& stats) const
 
 bool CBlockTreeDB::ReadTxIndex(const uint256& txid, CDiskTxPos& pos)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return Read(make_pair('t', txid), pos);
 }
 
 bool CBlockTreeDB::WriteTxIndex(const std::vector<std::pair<uint256, CDiskTxPos> >& vect)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CLevelDBBatch batch;
     for (std::vector<std::pair<uint256, CDiskTxPos> >::const_iterator it = vect.begin(); it != vect.end(); it++)
         batch.Write(make_pair('t', it->first), it->second);
@@ -186,11 +223,15 @@ bool CBlockTreeDB::WriteTxIndex(const std::vector<std::pair<uint256, CDiskTxPos>
 
 bool CBlockTreeDB::WriteFlag(const std::string& name, bool fValue)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return Write(std::make_pair('F', name), fValue ? '1' : '0');
 }
 
 bool CBlockTreeDB::ReadFlag(const std::string& name, bool& fValue)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     char ch;
     if (!Read(std::make_pair('F', name), ch))
         return false;
@@ -200,16 +241,22 @@ bool CBlockTreeDB::ReadFlag(const std::string& name, bool& fValue)
 
 bool CBlockTreeDB::WriteInt(const std::string& name, int nValue)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return Write(std::make_pair('I', name), nValue);
 }
 
 bool CBlockTreeDB::ReadInt(const std::string& name, int& nValue)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return Read(std::make_pair('I', name), nValue);
 }
 
 bool CBlockTreeDB::LoadBlockIndexGuts()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     boost::scoped_ptr<leveldb::Iterator> pcursor(NewIterator());
 
     CDataStream ssKeySet(SER_DISK, CLIENT_VERSION);
@@ -292,10 +339,14 @@ bool CBlockTreeDB::LoadBlockIndexGuts()
 
 CZerocoinDB::CZerocoinDB(size_t nCacheSize, bool fMemory, bool fWipe) : CLevelDBWrapper(GetDataDir() / "zerocoin", nCacheSize, fMemory, fWipe)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 }
 
 bool CZerocoinDB::WriteCoinMintBatch(const std::vector<std::pair<libzerocoin::PublicCoin, uint256> >& mintInfo)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CLevelDBBatch batch;
     size_t count = 0;
     for (std::vector<std::pair<libzerocoin::PublicCoin, uint256> >::const_iterator it=mintInfo.begin(); it != mintInfo.end(); it++) {
@@ -311,22 +362,30 @@ bool CZerocoinDB::WriteCoinMintBatch(const std::vector<std::pair<libzerocoin::Pu
 
 bool CZerocoinDB::ReadCoinMint(const CBigNum& bnPubcoin, uint256& hashTx)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return ReadCoinMint(GetPubCoinHash(bnPubcoin), hashTx);
 }
 
 bool CZerocoinDB::ReadCoinMint(const uint256& hashPubcoin, uint256& hashTx)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return Read(make_pair('m', hashPubcoin), hashTx);
 }
 
 bool CZerocoinDB::EraseCoinMint(const CBigNum& bnPubcoin)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     uint256 hash = GetPubCoinHash(bnPubcoin);
     return Erase(make_pair('m', hash));
 }
 
 bool CZerocoinDB::WriteCoinSpendBatch(const std::vector<std::pair<libzerocoin::CoinSpend, uint256> >& spendInfo)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CLevelDBBatch batch;
     size_t count = 0;
     for (std::vector<std::pair<libzerocoin::CoinSpend, uint256> >::const_iterator it=spendInfo.begin(); it != spendInfo.end(); it++) {
@@ -344,6 +403,8 @@ bool CZerocoinDB::WriteCoinSpendBatch(const std::vector<std::pair<libzerocoin::C
 
 bool CZerocoinDB::ReadCoinSpend(const CBigNum& bnSerial, uint256& txHash)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CDataStream ss(SER_GETHASH, 0);
     ss << bnSerial;
     uint256 hash = Hash(ss.begin(), ss.end());
@@ -353,11 +414,15 @@ bool CZerocoinDB::ReadCoinSpend(const CBigNum& bnSerial, uint256& txHash)
 
 bool CZerocoinDB::ReadCoinSpend(const uint256& hashSerial, uint256 &txHash)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return Read(make_pair('s', hashSerial), txHash);
 }
 
 bool CZerocoinDB::EraseCoinSpend(const CBigNum& bnSerial)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CDataStream ss(SER_GETHASH, 0);
     ss << bnSerial;
     uint256 hash = Hash(ss.begin(), ss.end());
@@ -367,6 +432,8 @@ bool CZerocoinDB::EraseCoinSpend(const CBigNum& bnSerial)
 
 bool CZerocoinDB::WipeCoins(std::string strType)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (strType != "spends" && strType != "mints")
         return error("%s: did not recognize type %s", __func__, strType);
 
@@ -410,17 +477,23 @@ bool CZerocoinDB::WipeCoins(std::string strType)
 
 bool CZerocoinDB::WriteAccumulatorValue(const uint32_t& nChecksum, const CBigNum& bnValue)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LogPrint("zero","%s : checksum:%d val:%s\n", __func__, nChecksum, bnValue.GetHex());
     return Write(make_pair('2', nChecksum), bnValue);
 }
 
 bool CZerocoinDB::ReadAccumulatorValue(const uint32_t& nChecksum, CBigNum& bnValue)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return Read(make_pair('2', nChecksum), bnValue);
 }
 
 bool CZerocoinDB::EraseAccumulatorValue(const uint32_t& nChecksum)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LogPrint("zero", "%s : checksum:%d\n", __func__, nChecksum);
     return Erase(make_pair('2', nChecksum));
 }

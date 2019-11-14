@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2018 The PIVX developers
@@ -37,6 +38,8 @@ WalletModel::WalletModel(CWallet* wallet, OptionsModel* optionsModel, QObject* p
                                                                                          cachedEncryptionStatus(Unencrypted),
                                                                                          cachedNumBlocks(0)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     fHaveWatchOnly = wallet->HaveWatchOnly();
     fHaveMultiSig = wallet->HaveMultiSig();
     fForceCheckBalanceChanged = false;
@@ -60,6 +63,8 @@ WalletModel::~WalletModel()
 
 CAmount WalletModel::getBalance(const CCoinControl* coinControl) const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (coinControl) {
         CAmount nBalance = 0;
         std::vector<COutput> vCoins;
@@ -76,72 +81,100 @@ CAmount WalletModel::getBalance(const CCoinControl* coinControl) const
 
 CAmount WalletModel::getStakeEarnings() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return wallet->GetEarnings(false) - wallet->GetEarnings(true);
 }
 
 CAmount WalletModel::getMasternodeEarnings() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return wallet->GetEarnings(true);
 }
 
 CAmount WalletModel::getEarnings() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return wallet->GetEarnings(false);
 }
 
 CAmount WalletModel::getUnconfirmedBalance() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return wallet->GetUnconfirmedBalance();
 }
 
 CAmount WalletModel::getImmatureBalance() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return wallet->GetImmatureBalance();
 }
 
 CAmount WalletModel::getLockedBalance() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return wallet->GetLockedCoins();
 }
 
 CAmount WalletModel::getZerocoinBalance() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return wallet->GetZerocoinBalance(false);
 }
 
 CAmount WalletModel::getUnconfirmedZerocoinBalance() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return wallet->GetUnconfirmedZerocoinBalance();
 }
 
 CAmount WalletModel::getImmatureZerocoinBalance() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return wallet->GetImmatureZerocoinBalance();
 }
 
 
 bool WalletModel::haveWatchOnly() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return fHaveWatchOnly;
 }
 
 CAmount WalletModel::getWatchBalance() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return wallet->GetWatchOnlyBalance();
 }
 
 CAmount WalletModel::getWatchUnconfirmedBalance() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return wallet->GetUnconfirmedWatchOnlyBalance();
 }
 
 CAmount WalletModel::getWatchImmatureBalance() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return wallet->GetImmatureWatchOnlyBalance();
 }
 
 void WalletModel::updateStatus()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     EncryptionStatus newEncryptionStatus = getEncryptionStatus();
 
     if (cachedEncryptionStatus != newEncryptionStatus)
@@ -150,6 +183,8 @@ void WalletModel::updateStatus()
 
 void WalletModel::pollBalanceChanged()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Get required locks upfront. This avoids the GUI from getting stuck on
     // periodical polls if the core is holding the locks for a longer time -
     // for example, during a wallet rescan.
@@ -179,6 +214,8 @@ void WalletModel::pollBalanceChanged()
 
 void WalletModel::emitBalanceChanged()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Force update of UI elements even when no values have changed
     emit balanceChanged(cachedBalance, cachedUnconfirmedBalance, cachedImmatureBalance, 
                         cachedZerocoinBalance, cachedUnconfirmedZerocoinBalance, cachedImmatureZerocoinBalance,
@@ -188,6 +225,8 @@ void WalletModel::emitBalanceChanged()
 
 void WalletModel::checkBalanceChanged()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     TRY_LOCK(cs_main, lockMain);
     if (!lockMain) return;
 
@@ -236,17 +275,23 @@ void WalletModel::checkBalanceChanged()
 
 void WalletModel::updateTransaction()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Balance and number of transactions might have changed
     fForceCheckBalanceChanged = true;
 }
 
 void WalletModel::updateAddressBook(const QString& address, const QString& label, bool isMine, const QString& purpose, int status)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (addressTableModel)
         addressTableModel->updateEntry(address, label, isMine, purpose, status);
 }
 void WalletModel::updateAddressBook(const QString &pubCoin, const QString &isUsed, int status)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if(addressTableModel)
         addressTableModel->updateEntry(pubCoin, isUsed, status);
 }
@@ -254,24 +299,32 @@ void WalletModel::updateAddressBook(const QString &pubCoin, const QString &isUse
 
 void WalletModel::updateWatchOnlyFlag(bool fHaveWatchonly)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     fHaveWatchOnly = fHaveWatchonly;
     emit notifyWatchonlyChanged(fHaveWatchonly);
 }
 
 void WalletModel::updateMultiSigFlag(bool fHaveMultiSig)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     this->fHaveMultiSig = fHaveMultiSig;
     emit notifyMultiSigChanged(fHaveMultiSig);
 }
 
 bool WalletModel::validateAddress(const QString& address)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CBitcoinAddress addressParsed(address.toStdString());
     return addressParsed.IsValid();
 }
 
 void WalletModel::updateAddressBookLabels(const CTxDestination& dest, const string& strName, const string& strPurpose)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(wallet->cs_wallet);
 
     std::map<CTxDestination, CAddressBookData>::iterator mi = wallet->mapAddressBook.find(dest);
@@ -286,6 +339,8 @@ void WalletModel::updateAddressBookLabels(const CTxDestination& dest, const stri
 
 WalletModel::SendCoinsReturn WalletModel::prepareTransaction(WalletModelTransaction& transaction, const CCoinControl* coinControl)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CAmount total = 0;
     QList<SendCoinsRecipient> recipients = transaction.getRecipients();
     std::vector<std::pair<CScript, CAmount> > vecSend;
@@ -389,6 +444,8 @@ WalletModel::SendCoinsReturn WalletModel::prepareTransaction(WalletModelTransact
 
 WalletModel::SendCoinsReturn WalletModel::sendCoins(WalletModelTransaction& transaction)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     QByteArray transaction_array; /* store serialized transaction */
 
     if (isAnonymizeOnlyUnlocked()) {
@@ -447,26 +504,36 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(WalletModelTransaction& tran
 
 OptionsModel* WalletModel::getOptionsModel()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return optionsModel;
 }
 
 AddressTableModel* WalletModel::getAddressTableModel()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return addressTableModel;
 }
 
 TransactionTableModel* WalletModel::getTransactionTableModel()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return transactionTableModel;
 }
 
 RecentRequestsTableModel* WalletModel::getRecentRequestsTableModel()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return recentRequestsTableModel;
 }
 
 WalletModel::EncryptionStatus WalletModel::getEncryptionStatus() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!wallet->IsCrypted()) {
         return Unencrypted;
     } else if (wallet->fWalletUnlockAnonymizeOnly) {
@@ -481,6 +548,8 @@ WalletModel::EncryptionStatus WalletModel::getEncryptionStatus() const
 
 bool WalletModel::setWalletEncrypted(bool encrypted, const SecureString& passphrase)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (encrypted) {
         // Encrypt
         return wallet->EncryptWallet(passphrase);
@@ -492,6 +561,8 @@ bool WalletModel::setWalletEncrypted(bool encrypted, const SecureString& passphr
 
 bool WalletModel::setWalletLocked(bool locked, const SecureString& passPhrase, bool anonymizeOnly)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (locked) {
         // Lock
         wallet->fWalletUnlockAnonymizeOnly = false;
@@ -504,11 +575,15 @@ bool WalletModel::setWalletLocked(bool locked, const SecureString& passPhrase, b
 
 bool WalletModel::isAnonymizeOnlyUnlocked()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return wallet->fWalletUnlockAnonymizeOnly;
 }
 
 bool WalletModel::changePassphrase(const SecureString& oldPass, const SecureString& newPass)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     bool retval;
     {
         LOCK(wallet->cs_wallet);
@@ -520,6 +595,8 @@ bool WalletModel::changePassphrase(const SecureString& oldPass, const SecureStri
 
 bool WalletModel::backupWallet(const QString& filename)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     //attempt regular backup
     if(!BackupWallet(*wallet, filename.toLocal8Bit().data())) {
         return error("ERROR: Failed to backup wallet!");
@@ -532,12 +609,16 @@ bool WalletModel::backupWallet(const QString& filename)
 // Handlers for core signals
 static void NotifyKeyStoreStatusChanged(WalletModel* walletmodel, CCryptoKeyStore* wallet)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     qDebug() << "NotifyKeyStoreStatusChanged";
     QMetaObject::invokeMethod(walletmodel, "updateStatus", Qt::QueuedConnection);
 }
 
 static void NotifyAddressBookChanged(WalletModel* walletmodel, CWallet* wallet, const CTxDestination& address, const std::string& label, bool isMine, const std::string& purpose, ChangeType status)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     QString strAddress = QString::fromStdString(CBitcoinAddress(address).ToString());
     QString strLabel = QString::fromStdString(label);
     QString strPurpose = QString::fromStdString(purpose);
@@ -556,6 +637,8 @@ static bool fQueueNotifications = false;
 static std::vector<std::pair<uint256, ChangeType> > vQueueNotifications;
 static void NotifyTransactionChanged(WalletModel* walletmodel, CWallet* wallet, const uint256& hash, ChangeType status)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fQueueNotifications) {
         vQueueNotifications.push_back(make_pair(hash, status));
         return;
@@ -571,6 +654,8 @@ static void NotifyTransactionChanged(WalletModel* walletmodel, CWallet* wallet, 
 
 static void ShowProgress(WalletModel* walletmodel, const std::string& title, int nProgress)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // emits signal "showProgress"
     QMetaObject::invokeMethod(walletmodel, "showProgress", Qt::QueuedConnection,
         Q_ARG(QString, QString::fromStdString(title)),
@@ -579,12 +664,16 @@ static void ShowProgress(WalletModel* walletmodel, const std::string& title, int
 
 static void NotifyWatchonlyChanged(WalletModel* walletmodel, bool fHaveWatchonly)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     QMetaObject::invokeMethod(walletmodel, "updateWatchOnlyFlag", Qt::QueuedConnection,
         Q_ARG(bool, fHaveWatchonly));
 }
 
 static void NotifyMultiSigChanged(WalletModel* walletmodel, bool fHaveMultiSig)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     QMetaObject::invokeMethod(walletmodel, "updateMultiSigFlag", Qt::QueuedConnection,
                               Q_ARG(bool, fHaveMultiSig));
 }
@@ -592,6 +681,8 @@ static void NotifyMultiSigChanged(WalletModel* walletmodel, bool fHaveMultiSig)
 static void NotifyZerocoinChanged(WalletModel* walletmodel, CWallet* wallet, const std::string& hexString,
                                   const std::string& isUsed, ChangeType status)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     QString HexStr = QString::fromStdString(hexString);
     QString isUsedStr = QString::fromStdString(isUsed);
     qDebug() << "NotifyZerocoinChanged : " + HexStr + " " + isUsedStr + " status= " + QString::number(status);
@@ -603,12 +694,16 @@ static void NotifyZerocoinChanged(WalletModel* walletmodel, CWallet* wallet, con
 
 static void NotifyzBWIReset(WalletModel* walletmodel)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     qDebug() << "NotifyzBWIReset";
     QMetaObject::invokeMethod(walletmodel, "checkBalanceChanged", Qt::QueuedConnection);
 }
 
 static void NotifyWalletBacked(WalletModel* model, const bool& fSuccess, const string& filename)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     string message;
     string title = "Backup ";
     CClientUIInterface::MessageBoxFlags method;
@@ -633,6 +728,8 @@ static void NotifyWalletBacked(WalletModel* model, const bool& fSuccess, const s
 
 void WalletModel::subscribeToCoreSignals()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Connect signals to wallet
     wallet->NotifyStatusChanged.connect(boost::bind(&NotifyKeyStoreStatusChanged, this, _1));
     wallet->NotifyAddressBookChanged.connect(boost::bind(NotifyAddressBookChanged, this, _1, _2, _3, _4, _5, _6));
@@ -647,6 +744,8 @@ void WalletModel::subscribeToCoreSignals()
 
 void WalletModel::unsubscribeFromCoreSignals()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Disconnect signals from wallet
     wallet->NotifyStatusChanged.disconnect(boost::bind(&NotifyKeyStoreStatusChanged, this, _1));
     wallet->NotifyAddressBookChanged.disconnect(boost::bind(NotifyAddressBookChanged, this, _1, _2, _3, _4, _5, _6));
@@ -662,6 +761,8 @@ void WalletModel::unsubscribeFromCoreSignals()
 // WalletModel::UnlockContext implementation
 WalletModel::UnlockContext WalletModel::requestUnlock(AskPassphraseDialog::Context context, bool relock)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     bool was_locked = getEncryptionStatus() == Locked;
 
     if (!was_locked && isAnonymizeOnlyUnlocked()) {
@@ -683,6 +784,8 @@ WalletModel::UnlockContext WalletModel::requestUnlock(AskPassphraseDialog::Conte
 
 WalletModel::UnlockContext::UnlockContext(bool valid, bool relock) : valid(valid), relock(relock)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 }
 
 WalletModel::UnlockContext::~UnlockContext()
@@ -696,6 +799,8 @@ WalletModel::UnlockContext::~UnlockContext()
 
 void WalletModel::UnlockContext::CopyFrom(const UnlockContext& rhs)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Transfer context; old object no longer relocks wallet
     *this = rhs;
     rhs.relock = false;
@@ -703,12 +808,16 @@ void WalletModel::UnlockContext::CopyFrom(const UnlockContext& rhs)
 
 bool WalletModel::getPubKey(const CKeyID& address, CPubKey& vchPubKeyOut) const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return wallet->GetPubKey(address, vchPubKeyOut);
 }
 
 // returns a list of COutputs from COutPoints
 void WalletModel::getOutputs(const std::vector<COutPoint>& vOutpoints, std::vector<COutput>& vOutputs)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK2(cs_main, wallet->cs_wallet);
     BOOST_FOREACH (const COutPoint& outpoint, vOutpoints) {
         if (!wallet->mapWallet.count(outpoint.hash)) continue;
@@ -721,6 +830,8 @@ void WalletModel::getOutputs(const std::vector<COutPoint>& vOutpoints, std::vect
 
 bool WalletModel::isSpent(const COutPoint& outpoint) const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK2(cs_main, wallet->cs_wallet);
     return wallet->IsSpent(outpoint.hash, outpoint.n);
 }
@@ -762,24 +873,32 @@ void WalletModel::listCoins(std::map<QString, std::vector<COutput> >& mapCoins) 
 
 bool WalletModel::isLockedCoin(uint256 hash, unsigned int n) const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK2(cs_main, wallet->cs_wallet);
     return wallet->IsLockedCoin(hash, n);
 }
 
 void WalletModel::lockCoin(COutPoint& output)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK2(cs_main, wallet->cs_wallet);
     wallet->LockCoin(output);
 }
 
 void WalletModel::unlockCoin(COutPoint& output)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK2(cs_main, wallet->cs_wallet);
     wallet->UnlockCoin(output);
 }
 
 void WalletModel::listLockedCoins(std::vector<COutPoint>& vOutpts)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK2(cs_main, wallet->cs_wallet);
     wallet->ListLockedCoins(vOutpts);
 }
@@ -787,12 +906,16 @@ void WalletModel::listLockedCoins(std::vector<COutPoint>& vOutpts)
 
 void WalletModel::listZerocoinMints(std::set<CMintMeta>& setMints, bool fUnusedOnly, bool fMaturedOnly, bool fUpdateStatus)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     setMints.clear();
     setMints = pwalletMain->zbwiTracker->ListMints(fUnusedOnly, fMaturedOnly, fUpdateStatus);
 }
 
 void WalletModel::loadReceiveRequests(std::vector<std::string>& vReceiveRequests)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(wallet->cs_wallet);
     BOOST_FOREACH (const PAIRTYPE(CTxDestination, CAddressBookData) & item, wallet->mapAddressBook)
         BOOST_FOREACH (const PAIRTYPE(std::string, std::string) & item2, item.second.destdata)
@@ -802,6 +925,8 @@ void WalletModel::loadReceiveRequests(std::vector<std::string>& vReceiveRequests
 
 bool WalletModel::saveReceiveRequest(const std::string& sAddress, const int64_t nId, const std::string& sRequest)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CTxDestination dest = CBitcoinAddress(sAddress).Get();
 
     std::stringstream ss;
@@ -817,10 +942,14 @@ bool WalletModel::saveReceiveRequest(const std::string& sAddress, const int64_t 
 
 bool WalletModel::isMine(CBitcoinAddress address)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return IsMine(*wallet, address.Get());
 }
 
 bool WalletModel::isUsed(CBitcoinAddress address)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return wallet->IsUsed(address);
 }

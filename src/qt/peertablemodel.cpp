@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2011-2013 The Bitcoin developers
 // Copyright (c) 2017-2018 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
@@ -52,6 +53,8 @@ public:
     /** Pull a full list of peers from vNodes into our cache */
     void refreshPeers()
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         {
             TRY_LOCK(cs_vNodes, lockNodes);
             if (!lockNodes) {
@@ -94,11 +97,15 @@ public:
 
     int size()
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         return cachedNodeStats.size();
     }
 
     CNodeCombinedStats* index(int idx)
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         if (idx >= 0 && idx < cachedNodeStats.size()) {
             return &cachedNodeStats[idx];
         } else {

@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2011-2013 The Bitcoin Core developers
 // Copyright (c) 2017 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
@@ -83,15 +84,21 @@ BOOST_GLOBAL_FIXTURE(TestingSetup);
 
 void Shutdown(void* parg)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
   exit(0);
 }
 
 void StartShutdown()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
   exit(0);
 }
 
 bool ShutdownRequested()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
   return false;
 }

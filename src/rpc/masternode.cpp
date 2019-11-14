@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2012 The Bitcoin developers
 // Copyright (c) 2015-2018 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
@@ -21,6 +22,8 @@
 
 UniValue getpoolinfo(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() != 0)
         throw runtime_error(
             "getpoolinfo\n"
@@ -49,6 +52,8 @@ UniValue getpoolinfo(const UniValue& params, bool fHelp)
 // Future removal of this command is planned to keep things clean.
 UniValue masternode(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     string strCommand;
     if (params.size() >= 1)
         strCommand = params[0].get_str();
@@ -188,6 +193,8 @@ UniValue masternode(const UniValue& params, bool fHelp)
 
 UniValue listmasternodes(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::string strFilter = "";
 
     if (params.size() == 1) strFilter = params[0].get_str();
@@ -269,6 +276,8 @@ UniValue listmasternodes(const UniValue& params, bool fHelp)
 
 UniValue masternodeconnect(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || (params.size() != 1))
         throw runtime_error(
             "masternodeconnect \"address\"\n"
@@ -295,6 +304,8 @@ UniValue masternodeconnect(const UniValue& params, bool fHelp)
 
 UniValue getmasternodecount (const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || (params.size() > 0))
         throw runtime_error(
             "getmasternodecount\n"
@@ -335,6 +346,8 @@ UniValue getmasternodecount (const UniValue& params, bool fHelp)
 
 UniValue masternodecurrent (const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || (params.size() != 0))
         throw runtime_error(
             "masternodecurrent\n"
@@ -369,6 +382,8 @@ UniValue masternodecurrent (const UniValue& params, bool fHelp)
 
 UniValue masternodedebug (const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || (params.size() != 0))
         throw runtime_error(
             "masternodedebug\n"
@@ -394,6 +409,8 @@ UniValue masternodedebug (const UniValue& params, bool fHelp)
 
 UniValue startmasternode (const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::string strCommand;
     if (params.size() >= 1) {
         strCommand = params[0].get_str();
@@ -565,6 +582,8 @@ UniValue startmasternode (const UniValue& params, bool fHelp)
 
 UniValue createmasternodekey (const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || (params.size() != 0))
         throw runtime_error(
             "createmasternodekey\n"
@@ -584,6 +603,8 @@ UniValue createmasternodekey (const UniValue& params, bool fHelp)
 
 UniValue getmasternodeoutputs (const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || (params.size() != 0))
         throw runtime_error(
             "getmasternodeoutputs\n"
@@ -617,6 +638,8 @@ UniValue getmasternodeoutputs (const UniValue& params, bool fHelp)
 
 UniValue listmasternodeconf (const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::string strFilter = "";
 
     if (params.size() == 1) strFilter = params[0].get_str();
@@ -679,6 +702,8 @@ UniValue listmasternodeconf (const UniValue& params, bool fHelp)
 
 UniValue getmasternodestatus (const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || (params.size() != 0))
         throw runtime_error(
             "getmasternodestatus\n"
@@ -717,6 +742,8 @@ UniValue getmasternodestatus (const UniValue& params, bool fHelp)
 
 UniValue getmasternodewinners (const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() > 3)
         throw runtime_error(
             "getmasternodewinners ( blocks \"filter\" )\n"
@@ -819,6 +846,8 @@ UniValue getmasternodewinners (const UniValue& params, bool fHelp)
 
 UniValue getmasternodescores (const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "getmasternodescores ( blocks )\n"
@@ -866,6 +895,8 @@ UniValue getmasternodescores (const UniValue& params, bool fHelp)
 }
 
 bool DecodeHexMnb(CMasternodeBroadcast& mnb, std::string strHexMnb) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 
     if (!IsHex(strHexMnb))
         return false;
@@ -883,6 +914,8 @@ bool DecodeHexMnb(CMasternodeBroadcast& mnb, std::string strHexMnb) {
 }
 UniValue createmasternodebroadcast(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     string strCommand;
     if (params.size() >= 1)
         strCommand = params[0].get_str();
@@ -1014,6 +1047,8 @@ UniValue createmasternodebroadcast(const UniValue& params, bool fHelp)
 
 UniValue decodemasternodebroadcast(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "decodemasternodebroadcast \"hexstring\"\n"
@@ -1074,6 +1109,8 @@ UniValue decodemasternodebroadcast(const UniValue& params, bool fHelp)
 
 UniValue relaymasternodebroadcast(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "relaymasternodebroadcast \"hexstring\"\n"

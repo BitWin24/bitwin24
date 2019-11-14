@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2017 The Zcash developers
 // Copyright (c) 2017 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
@@ -12,6 +13,8 @@ BOOST_AUTO_TEST_SUITE(torcontrol_tests)
 
 void CheckSplitTorReplyLine(std::string input, std::string command, std::string args)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     BOOST_TEST_MESSAGE(std::string("CheckSplitTorReplyLine(") + input + ")");
     auto ret = SplitTorReplyLine(input);
     BOOST_CHECK_EQUAL(ret.first, command);
@@ -53,6 +56,8 @@ BOOST_AUTO_TEST_CASE(util_SplitTorReplyLine)
 
 void CheckParseTorReplyMapping(std::string input, std::map<std::string,std::string> expected)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     BOOST_TEST_MESSAGE(std::string("CheckParseTorReplyMapping(") + input + ")");
     auto ret = ParseTorReplyMapping(input);
     BOOST_CHECK_EQUAL(ret.size(), expected.size());

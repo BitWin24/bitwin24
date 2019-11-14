@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2017-2018 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -40,6 +41,8 @@ MultisigDialog::MultisigDialog(QWidget* parent) : QDialog(parent, Qt::WindowSyst
                                                   ui(new Ui::MultisigDialog),
                                                   model(0)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     ui->setupUi(this);
     multisigTx = CMutableTransaction();
 
@@ -66,17 +69,23 @@ MultisigDialog::~MultisigDialog()
 
 void MultisigDialog::setModel(WalletModel *model)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     this->model = model;
 }
 
 void MultisigDialog::showTab(int index)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     ui->multisigTabWidget->setCurrentIndex(index);
     this->show();
 }
 
 void MultisigDialog::updateCoinControl(CAmount nAmount, unsigned int nQuantity)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     ui->labelAmount_int->setText(QString::fromStdString(FormatMoney(nAmount)));
     ui->labelQuantity_int->setText(QString::number(nQuantity));
 }
@@ -87,6 +96,8 @@ void MultisigDialog::updateCoinControl(CAmount nAmount, unsigned int nQuantity)
 //slot for pasting addresses
 void MultisigDialog::pasteText()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     QWidget* pasteButton = qobject_cast<QWidget*>(sender());
     if(!pasteButton)return;
 
@@ -102,6 +113,8 @@ void MultisigDialog::pasteText()
 //slot for deleting QFrames with the delete buttons
 void MultisigDialog::deleteFrame()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     QWidget *buttonWidget = qobject_cast<QWidget*>(sender());
     if(!buttonWidget)return;
 
@@ -167,6 +180,8 @@ void MultisigDialog::deleteFrame()
 //slot to open address book dialog
 void MultisigDialog::addressBookButtonReceiving()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     QWidget* addressButton = qobject_cast<QWidget*>(sender());
     if(!addressButton)return;
 
@@ -188,6 +203,8 @@ void MultisigDialog::addressBookButtonReceiving()
 //create address
 void MultisigDialog::on_addMultisigButton_clicked()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if(!model)
         return;
 
@@ -208,6 +225,8 @@ void MultisigDialog::on_addMultisigButton_clicked()
 }
 
 void MultisigDialog::on_importAddressButton_clicked(){
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if(!model)
         return;
 
@@ -238,6 +257,8 @@ void MultisigDialog::on_importAddressButton_clicked(){
 }
 
 bool MultisigDialog::addMultisig(int m, vector<string> keys){
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     try{
         string error;
         CScript redeem;
@@ -278,6 +299,8 @@ bool MultisigDialog::addMultisig(int m, vector<string> keys){
 //spend
 void MultisigDialog::on_createButton_clicked()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if(!model)
         return;
 
@@ -377,6 +400,8 @@ void MultisigDialog::on_createButton_clicked()
 
 bool MultisigDialog::createMultisigTransaction(vector<CTxIn> vUserIn, vector<CTxOut> vUserOut, string& feeStringRet, string& errorRet)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     try{
         //attempt to access the given inputs
         CCoinsViewCache view = getInputsCoinsViewCache(vUserIn);
@@ -499,6 +524,8 @@ bool MultisigDialog::createMultisigTransaction(vector<CTxIn> vUserIn, vector<CTx
 //sign
 void MultisigDialog::on_signButton_clicked()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if(!model)
         return;
     try{
@@ -541,6 +568,8 @@ void MultisigDialog::on_signButton_clicked()
  */
 QString MultisigDialog::buildMultisigTxStatusString(bool fComplete, const CMutableTransaction& tx)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     string sTxHex = EncodeHexTx(tx);
 
     if(fComplete){
@@ -565,6 +594,8 @@ QString MultisigDialog::buildMultisigTxStatusString(bool fComplete, const CMutab
 
 CCoinsViewCache MultisigDialog::getInputsCoinsViewCache(const vector<CTxIn>& vin)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CCoinsView viewDummy;
     CCoinsViewCache view(&viewDummy);
     {
@@ -587,6 +618,8 @@ CCoinsViewCache MultisigDialog::getInputsCoinsViewCache(const vector<CTxIn>& vin
 
 bool MultisigDialog::signMultisigTx(CMutableTransaction& tx, string& errorOut, QVBoxLayout* keyList)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     //will be set false if all inputs are not fully signed(valid)
     bool fComplete = true;
 
@@ -691,6 +724,8 @@ bool MultisigDialog::signMultisigTx(CMutableTransaction& tx, string& errorOut, Q
 
 // quick check for an already fully signed tx
 bool MultisigDialog::isFullyVerified(CMutableTransaction& tx){
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     try{
         int nIn = 0;
         for(CTxIn& txin : tx.vin){
@@ -721,6 +756,8 @@ bool MultisigDialog::isFullyVerified(CMutableTransaction& tx){
 
 void MultisigDialog::commitMultisigTx()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CMutableTransaction tx(multisigTx);
     try{
 #ifdef ENABLE_WALLET
@@ -760,6 +797,8 @@ void MultisigDialog::commitMultisigTx()
 
 bool MultisigDialog::createRedeemScript(int m, vector<string> vKeys, CScript& redeemRet, string& errorRet)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     try{
         int n = vKeys.size();
         //gather pub keys
@@ -836,6 +875,8 @@ bool MultisigDialog::createRedeemScript(int m, vector<string> vKeys, CScript& re
 //creates an address object on the create tab
 void MultisigDialog::on_addAddressButton_clicked()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     //max addresses 15
     if(ui->addressList->count() >= 15){
         ui->addMultisigStatus->setStyleSheet("QLabel { color: red; }");
@@ -904,6 +945,8 @@ void MultisigDialog::on_addAddressButton_clicked()
 
 void MultisigDialog::on_pushButtonCoinControl_clicked()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CoinControlDialog coinControlDialog(this, true);
     coinControlDialog.setModel(model);
     coinControlDialog.exec();
@@ -911,6 +954,8 @@ void MultisigDialog::on_pushButtonCoinControl_clicked()
 
 void MultisigDialog::on_addInputButton_clicked()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if(isFirstRawTx){
         isFirstRawTx = false;
         ui->txInputsScrollArea->show();
@@ -974,6 +1019,8 @@ void MultisigDialog::on_addInputButton_clicked()
 
 void MultisigDialog::on_addDestinationButton_clicked()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     QFrame* destinationFrame = new QFrame(ui->destinationsScrollAreaContents);
     destinationFrame->setObjectName(QStringLiteral("destinationFrame"));
     destinationFrame->setFrameShape(QFrame::StyledPanel);
@@ -1025,6 +1072,8 @@ void MultisigDialog::on_addDestinationButton_clicked()
 
 void MultisigDialog::on_addPrivKeyButton_clicked()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if(isFirstPrivKey){//on first click the scroll area must show
         isFirstPrivKey = false;
         ui->keyScrollArea->show();

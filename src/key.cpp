@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2017 The Bitcoin developers
 // Copyright (c) 2017-2018 The PIVX developers
 // Copyright (c) 2018 The MAC developers
@@ -35,6 +36,8 @@ static secp256k1_context* secp256k1_context_sign = nullptr;
  * out32 must point to an output buffer of length at least 32 bytes.
  */
 static int ec_privkey_import_der(const secp256k1_context* ctx, unsigned char *out32, const unsigned char *privkey, size_t privkeylen) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     const unsigned char *end = privkey + privkeylen;
     memset(out32, 0, 32);
     /* sequence header */
@@ -92,6 +95,8 @@ static int ec_privkey_import_der(const secp256k1_context* ctx, unsigned char *ou
  * key32 must point to a 32-byte raw private key.
  */
 static int ec_privkey_export_der(const secp256k1_context *ctx, unsigned char *privkey, size_t *privkeylen, const unsigned char *key32, int compressed) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     assert(*privkeylen >= CKey::PRIVATE_KEY_SIZE);
     secp256k1_pubkey pubkey;
     size_t pubkeylen = 0;
@@ -155,11 +160,15 @@ static int ec_privkey_export_der(const secp256k1_context *ctx, unsigned char *pr
 
 bool CKey::Check(const unsigned char* vch)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return secp256k1_ec_seckey_verify(secp256k1_context_sign, vch);
 }
 
 void CKey::MakeNewKey(bool fCompressedIn)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     do {
         GetRandBytes(keydata.data(), keydata.size());
     } while (!Check(keydata.data()));
@@ -169,6 +178,8 @@ void CKey::MakeNewKey(bool fCompressedIn)
 
 bool CKey::SetPrivKey(const CPrivKey& privkey, bool fCompressedIn)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!ec_privkey_import_der(secp256k1_context_sign, (unsigned char*)begin(), &privkey[0], privkey.size()))
         return false;
     fCompressed = fCompressedIn;
@@ -178,6 +189,8 @@ bool CKey::SetPrivKey(const CPrivKey& privkey, bool fCompressedIn)
 
 uint256 CKey::GetPrivKey_256()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     void* key = keydata.data();
     uint256* key_256 = (uint256*)key;
 
@@ -186,6 +199,8 @@ uint256 CKey::GetPrivKey_256()
 
 CPrivKey CKey::GetPrivKey() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     assert(fValid);
     CPrivKey privkey;
     size_t privkeylen;
@@ -199,6 +214,8 @@ CPrivKey CKey::GetPrivKey() const
 
 CPubKey CKey::GetPubKey() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     assert(fValid);
     secp256k1_pubkey pubkey;
     CPubKey result;
@@ -213,6 +230,8 @@ CPubKey CKey::GetPubKey() const
 
 bool CKey::Sign(const uint256& hash, std::vector<unsigned char>& vchSig, uint32_t test_case) const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!fValid)
         return false;
     vchSig.resize(CPubKey::SIGNATURE_SIZE);
@@ -229,6 +248,8 @@ bool CKey::Sign(const uint256& hash, std::vector<unsigned char>& vchSig, uint32_
 
 bool CKey::VerifyPubKey(const CPubKey& pubkey) const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (pubkey.IsCompressed() != fCompressed) {
         return false;
     }
@@ -244,6 +265,8 @@ bool CKey::VerifyPubKey(const CPubKey& pubkey) const
 
 bool CKey::SignCompact(const uint256& hash, std::vector<unsigned char>& vchSig) const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!fValid)
         return false;
     vchSig.resize(CPubKey::COMPACT_SIGNATURE_SIZE);
@@ -260,6 +283,8 @@ bool CKey::SignCompact(const uint256& hash, std::vector<unsigned char>& vchSig) 
 
 bool CKey::Load(const CPrivKey& privkey, const CPubKey& vchPubKey, bool fSkipCheck = false)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!ec_privkey_import_der(secp256k1_context_sign, (unsigned char*)begin(), privkey.data(), privkey.size()))
         return false;
     fCompressed = vchPubKey.IsCompressed();
@@ -273,6 +298,8 @@ bool CKey::Load(const CPrivKey& privkey, const CPubKey& vchPubKey, bool fSkipChe
 
 bool CKey::Derive(CKey& keyChild, ChainCode &ccChild, unsigned int nChild, const ChainCode& cc) const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     assert(IsValid());
     assert(IsCompressed());
     std::vector<unsigned char, secure_allocator<unsigned char>> vout(64);
@@ -294,6 +321,8 @@ bool CKey::Derive(CKey& keyChild, ChainCode &ccChild, unsigned int nChild, const
 
 bool CExtKey::Derive(CExtKey& out, unsigned int nChild) const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     out.nDepth = nDepth + 1;
     CKeyID id = key.GetPubKey().GetID();
     memcpy(&out.vchFingerprint[0], &id, 4);
@@ -303,6 +332,8 @@ bool CExtKey::Derive(CExtKey& out, unsigned int nChild) const
 
 void CExtKey::SetMaster(const unsigned char* seed, unsigned int nSeedLen)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     static const unsigned char hashkey[] = {'B', 'i', 't', 'c', 'o', 'i', 'n', ' ', 's', 'e', 'e', 'd'};
     std::vector<unsigned char, secure_allocator<unsigned char>> vout(64);
     CHMAC_SHA512(hashkey, sizeof(hashkey)).Write(seed, nSeedLen).Finalize(vout.data());
@@ -316,6 +347,8 @@ void CExtKey::SetMaster(const unsigned char* seed, unsigned int nSeedLen)
 
 CExtPubKey CExtKey::Neuter() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CExtPubKey ret;
     ret.nDepth = nDepth;
     memcpy(&ret.vchFingerprint[0], &vchFingerprint[0], 4);
@@ -327,6 +360,8 @@ CExtPubKey CExtKey::Neuter() const
 
 void CExtKey::Encode(unsigned char code[74]) const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     code[0] = nDepth;
     memcpy(code + 1, vchFingerprint, 4);
     code[5] = (nChild >> 24) & 0xFF;
@@ -341,6 +376,8 @@ void CExtKey::Encode(unsigned char code[74]) const
 
 void CExtKey::Decode(const unsigned char code[74])
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     nDepth = code[0];
     memcpy(vchFingerprint, code + 1, 4);
     nChild = (code[5] << 24) | (code[6] << 16) | (code[7] << 8) | code[8];
@@ -350,6 +387,8 @@ void CExtKey::Decode(const unsigned char code[74])
 
 bool ECC_InitSanityCheck()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CKey key;
     key.MakeNewKey(true);
     CPubKey pubkey = key.GetPubKey();
@@ -357,6 +396,8 @@ bool ECC_InitSanityCheck()
 }
 
 void ECC_Start() {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     assert(secp256k1_context_sign == nullptr);
 
     secp256k1_context *ctx = secp256k1_context_create(SECP256K1_CONTEXT_SIGN);
@@ -374,6 +415,8 @@ void ECC_Start() {
 }
 
 void ECC_Stop() {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     secp256k1_context *ctx = secp256k1_context_sign;
     secp256k1_context_sign = nullptr;
 

@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2015 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -20,6 +21,8 @@ static const char *MSG_RAWTXLOCK = "rawtxlock";
 // Internal function to send multipart message
 static int zmq_send_multipart(void *sock, const void* data, size_t size, ...)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     va_list args;
     va_start(args, size);
 
@@ -59,6 +62,8 @@ static int zmq_send_multipart(void *sock, const void* data, size_t size, ...)
 
 bool CZMQAbstractPublishNotifier::Initialize(void *pcontext)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     assert(!psocket);
 
     // check if address is being used by other publish notifier
@@ -98,6 +103,8 @@ bool CZMQAbstractPublishNotifier::Initialize(void *pcontext)
 
 void CZMQAbstractPublishNotifier::Shutdown()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     assert(psocket);
 
     int count = mapPublishNotifiers.count(address);
@@ -128,6 +135,8 @@ void CZMQAbstractPublishNotifier::Shutdown()
 
 bool CZMQAbstractPublishNotifier::SendMessage(const char *command, const void* data, size_t size)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     assert(psocket);
 
     /* send three parts, command & data & a LE 4byte sequence number */
@@ -145,6 +154,8 @@ bool CZMQAbstractPublishNotifier::SendMessage(const char *command, const void* d
 
 bool CZMQPublishHashBlockNotifier::NotifyBlock(const CBlockIndex *pindex)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     uint256 hash = pindex->GetBlockHash();
     LogPrint("zmq", "zmq: Publish hashblock %s\n", hash.GetHex());
     char data[32];
@@ -155,6 +166,8 @@ bool CZMQPublishHashBlockNotifier::NotifyBlock(const CBlockIndex *pindex)
 
 bool CZMQPublishHashTransactionNotifier::NotifyTransaction(const CTransaction &transaction)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     uint256 hash = transaction.GetHash();
     LogPrint("zmq", "zmq: Publish hashtx %s\n", hash.GetHex());
     char data[32];
@@ -165,6 +178,8 @@ bool CZMQPublishHashTransactionNotifier::NotifyTransaction(const CTransaction &t
 
 bool CZMQPublishHashTransactionLockNotifier::NotifyTransactionLock(const CTransaction &transaction)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     uint256 hash = transaction.GetHash();
     LogPrint("zmq", "zmq: Publish hashtxlock %s\n", hash.GetHex());
     char data[32];
@@ -175,6 +190,8 @@ bool CZMQPublishHashTransactionLockNotifier::NotifyTransactionLock(const CTransa
 
 bool CZMQPublishRawBlockNotifier::NotifyBlock(const CBlockIndex *pindex)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LogPrint("zmq", "zmq: Publish rawblock %s\n", pindex->GetBlockHash().GetHex());
 
 // XX42    const Consensus::Params& consensusParams = Params().GetConsensus();
@@ -197,6 +214,8 @@ bool CZMQPublishRawBlockNotifier::NotifyBlock(const CBlockIndex *pindex)
 
 bool CZMQPublishRawTransactionNotifier::NotifyTransaction(const CTransaction &transaction)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     uint256 hash = transaction.GetHash();
     LogPrint("zmq", "zmq: Publish rawtx %s\n", hash.GetHex());
     CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
@@ -206,6 +225,8 @@ bool CZMQPublishRawTransactionNotifier::NotifyTransaction(const CTransaction &tr
 
 bool CZMQPublishRawTransactionLockNotifier::NotifyTransactionLock(const CTransaction &transaction)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     uint256 hash = transaction.GetHash();
     LogPrint("zmq", "zmq: Publish rawtxlock %s\n", hash.GetHex());
     CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);

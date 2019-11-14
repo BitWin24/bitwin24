@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2012-2014 The Bitcoin Core developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -30,6 +31,8 @@ static vector<COutput> vCoins;
 
 static void add_coin(const CAmount& nValue, int nAge = 6*24, bool fIsFromMe = false, int nInput=0)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     static int nextLockTime = 0;
     CMutableTransaction tx;
     tx.nLockTime = nextLockTime++;        // so all transactions get different hashes
@@ -52,6 +55,8 @@ static void add_coin(const CAmount& nValue, int nAge = 6*24, bool fIsFromMe = fa
 
 static void empty_wallet(void)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     BOOST_FOREACH(COutput output, vCoins)
         delete output.tx;
     vCoins.clear();
@@ -59,6 +64,8 @@ static void empty_wallet(void)
 
 static bool equal_sets(CoinSet a, CoinSet b)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     pair<CoinSet::iterator, CoinSet::iterator> ret = mismatch(a.begin(), a.end(), b.begin());
     return ret.first == a.end() && ret.second == b.end();
 }

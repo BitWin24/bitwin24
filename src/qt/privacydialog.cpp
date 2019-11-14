@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2017-2018 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -322,6 +323,8 @@ void PrivacyDialog::setZBWIControlLabels(int64_t nAmount, int nQuantity)
 
 static inline int64_t roundint64(double d)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return (int64_t)(d > 0 ? d + 0.5 : d - 0.5);
 }
 

@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2011-2013 The Bitcoin Core developers
 // Copyright (c) 2017 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
@@ -20,6 +21,8 @@ BOOST_AUTO_TEST_SUITE(arith_uint256_tests)
 /// Convert vector to arith_uint256, via uint256 blob
 inline arith_uint256 arith_uint256V(const std::vector<unsigned char>& vch)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return UintToArith256(uint256(vch));
 }
 
@@ -56,6 +59,8 @@ const arith_uint256 MaxL = arith_uint256V(std::vector<unsigned char>(MaxArray,Ma
 const arith_uint256 HalfL = (OneL << 255);
 std::string ArrayToString(const unsigned char A[], unsigned int width)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::stringstream Stream;
     Stream << std::hex;
     for (unsigned int i = 0; i < width; ++i)
@@ -125,6 +130,8 @@ BOOST_AUTO_TEST_CASE( basics ) // constructors, equality, inequality
 
 void shiftArrayRight(unsigned char* to, const unsigned char* from, unsigned int arrayLength, unsigned int bitsToShift)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     for (unsigned int T=0; T < arrayLength; ++T)
     {
         unsigned int F = (T+bitsToShift/8);
@@ -139,6 +146,8 @@ void shiftArrayRight(unsigned char* to, const unsigned char* from, unsigned int 
 
 void shiftArrayLeft(unsigned char* to, const unsigned char* from, unsigned int arrayLength, unsigned int bitsToShift)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     for (unsigned int T=0; T < arrayLength; ++T)
     {
         if (T >= bitsToShift/8)
@@ -372,6 +381,8 @@ BOOST_AUTO_TEST_CASE( divide )
 
 bool almostEqual(double d1, double d2)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return fabs(d1-d2) <= 4*fabs(d1)*std::numeric_limits<double>::epsilon();
 }
 

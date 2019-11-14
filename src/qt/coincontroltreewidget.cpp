@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2011-2013 The Bitcoin developers
 // Copyright (c) 2017 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
@@ -8,10 +9,14 @@
 
 CoinControlTreeWidget::CoinControlTreeWidget(QWidget* parent) : QTreeWidget(parent)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 }
 
 void CoinControlTreeWidget::keyPressEvent(QKeyEvent* event)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (event->key() == Qt::Key_Space) // press spacebar -> select checkbox
     {
         event->ignore();

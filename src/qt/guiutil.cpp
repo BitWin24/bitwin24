@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2018 The PIVX developers
@@ -80,16 +81,22 @@ namespace GUIUtil
 {
 QString dateTimeStr(const QDateTime& date)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return date.date().toString(Qt::SystemLocaleShortDate) + QString(" ") + date.toString("hh:mm");
 }
 
 QString dateTimeStr(qint64 nTime)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return dateTimeStr(QDateTime::fromTime_t((qint32)nTime));
 }
 
 QFont bitcoinAddressFont()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     QFont font("Monospace");
     font.setStyleHint(QFont::Monospace);
     return font;
@@ -97,6 +104,8 @@ QFont bitcoinAddressFont()
 
 void setupAddressWidget(QValidatedLineEdit* widget, QWidget* parent)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     parent->setFocusProxy(widget);
 
     widget->setFont(bitcoinAddressFont());
@@ -109,6 +118,8 @@ void setupAddressWidget(QValidatedLineEdit* widget, QWidget* parent)
 
 void setupAmountWidget(QLineEdit* widget, QWidget* parent)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     QDoubleValidator* amountValidator = new QDoubleValidator(parent);
     amountValidator->setDecimals(8);
     amountValidator->setBottom(0.0);
@@ -118,6 +129,8 @@ void setupAmountWidget(QLineEdit* widget, QWidget* parent)
 
 bool parseBitcoinURI(const QUrl& uri, SendCoinsRecipient* out)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // return if URI is not valid or is no BITWIN24: URI
     if (!uri.isValid() || uri.scheme() != QString(URI_SCHEME))
         return false;
@@ -167,6 +180,8 @@ bool parseBitcoinURI(const QUrl& uri, SendCoinsRecipient* out)
 
 bool parseBitcoinURI(QString uri, SendCoinsRecipient* out)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Convert bitwin24:// to bitwin24:
     //
     //    Cannot handle this later, because bitwin24:// will cause Qt to see the part after // as host,
@@ -180,6 +195,8 @@ bool parseBitcoinURI(QString uri, SendCoinsRecipient* out)
 
 QString formatBitcoinURI(const SendCoinsRecipient& info)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     QString ret = QString(URI_SCHEME ":%1").arg(info.address);
     int paramCount = 0;
 
@@ -205,6 +222,8 @@ QString formatBitcoinURI(const SendCoinsRecipient& info)
 
 bool isDust(const QString& address, const CAmount& amount)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CTxDestination dest = CBitcoinAddress(address.toStdString()).Get();
     CScript script = GetScriptForDestination(dest);
     CTxOut txOut(amount, script);
@@ -213,6 +232,8 @@ bool isDust(const QString& address, const CAmount& amount)
 
 QString HtmlEscape(const QString& str, bool fMultiLine)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     QString escaped = str.toHtmlEscaped();
     escaped = escaped.replace(" ", "&nbsp;");
     if (fMultiLine) {
@@ -223,11 +244,15 @@ QString HtmlEscape(const QString& str, bool fMultiLine)
 
 QString HtmlEscape(const std::string& str, bool fMultiLine)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return HtmlEscape(QString::fromStdString(str), fMultiLine);
 }
 
 void copyEntryData(QAbstractItemView* view, int column, int role)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!view || !view->selectionModel())
         return;
     QModelIndexList selection = view->selectionModel()->selectedRows(column);
@@ -240,6 +265,8 @@ void copyEntryData(QAbstractItemView* view, int column, int role)
 
 QString getEntryData(QAbstractItemView *view, int column, int role)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if(!view || !view->selectionModel())
         return QString();
     QModelIndexList selection = view->selectionModel()->selectedRows(column);
@@ -253,6 +280,8 @@ QString getEntryData(QAbstractItemView *view, int column, int role)
 
 QString getSaveFileName(QWidget* parent, const QString& caption, const QString& dir, const QString& filter, QString* selectedSuffixOut)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     QString selectedFilter;
     QString myDir;
     if (dir.isEmpty()) // Default to user documents location
@@ -293,6 +322,8 @@ QString getSaveFileName(QWidget* parent, const QString& caption, const QString& 
 
 QString getOpenFileName(QWidget* parent, const QString& caption, const QString& dir, const QString& filter, QString* selectedSuffixOut)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     QString selectedFilter;
     QString myDir;
     if (dir.isEmpty()) // Default to user documents location
@@ -320,6 +351,8 @@ QString getOpenFileName(QWidget* parent, const QString& caption, const QString& 
 
 Qt::ConnectionType blockingGUIThreadConnection()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (QThread::currentThread() != qApp->thread()) {
         return Qt::BlockingQueuedConnection;
     } else {
@@ -329,6 +362,8 @@ Qt::ConnectionType blockingGUIThreadConnection()
 
 bool checkPoint(const QPoint& p, const QWidget* w)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     QWidget* atW = QApplication::widgetAt(w->mapToGlobal(p));
     if (!atW) return false;
     return atW->topLevelWidget() == w;
@@ -336,11 +371,15 @@ bool checkPoint(const QPoint& p, const QWidget* w)
 
 bool isObscured(QWidget* w)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return !(checkPoint(QPoint(0, 0), w) && checkPoint(QPoint(w->width() - 1, 0), w) && checkPoint(QPoint(0, w->height() - 1), w) && checkPoint(QPoint(w->width() - 1, w->height() - 1), w) && checkPoint(QPoint(w->width() / 2, w->height() / 2), w));
 }
 
 void openDebugLogfile()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     boost::filesystem::path pathDebug = GetDataDir() / "debug.log";
 
     /* Open debug.log with the associated application */
@@ -350,6 +389,8 @@ void openDebugLogfile()
 
 void openConfigfile()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     boost::filesystem::path pathConfig = GetConfigFile();
 
     /* Open bitwin24.conf with the associated application */
@@ -359,6 +400,8 @@ void openConfigfile()
 
 void openMNConfigfile()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     boost::filesystem::path pathConfig = GetMasternodeConfigFile();
 
     /* Open masternode.conf with the associated application */
@@ -368,6 +411,8 @@ void openMNConfigfile()
 
 void showBackups()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     boost::filesystem::path pathBackups = GetDataDir() / "backups";
 
     /* Open folder with default browser */
@@ -377,6 +422,8 @@ void showBackups()
 
 void SubstituteFonts(const QString& language)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 #if defined(Q_OS_MAC)
 // Background:
 // OSX's default font changed in 10.9 and QT is unable to find it with its
@@ -412,10 +459,14 @@ void SubstituteFonts(const QString& language)
 ToolTipToRichTextFilter::ToolTipToRichTextFilter(int size_threshold, QObject* parent) : QObject(parent),
                                                                                         size_threshold(size_threshold)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 }
 
 bool ToolTipToRichTextFilter::eventFilter(QObject* obj, QEvent* evt)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (evt->type() == QEvent::ToolTipChange) {
         QWidget* widget = static_cast<QWidget*>(obj);
         QString tooltip = widget->toolTip();
@@ -435,6 +486,8 @@ bool ToolTipToRichTextFilter::eventFilter(QObject* obj, QEvent* evt)
 
 void TableViewLastColumnResizingFixer::connectViewHeadersSignals()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     connect(tableView->horizontalHeader(), SIGNAL(sectionResized(int, int, int)), this, SLOT(on_sectionResized(int, int, int)));
     connect(tableView->horizontalHeader(), SIGNAL(geometriesChanged()), this, SLOT(on_geometriesChanged()));
 }
@@ -442,6 +495,8 @@ void TableViewLastColumnResizingFixer::connectViewHeadersSignals()
 // We need to disconnect these while handling the resize events, otherwise we can enter infinite loops.
 void TableViewLastColumnResizingFixer::disconnectViewHeadersSignals()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     disconnect(tableView->horizontalHeader(), SIGNAL(sectionResized(int, int, int)), this, SLOT(on_sectionResized(int, int, int)));
     disconnect(tableView->horizontalHeader(), SIGNAL(geometriesChanged()), this, SLOT(on_geometriesChanged()));
 }
@@ -450,17 +505,23 @@ void TableViewLastColumnResizingFixer::disconnectViewHeadersSignals()
 // Refactored here for readability.
 void TableViewLastColumnResizingFixer::setViewHeaderResizeMode(int logicalIndex, QHeaderView::ResizeMode resizeMode)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     tableView->horizontalHeader()->setSectionResizeMode(logicalIndex, resizeMode);
 }
 
 void TableViewLastColumnResizingFixer::resizeColumn(int nColumnIndex, int width)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     tableView->setColumnWidth(nColumnIndex, width);
     tableView->horizontalHeader()->resizeSection(nColumnIndex, width);
 }
 
 int TableViewLastColumnResizingFixer::getColumnsWidth()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     int nColumnsWidthSum = 0;
     for (int i = 0; i < columnCount; i++) {
         nColumnsWidthSum += tableView->horizontalHeader()->sectionSize(i);
@@ -470,6 +531,8 @@ int TableViewLastColumnResizingFixer::getColumnsWidth()
 
 int TableViewLastColumnResizingFixer::getAvailableWidthForColumn(int column)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     int nResult = lastColumnMinimumWidth;
     int nTableWidth = tableView->horizontalHeader()->width();
 
@@ -484,6 +547,8 @@ int TableViewLastColumnResizingFixer::getAvailableWidthForColumn(int column)
 // Make sure we don't make the columns wider than the tables viewport width.
 void TableViewLastColumnResizingFixer::adjustTableColumnsWidth()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     disconnectViewHeadersSignals();
     resizeColumn(lastColumnIndex, getAvailableWidthForColumn(lastColumnIndex));
     connectViewHeadersSignals();
@@ -498,6 +563,8 @@ void TableViewLastColumnResizingFixer::adjustTableColumnsWidth()
 // Make column use all the space available, useful during window resizing.
 void TableViewLastColumnResizingFixer::stretchColumnWidth(int column)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     disconnectViewHeadersSignals();
     resizeColumn(column, getAvailableWidthForColumn(column));
     connectViewHeadersSignals();
@@ -506,6 +573,8 @@ void TableViewLastColumnResizingFixer::stretchColumnWidth(int column)
 // When a section is resized this is a slot-proxy for ajustAmountColumnWidth().
 void TableViewLastColumnResizingFixer::on_sectionResized(int logicalIndex, int oldSize, int newSize)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     adjustTableColumnsWidth();
     int remainingWidth = getAvailableWidthForColumn(logicalIndex);
     if (newSize > remainingWidth) {
@@ -517,6 +586,8 @@ void TableViewLastColumnResizingFixer::on_sectionResized(int logicalIndex, int o
 // as the "Stretch" resize mode does not allow for interactive resizing.
 void TableViewLastColumnResizingFixer::on_geometriesChanged()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if ((getColumnsWidth() - this->tableView->horizontalHeader()->width()) != 0) {
         disconnectViewHeadersSignals();
         resizeColumn(secondToLastColumnIndex, getAvailableWidthForColumn(secondToLastColumnIndex));
@@ -532,6 +603,8 @@ TableViewLastColumnResizingFixer::TableViewLastColumnResizingFixer(QTableView* t
                                                                                                                                           lastColumnMinimumWidth(lastColMinimumWidth),
                                                                                                                                           allColumnsMinimumWidth(allColsMinimumWidth)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     columnCount = tableView->horizontalHeader()->count();
     lastColumnIndex = columnCount - 1;
     secondToLastColumnIndex = columnCount - 2;
@@ -547,6 +620,8 @@ TableViewLastColumnResizingFixer::TableViewLastColumnResizingFixer(QTableView* t
 DHMSTableWidgetItem::DHMSTableWidgetItem(const int64_t seconds) : QTableWidgetItem(),
                                                                   value(seconds)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     this->setText(QString::fromStdString(DurationToDHMS(seconds)));
 }
 
@@ -558,6 +633,8 @@ DHMSTableWidgetItem::DHMSTableWidgetItem(const int64_t seconds) : QTableWidgetIt
  */
 bool DHMSTableWidgetItem::operator<(QTableWidgetItem const& item) const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     DHMSTableWidgetItem const* rhs =
         dynamic_cast<DHMSTableWidgetItem const*>(&item);
 
@@ -767,14 +844,20 @@ bool SetStartOnSystemStartup(bool fAutoStart)
 
 bool GetStartOnSystemStartup()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return false;
 }
-bool SetStartOnSystemStartup(bool fAutoStart) { return false; }
+bool SetStartOnSystemStartup(bool fAutoStart) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+ return false; }
 
 #endif
 
 void saveWindowGeometry(const QString& strSetting, QWidget* parent)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     QSettings settings;
     settings.setValue(strSetting + "Pos", parent->pos());
     settings.setValue(strSetting + "Size", parent->size());
@@ -782,6 +865,8 @@ void saveWindowGeometry(const QString& strSetting, QWidget* parent)
 
 void restoreWindowGeometry(const QString& strSetting, const QSize& defaultSize, QWidget* parent)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     QSettings settings;
     QPoint pos = settings.value(strSetting + "Pos").toPoint();
     QSize size = settings.value(strSetting + "Size", defaultSize).toSize();
@@ -799,6 +884,8 @@ void restoreWindowGeometry(const QString& strSetting, const QSize& defaultSize, 
 // Check whether a theme is not build-in
 bool isExternal(QString theme)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (theme.isEmpty())
         return false;
 
@@ -808,6 +895,8 @@ bool isExternal(QString theme)
 // Open CSS when configured
 QString loadStyleSheet()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     QString styleSheet;
     QSettings settings;
     QString cssName;
@@ -839,6 +928,8 @@ QString loadStyleSheet()
 
 void setClipboard(const QString& str)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     QApplication::clipboard()->setText(str, QClipboard::Clipboard);
     QApplication::clipboard()->setText(str, QClipboard::Selection);
 }
@@ -846,11 +937,15 @@ void setClipboard(const QString& str)
 #if BOOST_FILESYSTEM_VERSION >= 3
 boost::filesystem::path qstringToBoostPath(const QString& path)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return boost::filesystem::path(path.toStdString(), utf8);
 }
 
 QString boostPathToQString(const boost::filesystem::path& path)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return QString::fromStdString(path.string(utf8));
 }
 #else
@@ -868,6 +963,8 @@ QString boostPathToQString(const boost::filesystem::path& path)
 
 QString formatDurationStr(int secs)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     QStringList strList;
     int days = secs / 86400;
     int hours = (secs % 86400) / 3600;
@@ -888,6 +985,8 @@ QString formatDurationStr(int secs)
 
 QString formatServicesStr(quint64 mask)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     QStringList strList;
 
     // Just scan the last 8 bits for now.
@@ -916,11 +1015,15 @@ QString formatServicesStr(quint64 mask)
 
 QString formatPingTime(double dPingTime)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return dPingTime == 0 ? QObject::tr("N/A") : QString(QObject::tr("%1 ms")).arg(QString::number((int)(dPingTime * 1000), 10));
 }
 
 QString formatTimeOffset(int64_t nTimeOffset)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
   return QString(QObject::tr("%1 s")).arg(QString::number((int)nTimeOffset, 10));
 }
 

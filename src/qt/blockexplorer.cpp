@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2017-2018 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -24,16 +25,22 @@ extern double GetDifficulty(const CBlockIndex* blockindex = NULL);
 
 inline std::string utostr(unsigned int n)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return strprintf("%u", n);
 }
 
 static std::string makeHRef(const std::string& Str)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return "<a href=\"" + Str + "\">" + Str + "</a>";
 }
 
 static CAmount getTxIn(const CTransaction& tx)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (tx.IsCoinBase())
         return 0;
 
@@ -45,6 +52,8 @@ static CAmount getTxIn(const CTransaction& tx)
 
 static std::string ValueToString(CAmount nValue, bool AllowNegative = false)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (nValue < 0 && !AllowNegative)
         return "<span>" + _("unknown") + "</span>";
 
@@ -56,6 +65,8 @@ static std::string ValueToString(CAmount nValue, bool AllowNegative = false)
 
 static std::string ScriptToString(const CScript& Script, bool Long = false, bool Highlight = false)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (Script.empty())
         return "unknown";
 
@@ -72,6 +83,8 @@ static std::string ScriptToString(const CScript& Script, bool Long = false, bool
 
 static std::string TimeToString(uint64_t Time)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     QDateTime timestamp;
     timestamp.setTime_t(Time);
     return timestamp.toString("yyyy-MM-dd hh:mm:ss").toUtf8().data();
@@ -79,6 +92,8 @@ static std::string TimeToString(uint64_t Time)
 
 static std::string makeHTMLTableRow(const std::string* pCells, int n)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::string Result = "<tr>";
     for (int i = 0; i < n; i++) {
         Result += "<td class=\"d" + utostr(i) + "\">";
@@ -93,6 +108,8 @@ static const char* table = "<table>";
 
 static std::string makeHTMLTable(const std::string* pCells, int nRows, int nColumns)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::string Table = table;
     for (int i = 0; i < nRows; i++)
         Table += makeHTMLTableRow(pCells + i * nColumns, nColumns);
@@ -102,6 +119,8 @@ static std::string makeHTMLTable(const std::string* pCells, int nRows, int nColu
 
 static std::string TxToRow(const CTransaction& tx, const CScript& Highlight = CScript(), const std::string& Prepend = std::string(), int64_t* pSum = NULL)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::string InAmounts, InAddresses, OutAmounts, OutAddresses;
     int64_t Delta = 0;
     for (unsigned int j = 0; j < tx.vin.size(); j++) {
@@ -156,6 +175,8 @@ static std::string TxToRow(const CTransaction& tx, const CScript& Highlight = CS
 
 CTxOut getPrevOut(const COutPoint& out)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CTransaction tx;
     uint256 hashBlock;
     if (GetTransaction(out.hash, tx, hashBlock, true))
@@ -165,6 +186,8 @@ CTxOut getPrevOut(const COutPoint& out)
 
 void getNextIn(const COutPoint& Out, uint256& Hash, unsigned int& n)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Hash = 0;
     // n = 0;
     // if (paddressmap)
@@ -173,6 +196,8 @@ void getNextIn(const COutPoint& Out, uint256& Hash, unsigned int& n)
 
 const CBlockIndex* getexplorerBlockIndex(int64_t height)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::string hex = getexplorerBlockHash(height);
     uint256 hash = uint256S(hex);
     return mapBlockIndex[hash];
@@ -180,6 +205,8 @@ const CBlockIndex* getexplorerBlockIndex(int64_t height)
 
 std::string getexplorerBlockHash(int64_t Height)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::string genesisblockhash = "0000041e482b9b9691d98eefb48473405c0b8ec31b76df3797c74a78680ef818";
     CBlockIndex* pindexBest = mapBlockIndex[chainActive.Tip()->GetBlockHash()];
     if ((Height < 0) || (Height > pindexBest->nHeight)) {
@@ -195,6 +222,8 @@ std::string getexplorerBlockHash(int64_t Height)
 
 std::string BlockToString(CBlockIndex* pBlock)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!pBlock)
         return "";
 
@@ -291,6 +320,8 @@ std::string BlockToString(CBlockIndex* pBlock)
 
 std::string TxToString(uint256 BlockHash, const CTransaction& tx)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CAmount Input = 0;
     CAmount Output = tx.GetValueOut();
 
@@ -379,6 +410,8 @@ std::string TxToString(uint256 BlockHash, const CTransaction& tx)
 
 std::string AddressToString(const CBitcoinAddress& Address)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::string TxLabels[] =
         {
             _("Date"),

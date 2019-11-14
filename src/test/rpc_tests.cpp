@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2012-2013 The Bitcoin Core developers
 // Copyright (c) 2017 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
@@ -20,6 +21,8 @@ using namespace std;
 UniValue
 createArgs(int nRequired, const char* address1=NULL, const char* address2=NULL)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     UniValue result(UniValue::VARR);
     result.push_back(nRequired);
     UniValue addresses(UniValue::VARR);
@@ -31,6 +34,8 @@ createArgs(int nRequired, const char* address1=NULL, const char* address2=NULL)
 
 UniValue CallRPC(string args)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     vector<string> vArgs;
     boost::split(vArgs, args, boost::is_any_of(" \t"));
     string strMethod = vArgs[0];
@@ -147,6 +152,8 @@ BOOST_AUTO_TEST_CASE(rpc_format_monetary_values)
 
 static UniValue ValueFromString(const std::string &str)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     UniValue value;
     BOOST_CHECK(value.setNumStr(str));
     return value;

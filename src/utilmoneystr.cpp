@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2017 The PIVX developers
@@ -14,6 +15,8 @@ using namespace std;
 
 string FormatMoney(const CAmount& n, bool fPlus)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Note: not using straight sprintf here because we do NOT want
     // localized number formatting.
     int64_t n_abs = (n > 0 ? n : -n);
@@ -38,11 +41,15 @@ string FormatMoney(const CAmount& n, bool fPlus)
 
 bool ParseMoney(const string& str, CAmount& nRet)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return ParseMoney(str.c_str(), nRet);
 }
 
 bool ParseMoney(const char* pszIn, CAmount& nRet)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     string strWhole;
     int64_t nUnits = 0;
     const char* p = pszIn;

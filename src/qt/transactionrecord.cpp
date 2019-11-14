@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2018 The PIVX developers
@@ -19,6 +20,8 @@
  */
 bool TransactionRecord::showTransaction(const CWalletTx& wtx)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (wtx.IsCoinBase()) {
         // Ensures we show generated coins / mined transactions at depth 1
         if (!wtx.IsInMainChain()) {
@@ -33,6 +36,8 @@ bool TransactionRecord::showTransaction(const CWalletTx& wtx)
  */
 QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet* wallet, const CWalletTx& wtx)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     QList<TransactionRecord> parts;
     int64_t nTime = wtx.GetComputedTxTime();
     CAmount nCredit = wtx.GetCredit(ISMINE_ALL);
@@ -310,6 +315,8 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet* 
 
 bool IsZBWIType(TransactionRecord::Type type)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     switch (type) {
         case TransactionRecord::StakeZBWI:
         case TransactionRecord::ZerocoinMint:
@@ -325,6 +332,8 @@ bool IsZBWIType(TransactionRecord::Type type)
 
 void TransactionRecord::updateStatus(const CWalletTx& wtx)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     AssertLockHeld(cs_main);
     // Determine transaction status
 
@@ -393,16 +402,22 @@ void TransactionRecord::updateStatus(const CWalletTx& wtx)
 
 bool TransactionRecord::statusUpdateNeeded()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     AssertLockHeld(cs_main);
     return status.cur_num_blocks != chainActive.Height() || status.cur_num_ix_locks != nCompleteTXLocks;
 }
 
 QString TransactionRecord::getTxID() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return QString::fromStdString(hash.ToString());
 }
 
 int TransactionRecord::getOutputIndex() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return idx;
 }

@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2011-2013 The Bitcoin developers
 // Copyright (c) 2017 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
@@ -27,10 +28,14 @@ TransactionFilterProxy::TransactionFilterProxy(QObject* parent) : QSortFilterPro
                                                                   limitRows(-1),
                                                                   showInactive(true)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 }
 
 bool TransactionFilterProxy::filterAcceptsRow(int sourceRow, const QModelIndex& sourceParent) const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     QModelIndex index = sourceModel()->index(sourceRow, 0, sourceParent);
 
     int type = index.data(TransactionTableModel::TypeRole).toInt();
@@ -61,6 +66,8 @@ bool TransactionFilterProxy::filterAcceptsRow(int sourceRow, const QModelIndex& 
 
 void TransactionFilterProxy::setDateRange(const QDateTime& from, const QDateTime& to)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     this->dateFrom = from;
     this->dateTo = to;
     invalidateFilter();
@@ -68,41 +75,55 @@ void TransactionFilterProxy::setDateRange(const QDateTime& from, const QDateTime
 
 void TransactionFilterProxy::setAddressPrefix(const QString& addrPrefix)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     this->addrPrefix = addrPrefix;
     invalidateFilter();
 }
 
 void TransactionFilterProxy::setTypeFilter(quint32 modes)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     this->typeFilter = modes;
     invalidateFilter();
 }
 
 void TransactionFilterProxy::setMinAmount(const CAmount& minimum)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     this->minAmount = minimum;
     invalidateFilter();
 }
 
 void TransactionFilterProxy::setWatchOnlyFilter(WatchOnlyFilter filter)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     this->watchOnlyFilter = filter;
     invalidateFilter();
 }
 
 void TransactionFilterProxy::setLimit(int limit)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     this->limitRows = limit;
 }
 
 void TransactionFilterProxy::setShowInactive(bool showInactive)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     this->showInactive = showInactive;
     invalidateFilter();
 }
 
 int TransactionFilterProxy::rowCount(const QModelIndex& parent) const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (limitRows != -1) {
         return std::min(QSortFilterProxyModel::rowCount(parent), limitRows);
     } else {

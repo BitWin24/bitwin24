@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
@@ -62,6 +63,8 @@ FreespaceChecker::FreespaceChecker(Intro* intro)
 
 void FreespaceChecker::check()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     namespace fs = boost::filesystem;
     QString dataDirStr = intro->getPathToCheck();
     fs::path dataDir = GUIUtil::qstringToBoostPath(dataDirStr);

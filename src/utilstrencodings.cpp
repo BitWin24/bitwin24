@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2016-2017 The PIVX developers
@@ -23,6 +24,8 @@ using namespace std;
 
 string SanitizeString(const string& str)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     /**
      * safeChars chosen to allow simple messages/URLs/email addresses, but avoid anything
      * even possibly remotely dangerous like & or >
@@ -58,11 +61,15 @@ const signed char p_util_hexdigit[256] =
 
 signed char HexDigit(char c)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return p_util_hexdigit[(unsigned char)c];
 }
 
 bool IsHex(const string& str)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     for (std::string::const_iterator it(str.begin()); it != str.end(); ++it) {
         if (HexDigit(*it) < 0)
             return false;
@@ -72,6 +79,8 @@ bool IsHex(const string& str)
 
 vector<unsigned char> ParseHex(const char* psz)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // convert hex dump to vector
     vector<unsigned char> vch;
     while (true) {
@@ -92,11 +101,15 @@ vector<unsigned char> ParseHex(const char* psz)
 
 vector<unsigned char> ParseHex(const string& str)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return ParseHex(str.c_str());
 }
 
 string EncodeBase64(const unsigned char* pch, size_t len)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     static const char* pbase64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
     string strRet = "";
@@ -140,11 +153,15 @@ string EncodeBase64(const unsigned char* pch, size_t len)
 
 string EncodeBase64(const string& str)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return EncodeBase64((const unsigned char*)str.c_str(), str.size());
 }
 
 vector<unsigned char> DecodeBase64(const char* p, bool* pfInvalid)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     static const int decode64_table[256] =
         {
             -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
@@ -224,6 +241,8 @@ vector<unsigned char> DecodeBase64(const char* p, bool* pfInvalid)
 
 string DecodeBase64(const string& str)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     vector<unsigned char> vchRet = DecodeBase64(str.c_str());
     return (vchRet.size() == 0) ? string() : string((const char*)&vchRet[0], vchRet.size());
 }
@@ -231,6 +250,8 @@ string DecodeBase64(const string& str)
 // Base64 decoding with secure memory allocation
 SecureString DecodeBase64Secure(const SecureString& input)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     SecureString output;
 
     // Init openssl BIO with base64 filter and memory input
@@ -260,6 +281,8 @@ SecureString DecodeBase64Secure(const SecureString& input)
 // Base64 encoding with secure memory allocation
 SecureString EncodeBase64Secure(const SecureString& input)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Init openssl BIO with base64 filter and memory output
     BIO *b64, *mem;
     b64 = BIO_new(BIO_f_base64());
@@ -286,6 +309,8 @@ SecureString EncodeBase64Secure(const SecureString& input)
 
 string EncodeBase32(const unsigned char* pch, size_t len)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     static const char* pbase32 = "abcdefghijklmnopqrstuvwxyz234567";
 
     string strRet = "";
@@ -342,11 +367,15 @@ string EncodeBase32(const unsigned char* pch, size_t len)
 
 string EncodeBase32(const string& str)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return EncodeBase32((const unsigned char*)str.c_str(), str.size());
 }
 
 vector<unsigned char> DecodeBase32(const char* p, bool* pfInvalid)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     static const int decode32_table[256] =
         {
             -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
@@ -460,12 +489,16 @@ vector<unsigned char> DecodeBase32(const char* p, bool* pfInvalid)
 
 string DecodeBase32(const string& str)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     vector<unsigned char> vchRet = DecodeBase32(str.c_str());
     return (vchRet.size() == 0) ? string() : string((const char*)&vchRet[0], vchRet.size());
 }
 
 static bool ParsePrechecks(const std::string& str)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (str.empty()) // No empty string allowed
         return false;
     if (str.size() >= 1 && (isspace(str[0]) || isspace(str[str.size()-1]))) // No padding allowed
@@ -477,6 +510,8 @@ static bool ParsePrechecks(const std::string& str)
 
 bool ParseInt32(const std::string& str, int32_t *out)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!ParsePrechecks(str))
         return false;
     char *endp = NULL;
@@ -493,6 +528,8 @@ bool ParseInt32(const std::string& str, int32_t *out)
 
 bool ParseInt64(const std::string& str, int64_t *out)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!ParsePrechecks(str))
         return false;
     char *endp = NULL;
@@ -508,6 +545,8 @@ bool ParseInt64(const std::string& str, int64_t *out)
 
 bool ParseDouble(const std::string& str, double *out)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!ParsePrechecks(str))
         return false;
     if (str.size() >= 2 && str[0] == '0' && str[1] == 'x') // No hexadecimal floats allowed
@@ -522,6 +561,8 @@ bool ParseDouble(const std::string& str, double *out)
 
 std::string FormatParagraph(const std::string in, size_t width, size_t indent)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::stringstream out;
     size_t col = 0;
     size_t ptr = 0;
@@ -554,16 +595,22 @@ std::string FormatParagraph(const std::string in, size_t width, size_t indent)
 
 std::string i64tostr(int64_t n)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return strprintf("%d", n);
 }
 
 std::string itostr(int n)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return strprintf("%d", n);
 }
 
 int64_t atoi64(const char* psz)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 #ifdef _MSC_VER
     return _atoi64(psz);
 #else
@@ -573,6 +620,8 @@ int64_t atoi64(const char* psz)
 
 int64_t atoi64(const std::string& str)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 #ifdef _MSC_VER
     return _atoi64(str.c_str());
 #else
@@ -582,5 +631,7 @@ int64_t atoi64(const std::string& str)
 
 int atoi(const std::string& str)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return atoi(str.c_str());
 }

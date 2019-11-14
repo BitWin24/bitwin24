@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2013 The Bitcoin Core developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -98,6 +99,8 @@ struct ReadAlerts
 
     static std::vector<std::string> read_lines(boost::filesystem::path filepath)
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         std::vector<std::string> result;
 
         std::ifstream f(filepath.string().c_str());

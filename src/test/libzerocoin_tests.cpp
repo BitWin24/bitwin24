@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 /**
 * @file       Tests.cpp
 *
@@ -57,6 +58,8 @@ ZerocoinParams *g_Params;
 void
 LogTestResult(string testName, bool (*testPtr)())
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	string colorGreen(COLOR_STR_GREEN);
 	string colorNormal(COLOR_STR_NORMAL);
 	string colorRed(COLOR_STR_RED);
@@ -78,6 +81,8 @@ LogTestResult(string testName, bool (*testPtr)())
 CBigNum
 GetTestModulus()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	static CBigNum testModulus(0);
 
 	// TODO: should use a hard-coded RSA modulus for testing
@@ -102,6 +107,8 @@ GetTestModulus()
 bool
 Test_GenRSAModulus()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	CBigNum result = GetTestModulus();
 
 	if (!result) {
@@ -115,6 +122,8 @@ Test_GenRSAModulus()
 bool
 Test_CalcParamSizes()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	bool result = true;
 #if 0
 
@@ -152,6 +161,8 @@ Test_CalcParamSizes()
 bool
 Test_GenerateGroupParams()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	uint32_t pLen = 1024, qLen = 256, count;
 	IntegerGroupParams group;
 
@@ -184,6 +195,8 @@ Test_GenerateGroupParams()
 bool
 Test_ParamGen()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	bool result = true;
 
 	try {
@@ -200,6 +213,8 @@ Test_ParamGen()
 bool
 Test_Accumulator()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	// This test assumes a list of coins were generated during
 	// the Test_MintCoin() test.
 	if (gCoins[0] == NULL) {
@@ -262,6 +277,8 @@ Test_Accumulator()
 bool
 Test_EqualityPoK()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	// Run this test 10 times
 	for (uint32_t i = 0; i < 10; i++) {
 		try {
@@ -319,6 +336,8 @@ Test_EqualityPoK()
 bool
 Test_MintCoin()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	gCoinSize = 0;
 
 	try {
@@ -343,6 +362,8 @@ Test_MintCoin()
 
 bool Test_InvalidCoin()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	CBigNum coinValue;
 	
 	try {
@@ -391,6 +412,8 @@ bool Test_InvalidCoin()
 bool
 Test_MintAndSpend()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	try {
 		// This test assumes a list of coins were generated in Test_MintCoin()
 		if (gCoins[0] == NULL)
@@ -447,6 +470,8 @@ Test_MintAndSpend()
 void
 Test_RunAllTests()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	// Make a new set of parameters from a random RSA modulus
 	g_Params = new ZerocoinParams(GetTestModulus());
 

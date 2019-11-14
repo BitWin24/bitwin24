@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2018 The PIVX developers
@@ -33,11 +34,15 @@ void EnsureWalletIsUnlocked(bool fAllowAnonOnly);
 
 std::string static EncodeDumpTime(int64_t nTime)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return DateTimeStrFormat("%Y-%m-%dT%H:%M:%SZ", nTime);
 }
 
 int64_t static DecodeDumpTime(const std::string& str)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     static const boost::posix_time::ptime epoch = boost::posix_time::from_time_t(0);
     static const std::locale loc(std::locale::classic(),
         new boost::posix_time::time_input_facet("%Y-%m-%dT%H:%M:%SZ"));
@@ -52,6 +57,8 @@ int64_t static DecodeDumpTime(const std::string& str)
 
 std::string static EncodeDumpString(const std::string& str)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::stringstream ret;
     BOOST_FOREACH (unsigned char c, str) {
         if (c <= 32 || c >= 128 || c == '%') {
@@ -65,6 +72,8 @@ std::string static EncodeDumpString(const std::string& str)
 
 std::string DecodeDumpString(const std::string& str)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::stringstream ret;
     for (unsigned int pos = 0; pos < str.length(); pos++) {
         unsigned char c = str[pos];
@@ -80,6 +89,8 @@ std::string DecodeDumpString(const std::string& str)
 
 UniValue importprivkey(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() < 1 || params.size() > 3)
         throw runtime_error(
             "importprivkey \"bitwin24privkey\" ( \"label\" rescan )\n"
@@ -154,6 +165,8 @@ UniValue importprivkey(const UniValue& params, bool fHelp)
 
 UniValue importaddress(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() < 1 || params.size() > 3)
         throw runtime_error(
             "importaddress \"address\" ( \"label\" rescan )\n"
@@ -225,6 +238,8 @@ UniValue importaddress(const UniValue& params, bool fHelp)
 
 UniValue importwallet(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "importwallet \"filename\"\n"
@@ -328,6 +343,8 @@ UniValue importwallet(const UniValue& params, bool fHelp)
 
 UniValue dumpprivkey(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "dumpprivkey \"bitwin24address\"\n"
@@ -364,6 +381,8 @@ UniValue dumpprivkey(const UniValue& params, bool fHelp)
 
 UniValue dumpwallet(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "dumpwallet \"filename\"\n"
@@ -427,6 +446,8 @@ UniValue dumpwallet(const UniValue& params, bool fHelp)
 
 UniValue bip38encrypt(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() != 2)
         throw runtime_error(
             "bip38encrypt \"bitwin24address\" \"passphrase\"\n"
@@ -473,6 +494,8 @@ UniValue bip38encrypt(const UniValue& params, bool fHelp)
 
 UniValue bip38decrypt(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() != 2)
         throw runtime_error(
             "bip38decrypt \"bitwin24address\" \"passphrase\"\n"

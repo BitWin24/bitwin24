@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2011-2014 The Bitcoin Core developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -36,6 +37,8 @@ extern std::map<uint256, std::set<uint256> > mapOrphanTransactionsByPrev;
 
 CService ip(uint32_t i)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     struct in_addr s;
     s.s_addr = i;
     return CService(CNetAddr(s), Params().GetDefaultPort());
@@ -108,6 +111,8 @@ BOOST_AUTO_TEST_CASE(DoS_bantime)
 
 CTransaction RandomOrphan()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::map<uint256, COrphanTx>::iterator it;
     it = mapOrphanTransactions.lower_bound(GetRandHash());
     if (it == mapOrphanTransactions.end())

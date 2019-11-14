@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2018 The PIVX developers
@@ -39,6 +40,8 @@ ClientModel::ClientModel(OptionsModel* optionsModel, QObject* parent) : QObject(
                                                                         cachedReindexing(0), cachedImporting(0),
                                                                         numBlocksAtStartup(-1), pollTimer(0)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     peerTableModel = new PeerTableModel(this);
     banTableModel = new BanTableModel(this);
     pollTimer = new QTimer(this);
@@ -60,6 +63,8 @@ ClientModel::~ClientModel()
 
 int ClientModel::getNumConnections(unsigned int flags) const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs_vNodes);
     if (flags == CONNECTIONS_ALL) // Shortcut if we want total
         return vNodes.size();
@@ -74,6 +79,8 @@ int ClientModel::getNumConnections(unsigned int flags) const
 
 QString ClientModel::getMasternodeCountString() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     int ipv4 = 0, ipv6 = 0, onion = 0;
     mnodeman.CountNetworks(ActiveProtocol(), ipv4, ipv6, onion);
     int nUnknown = mnodeman.size() - ipv4 - ipv6 - onion;
@@ -83,28 +90,38 @@ QString ClientModel::getMasternodeCountString() const
 
 int ClientModel::getNumBlocks() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs_main);
     return chainActive.Height();
 }
 
 int ClientModel::getNumBlocksAtStartup()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (numBlocksAtStartup == -1) numBlocksAtStartup = getNumBlocks();
     return numBlocksAtStartup;
 }
 
 quint64 ClientModel::getTotalBytesRecv() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return CNode::GetTotalBytesRecv();
 }
 
 quint64 ClientModel::getTotalBytesSent() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return CNode::GetTotalBytesSent();
 }
 
 QDateTime ClientModel::getLastBlockDate() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs_main);
     if (chainActive.Tip())
         return QDateTime::fromTime_t(chainActive.Tip()->GetBlockTime());
@@ -114,12 +131,16 @@ QDateTime ClientModel::getLastBlockDate() const
 
 double ClientModel::getVerificationProgress() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs_main);
     return Checkpoints::GuessVerificationProgress(chainActive.Tip());
 }
 
 void ClientModel::updateTimer()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Get required lock upfront. This avoids the GUI from getting stuck on
     // periodical polls if the core is holding the locks for a longer time -
     // for example, during a wallet rescan.
@@ -151,6 +172,8 @@ void ClientModel::updateTimer()
 
 void ClientModel::updateMnTimer()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Get required lock upfront. This avoids the GUI from getting stuck on
     // periodical polls if the core is holding the locks for a longer time -
     // for example, during a wallet rescan.
@@ -168,11 +191,15 @@ void ClientModel::updateMnTimer()
 
 void ClientModel::updateNumConnections(int numConnections)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     emit numConnectionsChanged(numConnections);
 }
 
 void ClientModel::updateAlert(const QString& hash, int status)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Show error message notification for new alert
     if (status == CT_NEW) {
         uint256 hash_256;
@@ -188,11 +215,15 @@ void ClientModel::updateAlert(const QString& hash, int status)
 
 bool ClientModel::inInitialBlockDownload() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return IsInitialBlockDownload();
 }
 
 enum BlockSource ClientModel::getBlockSource() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fReindex)
         return BLOCK_SOURCE_REINDEX;
     else if (fImporting)
@@ -205,57 +236,79 @@ enum BlockSource ClientModel::getBlockSource() const
 
 QString ClientModel::getStatusBarWarnings() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return QString::fromStdString(GetWarnings("statusbar"));
 }
 
 OptionsModel* ClientModel::getOptionsModel()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return optionsModel;
 }
 
 PeerTableModel* ClientModel::getPeerTableModel()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return peerTableModel;
 }
 
 BanTableModel *ClientModel::getBanTableModel()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return banTableModel;
 }
 
 QString ClientModel::formatFullVersion() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return QString::fromStdString(FormatFullVersion());
 }
 
 QString ClientModel::formatBuildDate() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return QString::fromStdString(CLIENT_DATE);
 }
 
 bool ClientModel::isReleaseVersion() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return CLIENT_VERSION_IS_RELEASE;
 }
 
 QString ClientModel::clientName() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return QString::fromStdString(CLIENT_NAME);
 }
 
 QString ClientModel::formatClientStartupTime() const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return QDateTime::fromTime_t(nClientStartupTime).toString();
 }
 
 void ClientModel::updateBanlist()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     banTableModel->refresh();
 }
 
 // Handlers for core signals
 static void ShowProgress(ClientModel* clientmodel, const std::string& title, int nProgress)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // emits signal "showProgress"
     QMetaObject::invokeMethod(clientmodel, "showProgress", Qt::QueuedConnection,
         Q_ARG(QString, QString::fromStdString(title)),
@@ -264,6 +317,8 @@ static void ShowProgress(ClientModel* clientmodel, const std::string& title, int
 
 static void NotifyNumConnectionsChanged(ClientModel* clientmodel, int newNumConnections)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Too noisy: qDebug() << "NotifyNumConnectionsChanged : " + QString::number(newNumConnections);
     QMetaObject::invokeMethod(clientmodel, "updateNumConnections", Qt::QueuedConnection,
         Q_ARG(int, newNumConnections));
@@ -271,6 +326,8 @@ static void NotifyNumConnectionsChanged(ClientModel* clientmodel, int newNumConn
 
 static void NotifyAlertChanged(ClientModel* clientmodel, const uint256& hash, ChangeType status)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     qDebug() << "NotifyAlertChanged : " + QString::fromStdString(hash.GetHex()) + " status=" + QString::number(status);
     QMetaObject::invokeMethod(clientmodel, "updateAlert", Qt::QueuedConnection,
         Q_ARG(QString, QString::fromStdString(hash.GetHex())),
@@ -279,12 +336,16 @@ static void NotifyAlertChanged(ClientModel* clientmodel, const uint256& hash, Ch
 
 static void BannedListChanged(ClientModel *clientmodel)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     qDebug() << QString("%1: Requesting update for peer banlist").arg(__func__);
     QMetaObject::invokeMethod(clientmodel, "updateBanlist", Qt::QueuedConnection);
 }
 
 void ClientModel::subscribeToCoreSignals()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Connect signals to client
     uiInterface.ShowProgress.connect(boost::bind(ShowProgress, this, _1, _2));
     uiInterface.NotifyNumConnectionsChanged.connect(boost::bind(NotifyNumConnectionsChanged, this, _1));
@@ -294,6 +355,8 @@ void ClientModel::subscribeToCoreSignals()
 
 void ClientModel::unsubscribeFromCoreSignals()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Disconnect signals from client
     uiInterface.ShowProgress.disconnect(boost::bind(ShowProgress, this, _1, _2));
     uiInterface.NotifyNumConnectionsChanged.disconnect(boost::bind(NotifyNumConnectionsChanged, this, _1));
@@ -303,6 +366,8 @@ void ClientModel::unsubscribeFromCoreSignals()
 
 bool ClientModel::getTorInfo(std::string& ip_port) const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     proxyType onion;
     if (GetProxy((Network) 3, onion) && IsReachable((Network) 3)) {
         {

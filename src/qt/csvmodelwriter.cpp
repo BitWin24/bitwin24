@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2011-2013 The Bitcoin developers
 // Copyright (c) 2017 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
@@ -31,6 +32,8 @@ void CSVModelWriter::addColumn(const QString& title, int column, int role)
 
 static void writeValue(QTextStream& f, const QString& value)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     QString escaped = value;
     escaped.replace('"', "\"\"");
     f << "\"" << escaped << "\"";
@@ -38,11 +41,15 @@ static void writeValue(QTextStream& f, const QString& value)
 
 static void writeSep(QTextStream& f)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     f << ",";
 }
 
 static void writeNewline(QTextStream& f)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     f << "\n";
 }
 

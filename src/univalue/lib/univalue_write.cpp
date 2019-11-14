@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright 2014 BitPay Inc.
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -12,6 +13,8 @@ using namespace std;
 
 static string json_escape(const string& inS)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     string outS;
     outS.reserve(inS.size() * 2);
 
@@ -64,6 +67,8 @@ string UniValue::write(unsigned int prettyIndent,
 
 static void indentStr(unsigned int prettyIndent, unsigned int indentLevel, string& s)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     s.append(prettyIndent * indentLevel, ' ');
 }
 

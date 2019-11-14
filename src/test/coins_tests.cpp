@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2014 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -21,6 +22,8 @@ class CCoinsViewTest : public CCoinsView
 public:
     bool GetCoins(const uint256& txid, CCoins& coins) const
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         std::map<uint256, CCoins>::const_iterator it = map_.find(txid);
         if (it == map_.end()) {
             return false;
@@ -35,14 +38,20 @@ public:
 
     bool HaveCoins(const uint256& txid) const
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         CCoins coins;
         return GetCoins(txid, coins);
     }
 
-    uint256 GetBestBlock() const { return hashBestBlock_; }
+    uint256 GetBestBlock() const {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+ return hashBestBlock_; }
 
     bool BatchWrite(CCoinsMap& mapCoins, const uint256& hashBlock)
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         for (CCoinsMap::iterator it = mapCoins.begin(); it != mapCoins.end(); ) {
             map_[it->first] = it->second.coins;
             if (it->second.coins.IsPruned() && insecure_rand() % 3 == 0) {
@@ -56,7 +65,9 @@ public:
         return true;
     }
 
-    bool GetStats(CCoinsStats& stats) const { return false; }
+    bool GetStats(CCoinsStats& stats) const {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+ return false; }
 };
 }
 

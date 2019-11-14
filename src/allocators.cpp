@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2013 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -30,6 +31,8 @@ boost::once_flag LockedPageManager::init_flag = BOOST_ONCE_INIT;
 /** Determine system page size in bytes */
 static inline size_t GetSystemPageSize()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     size_t page_size;
 #if defined(WIN32)
     SYSTEM_INFO sSysInfo;
@@ -45,6 +48,8 @@ static inline size_t GetSystemPageSize()
 
 bool MemoryPageLocker::Lock(const void* addr, size_t len)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 #ifdef WIN32
     return VirtualLock(const_cast<void*>(addr), len) != 0;
 #else
@@ -54,6 +59,8 @@ bool MemoryPageLocker::Lock(const void* addr, size_t len)
 
 bool MemoryPageLocker::Unlock(const void* addr, size_t len)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 #ifdef WIN32
     return VirtualUnlock(const_cast<void*>(addr), len) != 0;
 #else

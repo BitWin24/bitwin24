@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2017 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
@@ -132,6 +133,8 @@ private:
      */
     CAmount parse(const QString& text, bool* valid_out = 0) const
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         CAmount val = 0;
         bool valid = BitcoinUnits::parse(currentUnit, text, &val);
         if (valid) {
@@ -146,6 +149,8 @@ private:
 protected:
     bool event(QEvent* event)
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         if (event->type() == QEvent::KeyPress || event->type() == QEvent::KeyRelease) {
             QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
             if (keyEvent->key() == Qt::Key_Comma) {
@@ -159,6 +164,8 @@ protected:
 
     StepEnabled stepEnabled() const
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         StepEnabled rv = 0;
         if (isReadOnly()) // Disable steps when AmountSpinBox is read-only
             return StepNone;

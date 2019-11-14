@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 /**
  * @file       Commitment.cpp
  *
@@ -19,37 +20,51 @@ namespace libzerocoin {
 //Commitment class
 Commitment::Commitment(const IntegerGroupParams* p,
                                    const CBigNum& value): params(p), contents(value) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	this->randomness = CBigNum::randBignum(params->groupOrder);
 	this->commitmentValue = (params->g.pow_mod(this->contents, params->modulus).mul_mod(
 	                         params->h.pow_mod(this->randomness, params->modulus), params->modulus));
 }
 
 Commitment::Commitment(const IntegerGroupParams* p, const CBigNum& bnSerial, const CBigNum& bnRandomness): params(p), contents(bnSerial) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     this->randomness = bnRandomness;
     this->commitmentValue = (params->g.pow_mod(this->contents, params->modulus).mul_mod(
         params->h.pow_mod(this->randomness, params->modulus), params->modulus));
 }
 
 const CBigNum& Commitment::getCommitmentValue() const {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	return this->commitmentValue;
 }
 
 const CBigNum& Commitment::getRandomness() const {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	return this->randomness;
 }
 
 const CBigNum& Commitment::getContents() const {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	return this->contents;
 }
 
 //CommitmentProofOfKnowledge class
-CommitmentProofOfKnowledge::CommitmentProofOfKnowledge(const IntegerGroupParams* ap, const IntegerGroupParams* bp): ap(ap), bp(bp) {}
+CommitmentProofOfKnowledge::CommitmentProofOfKnowledge(const IntegerGroupParams* ap, const IntegerGroupParams* bp): ap(ap), bp(bp) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+}
 
 // TODO: get parameters from the commitment group
 CommitmentProofOfKnowledge::CommitmentProofOfKnowledge(const IntegerGroupParams* aParams,
         const IntegerGroupParams* bParams, const Commitment& a, const Commitment& b):
 	ap(aParams),bp(bParams)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	CBigNum r1, r2, r3;
 
 	// First: make sure that the two commitments have the
@@ -105,6 +120,8 @@ CommitmentProofOfKnowledge::CommitmentProofOfKnowledge(const IntegerGroupParams*
 
 bool CommitmentProofOfKnowledge::Verify(const CBigNum& A, const CBigNum& B) const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	// Compute the maximum range of S1, S2, S3 and verify that the given values are
 	// in a correct range. This might be an unnecessary check.
 	uint32_t maxSize = 64 * (COMMITMENT_EQUALITY_CHALLENGE_SIZE + COMMITMENT_EQUALITY_SECMARGIN +
@@ -141,6 +158,8 @@ bool CommitmentProofOfKnowledge::Verify(const CBigNum& A, const CBigNum& B) cons
 }
 
 const CBigNum CommitmentProofOfKnowledge::calculateChallenge(const CBigNum& a, const CBigNum& b, const CBigNum &commitOne, const CBigNum &commitTwo) const {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 	CHashWriter hasher(0,0);
 
 	// Hash together the following elements:

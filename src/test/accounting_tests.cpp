@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2012-2014 The Bitcoin Core developers
 // Copyright (c) 2018 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
@@ -18,6 +19,8 @@ BOOST_AUTO_TEST_SUITE(accounting_tests)
 static void
 GetResults(CWalletDB& walletdb, std::map<CAmount, CAccountingEntry>& results)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::list<CAccountingEntry> aes;
 
     results.clear();

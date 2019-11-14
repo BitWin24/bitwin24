@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
@@ -130,6 +131,8 @@ CInv::CInv(const std::string& strType, const uint256& hashIn)
 
 bool operator<(const CInv& a, const CInv& b)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return (a.type < b.type || (a.type == b.type && a.hash < b.hash));
 }
 

@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
@@ -31,6 +32,8 @@ bool fEnabled = true;
 
 bool CheckBlock(int nHeight, const uint256& hash, bool fMatchesCheckpoint)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!fEnabled)
         return true;
 
@@ -45,6 +48,8 @@ bool CheckBlock(int nHeight, const uint256& hash, bool fMatchesCheckpoint)
 //! Guess how far we are in the verification process at the given block index
 double GuessVerificationProgress(CBlockIndex* pindex, bool fSigchecks)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (pindex == NULL)
         return 0.0;
 
@@ -77,6 +82,8 @@ double GuessVerificationProgress(CBlockIndex* pindex, bool fSigchecks)
 
 int GetTotalBlocksEstimate()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!fEnabled)
         return 0;
 
@@ -87,6 +94,8 @@ int GetTotalBlocksEstimate()
 
 CBlockIndex* GetLastCheckpoint()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!fEnabled)
         return NULL;
 

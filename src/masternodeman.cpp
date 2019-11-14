@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2018 The PIVX developers
 // Copyright (c) 2018 The MAC developers
@@ -24,6 +25,8 @@ struct CompareLastPaid {
     bool operator()(const pair<int64_t, CTxIn>& t1,
         const pair<int64_t, CTxIn>& t2) const
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         return t1.first < t2.first;
     }
 };
@@ -32,6 +35,8 @@ struct CompareScoreTxIn {
     bool operator()(const pair<int64_t, CTxIn>& t1,
         const pair<int64_t, CTxIn>& t2) const
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         return t1.first < t2.first;
     }
 };
@@ -40,6 +45,8 @@ struct CompareScoreMN {
     bool operator()(const pair<int64_t, CMasternode>& t1,
         const pair<int64_t, CMasternode>& t2) const
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         return t1.first < t2.first;
     }
 };
@@ -56,6 +63,8 @@ CMasternodeDB::CMasternodeDB()
 
 bool CMasternodeDB::Write(const CMasternodeMan& mnodemanToSave)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     int64_t nStart = GetTimeMillis();
 
     // serialize, checksum data up to that point, then append checksum
@@ -89,6 +98,8 @@ bool CMasternodeDB::Write(const CMasternodeMan& mnodemanToSave)
 
 CMasternodeDB::ReadResult CMasternodeDB::Read(CMasternodeMan& mnodemanToLoad, bool fDryRun)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     int64_t nStart = GetTimeMillis();
     // open input file, and associate with CAutoFile
     FILE* file = fopen(pathMN.string().c_str(), "rb");
@@ -170,6 +181,8 @@ CMasternodeDB::ReadResult CMasternodeDB::Read(CMasternodeMan& mnodemanToLoad, bo
 
 void DumpMasternodes()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     int64_t nStart = GetTimeMillis();
 
     CMasternodeDB mndb;
@@ -202,6 +215,8 @@ CMasternodeMan::CMasternodeMan()
 
 bool CMasternodeMan::Add(CMasternode& mn)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs);
 
     if (!mn.IsEnabled())
@@ -219,6 +234,8 @@ bool CMasternodeMan::Add(CMasternode& mn)
 
 void CMasternodeMan::AskForMN(CNode* pnode, CTxIn& vin)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::map<COutPoint, int64_t>::iterator i = mWeAskedForMasternodeListEntry.find(vin.prevout);
     if (i != mWeAskedForMasternodeListEntry.end()) {
         int64_t t = (*i).second;
@@ -235,6 +252,8 @@ void CMasternodeMan::AskForMN(CNode* pnode, CTxIn& vin)
 
 void CMasternodeMan::Check()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs);
 
     BOOST_FOREACH (CMasternode& mn, vMasternodes) {
@@ -244,6 +263,8 @@ void CMasternodeMan::Check()
 
 void CMasternodeMan::CheckAndRemove(bool forceExpiredRemoval)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     Check();
 
     LOCK(cs);
@@ -340,6 +361,8 @@ void CMasternodeMan::CheckAndRemove(bool forceExpiredRemoval)
 
 void CMasternodeMan::Clear()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs);
     vMasternodes.clear();
     mAskedUsForMasternodeList.clear();
@@ -352,6 +375,8 @@ void CMasternodeMan::Clear()
 
 int CMasternodeMan::stable_size ()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     int nStable_size = 0;
     int nMinProtocol = ActiveProtocol();
     int64_t nMasternode_Min_Age = MN_WINNER_MINIMUM_AGE;
@@ -379,6 +404,8 @@ int CMasternodeMan::stable_size ()
 
 int CMasternodeMan::CountEnabled(int protocolVersion)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     int i = 0;
     protocolVersion = protocolVersion == -1 ? masternodePayments.GetMinMasternodePaymentsProto() : protocolVersion;
 
@@ -393,6 +420,8 @@ int CMasternodeMan::CountEnabled(int protocolVersion)
 
 void CMasternodeMan::CountNetworks(int protocolVersion, int& ipv4, int& ipv6, int& onion)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     protocolVersion = protocolVersion == -1 ? masternodePayments.GetMinMasternodePaymentsProto() : protocolVersion;
 
     BOOST_FOREACH (CMasternode& mn, vMasternodes) {
@@ -418,6 +447,8 @@ void CMasternodeMan::CountNetworks(int protocolVersion, int& ipv4, int& ipv6, in
 
 void CMasternodeMan::DsegUpdate(CNode* pnode)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs);
 
     if (Params().NetworkID() == CBaseChainParams::MAIN) {
@@ -439,6 +470,8 @@ void CMasternodeMan::DsegUpdate(CNode* pnode)
 
 CMasternode* CMasternodeMan::Find(const CScript& payee)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs);
     CScript payee2;
 
@@ -452,6 +485,8 @@ CMasternode* CMasternodeMan::Find(const CScript& payee)
 
 CMasternode* CMasternodeMan::Find(const CTxIn& vin)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs);
 
     BOOST_FOREACH (CMasternode& mn, vMasternodes) {
@@ -464,6 +499,8 @@ CMasternode* CMasternodeMan::Find(const CTxIn& vin)
 
 CMasternode* CMasternodeMan::Find(const CPubKey& pubKeyMasternode)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs);
 
     BOOST_FOREACH (CMasternode& mn, vMasternodes) {
@@ -478,6 +515,8 @@ CMasternode* CMasternodeMan::Find(const CPubKey& pubKeyMasternode)
 //
 CMasternode* CMasternodeMan::GetNextMasternodeInQueueForPayment(int nBlockHeight, bool fFilterSigTime, int& nCount)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(cs);
 
     CMasternode* pBestMasternode = NULL;

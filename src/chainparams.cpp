@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
@@ -244,6 +245,8 @@ public:
 
     const Checkpoints::CCheckpointData& Checkpoints() const
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         return data;
     }
 };
@@ -316,6 +319,8 @@ public:
     }
     const Checkpoints::CCheckpointData& Checkpoints() const
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         return dataTestnet;
     }
 };
@@ -367,6 +372,8 @@ public:
     }
     const Checkpoints::CCheckpointData& Checkpoints() const
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         return dataRegtest;
     }
 };
@@ -394,18 +401,34 @@ public:
 
     const Checkpoints::CCheckpointData& Checkpoints() const
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         // UnitTest share the same checkpoints as MAIN
         return data;
     }
 
     //! Published setters to allow changing values in unit test cases
-    virtual void setSubsidyHalvingInterval(int anSubsidyHalvingInterval) { nSubsidyHalvingInterval = anSubsidyHalvingInterval; }
-    virtual void setEnforceBlockUpgradeMajority(int anEnforceBlockUpgradeMajority) { nEnforceBlockUpgradeMajority = anEnforceBlockUpgradeMajority; }
-    virtual void setRejectBlockOutdatedMajority(int anRejectBlockOutdatedMajority) { nRejectBlockOutdatedMajority = anRejectBlockOutdatedMajority; }
-    virtual void setToCheckBlockUpgradeMajority(int anToCheckBlockUpgradeMajority) { nToCheckBlockUpgradeMajority = anToCheckBlockUpgradeMajority; }
-    virtual void setDefaultConsistencyChecks(bool afDefaultConsistencyChecks) { fDefaultConsistencyChecks = afDefaultConsistencyChecks; }
-    virtual void setAllowMinDifficultyBlocks(bool afAllowMinDifficultyBlocks) { fAllowMinDifficultyBlocks = afAllowMinDifficultyBlocks; }
-    virtual void setSkipProofOfWorkCheck(bool afSkipProofOfWorkCheck) { fSkipProofOfWorkCheck = afSkipProofOfWorkCheck; }
+    virtual void setSubsidyHalvingInterval(int anSubsidyHalvingInterval) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+ nSubsidyHalvingInterval = anSubsidyHalvingInterval; }
+    virtual void setEnforceBlockUpgradeMajority(int anEnforceBlockUpgradeMajority) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+ nEnforceBlockUpgradeMajority = anEnforceBlockUpgradeMajority; }
+    virtual void setRejectBlockOutdatedMajority(int anRejectBlockOutdatedMajority) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+ nRejectBlockOutdatedMajority = anRejectBlockOutdatedMajority; }
+    virtual void setToCheckBlockUpgradeMajority(int anToCheckBlockUpgradeMajority) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+ nToCheckBlockUpgradeMajority = anToCheckBlockUpgradeMajority; }
+    virtual void setDefaultConsistencyChecks(bool afDefaultConsistencyChecks) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+ fDefaultConsistencyChecks = afDefaultConsistencyChecks; }
+    virtual void setAllowMinDifficultyBlocks(bool afAllowMinDifficultyBlocks) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+ fAllowMinDifficultyBlocks = afAllowMinDifficultyBlocks; }
+    virtual void setSkipProofOfWorkCheck(bool afSkipProofOfWorkCheck) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+ fSkipProofOfWorkCheck = afSkipProofOfWorkCheck; }
 };
 static CUnitTestParams unitTestParams;
 
@@ -414,6 +437,8 @@ static CChainParams* pCurrentParams = 0;
 
 CModifiableParams* ModifiableParams()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     assert(pCurrentParams);
     assert(pCurrentParams == &unitTestParams);
     return (CModifiableParams*)&unitTestParams;
@@ -421,12 +446,16 @@ CModifiableParams* ModifiableParams()
 
 const CChainParams& Params()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     assert(pCurrentParams);
     return *pCurrentParams;
 }
 
 CChainParams& Params(CBaseChainParams::Network network)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     switch (network) {
     case CBaseChainParams::MAIN:
         return mainParams;
@@ -444,12 +473,16 @@ CChainParams& Params(CBaseChainParams::Network network)
 
 void SelectParams(CBaseChainParams::Network network)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     SelectBaseParams(network);
     pCurrentParams = &Params(network);
 }
 
 bool SelectParamsFromCommandLine()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CBaseChainParams::Network network = NetworkIdFromCommandLine();
     if (network == CBaseChainParams::MAX_NETWORK_TYPES)
         return false;

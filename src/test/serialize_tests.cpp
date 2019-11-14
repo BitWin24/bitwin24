@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2012-2013 The Bitcoin Core developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -66,6 +67,8 @@ BOOST_AUTO_TEST_CASE(compactsize)
 
 static bool isCanonicalException(const std::ios_base::failure& ex)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::ios_base::failure expectedException("non-canonical ReadCompactSize()");
 
     // The string returned by what() can be different for different platforms.

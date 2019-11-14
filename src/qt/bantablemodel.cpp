@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2011-2015 The Bitcoin Core developers
 // Copyright (c) 2018 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
@@ -48,6 +49,8 @@ public:
     /** Pull a full list of banned nodes from CNode into our cache */
     void refreshBanlist()
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         banmap_t banMap;
         CNode::GetBanned(banMap);
 
@@ -68,11 +71,15 @@ public:
 
     int size() const
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         return cachedBanlist.size();
     }
 
     CCombinedBan *index(int idx)
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         if (idx >= 0 && idx < cachedBanlist.size())
             return &cachedBanlist[idx];
 

@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
@@ -173,6 +174,8 @@ inline std::string Hash(std::string input)
 /** Compute the 256-bit hash of a void pointer */
 inline void Hash(void* in, unsigned int len, unsigned char* out)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     SHA256_CTX sha256;
     SHA256_Init(&sha256);
     SHA256_Update(&sha256, in, len);
@@ -270,6 +273,8 @@ inline uint160 Hash160(const T1 pbegin, const T1 pend)
 /** Compute the 160-bit hash of a vector. */
 inline uint160 Hash160(const std::vector<unsigned char>& vch)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return Hash160(vch.begin(), vch.end());
 }
 

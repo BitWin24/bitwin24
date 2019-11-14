@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2018 The PIVX developers
@@ -201,7 +202,9 @@ public:
     void requestShutdown();
 
     /// Get process return value
-    int getReturnValue() { return returnValue; }
+    int getReturnValue() {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+ return returnValue; }
 
     /// Get window identifier of QMainWindow (BitcoinGUI)
     WId getMainWinId() const;

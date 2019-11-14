@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2017-2018 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -15,6 +16,8 @@ bool CMintMeta::operator <(const CMintMeta& a) const
 
 uint256 GetSerialHash(const CBigNum& bnSerial)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CDataStream ss(SER_GETHASH, 0);
     ss << bnSerial;
     return Hash(ss.begin(), ss.end());
@@ -22,6 +25,8 @@ uint256 GetSerialHash(const CBigNum& bnSerial)
 
 uint256 GetPubCoinHash(const CBigNum& bnValue)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CDataStream ss(SER_GETHASH, 0);
     ss << bnValue;
     return Hash(ss.begin(), ss.end());

@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2018 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
@@ -20,6 +21,8 @@
 
 X509 *parse_b64der_cert(const char* cert_data)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::vector<unsigned char> data = DecodeBase64(cert_data);
     assert(data.size() > 0);
     const unsigned char* dptr = &data[0];
@@ -34,6 +37,8 @@ X509 *parse_b64der_cert(const char* cert_data)
 
 static SendCoinsRecipient handleRequest(PaymentServer* server, std::vector<unsigned char>& data)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     RecipientCatcher sigCatcher;
     QObject::connect(server, SIGNAL(receivedPaymentRequest(SendCoinsRecipient)),
         &sigCatcher, SLOT(getRecipient(SendCoinsRecipient)));
@@ -62,6 +67,8 @@ static SendCoinsRecipient handleRequest(PaymentServer* server, std::vector<unsig
 
 void PaymentServerTests::paymentServerTests()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     SelectParams(CBaseChainParams::MAIN);
     OptionsModel optionsModel;
     PaymentServer* server = new PaymentServer(NULL, false);
@@ -130,5 +137,7 @@ void PaymentServerTests::paymentServerTests()
 
 void RecipientCatcher::getRecipient(SendCoinsRecipient r)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     recipient = r;
 }

@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
@@ -45,6 +46,8 @@ CActiveMasternode activeMasternode;
 
 void CObfuscationPool::ProcessMessageObfuscation(CNode* pfrom, std::string& strCommand, CDataStream& vRecv)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fLiteMode) return; //disable all Obfuscation/Masternode related functionality
     if (!masternodeSync.IsBlockchainSynced()) return;
 
@@ -376,10 +379,14 @@ void CObfuscationPool::ProcessMessageObfuscation(CNode* pfrom, std::string& strC
     }
 }
 
-int randomizeList(int i) { return std::rand() % i; }
+int randomizeList(int i) {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+ return std::rand() % i; }
 
 void CObfuscationPool::Reset()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     cachedLastSuccess = 0;
     lastNewBlock = 0;
     txCollateral = CMutableTransaction();
@@ -390,6 +397,8 @@ void CObfuscationPool::Reset()
 
 void CObfuscationPool::SetNull()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // MN side
     sessionUsers = 0;
     vecSessionCollateral.clear();
@@ -417,6 +426,8 @@ void CObfuscationPool::SetNull()
 
 bool CObfuscationPool::SetCollateralAddress(std::string strAddress)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CBitcoinAddress address;
     if (!address.SetString(strAddress)) {
         LogPrintf("CObfuscationPool::SetCollateralAddress - Invalid Obfuscation collateral address\n");
@@ -431,6 +442,8 @@ bool CObfuscationPool::SetCollateralAddress(std::string strAddress)
 //
 void CObfuscationPool::UnlockCoins()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     while (true) {
         TRY_LOCK(pwalletMain->cs_wallet, lockWallet);
         if (!lockWallet) {
@@ -447,6 +460,8 @@ void CObfuscationPool::UnlockCoins()
 
 std::string CObfuscationPool::GetStatus()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     static int showingObfuScationMessage = 0;
     showingObfuScationMessage += 10;
     std::string suffix = "";
@@ -516,6 +531,8 @@ std::string CObfuscationPool::GetStatus()
 //
 void CObfuscationPool::Check()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fMasterNode) LogPrint("obfuscation", "CObfuscationPool::Check() - entries count %lu\n", entries.size());
     //printf("CObfuscationPool::Check() %d - %d - %d\n", state, anonTx.CountEntries(), GetTimeMillis()-lastTimeChanged);
 
@@ -578,6 +595,8 @@ void CObfuscationPool::Check()
 
 void CObfuscationPool::CheckFinalTransaction()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!fMasterNode) return; // check and relay final tx only on masternode
 
     CWalletTx txNew = CWalletTx(pwalletMain, finalTransaction);
@@ -663,6 +682,8 @@ void CObfuscationPool::CheckFinalTransaction()
 //
 void CObfuscationPool::ChargeFees()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!fMasterNode) return;
 
     //we don't need to charge collateral for every offence.
@@ -766,6 +787,8 @@ void CObfuscationPool::ChargeFees()
 //  - Obfuscation is completely free, to pay miners we randomly pay the collateral of users.
 void CObfuscationPool::ChargeRandomFees()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fMasterNode) {
         int i = 0;
 
@@ -802,6 +825,8 @@ void CObfuscationPool::ChargeRandomFees()
 //
 void CObfuscationPool::CheckTimeout()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!fEnableZeromint && !fMasterNode) return;
 
     // catching hanging sessions
@@ -887,6 +912,8 @@ void CObfuscationPool::CheckTimeout()
 //
 void CObfuscationPool::CheckForCompleteQueue()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!fEnableZeromint && !fMasterNode) return;
 
     /* Check to see if we're ready for submissions from clients */
@@ -910,6 +937,8 @@ void CObfuscationPool::CheckForCompleteQueue()
 // check to see if the signature is valid
 bool CObfuscationPool::SignatureValid(const CScript& newSig, const CTxIn& newVin)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CMutableTransaction txNew;
     txNew.vin.clear();
     txNew.vout.clear();
@@ -950,6 +979,8 @@ bool CObfuscationPool::SignatureValid(const CScript& newSig, const CTxIn& newVin
 // check to make sure the collateral provided by the client is valid
 bool CObfuscationPool::IsCollateralValid(const CTransaction& txCollateral)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (txCollateral.vout.size() < 1) return false;
     if (txCollateral.nLockTime != 0) return false;
 
@@ -1009,6 +1040,8 @@ bool CObfuscationPool::IsCollateralValid(const CTransaction& txCollateral)
 //
 bool CObfuscationPool::AddEntry(const std::vector<CTxIn>& newInput, const CAmount& nAmount, const CTransaction& txCollateral, const std::vector<CTxOut>& newOutput, int& errorID)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!fMasterNode) return false;
 
     BOOST_FOREACH (CTxIn in, newInput) {
@@ -1060,6 +1093,8 @@ bool CObfuscationPool::AddEntry(const std::vector<CTxIn>& newInput, const CAmoun
 
 bool CObfuscationPool::AddScriptSig(const CTxIn& newVin)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LogPrint("obfuscation", "CObfuscationPool::AddScriptSig -- new sig  %s\n", newVin.scriptSig.ToString().substr(0, 24));
 
 
@@ -1100,6 +1135,8 @@ bool CObfuscationPool::AddScriptSig(const CTxIn& newVin)
 // Check to make sure everything is signed
 bool CObfuscationPool::SignaturesComplete()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     BOOST_FOREACH (const CObfuScationEntry& v, entries) {
         BOOST_FOREACH (const CTxDSIn& s, v.sev) {
             if (!s.fHasSig) return false;

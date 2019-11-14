@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2015 The Bitcoin Core developers
 // Copyright (c) 2017 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
@@ -30,6 +31,8 @@ static boost::system_time toPosixTime(const boost::chrono::system_clock::time_po
 
 void CScheduler::serviceQueue()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     boost::unique_lock<boost::mutex> lock(newTaskMutex);
     ++nThreadsServicingQueue;
 
@@ -85,6 +88,8 @@ void CScheduler::serviceQueue()
 
 void CScheduler::stop(bool drain)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     {
         boost::unique_lock<boost::mutex> lock(newTaskMutex);
         if (drain)
@@ -97,6 +102,8 @@ void CScheduler::stop(bool drain)
 
 void CScheduler::schedule(CScheduler::Function f, boost::chrono::system_clock::time_point t)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     {
         boost::unique_lock<boost::mutex> lock(newTaskMutex);
         taskQueue.insert(std::make_pair(t, f));
@@ -106,23 +113,31 @@ void CScheduler::schedule(CScheduler::Function f, boost::chrono::system_clock::t
 
 void CScheduler::scheduleFromNow(CScheduler::Function f, int64_t deltaSeconds)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     schedule(f, boost::chrono::system_clock::now() + boost::chrono::seconds(deltaSeconds));
 }
 
 static void Repeat(CScheduler* s, CScheduler::Function f, int64_t deltaSeconds)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     f();
     s->scheduleFromNow(boost::bind(&Repeat, s, f, deltaSeconds), deltaSeconds);
 }
 
 void CScheduler::scheduleEvery(CScheduler::Function f, int64_t deltaSeconds)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     scheduleFromNow(boost::bind(&Repeat, this, f, deltaSeconds), deltaSeconds);
 }
 
 size_t CScheduler::getQueueInfo(boost::chrono::system_clock::time_point &first,
                              boost::chrono::system_clock::time_point &last) const
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     boost::unique_lock<boost::mutex> lock(newTaskMutex);
     size_t result = taskQueue.size();
     if (!taskQueue.empty()) {

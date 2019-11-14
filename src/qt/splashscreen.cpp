@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
@@ -24,6 +25,8 @@
 
 SplashScreen::SplashScreen(Qt::WindowFlags f, const NetworkStyle* networkStyle) : QWidget(0, f), curAlignment(0)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // set reference point, paddings
     int paddingLeft = 14;
     int paddingTop = 458;
@@ -104,12 +107,16 @@ SplashScreen::~SplashScreen()
 
 void SplashScreen::slotFinish(QWidget* mainWin)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     Q_UNUSED(mainWin);
     hide();
 }
 
 static void InitMessage(SplashScreen* splash, const std::string& message)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     QMetaObject::invokeMethod(splash, "showMessage",
         Qt::QueuedConnection,
         Q_ARG(QString, QString::fromStdString(message)),
@@ -119,6 +126,8 @@ static void InitMessage(SplashScreen* splash, const std::string& message)
 
 static void ShowProgress(SplashScreen* splash, const std::string& title, int nProgress)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     InitMessage(splash, title + strprintf("%d", nProgress) + "%");
 }
 
@@ -131,6 +140,8 @@ static void ConnectWallet(SplashScreen* splash, CWallet* wallet)
 
 void SplashScreen::subscribeToCoreSignals()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Connect signals to client
     uiInterface.InitMessage.connect(boost::bind(InitMessage, this, _1));
     uiInterface.ShowProgress.connect(boost::bind(ShowProgress, this, _1, _2));
@@ -141,6 +152,8 @@ void SplashScreen::subscribeToCoreSignals()
 
 void SplashScreen::unsubscribeFromCoreSignals()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Disconnect signals from client
     uiInterface.InitMessage.disconnect(boost::bind(InitMessage, this, _1));
     uiInterface.ShowProgress.disconnect(boost::bind(ShowProgress, this, _1, _2));
@@ -152,6 +165,8 @@ void SplashScreen::unsubscribeFromCoreSignals()
 
 void SplashScreen::showMessage(const QString& message, int alignment, const QColor& color)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     curMessage = message;
     curAlignment = alignment;
     curColor = color;
@@ -160,6 +175,8 @@ void SplashScreen::showMessage(const QString& message, int alignment, const QCol
 
 void SplashScreen::paintEvent(QPaintEvent* event)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     QPainter painter(this);
     painter.drawPixmap(0, 0, pixmap);
     QRect r = rect().adjusted(5, 5, -5, -5);
@@ -169,6 +186,8 @@ void SplashScreen::paintEvent(QPaintEvent* event)
 
 void SplashScreen::closeEvent(QCloseEvent* event)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     StartShutdown(); // allows an "emergency" shutdown during startup
     event->ignore();
 }

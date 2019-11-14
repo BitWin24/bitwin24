@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
@@ -34,12 +35,16 @@ static uint64_t nAccountingEntryNumber = 0;
 
 bool CWalletDB::WriteName(const string& strAddress, const string& strName)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     nWalletDBUpdated++;
     return Write(make_pair(string("name"), strAddress), strName);
 }
 
 bool CWalletDB::EraseName(const string& strAddress)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // This should only be used for sending addresses, never for receiving addresses,
     // receiving addresses must always have an address book entry if they're not change return.
     nWalletDBUpdated++;
@@ -48,30 +53,40 @@ bool CWalletDB::EraseName(const string& strAddress)
 
 bool CWalletDB::WritePurpose(const string& strAddress, const string& strPurpose)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     nWalletDBUpdated++;
     return Write(make_pair(string("purpose"), strAddress), strPurpose);
 }
 
 bool CWalletDB::ErasePurpose(const string& strPurpose)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     nWalletDBUpdated++;
     return Erase(make_pair(string("purpose"), strPurpose));
 }
 
 bool CWalletDB::WriteTx(uint256 hash, const CWalletTx& wtx)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     nWalletDBUpdated++;
     return Write(std::make_pair(std::string("tx"), hash), wtx);
 }
 
 bool CWalletDB::EraseTx(uint256 hash)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     nWalletDBUpdated++;
     return Erase(std::make_pair(std::string("tx"), hash));
 }
 
 bool CWalletDB::WriteKey(const CPubKey& vchPubKey, const CPrivKey& vchPrivKey, const CKeyMetadata& keyMeta)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     nWalletDBUpdated++;
 
     if (!Write(std::make_pair(std::string("keymeta"), vchPubKey),
@@ -91,6 +106,8 @@ bool CWalletDB::WriteCryptedKey(const CPubKey& vchPubKey,
     const std::vector<unsigned char>& vchCryptedSecret,
     const CKeyMetadata& keyMeta)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     const bool fEraseUnencryptedKey = true;
     nWalletDBUpdated++;
 
@@ -109,53 +126,71 @@ bool CWalletDB::WriteCryptedKey(const CPubKey& vchPubKey,
 
 bool CWalletDB::WriteMasterKey(unsigned int nID, const CMasterKey& kMasterKey)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     nWalletDBUpdated++;
     return Write(std::make_pair(std::string("mkey"), nID), kMasterKey, true);
 }
 
 bool CWalletDB::WriteCScript(const uint160& hash, const CScript& redeemScript)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     nWalletDBUpdated++;
     return Write(std::make_pair(std::string("cscript"), hash), redeemScript, false);
 }
 
 bool CWalletDB::WriteWatchOnly(const CScript& dest)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     nWalletDBUpdated++;
     return Write(std::make_pair(std::string("watchs"), dest), '1');
 }
 
 bool CWalletDB::EraseWatchOnly(const CScript& dest)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     nWalletDBUpdated++;
     return Erase(std::make_pair(std::string("watchs"), dest));
 }
 
 bool CWalletDB::WriteMultiSig(const CScript& dest)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     nWalletDBUpdated++;
     return Write(std::make_pair(std::string("multisig"), dest), '1');
 }
 
 bool CWalletDB::EraseMultiSig(const CScript& dest)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     nWalletDBUpdated++;
     return Erase(std::make_pair(std::string("multisig"), dest));
 }
 
 bool CWalletDB::WriteBestBlock(const CBlockLocator& locator)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     nWalletDBUpdated++;
     return Write(std::string("bestblock"), locator);
 }
 
 bool CWalletDB::ReadBestBlock(CBlockLocator& locator)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return Read(std::string("bestblock"), locator);
 }
 
 bool CWalletDB::WriteOrderPosNext(int64_t nOrderPosNext)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     nWalletDBUpdated++;
     return Write(std::string("orderposnext"), nOrderPosNext);
 }
@@ -163,6 +198,8 @@ bool CWalletDB::WriteOrderPosNext(int64_t nOrderPosNext)
 // presstab HyperStake
 bool CWalletDB::WriteStakeSplitThreshold(uint64_t nStakeSplitThreshold)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     nWalletDBUpdated++;
     return Write(std::string("stakeSplitThreshold"), nStakeSplitThreshold);
 }
@@ -170,6 +207,8 @@ bool CWalletDB::WriteStakeSplitThreshold(uint64_t nStakeSplitThreshold)
 //presstab HyperStake
 bool CWalletDB::WriteMultiSend(std::vector<std::pair<std::string, int> > vMultiSend)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     nWalletDBUpdated++;
     bool ret = true;
     for (unsigned int i = 0; i < vMultiSend.size(); i++) {
@@ -183,6 +222,8 @@ bool CWalletDB::WriteMultiSend(std::vector<std::pair<std::string, int> > vMultiS
 //presstab HyperStake
 bool CWalletDB::EraseMultiSend(std::vector<std::pair<std::string, int> > vMultiSend)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     nWalletDBUpdated++;
     bool ret = true;
     for (unsigned int i = 0; i < vMultiSend.size(); i++) {
@@ -196,6 +237,8 @@ bool CWalletDB::EraseMultiSend(std::vector<std::pair<std::string, int> > vMultiS
 //presstab HyperStake
 bool CWalletDB::WriteMSettings(bool fMultiSendStake, bool fMultiSendMasternode, int nLastMultiSendHeight)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     nWalletDBUpdated++;
     std::pair<bool, bool> enabledMS(fMultiSendStake, fMultiSendMasternode);
     std::pair<std::pair<bool, bool>, int> pSettings(enabledMS, nLastMultiSendHeight);
@@ -205,6 +248,8 @@ bool CWalletDB::WriteMSettings(bool fMultiSendStake, bool fMultiSendMasternode, 
 //presstab HyperStake
 bool CWalletDB::WriteMSDisabledAddresses(std::vector<std::string> vDisabledAddresses)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     nWalletDBUpdated++;
     bool ret = true;
     for (unsigned int i = 0; i < vDisabledAddresses.size(); i++) {
@@ -216,6 +261,8 @@ bool CWalletDB::WriteMSDisabledAddresses(std::vector<std::string> vDisabledAddre
 //presstab HyperStake
 bool CWalletDB::EraseMSDisabledAddresses(std::vector<std::string> vDisabledAddresses)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     nWalletDBUpdated++;
     bool ret = true;
     for (unsigned int i = 0; i < vDisabledAddresses.size(); i++) {
@@ -226,6 +273,8 @@ bool CWalletDB::EraseMSDisabledAddresses(std::vector<std::string> vDisabledAddre
 }
 bool CWalletDB::WriteAutoCombineSettings(bool fEnable, CAmount nCombineThreshold)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     nWalletDBUpdated++;
     std::pair<bool, CAmount> pSettings;
     pSettings.first = fEnable;
@@ -235,55 +284,75 @@ bool CWalletDB::WriteAutoCombineSettings(bool fEnable, CAmount nCombineThreshold
 
 bool CWalletDB::WriteDefaultKey(const CPubKey& vchPubKey)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     nWalletDBUpdated++;
     return Write(std::string("defaultkey"), vchPubKey);
 }
 
 bool CWalletDB::ReadPool(int64_t nPool, CKeyPool& keypool)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return Read(std::make_pair(std::string("pool"), nPool), keypool);
 }
 
 bool CWalletDB::WritePool(int64_t nPool, const CKeyPool& keypool)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     nWalletDBUpdated++;
     return Write(std::make_pair(std::string("pool"), nPool), keypool);
 }
 
 bool CWalletDB::ErasePool(int64_t nPool)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     nWalletDBUpdated++;
     return Erase(std::make_pair(std::string("pool"), nPool));
 }
 
 bool CWalletDB::WriteMinVersion(int nVersion)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return Write(std::string("minversion"), nVersion);
 }
 
 bool CWalletDB::ReadAccount(const string& strAccount, CAccount& account)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     account.SetNull();
     return Read(make_pair(string("acc"), strAccount), account);
 }
 
 bool CWalletDB::WriteAccount(const string& strAccount, const CAccount& account)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return Write(make_pair(string("acc"), strAccount), account);
 }
 
 bool CWalletDB::WriteAccountingEntry(const uint64_t nAccEntryNum, const CAccountingEntry& acentry)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return Write(std::make_pair(std::string("acentry"), std::make_pair(acentry.strAccount, nAccEntryNum)), acentry);
 }
 
 bool CWalletDB::WriteAccountingEntry_Backend(const CAccountingEntry& acentry)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return WriteAccountingEntry(++nAccountingEntryNumber, acentry);
 }
 
 CAmount CWalletDB::GetAccountCreditDebit(const string& strAccount)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     list<CAccountingEntry> entries;
     ListAccountCreditDebit(strAccount, entries);
 
@@ -296,6 +365,8 @@ CAmount CWalletDB::GetAccountCreditDebit(const string& strAccount)
 
 void CWalletDB::ListAccountCreditDebit(const string& strAccount, list<CAccountingEntry>& entries)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     bool fAllAccounts = (strAccount == "*");
 
     Dbc* pcursor = GetCursor();
@@ -337,6 +408,8 @@ void CWalletDB::ListAccountCreditDebit(const string& strAccount, list<CAccountin
 
 DBErrors CWalletDB::ReorderTransactions(CWallet* pwallet)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LOCK(pwallet->cs_wallet);
     // Old wallets didn't have any defined order for transactions
     // Probably a bad idea to change the output of this
@@ -420,6 +493,8 @@ public:
 
 bool ReadKeyValue(CWallet* pwallet, CDataStream& ssKey, CDataStream& ssValue, CWalletScanState& wss, string& strType, string& strErr)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     try {
         // Unserialize
         // Taking advantage of the fact that pair serialization
@@ -668,12 +743,16 @@ bool ReadKeyValue(CWallet* pwallet, CDataStream& ssKey, CDataStream& ssValue, CW
 
 static bool IsKeyType(string strType)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return (strType == "key" || strType == "wkey" ||
             strType == "mkey" || strType == "ckey");
 }
 
 DBErrors CWalletDB::LoadWallet(CWallet* pwallet)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     pwallet->vchDefaultKey = CPubKey();
     CWalletScanState wss;
     bool fNoncriticalErrors = false;
@@ -773,6 +852,8 @@ DBErrors CWalletDB::LoadWallet(CWallet* pwallet)
 
 DBErrors CWalletDB::FindWalletTx(CWallet* pwallet, vector<uint256>& vTxHash, vector<CWalletTx>& vWtx)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     pwallet->vchDefaultKey = CPubKey();
     bool fNoncriticalErrors = false;
     DBErrors result = DB_LOAD_OK;
@@ -833,6 +914,8 @@ DBErrors CWalletDB::FindWalletTx(CWallet* pwallet, vector<uint256>& vTxHash, vec
 
 DBErrors CWalletDB::ZapWalletTx(CWallet* pwallet, vector<CWalletTx>& vWtx)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // build list of wallet TXs
     vector<uint256> vTxHash;
     DBErrors err = FindWalletTx(pwallet, vTxHash, vWtx);
@@ -850,6 +933,8 @@ DBErrors CWalletDB::ZapWalletTx(CWallet* pwallet, vector<CWalletTx>& vWtx)
 
 void ThreadFlushWalletDB(const string& strFile)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Make this thread recognisable as the wallet flushing thread
     RenameThread("bitwin24-wallet");
 
@@ -905,12 +990,16 @@ void ThreadFlushWalletDB(const string& strFile)
 
 void NotifyBacked(const CWallet& wallet, bool fSuccess, string strMessage)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     LogPrint(nullptr, strMessage.data());
     wallet.NotifyWalletBacked(fSuccess, strMessage);
 }
 
 bool BackupWallet(const CWallet& wallet, const filesystem::path& strDest, bool fEnableCustom)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     filesystem::path pathCustom;
     filesystem::path pathWithFile;
     if (!wallet.fFileBacked) {
@@ -1016,6 +1105,8 @@ bool BackupWallet(const CWallet& wallet, const filesystem::path& strDest, bool f
 
 bool AttemptBackupWallet(const CWallet& wallet, const filesystem::path& pathSrc, const filesystem::path& pathDest)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     bool retStatus;
     string strMessage;
     try {
@@ -1050,6 +1141,8 @@ bool AttemptBackupWallet(const CWallet& wallet, const filesystem::path& pathSrc,
 //
 bool CWalletDB::Recover(CDBEnv& dbenv, std::string filename, bool fOnlyKeys)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Recovery procedure:
     // move wallet.dat to wallet.timestamp.bak
     // Call Salvage with fAggressive=true to
@@ -1121,54 +1214,74 @@ bool CWalletDB::Recover(CDBEnv& dbenv, std::string filename, bool fOnlyKeys)
 
 bool CWalletDB::Recover(CDBEnv& dbenv, std::string filename)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return CWalletDB::Recover(dbenv, filename, false);
 }
 
 bool CWalletDB::WriteDestData(const std::string& address, const std::string& key, const std::string& value)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     nWalletDBUpdated++;
     return Write(std::make_pair(std::string("destdata"), std::make_pair(address, key)), value);
 }
 
 bool CWalletDB::EraseDestData(const std::string& address, const std::string& key)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     nWalletDBUpdated++;
     return Erase(std::make_pair(std::string("destdata"), std::make_pair(address, key)));
 }
 
 bool CWalletDB::WriteZerocoinSpendSerialEntry(const CZerocoinSpend& zerocoinSpend)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return Write(make_pair(string("zcserial"), zerocoinSpend.GetSerial()), zerocoinSpend, true);
 }
 bool CWalletDB::EraseZerocoinSpendSerialEntry(const CBigNum& serialEntry)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return Erase(make_pair(string("zcserial"), serialEntry));
 }
 
 bool CWalletDB::ReadZerocoinSpendSerialEntry(const CBigNum& bnSerial)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CZerocoinSpend spend;
     return Read(make_pair(string("zcserial"), bnSerial), spend);
 }
 
 bool CWalletDB::WriteDeterministicMint(const CDeterministicMint& dMint)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     uint256 hash = dMint.GetPubcoinHash();
     return Write(make_pair(string("dzbwi"), hash), dMint, true);
 }
 
 bool CWalletDB::ReadDeterministicMint(const uint256& hashPubcoin, CDeterministicMint& dMint)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return Read(make_pair(string("dzbwi"), hashPubcoin), dMint);
 }
 
 bool CWalletDB::EraseDeterministicMint(const uint256& hashPubcoin)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return Erase(make_pair(string("dzbwi"), hashPubcoin));
 }
 
 bool CWalletDB::WriteZerocoinMint(const CZerocoinMint& zerocoinMint)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CDataStream ss(SER_GETHASH, 0);
     ss << zerocoinMint.GetValue();
     uint256 hash = Hash(ss.begin(), ss.end());
@@ -1179,6 +1292,8 @@ bool CWalletDB::WriteZerocoinMint(const CZerocoinMint& zerocoinMint)
 
 bool CWalletDB::ReadZerocoinMint(const CBigNum &bnPubCoinValue, CZerocoinMint& zerocoinMint)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CDataStream ss(SER_GETHASH, 0);
     ss << bnPubCoinValue;
     uint256 hash = Hash(ss.begin(), ss.end());
@@ -1188,11 +1303,15 @@ bool CWalletDB::ReadZerocoinMint(const CBigNum &bnPubCoinValue, CZerocoinMint& z
 
 bool CWalletDB::ReadZerocoinMint(const uint256& hashPubcoin, CZerocoinMint& mint)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return Read(make_pair(string("zerocoin"), hashPubcoin), mint);
 }
 
 bool CWalletDB::EraseZerocoinMint(const CZerocoinMint& zerocoinMint)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CDataStream ss(SER_GETHASH, 0);
     ss << zerocoinMint.GetValue();
     uint256 hash = Hash(ss.begin(), ss.end());
@@ -1202,6 +1321,8 @@ bool CWalletDB::EraseZerocoinMint(const CZerocoinMint& zerocoinMint)
 
 bool CWalletDB::ArchiveMintOrphan(const CZerocoinMint& zerocoinMint)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CDataStream ss(SER_GETHASH, 0);
     ss << zerocoinMint.GetValue();
     uint256 hash = Hash(ss.begin(), ss.end());;
@@ -1221,6 +1342,8 @@ bool CWalletDB::ArchiveMintOrphan(const CZerocoinMint& zerocoinMint)
 
 bool CWalletDB::ArchiveDeterministicOrphan(const CDeterministicMint& dMint)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!Write(make_pair(string("dzco"), dMint.GetPubcoinHash()), dMint))
         return error("%s: write failed", __func__);
 
@@ -1232,6 +1355,8 @@ bool CWalletDB::ArchiveDeterministicOrphan(const CDeterministicMint& dMint)
 
 bool CWalletDB::UnarchiveDeterministicMint(const uint256& hashPubcoin, CDeterministicMint& dMint)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!Read(make_pair(string("dzco"), hashPubcoin), dMint))
         return error("%s: failed to retrieve deterministic mint from archive", __func__);
 
@@ -1246,6 +1371,8 @@ bool CWalletDB::UnarchiveDeterministicMint(const uint256& hashPubcoin, CDetermin
 
 bool CWalletDB::UnarchiveZerocoinMint(const uint256& hashPubcoin, CZerocoinMint& mint)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!Read(make_pair(string("zco"), hashPubcoin), mint))
         return error("%s: failed to retrieve zerocoinmint from archive", __func__);
 
@@ -1261,16 +1388,22 @@ bool CWalletDB::UnarchiveZerocoinMint(const uint256& hashPubcoin, CZerocoinMint&
 
 bool CWalletDB::WriteCurrentSeedHash(const uint256& hashSeed)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return Write(string("seedhash"), hashSeed);
 }
 
 bool CWalletDB::ReadCurrentSeedHash(uint256& hashSeed)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return Read(string("seedhash"), hashSeed);
 }
 
 bool CWalletDB::WriteZBWISeed(const uint256& hashSeed, const vector<unsigned char>& seed)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!WriteCurrentSeedHash(hashSeed))
         return error("%s: failed to write current seed hash", __func__);
 
@@ -1279,6 +1412,8 @@ bool CWalletDB::WriteZBWISeed(const uint256& hashSeed, const vector<unsigned cha
 
 bool CWalletDB::EraseZBWISeed()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     uint256 hash;
     if(!ReadCurrentSeedHash(hash)){
         return error("Failed to read a current seed hash");
@@ -1295,37 +1430,51 @@ bool CWalletDB::EraseZBWISeed()
 
 bool CWalletDB::EraseZBWISeed_deprecated()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return Erase(string("dzs"));
 }
 
 bool CWalletDB::ReadZBWISeed(const uint256& hashSeed, vector<unsigned char>& seed)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return Read(make_pair(string("dzs"), hashSeed), seed);
 }
 
 bool CWalletDB::ReadZBWISeed_deprecated(uint256& seed)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return Read(string("dzs"), seed);
 }
 
 bool CWalletDB::WriteZBWICount(const uint32_t& nCount)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return Write(string("dzc"), nCount);
 }
 
 bool CWalletDB::ReadZBWICount(uint32_t& nCount)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return Read(string("dzc"), nCount);
 }
 
 bool CWalletDB::WriteMintPoolPair(const uint256& hashMasterSeed, const uint256& hashPubcoin, const uint32_t& nCount)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return Write(make_pair(string("mintpool"), hashPubcoin), make_pair(hashMasterSeed, nCount));
 }
 
 //! map with hashMasterSeed as the key, paired with vector of hashPubcoins and their count
 std::map<uint256, std::vector<pair<uint256, uint32_t> > > CWalletDB::MapMintPool()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::map<uint256, std::vector<pair<uint256, uint32_t> > > mapPool;
     Dbc* pcursor = GetCursor();
     if (!pcursor)
@@ -1382,6 +1531,8 @@ std::map<uint256, std::vector<pair<uint256, uint32_t> > > CWalletDB::MapMintPool
 
 std::list<CDeterministicMint> CWalletDB::ListDeterministicMints()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::list<CDeterministicMint> listMints;
     Dbc* pcursor = GetCursor();
     if (!pcursor)
@@ -1425,6 +1576,8 @@ std::list<CDeterministicMint> CWalletDB::ListDeterministicMints()
 
 std::list<CZerocoinMint> CWalletDB::ListMintedCoins()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::list<CZerocoinMint> listPubCoin;
     Dbc* pcursor = GetCursor();
     if (!pcursor)
@@ -1470,6 +1623,8 @@ std::list<CZerocoinMint> CWalletDB::ListMintedCoins()
 
 std::list<CZerocoinSpend> CWalletDB::ListSpentCoins()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::list<CZerocoinSpend> listCoinSpend;
     Dbc* pcursor = GetCursor();
     if (!pcursor)
@@ -1514,6 +1669,8 @@ std::list<CZerocoinSpend> CWalletDB::ListSpentCoins()
 // Just get the Serial Numbers
 std::list<CBigNum> CWalletDB::ListSpentCoinsSerial()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::list<CBigNum> listPubCoin;
     std::list<CZerocoinSpend> listCoins = ListSpentCoins();
 
@@ -1525,6 +1682,8 @@ std::list<CBigNum> CWalletDB::ListSpentCoinsSerial()
 
 std::list<CZerocoinMint> CWalletDB::ListArchivedZerocoins()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::list<CZerocoinMint> listMints;
     Dbc* pcursor = GetCursor();
     if (!pcursor)
@@ -1568,6 +1727,8 @@ std::list<CZerocoinMint> CWalletDB::ListArchivedZerocoins()
 
 std::list<CDeterministicMint> CWalletDB::ListArchivedDeterministicMints()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::list<CDeterministicMint> listMints;
     Dbc* pcursor = GetCursor();
     if (!pcursor)

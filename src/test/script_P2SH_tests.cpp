@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2012-2013 The Bitcoin Core developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -23,6 +24,8 @@ using namespace std;
 static std::vector<unsigned char>
 Serialize(const CScript& s)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::vector<unsigned char> sSerialized(s);
     return sSerialized;
 }
@@ -30,6 +33,8 @@ Serialize(const CScript& s)
 static bool
 Verify(const CScript& scriptSig, const CScript& scriptPubKey, bool fStrict, ScriptError& err)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // Create dummy to/from transactions:
     CMutableTransaction txFrom;
     txFrom.vout.resize(1);

@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2014 The Bitcoin developers
 // Copyright (c) 2017 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
@@ -27,10 +28,14 @@ NetworkStyle::NetworkStyle(const QString& appName, const QString& appIcon, const
                                                                                                                                    titleAddText(qApp->translate("SplashScreen", titleAddText)),
                                                                                                                                    splashImage(splashImage)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
 }
 
 const NetworkStyle* NetworkStyle::instantiate(const QString& networkId)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     for (unsigned x = 0; x < network_styles_count; ++x) {
         if (networkId == network_styles[x].networkId) {
             return new NetworkStyle(

@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2018 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -12,6 +13,8 @@ BOOST_AUTO_TEST_SUITE(budget_tests)
 
 void CheckBudgetValue(int nHeight, std::string strNetwork, CAmount nExpectedValue)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CBudgetManager budget;
     CAmount nBudget = budget.GetTotalBudget(nHeight);
     std::string strError = strprintf("Budget is not as expected for %s. Result: %s, Expected: %s", strNetwork, FormatMoney(nBudget), FormatMoney(nExpectedValue));

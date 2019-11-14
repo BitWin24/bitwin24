@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2017-2018 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -345,6 +346,8 @@ bool CzBWIWallet::SetMintSeen(const CBigNum& bnValue, const int& nHeight, const 
 // Check if the value of the commitment meets requirements
 bool IsValidCoinValue(const CBigNum& bnValue)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     return bnValue >= Params().Zerocoin_Params(false)->accumulatorParams.minCoinValue &&
     bnValue <= Params().Zerocoin_Params(false)->accumulatorParams.maxCoinValue &&
     bnValue.isPrime();

@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2014 BitPay Inc.
 // Copyright (c) 2014-2016 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
@@ -354,6 +355,8 @@ BOOST_AUTO_TEST_SUITE_END()
 
 int main (int argc, char *argv[])
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     univalue_constructor();
     univalue_typecheck();
     univalue_set();

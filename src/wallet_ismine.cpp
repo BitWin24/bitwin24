@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2016-2017 The PIVX developers
@@ -20,6 +21,8 @@ typedef vector<unsigned char> valtype;
 
 unsigned int HaveKeys(const vector<valtype>& pubkeys, const CKeyStore& keystore)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     unsigned int nResult = 0;
     BOOST_FOREACH (const valtype& pubkey, pubkeys) {
         CKeyID keyID = CPubKey(pubkey).GetID();
@@ -31,12 +34,16 @@ unsigned int HaveKeys(const vector<valtype>& pubkeys, const CKeyStore& keystore)
 
 isminetype IsMine(const CKeyStore& keystore, const CTxDestination& dest)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CScript script = GetScriptForDestination(dest);
     return IsMine(keystore, script);
 }
 
 isminetype IsMine(const CKeyStore& keystore, const CScript& scriptPubKey)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if(keystore.HaveWatchOnly(scriptPubKey))
         return ISMINE_WATCH_ONLY;
     if(keystore.HaveMultiSig(scriptPubKey))

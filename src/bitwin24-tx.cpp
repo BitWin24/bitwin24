@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2015-2017 The PIVX developers
 // Copyright (c) 2018 The MAC developers
@@ -34,6 +35,8 @@ CClientUIInterface uiInterface;
 
 static bool AppInitRawTx(int argc, char* argv[])
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     //
     // Parameters
     //
@@ -95,6 +98,8 @@ static bool AppInitRawTx(int argc, char* argv[])
 
 static void RegisterSetJson(const string& key, const string& rawJson)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     UniValue val;
     if (!val.read(rawJson)) {
         string strErr = "Cannot parse JSON for key " + key;
@@ -106,6 +111,8 @@ static void RegisterSetJson(const string& key, const string& rawJson)
 
 static void RegisterSet(const string& strInput)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // separate NAME:VALUE in string
     size_t pos = strInput.find(':');
     if ((pos == string::npos) ||
@@ -121,6 +128,8 @@ static void RegisterSet(const string& strInput)
 
 static void RegisterLoad(const string& strInput)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // separate NAME:FILENAME in string
     size_t pos = strInput.find(':');
     if ((pos == string::npos) ||
@@ -161,6 +170,8 @@ static void RegisterLoad(const string& strInput)
 
 static void MutateTxVersion(CMutableTransaction& tx, const string& cmdVal)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     int64_t newVersion = atoi64(cmdVal);
     if (newVersion < 1 || newVersion > CTransaction::CURRENT_VERSION)
         throw runtime_error("Invalid TX version requested");
@@ -170,6 +181,8 @@ static void MutateTxVersion(CMutableTransaction& tx, const string& cmdVal)
 
 static void MutateTxLocktime(CMutableTransaction& tx, const string& cmdVal)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     int64_t newLocktime = atoi64(cmdVal);
     if (newLocktime < 0LL || newLocktime > 0xffffffffLL)
         throw runtime_error("Invalid TX locktime requested");
@@ -179,6 +192,8 @@ static void MutateTxLocktime(CMutableTransaction& tx, const string& cmdVal)
 
 static void MutateTxAddInput(CMutableTransaction& tx, const string& strInput)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // separate TXID:VOUT in string
     size_t pos = strInput.find(':');
     if ((pos == string::npos) ||
@@ -209,6 +224,8 @@ static void MutateTxAddInput(CMutableTransaction& tx, const string& strInput)
 
 static void MutateTxAddOutAddr(CMutableTransaction& tx, const string& strInput)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // separate VALUE:ADDRESS in string
     size_t pos = strInput.find(':');
     if ((pos == string::npos) ||
@@ -238,6 +255,8 @@ static void MutateTxAddOutAddr(CMutableTransaction& tx, const string& strInput)
 
 static void MutateTxAddOutScript(CMutableTransaction& tx, const string& strInput)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // separate VALUE:SCRIPT in string
     size_t pos = strInput.find(':');
     if ((pos == string::npos) ||
@@ -261,6 +280,8 @@ static void MutateTxAddOutScript(CMutableTransaction& tx, const string& strInput
 
 static void MutateTxDelInput(CMutableTransaction& tx, const string& strInIdx)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // parse requested deletion index
     int inIdx = atoi(strInIdx);
     if (inIdx < 0 || inIdx >= (int)tx.vin.size()) {
@@ -274,6 +295,8 @@ static void MutateTxDelInput(CMutableTransaction& tx, const string& strInIdx)
 
 static void MutateTxDelOutput(CMutableTransaction& tx, const string& strOutIdx)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     // parse requested deletion index
     int outIdx = atoi(strOutIdx);
     if (outIdx < 0 || outIdx >= (int)tx.vout.size()) {
@@ -300,6 +323,8 @@ static const struct {
 
 static bool findSighashFlags(int& flags, const string& flagStr)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     flags = 0;
 
     for (unsigned int i = 0; i < N_SIGHASH_OPTS; i++) {
@@ -314,6 +339,8 @@ static bool findSighashFlags(int& flags, const string& flagStr)
 
 uint256 ParseHashUO(map<string, UniValue>& o, string strKey)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!o.count(strKey))
         return 0;
     return ParseHashUV(o[strKey], strKey);
@@ -321,6 +348,8 @@ uint256 ParseHashUO(map<string, UniValue>& o, string strKey)
 
 vector<unsigned char> ParseHexUO(map<string, UniValue>& o, string strKey)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (!o.count(strKey)) {
         vector<unsigned char> emptyVec;
         return emptyVec;
@@ -330,6 +359,8 @@ vector<unsigned char> ParseHexUO(map<string, UniValue>& o, string strKey)
 
 static void MutateTxSign(CMutableTransaction& tx, const string& flagStr)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     int nHashType = SIGHASH_ALL;
 
     if (flagStr.size() > 0)
@@ -464,6 +495,8 @@ public:
 
 static void MutateTx(CMutableTransaction& tx, const string& command, const string& commandVal)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     boost::scoped_ptr<Secp256k1Init> ecc;
     if (command == "nversion")
         MutateTxVersion(tx, commandVal);
@@ -499,6 +532,8 @@ static void MutateTx(CMutableTransaction& tx, const string& command, const strin
 
 static void OutputTxJSON(const CTransaction& tx)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     UniValue entry(UniValue::VOBJ);
     TxToUniv(tx, 0, entry);
 
@@ -508,6 +543,8 @@ static void OutputTxJSON(const CTransaction& tx)
 
 static void OutputTxHash(const CTransaction& tx)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     string strHexHash = tx.GetHash().GetHex(); // the hex-encoded transaction hash (aka the transaction id)
 
     fprintf(stdout, "%s\n", strHexHash.c_str());
@@ -515,6 +552,8 @@ static void OutputTxHash(const CTransaction& tx)
 
 static void OutputTxHex(const CTransaction& tx)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     string strHex = EncodeHexTx(tx);
 
     fprintf(stdout, "%s\n", strHex.c_str());
@@ -522,6 +561,8 @@ static void OutputTxHex(const CTransaction& tx)
 
 static void OutputTx(const CTransaction& tx)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (GetBoolArg("-json", false))
         OutputTxJSON(tx);
     else if (GetBoolArg("-txid", false))
@@ -532,6 +573,8 @@ static void OutputTx(const CTransaction& tx)
 
 static string readStdin()
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     char buf[4096];
     string ret;
 
@@ -552,6 +595,8 @@ static string readStdin()
 
 static int CommandLineRawTx(int argc, char* argv[])
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     string strPrint;
     int nRet = 0;
     try {
@@ -619,6 +664,8 @@ static int CommandLineRawTx(int argc, char* argv[])
 
 int main(int argc, char* argv[])
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     SetupEnvironment();
 
     try {

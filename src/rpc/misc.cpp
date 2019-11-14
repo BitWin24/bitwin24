@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
@@ -46,6 +47,8 @@ using namespace std;
  **/
 UniValue getinfo(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() != 0)
         throw runtime_error(
             "getinfo\n"
@@ -136,6 +139,8 @@ UniValue getinfo(const UniValue& params, bool fHelp)
 
 UniValue mnsync(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     std::string strMode;
     if (params.size() == 1)
         strMode = params[0].get_str();
@@ -255,6 +260,8 @@ public:
 */
 UniValue spork(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (params.size() == 1 && params[0].get_str() == "show") {
         UniValue ret(UniValue::VOBJ);
         for (int nSporkID = SPORK_START; nSporkID <= SPORK_END; nSporkID++) {
@@ -316,6 +323,8 @@ UniValue spork(const UniValue& params, bool fHelp)
 
 UniValue validateaddress(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "validateaddress \"bitwin24address\"\n"
@@ -377,6 +386,8 @@ UniValue validateaddress(const UniValue& params, bool fHelp)
  */
 CScript _createmultisig_redeemScript(const UniValue& params)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     int nRequired = params[0].get_int();
     const UniValue& keys = params[1].get_array();
 
@@ -434,6 +445,8 @@ CScript _createmultisig_redeemScript(const UniValue& params)
 
 UniValue createmultisig(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() < 2 || params.size() > 2)
         throw runtime_error(
             "createmultisig nrequired [\"key\",...]\n"
@@ -474,6 +487,8 @@ UniValue createmultisig(const UniValue& params, bool fHelp)
 
 UniValue verifymessage(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() != 3)
         throw runtime_error(
             "verifymessage \"bitwin24address\" \"signature\" \"message\"\n"
@@ -530,6 +545,8 @@ UniValue verifymessage(const UniValue& params, bool fHelp)
 
 UniValue setmocktime(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "setmocktime timestamp\n"

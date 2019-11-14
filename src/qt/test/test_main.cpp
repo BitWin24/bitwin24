@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
@@ -40,6 +41,8 @@ extern void noui_connect();
 // This is all you need to run all the tests
 int main(int argc, char *argv[])
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     SetupEnvironment();
     bool fInvalid = false;
 

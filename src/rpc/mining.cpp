@@ -1,3 +1,4 @@
+#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
@@ -36,6 +37,8 @@ using namespace std;
  */
 UniValue GetNetworkHashPS(int lookup, int height)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CBlockIndex *pb = chainActive.Tip();
 
     if (height >= 0 && height < chainActive.Height())
@@ -74,6 +77,8 @@ UniValue GetNetworkHashPS(int lookup, int height)
 
 UniValue getnetworkhashps(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() > 2)
         throw runtime_error(
             "getnetworkhashps ( blocks height )\n"
@@ -223,6 +228,8 @@ UniValue gethashespersec(const UniValue& params, bool fHelp)
 
 UniValue getmininginfo(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() != 0)
         throw runtime_error(
             "getmininginfo\n"
@@ -270,6 +277,8 @@ UniValue getmininginfo(const UniValue& params, bool fHelp)
 // NOTE: Unlike wallet RPC (which use BTC values), mining RPCs follow GBT (BIP 22) in using satoshi amounts
 UniValue prioritisetransaction(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() != 3)
         throw runtime_error(
             "prioritisetransaction <txid> <priority delta> <fee delta>\n"
@@ -303,6 +312,8 @@ UniValue prioritisetransaction(const UniValue& params, bool fHelp)
 // NOTE: Assumes a conclusive result; if result is inconclusive, it must be handled by caller
 static UniValue BIP22ValidationResult(const CValidationState& state)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (state.IsValid())
         return NullUniValue;
 
@@ -320,6 +331,8 @@ static UniValue BIP22ValidationResult(const CValidationState& state)
 
 UniValue getblocktemplate(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "getblocktemplate ( \"jsonrequestobject\" )\n"
@@ -605,11 +618,15 @@ public:
     bool found;
     CValidationState state;
 
-    submitblock_StateCatcher(const uint256& hashIn) : hash(hashIn), found(false), state(){};
+    submitblock_StateCatcher(const uint256& hashIn) : hash(hashIn), found(false), state(){
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+};
 
 protected:
     virtual void BlockChecked(const CBlock& block, const CValidationState& stateIn)
     {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
         if (block.GetHash() != hash)
             return;
         found = true;
@@ -619,6 +636,8 @@ protected:
 
 UniValue submitblock(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() < 1 || params.size() > 2)
         throw runtime_error(
             "submitblock \"hexdata\" ( \"jsonparametersobject\" )\n"
@@ -678,6 +697,8 @@ UniValue submitblock(const UniValue& params, bool fHelp)
 
 UniValue estimatefee(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "estimatefee nblocks\n"
@@ -712,6 +733,8 @@ UniValue estimatefee(const UniValue& params, bool fHelp)
 
 UniValue estimatepriority(const UniValue& params, bool fHelp)
 {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "estimatepriority nblocks\n"

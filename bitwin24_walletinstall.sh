@@ -112,7 +112,7 @@ sudo add-apt-repository ppa:bitcoin/bitcoin -y 2>/dev/null  >/dev/null
 sudo apt-get -y update 2>/dev/null  >/dev/null
 sudo apt-get -y install libdb4.8-dev libdb4.8++-dev -y 2>/dev/null  >/dev/null
 sudo apt-get -y install libminiupnpc-dev 2>/dev/null  >/dev/null
-sudo apt-get install -y unzip libzmq3-dev build-essential libssl-dev libboost-all-dev libqrencode-dev libminiupnpc-dev libboost-system1.58.0 libboost1.58-all-d$
+sudo apt-get install -y unzip libzmq3-dev build-essential libssl-dev libboost-all-dev libqrencode-dev libminiupnpc-dev libboost-system1.58.0 libboost1.58-all-dev libdb4.8++ libdb4.8 libdb4.8-dev libdb4.8++-dev libevent-pthreads-2.0-5 -y 2>/dev/null  >/dev/null 
    fi
 
 #Network Settings
@@ -205,7 +205,7 @@ EOF
     sudo chmod 755 -R ~/.bitwin24/bitwin24.conf
 
     #Starting daemon first time just to generate a BitWin24 masternode private key
-    bitwin24d -daemon >/dev/null
+    bitwin24d -daemon 2>/dev/null  >/dev/null
 sleep 7
  
     #Stopping daemon to create bitwin24.conf

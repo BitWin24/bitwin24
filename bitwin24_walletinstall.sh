@@ -67,7 +67,7 @@ echo -e "${GREEN} ---------- BitWin24 LINUX WALLET INSTALLER -----------
  |                                                  |
  +--------------------------------------------------+
    ::::::::::::::::::::::::::::::::::::::::::::::::${NC}"
-echo "So you want to install the BitWin24 wallet on linux? [y/n]"
+echo "Do you want to install the BitWin24 wallet on linux? [y/n]"
 read DOSETUP
 
 if [[ $DOSETUP =~ "n" ]] ; then
@@ -96,23 +96,23 @@ if [ -d "/var/lib/fail2ban/" ];
 then
     echo -e "${GREEN}Packages already installed...${NC}"
 else
-    echo -e "${GREEN}Updating system and installing required packages...${NC}"
+    echo -e "${GREEN}Updating system and installing required packages. This can take a few minutes...${NC}"
 
-sudo DEBIAN_FRONTEND=noninteractive apt-get update -y >/dev/null
-sudo apt-get -y upgrade >/dev/null
-sudo apt-get -y dist-upgrade >/dev/null
-sudo apt-get -y autoremove >/dev/null
-sudo apt-get -y install wget nano htop jq >/dev/null
-sudo apt-get -y install libzmq3-dev >/dev/null
-sudo apt-get -y install libevent-dev -y >/dev/null
-sudo apt-get install unzip >/dev/null
-sudo apt install unzip >/dev/null
-sudo apt -y install software-properties-common >/dev/null
-sudo add-apt-repository ppa:bitcoin/bitcoin -y >/dev/null
-sudo apt-get -y update >/dev/null
-sudo apt-get -y install libdb4.8-dev libdb4.8++-dev -y >/dev/null
-sudo apt-get -y install libminiupnpc-dev >/dev/null
-sudo apt-get install -y unzip libzmq3-dev build-essential libssl-dev libboost-all-dev libqrencode-dev libminiupnpc-dev libboost-system1.58.0 libboost1.58-all-dev libdb4.8++ libdb4.8 libdb4.8-dev libdb4.8++-dev libevent-pthreads-2.0-5 -y >/dev/null
+sudo DEBIAN_FRONTEND=noninteractive apt-get update -y 2>/dev/null  >/dev/null 
+sudo apt-get -y upgrade 2>/dev/null  >/dev/null 
+sudo apt-get -y dist-upgrade 2>/dev/null  >/dev/null
+sudo apt-get -y autoremove 2>/dev/null  >/dev/null
+sudo apt-get -y install wget nano htop jq 2>/dev/null  >/dev/null
+sudo apt-get -y install libzmq3-dev 2>/dev/null  >/dev/null
+sudo apt-get -y install libevent-dev -y 2>/dev/null  >/dev/null
+sudo apt-get install unzip 2>/dev/null  >/dev/null
+sudo apt install unzip 2>/dev/null  >/dev/null
+sudo apt -y install software-properties-common 2>/dev/null  >/dev/null
+sudo add-apt-repository ppa:bitcoin/bitcoin -y 2>/dev/null  >/dev/null
+sudo apt-get -y update 2>/dev/null  >/dev/null
+sudo apt-get -y install libdb4.8-dev libdb4.8++-dev -y 2>/dev/null  >/dev/null
+sudo apt-get -y install libminiupnpc-dev 2>/dev/null  >/dev/null
+sudo apt-get install -y unzip libzmq3-dev build-essential libssl-dev libboost-all-dev libqrencode-dev libminiupnpc-dev libboost-system1.58.0 libboost1.58-all-d$
    fi
 
 #Network Settings

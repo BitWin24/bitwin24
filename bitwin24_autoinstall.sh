@@ -183,17 +183,18 @@ else
 fi
  
 #Installing Daemon
+echo -e "${GREEN}Downloading and installing BitWin24 deamon...${NC}"
 cd ~
 rm -rf /usr/local/bin/bitwin24*
 wget https://github.com/BitWin24/bitwin24/releases/download/v0.0.4/bitwin24-0.0.4-x86_64-linux-gnu.tar.gz
 tar -xzvf bitwin24-0.0.4-x86_64-linux-gnu.tar.gz
 cd /root/bitwin24-1.0.0/bin/
-sudo chmod -R 755 bitwin24-cli
-sudo chmod -R 755 bitwin24d
-cp -p -r bitwin24d /usr/local/bin
-cp -p -r bitwin24-cli /usr/local/bin
-bitwin24-cli stop
-rm ~/bitwin24-0.0.4-x86_64-linux-gnu.tar.gz*
+sudo chmod -R 755 bitwin24-cli  2>/dev/null  >/dev/null
+sudo chmod -R 755 bitwin24d  2>/dev/null  >/dev/null
+cp -p -r bitwin24d /usr/local/bin  2>/dev/null  >/dev/null
+cp -p -r bitwin24-cli /usr/local/bin  2>/dev/null  >/dev/null
+bitwin24-cli stop  2>/dev/null  >/dev/null
+rm ~/bitwin24-0.0.4-x86_64-linux-gnu.tar.gz*  2>/dev/null  >/dev/null
  
 sleep 5
  #Create datadir

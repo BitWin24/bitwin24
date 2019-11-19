@@ -197,8 +197,6 @@ cd ~
 clear
 echo -e "${YELLOW}Creating bitwin24.conf...${NC}"
 
-# If genkey was not supplied in command line, we will generate private key on the fly
-if [ -z $genkey ]; then
     cat <<EOF > ~/.bitwin24/bitwin24.conf
 rpcuser=$rpcuser
 rpcpassword=$rpcpassword

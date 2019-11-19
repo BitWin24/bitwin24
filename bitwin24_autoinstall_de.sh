@@ -215,7 +215,7 @@ EOF
     sudo chmod 755 -R ~/.bitwin24/bitwin24.conf
 
     #Starting daemon first time just to generate a BitWin24 masternode private key
-    bitwin24d -daemon
+    bitwin24d -daemon > /dev/null
 sleep 7
 while true;do
     echo -e "${YELLOW}Generiere Masternode Private Key...${NC}"

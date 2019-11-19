@@ -197,9 +197,19 @@ cd ~
 clear
 echo -e "${YELLOW}Creating bitwin24.conf...${NC}"
 
-sleep 7
+# If genkey was not supplied in command line, we will generate private key on the fly
+if [ -z $genkey ]; then
+    cat <<EOF > ~/.bitwin24/bitwin24.conf
+rpcuser=$rpcuser
+rpcpassword=$rpcpassword
+EOF
 
-    
+    sudo chmod 755 -R ~/.bitwin24/bitwin24.conf
+
+    #Starting daemon first time just to generate a BitWin24 masternode private key
+    bitwin24d -daemon > /dev/null
+sleep 7
+ 
     #Stopping daemon to create bitwin24.conf
     bitwin24-cli stop
     sleep 5

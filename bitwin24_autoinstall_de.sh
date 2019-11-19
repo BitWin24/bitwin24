@@ -183,6 +183,7 @@ else
 fi
  
 #Installing Daemon
+echo -e "${GREEN}Downloade und installiere BitWin24 Deamon...${NC}"
 cd ~
 rm -rf /usr/local/bin/bitwin24*
 wget https://github.com/BitWin24/bitwin24/releases/download/v0.0.4/bitwin24-0.0.4-x86_64-linux-gnu.tar.gz
@@ -268,7 +269,7 @@ Sie können nun folgende Zeile zur masternode.conf Datei in ihrem Lokalen Wallet
 ======================================================================== \a"
 echo -e "${GREEN}bitwin24_mn1 $publicip:$PORT $genkey TxId TxIdx${NC}"
 echo -e "========================================================================
-Markieren sie die ganze Zeile und kopieren sie (Nicht mit Str-C kopieren) sie in die Datei  
+Markieren sie die ganze Zeile und kopieren sie sie in die Datei  
 ${GREEN}masternode.conf${NC} Datei und ersetzen sie:
     ${GREEN}bitwin24_mn1${NC} - Mit dem gewünschten Masternode Name (Alias)
     ${GREEN}TxId${NC} - Mit der Trankaktions ID vom Befehl -masternode outputs-

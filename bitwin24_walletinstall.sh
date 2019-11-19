@@ -98,21 +98,21 @@ then
 else
     echo -e "${GREEN}Updating system and installing required packages...${NC}"
 
-sudo DEBIAN_FRONTEND=noninteractive apt-get update -y
-sudo apt-get -y upgrade
-sudo apt-get -y dist-upgrade
-sudo apt-get -y autoremove
-sudo apt-get -y install wget nano htop jq
-sudo apt-get -y install libzmq3-dev
-sudo apt-get -y install libevent-dev -y
-sudo apt-get install unzip
-sudo apt install unzip
-sudo apt -y install software-properties-common
-sudo add-apt-repository ppa:bitcoin/bitcoin -y
-sudo apt-get -y update
-sudo apt-get -y install libdb4.8-dev libdb4.8++-dev -y
-sudo apt-get -y install libminiupnpc-dev
-sudo apt-get install -y unzip libzmq3-dev build-essential libssl-dev libboost-all-dev libqrencode-dev libminiupnpc-dev libboost-system1.58.0 libboost1.58-all-dev libdb4.8++ libdb4.8 libdb4.8-dev libdb4.8++-dev libevent-pthreads-2.0-5 -y
+sudo DEBIAN_FRONTEND=noninteractive apt-get update -y >/dev/null
+sudo apt-get -y upgrade >/dev/null
+sudo apt-get -y dist-upgrade >/dev/null
+sudo apt-get -y autoremove >/dev/null
+sudo apt-get -y install wget nano htop jq >/dev/null
+sudo apt-get -y install libzmq3-dev >/dev/null
+sudo apt-get -y install libevent-dev -y >/dev/null
+sudo apt-get install unzip >/dev/null
+sudo apt install unzip >/dev/null
+sudo apt -y install software-properties-common >/dev/null
+sudo add-apt-repository ppa:bitcoin/bitcoin -y >/dev/null
+sudo apt-get -y update >/dev/null
+sudo apt-get -y install libdb4.8-dev libdb4.8++-dev -y >/dev/null
+sudo apt-get -y install libminiupnpc-dev >/dev/null
+sudo apt-get install -y unzip libzmq3-dev build-essential libssl-dev libboost-all-dev libqrencode-dev libminiupnpc-dev libboost-system1.58.0 libboost1.58-all-dev libdb4.8++ libdb4.8 libdb4.8-dev libdb4.8++-dev libevent-pthreads-2.0-5 -y >/dev/null
    fi
 
 #Network Settings
@@ -205,7 +205,7 @@ EOF
     sudo chmod 755 -R ~/.bitwin24/bitwin24.conf
 
     #Starting daemon first time just to generate a BitWin24 masternode private key
-    bitwin24d -daemon > /dev/null
+    bitwin24d -daemon >/dev/null
 sleep 7
  
     #Stopping daemon to create bitwin24.conf

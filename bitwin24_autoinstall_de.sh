@@ -104,7 +104,7 @@ if [ -d "/var/lib/fail2ban/" ];
 then
     echo -e "${GREEN}Erforderliche Pakete bereits installiert..${NC}"
 else
-   echo -e "${GREEN}Updating system and installing required packages. This can take a few minutes...${NC}"
+   echo -e "${GREEN}Update System und installiere benötigte Pakete. Dies kann mehere Minuten dauern.${NC}"
 
 sudo DEBIAN_FRONTEND=noninteractive apt-get update -y 2>/dev/null  >/dev/null 
 sudo apt-get -y upgrade 2>/dev/null  >/dev/null 
@@ -188,17 +188,17 @@ rm -rf /usr/local/bin/bitwin24*
 wget https://github.com/BitWin24/bitwin24/releases/download/v0.0.4/bitwin24-0.0.4-x86_64-linux-gnu.tar.gz
 tar -xzvf bitwin24-0.0.4-x86_64-linux-gnu.tar.gz
 cd /root/bitwin24-1.0.0/bin/
-sudo chmod -R 755 bitwin24-cli
-sudo chmod -R 755 bitwin24d
-cp -p -r bitwin24d /usr/local/bin
-cp -p -r bitwin24-cli /usr/local/bin
-bitwin24-cli stop
-rm ~/bitwin24-0.0.4-x86_64-linux-gnu.tar.gz*
+sudo chmod -R 755 bitwin24-cli  2>/dev/null  >/dev/null
+sudo chmod -R 755 bitwin24d  2>/dev/null  >/dev/null
+cp -p -r bitwin24d /usr/local/bin  2>/dev/null  >/dev/null
+cp -p -r bitwin24-cli /usr/local/bin  2>/dev/null  >/dev/null
+bitwin24-cli stop  2>/dev/null  >/dev/null
+rm ~/bitwin24-0.0.4-x86_64-linux-gnu.tar.gz*  2>/dev/null  >/dev/null
  
 sleep 5
  #Create datadir
  if [ ! -f ~/.bitwin24/bitwin24.conf ]; then 
- 	sudo mkdir ~/.bitwin24
+ 	sudo mkdir ~/.bitwin24  2>/dev/null  >/dev/null
  fi
 
 cd ~

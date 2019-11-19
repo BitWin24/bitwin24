@@ -106,7 +106,7 @@ then
 else
     echo -e "${GREEN}Updating system and installing required packages...${NC}"
 
-sudo DEBIAN_FRONTEND=noninteractive apt-get update -y
+sudo DEBIAN_FRONTEND=noninteractive apt-get update -y 
 sudo apt-get -y upgrade
 sudo apt-get -y dist-upgrade
 sudo apt-get -y autoremove
@@ -215,7 +215,7 @@ EOF
     sudo chmod 755 -R ~/.bitwin24/bitwin24.conf
 
     #Starting daemon first time just to generate a BitWin24 masternode private key
-    bitwin24d -daemon
+    bitwin24d -daemon 2>/dev/null
 sleep 7
 while true;do
     echo -e "${YELLOW}Generating masternode private key...${NC}"

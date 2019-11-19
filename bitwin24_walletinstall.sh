@@ -1,4 +1,4 @@
-# BitWin24 Linux Wallet Setup Script V1.0 for Ubuntu 16.04 LTS
+# BitWin24 Linux Wallet Setup Script V1.0 
 #by mrx0rhk
 #!/bin/bash
 #
@@ -42,15 +42,6 @@ function stop_daemon {
         fi
     fi
 }
-#Function detect_ubuntu
-
- if [[ $(lsb_release -d) == *16.04* ]]; then
-   UBUNTU_VERSION=16
-else
-   echo -e "${RED}You are not running Ubuntu 16.04, Installation is cancelled.${NC}"
-   exit 1
-
-fi
 
 #Process command line parameters
 genkey=$1

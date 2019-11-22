@@ -17,7 +17,7 @@ NC='\033[0m' # No Color
 
 #TCP port
 PORT=24072
-RPC=1315
+RPC=24071
 
 #Clear keyboard input buffer
 function clear_stdin { while read -r -t 0; do read -r; done; }

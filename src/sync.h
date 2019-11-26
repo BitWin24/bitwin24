@@ -1,4 +1,3 @@
-#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2017 The Bitcoin developers
 // Copyright (c) 2017-2018 The PIVX developers
@@ -81,17 +80,9 @@ void AssertLockHeldInternal(const char* pszName, const char* pszFile, int nLine,
 void DeleteLock(void* cs);
 #else
 void static inline EnterCritical(const char* pszName, const char* pszFile, int nLine, void* cs, bool fTry = false) {}
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 void static inline LeaveCritical() {}
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 void static inline AssertLockHeldInternal(const char* pszName, const char* pszFile, int nLine, void* cs) {}
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 void static inline DeleteLock(void* cs) {}
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 #endif
 #define AssertLockHeld(cs) AssertLockHeldInternal(#cs, __FILE__, __LINE__, &cs)
 
@@ -126,8 +117,6 @@ private:
 
     void Enter(const char* pszName, const char* pszFile, int nLine)
     {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         EnterCritical(pszName, pszFile, nLine, (void*)(lock.mutex()));
 #ifdef DEBUG_LOCKCONTENTION
         if (!lock.try_lock()) {
@@ -141,8 +130,6 @@ private:
 
     bool TryEnter(const char* pszName, const char* pszFile, int nLine)
     {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         EnterCritical(pszName, pszFile, nLine, (void*)(lock.mutex()), true);
         lock.try_lock();
         if (!lock.owns_lock())
@@ -178,8 +165,6 @@ public:
 
     operator bool()
     {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return lock.owns_lock();
     }
 };
@@ -217,8 +202,6 @@ public:
 
     void wait()
     {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         boost::unique_lock<boost::mutex> lock(mutex);
         while (value < 1) {
             condition.wait(lock);
@@ -228,8 +211,6 @@ public:
 
     bool try_wait()
     {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         boost::unique_lock<boost::mutex> lock(mutex);
         if (value < 1)
             return false;
@@ -239,11 +220,7 @@ public:
 
     void post()
     {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             boost::unique_lock<boost::mutex> lock(mutex);
             value++;
         }
@@ -269,8 +246,6 @@ public:
 
     void Release()
     {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (!fHaveGrant)
             return;
         sem->post();
@@ -279,8 +254,6 @@ public:
 
     bool TryAcquire()
     {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (!fHaveGrant && sem->try_wait())
             fHaveGrant = true;
         return fHaveGrant;
@@ -288,8 +261,6 @@ public:
 
     void MoveTo(CSemaphoreGrant& grant)
     {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         grant.Release();
         grant.sem = sem;
         grant.fHaveGrant = fHaveGrant;
@@ -309,15 +280,11 @@ public:
 
     ~CSemaphoreGrant()
     {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         Release();
     }
 
     operator bool()
     {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return fHaveGrant;
     }
 };

@@ -1,4 +1,3 @@
-#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
@@ -50,8 +49,6 @@ public:
 
     void Finalize(unsigned char hash[OUTPUT_SIZE])
     {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         unsigned char buf[CSHA256::OUTPUT_SIZE];
         sha.Finalize(buf);
         sha.Reset().Write(buf, CSHA256::OUTPUT_SIZE).Finalize(hash);
@@ -59,16 +56,12 @@ public:
 
     CHash256& Write(const unsigned char* data, size_t len)
     {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         sha.Write(data, len);
         return *this;
     }
 
     CHash256& Reset()
     {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         sha.Reset();
         return *this;
     }
@@ -84,8 +77,6 @@ public:
 
     void Finalize(unsigned char hash[OUTPUT_SIZE])
     {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         unsigned char buf[CSHA512::OUTPUT_SIZE];
         sha.Finalize(buf);
         sha.Reset().Write(buf, CSHA512::OUTPUT_SIZE).Finalize(hash);
@@ -93,16 +84,12 @@ public:
 
     CHash512& Write(const unsigned char* data, size_t len)
     {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         sha.Write(data, len);
         return *this;
     }
 
     CHash512& Reset()
     {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         sha.Reset();
         return *this;
     }
@@ -150,8 +137,6 @@ public:
 
     void Finalize(unsigned char hash[OUTPUT_SIZE])
     {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         unsigned char buf[CSHA256::OUTPUT_SIZE];
         sha.Finalize(buf);
         CRIPEMD160().Write(buf, CSHA256::OUTPUT_SIZE).Finalize(hash);
@@ -159,16 +144,12 @@ public:
 
     CHash160& Write(const unsigned char* data, size_t len)
     {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         sha.Write(data, len);
         return *this;
     }
 
     CHash160& Reset()
     {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         sha.Reset();
         return *this;
     }
@@ -177,8 +158,6 @@ public:
 /** Compute the 256-bit hash of a std::string */
 inline std::string Hash(std::string input)
 {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     unsigned char hash[SHA256_DIGEST_LENGTH];
     SHA256_CTX sha256;
     SHA256_Init(&sha256);
@@ -194,8 +173,6 @@ inline std::string Hash(std::string input)
 /** Compute the 256-bit hash of a void pointer */
 inline void Hash(void* in, unsigned int len, unsigned char* out)
 {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     SHA256_CTX sha256;
     SHA256_Init(&sha256);
     SHA256_Update(&sha256, in, len);
@@ -293,8 +270,6 @@ inline uint160 Hash160(const T1 pbegin, const T1 pend)
 /** Compute the 160-bit hash of a vector. */
 inline uint160 Hash160(const std::vector<unsigned char>& vch)
 {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     return Hash160(vch.begin(), vch.end());
 }
 
@@ -312,8 +287,6 @@ public:
 
     CHashWriter& write(const char* pch, size_t size)
     {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         ctx.Write((const unsigned char*)pch, size);
         return (*this);
     }
@@ -321,8 +294,6 @@ public:
     // invalidates the object
     uint256 GetHash()
     {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         uint256 result;
         ctx.Finalize((unsigned char*)&result);
         return result;

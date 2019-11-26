@@ -1,4 +1,3 @@
-#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
@@ -25,8 +24,6 @@
 
 static inline int64_t GetPerformanceCounter()
 {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     int64_t nCounter = 0;
 #ifdef WIN32
     QueryPerformanceCounter((LARGE_INTEGER*)&nCounter);
@@ -40,8 +37,6 @@ static inline int64_t GetPerformanceCounter()
 
 void RandAddSeed()
 {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     // Seed with CPU performance counter
     int64_t nCounter = GetPerformanceCounter();
     RAND_add(&nCounter, sizeof(nCounter), 1.5);
@@ -50,8 +45,6 @@ void RandAddSeed()
 
 void RandAddSeedPerfmon()
 {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     RandAddSeed();
 
     // This can take up to 2 seconds, so only do it every 10 minutes
@@ -91,8 +84,6 @@ void RandAddSeedPerfmon()
 
 void GetRandBytes(unsigned char* buf, int num)
 {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (RAND_bytes(buf, num) != 1) {
         LogPrintf("%s: OpenSSL RAND_bytes() failed with error: %s\n", __func__, ERR_error_string(ERR_get_error(), NULL));
         assert(false);
@@ -101,8 +92,6 @@ void GetRandBytes(unsigned char* buf, int num)
 
 uint64_t GetRand(uint64_t nMax)
 {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (nMax == 0)
         return 0;
 
@@ -118,15 +107,11 @@ uint64_t GetRand(uint64_t nMax)
 
 int GetRandInt(int nMax)
 {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     return GetRand(nMax);
 }
 
 uint256 GetRandHash()
 {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     uint256 hash;
     GetRandBytes((unsigned char*)&hash, sizeof(hash));
     return hash;
@@ -136,8 +121,6 @@ uint32_t insecure_rand_Rz = 11;
 uint32_t insecure_rand_Rw = 11;
 void seed_insecure_rand(bool fDeterministic)
 {
-
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     // The seed values have some unlikely fixed points which we avoid.
     if (fDeterministic) {
         insecure_rand_Rz = insecure_rand_Rw = 11;

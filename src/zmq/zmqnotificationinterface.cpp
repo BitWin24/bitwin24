@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2015 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -13,8 +12,6 @@
 
 void zmqError(const char *str)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     LogPrint("zmq", "zmq: Error: %s, errno=%s\n", str, zmq_strerror(errno));
 }
 
@@ -34,8 +31,6 @@ CZMQNotificationInterface::~CZMQNotificationInterface()
 
 CZMQNotificationInterface* CZMQNotificationInterface::CreateWithArguments(const std::map<std::string, std::string> &args)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     CZMQNotificationInterface* notificationInterface = NULL;
     std::map<std::string, CZMQNotifierFactory> factories;
     std::list<CZMQAbstractNotifier*> notifiers;
@@ -79,8 +74,6 @@ CZMQNotificationInterface* CZMQNotificationInterface::CreateWithArguments(const 
 // Called at startup to conditionally set up ZMQ socket(s)
 bool CZMQNotificationInterface::Initialize()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     LogPrint("zmq", "zmq: Initialize notification interface\n");
     assert(!pcontext);
 
@@ -118,8 +111,6 @@ bool CZMQNotificationInterface::Initialize()
 // Called during shutdown sequence
 void CZMQNotificationInterface::Shutdown()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     LogPrint("zmq", "zmq: Shutdown notification interface\n");
     if (pcontext)
     {
@@ -137,8 +128,6 @@ void CZMQNotificationInterface::Shutdown()
 
 void CZMQNotificationInterface::UpdatedBlockTip(const CBlockIndex *pindex)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     for (std::list<CZMQAbstractNotifier*>::iterator i = notifiers.begin(); i!=notifiers.end(); )
     {
         CZMQAbstractNotifier *notifier = *i;
@@ -156,8 +145,6 @@ void CZMQNotificationInterface::UpdatedBlockTip(const CBlockIndex *pindex)
 
 void CZMQNotificationInterface::SyncTransaction(const CTransaction &tx, const CBlock *pblock)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     for (std::list<CZMQAbstractNotifier*>::iterator i = notifiers.begin(); i!=notifiers.end(); )
     {
         CZMQAbstractNotifier *notifier = *i;
@@ -175,8 +162,6 @@ void CZMQNotificationInterface::SyncTransaction(const CTransaction &tx, const CB
 
 void CZMQNotificationInterface::NotifyTransactionLock(const CTransaction &tx)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     for (std::list<CZMQAbstractNotifier*>::iterator i = notifiers.begin(); i!=notifiers.end(); )
     {
         CZMQAbstractNotifier *notifier = *i;

@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2017 The Bitcoin developers
 // Copyright (c) 2017-2018 The PIVX developers
@@ -80,18 +79,10 @@ std::string LocksHeld();
 void AssertLockHeldInternal(const char* pszName, const char* pszFile, int nLine, void* cs);
 void DeleteLock(void* cs);
 #else
-void static inline EnterCritical(const char* pszName, const char* pszFile, int nLine, void* cs, bool fTry = false) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-}
-void static inline LeaveCritical() {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-}
-void static inline AssertLockHeldInternal(const char* pszName, const char* pszFile, int nLine, void* cs) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-}
-void static inline DeleteLock(void* cs) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-}
+void static inline EnterCritical(const char* pszName, const char* pszFile, int nLine, void* cs, bool fTry = false) {}
+void static inline LeaveCritical() {}
+void static inline AssertLockHeldInternal(const char* pszName, const char* pszFile, int nLine, void* cs) {}
+void static inline DeleteLock(void* cs) {}
 #endif
 #define AssertLockHeld(cs) AssertLockHeldInternal(#cs, __FILE__, __LINE__, &cs)
 

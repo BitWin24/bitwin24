@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2015 The Bitcoin developers
 // Copyright (c) 2009-2015 The Dash developers
@@ -33,8 +32,6 @@ static const int DEFAULT_HTTP_CLIENT_TIMEOUT=900;
 
 std::string HelpMessageCli()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     string strUsage;
     strUsage += HelpMessageGroup(_("Options:"));
     strUsage += HelpMessageOpt("-?", _("This help message"));
@@ -67,15 +64,11 @@ class CConnectionFailed : public std::runtime_error
 public:
     explicit inline CConnectionFailed(const std::string& msg) : std::runtime_error(msg)
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     }
 };
 
 static bool AppInitRPC(int argc, char* argv[])
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     //
     // Parameters
     //
@@ -127,8 +120,6 @@ struct HTTPReply
 
 static void http_request_done(struct evhttp_request *req, void *ctx)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     HTTPReply *reply = static_cast<HTTPReply*>(ctx);
 
     if (req == NULL) {
@@ -154,8 +145,6 @@ static void http_request_done(struct evhttp_request *req, void *ctx)
 
 UniValue CallRPC(const string& strMethod, const UniValue& params)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     std::string host = GetArg("-rpcconnect", "127.0.0.1");
     int port = GetArg("-rpcport", BaseParams().RPCPort());
 
@@ -234,8 +223,6 @@ UniValue CallRPC(const string& strMethod, const UniValue& params)
 
 int CommandLineRPC(int argc, char* argv[])
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     string strPrint;
     int nRet = 0;
     try {
@@ -307,8 +294,6 @@ int CommandLineRPC(int argc, char* argv[])
 
 int main(int argc, char* argv[])
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     SetupEnvironment();
     if (!SetupNetworking()) {
         fprintf(stderr, "Error: Initializing networking failed\n");

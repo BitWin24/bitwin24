@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright 2014 BitPay Inc.
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -13,8 +12,6 @@ using namespace std;
 
 static bool json_isdigit(int ch)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return ((ch >= '0') && (ch <= '9'));
 }
 
@@ -22,8 +19,6 @@ static bool json_isdigit(int ch)
 static const char *hatoui(const char *first, const char *last,
                           unsigned int& out)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     unsigned int result = 0;
     for (; first != last; ++first)
     {
@@ -50,8 +45,6 @@ static const char *hatoui(const char *first, const char *last,
 enum jtokentype getJsonToken(string& tokenVal, unsigned int& consumed,
                             const char *raw, const char *end)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     tokenVal.clear();
     consumed = 0;
 

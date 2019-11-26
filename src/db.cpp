@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
@@ -39,8 +38,6 @@ CDBEnv bitdb;
 
 void CDBEnv::EnvShutdown()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (!fDbEnvInit)
         return;
 
@@ -65,15 +62,11 @@ CDBEnv::~CDBEnv()
 
 void CDBEnv::Close()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     EnvShutdown();
 }
 
 bool CDBEnv::Open(const boost::filesystem::path& pathIn)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (fDbEnvInit)
         return true;
 
@@ -119,8 +112,6 @@ bool CDBEnv::Open(const boost::filesystem::path& pathIn)
 
 void CDBEnv::MakeMock()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (fDbEnvInit)
         throw runtime_error("CDBEnv::MakeMock : Already initialized");
 
@@ -153,8 +144,6 @@ void CDBEnv::MakeMock()
 
 CDBEnv::VerifyResult CDBEnv::Verify(std::string strFile, bool (*recoverFunc)(CDBEnv& dbenv, std::string strFile))
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     LOCK(cs_db);
     assert(mapFileUseCount.count(strFile) == 0);
 
@@ -172,8 +161,6 @@ CDBEnv::VerifyResult CDBEnv::Verify(std::string strFile, bool (*recoverFunc)(CDB
 
 bool CDBEnv::Salvage(std::string strFile, bool fAggressive, std::vector<CDBEnv::KeyValPair>& vResult)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     LOCK(cs_db);
     assert(mapFileUseCount.count(strFile) == 0);
 
@@ -224,8 +211,6 @@ bool CDBEnv::Salvage(std::string strFile, bool fAggressive, std::vector<CDBEnv::
 
 void CDBEnv::CheckpointLSN(const std::string& strFile)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     dbenv.txn_checkpoint(0, 0, 0);
     if (fMockDb)
         return;
@@ -235,8 +220,6 @@ void CDBEnv::CheckpointLSN(const std::string& strFile)
 
 CDB::CDB(const std::string& strFilename, const char* pszMode) : pdb(NULL), activeTxn(NULL)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     int ret;
     fReadOnly = (!strchr(pszMode, '+') && !strchr(pszMode, 'w'));
     if (strFilename.empty())
@@ -295,8 +278,6 @@ CDB::CDB(const std::string& strFilename, const char* pszMode) : pdb(NULL), activ
 
 void CDB::Flush()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (activeTxn)
         return;
 
@@ -310,8 +291,6 @@ void CDB::Flush()
 
 void CDB::Close()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (!pdb)
         return;
     if (activeTxn)
@@ -329,8 +308,6 @@ void CDB::Close()
 
 void CDBEnv::CloseDb(const string& strFile)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     {
         LOCK(cs_db);
         if (mapDb[strFile] != NULL) {
@@ -345,8 +322,6 @@ void CDBEnv::CloseDb(const string& strFile)
 
 bool CDBEnv::RemoveDb(const string& strFile)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     this->CloseDb(strFile);
 
     LOCK(cs_db);
@@ -356,8 +331,6 @@ bool CDBEnv::RemoveDb(const string& strFile)
 
 bool CDB::Rewrite(const string& strFile, const char* pszSkip)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     while (true) {
         {
             LOCK(bitdb.cs_db);
@@ -442,8 +415,6 @@ bool CDB::Rewrite(const string& strFile, const char* pszSkip)
 
 void CDBEnv::Flush(bool fShutdown)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     int64_t nStart = GetTimeMillis();
     // Flush log data to the actual data file on all files that are not in use
     LogPrint("db", "CDBEnv::Flush : Flush(%s)%s\n", fShutdown ? "true" : "false", fDbEnvInit ? "" : " database not started");

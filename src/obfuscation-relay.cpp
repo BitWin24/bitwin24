@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
@@ -17,8 +16,6 @@ CObfuScationRelay::CObfuScationRelay()
 
 CObfuScationRelay::CObfuScationRelay(CTxIn& vinMasternodeIn, vector<unsigned char>& vchSigIn, int nBlockHeightIn, int nRelayTypeIn, CTxIn& in2, CTxOut& out2)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     vinMasternode = vinMasternodeIn;
     vchSig = vchSigIn;
     nBlockHeight = nBlockHeightIn;
@@ -29,8 +26,6 @@ CObfuScationRelay::CObfuScationRelay(CTxIn& vinMasternodeIn, vector<unsigned cha
 
 std::string CObfuScationRelay::ToString()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     std::ostringstream info;
 
     info << "vin: " << vinMasternode.ToString() << " nBlockHeight: " << (int)nBlockHeight << " nRelayType: " << (int)nRelayType << " in " << in.ToString() << " out " << out.ToString();
@@ -40,8 +35,6 @@ std::string CObfuScationRelay::ToString()
 
 bool CObfuScationRelay::Sign(std::string strSharedKey)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     std::string strMessage = in.ToString() + out.ToString();
 
     CKey key2;
@@ -68,8 +61,6 @@ bool CObfuScationRelay::Sign(std::string strSharedKey)
 
 bool CObfuScationRelay::VerifyMessage(std::string strSharedKey)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     std::string strMessage = in.ToString() + out.ToString();
 
     CKey key2;
@@ -91,8 +82,6 @@ bool CObfuScationRelay::VerifyMessage(std::string strSharedKey)
 
 void CObfuScationRelay::Relay()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     int nCount = std::min(mnodeman.CountEnabled(ActiveProtocol()), 20);
     int nRank1 = (rand() % nCount) + 1;
     int nRank2 = (rand() % nCount) + 1;
@@ -110,8 +99,6 @@ void CObfuScationRelay::Relay()
 
 void CObfuScationRelay::RelayThroughNode(int nRank)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     CMasternode* pmn = mnodeman.GetMasternodeByRank(nRank, nBlockHeight, ActiveProtocol());
 
     if (pmn != NULL) {

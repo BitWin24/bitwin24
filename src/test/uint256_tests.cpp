@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2011-2013 The Bitcoin Core developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -55,8 +54,6 @@ const uint256 HalfL = (OneL << 255);
 const uint160 HalfS = (OneS << 159);
 std::string ArrayToString(const unsigned char A[], unsigned int width)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     std::stringstream Stream;
     Stream << std::hex;
     for (unsigned int i = 0; i < width; ++i) 
@@ -172,8 +169,6 @@ BOOST_AUTO_TEST_CASE( basics ) // constructors, equality, inequality
 
 void shiftArrayRight(unsigned char* to, const unsigned char* from, unsigned int arrayLength, unsigned int bitsToShift) 
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     for (unsigned int T=0; T < arrayLength; ++T) 
     {
         unsigned int F = (T+bitsToShift/8);
@@ -188,8 +183,6 @@ void shiftArrayRight(unsigned char* to, const unsigned char* from, unsigned int 
 
 void shiftArrayLeft(unsigned char* to, const unsigned char* from, unsigned int arrayLength, unsigned int bitsToShift) 
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     for (unsigned int T=0; T < arrayLength; ++T) 
     {
         if (T >= bitsToShift/8) 
@@ -562,8 +555,6 @@ BOOST_AUTO_TEST_CASE( divide )
 
 bool almostEqual(double d1, double d2) 
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return fabs(d1-d2) <= 4*fabs(d1)*std::numeric_limits<double>::epsilon();
 }
 

@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2018 The PIVX developers
 // Copyright (c) 2018 The MAC developers
 // Copyright (c) 2019 The BITWIN24 developers
@@ -14,8 +13,6 @@ namespace AccumulatorCheckpoints
 
     UniValue read_json(const std::string& jsondata)
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
         UniValue v;
 
         if (!v.read(jsondata) || !v.isArray())
@@ -27,8 +24,6 @@ namespace AccumulatorCheckpoints
 
     bool LoadCheckpoints(const std::string& strNetwork)
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
         UniValue v;
         if (strNetwork == "main")
             v = read_json(GetMainCheckpoints());
@@ -72,8 +67,6 @@ namespace AccumulatorCheckpoints
 
     Checkpoint GetClosestCheckpoint(const int& nHeight, int& nHeightCheckpoint)
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
         nHeightCheckpoint = -1;
         for (auto it : mapCheckpoints) {
             //only checkpoints that are less than the height requested (unless height is less than the first checkpoint)

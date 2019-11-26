@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2018 The PIVX developers
@@ -26,8 +25,6 @@ using namespace std;
 
 UniValue getconnectioncount(const UniValue& params, bool fHelp)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (fHelp || params.size() != 0)
         throw runtime_error(
             "getconnectioncount\n"
@@ -46,8 +43,6 @@ UniValue getconnectioncount(const UniValue& params, bool fHelp)
 
 UniValue ping(const UniValue& params, bool fHelp)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (fHelp || params.size() != 0)
         throw runtime_error(
             "ping\n"

@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
@@ -155,8 +154,6 @@ public:
 
     bool convert(const std::string& method, int idx)
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
         return (members.count(std::make_pair(method, idx)) > 0);
     }
 };
@@ -179,8 +176,6 @@ static CRPCConvertTable rpcCvtTable;
  */
 UniValue ParseNonRFCJSONValue(const std::string& strVal)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     UniValue jVal;
     if (!jVal.read(std::string("[")+strVal+std::string("]")) ||
         !jVal.isArray() || jVal.size()!=1)
@@ -191,8 +186,6 @@ UniValue ParseNonRFCJSONValue(const std::string& strVal)
 /** Convert strings to command-specific RPC representation */
 UniValue RPCConvertValues(const std::string &strMethod, const std::vector<std::string> &strParams)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     UniValue params(UniValue::VARR);
 
     for (unsigned int idx = 0; idx < strParams.size(); idx++) {

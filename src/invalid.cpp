@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2018 The PIVX developers
 // Copyright (c) 2018 The MAC developers
 // Copyright (c) 2019 The BITWIN24 developers
@@ -16,8 +15,6 @@ namespace invalid_out
 
     UniValue read_json(const std::string& jsondata)
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
         UniValue v;
 
         if (!v.read(jsondata) || !v.isArray())
@@ -29,8 +26,6 @@ namespace invalid_out
 
     bool LoadOutpoints()
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
         UniValue v = read_json(LoadInvalidOutPoints());
 
         if (v.empty())
@@ -61,8 +56,6 @@ namespace invalid_out
 
     bool LoadSerials()
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
         UniValue v = read_json(LoadInvalidSerials());
 
         if (v.empty())
@@ -88,15 +81,11 @@ namespace invalid_out
 
     bool ContainsOutPoint(const COutPoint& out)
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
         return static_cast<bool>(setInvalidOutPoints.count(out));
     }
 
     bool ContainsSerial(const CBigNum& bnSerial)
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
         return static_cast<bool>(setInvalidSerials.count(bnSerial));
     }
 }

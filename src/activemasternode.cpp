@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2014-2016 The Dash developers
 // Copyright (c) 2015-2018 The PIVX developers
 // Copyright (c) 2018 The MAC developers
@@ -19,8 +18,6 @@
 //
 void CActiveMasternode::ManageStatus()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     std::string errorMessage;
 
     if (!fMasterNode) return;
@@ -141,8 +138,6 @@ void CActiveMasternode::ManageStatus()
 
 std::string CActiveMasternode::GetStatus()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     switch (status) {
     case ACTIVE_MASTERNODE_INITIAL:
         return "Node just started, not yet activated";
@@ -161,8 +156,6 @@ std::string CActiveMasternode::GetStatus()
 
 bool CActiveMasternode::SendMasternodePing(std::string& errorMessage)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (status != ACTIVE_MASTERNODE_STARTED) {
         errorMessage = "Masternode is not in a running status";
         return false;
@@ -246,8 +239,6 @@ bool CActiveMasternode::SendMasternodePing(std::string& errorMessage)
 
 bool CActiveMasternode::CreateBroadcast(std::string strService, std::string strKeyMasternode, std::string strTxHash, std::string strOutputIndex, std::string& errorMessage, CMasternodeBroadcast &mnb, bool fOffline)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     CTxIn vin;
     CPubKey pubKeyCollateralAddress;
     CKey keyCollateralAddress;
@@ -286,8 +277,6 @@ bool CActiveMasternode::CreateBroadcast(std::string strService, std::string strK
 
 bool CActiveMasternode::CreateBroadcast(CTxIn vin, CService service, CKey keyCollateralAddress, CPubKey pubKeyCollateralAddress, CKey keyMasternode, CPubKey pubKeyMasternode, std::string& errorMessage, CMasternodeBroadcast &mnb)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 	// wait for reindex and/or import to finish
 	if (fImporting || fReindex) return false;
 
@@ -351,15 +340,11 @@ bool CActiveMasternode::CreateBroadcast(CTxIn vin, CService service, CKey keyCol
 
 bool CActiveMasternode::GetMasterNodeVin(CTxIn& vin, CPubKey& pubkey, CKey& secretKey)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return GetMasterNodeVin(vin, pubkey, secretKey, "", "");
 }
 
 bool CActiveMasternode::GetMasterNodeVin(CTxIn& vin, CPubKey& pubkey, CKey& secretKey, std::string strTxHash, std::string strOutputIndex)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 	// wait for reindex and/or import to finish
 	if (fImporting || fReindex) return false;
 
@@ -412,8 +397,6 @@ bool CActiveMasternode::GetMasterNodeVin(CTxIn& vin, CPubKey& pubkey, CKey& secr
 // Extract Masternode vin information from output
 bool CActiveMasternode::GetVinFromOutput(COutput out, CTxIn& vin, CPubKey& pubkey, CKey& secretKey)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 	// wait for reindex and/or import to finish
 	if (fImporting || fReindex) return false;
 
@@ -444,8 +427,6 @@ bool CActiveMasternode::GetVinFromOutput(COutput out, CTxIn& vin, CPubKey& pubke
 // get all possible outputs for running Masternode
 vector<COutput> CActiveMasternode::SelectCoinsMasternode()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     vector<COutput> vCoins;
     vector<COutput> filteredCoins;
     vector<COutPoint> confLockedCoins;
@@ -487,8 +468,6 @@ vector<COutput> CActiveMasternode::SelectCoinsMasternode()
 // when starting a Masternode, this can enable to run as a hot wallet with no funds
 bool CActiveMasternode::EnableHotColdMasterNode(CTxIn& newVin, CService& newService)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (!fMasterNode) return false;
 
     status = ACTIVE_MASTERNODE_STARTED;

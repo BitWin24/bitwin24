@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2018 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -16,8 +15,6 @@ CDeterministicMint::CDeterministicMint()
 
 CDeterministicMint::CDeterministicMint(uint8_t nVersion, const uint32_t& nCount, const uint256& hashSeed, const uint256& hashSerial, const uint256& hashPubcoin, const uint256& hashStake)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     SetNull();
     this->nVersion = nVersion;
     this->nCount = nCount;
@@ -29,8 +26,6 @@ CDeterministicMint::CDeterministicMint(uint8_t nVersion, const uint32_t& nCount,
 
 void CDeterministicMint::SetNull()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     nVersion = PrivateCoin::CURRENT_VERSION;
     nCount = 0;
     hashSeed = 0;
@@ -45,8 +40,6 @@ void CDeterministicMint::SetNull()
 
 std::string CDeterministicMint::ToString() const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return strprintf(" DeterministicMint:\n   version=%d\n   count=%d\n   hashseed=%s\n   hashSerial=%s\n   hashStake=%s\n   hashPubcoin=%s\n   txid=%s\n   height=%d\n   denom=%d\n   isUsed=%d\n",
     nVersion, nCount, hashSeed.GetHex(), hashSerial.GetHex(), hashStake.GetHex(), hashPubcoin.GetHex(), txid.GetHex(), nHeight, denom, isUsed);
 }

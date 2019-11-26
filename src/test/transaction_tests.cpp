@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2011-2014 The Bitcoin Core developers
 // Copyright (c) 2017 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
@@ -45,8 +44,6 @@ static std::map<string, unsigned int> mapFlagNames = boost::assign::map_list_of
 
 unsigned int ParseScriptFlags(string strFlags)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (strFlags.empty()) {
         return 0;
     }
@@ -66,8 +63,6 @@ unsigned int ParseScriptFlags(string strFlags)
 
 string FormatScriptFlags(unsigned int flags)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (flags == 0) {
         return "";
     }
@@ -258,8 +253,6 @@ BOOST_AUTO_TEST_CASE(basic_transaction_tests)
 static std::vector<CMutableTransaction>
 SetupDummyInputs(CBasicKeyStore& keystoreRet, CCoinsViewCache& coinsRet)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     std::vector<CMutableTransaction> dummyTransactions;
     dummyTransactions.resize(2);
 

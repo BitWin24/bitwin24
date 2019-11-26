@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
@@ -32,8 +31,6 @@ using namespace std;
 
 string JSONRPCRequest(const string& strMethod, const UniValue& params, const UniValue& id)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     UniValue request(UniValue::VOBJ);
     request.push_back(Pair("method", strMethod));
     request.push_back(Pair("params", params));
@@ -43,8 +40,6 @@ string JSONRPCRequest(const string& strMethod, const UniValue& params, const Uni
 
 UniValue JSONRPCReplyObj(const UniValue& result, const UniValue& error, const UniValue& id)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     UniValue reply(UniValue::VOBJ);
     if (!error.isNull())
         reply.push_back(Pair("result", NullUniValue));
@@ -57,16 +52,12 @@ UniValue JSONRPCReplyObj(const UniValue& result, const UniValue& error, const Un
 
 string JSONRPCReply(const UniValue& result, const UniValue& error, const UniValue& id)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     UniValue reply = JSONRPCReplyObj(result, error, id);
     return reply.write() + "\n";
 }
 
 UniValue JSONRPCError(int code, const string& message)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     UniValue error(UniValue::VOBJ);
     error.push_back(Pair("code", code));
     error.push_back(Pair("message", message));
@@ -82,8 +73,6 @@ static const std::string COOKIEAUTH_FILE = ".cookie";
 
 boost::filesystem::path GetAuthCookieFile()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     boost::filesystem::path path(GetArg("-rpccookiefile", COOKIEAUTH_FILE));
     if (!path.is_complete()) path = GetDataDir() / path;
     return path;
@@ -91,8 +80,6 @@ boost::filesystem::path GetAuthCookieFile()
 
 bool GenerateAuthCookie(std::string *cookie_out)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     unsigned char rand_pwd[32];
     GetRandBytes(rand_pwd, 32);
     std::string cookie = COOKIEAUTH_USER + ":" + EncodeBase64(&rand_pwd[0],32);
@@ -118,8 +105,6 @@ bool GenerateAuthCookie(std::string *cookie_out)
 
 bool GetAuthCookie(std::string *cookie_out)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     std::ifstream file;
     std::string cookie;
     boost::filesystem::path filepath = GetAuthCookieFile();
@@ -136,8 +121,6 @@ bool GetAuthCookie(std::string *cookie_out)
 
 void DeleteAuthCookie()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     try {
         boost::filesystem::remove(GetAuthCookieFile());
     } catch (const boost::filesystem::filesystem_error& e) {

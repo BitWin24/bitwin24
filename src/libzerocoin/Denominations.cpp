@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2017-2018 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -12,8 +11,6 @@ namespace libzerocoin {
 
 CoinDenomination IntToZerocoinDenomination(int64_t amount)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     CoinDenomination denomination;
     switch (amount) {
     case 1:		denomination = CoinDenomination::ZQ_ONE; break;
@@ -34,8 +31,6 @@ CoinDenomination IntToZerocoinDenomination(int64_t amount)
 
 int64_t ZerocoinDenominationToInt(const CoinDenomination& denomination)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     int64_t Value = 0;
     switch (denomination) {
     case CoinDenomination::ZQ_ONE: Value = 1; break;
@@ -55,8 +50,6 @@ int64_t ZerocoinDenominationToInt(const CoinDenomination& denomination)
 
 CoinDenomination AmountToZerocoinDenomination(CAmount amount)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     // Check to make sure amount is an exact integer number of COINS
     CAmount residual_amount = amount - COIN * (amount / COIN);
     if (residual_amount == 0) {
@@ -70,8 +63,6 @@ CoinDenomination AmountToZerocoinDenomination(CAmount amount)
 // use case: converting BITWIN24 to zBWI without user worrying about denomination math themselves
 CoinDenomination AmountToClosestDenomination(CAmount nAmount, CAmount& nRemaining)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (nAmount < 1 * COIN)
         return ZQ_ERROR;
 
@@ -100,24 +91,18 @@ CoinDenomination AmountToClosestDenomination(CAmount nAmount, CAmount& nRemainin
 
 CAmount ZerocoinDenominationToAmount(const CoinDenomination& denomination)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     CAmount nValue = COIN * ZerocoinDenominationToInt(denomination);
     return nValue;
 }
 
 
 CoinDenomination get_denomination(std::string denomAmount) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     int64_t val = std::stoi(denomAmount);
     return IntToZerocoinDenomination(val);
 }
 
 
 int64_t get_amount(std::string denomAmount) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     int64_t nAmount = 0;
     CoinDenomination denom = get_denomination(denomAmount);
     if (denom == ZQ_ERROR) {

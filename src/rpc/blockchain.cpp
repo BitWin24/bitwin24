@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
@@ -28,8 +27,6 @@ void ScriptPubKeyToJSON(const CScript& scriptPubKey, UniValue& out, bool fInclud
 
 double GetDifficulty(const CBlockIndex* blockindex)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     // Floating point number that is a multiple of the minimum difficulty,
     // minimum difficulty = 1.0.
     if (blockindex == NULL) {
@@ -58,8 +55,6 @@ double GetDifficulty(const CBlockIndex* blockindex)
 
 UniValue blockheaderToJSON(const CBlockIndex* blockindex)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     UniValue result(UniValue::VOBJ);
     result.push_back(Pair("hash", blockindex->GetBlockHash().GetHex()));
     int confirmations = -1;
@@ -87,8 +82,6 @@ UniValue blockheaderToJSON(const CBlockIndex* blockindex)
 
 UniValue blockToJSON(const CBlock& block, const CBlockIndex* blockindex, bool txDetails = false)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     UniValue result(UniValue::VOBJ);
     result.push_back(Pair("hash", block.GetHash().GetHex()));
     int confirmations = -1;
@@ -136,8 +129,6 @@ UniValue blockToJSON(const CBlock& block, const CBlockIndex* blockindex, bool tx
 
 UniValue getblockcount(const UniValue& params, bool fHelp)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (fHelp || params.size() != 0)
         throw runtime_error(
             "getblockcount\n"
@@ -155,8 +146,6 @@ UniValue getblockcount(const UniValue& params, bool fHelp)
 
 UniValue getbestblockhash(const UniValue& params, bool fHelp)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (fHelp || params.size() != 0)
         throw runtime_error(
             "getbestblockhash\n"
@@ -174,8 +163,6 @@ UniValue getbestblockhash(const UniValue& params, bool fHelp)
 
 UniValue getdifficulty(const UniValue& params, bool fHelp)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (fHelp || params.size() != 0)
         throw runtime_error(
             "getdifficulty\n"
@@ -194,8 +181,6 @@ UniValue getdifficulty(const UniValue& params, bool fHelp)
 
 UniValue mempoolToJSON(bool fVerbose = false)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (fVerbose) {
         LOCK(mempool.cs);
         UniValue o(UniValue::VOBJ);
@@ -239,8 +224,6 @@ UniValue mempoolToJSON(bool fVerbose = false)
 
 UniValue getrawmempool(const UniValue& params, bool fHelp)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "getrawmempool ( verbose )\n"
@@ -284,8 +267,6 @@ UniValue getrawmempool(const UniValue& params, bool fHelp)
 
 UniValue getblockhash(const UniValue& params, bool fHelp)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "getblockhash index\n"
@@ -312,8 +293,6 @@ UniValue getblockhash(const UniValue& params, bool fHelp)
 
 UniValue getblock(const UniValue& params, bool fHelp)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (fHelp || params.size() < 1 || params.size() > 2)
         throw runtime_error(
             "getblock \"hash\" ( verbose )\n"
@@ -382,8 +361,6 @@ UniValue getblock(const UniValue& params, bool fHelp)
 
 UniValue getblockheader(const UniValue& params, bool fHelp)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (fHelp || params.size() < 1 || params.size() > 2)
         throw runtime_error(
             "getblockheader \"hash\" ( verbose )\n"
@@ -435,8 +412,6 @@ UniValue getblockheader(const UniValue& params, bool fHelp)
 
 UniValue gettxoutsetinfo(const UniValue& params, bool fHelp)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (fHelp || params.size() != 0)
         throw runtime_error(
             "gettxoutsetinfo\n"
@@ -477,8 +452,6 @@ UniValue gettxoutsetinfo(const UniValue& params, bool fHelp)
 
 UniValue gettxout(const UniValue& params, bool fHelp)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (fHelp || params.size() < 2 || params.size() > 3)
         throw runtime_error(
             "gettxout \"txid\" n ( includemempool )\n"
@@ -560,8 +533,6 @@ UniValue gettxout(const UniValue& params, bool fHelp)
 
 UniValue verifychain(const UniValue& params, bool fHelp)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "verifychain ( numblocks )\n"
@@ -592,8 +563,6 @@ UniValue verifychain(const UniValue& params, bool fHelp)
 
 UniValue getblockchaininfo(const UniValue& params, bool fHelp)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (fHelp || params.size() != 0)
         throw runtime_error(
             "getblockchaininfo\n"
@@ -630,8 +599,6 @@ UniValue getblockchaininfo(const UniValue& params, bool fHelp)
 struct CompareBlocksByHeight {
     bool operator()(const CBlockIndex* a, const CBlockIndex* b) const
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
         /* Make sure that unequal blocks with the same height do not compare
            equal. Use the pointers themselves to make a distinction. */
 
@@ -644,8 +611,6 @@ struct CompareBlocksByHeight {
 
 UniValue getchaintips(const UniValue& params, bool fHelp)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (fHelp || params.size() != 0)
         throw runtime_error(
             "getchaintips\n"
@@ -735,8 +700,6 @@ UniValue getchaintips(const UniValue& params, bool fHelp)
 
 UniValue getfeeinfo(const UniValue& params, bool fHelp)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "getfeeinfo blocks\n"
@@ -821,8 +784,6 @@ UniValue getfeeinfo(const UniValue& params, bool fHelp)
 
 UniValue mempoolInfoToJSON()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     UniValue ret(UniValue::VOBJ);
     ret.push_back(Pair("size", (int64_t) mempool.size()));
     ret.push_back(Pair("bytes", (int64_t) mempool.GetTotalTxSize()));
@@ -833,8 +794,6 @@ UniValue mempoolInfoToJSON()
 
 UniValue getmempoolinfo(const UniValue& params, bool fHelp)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (fHelp || params.size() != 0)
         throw runtime_error(
             "getmempoolinfo\n"
@@ -854,8 +813,6 @@ UniValue getmempoolinfo(const UniValue& params, bool fHelp)
 
 UniValue invalidateblock(const UniValue& params, bool fHelp)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "invalidateblock \"hash\"\n"
@@ -893,8 +850,6 @@ UniValue invalidateblock(const UniValue& params, bool fHelp)
 
 UniValue reconsiderblock(const UniValue& params, bool fHelp)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "reconsiderblock \"hash\"\n"
@@ -933,8 +888,6 @@ UniValue reconsiderblock(const UniValue& params, bool fHelp)
 
 UniValue findserial(const UniValue& params, bool fHelp)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if(fHelp || params.size() != 1)
         throw runtime_error(
             "findserial \"serial\"\n"
@@ -969,8 +922,6 @@ UniValue findserial(const UniValue& params, bool fHelp)
 
 UniValue getaccumulatorvalues(const UniValue& params, bool fHelp)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "getaccumulatorvalues \"height\"\n"

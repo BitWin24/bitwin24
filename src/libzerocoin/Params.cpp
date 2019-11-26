@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 /**
 * @file       Params.cpp
 *
@@ -18,8 +17,6 @@
 namespace libzerocoin {
 
 ZerocoinParams::ZerocoinParams(CBigNum N, uint32_t securityLevel) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 	this->zkp_hash_len = securityLevel;
 	this->zkp_iterations = securityLevel;
 
@@ -42,8 +39,6 @@ IntegerGroupParams::IntegerGroupParams() {
 }
 
 CBigNum IntegerGroupParams::randomElement() const {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 	// The generator of the group raised
 	// to a random number less than the order of the group
 	// provides us with a uniformly distributed random number.

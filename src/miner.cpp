@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
@@ -59,8 +58,6 @@ public:
 
     COrphan(const CTransaction* ptxIn) : ptx(ptxIn), feeRate(0), dPriority(0)
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     }
 };
 
@@ -75,14 +72,10 @@ class TxPriorityCompare
     bool byFee;
 
 public:
-    TxPriorityCompare(bool _byFee) : byFee(_byFee) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-}
+    TxPriorityCompare(bool _byFee) : byFee(_byFee) {}
 
     bool operator()(const TxPriority& a, const TxPriority& b)
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
         if (byFee) {
             if (a.get<1>() == b.get<1>())
                 return a.get<0>() < b.get<0>();
@@ -97,8 +90,6 @@ public:
 
 void UpdateTime(CBlockHeader* pblock, const CBlockIndex* pindexPrev)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     pblock->nTime = std::max(pindexPrev->GetMedianTimePast() + 1, GetAdjustedTime());
 
     // Updating time can change work required on testnet:
@@ -109,8 +100,6 @@ void UpdateTime(CBlockHeader* pblock, const CBlockIndex* pindexPrev)
 std::pair<int, std::pair<uint256, uint256> > pCheckpointCache;
 CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, CWallet* pwallet, bool fProofOfStake)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     CReserveKey reservekey(pwallet);
 
     // Create new block
@@ -506,8 +495,6 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, CWallet* pwallet, 
 
 void IncrementExtraNonce(CBlock* pblock, CBlockIndex* pindexPrev, unsigned int& nExtraNonce)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     // Update nExtraNonce
     static uint256 hashPrevBlock;
     if (hashPrevBlock != pblock->hashPrevBlock) {

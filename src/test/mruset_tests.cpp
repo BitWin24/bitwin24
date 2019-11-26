@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2012-2013 The Bitcoin Core developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -25,14 +24,10 @@ private:
 
 public:
     mrutester() { mru.max_size(MAX_SIZE); }
-    int size() const {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
- return set.size(); }
+    int size() const { return set.size(); }
 
     void insert(int n)
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
         mru.insert(n);
         set.insert(n);
         BOOST_CHECK(mru == set);
@@ -72,8 +67,6 @@ BOOST_AUTO_TEST_CASE(mruset_limited_size)
 // 16-bit permutation function
 int static permute(int n)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     // hexadecimals of pi; verified to be linearly independent
     static const int table[16] = {0x243F, 0x6A88, 0x85A3, 0x08D3, 0x1319, 0x8A2E, 0x0370, 0x7344,
                                   0xA409, 0x3822, 0x299F, 0x31D0, 0x082E, 0xFA98, 0xEC4E, 0x6C89};

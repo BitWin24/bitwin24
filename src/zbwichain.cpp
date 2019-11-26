@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2018 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -16,8 +15,6 @@
 
 bool BlockToMintValueVector(const CBlock& block, const libzerocoin::CoinDenomination denom, vector<CBigNum>& vValues)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     for (const CTransaction& tx : block.vtx) {
         if(!tx.IsZerocoinMint())
             continue;
@@ -43,8 +40,6 @@ bool BlockToMintValueVector(const CBlock& block, const libzerocoin::CoinDenomina
 
 bool BlockToPubcoinList(const CBlock& block, std::list<libzerocoin::PublicCoin>& listPubcoins, bool fFilterInvalid)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     for (const CTransaction& tx : block.vtx) {
         if(!tx.IsZerocoinMint())
             continue;
@@ -87,8 +82,6 @@ bool BlockToPubcoinList(const CBlock& block, std::list<libzerocoin::PublicCoin>&
 //return a list of zerocoin mints contained in a specific block
 bool BlockToZerocoinMintList(const CBlock& block, std::list<CZerocoinMint>& vMints, bool fFilterInvalid)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     for (const CTransaction& tx : block.vtx) {
         if(!tx.IsZerocoinMint())
             continue;

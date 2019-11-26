@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
@@ -15,14 +14,10 @@
 BitcoinUnits::BitcoinUnits(QObject* parent) : QAbstractListModel(parent),
                                               unitlist(availableUnits())
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 }
 
 QList<BitcoinUnits::Unit> BitcoinUnits::availableUnits()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     QList<BitcoinUnits::Unit> unitlist;
     unitlist.append(BWI);
     unitlist.append(mBWI);
@@ -32,8 +27,6 @@ QList<BitcoinUnits::Unit> BitcoinUnits::availableUnits()
 
 bool BitcoinUnits::valid(int unit)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     switch (unit) {
     case BWI:
     case mBWI:
@@ -46,8 +39,6 @@ bool BitcoinUnits::valid(int unit)
 
 QString BitcoinUnits::id(int unit)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     switch (unit) {
     case BWI:
         return QString("BWI");
@@ -62,8 +53,6 @@ QString BitcoinUnits::id(int unit)
 
 QString BitcoinUnits::name(int unit)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (Params().NetworkID() == CBaseChainParams::MAIN) {
         switch (unit) {
         case BWI:
@@ -91,8 +80,6 @@ QString BitcoinUnits::name(int unit)
 
 QString BitcoinUnits::description(int unit)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (Params().NetworkID() == CBaseChainParams::MAIN) {
         switch (unit) {
         case BWI:
@@ -120,8 +107,6 @@ QString BitcoinUnits::description(int unit)
 
 qint64 BitcoinUnits::factor(int unit)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     switch (unit) {
     case BWI:
         return 100000000;
@@ -136,8 +121,6 @@ qint64 BitcoinUnits::factor(int unit)
 
 int BitcoinUnits::decimals(int unit)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     switch (unit) {
     case BWI:
         return 8;
@@ -152,8 +135,6 @@ int BitcoinUnits::decimals(int unit)
 
 QString BitcoinUnits::format(int unit, const CAmount& nIn, bool fPlus, SeparatorStyle separators)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     // Note: not using straight sprintf here because we do NOT want
     // localized number formatting.
     if (!valid(unit))
@@ -204,15 +185,11 @@ QString BitcoinUnits::format(int unit, const CAmount& nIn, bool fPlus, Separator
 
 QString BitcoinUnits::formatWithUnit(int unit, const CAmount& amount, bool plussign, SeparatorStyle separators)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return format(unit, amount, plussign, separators) + QString(" ") + name(unit);
 }
 
 QString BitcoinUnits::formatHtmlWithUnit(int unit, const CAmount& amount, bool plussign, SeparatorStyle separators)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     QString str(formatWithUnit(unit, amount, plussign, separators));
     str.replace(QChar(THIN_SP_CP), QString(THIN_SP_HTML));
     return QString("<span style='white-space: nowrap;'>%1</span>").arg(str);
@@ -220,8 +197,6 @@ QString BitcoinUnits::formatHtmlWithUnit(int unit, const CAmount& amount, bool p
 
 QString BitcoinUnits::floorWithUnit(int unit, const CAmount& amount, bool plussign, SeparatorStyle separators)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     QSettings settings;
     int digits = settings.value("digits").toInt();
 
@@ -233,8 +208,6 @@ QString BitcoinUnits::floorWithUnit(int unit, const CAmount& amount, bool plussi
 
 QString BitcoinUnits::floorHtmlWithUnit(int unit, const CAmount& amount, bool plussign, SeparatorStyle separators)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     QString str(floorWithUnit(unit, amount, plussign, separators));
     str.replace(QChar(THIN_SP_CP), QString(THIN_SP_HTML));
     return QString("<span style='white-space: nowrap;'>%1</span>").arg(str);
@@ -242,8 +215,6 @@ QString BitcoinUnits::floorHtmlWithUnit(int unit, const CAmount& amount, bool pl
 
 bool BitcoinUnits::parse(int unit, const QString& value, CAmount* val_out)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (!valid(unit) || value.isEmpty())
         return false; // Refuse to parse invalid unit or empty string
     int num_decimals = decimals(unit);
@@ -278,8 +249,6 @@ bool BitcoinUnits::parse(int unit, const QString& value, CAmount* val_out)
 
 QString BitcoinUnits::getAmountColumnTitle(int unit)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     QString amountTitle = QObject::tr("Amount");
     if (BitcoinUnits::valid(unit)) {
         amountTitle += " (" + BitcoinUnits::name(unit) + ")";
@@ -289,16 +258,12 @@ QString BitcoinUnits::getAmountColumnTitle(int unit)
 
 int BitcoinUnits::rowCount(const QModelIndex& parent) const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     Q_UNUSED(parent);
     return unitlist.size();
 }
 
 QVariant BitcoinUnits::data(const QModelIndex& index, int role) const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     int row = index.row();
     if (row >= 0 && row < unitlist.size()) {
         Unit unit = unitlist.at(row);
@@ -317,7 +282,5 @@ QVariant BitcoinUnits::data(const QModelIndex& index, int role) const
 
 CAmount BitcoinUnits::maxMoney()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return Params().MaxMoneyOut();
 }

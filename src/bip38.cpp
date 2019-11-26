@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2017 The PIVX developers
 // Copyright (c) 2018 The MAC developers
 // Copyright (c) 2019 The BITWIN24 developers
@@ -30,8 +29,6 @@
 
 void DecryptAES(uint256 encryptedIn, uint256 decryptionKey, uint256& output)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     AES_KEY key;
     AES_set_decrypt_key(decryptionKey.begin(), 256, &key);
     AES_decrypt(encryptedIn.begin(), output.begin(), &key);
@@ -39,8 +36,6 @@ void DecryptAES(uint256 encryptedIn, uint256 decryptionKey, uint256& output)
 
 void ComputePreFactor(std::string strPassphrase, std::string strSalt, uint256& prefactor)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     //passfactor is the scrypt hash of passphrase and ownersalt (NOTE this needs to handle alt cases too in the future)
     uint64_t s = uint256(ReverseEndianString(strSalt)).Get64();
     scrypt_hash(strPassphrase.c_str(), strPassphrase.size(), BEGIN(s), strSalt.size() / 2, BEGIN(prefactor), 16384, 8, 8, 32);
@@ -48,8 +43,6 @@ void ComputePreFactor(std::string strPassphrase, std::string strSalt, uint256& p
 
 void ComputePassfactor(std::string ownersalt, uint256 prefactor, uint256& passfactor)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     //concat prefactor and ownersalt
     uint512 temp(ReverseEndianString(HexStr(prefactor) + ownersalt));
     Hash(temp.begin(), 40, passfactor.begin()); //40 bytes is the length of prefactor + salt
@@ -58,8 +51,6 @@ void ComputePassfactor(std::string ownersalt, uint256 prefactor, uint256& passfa
 
 bool ComputePasspoint(uint256 passfactor, CPubKey& passpoint)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     size_t clen = 65;
     secp256k1_context *ctx = secp256k1_context_create(SECP256K1_CONTEXT_SIGN);
     assert(ctx != nullptr);
@@ -92,8 +83,6 @@ bool ComputePasspoint(uint256 passfactor, CPubKey& passpoint)
 
 void ComputeSeedBPass(CPubKey passpoint, std::string strAddressHash, std::string strOwnerSalt, uint512& seedBPass)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     // Derive decryption key for seedb using scrypt with passpoint, addresshash, and ownerentropy
     string salt = ReverseEndianString(strAddressHash + strOwnerSalt);
     uint256 s2(salt);
@@ -102,8 +91,6 @@ void ComputeSeedBPass(CPubKey passpoint, std::string strAddressHash, std::string
 
 void ComputeFactorB(uint256 seedB, uint256& factorB)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     //factorB - a double sha256 hash of seedb
     Hash(seedB.begin(), 24, factorB.begin()); //seedB is only 24 bytes
     Hash(factorB.begin(), 32, factorB.begin());
@@ -111,8 +98,6 @@ void ComputeFactorB(uint256 seedB, uint256& factorB)
 
 std::string AddressToBip38Hash(std::string address)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     uint256 addrCheck;
     Hash((void*)address.c_str(), address.size(), addrCheck.begin());
     Hash(addrCheck.begin(), 32, addrCheck.begin());
@@ -122,8 +107,6 @@ std::string AddressToBip38Hash(std::string address)
 
 std::string BIP38_Encrypt(std::string strAddress, std::string strPassphrase, uint256 privKey, bool fCompressed)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     string strAddressHash = AddressToBip38Hash(strAddress);
 
     uint512 hashed;
@@ -175,8 +158,6 @@ std::string BIP38_Encrypt(std::string strAddress, std::string strPassphrase, uin
 
 bool BIP38_Decrypt(std::string strPassphrase, std::string strEncryptedKey, uint256& privKey, bool& fCompressed)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     std::string strKey = DecodeBase58(strEncryptedKey.c_str());
 
     //incorrect encoding of key, it must be 39 bytes - and another 4 bytes for base58 checksum

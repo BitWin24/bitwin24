@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
@@ -712,8 +711,6 @@ typedef std::map<std::string, std::string> mapValue_t;
 
 static void ReadOrderPos(int64_t& nOrderPos, mapValue_t& mapValue)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (!mapValue.count("n")) {
         nOrderPos = -1; // TODO: calculate elsewhere
         return;
@@ -724,8 +721,6 @@ static void ReadOrderPos(int64_t& nOrderPos, mapValue_t& mapValue)
 
 static void WriteOrderPos(const int64_t& nOrderPos, mapValue_t& mapValue)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (nOrderPos == -1)
         return;
     mapValue["n"] = i64tostr(nOrderPos);

@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
@@ -20,8 +19,6 @@
 
 unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader* pblock)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (pindexLast->nHeight <= Params().LAST_POW_BLOCK()) {
         return Params().ProofOfWorkLimit().GetCompact();
     }
@@ -58,8 +55,6 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
 
 bool CheckProofOfWork(uint256 hash, unsigned int nBits)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     bool fNegative;
     bool fOverflow;
     uint256 bnTarget;
@@ -82,8 +77,6 @@ bool CheckProofOfWork(uint256 hash, unsigned int nBits)
 
 uint256 GetBlockProof(const CBlockIndex& block)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     uint256 bnTarget;
     bool fNegative;
     bool fOverflow;

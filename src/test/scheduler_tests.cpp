@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2012-2013 The Bitcoin Core developers
 // Copyright (c) 2017 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
@@ -22,8 +21,6 @@ BOOST_AUTO_TEST_SUITE(scheduler_tests)
 
 static void microTask(CScheduler& s, boost::mutex& mutex, int& counter, int delta, boost::chrono::system_clock::time_point rescheduleTime)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     {
         boost::unique_lock<boost::mutex> lock(mutex);
         counter += delta;
@@ -37,8 +34,6 @@ static void microTask(CScheduler& s, boost::mutex& mutex, int& counter, int delt
 
 static void MicroSleep(uint64_t n)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 #if defined(HAVE_WORKING_BOOST_SLEEP_FOR)
     boost::this_thread::sleep_for(boost::chrono::microseconds(n));
 #elif defined(HAVE_WORKING_BOOST_SLEEP)

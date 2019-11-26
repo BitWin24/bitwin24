@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2017 The PIVX developers
@@ -33,8 +32,6 @@ CCriticalSection cs_mapAlerts;
 
 void CUnsignedAlert::SetNull()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     nVersion = 1;
     nRelayUntil = 0;
     nExpiration = 0;
@@ -53,8 +50,6 @@ void CUnsignedAlert::SetNull()
 
 std::string CUnsignedAlert::ToString() const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     std::string strSetCancel;
     for (auto& n: setCancel)
         strSetCancel += strprintf("%d ", n);
@@ -92,8 +87,6 @@ std::string CUnsignedAlert::ToString() const
 
 void CAlert::SetNull()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     CUnsignedAlert::SetNull();
     vchMsg.clear();
     vchSig.clear();
@@ -101,29 +94,21 @@ void CAlert::SetNull()
 
 bool CAlert::IsNull() const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return (nExpiration == 0);
 }
 
 uint256 CAlert::GetHash() const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return Hash(this->vchMsg.begin(), this->vchMsg.end());
 }
 
 bool CAlert::IsInEffect() const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return (GetAdjustedTime() < nExpiration);
 }
 
 bool CAlert::Cancels(const CAlert& alert) const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (!IsInEffect())
         return false; // this was a no-op before 31403
     return (alert.nID <= nCancel || setCancel.count(alert.nID));
@@ -131,8 +116,6 @@ bool CAlert::Cancels(const CAlert& alert) const
 
 bool CAlert::AppliesTo(int nVersion, std::string strSubVerIn) const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     // TODO: rework for client-version-embedded-in-strSubVer ?
     return (IsInEffect() &&
             nMinVer <= nVersion && nVersion <= nMaxVer &&
@@ -141,15 +124,11 @@ bool CAlert::AppliesTo(int nVersion, std::string strSubVerIn) const
 
 bool CAlert::AppliesToMe() const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return AppliesTo(PROTOCOL_VERSION, FormatSubVersion(CLIENT_NAME, CLIENT_VERSION, std::vector<std::string>()));
 }
 
 bool CAlert::RelayTo(CNode* pnode) const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (!IsInEffect())
         return false;
     // don't relay to nodes which haven't sent their version message
@@ -169,8 +148,6 @@ bool CAlert::RelayTo(CNode* pnode) const
 
 bool CAlert::CheckSignature() const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     CPubKey key(Params().AlertKey());
     if (!key.Verify(Hash(vchMsg.begin(), vchMsg.end()), vchSig))
         return error("CAlert::CheckSignature() : verify signature failed");
@@ -183,8 +160,6 @@ bool CAlert::CheckSignature() const
 
 CAlert CAlert::getAlertByHash(const uint256& hash)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     CAlert retval;
     {
         LOCK(cs_mapAlerts);
@@ -197,8 +172,6 @@ CAlert CAlert::getAlertByHash(const uint256& hash)
 
 bool CAlert::ProcessAlert(bool fThread)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (!CheckSignature())
         return false;
     if (!IsInEffect())
@@ -265,8 +238,6 @@ bool CAlert::ProcessAlert(bool fThread)
 
 void CAlert::Notify(const std::string& strMessage, bool fThread)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     std::string strCmd = GetArg("-alertnotify", "");
     if (strCmd.empty()) return;
 

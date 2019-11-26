@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2017-2018 The PIVX developers
 // Copyright (c) 2018 The MAC developers
 // Copyright (c) 2019 The BITWIN24 developers
@@ -22,8 +21,6 @@ std::list<uint256> listAccCheckpointsNoDB;
 
 uint32_t ParseChecksum(uint256 nChecksum, CoinDenomination denomination)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     //shift to the beginning bit of this denomination and trim any remaining bits by returning 32 bits only
     int pos = std::distance(zerocoinDenomList.begin(), find(zerocoinDenomList.begin(), zerocoinDenomList.end(), denomination));
     nChecksum = nChecksum >> (32*((zerocoinDenomList.size() - 1) - pos));
@@ -32,8 +29,6 @@ uint32_t ParseChecksum(uint256 nChecksum, CoinDenomination denomination)
 
 uint32_t GetChecksum(const CBigNum &bnValue)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     CDataStream ss(SER_GETHASH, 0);
     ss << bnValue;
     uint256 hash = Hash(ss.begin(), ss.end());
@@ -44,8 +39,6 @@ uint32_t GetChecksum(const CBigNum &bnValue)
 // Find the first occurance of a certain accumulator checksum. Return 0 if not found.
 int GetChecksumHeight(uint32_t nChecksum, CoinDenomination denomination)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     CBlockIndex* pindex = chainActive[Params().Zerocoin_StartHeight()];
     if (!pindex)
         return 0;
@@ -71,8 +64,6 @@ int GetChecksumHeight(uint32_t nChecksum, CoinDenomination denomination)
 
 bool GetAccumulatorValueFromChecksum(uint32_t nChecksum, bool fMemoryOnly, CBigNum& bnAccValue)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (mapAccumulatorValues.count(nChecksum)) {
         bnAccValue = mapAccumulatorValues.at(nChecksum);
         return true;
@@ -90,16 +81,12 @@ bool GetAccumulatorValueFromChecksum(uint32_t nChecksum, bool fMemoryOnly, CBigN
 
 bool GetAccumulatorValueFromDB(uint256 nCheckpoint, CoinDenomination denom, CBigNum& bnAccValue)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     uint32_t nChecksum = ParseChecksum(nCheckpoint, denom);
     return GetAccumulatorValueFromChecksum(nChecksum, false, bnAccValue);
 }
 
 void AddAccumulatorChecksum(const uint32_t nChecksum, const CBigNum &bnValue)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     //Since accumulators are switching at v2, stop databasing v1 because its useless. Only focus on v2.
     if (chainActive.Height() >= Params().Zerocoin_Block_V2_Start()) {
         zerocoinDB->WriteAccumulatorValue(nChecksum, bnValue);
@@ -109,8 +96,6 @@ void AddAccumulatorChecksum(const uint32_t nChecksum, const CBigNum &bnValue)
 
 void DatabaseChecksums(AccumulatorMap& mapAccumulators)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     uint256 nCheckpoint = 0;
     for (auto& denom : zerocoinDenomList) {
         CBigNum bnValue = mapAccumulators.GetValue(denom);
@@ -122,8 +107,6 @@ void DatabaseChecksums(AccumulatorMap& mapAccumulators)
 
 bool EraseChecksum(uint32_t nChecksum)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     //erase from both memory and database
     mapAccumulatorValues.erase(nChecksum);
     return zerocoinDB->EraseAccumulatorValue(nChecksum);
@@ -131,8 +114,6 @@ bool EraseChecksum(uint32_t nChecksum)
 
 bool EraseAccumulatorValues(const uint256& nCheckpointErase, const uint256& nCheckpointPrevious)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     for (auto& denomination : zerocoinDenomList) {
         uint32_t nChecksumErase = ParseChecksum(nCheckpointErase, denomination);
         uint32_t nChecksumPrevious = ParseChecksum(nCheckpointPrevious, denomination);
@@ -150,8 +131,6 @@ bool EraseAccumulatorValues(const uint256& nCheckpointErase, const uint256& nChe
 
 bool LoadAccumulatorValuesFromDB(const uint256 nCheckpoint)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     for (auto& denomination : zerocoinDenomList) {
         uint32_t nChecksum = ParseChecksum(nCheckpoint, denomination);
 
@@ -171,8 +150,6 @@ bool LoadAccumulatorValuesFromDB(const uint256 nCheckpoint)
 //Erase accumulator checkpoints for a certain block range
 bool EraseCheckpoints(int nStartHeight, int nEndHeight)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (chainActive.Height() < nStartHeight)
         return false;
 
@@ -208,8 +185,6 @@ bool EraseCheckpoints(int nStartHeight, int nEndHeight)
 
 bool InitializeAccumulators(const int nHeight, int& nHeightCheckpoint, AccumulatorMap& mapAccumulators)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (nHeight < Params().Zerocoin_StartHeight())
         return error("%s: height is below zerocoin activated", __func__);
 
@@ -258,8 +233,6 @@ bool InitializeAccumulators(const int nHeight, int& nHeightCheckpoint, Accumulat
 //Get checkpoint value for a specific block height
 bool CalculateAccumulatorCheckpoint(int nHeight, uint256& nCheckpoint, AccumulatorMap& mapAccumulators)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (nHeight < Params().Zerocoin_Block_V2_Start()) {
         nCheckpoint = 0;
         return true;
@@ -327,15 +300,11 @@ bool CalculateAccumulatorCheckpoint(int nHeight, uint256& nCheckpoint, Accumulat
 
 bool InvalidCheckpointRange(int nHeight)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return nHeight > Params().Zerocoin_Block_LastGoodCheckpoint() && nHeight < Params().Zerocoin_Block_RecalculateAccumulators();
 }
 
 bool ValidateAccumulatorCheckpoint(const CBlock& block, CBlockIndex* pindex, AccumulatorMap& mapAccumulators)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     //V1 accumulators are completely phased out by the time this code hits the public and begins generating new checkpoints
     //It is VERY IMPORTANT that when this is being run and height < v2_start, then zBWI need to be disabled at the same time!!
     if (pindex->nHeight < Params().Zerocoin_Block_V2_Start() || fVerifyingBlocks)
@@ -363,8 +332,6 @@ bool ValidateAccumulatorCheckpoint(const CBlock& block, CBlockIndex* pindex, Acc
 
 void RandomizeSecurityLevel(int& nSecurityLevel)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     //security level: this is an important prevention of tracing the coins via timing. Security level represents how many checkpoints
     //of accumulated coins are added *beyond* the checkpoint that the mint being spent was added too. If each spend added the exact same
     //amounts of checkpoints after the mint was accumulated, then you could know the range of blocks that the mint originated from.
@@ -381,8 +348,6 @@ void RandomizeSecurityLevel(int& nSecurityLevel)
 //Compute how many coins were added to an accumulator up to the end height
 int ComputeAccumulatedCoins(int nHeightEnd, libzerocoin::CoinDenomination denom)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     CBlockIndex* pindex = chainActive[GetZerocoinStartHeight()];
     int n = 0;
     while (pindex->nHeight < nHeightEnd) {
@@ -396,8 +361,6 @@ int ComputeAccumulatedCoins(int nHeightEnd, libzerocoin::CoinDenomination denom)
 int AddBlockMintsToAccumulator(const libzerocoin::PublicCoin& coin, const int nHeightMintAdded, const CBlockIndex* pindex,
                            libzerocoin::Accumulator* accumulator, bool isWitness)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     // if this block contains mints of the denomination that is being spent, then add them to the witness
     int nMintsAdded = 0;
     if (pindex->MintedDenomination(coin.getDenomination())) {
@@ -428,8 +391,6 @@ int AddBlockMintsToAccumulator(const libzerocoin::PublicCoin& coin, const int nH
 
 bool GetAccumulatorValue(int& nHeight, const libzerocoin::CoinDenomination denom, CBigNum& bnAccValue)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (nHeight > chainActive.Height())
         return error("%s: height %d is more than active chain height", __func__, nHeight);
 
@@ -456,8 +417,6 @@ bool GetAccumulatorValue(int& nHeight, const libzerocoin::CoinDenomination denom
 
 bool GenerateAccumulatorWitness(const PublicCoin &coin, Accumulator& accumulator, AccumulatorWitness& witness, int nSecurityLevel, int& nMintsAdded, string& strError, CBlockIndex* pindexCheckpoint)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     LogPrint("zero", "%s: generating\n", __func__);
     int nLockAttempts = 0;
     while (nLockAttempts < 100) {
@@ -568,8 +527,6 @@ bool GenerateAccumulatorWitness(const PublicCoin &coin, Accumulator& accumulator
 
 map<CoinDenomination, int> GetMintMaturityHeight()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     map<CoinDenomination, pair<int, int > > mapDenomMaturity;
     for (auto denom : libzerocoin::zerocoinDenomList)
         mapDenomMaturity.insert(make_pair(denom, make_pair(0, 0)));

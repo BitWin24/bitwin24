@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2018 The PIVX developers
@@ -107,13 +106,9 @@ class QtRPCTimerInterface: public RPCTimerInterface
 {
 public:
     ~QtRPCTimerInterface() {}
-    const char *Name() {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
- return "Qt"; }
+    const char *Name() { return "Qt"; }
     RPCTimerBase* NewTimer(boost::function<void(void)>& func, int64_t millis)
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
         return new QtRPCTimerBase(func, millis);
     }
 };

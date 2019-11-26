@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 /**
  * @file       Coin.cpp
  *
@@ -23,8 +22,6 @@ namespace libzerocoin {
 //PublicCoin class
 PublicCoin::PublicCoin(const ZerocoinParams* p):
 	params(p) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 	if (this->params->initialized == false) {
 		throw std::runtime_error("Params are not initialized");
 	}
@@ -34,8 +31,6 @@ PublicCoin::PublicCoin(const ZerocoinParams* p):
 
 PublicCoin::PublicCoin(const ZerocoinParams* p, const CBigNum& coin, const CoinDenomination d):
 	params(p), value(coin) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 	if (this->params->initialized == false) {
 		throw std::runtime_error("Params are not initialized");
 	}
@@ -53,8 +48,6 @@ PublicCoin::PublicCoin(const ZerocoinParams* p, const CBigNum& coin, const CoinD
 
 bool PublicCoin::validate() const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (this->params->accumulatorParams.minCoinValue >= value) {
         cout << "PublicCoin::validate value is too low\n";
         return false;
@@ -75,8 +68,6 @@ bool PublicCoin::validate() const
 
 //PrivateCoin class
 PrivateCoin::PrivateCoin(const ZerocoinParams* p, const CoinDenomination denomination, bool fMintNew): params(p), publicCoin(p) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 	// Verify that the parameters are valid
 	if(this->params->initialized == false) {
 		throw std::runtime_error("Params are not initialized");
@@ -100,8 +91,6 @@ PrivateCoin::PrivateCoin(const ZerocoinParams* p, const CoinDenomination denomin
 PrivateCoin::PrivateCoin(const ZerocoinParams* p, const CoinDenomination denomination, const CBigNum& bnSerial,
                          const CBigNum& bnRandomness): params(p), publicCoin(p)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
         // Verify that the parameters are valid
     if(!this->params->initialized)
         throw std::runtime_error("Params are not initialized");
@@ -115,8 +104,6 @@ PrivateCoin::PrivateCoin(const ZerocoinParams* p, const CoinDenomination denomin
 
 bool PrivateCoin::IsValid()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (!IsValidSerial(params, serialNumber)) {
         cout << "Serial not valid\n";
         return false;
@@ -127,8 +114,6 @@ bool PrivateCoin::IsValid()
 
 bool GenerateKeyPair(const CBigNum& bnGroupOrder, const uint256& nPrivkey, CKey& key, CBigNum& bnSerial)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     // Generate a new key pair, which also has a 256-bit pubkey hash that qualifies as a serial #
     // This builds off of Tim Ruffing's work on libzerocoin, but has a different implementation
     CKey keyPair;
@@ -161,8 +146,6 @@ bool GenerateKeyPair(const CBigNum& bnGroupOrder, const uint256& nPrivkey, CKey&
 
 const CPubKey PrivateCoin::getPubKey() const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 	CKey key;
 	key.SetPrivKey(privkey, true);
 	return key.GetPubKey();
@@ -170,16 +153,12 @@ const CPubKey PrivateCoin::getPubKey() const
 
 bool PrivateCoin::sign(const uint256& hash, vector<unsigned char>& vchSig) const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 	CKey key;
 	key.SetPrivKey(privkey, true);
 	return key.Sign(hash, vchSig);
 }
 
 void PrivateCoin::mintCoin(const CoinDenomination denomination) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 	// Repeat this process up to MAX_COINMINT_ATTEMPTS times until
 	// we obtain a prime number
 	for(uint32_t attempt = 0; attempt < MAX_COINMINT_ATTEMPTS; attempt++) {
@@ -221,8 +200,6 @@ void PrivateCoin::mintCoin(const CoinDenomination denomination) {
 }
 
 void PrivateCoin::mintCoinFast(const CoinDenomination denomination) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 
 	// Generate a random serial number in the range 0...{q-1} where
 	// "q" is the order of the commitment group.
@@ -277,8 +254,6 @@ void PrivateCoin::mintCoinFast(const CoinDenomination denomination) {
 
 int ExtractVersionFromSerial(const CBigNum& bnSerial)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 	//Serial is marked as v2 only if the first byte is 0xF
 	uint256 nMark = bnSerial.getuint256() >> (256 - PrivateCoin::V2_BITSHIFT);
 	if (nMark == 0xf)
@@ -290,8 +265,6 @@ int ExtractVersionFromSerial(const CBigNum& bnSerial)
 //Remove the first four bits for V2 serials
 CBigNum GetAdjustedSerial(const CBigNum& bnSerial)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     uint256 serial = bnSerial.getuint256();
     serial &= ~uint256(0) >> PrivateCoin::V2_BITSHIFT;
     CBigNum bnSerialAdjusted;
@@ -302,8 +275,6 @@ CBigNum GetAdjustedSerial(const CBigNum& bnSerial)
 
 bool IsValidSerial(const ZerocoinParams* params, const CBigNum& bnSerial)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (bnSerial <= 0)
         return false;
 

@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2011-2013 The Bitcoin developers
 // Copyright (c) 2017 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
@@ -13,15 +12,11 @@ QValidatedLineEdit::QValidatedLineEdit(QWidget* parent) : QLineEdit(parent),
                                                           valid(true),
                                                           checkValidator(0)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     connect(this, SIGNAL(textChanged(QString)), this, SLOT(markValid()));
 }
 
 void QValidatedLineEdit::setValid(bool valid)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (valid == this->valid) {
         return;
     }
@@ -36,8 +31,6 @@ void QValidatedLineEdit::setValid(bool valid)
 
 void QValidatedLineEdit::focusInEvent(QFocusEvent* evt)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     // Clear invalid flag on focus
     setValid(true);
 
@@ -46,8 +39,6 @@ void QValidatedLineEdit::focusInEvent(QFocusEvent* evt)
 
 void QValidatedLineEdit::focusOutEvent(QFocusEvent* evt)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     checkValidity();
 
     QLineEdit::focusOutEvent(evt);
@@ -55,24 +46,18 @@ void QValidatedLineEdit::focusOutEvent(QFocusEvent* evt)
 
 void QValidatedLineEdit::markValid()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     // As long as a user is typing ensure we display state as valid
     setValid(true);
 }
 
 void QValidatedLineEdit::clear()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     setValid(true);
     QLineEdit::clear();
 }
 
 void QValidatedLineEdit::setEnabled(bool enabled)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (!enabled) {
         // A disabled QValidatedLineEdit should be marked valid
         setValid(true);
@@ -86,8 +71,6 @@ void QValidatedLineEdit::setEnabled(bool enabled)
 
 void QValidatedLineEdit::checkValidity()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (text().isEmpty()) {
         setValid(true);
     } else if (hasAcceptableInput()) {
@@ -108,7 +91,5 @@ void QValidatedLineEdit::checkValidity()
 
 void QValidatedLineEdit::setCheckValidator(const QValidator* v)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     checkValidator = v;
 }

@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2017-2018 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -50,8 +49,6 @@ std::pair<uint256, uint32_t> CMintPool::Get(const CBigNum& bnValue)
 
 bool SortSmallest(const pair<uint256, uint32_t>& a, const pair<uint256, uint32_t>& b)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return a.second < b.second;
 }
 

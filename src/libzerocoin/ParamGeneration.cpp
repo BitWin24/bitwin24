@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 /// \file       ParamGeneration.cpp
 ///
 /// \brief      Parameter manipulation routines for the Zerocoin cryptographic
@@ -42,8 +41,6 @@ namespace libzerocoin {
 void
 CalculateParams(ZerocoinParams &params, CBigNum N, string aux, uint32_t securityLevel)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 	params.initialized = false;
 	params.accumulatorParams.initialized = false;
 
@@ -130,8 +127,6 @@ CalculateParams(ZerocoinParams &params, CBigNum N, string aux, uint32_t security
 uint256
 calculateGeneratorSeed(uint256 seed, uint256 pSeed, uint256 qSeed, string label, uint32_t index, uint32_t count)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 	CHashWriter hasher(0,0);
 	uint256     hash;
 
@@ -164,8 +159,6 @@ calculateGeneratorSeed(uint256 seed, uint256 pSeed, uint256 qSeed, string label,
 uint256
 calculateSeed(CBigNum modulus, string auxString, uint32_t securityLevel, string groupName)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 	CHashWriter hasher(0,0);
 	uint256     hash;
 
@@ -185,8 +178,6 @@ calculateSeed(CBigNum modulus, string auxString, uint32_t securityLevel, string 
 uint256
 calculateHash(uint256 input)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 	CHashWriter hasher(0,0);
 
 	// Compute the hash of "input"
@@ -218,8 +209,6 @@ void
 calculateGroupParamLengths(uint32_t maxPLen, uint32_t securityLevel,
                            uint32_t *pLen, uint32_t *qLen)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 	*pLen = *qLen = 0;
 
 	if (securityLevel < 80) {
@@ -257,8 +246,6 @@ calculateGroupParamLengths(uint32_t maxPLen, uint32_t securityLevel,
 IntegerGroupParams
 deriveIntegerGroupParams(uint256 seed, uint32_t pLen, uint32_t qLen)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 	IntegerGroupParams result;
 	CBigNum p;
 	CBigNum q;
@@ -305,8 +292,6 @@ deriveIntegerGroupParams(uint256 seed, uint32_t pLen, uint32_t qLen)
 IntegerGroupParams
 deriveIntegerGroupFromOrder(CBigNum &groupOrder)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 	IntegerGroupParams result;
 
 	// Set the order to "groupOrder"
@@ -373,8 +358,6 @@ calculateGroupModulusAndOrder(uint256 seed, uint32_t pLen, uint32_t qLen,
                               CBigNum *resultModulus, CBigNum *resultGroupOrder,
                               uint256 *resultPseed, uint256 *resultQseed)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 	// Verify that the seed length is >= qLen
 	if (qLen > (sizeof(seed)) * 8) {
 		// TODO: The use of 256-bit seeds limits us to 256-bit group orders. We should probably change this.
@@ -475,8 +458,6 @@ calculateGroupModulusAndOrder(uint256 seed, uint32_t pLen, uint32_t qLen,
 CBigNum
 calculateGroupGenerator(uint256 seed, uint256 pSeed, uint256 qSeed, CBigNum modulus, CBigNum groupOrder, uint32_t index)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 	CBigNum result;
 
 	// Verify that 0 <= index < 256
@@ -522,8 +503,6 @@ CBigNum
 generateRandomPrime(uint32_t primeBitLen, uint256 in_seed, uint256 *out_seed,
                     uint32_t *prime_gen_counter)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 	// Verify that primeBitLen is not too small
 	if (primeBitLen < 2) {
 		throw std::runtime_error("Prime length is too short");
@@ -640,8 +619,6 @@ generateRandomPrime(uint32_t primeBitLen, uint256 in_seed, uint256 *out_seed,
 CBigNum
 generateIntegerFromSeed(uint32_t numBits, uint256 seed, uint32_t *numIterations)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 	CBigNum      result(0);
 	uint32_t    iterations = ceil((double)numBits / (double)HASH_OUTPUT_BITS);
 
@@ -672,8 +649,6 @@ generateIntegerFromSeed(uint32_t numBits, uint256 seed, uint32_t *numIterations)
 bool
 primalityTestByTrialDivision(uint32_t candidate)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 	// TODO: HACK HACK WRONG WRONG
 	CBigNum canBignum(candidate);
 

@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 /**
  * @file       AccumulatorProofOfKnowledge.cpp
  *
@@ -17,14 +16,10 @@
 
 namespace libzerocoin {
 
-AccumulatorProofOfKnowledge::AccumulatorProofOfKnowledge(const AccumulatorAndProofParams* p): params(p) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-}
+AccumulatorProofOfKnowledge::AccumulatorProofOfKnowledge(const AccumulatorAndProofParams* p): params(p) {}
 
 AccumulatorProofOfKnowledge::AccumulatorProofOfKnowledge(const AccumulatorAndProofParams* p,
         const Commitment& commitmentToCoin, const AccumulatorWitness& witness): params(p) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 
 	CBigNum sg = params->accumulatorPoKCommitmentGroup.g;
 	CBigNum sh = params->accumulatorPoKCommitmentGroup.h;
@@ -111,8 +106,6 @@ AccumulatorProofOfKnowledge::AccumulatorProofOfKnowledge(const AccumulatorAndPro
 /** Verifies that a commitment c is accumulated in accumulator a
  */
 bool AccumulatorProofOfKnowledge:: Verify(const Accumulator& a, const CBigNum& valueOfCommitmentToCoin) const {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 	CBigNum sg = params->accumulatorPoKCommitmentGroup.g;
 	CBigNum sh = params->accumulatorPoKCommitmentGroup.h;
 

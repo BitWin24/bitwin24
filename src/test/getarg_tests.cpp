@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2012-2016 The Bitcoin Core developers
 // Copyright (c) 2017 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
@@ -17,8 +16,6 @@ BOOST_AUTO_TEST_SUITE(getarg_tests)
 
 static void ResetArgs(const std::string& strArg)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     std::vector<std::string> vecArg;
     if (strArg.size())
       boost::split(vecArg, strArg, boost::is_space(), boost::token_compress_on);

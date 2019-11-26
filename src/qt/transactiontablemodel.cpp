@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2016 The Dash developers
 // Copyright (c) 2016-2018 The PIVX developers
@@ -41,20 +40,14 @@ static int column_alignments[] = {
 struct TxLessThan {
     bool operator()(const TransactionRecord& a, const TransactionRecord& b) const
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
         return a.hash < b.hash;
     }
     bool operator()(const TransactionRecord& a, const uint256& b) const
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
         return a.hash < b;
     }
     bool operator()(const uint256& a, const TransactionRecord& b) const
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
         return a < b.hash;
     }
 };
@@ -66,8 +59,6 @@ public:
     TransactionTablePriv(CWallet* wallet, TransactionTableModel* parent) : wallet(wallet),
                                                                            parent(parent)
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     }
 
     CWallet* wallet;
@@ -83,8 +74,6 @@ public:
      */
     void refreshWallet()
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
         qDebug() << "TransactionTablePriv::refreshWallet";
         cachedWallet.clear();
         {
@@ -103,8 +92,6 @@ public:
      */
     void updateWallet(const uint256& hash, int status, bool showTransaction)
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
         qDebug() << "TransactionTablePriv::updateWallet : " + QString::fromStdString(hash.ToString()) + " " + QString::number(status);
 
         // Find bounds of this transaction in model
@@ -175,15 +162,11 @@ public:
 
     int size()
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
         return cachedWallet.size();
     }
 
     TransactionRecord* index(int idx)
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
         if (idx >= 0 && idx < cachedWallet.size()) {
             TransactionRecord* rec = &cachedWallet[idx];
 
@@ -212,8 +195,6 @@ public:
 
     QString describe(TransactionRecord* rec, int unit)
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
         {
             LOCK2(cs_main, wallet->cs_wallet);
             std::map<uint256, CWalletTx>::iterator mi = wallet->mapWallet.find(rec->hash);
@@ -697,14 +678,10 @@ void TransactionTableModel::updateDisplayUnit()
 struct TransactionNotification {
 public:
     TransactionNotification() {}
-    TransactionNotification(uint256 hash, ChangeType status, bool showTransaction) : hash(hash), status(status), showTransaction(showTransaction) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-}
+    TransactionNotification(uint256 hash, ChangeType status, bool showTransaction) : hash(hash), status(status), showTransaction(showTransaction) {}
 
     void invoke(QObject* ttm)
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
         QString strHash = QString::fromStdString(hash.GetHex());
         qDebug() << "NotifyTransactionChanged : " + strHash + " status= " + QString::number(status);
         QMetaObject::invokeMethod(ttm, "updateTransaction", Qt::QueuedConnection,
@@ -724,8 +701,6 @@ static std::vector<TransactionNotification> vQueueNotifications;
 
 static void NotifyTransactionChanged(TransactionTableModel* ttm, CWallet* wallet, const uint256& hash, ChangeType status)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     // Find transaction in wallet
     std::map<uint256, CWalletTx>::iterator mi = wallet->mapWallet.find(hash);
     // Determine whether to show transaction or not (determine this here so that no relocking is needed in GUI thread)
@@ -743,8 +718,6 @@ static void NotifyTransactionChanged(TransactionTableModel* ttm, CWallet* wallet
 
 static void ShowProgress(TransactionTableModel* ttm, const std::string& title, int nProgress)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (nProgress == 0)
         fQueueNotifications = true;
 

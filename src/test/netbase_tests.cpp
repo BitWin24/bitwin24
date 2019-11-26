@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2012-2014 The Bitcoin Core developers
 // Copyright (c) 2014-2015 The Dash Core developers
 // Copyright (c) 2015-2018 The PIVX developers
@@ -50,8 +49,6 @@ BOOST_AUTO_TEST_CASE(netbase_properties)
 
 bool static TestSplitHost(string test, string host, int port)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     string hostOut;
     int portOut = -1;
     SplitHostPort(test, portOut, hostOut);
@@ -79,8 +76,6 @@ BOOST_AUTO_TEST_CASE(netbase_splithost)
 
 bool static TestParse(string src, string canon)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     CService addr;
     if (!LookupNumeric(src.c_str(), addr, 65535))
         return canon == "";

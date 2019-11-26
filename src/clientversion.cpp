@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2012-2017 The Bitcoin Core developers
 // Copyright (c) 2016-2017 The PIVX developers
 // Copyright (c) 2018 The MAC developers
@@ -83,8 +82,6 @@ const std::string CLIENT_DATE(BUILD_DATE);
 
 static std::string FormatVersion(int nVersion)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (nVersion % 100 == 0)
         return strprintf("%d.%d.%d", nVersion / 1000000, (nVersion / 10000) % 100, (nVersion / 100) % 100);
     else
@@ -93,8 +90,6 @@ static std::string FormatVersion(int nVersion)
 
 std::string FormatFullVersion()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return CLIENT_BUILD;
 }
 
@@ -103,8 +98,6 @@ std::string FormatFullVersion()
  */
 std::string FormatSubVersion(const std::string& name, int nClientVersion, const std::vector<std::string>& comments)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     std::ostringstream ss;
     ss << "/";
     ss << name << ":" << FormatVersion(nClientVersion);

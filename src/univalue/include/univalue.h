@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright 2014 BitPay Inc.
 // Copyright 2015 Bitcoin Core Developers
 // Distributed under the MIT software license, see the accompanying
@@ -259,8 +258,6 @@ extern const char *uvTypeName(UniValue::VType t);
 
 static inline bool jsonTokenIsValue(enum jtokentype jtt)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     switch (jtt) {
     case JTOK_KW_NULL:
     case JTOK_KW_TRUE:
@@ -278,8 +275,6 @@ static inline bool jsonTokenIsValue(enum jtokentype jtt)
 
 static inline bool json_isspace(int ch)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     switch (ch) {
     case 0x20:
     case 0x09:

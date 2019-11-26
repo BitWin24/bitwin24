@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
@@ -17,8 +16,6 @@
 
 static bool noui_ThreadSafeMessageBox(const std::string& message, const std::string& caption, unsigned int style)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     bool fSecure = style & CClientUIInterface::SECURE;
     style &= ~CClientUIInterface::SECURE;
 
@@ -46,15 +43,11 @@ static bool noui_ThreadSafeMessageBox(const std::string& message, const std::str
 
 static void noui_InitMessage(const std::string& message)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     LogPrintf("init message: %s\n", message);
 }
 
 void noui_connect()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     // Connect bitwin24d signal handlers
     uiInterface.ThreadSafeMessageBox.connect(noui_ThreadSafeMessageBox);
     uiInterface.InitMessage.connect(noui_InitMessage);

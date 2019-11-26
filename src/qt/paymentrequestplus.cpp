@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2017 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
@@ -25,15 +24,11 @@ using namespace std;
 class SSLVerifyError : public std::runtime_error
 {
 public:
-    SSLVerifyError(std::string err) : std::runtime_error(err) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-}
+    SSLVerifyError(std::string err) : std::runtime_error(err) {}
 };
 
 bool PaymentRequestPlus::parse(const QByteArray& data)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     bool parseOK = paymentRequest.ParseFromArray(data.data(), data.size());
     if (!parseOK) {
         qWarning() << "PaymentRequestPlus::parse : Error parsing payment request";
@@ -55,30 +50,22 @@ bool PaymentRequestPlus::parse(const QByteArray& data)
 
 bool PaymentRequestPlus::SerializeToString(string* output) const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return paymentRequest.SerializeToString(output);
 }
 
 bool PaymentRequestPlus::IsInitialized() const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return paymentRequest.IsInitialized();
 }
 
 QString PaymentRequestPlus::getPKIType() const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (!IsInitialized()) return QString("none");
     return QString::fromStdString(paymentRequest.pki_type());
 }
 
 bool PaymentRequestPlus::getMerchant(X509_STORE* certStore, QString& merchant) const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     merchant.clear();
 
     if (!IsInitialized())
@@ -210,8 +197,6 @@ bool PaymentRequestPlus::getMerchant(X509_STORE* certStore, QString& merchant) c
 
 QList<std::pair<CScript, CAmount> > PaymentRequestPlus::getPayTo() const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     QList<std::pair<CScript, CAmount> > result;
     for (int i = 0; i < details.outputs_size(); i++) {
         const unsigned char* scriptStr = (const unsigned char*)details.outputs(i).script().data();

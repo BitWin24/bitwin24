@@ -25,14 +25,10 @@
  */
 class HTTPRPCTimer : public RPCTimerBase
 {
-
-
 public:
     HTTPRPCTimer(struct event_base* eventBase, boost::function<void(void)>& func, int64_t millis) :
         ev(eventBase, false, func)
     {
-
-
         struct timeval tv;
         tv.tv_sec = millis/1000;
         tv.tv_usec = (millis%1000)*1000;
@@ -47,19 +43,13 @@ class HTTPRPCTimerInterface : public RPCTimerInterface
 public:
     HTTPRPCTimerInterface(struct event_base* base) : base(base)
     {
-
-
     }
     const char* Name()
     {
-
-
         return "HTTP";
     }
     RPCTimerBase* NewTimer(boost::function<void(void)>& func, int64_t millis)
     {
-
-
         return new HTTPRPCTimer(base, func, millis);
     }
 private:
@@ -74,8 +64,6 @@ static HTTPRPCTimerInterface* httpRPCTimerInterface = 0;
 
 static void JSONErrorReply(HTTPRequest* req, const UniValue& objError, const UniValue& id)
 {
-
-
     // Send error reply from json-rpc error object
     int nStatus = HTTP_INTERNAL_SERVER_ERROR;
     int code = find_value(objError, "code").get_int();
@@ -93,8 +81,6 @@ static void JSONErrorReply(HTTPRequest* req, const UniValue& objError, const Uni
 
 static bool RPCAuthorized(const std::string& strAuth)
 {
-
-
     if (strRPCUserColonPass.empty()) // Belt-and-suspenders measure if InitRPCAuthentication was not called
         return false;
     if (strAuth.substr(0, 6) != "Basic ")
@@ -107,8 +93,6 @@ static bool RPCAuthorized(const std::string& strAuth)
 
 static bool HTTPReq_JSONRPC(HTTPRequest* req, const std::string &)
 {
-
-
     // JSONRPC handles only POST
     if (req->GetRequestMethod() != HTTPRequest::POST) {
         req->WriteReply(HTTP_BAD_METHOD, "JSONRPC server handles only POST requests");
@@ -170,8 +154,6 @@ static bool HTTPReq_JSONRPC(HTTPRequest* req, const std::string &)
 
 static bool InitRPCAuthentication()
 {
-
-
     if (mapArgs["-rpcpassword"] == "")
     {
         LogPrintf("No rpcpassword set - using random cookie authentication\n");
@@ -189,8 +171,6 @@ static bool InitRPCAuthentication()
 
 bool StartHTTPRPC()
 {
-
-
     LogPrint("rpc", "Starting HTTP RPC server\n");
     if (!InitRPCAuthentication())
         return false;
@@ -205,15 +185,11 @@ bool StartHTTPRPC()
 
 void InterruptHTTPRPC()
 {
-
-
     LogPrint("rpc", "Interrupting HTTP RPC server\n");
 }
 
 void StopHTTPRPC()
 {
-
-
     LogPrint("rpc", "Stopping HTTP RPC server\n");
     UnregisterHTTPHandler("/", true);
     if (httpRPCTimerInterface) {

@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2011-2014 The Bitcoin Core developers
 // Copyright (c) 2017 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
@@ -80,25 +79,17 @@ class TestAddrTypeVisitor : public boost::static_visitor<bool>
 private:
     std::string exp_addrType;
 public:
-    TestAddrTypeVisitor(const std::string &exp_addrType) : exp_addrType(exp_addrType) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
- }
+    TestAddrTypeVisitor(const std::string &exp_addrType) : exp_addrType(exp_addrType) { }
     bool operator()(const CKeyID &id) const
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
         return (exp_addrType == "pubkey");
     }
     bool operator()(const CScriptID &id) const
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
         return (exp_addrType == "script");
     }
     bool operator()(const CNoDestination &no) const
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
         return (exp_addrType == "none");
     }
 };
@@ -109,27 +100,19 @@ class TestPayloadVisitor : public boost::static_visitor<bool>
 private:
     std::vector<unsigned char> exp_payload;
 public:
-    TestPayloadVisitor(std::vector<unsigned char> &exp_payload) : exp_payload(exp_payload) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
- }
+    TestPayloadVisitor(std::vector<unsigned char> &exp_payload) : exp_payload(exp_payload) { }
     bool operator()(const CKeyID &id) const
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
         uint160 exp_key(exp_payload);
         return exp_key == id;
     }
     bool operator()(const CScriptID &id) const
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
         uint160 exp_key(exp_payload);
         return exp_key == id;
     }
     bool operator()(const CNoDestination &no) const
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
         return exp_payload.size() == 0;
     }
 };

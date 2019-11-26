@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
@@ -20,14 +19,10 @@
 
 BitcoinAddressEntryValidator::BitcoinAddressEntryValidator(QObject* parent) : QValidator(parent)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 }
 
 QValidator::State BitcoinAddressEntryValidator::validate(QString& input, int& pos) const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     Q_UNUSED(pos);
 
     // Empty address is "intermediate" input
@@ -82,14 +77,10 @@ QValidator::State BitcoinAddressEntryValidator::validate(QString& input, int& po
 
 BitcoinAddressCheckValidator::BitcoinAddressCheckValidator(QObject* parent) : QValidator(parent)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 }
 
 QValidator::State BitcoinAddressCheckValidator::validate(QString& input, int& pos) const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     Q_UNUSED(pos);
     // Validate the passed BITWIN24 address
     CBitcoinAddress addr(input.toStdString());

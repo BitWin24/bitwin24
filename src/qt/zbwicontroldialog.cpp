@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2017-2018 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -22,8 +21,6 @@ ZBWIControlDialog::ZBWIControlDialog(QWidget *parent) :
     ui(new Ui::ZBWIControlDialog),
     model(0)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     ui->setupUi(this);
     setMints.clear();
     privacyDialog = (PrivacyDialog*)parent;
@@ -42,8 +39,6 @@ ZBWIControlDialog::~ZBWIControlDialog()
 
 void ZBWIControlDialog::setModel(WalletModel *model)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     this->model = model;
     updateList();
 }
@@ -52,8 +47,6 @@ void ZBWIControlDialog::setModel(WalletModel *model)
 //Update the tree widget
 void ZBWIControlDialog::updateList()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     // need to prevent the slot from being called each time something is changed
     ui->treeWidget->blockSignals(true);
     ui->treeWidget->clear();
@@ -139,8 +132,6 @@ void ZBWIControlDialog::updateList()
 // Update the list when a checkbox is clicked
 void ZBWIControlDialog::updateSelection(QTreeWidgetItem* item, int column)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     // only want updates from non top level items that are available to spend
     if (item->parent() && column == COLUMN_CHECKBOX && !item->isDisabled()){
 
@@ -163,8 +154,6 @@ void ZBWIControlDialog::updateSelection(QTreeWidgetItem* item, int column)
 // Update the Quantity and Amount display
 void ZBWIControlDialog::updateLabels()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     int64_t nAmount = 0;
     for (const CMintMeta& mint : setMints) {
         if (setSelectedMints.count(mint.hashPubcoin.GetHex()))
@@ -181,8 +170,6 @@ void ZBWIControlDialog::updateLabels()
 
 std::vector<CMintMeta> ZBWIControlDialog::GetSelectedMints()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     std::vector<CMintMeta> listReturn;
     for (const CMintMeta& mint : setMints) {
         if (setSelectedMints.count(mint.hashPubcoin.GetHex()))
@@ -195,8 +182,6 @@ std::vector<CMintMeta> ZBWIControlDialog::GetSelectedMints()
 // select or deselect all of the mints
 void ZBWIControlDialog::ButtonAllClicked()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     ui->treeWidget->blockSignals(true);
     Qt::CheckState state = Qt::Checked;
     for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++) {

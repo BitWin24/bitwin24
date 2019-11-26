@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2011-2013 The Bitcoin developers
 // Copyright (c) 2017 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
@@ -89,8 +88,6 @@ ReceiveRequestDialog::ReceiveRequestDialog(QWidget* parent) : QDialog(parent, Qt
                                                               ui(new Ui::ReceiveRequestDialog),
                                                               model(0)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     ui->setupUi(this);
 
 #ifndef USE_QRCODE
@@ -108,8 +105,6 @@ ReceiveRequestDialog::~ReceiveRequestDialog()
 
 void ReceiveRequestDialog::setModel(OptionsModel* model)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     this->model = model;
 
     if (model)
@@ -121,16 +116,12 @@ void ReceiveRequestDialog::setModel(OptionsModel* model)
 
 void ReceiveRequestDialog::setInfo(const SendCoinsRecipient& info)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     this->info = info;
     update();
 }
 
 void ReceiveRequestDialog::update()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (!model)
         return;
     QString target = info.label;
@@ -186,14 +177,10 @@ void ReceiveRequestDialog::update()
 
 void ReceiveRequestDialog::on_btnCopyURI_clicked()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     GUIUtil::setClipboard(GUIUtil::formatBitcoinURI(info));
 }
 
 void ReceiveRequestDialog::on_btnCopyAddress_clicked()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     GUIUtil::setClipboard(info.address);
 }

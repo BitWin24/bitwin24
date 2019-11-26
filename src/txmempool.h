@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2016-2018 The PIVX developers
@@ -19,15 +18,11 @@ class CAutoFile;
 
 inline double AllowFreeThreshold()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return COIN * 1440 / 250;
 }
 
 inline bool AllowFree(double dPriority)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     // Large (in bytes) low-priority (new, small-coin) transactions
     // need a fee.
     return dPriority > AllowFreeThreshold();

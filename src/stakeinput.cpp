@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2017-2018 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -12,8 +11,6 @@
 
 CZBWIStake::CZBWIStake(const libzerocoin::CoinSpend& spend)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     this->nChecksum = spend.getAccumulatorChecksum();
     this->denom = spend.getDenomination();
     uint256 nSerial = spend.getCoinSerialNumber().getuint256();
@@ -24,8 +21,6 @@ CZBWIStake::CZBWIStake(const libzerocoin::CoinSpend& spend)
 
 int CZBWIStake::GetChecksumHeightFromMint()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     int nHeightChecksum = chainActive.Height() - Params().Zerocoin_RequiredStakeDepth();
 
     //Need to return the first occurance of this checksum in order for the validation process to identify a specific
@@ -37,15 +32,11 @@ int CZBWIStake::GetChecksumHeightFromMint()
 
 int CZBWIStake::GetChecksumHeightFromSpend()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return GetChecksumHeight(nChecksum, denom);
 }
 
 uint32_t CZBWIStake::GetChecksum()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return nChecksum;
 }
 
@@ -54,8 +45,6 @@ uint32_t CZBWIStake::GetChecksum()
 // 100 blocks deep.
 CBlockIndex* CZBWIStake::GetIndexFrom()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (pindexFrom)
         return pindexFrom;
 
@@ -78,16 +67,12 @@ CBlockIndex* CZBWIStake::GetIndexFrom()
 
 CAmount CZBWIStake::GetValue()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return denom * COIN;
 }
 
 //Use the first accumulator checkpoint that occurs 60 minutes after the block being staked from
 bool CZBWIStake::GetModifier(uint64_t& nStakeModifier)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     CBlockIndex* pindex = GetIndexFrom();
     if (!pindex)
         return false;
@@ -108,8 +93,6 @@ bool CZBWIStake::GetModifier(uint64_t& nStakeModifier)
 
 CDataStream CZBWIStake::GetUniqueness()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     //The unique identifier for a zBWI is a hash of the serial
     CDataStream ss(SER_GETHASH, 0);
     ss << hashSerial;
@@ -118,8 +101,6 @@ CDataStream CZBWIStake::GetUniqueness()
 
 bool CZBWIStake::CreateTxIn(CWallet* pwallet, CTxIn& txIn, uint256 hashTxOut)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     CBlockIndex* pindexCheckpoint = GetIndexFrom();
     if (!pindexCheckpoint)
         return error("%s: failed to find checkpoint block index", __func__);
@@ -141,8 +122,6 @@ bool CZBWIStake::CreateTxIn(CWallet* pwallet, CTxIn& txIn, uint256 hashTxOut)
 
 bool CZBWIStake::CreateTxOuts(CWallet* pwallet, vector<CTxOut>& vout, CAmount nTotal)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     //Create an output returning the zBWI that was staked
     CTxOut outReward;
     libzerocoin::CoinDenomination denomStaked = libzerocoin::AmountToZerocoinDenomination(this->GetValue());
@@ -171,15 +150,11 @@ bool CZBWIStake::CreateTxOuts(CWallet* pwallet, vector<CTxOut>& vout, CAmount nT
 
 bool CZBWIStake::GetTxFrom(CTransaction& tx)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return false;
 }
 
 bool CZBWIStake::MarkSpent(CWallet *pwallet, const uint256& txid)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     CzBWITracker* zbwiTracker = pwallet->zbwiTracker.get();
     CMintMeta meta;
     if (!zbwiTracker->GetMetaFromStakeHash(hashSerial, meta))
@@ -192,8 +167,6 @@ bool CZBWIStake::MarkSpent(CWallet *pwallet, const uint256& txid)
 //!BITWIN24 Stake
 bool CBitWin24Stake::SetInput(CTransaction txPrev, unsigned int n)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     this->txFrom = txPrev;
     this->nPosition = n;
     return true;
@@ -201,31 +174,23 @@ bool CBitWin24Stake::SetInput(CTransaction txPrev, unsigned int n)
 
 bool CBitWin24Stake::GetTxFrom(CTransaction& tx)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     tx = txFrom;
     return true;
 }
 
 bool CBitWin24Stake::CreateTxIn(CWallet* pwallet, CTxIn& txIn, uint256 hashTxOut)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     txIn = CTxIn(txFrom.GetHash(), nPosition);
     return true;
 }
 
 CAmount CBitWin24Stake::GetValue()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return txFrom.vout[nPosition].nValue;
 }
 
 bool CBitWin24Stake::CreateTxOuts(CWallet* pwallet, vector<CTxOut>& vout, CAmount nTotal)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     vector<valtype> vSolutions;
     txnouttype whichType;
     CScript scriptPubKeyKernel = txFrom.vout[nPosition].scriptPubKey;
@@ -261,8 +226,6 @@ bool CBitWin24Stake::CreateTxOuts(CWallet* pwallet, vector<CTxOut>& vout, CAmoun
 
 bool CBitWin24Stake::GetModifier(uint64_t& nStakeModifier)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     int nStakeModifierHeight = 0;
     int64_t nStakeModifierTime = 0;
     GetIndexFrom();
@@ -277,8 +240,6 @@ bool CBitWin24Stake::GetModifier(uint64_t& nStakeModifier)
 
 CDataStream CBitWin24Stake::GetUniqueness()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     //The unique identifier for a BITWIN24 stake is the outpoint
     CDataStream ss(SER_NETWORK, 0);
     ss << nPosition << txFrom.GetHash();
@@ -288,8 +249,6 @@ CDataStream CBitWin24Stake::GetUniqueness()
 //The block that the UTXO was added to the chain
 CBlockIndex* CBitWin24Stake::GetIndexFrom()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     uint256 hashBlock = 0;
     CTransaction tx;
     if (GetTransaction(txFrom.GetHash(), tx, hashBlock, true)) {

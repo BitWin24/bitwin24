@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
@@ -369,8 +368,6 @@ public:
  */
 inline uint256 uint256S(const char* str)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     uint256 rv;
     rv.SetHex(str);
     return rv;
@@ -381,8 +378,6 @@ inline uint256 uint256S(const char* str)
  */
 inline uint256 uint256S(const std::string& str)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     uint256 rv;
     rv.SetHex(str);
     return rv;
@@ -410,8 +405,6 @@ public:
 
 inline uint512 uint512S(const std::string& str)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     uint512 rv;
     rv.SetHex(str);
     return rv;

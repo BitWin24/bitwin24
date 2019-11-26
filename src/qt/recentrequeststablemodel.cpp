@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2017 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
@@ -16,8 +15,6 @@
 
 RecentRequestsTableModel::RecentRequestsTableModel(CWallet* wallet, WalletModel* parent) : walletModel(parent)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     Q_UNUSED(wallet);
     nReceiveRequestsMaxId = 0;
 
@@ -40,8 +37,6 @@ RecentRequestsTableModel::~RecentRequestsTableModel()
 
 int RecentRequestsTableModel::rowCount(const QModelIndex& parent) const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     Q_UNUSED(parent);
 
     return list.length();
@@ -49,8 +44,6 @@ int RecentRequestsTableModel::rowCount(const QModelIndex& parent) const
 
 int RecentRequestsTableModel::columnCount(const QModelIndex& parent) const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     Q_UNUSED(parent);
 
     return columns.length();
@@ -58,8 +51,6 @@ int RecentRequestsTableModel::columnCount(const QModelIndex& parent) const
 
 QVariant RecentRequestsTableModel::data(const QModelIndex& index, int role) const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (!index.isValid() || index.row() >= list.length())
         return QVariant();
 
@@ -100,15 +91,11 @@ QVariant RecentRequestsTableModel::data(const QModelIndex& index, int role) cons
 
 bool RecentRequestsTableModel::setData(const QModelIndex& index, const QVariant& value, int role)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return true;
 }
 
 QVariant RecentRequestsTableModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (orientation == Qt::Horizontal) {
         if (role == Qt::DisplayRole && section < columns.size()) {
             return columns[section];
@@ -120,8 +107,6 @@ QVariant RecentRequestsTableModel::headerData(int section, Qt::Orientation orien
 /** Updates the column title to "Amount (DisplayUnit)" and emits headerDataChanged() signal for table headers to react. */
 void RecentRequestsTableModel::updateAmountColumnTitle()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     columns[Amount] = getAmountTitle();
     emit headerDataChanged(Qt::Horizontal, Amount, Amount);
 }
@@ -129,8 +114,6 @@ void RecentRequestsTableModel::updateAmountColumnTitle()
 /** Gets title for amount column including current display unit if optionsModel reference available. */
 QString RecentRequestsTableModel::getAmountTitle()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     QString amountTitle = tr("Amount");
     if (this->walletModel->getOptionsModel() != NULL) {
         amountTitle += " (" + BitcoinUnits::name(this->walletModel->getOptionsModel()->getDisplayUnit()) + ")";
@@ -140,8 +123,6 @@ QString RecentRequestsTableModel::getAmountTitle()
 
 QModelIndex RecentRequestsTableModel::index(int row, int column, const QModelIndex& parent) const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     Q_UNUSED(parent);
 
     return createIndex(row, column);
@@ -149,8 +130,6 @@ QModelIndex RecentRequestsTableModel::index(int row, int column, const QModelInd
 
 bool RecentRequestsTableModel::removeRows(int row, int count, const QModelIndex& parent)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     Q_UNUSED(parent);
 
     if (count > 0 && row >= 0 && (row + count) <= list.size()) {
@@ -172,16 +151,12 @@ bool RecentRequestsTableModel::removeRows(int row, int count, const QModelIndex&
 
 Qt::ItemFlags RecentRequestsTableModel::flags(const QModelIndex& index) const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
 }
 
 // called when adding a request from the GUI
 void RecentRequestsTableModel::addNewRequest(const SendCoinsRecipient& recipient)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     RecentRequestEntry newEntry;
     newEntry.id = ++nReceiveRequestsMaxId;
     newEntry.date = QDateTime::currentDateTime();
@@ -199,8 +174,6 @@ void RecentRequestsTableModel::addNewRequest(const SendCoinsRecipient& recipient
 // called from ctor when loading from wallet
 void RecentRequestsTableModel::addNewRequest(const std::string& recipient)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     std::vector<char> data(recipient.begin(), recipient.end());
     CDataStream ss(data, SER_DISK, CLIENT_VERSION);
 
@@ -219,8 +192,6 @@ void RecentRequestsTableModel::addNewRequest(const std::string& recipient)
 // actually add to table in GUI
 void RecentRequestsTableModel::addNewRequest(RecentRequestEntry& recipient)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     beginInsertRows(QModelIndex(), 0, 0);
     list.prepend(recipient);
     endInsertRows();
@@ -228,23 +199,17 @@ void RecentRequestsTableModel::addNewRequest(RecentRequestEntry& recipient)
 
 void RecentRequestsTableModel::sort(int column, Qt::SortOrder order)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     qSort(list.begin(), list.end(), RecentRequestEntryLessThan(column, order));
     emit dataChanged(index(0, 0, QModelIndex()), index(list.size() - 1, NUMBER_OF_COLUMNS - 1, QModelIndex()));
 }
 
 void RecentRequestsTableModel::updateDisplayUnit()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     updateAmountColumnTitle();
 }
 
 bool RecentRequestEntryLessThan::operator()(RecentRequestEntry& left, RecentRequestEntry& right) const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     RecentRequestEntry* pLeft = &left;
     RecentRequestEntry* pRight = &right;
     if (order == Qt::DescendingOrder)

@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright 2014 BitPay Inc.
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -20,8 +19,6 @@ static std::string escapes[256];
 
 static void initJsonEscape()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     // Escape all lower control characters (some get overridden with smaller sequences below)
     for (int ch=0x00; ch<0x20; ++ch) {
         char tmpbuf[20];
@@ -43,8 +40,6 @@ static void initJsonEscape()
 
 static void outputEscape()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 	printf(	"// Automatically generated file. Do not modify.\n"
 		"#ifndef BITCOIN_UNIVALUE_UNIVALUE_ESCAPES_H\n"
 		"#define BITCOIN_UNIVALUE_UNIVALUE_ESCAPES_H\n"
@@ -82,8 +77,6 @@ static void outputEscape()
 
 int main (int argc, char *argv[])
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 	initJsonEscape();
 	outputEscape();
 	return 0;

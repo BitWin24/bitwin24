@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2012-2014 The Bitcoin developers
 // Copyright (c) 2017 The PIVX developers
 // Copyright (c) 2018 The MAC developers
@@ -42,22 +41,16 @@ CBloomFilter::CBloomFilter(unsigned int nElements, double nFPRate, unsigned int 
   nTweak(nTweakIn),
   nFlags(nFlagsIn)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 }
 
 inline unsigned int CBloomFilter::Hash(unsigned int nHashNum, const std::vector<unsigned char>& vDataToHash) const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     // 0xFBA4C795 chosen as it guarantees a reasonable bit difference between nHashNum values.
     return MurmurHash3(nHashNum * 0xFBA4C795 + nTweak, vDataToHash) % (vData.size() * 8);
 }
 
 void CBloomFilter::insert(const vector<unsigned char>& vKey)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (isFull)
         return;
     for (unsigned int i = 0; i < nHashFuncs; i++) {
@@ -70,8 +63,6 @@ void CBloomFilter::insert(const vector<unsigned char>& vKey)
 
 void CBloomFilter::insert(const COutPoint& outpoint)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     CDataStream stream(SER_NETWORK, PROTOCOL_VERSION);
     stream << outpoint;
     vector<unsigned char> data(stream.begin(), stream.end());
@@ -80,16 +71,12 @@ void CBloomFilter::insert(const COutPoint& outpoint)
 
 void CBloomFilter::insert(const uint256& hash)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     vector<unsigned char> data(hash.begin(), hash.end());
     insert(data);
 }
 
 bool CBloomFilter::contains(const vector<unsigned char>& vKey) const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (isFull)
         return true;
     if (isEmpty)
@@ -105,8 +92,6 @@ bool CBloomFilter::contains(const vector<unsigned char>& vKey) const
 
 bool CBloomFilter::contains(const COutPoint& outpoint) const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     CDataStream stream(SER_NETWORK, PROTOCOL_VERSION);
     stream << outpoint;
     vector<unsigned char> data(stream.begin(), stream.end());
@@ -115,16 +100,12 @@ bool CBloomFilter::contains(const COutPoint& outpoint) const
 
 bool CBloomFilter::contains(const uint256& hash) const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     vector<unsigned char> data(hash.begin(), hash.end());
     return contains(data);
 }
 
 void CBloomFilter::clear()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     vData.assign(vData.size(), 0);
     isFull = false;
     isEmpty = true;
@@ -132,15 +113,11 @@ void CBloomFilter::clear()
 
 bool CBloomFilter::IsWithinSizeConstraints() const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return vData.size() <= MAX_BLOOM_FILTER_SIZE && nHashFuncs <= MAX_HASH_FUNCS;
 }
 
 bool CBloomFilter::IsRelevantAndUpdate(const CTransaction& tx)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     bool fFound = false;
     // Match if the filter contains the hash of tx
     //  for finding tx when they appear in a block
@@ -205,8 +182,6 @@ bool CBloomFilter::IsRelevantAndUpdate(const CTransaction& tx)
 
 void CBloomFilter::UpdateEmptyFull()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     bool full = true;
     bool empty = true;
     for (unsigned int i = 0; i < vData.size(); i++) {

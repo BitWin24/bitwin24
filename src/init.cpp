@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
@@ -142,27 +141,19 @@ volatile bool fRequestShutdown = false;
 
 void StartShutdown()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     fRequestShutdown = true;
 }
 bool ShutdownRequested()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return fRequestShutdown || fRestartRequested;
 }
 
 class CCoinsViewErrorCatcher : public CCoinsViewBacked
 {
 public:
-    CCoinsViewErrorCatcher(CCoinsView* view) : CCoinsViewBacked(view) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-}
+    CCoinsViewErrorCatcher(CCoinsView* view) : CCoinsViewBacked(view) {}
     bool GetCoins(const uint256& txid, CCoins& coins) const
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
         try {
             return CCoinsViewBacked::GetCoins(txid, coins);
         } catch (const std::runtime_error& e) {
@@ -184,8 +175,6 @@ static boost::scoped_ptr<ECCVerifyHandle> globalVerifyHandle;
 
 void Interrupt(boost::thread_group& threadGroup)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     InterruptHTTPServer();
     InterruptHTTPRPC();
     InterruptRPC();
@@ -197,8 +186,6 @@ void Interrupt(boost::thread_group& threadGroup)
 /** Preparing steps before shutting down or restarting the wallet */
 void PrepareShutdown()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     fRequestShutdown = true;  // Needed when we shutdown the wallet
     fRestartRequested = true; // Needed when we restart the wallet
     LogPrintf("%s: In progress...\n", __func__);
@@ -293,8 +280,6 @@ void PrepareShutdown()
 */
 void Shutdown()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     // Shutdown part 1: prepare shutdown
     if (!fRestartRequested) {
         PrepareShutdown();
@@ -317,38 +302,28 @@ void Shutdown()
  */
 void HandleSIGTERM(int)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     fRequestShutdown = true;
 }
 
 void HandleSIGHUP(int)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     fReopenDebugLog = true;
 }
 
 bool static InitError(const std::string& str)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     uiInterface.ThreadSafeMessageBox(str, "", CClientUIInterface::MSG_ERROR);
     return false;
 }
 
 bool static InitWarning(const std::string& str)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     uiInterface.ThreadSafeMessageBox(str, "", CClientUIInterface::MSG_WARNING);
     return true;
 }
 
 bool static Bind(const CService& addr, unsigned int flags)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (!(flags & BF_EXPLICIT) && IsLimited(addr))
         return false;
     std::string strError;
@@ -362,16 +337,12 @@ bool static Bind(const CService& addr, unsigned int flags)
 
 void OnRPCStopped()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     cvBlockChange.notify_all();
     LogPrint("rpc", "RPC stopped.\n");
 }
 
 void OnRPCPreCommand(const CRPCCommand& cmd)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 #ifdef ENABLE_WALLET
     if (cmd.reqWallet && !pwalletMain)
         throw JSONRPCError(RPC_METHOD_NOT_FOUND, "Method not found (disabled)");
@@ -386,8 +357,6 @@ void OnRPCPreCommand(const CRPCCommand& cmd)
 
 std::string HelpMessage(HelpMessageMode mode)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 
     // When adding new options to the categories, please keep and ensure alphabetical ordering.
     string strUsage = HelpMessageGroup(_("Options:"));
@@ -616,8 +585,6 @@ std::string HelpMessage(HelpMessageMode mode)
 
 std::string LicenseInfo()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return FormatParagraph(strprintf(_("Copyright (C) 2009-%i The Bitcoin Core Developers"), COPYRIGHT_YEAR)) + "\n" +
            "\n" +
            FormatParagraph(strprintf(_("Copyright (C) 2014-%i The Dash Core Developers"), COPYRIGHT_YEAR)) + "\n" +
@@ -638,8 +605,6 @@ std::string LicenseInfo()
 
 static void BlockNotifyCallback(const uint256& hashNewTip)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     std::string strCmd = GetArg("-blocknotify", "");
 
     boost::replace_all(strCmd, "%s", hashNewTip.GetHex());
@@ -648,8 +613,6 @@ static void BlockNotifyCallback(const uint256& hashNewTip)
 
 static void BlockSizeNotifyCallback(int size, const uint256& hashNewTip)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     std::string strCmd = GetArg("-blocksizenotify", "");
 
     boost::replace_all(strCmd, "%s", hashNewTip.GetHex());

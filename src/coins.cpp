@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2012-2014 The Bitcoin developers
 // Copyright (c) 2015-2017 The PIVX developers
 // Copyright (c) 2018 The MAC developers
@@ -19,8 +18,6 @@
  */
 void CCoins::CalcMaskSize(unsigned int& nBytes, unsigned int& nNonzeroBytes) const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     unsigned int nLastUsedByte = 0;
     for (unsigned int b = 0; 2 + b * 8 < vout.size(); b++) {
         bool fZero = true;
@@ -40,8 +37,6 @@ void CCoins::CalcMaskSize(unsigned int& nBytes, unsigned int& nNonzeroBytes) con
 
 bool CCoins::Spend(const COutPoint& out, CTxInUndo& undo)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (out.n >= vout.size())
         return false;
     if (vout[out.n].IsNull())
@@ -60,58 +55,30 @@ bool CCoins::Spend(const COutPoint& out, CTxInUndo& undo)
 
 bool CCoins::Spend(int nPos)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     CTxInUndo undo;
     COutPoint out(0, nPos);
     return Spend(out, undo);
 }
 
 
-bool CCoinsView::GetCoins(const uint256& txid, CCoins& coins) const {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
- return false; }
-bool CCoinsView::HaveCoins(const uint256& txid) const {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
- return false; }
-uint256 CCoinsView::GetBestBlock() const {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
- return uint256(0); }
-bool CCoinsView::BatchWrite(CCoinsMap& mapCoins, const uint256& hashBlock) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
- return false; }
-bool CCoinsView::GetStats(CCoinsStats& stats) const {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
- return false; }
+bool CCoinsView::GetCoins(const uint256& txid, CCoins& coins) const { return false; }
+bool CCoinsView::HaveCoins(const uint256& txid) const { return false; }
+uint256 CCoinsView::GetBestBlock() const { return uint256(0); }
+bool CCoinsView::BatchWrite(CCoinsMap& mapCoins, const uint256& hashBlock) { return false; }
+bool CCoinsView::GetStats(CCoinsStats& stats) const { return false; }
 
 
-CCoinsViewBacked::CCoinsViewBacked(CCoinsView* viewIn) : base(viewIn) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-}
-bool CCoinsViewBacked::GetCoins(const uint256& txid, CCoins& coins) const {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
- return base->GetCoins(txid, coins); }
-bool CCoinsViewBacked::HaveCoins(const uint256& txid) const {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
- return base->HaveCoins(txid); }
-uint256 CCoinsViewBacked::GetBestBlock() const {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
- return base->GetBestBlock(); }
-void CCoinsViewBacked::SetBackend(CCoinsView& viewIn) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
- base = &viewIn; }
-bool CCoinsViewBacked::BatchWrite(CCoinsMap& mapCoins, const uint256& hashBlock) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
- return base->BatchWrite(mapCoins, hashBlock); }
-bool CCoinsViewBacked::GetStats(CCoinsStats& stats) const {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
- return base->GetStats(stats); }
+CCoinsViewBacked::CCoinsViewBacked(CCoinsView* viewIn) : base(viewIn) {}
+bool CCoinsViewBacked::GetCoins(const uint256& txid, CCoins& coins) const { return base->GetCoins(txid, coins); }
+bool CCoinsViewBacked::HaveCoins(const uint256& txid) const { return base->HaveCoins(txid); }
+uint256 CCoinsViewBacked::GetBestBlock() const { return base->GetBestBlock(); }
+void CCoinsViewBacked::SetBackend(CCoinsView& viewIn) { base = &viewIn; }
+bool CCoinsViewBacked::BatchWrite(CCoinsMap& mapCoins, const uint256& hashBlock) { return base->BatchWrite(mapCoins, hashBlock); }
+bool CCoinsViewBacked::GetStats(CCoinsStats& stats) const { return base->GetStats(stats); }
 
 CCoinsKeyHasher::CCoinsKeyHasher() : salt(GetRandHash()) {}
 
-CCoinsViewCache::CCoinsViewCache(CCoinsView* baseIn) : CCoinsViewBacked(baseIn), hasModifier(false), hashBlock(0) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-}
+CCoinsViewCache::CCoinsViewCache(CCoinsView* baseIn) : CCoinsViewBacked(baseIn), hasModifier(false), hashBlock(0) {}
 
 CCoinsViewCache::~CCoinsViewCache()
 {
@@ -120,8 +87,6 @@ CCoinsViewCache::~CCoinsViewCache()
 
 CCoinsMap::const_iterator CCoinsViewCache::FetchCoins(const uint256& txid) const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     CCoinsMap::iterator it = cacheCoins.find(txid);
     if (it != cacheCoins.end())
         return it;
@@ -140,8 +105,6 @@ CCoinsMap::const_iterator CCoinsViewCache::FetchCoins(const uint256& txid) const
 
 bool CCoinsViewCache::GetCoins(const uint256& txid, CCoins& coins) const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     CCoinsMap::const_iterator it = FetchCoins(txid);
     if (it != cacheCoins.end()) {
         coins = it->second.coins;
@@ -152,8 +115,6 @@ bool CCoinsViewCache::GetCoins(const uint256& txid, CCoins& coins) const
 
 CCoinsModifier CCoinsViewCache::ModifyCoins(const uint256& txid)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     assert(!hasModifier);
     std::pair<CCoinsMap::iterator, bool> ret = cacheCoins.insert(std::make_pair(txid, CCoinsCacheEntry()));
     if (ret.second) {
@@ -173,8 +134,6 @@ CCoinsModifier CCoinsViewCache::ModifyCoins(const uint256& txid)
 
 const CCoins* CCoinsViewCache::AccessCoins(const uint256& txid) const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     CCoinsMap::const_iterator it = FetchCoins(txid);
     if (it == cacheCoins.end()) {
         return NULL;
@@ -185,8 +144,6 @@ const CCoins* CCoinsViewCache::AccessCoins(const uint256& txid) const
 
 bool CCoinsViewCache::HaveCoins(const uint256& txid) const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     CCoinsMap::const_iterator it = FetchCoins(txid);
     // We're using vtx.empty() instead of IsPruned here for performance reasons,
     // as we only care about the case where a transaction was replaced entirely
@@ -197,8 +154,6 @@ bool CCoinsViewCache::HaveCoins(const uint256& txid) const
 
 uint256 CCoinsViewCache::GetBestBlock() const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (hashBlock == uint256(0))
         hashBlock = base->GetBestBlock();
     return hashBlock;
@@ -206,15 +161,11 @@ uint256 CCoinsViewCache::GetBestBlock() const
 
 void CCoinsViewCache::SetBestBlock(const uint256& hashBlockIn)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     hashBlock = hashBlockIn;
 }
 
 bool CCoinsViewCache::BatchWrite(CCoinsMap& mapCoins, const uint256& hashBlockIn)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     assert(!hasModifier);
     for (CCoinsMap::iterator it = mapCoins.begin(); it != mapCoins.end();) {
         if (it->second.flags & CCoinsCacheEntry::DIRTY) { // Ignore non-dirty entries (optimization).
@@ -252,8 +203,6 @@ bool CCoinsViewCache::BatchWrite(CCoinsMap& mapCoins, const uint256& hashBlockIn
 
 bool CCoinsViewCache::Flush()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     bool fOk = base->BatchWrite(cacheCoins, hashBlock);
     cacheCoins.clear();
     return fOk;
@@ -261,15 +210,11 @@ bool CCoinsViewCache::Flush()
 
 unsigned int CCoinsViewCache::GetCacheSize() const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return cacheCoins.size();
 }
 
 const CTxOut& CCoinsViewCache::GetOutputFor(const CTxIn& input) const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     const CCoins* coins = AccessCoins(input.prevout.hash);
     assert(coins && coins->IsAvailable(input.prevout.n));
     return coins->vout[input.prevout.n];
@@ -277,8 +222,6 @@ const CTxOut& CCoinsViewCache::GetOutputFor(const CTxIn& input) const
 
 CAmount CCoinsViewCache::GetValueIn(const CTransaction& tx) const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (tx.IsCoinBase())
         return 0;
 
@@ -295,8 +238,6 @@ CAmount CCoinsViewCache::GetValueIn(const CTransaction& tx) const
 
 bool CCoinsViewCache::HaveInputs(const CTransaction& tx) const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (!tx.IsCoinBase() && !tx.IsZerocoinSpend()) {
         for (unsigned int i = 0; i < tx.vin.size(); i++) {
             const COutPoint& prevout = tx.vin[i].prevout;
@@ -311,8 +252,6 @@ bool CCoinsViewCache::HaveInputs(const CTransaction& tx) const
 
 double CCoinsViewCache::GetPriority(const CTransaction& tx, int nHeight) const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (tx.IsCoinBase() || tx.IsCoinStake())
         return 0.0;
     double dResult = 0.0;
@@ -329,8 +268,6 @@ double CCoinsViewCache::GetPriority(const CTransaction& tx, int nHeight) const
 
 CCoinsModifier::CCoinsModifier(CCoinsViewCache& cache_, CCoinsMap::iterator it_) : cache(cache_), it(it_)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     assert(!cache.hasModifier);
     cache.hasModifier = true;
 }

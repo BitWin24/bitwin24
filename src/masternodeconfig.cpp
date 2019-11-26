@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
 // Copyright (c) 2018 The MAC developers
@@ -16,16 +15,12 @@ CMasternodeConfig masternodeConfig;
 
 void CMasternodeConfig::add(std::string alias, std::string ip, std::string privKey, std::string txHash, std::string outputIndex)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     CMasternodeEntry cme(alias, ip, privKey, txHash, outputIndex);
     entries.push_back(cme);
 }
 
 bool CMasternodeConfig::read(std::string& strErr)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     int linenumber = 1;
     boost::filesystem::path pathMasternodeConfigFile = GetMasternodeConfigFile();
     boost::filesystem::ifstream streamConfig(pathMasternodeConfigFile);
@@ -101,8 +96,6 @@ bool CMasternodeConfig::read(std::string& strErr)
 
 bool CMasternodeConfig::CMasternodeEntry::castOutputIndex(int &n)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     try {
         n = std::stoi(outputIndex);
     } catch (const std::exception e) {

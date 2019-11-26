@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 /**
 * @file       SerialNumberSignatureOfKnowledge.cpp
 *
@@ -17,14 +16,10 @@
 
 namespace libzerocoin {
 
-SerialNumberSignatureOfKnowledge::SerialNumberSignatureOfKnowledge(const ZerocoinParams* p): params(p) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
- }
+SerialNumberSignatureOfKnowledge::SerialNumberSignatureOfKnowledge(const ZerocoinParams* p): params(p) { }
 
 // Use one 256 bit seed and concatenate 4 unique 256 bit hashes to make a 1024 bit hash
 CBigNum SeedTo1024(uint256 hashSeed) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     CHashWriter hasher(0,0);
     hasher << hashSeed;
 
@@ -47,8 +42,6 @@ SerialNumberSignatureOfKnowledge::SerialNumberSignatureOfKnowledge(const
         uint256 msghash):params(p),
 	s_notprime(p->zkp_iterations),
 	sprime(p->zkp_iterations) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 
 	// Sanity check: verify that the order of the "accumulatedValueCommitmentGroup" is
 	// equal to the modulus of "coinCommitmentGroup". Otherwise we will produce invalid
@@ -119,8 +112,6 @@ SerialNumberSignatureOfKnowledge::SerialNumberSignatureOfKnowledge(const
 
 inline CBigNum SerialNumberSignatureOfKnowledge::challengeCalculation(const CBigNum& a_exp,const CBigNum& b_exp,
         const CBigNum& h_exp) const {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 
 	CBigNum a = params->coinCommitmentGroup.g;
 	CBigNum b = params->coinCommitmentGroup.h;
@@ -135,8 +126,6 @@ inline CBigNum SerialNumberSignatureOfKnowledge::challengeCalculation(const CBig
 
 bool SerialNumberSignatureOfKnowledge::Verify(const CBigNum& coinSerialNumber, const CBigNum& valueOfCommitmentToCoin,
         const uint256 msghash) const {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 	CBigNum a = params->coinCommitmentGroup.g;
 	CBigNum b = params->coinCommitmentGroup.h;
 	CBigNum g = params->serialNumberSoKCommitmentGroup.g;

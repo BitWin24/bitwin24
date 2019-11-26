@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin Core developers
 // Copyright (c) 2017 The PIVX developers
@@ -53,8 +52,6 @@ struct CCoin {
     template <typename Stream, typename Operation>
     inline void SerializationOp(Stream& s, Operation ser_action, int nType, int nVersion)
     {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
         READWRITE(nTxVer);
         READWRITE(nHeight);
         READWRITE(out);
@@ -70,8 +67,6 @@ extern UniValue blockheaderToJSON(const CBlockIndex* blockindex);
 
 static bool RESTERR(HTTPRequest* req, enum HTTPStatusCode status, string message)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     req->WriteHeader("Content-Type", "text/plain");
     req->WriteReply(status, message + "\r\n");
     return false;
@@ -610,8 +605,6 @@ static const struct {
 
 bool StartREST()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     for (unsigned int i = 0; i < ARRAYLEN(uri_prefixes); i++)
         RegisterHTTPHandler(uri_prefixes[i].prefix, false, uri_prefixes[i].handler);
     return true;
@@ -619,14 +612,10 @@ bool StartREST()
 
 void InterruptREST()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
 }
 
 void StopREST()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     for (unsigned int i = 0; i < ARRAYLEN(uri_prefixes); i++)
         UnregisterHTTPHandler(uri_prefixes[i].prefix, false);
 }

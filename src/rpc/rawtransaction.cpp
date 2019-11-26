@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
@@ -38,8 +37,6 @@ using namespace std;
 
 void ScriptPubKeyToJSON(const CScript& scriptPubKey, UniValue& out, bool fIncludeHex)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     txnouttype type;
     vector<CTxDestination> addresses;
     int nRequired;
@@ -64,8 +61,6 @@ void ScriptPubKeyToJSON(const CScript& scriptPubKey, UniValue& out, bool fInclud
 
 void TxToJSON(const CTransaction& tx, const uint256 hashBlock, UniValue& entry)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     entry.push_back(Pair("txid", tx.GetHash().GetHex()));
     entry.push_back(Pair("version", tx.nVersion));
     entry.push_back(Pair("locktime", (int64_t)tx.nLockTime));
@@ -116,8 +111,6 @@ void TxToJSON(const CTransaction& tx, const uint256 hashBlock, UniValue& entry)
 
 UniValue getrawtransaction(const UniValue& params, bool fHelp)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (fHelp || params.size() < 1 || params.size() > 2)
         throw runtime_error(
             "getrawtransaction \"txid\" ( verbose )\n"
@@ -324,8 +317,6 @@ UniValue listunspent(const UniValue& params, bool fHelp)
 
 UniValue createrawtransaction(const UniValue& params, bool fHelp)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (fHelp || params.size() != 2)
         throw runtime_error(
             "createrawtransaction [{\"txid\":\"id\",\"vout\":n},...] {\"address\":amount,...}\n"
@@ -403,8 +394,6 @@ UniValue createrawtransaction(const UniValue& params, bool fHelp)
 
 UniValue decoderawtransaction(const UniValue& params, bool fHelp)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "decoderawtransaction \"hexstring\"\n"
@@ -468,8 +457,6 @@ UniValue decoderawtransaction(const UniValue& params, bool fHelp)
 
 UniValue decodescript(const UniValue& params, bool fHelp)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "decodescript \"hex\"\n"
@@ -514,8 +501,6 @@ UniValue decodescript(const UniValue& params, bool fHelp)
 /** Pushes a JSON object for script verification or signing errors to vErrorsRet. */
 static void TxInErrorToJSON(const CTxIn& txin, UniValue& vErrorsRet, const std::string& strMessage)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     UniValue entry(UniValue::VOBJ);
     entry.push_back(Pair("txid", txin.prevout.hash.ToString()));
     entry.push_back(Pair("vout", (uint64_t)txin.prevout.n));
@@ -527,8 +512,6 @@ static void TxInErrorToJSON(const CTxIn& txin, UniValue& vErrorsRet, const std::
 
 UniValue signrawtransaction(const UniValue& params, bool fHelp)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (fHelp || params.size() < 1 || params.size() > 4)
         throw runtime_error(
             "signrawtransaction \"hexstring\" ( [{\"txid\":\"id\",\"vout\":n,\"scriptPubKey\":\"hex\",\"redeemScript\":\"hex\"},...] [\"privatekey1\",...] sighashtype )\n"
@@ -761,8 +744,6 @@ UniValue signrawtransaction(const UniValue& params, bool fHelp)
 
 UniValue sendrawtransaction(const UniValue& params, bool fHelp)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (fHelp || params.size() < 1 || params.size() > 3)
         throw runtime_error(
             "sendrawtransaction \"hexstring\" ( allowhighfees )\n"
@@ -829,8 +810,6 @@ UniValue sendrawtransaction(const UniValue& params, bool fHelp)
 
 UniValue getspentzerocoinamount(const UniValue& params, bool fHelp)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (fHelp || params.size() != 2)
         throw runtime_error(
             "getspentzerocoinamount hexstring index\n"

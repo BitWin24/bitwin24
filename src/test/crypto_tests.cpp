@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2014 The Bitcoin Core developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -22,8 +21,6 @@ BOOST_AUTO_TEST_SUITE(crypto_tests)
 
 template<typename Hasher, typename In, typename Out>
 void TestVector(const Hasher &h, const In &in, const Out &out) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     Out hash;
     BOOST_CHECK(out.size() == h.OUTPUT_SIZE);
     hash.resize(out.size());
@@ -51,36 +48,22 @@ void TestVector(const Hasher &h, const In &in, const Out &out) {
     }
 }
 
-void TestSHA1(const std::string &in, const std::string &hexout) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
- TestVector(CSHA1(), in, ParseHex(hexout));}
-void TestSHA256(const std::string &in, const std::string &hexout) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
- TestVector(CSHA256(), in, ParseHex(hexout));}
-void TestSHA512(const std::string &in, const std::string &hexout) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
- TestVector(CSHA512(), in, ParseHex(hexout));}
-void TestRIPEMD160(const std::string &in, const std::string &hexout) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
- TestVector(CRIPEMD160(), in, ParseHex(hexout));}
+void TestSHA1(const std::string &in, const std::string &hexout) { TestVector(CSHA1(), in, ParseHex(hexout));}
+void TestSHA256(const std::string &in, const std::string &hexout) { TestVector(CSHA256(), in, ParseHex(hexout));}
+void TestSHA512(const std::string &in, const std::string &hexout) { TestVector(CSHA512(), in, ParseHex(hexout));}
+void TestRIPEMD160(const std::string &in, const std::string &hexout) { TestVector(CRIPEMD160(), in, ParseHex(hexout));}
 
 void TestHMACSHA256(const std::string &hexkey, const std::string &hexin, const std::string &hexout) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     std::vector<unsigned char> key = ParseHex(hexkey);
     TestVector(CHMAC_SHA256(&key[0], key.size()), ParseHex(hexin), ParseHex(hexout));
 }
 
 void TestHMACSHA512(const std::string &hexkey, const std::string &hexin, const std::string &hexout) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     std::vector<unsigned char> key = ParseHex(hexkey);
     TestVector(CHMAC_SHA512(&key[0], key.size()), ParseHex(hexin), ParseHex(hexout));
 }
 
 std::string LongTestString(void) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     std::string ret;
     for (int i=0; i<200000; i++) {
         ret += (unsigned char)(i);
@@ -267,8 +250,6 @@ BOOST_AUTO_TEST_CASE(hmac_sha512_testvectors) {
 
 void TestRFC6979(const std::string& hexkey, const std::string& hexmsg, const std::vector<std::string>& hexout)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     std::vector<unsigned char> key = ParseHex(hexkey);
     std::vector<unsigned char> msg = ParseHex(hexmsg);
     RFC6979_HMAC_SHA256 rng(&key[0], key.size(), &msg[0], msg.size());

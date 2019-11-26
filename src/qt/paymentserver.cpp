@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
@@ -61,16 +60,12 @@ const qint64 BIP70_MAX_PAYMENTREQUEST_SIZE = 50000;
 
 struct X509StoreDeleter {
       void operator()(X509_STORE* b) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
           X509_STORE_free(b);
       }
 };
 
 struct X509Deleter {
-      void operator()(X509* b) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
- X509_free(b); }
+      void operator()(X509* b) { X509_free(b); }
 };
 
 namespace // Anon namespace
@@ -86,8 +81,6 @@ namespace // Anon namespace
 //
 static QString ipcServerName()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     QString name("BITWIN24Qt");
 
     // Append a simple hash of the datadir
@@ -108,8 +101,6 @@ static QList<QString> savedPaymentRequests;
 
 static void ReportInvalidCertificate(const QSslCertificate& cert)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     qDebug() << QString("%1: Payment server found an invalid certificate: ").arg(__func__) << cert.serialNumber() << cert.subjectInfo(QSslCertificate::CommonName) << cert.subjectInfo(QSslCertificate::DistinguishedNameQualifier) << cert.subjectInfo(QSslCertificate::OrganizationalUnitName);
 }
 
@@ -118,8 +109,6 @@ static void ReportInvalidCertificate(const QSslCertificate& cert)
 //
 void PaymentServer::LoadRootCAs(X509_STORE* _store)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     // Unit tests mostly use this, to pass in fake root CAs:
     if (_store) {
         certStore.reset(_store);
@@ -194,8 +183,6 @@ void PaymentServer::LoadRootCAs(X509_STORE* _store)
 //
 void PaymentServer::ipcParseCommandLine(int argc, char* argv[])
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     for (int i = 1; i < argc; i++) {
         QString arg(argv[i]);
         if (arg.startsWith("-"))
@@ -247,8 +234,6 @@ void PaymentServer::ipcParseCommandLine(int argc, char* argv[])
 //
 bool PaymentServer::ipcSendCommandLine()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     bool fResult = false;
     foreach (const QString& r, savedPaymentRequests) {
         QLocalSocket* socket = new QLocalSocket();
@@ -284,8 +269,6 @@ PaymentServer::PaymentServer(QObject* parent, bool startLocalServer) : QObject(p
                                                                        netManager(0),
                                                                        optionsModel(0)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     // Verify that the version of the library that we linked against is
     // compatible with the version of the headers we compiled against.
     GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -326,8 +309,6 @@ PaymentServer::~PaymentServer()
 //
 bool PaymentServer::eventFilter(QObject* object, QEvent* event)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     // clicking on bitwin24: URIs creates FileOpen events on the Mac
     if (event->type() == QEvent::FileOpen) {
         QFileOpenEvent* fileEvent = static_cast<QFileOpenEvent*>(event);
@@ -344,8 +325,6 @@ bool PaymentServer::eventFilter(QObject* object, QEvent* event)
 
 void PaymentServer::initNetManager()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (!optionsModel)
         return;
     if (netManager != NULL)
@@ -372,8 +351,6 @@ void PaymentServer::initNetManager()
 
 void PaymentServer::uiReady()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     initNetManager();
 
     saveURIs = false;
@@ -385,8 +362,6 @@ void PaymentServer::uiReady()
 
 void PaymentServer::handleURIOrFile(const QString& s)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (saveURIs) {
         savedPaymentRequests.append(s);
         return;
@@ -449,8 +424,6 @@ void PaymentServer::handleURIOrFile(const QString& s)
 
 void PaymentServer::handleURIConnection()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     QLocalSocket* clientConnection = uriServer->nextPendingConnection();
 
     while (clientConnection->bytesAvailable() < (int)sizeof(quint32))
@@ -476,8 +449,6 @@ void PaymentServer::handleURIConnection()
 //
 bool PaymentServer::readPaymentRequestFromFile(const QString& filename, PaymentRequestPlus& request)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     QFile f(filename);
     if (!f.open(QIODevice::ReadOnly)) {
         qWarning() << QString("PaymentServer::%1: Failed to open %2").arg(__func__).arg(filename);
@@ -501,8 +472,6 @@ bool PaymentServer::readPaymentRequestFromFile(const QString& filename, PaymentR
 
 bool PaymentServer::processPaymentRequest(PaymentRequestPlus& request, SendCoinsRecipient& recipient)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (!optionsModel)
         return false;
 
@@ -580,8 +549,6 @@ bool PaymentServer::processPaymentRequest(PaymentRequestPlus& request, SendCoins
 
 void PaymentServer::fetchRequest(const QUrl& url)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     QNetworkRequest netRequest;
     netRequest.setAttribute(QNetworkRequest::User, BIP70_MESSAGE_PAYMENTREQUEST);
     netRequest.setUrl(url);
@@ -592,8 +559,6 @@ void PaymentServer::fetchRequest(const QUrl& url)
 
 void PaymentServer::fetchPaymentACK(CWallet* wallet, SendCoinsRecipient recipient, QByteArray transaction)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     const payments::PaymentDetails& details = recipient.paymentRequest.getDetails();
     if (!details.has_payment_url())
         return;
@@ -646,8 +611,6 @@ void PaymentServer::fetchPaymentACK(CWallet* wallet, SendCoinsRecipient recipien
 
 void PaymentServer::netRequestFinished(QNetworkReply* reply)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     reply->deleteLater();
 
     // BIP70 DoS protection
@@ -703,8 +666,6 @@ void PaymentServer::netRequestFinished(QNetworkReply* reply)
 
 void PaymentServer::reportSslErrors(QNetworkReply* reply, const QList<QSslError>& errs)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     Q_UNUSED(reply);
 
     QString errString;
@@ -717,22 +678,16 @@ void PaymentServer::reportSslErrors(QNetworkReply* reply, const QList<QSslError>
 
 void PaymentServer::setOptionsModel(OptionsModel* optionsModel)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     this->optionsModel = optionsModel;
 }
 
 void PaymentServer::handlePaymentACK(const QString& paymentACKMsg)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     // currently we don't futher process or store the paymentACK message
     emit message(tr("Payment acknowledged"), paymentACKMsg, CClientUIInterface::ICON_INFORMATION | CClientUIInterface::MODAL);
 }
 
 X509_STORE* PaymentServer::getCertStore()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return certStore.get();
 }

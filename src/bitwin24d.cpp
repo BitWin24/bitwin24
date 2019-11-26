@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
@@ -46,8 +45,6 @@ static bool fDaemon;
 
 void WaitForShutdown(boost::thread_group* threadGroup)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     bool fShutdown = ShutdownRequested();
     // Tell the main threads to shutdown.
     while (!fShutdown) {
@@ -66,8 +63,6 @@ void WaitForShutdown(boost::thread_group* threadGroup)
 //
 bool AppInit(int argc, char* argv[])
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     boost::thread_group threadGroup;
     CScheduler scheduler;
 
@@ -176,8 +171,6 @@ bool AppInit(int argc, char* argv[])
 
 int main(int argc, char* argv[])
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     SetupEnvironment();
 
     // Connect bitwin24d signal handlers

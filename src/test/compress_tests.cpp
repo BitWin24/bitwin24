@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2012-2013 The Bitcoin Core developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -25,20 +24,14 @@
 BOOST_AUTO_TEST_SUITE(compress_tests)
 
 bool static TestEncode(uint64_t in) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return in == CTxOutCompressor::DecompressAmount(CTxOutCompressor::CompressAmount(in));
 }
 
 bool static TestDecode(uint64_t in) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return in == CTxOutCompressor::CompressAmount(CTxOutCompressor::DecompressAmount(in));
 }
 
 bool static TestPair(uint64_t dec, uint64_t enc) {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return CTxOutCompressor::CompressAmount(dec) == enc &&
            CTxOutCompressor::DecompressAmount(enc) == dec;
 }

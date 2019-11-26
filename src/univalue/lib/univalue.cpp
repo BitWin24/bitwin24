@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright 2014 BitPay Inc.
 // Copyright 2015 Bitcoin Core Developers
 // Distributed under the MIT software license, see the accompanying
@@ -19,8 +18,6 @@ namespace
 {
 static bool ParsePrechecks(const std::string& str)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (str.empty()) // No empty string allowed
         return false;
     if (str.size() >= 1 && (json_isspace(str[0]) || json_isspace(str[str.size()-1]))) // No padding allowed
@@ -32,8 +29,6 @@ static bool ParsePrechecks(const std::string& str)
 
 bool ParseInt32(const std::string& str, int32_t *out)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (!ParsePrechecks(str))
         return false;
     char *endp = NULL;
@@ -50,8 +45,6 @@ bool ParseInt32(const std::string& str, int32_t *out)
 
 bool ParseInt64(const std::string& str, int64_t *out)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (!ParsePrechecks(str))
         return false;
     char *endp = NULL;
@@ -67,8 +60,6 @@ bool ParseInt64(const std::string& str, int64_t *out)
 
 bool ParseDouble(const std::string& str, double *out)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (!ParsePrechecks(str))
         return false;
     if (str.size() >= 2 && str[0] == '0' && str[1] == 'x') // No hexadecimal floats allowed
@@ -111,8 +102,6 @@ bool UniValue::setBool(bool val_)
 
 static bool validNumStr(const string& s)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     string tokenVal;
     unsigned int consumed;
     enum jtokentype tt = getJsonToken(tokenVal, consumed, s.data(), s.data() + s.size());
@@ -274,8 +263,6 @@ const UniValue& UniValue::operator[](size_t index) const
 
 const char *uvTypeName(UniValue::VType t)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     switch (t) {
     case UniValue::VNULL: return "null";
     case UniValue::VBOOL: return "bool";
@@ -291,8 +278,6 @@ const char *uvTypeName(UniValue::VType t)
 
 const UniValue& find_value(const UniValue& obj, const std::string& name)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     for (unsigned int i = 0; i < obj.keys.size(); i++)
         if (obj.keys[i] == name)
             return obj.values.at(i);

@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2017 The PIVX developers
@@ -13,8 +12,6 @@
 
 CFeeRate::CFeeRate(const CAmount& nFeePaid, size_t nSize)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (nSize > 0)
         nSatoshisPerK = nFeePaid * 1000 / nSize;
     else
@@ -23,8 +20,6 @@ CFeeRate::CFeeRate(const CAmount& nFeePaid, size_t nSize)
 
 CAmount CFeeRate::GetFee(size_t nSize) const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     CAmount nFee = nSatoshisPerK * nSize / 1000;
 
     if (nFee == 0 && nSatoshisPerK > 0)
@@ -35,7 +30,5 @@ CAmount CFeeRate::GetFee(size_t nSize) const
 
 std::string CFeeRate::ToString() const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return strprintf("%d.%08d BITWIN24/kB", nSatoshisPerK / COIN, nSatoshisPerK % COIN);
 }

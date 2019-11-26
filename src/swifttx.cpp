@@ -1,4 +1,3 @@
-#include "/home/s/workspace/BitWin24/src/trace-log.h" //++++++++++++++++++
 // Copyright (c) 2014-2016 The Dash developers
 // Copyright (c) 2016-2018 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
@@ -40,8 +39,6 @@ int nCompleteTXLocks;
 
 void ProcessMessageSwiftTX(CNode* pfrom, std::string& strCommand, CDataStream& vRecv)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (fLiteMode) return; //disable all obfuscation/masternode related functionality
     if (!IsSporkActive(SPORK_2_SWIFTTX)) return;
     if (!masternodeSync.IsBlockchainSynced()) return;
@@ -181,8 +178,6 @@ void ProcessMessageSwiftTX(CNode* pfrom, std::string& strCommand, CDataStream& v
 
 bool IsIXTXValid(const CTransaction& txCollateral)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (txCollateral.vout.size() < 1) return false;
     if (txCollateral.nLockTime != 0) return false;
 
@@ -230,8 +225,6 @@ bool IsIXTXValid(const CTransaction& txCollateral)
 
 int64_t CreateNewLock(CTransaction tx)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     int64_t nTxAge = 0;
     BOOST_REVERSE_FOREACH (CTxIn i, tx.vin) {
         nTxAge = GetInputAge(i);
@@ -270,8 +263,6 @@ int64_t CreateNewLock(CTransaction tx)
 // check if we need to vote on this transaction
 void DoConsensusVote(CTransaction& tx, int64_t nBlockHeight)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (!fMasterNode) return;
 
     int n = mnodeman.GetMasternodeRank(activeMasternode.vin, nBlockHeight, MIN_SWIFTTX_PROTO_VERSION);
@@ -313,8 +304,6 @@ void DoConsensusVote(CTransaction& tx, int64_t nBlockHeight)
 //received a consensus vote
 bool ProcessConsensusVote(CNode* pnode, CConsensusVote& ctx)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     int n = mnodeman.GetMasternodeRank(ctx.vinMasternode, ctx.nBlockHeight, MIN_SWIFTTX_PROTO_VERSION);
 
     CMasternode* pmn = mnodeman.Find(ctx.vinMasternode);
@@ -406,8 +395,6 @@ bool ProcessConsensusVote(CNode* pnode, CConsensusVote& ctx)
 
 bool CheckForConflictingLocks(CTransaction& tx)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     /*
         It's possible (very unlikely though) to get 2 conflicting transaction locks approved by the network.
         In that case, they will cancel each other out.
@@ -431,8 +418,6 @@ bool CheckForConflictingLocks(CTransaction& tx)
 
 int64_t GetAverageVoteTime()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     std::map<uint256, int64_t>::iterator it = mapUnknownVotes.begin();
     int64_t total = 0;
     int64_t count = 0;
@@ -448,8 +433,6 @@ int64_t GetAverageVoteTime()
 
 void CleanTransactionLocksList()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if (chainActive.Tip() == NULL) return;
 
     std::map<uint256, CTransactionLock>::iterator it = mapTxLocks.begin();
@@ -480,8 +463,6 @@ void CleanTransactionLocksList()
 
 int GetTransactionLockSignatures(uint256 txHash)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     if(fLargeWorkForkFound || fLargeWorkInvalidChainFound) return -2;
     if (!IsSporkActive(SPORK_2_SWIFTTX)) return -1;
 
@@ -493,16 +474,12 @@ int GetTransactionLockSignatures(uint256 txHash)
 
 uint256 CConsensusVote::GetHash() const
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     return vinMasternode.prevout.hash + vinMasternode.prevout.n + txHash;
 }
 
 
 bool CConsensusVote::SignatureValid()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     std::string errorMessage;
     std::string strMessage = txHash.ToString().c_str() + boost::lexical_cast<std::string>(nBlockHeight);
     //LogPrintf("verify strMessage %s \n", strMessage.c_str());
@@ -524,8 +501,6 @@ bool CConsensusVote::SignatureValid()
 
 bool CConsensusVote::Sign()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     std::string errorMessage;
 
     CKey key2;
@@ -555,8 +530,6 @@ bool CConsensusVote::Sign()
 
 bool CTransactionLock::SignaturesValid()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     BOOST_FOREACH (CConsensusVote vote, vecConsensusVotes) {
         int n = mnodeman.GetMasternodeRank(vote.vinMasternode, vote.nBlockHeight, MIN_SWIFTTX_PROTO_VERSION);
 
@@ -581,15 +554,11 @@ bool CTransactionLock::SignaturesValid()
 
 void CTransactionLock::AddSignature(CConsensusVote& cv)
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     vecConsensusVotes.push_back(cv);
 }
 
 int CTransactionLock::CountSignatures()
 {
-	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
-
     /*
         Only count signatures where the BlockHeight matches the transaction's blockheight.
         The votes have no proof it's the correct blockheight

@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2015-2017 The PIVX developers
@@ -36,31 +37,43 @@ struct CDiskBlockPos {
 
     CDiskBlockPos()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         SetNull();
     }
 
     CDiskBlockPos(int nFileIn, unsigned int nPosIn)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         nFile = nFileIn;
         nPos = nPosIn;
     }
 
     friend bool operator==(const CDiskBlockPos& a, const CDiskBlockPos& b)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return (a.nFile == b.nFile && a.nPos == b.nPos);
     }
 
     friend bool operator!=(const CDiskBlockPos& a, const CDiskBlockPos& b)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return !(a == b);
     }
 
     void SetNull()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         nFile = -1;
         nPos = 0;
     }
-    bool IsNull() const { return (nFile == -1); }
+    bool IsNull() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return (nFile == -1); }
 };
 
 enum BlockStatus {
@@ -186,6 +199,8 @@ public:
     
     void SetNull()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         phashBlock = NULL;
         pprev = NULL;
         pskip = NULL;
@@ -222,11 +237,15 @@ public:
 
     CBlockIndex()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         SetNull();
     }
 
     CBlockIndex(const CBlock& block)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         SetNull();
 
         nVersion = block.nVersion;
@@ -259,6 +278,8 @@ public:
 
     CDiskBlockPos GetBlockPos() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         CDiskBlockPos ret;
         if (nStatus & BLOCK_HAVE_DATA) {
             ret.nFile = nFile;
@@ -269,6 +290,8 @@ public:
 
     CDiskBlockPos GetUndoPos() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         CDiskBlockPos ret;
         if (nStatus & BLOCK_HAVE_UNDO) {
             ret.nFile = nFile;
@@ -279,6 +302,8 @@ public:
 
     CBlockHeader GetBlockHeader() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         CBlockHeader block;
         block.nVersion = nVersion;
         if (pprev)
@@ -293,6 +318,8 @@ public:
 
     int64_t GetZerocoinSupply() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         int64_t nTotal = 0;
         for (auto& denom : libzerocoin::zerocoinDenomList) {
             nTotal += libzerocoin::ZerocoinDenominationToAmount(denom) * mapZerocoinSupply.at(denom);
@@ -302,16 +329,22 @@ public:
 
     bool MintedDenomination(libzerocoin::CoinDenomination denom) const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return std::find(vMintDenominationsInBlock.begin(), vMintDenominationsInBlock.end(), denom) != vMintDenominationsInBlock.end();
     }
 
     uint256 GetBlockHash() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return *phashBlock;
     }
 
     int64_t GetBlockTime() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return (int64_t)nTime;
     }
 
@@ -319,6 +352,8 @@ public:
 
     int64_t GetMedianTimePast() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         int64_t pmedian[nMedianTimeSpan];
         int64_t* pbegin = &pmedian[nMedianTimeSpan];
         int64_t* pend = &pmedian[nMedianTimeSpan];
@@ -333,21 +368,29 @@ public:
 
     bool IsProofOfWork() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return !(nFlags & BLOCK_PROOF_OF_STAKE);
     }
 
     bool IsProofOfStake() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return (nFlags & BLOCK_PROOF_OF_STAKE);
     }
 
     void SetProofOfStake()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         nFlags |= BLOCK_PROOF_OF_STAKE;
     }
 
     unsigned int GetStakeEntropyBit() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         unsigned int nEntropyBit = ((GetBlockHash().Get64()) & 1);
         if (GetBoolArg("-printstakemodifier", false))
             LogPrintf("GetStakeEntropyBit: nHeight=%u hashBlock=%s nEntropyBit=%u\n", nHeight, GetBlockHash().ToString().c_str(), nEntropyBit);
@@ -357,6 +400,8 @@ public:
 
     bool SetStakeEntropyBit(unsigned int nEntropyBit)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (nEntropyBit > 1)
             return false;
         nFlags |= (nEntropyBit ? BLOCK_STAKE_ENTROPY : 0);
@@ -365,11 +410,15 @@ public:
 
     bool GeneratedStakeModifier() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return (nFlags & BLOCK_STAKE_MODIFIER);
     }
 
     void SetStakeModifier(uint64_t nModifier, bool fGeneratedStakeModifier)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         nStakeModifier = nModifier;
         if (fGeneratedStakeModifier)
             nFlags |= BLOCK_STAKE_MODIFIER;
@@ -384,6 +433,8 @@ public:
 
     std::string ToString() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return strprintf("CBlockIndex(pprev=%p, nHeight=%d, merkle=%s, hashBlock=%s)",
             pprev, nHeight,
             hashMerkleRoot.ToString(),
@@ -393,6 +444,8 @@ public:
     //! Check whether this block index entry is valid up to the passed validity level.
     bool IsValid(enum BlockStatus nUpTo = BLOCK_VALID_TRANSACTIONS) const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         assert(!(nUpTo & ~BLOCK_VALID_MASK)); // Only validity flags allowed.
         if (nStatus & BLOCK_FAILED_MASK)
             return false;
@@ -403,6 +456,8 @@ public:
     //! Returns true if the validity was changed.
     bool RaiseValidity(enum BlockStatus nUpTo)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         assert(!(nUpTo & ~BLOCK_VALID_MASK)); // Only validity flags allowed.
         if (nStatus & BLOCK_FAILED_MASK)
             return false;
@@ -430,6 +485,8 @@ public:
 
     CDiskBlockIndex()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         hashPrev = uint256();
         hashNext = uint256();
     }
@@ -489,6 +546,8 @@ public:
 
     uint256 GetBlockHash() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         CBlockHeader block;
         block.nVersion = nVersion;
         block.hashPrevBlock = hashPrev;
@@ -503,6 +562,8 @@ public:
 
     std::string ToString() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         std::string str = "CDiskBlockIndex(";
         str += CBlockIndex::ToString();
         str += strprintf("\n                hashBlock=%s, hashPrev=%s)",
@@ -528,6 +589,8 @@ public:
     /** Returns the index entry for the tip of this chain, or NULL if none. */
     CBlockIndex* Tip(bool fProofOfStake = false) const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (vChain.size() < 1)
             return NULL;
 
@@ -543,6 +606,8 @@ public:
     /** Returns the index entry at a particular height in this chain, or NULL if no such height exists. */
     CBlockIndex* operator[](int nHeight) const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (nHeight < 0 || nHeight >= (int)vChain.size())
             return NULL;
         return vChain[nHeight];
@@ -551,6 +616,8 @@ public:
     /** Compare two chains efficiently. */
     friend bool operator==(const CChain& a, const CChain& b)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return a.vChain.size() == b.vChain.size() &&
                a.vChain[a.vChain.size() - 1] == b.vChain[b.vChain.size() - 1];
     }
@@ -558,12 +625,16 @@ public:
     /** Efficiently check whether a block is present in this chain. */
     bool Contains(const CBlockIndex* pindex) const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return (*this)[pindex->nHeight] == pindex;
     }
 
     /** Find the successor of a block in this chain, or NULL if the given index is not found or is the tip. */
     CBlockIndex* Next(const CBlockIndex* pindex) const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (Contains(pindex))
             return (*this)[pindex->nHeight + 1];
         else
@@ -573,6 +644,8 @@ public:
     /** Return the maximal height in the chain. Is equal to chain.Tip() ? chain.Tip()->nHeight : -1. */
     int Height() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return vChain.size() - 1;
     }
 

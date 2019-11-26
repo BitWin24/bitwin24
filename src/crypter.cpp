@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2013 The Bitcoin developers
 // Copyright (c) 2017-2018 The PIVX developers
 // Copyright (c) 2018 The MAC developers
@@ -20,6 +21,8 @@
 
 bool CCrypter::SetKeyFromPassphrase(const SecureString& strKeyData, const std::vector<unsigned char>& chSalt, const unsigned int nRounds, const unsigned int nDerivationMethod)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (nRounds < 1 || chSalt.size() != WALLET_CRYPTO_SALT_SIZE)
         return false;
 
@@ -40,6 +43,8 @@ bool CCrypter::SetKeyFromPassphrase(const SecureString& strKeyData, const std::v
 
 bool CCrypter::SetKey(const CKeyingMaterial& chNewKey, const std::vector<unsigned char>& chNewIV)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (chNewKey.size() != WALLET_CRYPTO_KEY_SIZE || chNewIV.size() != WALLET_CRYPTO_KEY_SIZE)
         return false;
 
@@ -52,6 +57,8 @@ bool CCrypter::SetKey(const CKeyingMaterial& chNewKey, const std::vector<unsigne
 
 bool CCrypter::Encrypt(const CKeyingMaterial& vchPlaintext, std::vector<unsigned char>& vchCiphertext)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (!fKeySet)
         return false;
 
@@ -77,6 +84,8 @@ bool CCrypter::Encrypt(const CKeyingMaterial& vchPlaintext, std::vector<unsigned
 
 bool CCrypter::Decrypt(const std::vector<unsigned char>& vchCiphertext, CKeyingMaterial& vchPlaintext)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (!fKeySet)
         return false;
 
@@ -103,6 +112,8 @@ bool CCrypter::Decrypt(const std::vector<unsigned char>& vchCiphertext, CKeyingM
 
 bool EncryptSecret(const CKeyingMaterial& vMasterKey, const CKeyingMaterial& vchPlaintext, const uint256& nIV, std::vector<unsigned char>& vchCiphertext)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CCrypter cKeyCrypter;
     std::vector<unsigned char> chIV(WALLET_CRYPTO_KEY_SIZE);
     memcpy(&chIV[0], &nIV, WALLET_CRYPTO_KEY_SIZE);
@@ -115,6 +126,8 @@ bool EncryptSecret(const CKeyingMaterial& vMasterKey, const CKeyingMaterial& vch
 // General secure AES 256 CBC encryption routine
 bool EncryptAES256(const SecureString& sKey, const SecureString& sPlaintext, const std::string& sIV, std::string& sCiphertext)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     // max ciphertext len for a n bytes of plaintext is
     // n + AES_BLOCK_SIZE - 1 bytes
     int nLen = sPlaintext.size();
@@ -150,6 +163,8 @@ bool EncryptAES256(const SecureString& sKey, const SecureString& sPlaintext, con
 
 bool DecryptSecret(const CKeyingMaterial& vMasterKey, const std::vector<unsigned char>& vchCiphertext, const uint256& nIV, CKeyingMaterial& vchPlaintext)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CCrypter cKeyCrypter;
     std::vector<unsigned char> chIV(WALLET_CRYPTO_KEY_SIZE);
     memcpy(&chIV[0], &nIV, WALLET_CRYPTO_KEY_SIZE);
@@ -160,6 +175,8 @@ bool DecryptSecret(const CKeyingMaterial& vMasterKey, const std::vector<unsigned
 
 bool DecryptAES256(const SecureString& sKey, const std::string& sCiphertext, const std::string& sIV, SecureString& sPlaintext)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     // plaintext will always be equal to or lesser than length of ciphertext
     int nLen = sCiphertext.size();
     int nPLen = nLen, nFLen = 0;
@@ -191,6 +208,8 @@ bool DecryptAES256(const SecureString& sKey, const std::string& sCiphertext, con
 
 bool CCryptoKeyStore::SetCrypted()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     LOCK(cs_KeyStore);
     if (fUseCrypto)
         return true;
@@ -202,10 +221,14 @@ bool CCryptoKeyStore::SetCrypted()
 
 bool CCryptoKeyStore::Lock()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (!SetCrypted())
         return false;
 
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         LOCK(cs_KeyStore);
         vMasterKey.clear();
         pwalletMain->zwalletMain->Lock();
@@ -217,7 +240,11 @@ bool CCryptoKeyStore::Lock()
 
 bool CCryptoKeyStore::Unlock(const CKeyingMaterial& vMasterKeyIn)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         LOCK(cs_KeyStore);
         if (!SetCrypted())
             return false;
@@ -282,7 +309,11 @@ bool CCryptoKeyStore::Unlock(const CKeyingMaterial& vMasterKeyIn)
 
 bool CCryptoKeyStore::AddKeyPubKey(const CKey& key, const CPubKey& pubkey)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         LOCK(cs_KeyStore);
         if (!IsCrypted())
             return CBasicKeyStore::AddKeyPubKey(key, pubkey);
@@ -304,7 +335,11 @@ bool CCryptoKeyStore::AddKeyPubKey(const CKey& key, const CPubKey& pubkey)
 
 bool CCryptoKeyStore::AddCryptedKey(const CPubKey& vchPubKey, const std::vector<unsigned char>& vchCryptedSecret)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         LOCK(cs_KeyStore);
         if (!SetCrypted())
             return false;
@@ -316,7 +351,11 @@ bool CCryptoKeyStore::AddCryptedKey(const CPubKey& vchPubKey, const std::vector<
 
 bool CCryptoKeyStore::GetKey(const CKeyID& address, CKey& keyOut) const
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         LOCK(cs_KeyStore);
         if (!IsCrypted())
             return CBasicKeyStore::GetKey(address, keyOut);
@@ -339,7 +378,11 @@ bool CCryptoKeyStore::GetKey(const CKeyID& address, CKey& keyOut) const
 
 bool CCryptoKeyStore::GetPubKey(const CKeyID& address, CPubKey& vchPubKeyOut) const
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         LOCK(cs_KeyStore);
         if (!IsCrypted())
             return CKeyStore::GetPubKey(address, vchPubKeyOut);
@@ -355,13 +398,19 @@ bool CCryptoKeyStore::GetPubKey(const CKeyID& address, CPubKey& vchPubKeyOut) co
 
 bool CCryptoKeyStore::EncryptKeys(CKeyingMaterial& vMasterKeyIn)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         LOCK(cs_KeyStore);
         if (!mapCryptedKeys.empty() || IsCrypted())
             return false;
 
         fUseCrypto = true;
         BOOST_FOREACH (KeyMap::value_type& mKey, mapKeys) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             const CKey& key = mKey.second;
             CPubKey vchPubKey = key.GetPubKey();
             CKeyingMaterial vchSecret(key.begin(), key.end());
@@ -378,6 +427,8 @@ bool CCryptoKeyStore::EncryptKeys(CKeyingMaterial& vMasterKeyIn)
 
 bool CCryptoKeyStore::AddDeterministicSeed(const uint256& seed)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CWalletDB db(pwalletMain->strWalletFile);
     string strErr;
     uint256 hashSeed = Hash(seed.begin(), seed.end());
@@ -412,6 +463,8 @@ bool CCryptoKeyStore::AddDeterministicSeed(const uint256& seed)
 
 bool CCryptoKeyStore::GetDeterministicSeed(const uint256& hashSeed, uint256& seedOut)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
 
     CWalletDB db(pwalletMain->strWalletFile);
     string strErr;

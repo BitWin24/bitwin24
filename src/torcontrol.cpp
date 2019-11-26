@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2015-2016 The Bitcoin Core developers
 // Copyright (c) 2017 The Zcash developers
 // Copyright (c) 2017-2018 The PIVX developers
@@ -64,6 +65,8 @@ public:
 
     void Clear()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         code = 0;
         lines.clear();
     }
@@ -131,12 +134,16 @@ TorControlConnection::TorControlConnection(struct event_base *_base):
 
 TorControlConnection::~TorControlConnection()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (b_conn)
         bufferevent_free(b_conn);
 }
 
 void TorControlConnection::readcb(struct bufferevent *bev, void *ctx)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     TorControlConnection *self = (TorControlConnection*)ctx;
     struct evbuffer *input = bufferevent_get_input(bev);
     size_t n_read_out = 0;
@@ -182,6 +189,8 @@ void TorControlConnection::readcb(struct bufferevent *bev, void *ctx)
 
 void TorControlConnection::eventcb(struct bufferevent *bev, short what, void *ctx)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     TorControlConnection *self = (TorControlConnection*)ctx;
     if (what & BEV_EVENT_CONNECTED) {
         LogPrint("tor", "tor: Successfully connected!\n");
@@ -199,6 +208,8 @@ void TorControlConnection::eventcb(struct bufferevent *bev, short what, void *ct
 
 bool TorControlConnection::Connect(const std::string &target, const ConnectionCB& _connected, const ConnectionCB&  _disconnected)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (b_conn)
         Disconnect();
     // Parse target address:port
@@ -229,6 +240,8 @@ bool TorControlConnection::Connect(const std::string &target, const ConnectionCB
 
 bool TorControlConnection::Disconnect()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (b_conn)
         bufferevent_free(b_conn);
     b_conn = 0;
@@ -237,6 +250,8 @@ bool TorControlConnection::Disconnect()
 
 bool TorControlConnection::Command(const std::string &cmd, const ReplyHandlerCB& reply_handler)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (!b_conn)
         return false;
     struct evbuffer *buf = bufferevent_get_output(b_conn);
@@ -257,6 +272,8 @@ bool TorControlConnection::Command(const std::string &cmd, const ReplyHandlerCB&
  */
 static std::pair<std::string,std::string> SplitTorReplyLine(const std::string &s)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     size_t ptr=0;
     std::string type;
     while (ptr < s.size() && s[ptr] != ' ') {
@@ -276,6 +293,8 @@ static std::pair<std::string,std::string> SplitTorReplyLine(const std::string &s
  */
 static std::map<std::string,std::string> ParseTorReplyMapping(const std::string &s)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::map<std::string,std::string> mapping;
     size_t ptr=0;
     while (ptr < s.size()) {
@@ -394,6 +413,8 @@ static std::pair<bool,std::string> ReadBinaryFile(const std::string &filename, s
  */
 static bool WriteBinaryFile(const std::string &filename, const std::string &data)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     FILE *f = fopen(filename.c_str(), "wb");
     if (f == NULL)
         return false;
@@ -476,6 +497,8 @@ TorController::TorController(struct event_base* _base, const std::string& _targe
 
 TorController::~TorController()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (reconnect_ev) {
         event_free(reconnect_ev);
         reconnect_ev = 0;
@@ -487,6 +510,8 @@ TorController::~TorController()
 
 void TorController::add_onion_cb(TorControlConnection& _conn, const TorControlReply& reply)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (reply.code == 250) {
         LogPrint("tor", "tor: ADD_ONION successful\n");
         BOOST_FOREACH(const std::string &s, reply.lines) {
@@ -522,6 +547,8 @@ void TorController::add_onion_cb(TorControlConnection& _conn, const TorControlRe
 
 void TorController::auth_cb(TorControlConnection& _conn, const TorControlReply& reply)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (reply.code == 250) {
         LogPrint("tor", "tor: Authentication successful\n");
 
@@ -566,6 +593,8 @@ void TorController::auth_cb(TorControlConnection& _conn, const TorControlReply& 
  */
 static std::vector<uint8_t> ComputeResponse(const std::string &key, const std::vector<uint8_t> &cookie,  const std::vector<uint8_t> &clientNonce, const std::vector<uint8_t> &serverNonce)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CHMAC_SHA256 computeHash((const uint8_t*)key.data(), key.size());
     std::vector<uint8_t> computedHash(CHMAC_SHA256::OUTPUT_SIZE, 0);
     computeHash.Write(cookie.data(), cookie.size());
@@ -577,6 +606,8 @@ static std::vector<uint8_t> ComputeResponse(const std::string &key, const std::v
 
 void TorController::authchallenge_cb(TorControlConnection& _conn, const TorControlReply& reply)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (reply.code == 250) {
         LogPrint("tor", "tor: SAFECOOKIE authentication challenge successful\n");
         std::pair<std::string,std::string> l = SplitTorReplyLine(reply.lines[0]);
@@ -612,6 +643,8 @@ void TorController::authchallenge_cb(TorControlConnection& _conn, const TorContr
 
 void TorController::protocolinfo_cb(TorControlConnection& _conn, const TorControlReply& reply)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (reply.code == 250) {
         std::set<std::string> methods;
         std::string cookiefile;
@@ -638,6 +671,8 @@ void TorController::protocolinfo_cb(TorControlConnection& _conn, const TorContro
             }
         }
         BOOST_FOREACH(const std::string &s, methods) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             LogPrint("tor", "tor: Supported authentication method: %s\n", s);
         }
         // Prefer NULL, otherwise SAFECOOKIE. If a password is provided, use HASHEDPASSWORD
@@ -686,6 +721,8 @@ void TorController::protocolinfo_cb(TorControlConnection& _conn, const TorContro
 
 void TorController::connected_cb(TorControlConnection& _conn)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     reconnect_timeout = RECONNECT_TIMEOUT_START;
     // First send a PROTOCOLINFO command to figure out what authentication is expected
     if (!_conn.Command("PROTOCOLINFO 1", boost::bind(&TorController::protocolinfo_cb, this, _1, _2)))
@@ -694,6 +731,8 @@ void TorController::connected_cb(TorControlConnection& _conn)
 
 void TorController::disconnected_cb(TorControlConnection& _conn)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     // Stop advertising service when disconnected
     if (service.IsValid())
         RemoveLocal(service);
@@ -712,6 +751,8 @@ void TorController::disconnected_cb(TorControlConnection& _conn)
 
 void TorController::Reconnect()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     /* Try to reconnect and reestablish if we get booted - for example, Tor
      * may be restarting.
      */
@@ -723,11 +764,15 @@ void TorController::Reconnect()
 
 std::string TorController::GetPrivateKeyFile()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     return (GetDataDir() / "onion_private_key").string();
 }
 
 void TorController::reconnect_cb(evutil_socket_t fd, short what, void *arg)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     TorController *self = (TorController*)arg;
     self->Reconnect();
 }
@@ -738,6 +783,8 @@ static boost::thread torControlThread;
 
 static void TorControlThread()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     TorController ctrl(gBase, GetArg("-torcontrol", DEFAULT_TOR_CONTROL));
 
     event_base_dispatch(gBase);
@@ -745,6 +792,8 @@ static void TorControlThread()
 
 void StartTorControl(boost::thread_group& threadGroup/*, CScheduler& scheduler*/)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     assert(!gBase);
 #ifdef WIN32
     evthread_use_windows_threads();
@@ -762,6 +811,8 @@ void StartTorControl(boost::thread_group& threadGroup/*, CScheduler& scheduler*/
 
 void InterruptTorControl()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (gBase) {
         LogPrintf("tor: Thread interrupt\n");
         event_base_loopbreak(gBase);
@@ -770,6 +821,8 @@ void InterruptTorControl()
 
 void StopTorControl()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     // timed_join() avoids the wallet not closing during a repair-restart. For a 'normal' wallet exit
     // it behaves for our cases exactly like the normal join()
     if (gBase) {

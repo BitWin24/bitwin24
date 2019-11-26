@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2013 The Bitcoin developers
 // Copyright (c) 2017 The PIVX developers
@@ -85,6 +86,8 @@ public:
 
     CAlert()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         SetNull();
     }
 

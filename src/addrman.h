@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2012 Pieter Wuille
 // Copyright (c) 2012-2014 The Bitcoin developers
 // Copyright (c) 2017 The PIVX developers
@@ -64,6 +65,8 @@ public:
 
     void Init()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         nLastSuccess = 0;
         nLastTry = 0;
         nAttempts = 0;
@@ -91,6 +94,8 @@ public:
     //! Calculate in which "new" bucket this entry belongs, using its default source
     int GetNewBucket(const uint256& nKey) const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return GetNewBucket(nKey, source);
     }
 
@@ -426,11 +431,15 @@ public:
 
     unsigned int GetSerializeSize(int nType, int nVersion) const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return (CSizeComputer(nType, nVersion) << *this).size();
     }
 
     void Clear()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         std::vector<int>().swap(vRandom);
         nKey = GetRandHash();
         for (size_t bucket = 0; bucket < ADDRMAN_NEW_BUCKET_COUNT; bucket++) {
@@ -451,25 +460,35 @@ public:
 
     CAddrMan()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         Clear();
     }
 
     ~CAddrMan()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         nKey = uint256();
     }
 
     //! Return the number of (unique) addresses in all tables.
     int size()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return vRandom.size();
     }
 
     //! Consistency check
     void Check()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
 #ifdef DEBUG_ADDRMAN
         {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             LOCK(cs);
             int err;
             if ((err = Check_()))
@@ -481,8 +500,12 @@ public:
     //! Add a single address.
     bool Add(const CAddress& addr, const CNetAddr& source, int64_t nTimePenalty = 0)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         bool fRet = false;
         {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             LOCK(cs);
             Check();
             fRet |= Add_(addr, source, nTimePenalty);
@@ -496,8 +519,12 @@ public:
     //! Add multiple addresses.
     bool Add(const std::vector<CAddress>& vAddr, const CNetAddr& source, int64_t nTimePenalty = 0)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         int nAdd = 0;
         {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             LOCK(cs);
             Check();
             for (std::vector<CAddress>::const_iterator it = vAddr.begin(); it != vAddr.end(); it++)
@@ -512,7 +539,11 @@ public:
     //! Mark an entry as accessible.
     void Good(const CService& addr, int64_t nTime = GetAdjustedTime())
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             LOCK(cs);
             Check();
             Good_(addr, nTime);
@@ -523,7 +554,11 @@ public:
     //! Mark an entry as connection attempted to.
     void Attempt(const CService& addr, int64_t nTime = GetAdjustedTime())
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             LOCK(cs);
             Check();
             Attempt_(addr, nTime);
@@ -537,8 +572,12 @@ public:
      */
     CAddress Select()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         CAddress addrRet;
         {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             LOCK(cs);
             Check();
             addrRet = Select_();
@@ -550,9 +589,13 @@ public:
     //! Return a bunch of addresses, selected at random.
     std::vector<CAddress> GetAddr()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         Check();
         std::vector<CAddress> vAddr;
         {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             LOCK(cs);
             GetAddr_(vAddr);
         }
@@ -563,7 +606,11 @@ public:
     //! Mark an entry as currently-connected-to.
     void Connected(const CService& addr, int64_t nTime = GetAdjustedTime())
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             LOCK(cs);
             Check();
             Connected_(addr, nTime);

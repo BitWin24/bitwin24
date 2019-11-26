@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2018 The PIVX developers
 // Copyright (c) 2018 The MAC developers
 // Copyright (c) 2019 The BITWIN24 developers
@@ -9,6 +10,8 @@
 
 #include <string>
 std::string GetMainCheckpoints() {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::string strMainCheckpoints = "[\n"
             "  {\n"
             "    \"height\": 870020,\n"
@@ -224,6 +227,8 @@ std::string GetMainCheckpoints() {
 }
 
 std::string GetTestCheckpoints() {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::string strTestCheckpoints = "[\n"
             "  {\n"
             "    \"height\": 210020,\n"
@@ -461,6 +466,8 @@ std::string GetTestCheckpoints() {
 }
 
 std::string GetRegTestCheckpoints() {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::string strRegTestCheckpoints = "[\n"
             "  {\n"
             "    \"height\": 0,\n"

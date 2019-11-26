@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2017-2018 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -9,18 +10,24 @@ using namespace std;
 
 CMintPool::CMintPool()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     this->nCountLastGenerated = 0;
     this->nCountLastRemoved = 0;
 }
 
 CMintPool::CMintPool(uint32_t nCount)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     this->nCountLastRemoved = nCount;
     this->nCountLastGenerated = nCount;
 }
 
 void CMintPool::Add(const CBigNum& bnValue, const uint32_t& nCount)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     uint256 hash = GetPubCoinHash(bnValue);
     Add(make_pair(hash, nCount));
     LogPrintf("%s : add %s to mint pool, nCountLastGenerated=%d\n", __func__, bnValue.GetHex().substr(0, 6), nCountLastGenerated);
@@ -28,6 +35,8 @@ void CMintPool::Add(const CBigNum& bnValue, const uint32_t& nCount)
 
 void CMintPool::Add(const pair<uint256, uint32_t>& pMint, bool fVerbose)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     insert(pMint);
     if (pMint.second > nCountLastGenerated)
         nCountLastGenerated = pMint.second;
@@ -38,22 +47,30 @@ void CMintPool::Add(const pair<uint256, uint32_t>& pMint, bool fVerbose)
 
 bool CMintPool::Has(const CBigNum& bnValue)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     return static_cast<bool>(count(GetPubCoinHash(bnValue)));
 }
 
 std::pair<uint256, uint32_t> CMintPool::Get(const CBigNum& bnValue)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     auto it = find(GetPubCoinHash(bnValue));
     return *it;
 }
 
 bool SortSmallest(const pair<uint256, uint32_t>& a, const pair<uint256, uint32_t>& b)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     return a.second < b.second;
 }
 
 std::list<pair<uint256, uint32_t> > CMintPool::List()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     list<pair<uint256, uint32_t> > listMints;
     for (auto pMint : *(this)) {
         listMints.emplace_back(pMint);
@@ -66,6 +83,8 @@ std::list<pair<uint256, uint32_t> > CMintPool::List()
 
 void CMintPool::Reset()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     clear();
     nCountLastGenerated = 0;
     nCountLastRemoved = 0;
@@ -73,6 +92,8 @@ void CMintPool::Reset()
 
 bool CMintPool::Front(std::pair<uint256, uint32_t>& pMint)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (empty())
         return false;
     pMint = *begin();
@@ -81,6 +102,8 @@ bool CMintPool::Front(std::pair<uint256, uint32_t>& pMint)
 
 bool CMintPool::Next(pair<uint256, uint32_t>& pMint)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     auto it = find(pMint.first);
     if (it == end() || ++it == end())
         return false;
@@ -91,12 +114,16 @@ bool CMintPool::Next(pair<uint256, uint32_t>& pMint)
 
 void CMintPool::Remove(const CBigNum& bnValue)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     Remove(GetPubCoinHash(bnValue));
     LogPrintf("%s : remove %s from mint pool\n", __func__, bnValue.GetHex().substr(0, 6));
 }
 
 void CMintPool::Remove(const uint256& hashPubcoin)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     auto it = find(hashPubcoin);
     if (it == end())
         return;

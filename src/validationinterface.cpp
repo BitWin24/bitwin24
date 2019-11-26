@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin Core developers
 // Copyright (c) 2017 The PIVX developers
@@ -10,10 +11,14 @@ static CMainSignals g_signals;
 
 CMainSignals& GetMainSignals()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     return g_signals;
 }
 
 void RegisterValidationInterface(CValidationInterface* pwalletIn) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
 // XX42 g_signals.EraseTransaction.connect(boost::bind(&CValidationInterface::EraseFromWallet, pwalletIn, _1));
     g_signals.UpdatedBlockTip.connect(boost::bind(&CValidationInterface::UpdatedBlockTip, pwalletIn, _1));
     g_signals.SyncTransaction.connect(boost::bind(&CValidationInterface::SyncTransaction, pwalletIn, _1, _2));
@@ -28,6 +33,8 @@ void RegisterValidationInterface(CValidationInterface* pwalletIn) {
 }
 
 void UnregisterValidationInterface(CValidationInterface* pwalletIn) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     g_signals.BlockFound.disconnect(boost::bind(&CValidationInterface::ResetRequestCount, pwalletIn, _1));
 // XX42    g_signals.ScriptForMining.disconnect(boost::bind(&CValidationInterface::GetScriptForMining, pwalletIn, _1));
     g_signals.BlockChecked.disconnect(boost::bind(&CValidationInterface::BlockChecked, pwalletIn, _1, _2));
@@ -42,6 +49,8 @@ void UnregisterValidationInterface(CValidationInterface* pwalletIn) {
 }
 
 void UnregisterAllValidationInterfaces() {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     g_signals.BlockFound.disconnect_all_slots();
 // XX42    g_signals.ScriptForMining.disconnect_all_slots();
     g_signals.BlockChecked.disconnect_all_slots();
@@ -56,5 +65,7 @@ void UnregisterAllValidationInterfaces() {
 }
 
 void SyncWithWallets(const CTransaction &tx, const CBlock *pblock = NULL) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     g_signals.SyncTransaction(tx, pblock);
 }

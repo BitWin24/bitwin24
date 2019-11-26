@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
 // Copyright (c) 2018 The MAC developers
@@ -68,12 +69,16 @@ public:
 
     CMasternodePayee()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         scriptPubKey = CScript();
         nVotes = 0;
     }
 
     CMasternodePayee(CScript payee, int nVotesIn)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         scriptPubKey = payee;
         nVotes = nVotesIn;
     }
@@ -97,20 +102,28 @@ public:
 
     CMasternodeBlockPayees()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         nBlockHeight = 0;
         vecPayments.clear();
     }
     CMasternodeBlockPayees(int nBlockHeightIn)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         nBlockHeight = nBlockHeightIn;
         vecPayments.clear();
     }
 
     void AddPayee(CScript payeeIn, int nIncrement)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         LOCK(cs_vecPayments);
 
         BOOST_FOREACH (CMasternodePayee& payee, vecPayments) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             if (payee.scriptPubKey == payeeIn) {
                 payee.nVotes += nIncrement;
                 return;
@@ -123,10 +136,14 @@ public:
 
     bool GetPayee(CScript& payee)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         LOCK(cs_vecPayments);
 
         int nVotes = -1;
         BOOST_FOREACH (CMasternodePayee& p, vecPayments) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             if (p.nVotes > nVotes) {
                 payee = p.scriptPubKey;
                 nVotes = p.nVotes;
@@ -138,9 +155,13 @@ public:
 
     bool HasPayeeWithVotes(CScript payee, int nVotesReq)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         LOCK(cs_vecPayments);
 
         BOOST_FOREACH (CMasternodePayee& p, vecPayments) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             if (p.nVotes >= nVotesReq && p.scriptPubKey == payee) return true;
         }
 
@@ -172,6 +193,8 @@ public:
 
     CMasternodePaymentWinner()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         nBlockHeight = 0;
         vinMasternode = CTxIn();
         payee = CScript();
@@ -179,6 +202,8 @@ public:
 
     CMasternodePaymentWinner(CTxIn vinIn)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         nBlockHeight = 0;
         vinMasternode = vinIn;
         payee = CScript();
@@ -186,6 +211,8 @@ public:
 
     uint256 GetHash()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         CHashWriter ss(SER_GETHASH, PROTOCOL_VERSION);
         ss << payee;
         ss << nBlockHeight;
@@ -201,6 +228,8 @@ public:
 
     void AddPayee(CScript payeeIn)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         payee = payeeIn;
     }
 
@@ -218,6 +247,8 @@ public:
 
     std::string ToString()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         std::string ret = "";
         ret += vinMasternode.ToString();
         ret += ", " + boost::lexical_cast<std::string>(nBlockHeight);
@@ -245,12 +276,16 @@ public:
 
     CMasternodePayments()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         nSyncedFromPeer = 0;
         nLastBlockHeight = 0;
     }
 
     void Clear()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         LOCK2(cs_mapMasternodeBlocks, cs_mapMasternodePayeeVotes);
         mapMasternodeBlocks.clear();
         mapMasternodePayeeVotes.clear();
@@ -269,6 +304,8 @@ public:
 
     bool CanVote(COutPoint outMasternode, int nBlockHeight)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         LOCK(cs_mapMasternodePayeeVotes);
 
         if (mapMasternodesLastVote.count(outMasternode.hash + outMasternode.n)) {

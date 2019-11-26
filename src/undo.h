@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2013 The Bitcoin developers
 // Copyright (c) 2016-2017 The PIVX developers
@@ -31,6 +32,8 @@ public:
 
     unsigned int GetSerializeSize(int nType, int nVersion) const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return ::GetSerializeSize(VARINT(nHeight * 4 + (fCoinBase ? 2 : 0) + (fCoinStake ? 1 : 0)), nType, nVersion) +
                (nHeight > 0 ? ::GetSerializeSize(VARINT(this->nVersion), nType, nVersion) : 0) +
                ::GetSerializeSize(CTxOutCompressor(REF(txout)), nType, nVersion);

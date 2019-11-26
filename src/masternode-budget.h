@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2018 The PIVX developers
 // Copyright (c) 2018 The MAC developers
@@ -82,6 +83,8 @@ public:
 
     std::string GetVoteString()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         std::string ret = "ABSTAIN";
         if (nVote == VOTE_YES) ret = "YES";
         if (nVote == VOTE_NO) ret = "NO";
@@ -90,6 +93,8 @@ public:
 
     uint256 GetHash()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         CHashWriter ss(SER_GETHASH, PROTOCOL_VERSION);
         ss << vin;
         ss << nProposalHash;
@@ -134,6 +139,8 @@ public:
 
     uint256 GetHash()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         CHashWriter ss(SER_GETHASH, PROTOCOL_VERSION);
         ss << vin;
         ss << nBudgetHash;
@@ -205,20 +212,28 @@ public:
 
     CBudgetManager()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         mapProposals.clear();
         mapFinalizedBudgets.clear();
     }
 
     void ClearSeen()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         mapSeenMasternodeBudgetProposals.clear();
         mapSeenMasternodeBudgetVotes.clear();
         mapSeenFinalizedBudgets.clear();
         mapSeenFinalizedBudgetVotes.clear();
     }
 
-    int sizeFinalized() { return (int)mapFinalizedBudgets.size(); }
-    int sizeProposals() { return (int)mapProposals.size(); }
+    int sizeFinalized() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return (int)mapFinalizedBudgets.size(); }
+    int sizeProposals() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return (int)mapProposals.size(); }
 
     void ResetSync();
     void MarkSynced();
@@ -251,6 +266,8 @@ public:
     void CheckOrphanVotes();
     void Clear()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         LOCK(cs);
 
         LogPrintf("Budget object cleared\n");
@@ -294,6 +311,8 @@ public:
 
     CTxBudgetPayment()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         payee = CScript();
         nAmount = 0;
         nProposalHash = 0;
@@ -341,15 +360,25 @@ public:
 
     bool IsValid(std::string& strError, bool fCheckCollateral = true);
 
-    std::string GetName() { return strBudgetName; }
+    std::string GetName() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return strBudgetName; }
     std::string GetProposals();
-    int GetBlockStart() { return nBlockStart; }
-    int GetBlockEnd() { return nBlockStart + (int)(vecBudgetPayments.size() - 1); }
-    int GetVoteCount() { return (int)mapVotes.size(); }
+    int GetBlockStart() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nBlockStart; }
+    int GetBlockEnd() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nBlockStart + (int)(vecBudgetPayments.size() - 1); }
+    int GetVoteCount() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return (int)mapVotes.size(); }
     bool IsPaidAlready(uint256 nProposalHash, int nBlockHeight);
     TrxValidationStatus IsTransactionValid(const CTransaction& txNew, int nBlockHeight);
     bool GetBudgetPaymentByBlock(int64_t nBlockHeight, CTxBudgetPayment& payment)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         LOCK(cs);
 
         int i = nBlockHeight - GetBlockStart();
@@ -360,6 +389,8 @@ public:
     }
     bool GetPayeeAndAmount(int64_t nBlockHeight, CScript& payee, CAmount& nAmount)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         LOCK(cs);
 
         int i = nBlockHeight - GetBlockStart();
@@ -382,6 +413,8 @@ public:
 
     uint256 GetHash()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         CHashWriter ss(SER_GETHASH, PROTOCOL_VERSION);
         ss << strBudgetName;
         ss << nBlockStart;
@@ -421,6 +454,8 @@ public:
 
     void swap(CFinalizedBudgetBroadcast& first, CFinalizedBudgetBroadcast& second) // nothrow
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         // enable ADL (not necessary in our case, but good practice)
         using std::swap;
 
@@ -436,6 +471,8 @@ public:
 
     CFinalizedBudgetBroadcast& operator=(CFinalizedBudgetBroadcast from)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         swap(*this, from);
         return *this;
     }
@@ -500,6 +537,8 @@ public:
 
     bool IsEstablished()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         // Proposals must be at least a day old to make it into a budget
         if (Params().NetworkID() == CBaseChainParams::MAIN) return (nTime < GetTime() - (60 * 60 * 24));
 
@@ -507,11 +546,21 @@ public:
         return (nTime < GetTime() - (60 * 5));
     }
 
-    std::string GetName() { return strProposalName; }
-    std::string GetURL() { return strURL; }
-    int GetBlockStart() { return nBlockStart; }
-    int GetBlockEnd() { return nBlockEnd; }
-    CScript GetPayee() { return address; }
+    std::string GetName() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return strProposalName; }
+    std::string GetURL() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return strURL; }
+    int GetBlockStart() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nBlockStart; }
+    int GetBlockEnd() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nBlockEnd; }
+    CScript GetPayee() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return address; }
     int GetTotalPaymentCount();
     int GetRemainingPaymentCount();
     int GetBlockStartCycle();
@@ -521,14 +570,22 @@ public:
     int GetYeas();
     int GetNays();
     int GetAbstains();
-    CAmount GetAmount() { return nAmount; }
-    void SetAllotted(CAmount nAllotedIn) { nAlloted = nAllotedIn; }
-    CAmount GetAllotted() { return nAlloted; }
+    CAmount GetAmount() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nAmount; }
+    void SetAllotted(CAmount nAllotedIn) { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+nAlloted = nAllotedIn; }
+    CAmount GetAllotted() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nAlloted; }
 
     void CleanAndRemove(bool fSignatureCheck);
 
     uint256 GetHash()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         CHashWriter ss(SER_GETHASH, PROTOCOL_VERSION);
         ss << strProposalName;
         ss << strURL;
@@ -573,6 +630,8 @@ public:
 
     void swap(CBudgetProposalBroadcast& first, CBudgetProposalBroadcast& second) // nothrow
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         // enable ADL (not necessary in our case, but good practice)
         using std::swap;
 
@@ -591,6 +650,8 @@ public:
 
     CBudgetProposalBroadcast& operator=(CBudgetProposalBroadcast from)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         swap(*this, from);
         return *this;
     }

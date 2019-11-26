@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2013 The Bitcoin developers
 // Copyright (c) 2017 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
@@ -193,7 +194,9 @@ public:
     proxyType(): randomize_credentials(false) {}
     proxyType(const CService &proxy, bool randomize_credentials=false): proxy(proxy), randomize_credentials(randomize_credentials) {}
 
-    bool IsValid() const { return proxy.IsValid(); }
+    bool IsValid() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return proxy.IsValid(); }
 
     CService proxy;
     bool randomize_credentials;

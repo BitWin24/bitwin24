@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2018 The PIVX developers
 // Copyright (c) 2018 The MAC developers
@@ -24,6 +25,8 @@ struct CompareLastPaid {
     bool operator()(const pair<int64_t, CTxIn>& t1,
         const pair<int64_t, CTxIn>& t2) const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return t1.first < t2.first;
     }
 };
@@ -32,6 +35,8 @@ struct CompareScoreTxIn {
     bool operator()(const pair<int64_t, CTxIn>& t1,
         const pair<int64_t, CTxIn>& t2) const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return t1.first < t2.first;
     }
 };
@@ -40,6 +45,8 @@ struct CompareScoreMN {
     bool operator()(const pair<int64_t, CMasternode>& t1,
         const pair<int64_t, CMasternode>& t2) const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return t1.first < t2.first;
     }
 };
@@ -50,12 +57,16 @@ struct CompareScoreMN {
 
 CMasternodeDB::CMasternodeDB()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     pathMN = GetDataDir() / "mncache.dat";
     strMagicMessage = "MasternodeCache";
 }
 
 bool CMasternodeDB::Write(const CMasternodeMan& mnodemanToSave)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     int64_t nStart = GetTimeMillis();
 
     // serialize, checksum data up to that point, then append checksum
@@ -89,6 +100,8 @@ bool CMasternodeDB::Write(const CMasternodeMan& mnodemanToSave)
 
 CMasternodeDB::ReadResult CMasternodeDB::Read(CMasternodeMan& mnodemanToLoad, bool fDryRun)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     int64_t nStart = GetTimeMillis();
     // open input file, and associate with CAutoFile
     FILE* file = fopen(pathMN.string().c_str(), "rb");
@@ -170,6 +183,8 @@ CMasternodeDB::ReadResult CMasternodeDB::Read(CMasternodeMan& mnodemanToLoad, bo
 
 void DumpMasternodes()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     int64_t nStart = GetTimeMillis();
 
     CMasternodeDB mndb;
@@ -197,11 +212,15 @@ void DumpMasternodes()
 
 CMasternodeMan::CMasternodeMan()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     nDsqCount = 0;
 }
 
 bool CMasternodeMan::Add(CMasternode& mn)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     LOCK(cs);
 
     if (!mn.IsEnabled())
@@ -219,6 +238,8 @@ bool CMasternodeMan::Add(CMasternode& mn)
 
 void CMasternodeMan::AskForMN(CNode* pnode, CTxIn& vin)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::map<COutPoint, int64_t>::iterator i = mWeAskedForMasternodeListEntry.find(vin.prevout);
     if (i != mWeAskedForMasternodeListEntry.end()) {
         int64_t t = (*i).second;
@@ -235,15 +256,21 @@ void CMasternodeMan::AskForMN(CNode* pnode, CTxIn& vin)
 
 void CMasternodeMan::Check()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     LOCK(cs);
 
     BOOST_FOREACH (CMasternode& mn, vMasternodes) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         mn.Check();
     }
 }
 
 void CMasternodeMan::CheckAndRemove(bool forceExpiredRemoval)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     Check();
 
     LOCK(cs);
@@ -340,6 +367,8 @@ void CMasternodeMan::CheckAndRemove(bool forceExpiredRemoval)
 
 void CMasternodeMan::Clear()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     LOCK(cs);
     vMasternodes.clear();
     mAskedUsForMasternodeList.clear();
@@ -352,12 +381,16 @@ void CMasternodeMan::Clear()
 
 int CMasternodeMan::stable_size ()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     int nStable_size = 0;
     int nMinProtocol = ActiveProtocol();
     int64_t nMasternode_Min_Age = MN_WINNER_MINIMUM_AGE;
     int64_t nMasternode_Age = 0;
 
     BOOST_FOREACH (CMasternode& mn, vMasternodes) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (mn.protocolVersion < nMinProtocol) {
             continue; // Skip obsolete versions
         }
@@ -379,10 +412,14 @@ int CMasternodeMan::stable_size ()
 
 int CMasternodeMan::CountEnabled(int protocolVersion)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     int i = 0;
     protocolVersion = protocolVersion == -1 ? masternodePayments.GetMinMasternodePaymentsProto() : protocolVersion;
 
     BOOST_FOREACH (CMasternode& mn, vMasternodes) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         mn.Check();
         if (mn.protocolVersion < protocolVersion || !mn.IsEnabled()) continue;
         i++;
@@ -393,9 +430,13 @@ int CMasternodeMan::CountEnabled(int protocolVersion)
 
 void CMasternodeMan::CountNetworks(int protocolVersion, int& ipv4, int& ipv6, int& onion)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     protocolVersion = protocolVersion == -1 ? masternodePayments.GetMinMasternodePaymentsProto() : protocolVersion;
 
     BOOST_FOREACH (CMasternode& mn, vMasternodes) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         mn.Check();
         std::string strHost;
         int port;
@@ -418,6 +459,8 @@ void CMasternodeMan::CountNetworks(int protocolVersion, int& ipv4, int& ipv6, in
 
 void CMasternodeMan::DsegUpdate(CNode* pnode)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     LOCK(cs);
 
     if (Params().NetworkID() == CBaseChainParams::MAIN) {
@@ -439,10 +482,14 @@ void CMasternodeMan::DsegUpdate(CNode* pnode)
 
 CMasternode* CMasternodeMan::Find(const CScript& payee)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     LOCK(cs);
     CScript payee2;
 
     BOOST_FOREACH (CMasternode& mn, vMasternodes) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         payee2 = GetScriptForDestination(mn.pubKeyCollateralAddress.GetID());
         if (payee2 == payee)
             return &mn;
@@ -452,9 +499,13 @@ CMasternode* CMasternodeMan::Find(const CScript& payee)
 
 CMasternode* CMasternodeMan::Find(const CTxIn& vin)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     LOCK(cs);
 
     BOOST_FOREACH (CMasternode& mn, vMasternodes) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (mn.vin.prevout == vin.prevout)
             return &mn;
     }
@@ -464,9 +515,13 @@ CMasternode* CMasternodeMan::Find(const CTxIn& vin)
 
 CMasternode* CMasternodeMan::Find(const CPubKey& pubKeyMasternode)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     LOCK(cs);
 
     BOOST_FOREACH (CMasternode& mn, vMasternodes) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (mn.pubKeyMasternode == pubKeyMasternode)
             return &mn;
     }
@@ -478,6 +533,8 @@ CMasternode* CMasternodeMan::Find(const CPubKey& pubKeyMasternode)
 //
 CMasternode* CMasternodeMan::GetNextMasternodeInQueueForPayment(int nBlockHeight, bool fFilterSigTime, int& nCount)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     LOCK(cs);
 
     CMasternode* pBestMasternode = NULL;
@@ -489,6 +546,8 @@ CMasternode* CMasternodeMan::GetNextMasternodeInQueueForPayment(int nBlockHeight
 
     int nMnCount = CountEnabled();
     BOOST_FOREACH (CMasternode& mn, vMasternodes) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         mn.Check();
         if (!mn.IsEnabled()) continue;
 
@@ -539,6 +598,8 @@ CMasternode* CMasternodeMan::GetNextMasternodeInQueueForPayment(int nBlockHeight
 
 CMasternode* CMasternodeMan::FindRandomNotInVec(std::vector<CTxIn>& vecToExclude, int protocolVersion)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     LOCK(cs);
 
     protocolVersion = protocolVersion == -1 ? masternodePayments.GetMinMasternodePaymentsProto() : protocolVersion;
@@ -552,9 +613,13 @@ CMasternode* CMasternodeMan::FindRandomNotInVec(std::vector<CTxIn>& vecToExclude
     bool found;
 
     BOOST_FOREACH (CMasternode& mn, vMasternodes) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (mn.protocolVersion < protocolVersion || !mn.IsEnabled()) continue;
         found = false;
         BOOST_FOREACH (CTxIn& usedVin, vecToExclude) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             if (mn.vin.prevout == usedVin.prevout) {
                 found = true;
                 break;
@@ -571,11 +636,15 @@ CMasternode* CMasternodeMan::FindRandomNotInVec(std::vector<CTxIn>& vecToExclude
 
 CMasternode* CMasternodeMan::GetCurrentMasterNode(int mod, int64_t nBlockHeight, int minProtocol)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     int64_t score = 0;
     CMasternode* winner = NULL;
 
     // scan for winner
     BOOST_FOREACH (CMasternode& mn, vMasternodes) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         mn.Check();
         if (mn.protocolVersion < minProtocol || !mn.IsEnabled()) continue;
 
@@ -595,6 +664,8 @@ CMasternode* CMasternodeMan::GetCurrentMasterNode(int mod, int64_t nBlockHeight,
 
 int CMasternodeMan::GetMasternodeRank(const CTxIn& vin, int64_t nBlockHeight, int minProtocol, bool fOnlyActive)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::vector<pair<int64_t, CTxIn> > vecMasternodeScores;
     int64_t nMasternode_Min_Age = MN_WINNER_MINIMUM_AGE;
     int64_t nMasternode_Age = 0;
@@ -605,6 +676,8 @@ int CMasternodeMan::GetMasternodeRank(const CTxIn& vin, int64_t nBlockHeight, in
 
     // scan for winner
     BOOST_FOREACH (CMasternode& mn, vMasternodes) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (mn.protocolVersion < minProtocol) {
             LogPrint("masternode","Skipping Masternode with obsolete version %d\n", mn.protocolVersion);
             continue;                                                       // Skip obsolete versions
@@ -642,6 +715,8 @@ int CMasternodeMan::GetMasternodeRank(const CTxIn& vin, int64_t nBlockHeight, in
 
 std::vector<pair<int, CMasternode> > CMasternodeMan::GetMasternodeRanks(int64_t nBlockHeight, int minProtocol)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::vector<pair<int64_t, CMasternode> > vecMasternodeScores;
     std::vector<pair<int, CMasternode> > vecMasternodeRanks;
 
@@ -651,6 +726,8 @@ std::vector<pair<int, CMasternode> > CMasternodeMan::GetMasternodeRanks(int64_t 
 
     // scan for winner
     BOOST_FOREACH (CMasternode& mn, vMasternodes) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         mn.Check();
 
         if (mn.protocolVersion < minProtocol) continue;
@@ -679,10 +756,14 @@ std::vector<pair<int, CMasternode> > CMasternodeMan::GetMasternodeRanks(int64_t 
 
 CMasternode* CMasternodeMan::GetMasternodeByRank(int nRank, int64_t nBlockHeight, int minProtocol, bool fOnlyActive)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::vector<pair<int64_t, CTxIn> > vecMasternodeScores;
 
     // scan for winner
     BOOST_FOREACH (CMasternode& mn, vMasternodes) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (mn.protocolVersion < minProtocol) continue;
         if (fOnlyActive) {
             mn.Check();
@@ -710,11 +791,15 @@ CMasternode* CMasternodeMan::GetMasternodeByRank(int nRank, int64_t nBlockHeight
 
 void CMasternodeMan::ProcessMasternodeConnections()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     //we don't care about this for regtest
     if (Params().NetworkID() == CBaseChainParams::REGTEST) return;
 
     LOCK(cs_vNodes);
     BOOST_FOREACH (CNode* pnode, vNodes) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (pnode->fObfuScationMaster) {
             if (obfuScationPool.pSubmittedToMasternode != NULL && pnode->addr == obfuScationPool.pSubmittedToMasternode->addr) continue;
             LogPrint("masternode","Closing Masternode connection peer=%i \n", pnode->GetId());
@@ -726,6 +811,8 @@ void CMasternodeMan::ProcessMasternodeConnections()
 
 void CMasternodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CDataStream& vRecv)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (fLiteMode) return; //disable all Obfuscation/Masternode related functionality
     if (!masternodeSync.IsBlockchainSynced()) return;
 
@@ -826,6 +913,8 @@ void CMasternodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
         int nInvCount = 0;
 
         BOOST_FOREACH (CMasternode& mn, vMasternodes) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             if (mn.addr.IsRFC1918()) continue; //local network
 
             if (mn.IsEnabled()) {
@@ -994,6 +1083,8 @@ void CMasternodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
 
         bool fAcceptable = false;
         {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             TRY_LOCK(cs_main, lockMain);
             if (!lockMain) return;
             fAcceptable = AcceptableInputs(mempool, state, CTransaction(tx), false, NULL);
@@ -1135,6 +1226,8 @@ void CMasternodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
 
 void CMasternodeMan::Remove(CTxIn vin)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     LOCK(cs);
 
     vector<CMasternode>::iterator it = vMasternodes.begin();
@@ -1150,6 +1243,8 @@ void CMasternodeMan::Remove(CTxIn vin)
 
 void CMasternodeMan::UpdateMasternodeList(CMasternodeBroadcast mnb)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
 	mapSeenMasternodePing.insert(make_pair(mnb.lastPing.GetHash(), mnb.lastPing));
 	mapSeenMasternodeBroadcast.insert(make_pair(mnb.GetHash(), mnb));
 	masternodeSync.AddedMasternodeList(mnb.GetHash());
@@ -1167,6 +1262,8 @@ void CMasternodeMan::UpdateMasternodeList(CMasternodeBroadcast mnb)
 
 std::string CMasternodeMan::ToString() const
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::ostringstream info;
 
     info << "Masternodes: " << (int)vMasternodes.size() << ", peers who asked us for Masternode list: " << (int)mAskedUsForMasternodeList.size() << ", peers we asked for Masternode list: " << (int)mWeAskedForMasternodeList.size() << ", entries in Masternode list we asked for: " << (int)mWeAskedForMasternodeListEntry.size() << ", nDsqCount: " << (int)nDsqCount;

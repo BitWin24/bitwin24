@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
@@ -37,6 +38,8 @@ static const char* ppszTypeName[] =
 
 CMessageHeader::CMessageHeader()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     memcpy(pchMessageStart, Params().MessageStart(), MESSAGE_START_SIZE);
     memset(pchCommand, 0, sizeof(pchCommand));
     nMessageSize = -1;
@@ -45,6 +48,8 @@ CMessageHeader::CMessageHeader()
 
 CMessageHeader::CMessageHeader(const char* pszCommand, unsigned int nMessageSizeIn)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     memcpy(pchMessageStart, Params().MessageStart(), MESSAGE_START_SIZE);
     memset(pchCommand, 0, sizeof(pchCommand));
     strncpy(pchCommand, pszCommand, COMMAND_SIZE);
@@ -54,11 +59,15 @@ CMessageHeader::CMessageHeader(const char* pszCommand, unsigned int nMessageSize
 
 std::string CMessageHeader::GetCommand() const
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     return std::string(pchCommand, pchCommand + strnlen(pchCommand, COMMAND_SIZE));
 }
 
 bool CMessageHeader::IsValid() const
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     // Check start string
     if (memcmp(pchMessageStart, Params().MessageStart(), MESSAGE_START_SIZE) != 0)
         return false;
@@ -97,6 +106,8 @@ CAddress::CAddress(CService ipIn, uint64_t nServicesIn) : CService(ipIn)
 
 void CAddress::Init()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     nServices = NODE_NETWORK;
     nTime = 100000000;
     nLastTry = 0;
@@ -104,18 +115,24 @@ void CAddress::Init()
 
 CInv::CInv()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     type = 0;
     hash = 0;
 }
 
 CInv::CInv(int typeIn, const uint256& hashIn)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     type = typeIn;
     hash = hashIn;
 }
 
 CInv::CInv(const std::string& strType, const uint256& hashIn)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     unsigned int i;
     for (i = 1; i < ARRAYLEN(ppszTypeName); i++) {
         if (strType == ppszTypeName[i]) {
@@ -135,15 +152,21 @@ bool operator<(const CInv& a, const CInv& b)
 
 bool CInv::IsKnownType() const
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     return (type >= 1 && type < (int)ARRAYLEN(ppszTypeName));
 }
 
 bool CInv::IsMasterNodeType() const{
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
  	return (type >= 6);
 }
 
 const char* CInv::GetCommand() const
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (!IsKnownType()) {
         LogPrint("net", "CInv::GetCommand() : type=%d unknown type", type);
         return "UNKNOWN";
@@ -154,5 +177,7 @@ const char* CInv::GetCommand() const
 
 std::string CInv::ToString() const
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     return strprintf("%s %s", GetCommand(), hash.ToString());
 }

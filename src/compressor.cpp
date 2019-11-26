@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2017 The PIVX developers
@@ -14,6 +15,8 @@
 
 bool CScriptCompressor::IsToKeyID(CKeyID& hash) const
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (script.size() == 25 && script[0] == OP_DUP && script[1] == OP_HASH160 && script[2] == 20 && script[23] == OP_EQUALVERIFY && script[24] == OP_CHECKSIG) {
         memcpy(&hash, &script[3], 20);
         return true;
@@ -23,6 +26,8 @@ bool CScriptCompressor::IsToKeyID(CKeyID& hash) const
 
 bool CScriptCompressor::IsToScriptID(CScriptID& hash) const
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (script.size() == 23 && script[0] == OP_HASH160 && script[1] == 20 && script[22] == OP_EQUAL) {
         memcpy(&hash, &script[2], 20);
         return true;
@@ -32,6 +37,8 @@ bool CScriptCompressor::IsToScriptID(CScriptID& hash) const
 
 bool CScriptCompressor::IsToPubKey(CPubKey& pubkey) const
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (script.size() == 35 && script[0] == 33 && script[34] == OP_CHECKSIG && (script[1] == 0x02 || script[1] == 0x03)) {
         pubkey.Set(&script[1], &script[34]);
         return true;
@@ -45,6 +52,8 @@ bool CScriptCompressor::IsToPubKey(CPubKey& pubkey) const
 
 bool CScriptCompressor::Compress(std::vector<unsigned char>& out) const
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CKeyID keyID;
     if (IsToKeyID(keyID)) {
         out.resize(21);
@@ -76,6 +85,8 @@ bool CScriptCompressor::Compress(std::vector<unsigned char>& out) const
 
 unsigned int CScriptCompressor::GetSpecialSize(unsigned int nSize) const
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (nSize == 0 || nSize == 1)
         return 20;
     if (nSize == 2 || nSize == 3 || nSize == 4 || nSize == 5)
@@ -85,6 +96,8 @@ unsigned int CScriptCompressor::GetSpecialSize(unsigned int nSize) const
 
 bool CScriptCompressor::Decompress(unsigned int nSize, const std::vector<unsigned char>& in)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     switch (nSize) {
     case 0x00:
         script.resize(25);
@@ -158,6 +171,8 @@ uint64_t CTxOutCompressor::CompressAmount(uint64_t n)
 
 uint64_t CTxOutCompressor::DecompressAmount(uint64_t x)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     // x = 0  OR  x = 1+10*(9*n + d - 1) + e  OR  x = 1+10*(n - 1) + 9
     if (x == 0)
         return 0;

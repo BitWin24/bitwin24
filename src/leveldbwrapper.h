@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2012-2014 The Bitcoin developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -159,6 +160,8 @@ public:
 
     bool Sync()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         CLevelDBBatch batch;
         return WriteBatch(batch, true);
     }
@@ -166,6 +169,8 @@ public:
     // not exactly clean encapsulation, but it's easiest for now
     leveldb::Iterator* NewIterator()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return pdb->NewIterator(iteroptions);
     }
 };

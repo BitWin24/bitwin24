@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2016-2017 The PIVX developers
@@ -15,6 +16,8 @@ using namespace std;
  */
 void CChain::SetTip(CBlockIndex* pindex)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (pindex == NULL) {
         vChain.clear();
         return;
@@ -28,6 +31,8 @@ void CChain::SetTip(CBlockIndex* pindex)
 
 CBlockLocator CChain::GetLocator(const CBlockIndex* pindex) const
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     int nStep = 1;
     std::vector<uint256> vHave;
     vHave.reserve(32);
@@ -57,6 +62,8 @@ CBlockLocator CChain::GetLocator(const CBlockIndex* pindex) const
 
 const CBlockIndex* CChain::FindFork(const CBlockIndex* pindex) const
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (pindex->nHeight > Height())
         pindex = pindex->GetAncestor(Height());
     while (pindex && !Contains(pindex))
@@ -66,6 +73,8 @@ const CBlockIndex* CChain::FindFork(const CBlockIndex* pindex) const
 
 uint256 CBlockIndex::GetBlockTrust() const
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     uint256 bnTarget;
     bnTarget.SetCompact(nBits);
     if (bnTarget <= 0)

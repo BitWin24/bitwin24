@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2017-2018 The PIVX developers
 // Copyright (c) 2018 The MAC developers
 // Copyright (c) 2019 The BITWIN24 developers
@@ -14,6 +15,8 @@ using namespace libzerocoin;
 int getNumberOfCoinsUsed(
     const std::map<CoinDenomination, CAmount>& mapChange)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     int nChangeCount = 0;
     for (const auto& denom : zerocoinDenomList) {
         nChangeCount += mapChange.at(denom);
@@ -27,6 +30,8 @@ int getNumberOfCoinsUsed(
 CoinDenomination getMaxDenomHeld(
     const std::map<CoinDenomination, CAmount>& mapCoinsHeld)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CoinDenomination maxDenom = ZQ_ERROR;
     for (auto& coin : reverse_iterate(zerocoinDenomList)) {
         if (mapCoinsHeld.at(coin)) {
@@ -43,6 +48,8 @@ std::map<CoinDenomination, CAmount> getSpendCoins(const CAmount nValueTarget,
     const std::map<CoinDenomination, CAmount> mapOfDenomsHeld)
 
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::map<CoinDenomination, CAmount> mapUsed;
     CAmount nRemainingValue = nValueTarget;
     // Initialize
@@ -68,6 +75,8 @@ std::map<CoinDenomination, CAmount> getSpendCoins(const CAmount nValueTarget,
 // -------------------------------------------------------------------------------------------------------
 std::map<CoinDenomination, CAmount> getChange(const CAmount nValueTarget)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::map<CoinDenomination, CAmount> mapChange;
     CAmount nRemainingValue = nValueTarget;
     // Initialize
@@ -98,6 +107,8 @@ bool getIdealSpends(
     const std::map<CoinDenomination, CAmount> mapOfDenomsHeld,
     std::map<CoinDenomination, CAmount>& mapOfDenomsUsed)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CAmount nRemainingValue = nValueTarget;
     // Initialize
     for (const auto& denom : zerocoinDenomList)
@@ -126,6 +137,8 @@ std::vector<CMintMeta> getSpends(
     std::map<CoinDenomination, CAmount>& mapOfDenomsUsed,
     CAmount& nCoinsSpentValue)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::vector<CMintMeta> vSelectedMints;
     nCoinsSpentValue = 0;
     for (auto& coin : reverse_iterate(zerocoinDenomList)) {
@@ -147,6 +160,8 @@ std::vector<CMintMeta> getSpends(
 // -------------------------------------------------------------------------------------------------------
 void listSpends(const std::vector<CZerocoinMint>& vSelectedMints)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::map<libzerocoin::CoinDenomination, int64_t> mapZerocoinSupply;
     for (auto& denom : libzerocoin::zerocoinDenomList)
         mapZerocoinSupply.insert(std::make_pair(denom, 0));
@@ -170,6 +185,8 @@ void listSpends(const std::vector<CZerocoinMint>& vSelectedMints)
 CoinDenomination getDenomWithMostCoins(
     const std::map<CoinDenomination, CAmount>& mapOfDenomsUsed)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CoinDenomination maxCoins = ZQ_ERROR;
     CAmount nMaxNumber = 0;
     for (const auto& denom : zerocoinDenomList) {
@@ -186,6 +203,8 @@ CoinDenomination getDenomWithMostCoins(
 // -------------------------------------------------------------------------------------------------------
 CoinDenomination getNextHighestDenom(const CoinDenomination& this_denom)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CoinDenomination nextValue = ZQ_ERROR;
     for (const auto& denom : zerocoinDenomList) {
         if (ZerocoinDenominationToAmount(denom) > ZerocoinDenominationToAmount(this_denom)) {
@@ -202,6 +221,8 @@ CoinDenomination getNextHighestDenom(const CoinDenomination& this_denom)
 CoinDenomination getNextLowerDenomHeld(const CoinDenomination& this_denom,
     const std::map<CoinDenomination, CAmount>& mapCoinsHeld)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CoinDenomination nextValue = ZQ_ERROR;
     for (auto& denom : reverse_iterate(zerocoinDenomList)) {
         if ((denom < this_denom) && (mapCoinsHeld.at(denom) != 0)) {
@@ -220,6 +241,8 @@ int minimizeChange(
     const std::map<CoinDenomination, CAmount>& mapOfDenomsHeld,
     std::map<CoinDenomination, CAmount>& mapOfDenomsUsed)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     // Now find out if possible without using 1 coin such that we have more spends but less change
     // First get set of coins close to value but still less than value (since not exact)
     CAmount nRemainingValue = nValueTarget;
@@ -316,6 +339,8 @@ int calculateChange(
     const std::map<CoinDenomination, CAmount>& mapOfDenomsHeld,
     std::map<CoinDenomination, CAmount>& mapOfDenomsUsed)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CoinDenomination minDenomOverTarget = ZQ_ERROR;
     // Initialize
     mapOfDenomsUsed.clear();
@@ -408,6 +433,8 @@ std::vector<CMintMeta> SelectMintsFromList(const CAmount nValueTarget, CAmount& 
                                                int& nCoinsReturned, const std::list<CMintMeta>& listMints,
                                                const std::map<CoinDenomination, CAmount> mapOfDenomsHeld, int& nNeededSpends)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::vector<CMintMeta> vSelectedMints;
     std::map<CoinDenomination, CAmount> mapOfDenomsUsed;
 

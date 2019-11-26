@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2018 The PIVX developers
 // Copyright (c) 2018 The MAC developers
 // Copyright (c) 2019 The BITWIN24 developers
@@ -13,6 +14,8 @@
 
 std::string LoadInvalidSerials()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::string str = "[\n"
             "  {\n"
             "    \"s\": \"c9c868bb56eacfc4f3d829528a0ae812dff26619cd38e6c9a0eea1eacddc84\"\n"

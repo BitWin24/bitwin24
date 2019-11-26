@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
@@ -141,10 +142,14 @@ volatile bool fRequestShutdown = false;
 
 void StartShutdown()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     fRequestShutdown = true;
 }
 bool ShutdownRequested()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     return fRequestShutdown || fRestartRequested;
 }
 
@@ -154,6 +159,8 @@ public:
     CCoinsViewErrorCatcher(CCoinsView* view) : CCoinsViewBacked(view) {}
     bool GetCoins(const uint256& txid, CCoins& coins) const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         try {
             return CCoinsViewBacked::GetCoins(txid, coins);
         } catch (const std::runtime_error& e) {
@@ -175,6 +182,8 @@ static boost::scoped_ptr<ECCVerifyHandle> globalVerifyHandle;
 
 void Interrupt(boost::thread_group& threadGroup)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     InterruptHTTPServer();
     InterruptHTTPRPC();
     InterruptRPC();
@@ -186,6 +195,8 @@ void Interrupt(boost::thread_group& threadGroup)
 /** Preparing steps before shutting down or restarting the wallet */
 void PrepareShutdown()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     fRequestShutdown = true;  // Needed when we shutdown the wallet
     fRestartRequested = true; // Needed when we restart the wallet
     LogPrintf("%s: In progress...\n", __func__);
@@ -226,6 +237,8 @@ void PrepareShutdown()
     }
 
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         LOCK(cs_main);
         if (pcoinsTip != NULL) {
             FlushStateToDisk();
@@ -280,6 +293,8 @@ void PrepareShutdown()
 */
 void Shutdown()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     // Shutdown part 1: prepare shutdown
     if (!fRestartRequested) {
         PrepareShutdown();
@@ -302,28 +317,38 @@ void Shutdown()
  */
 void HandleSIGTERM(int)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     fRequestShutdown = true;
 }
 
 void HandleSIGHUP(int)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     fReopenDebugLog = true;
 }
 
 bool static InitError(const std::string& str)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     uiInterface.ThreadSafeMessageBox(str, "", CClientUIInterface::MSG_ERROR);
     return false;
 }
 
 bool static InitWarning(const std::string& str)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     uiInterface.ThreadSafeMessageBox(str, "", CClientUIInterface::MSG_WARNING);
     return true;
 }
 
 bool static Bind(const CService& addr, unsigned int flags)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (!(flags & BF_EXPLICIT) && IsLimited(addr))
         return false;
     std::string strError;
@@ -337,12 +362,16 @@ bool static Bind(const CService& addr, unsigned int flags)
 
 void OnRPCStopped()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     cvBlockChange.notify_all();
     LogPrint("rpc", "RPC stopped.\n");
 }
 
 void OnRPCPreCommand(const CRPCCommand& cmd)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
 #ifdef ENABLE_WALLET
     if (cmd.reqWallet && !pwalletMain)
         throw JSONRPCError(RPC_METHOD_NOT_FOUND, "Method not found (disabled)");
@@ -357,6 +386,8 @@ void OnRPCPreCommand(const CRPCCommand& cmd)
 
 std::string HelpMessage(HelpMessageMode mode)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
 
     // When adding new options to the categories, please keep and ensure alphabetical ordering.
     string strUsage = HelpMessageGroup(_("Options:"));
@@ -585,6 +616,8 @@ std::string HelpMessage(HelpMessageMode mode)
 
 std::string LicenseInfo()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     return FormatParagraph(strprintf(_("Copyright (C) 2009-%i The Bitcoin Core Developers"), COPYRIGHT_YEAR)) + "\n" +
            "\n" +
            FormatParagraph(strprintf(_("Copyright (C) 2014-%i The Dash Core Developers"), COPYRIGHT_YEAR)) + "\n" +
@@ -605,6 +638,8 @@ std::string LicenseInfo()
 
 static void BlockNotifyCallback(const uint256& hashNewTip)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::string strCmd = GetArg("-blocknotify", "");
 
     boost::replace_all(strCmd, "%s", hashNewTip.GetHex());
@@ -613,6 +648,8 @@ static void BlockNotifyCallback(const uint256& hashNewTip)
 
 static void BlockSizeNotifyCallback(int size, const uint256& hashNewTip)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::string strCmd = GetArg("-blocksizenotify", "");
 
     boost::replace_all(strCmd, "%s", hashNewTip.GetHex());
@@ -623,12 +660,16 @@ static void BlockSizeNotifyCallback(int size, const uint256& hashNewTip)
 struct CImportingNow {
     CImportingNow()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         assert(fImporting == false);
         fImporting = true;
     }
 
     ~CImportingNow()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         assert(fImporting == true);
         fImporting = false;
     }
@@ -636,6 +677,8 @@ struct CImportingNow {
 
 void ThreadImport(std::vector<boost::filesystem::path> vImportFiles)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     RenameThread("bitwin24-loadblk");
 
     // -reindex
@@ -677,6 +720,8 @@ void ThreadImport(std::vector<boost::filesystem::path> vImportFiles)
 
     // -loadblock=
     BOOST_FOREACH (boost::filesystem::path& path, vImportFiles) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         FILE* file = fopen(path.string().c_str(), "rb");
         if (file) {
             CImportingNow imp;
@@ -699,6 +744,8 @@ void ThreadImport(std::vector<boost::filesystem::path> vImportFiles)
  */
 bool InitSanityCheck(void)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (!ECC_InitSanityCheck()) {
         InitError("Elliptic curve cryptography sanity check failure. Aborting.");
         return false;
@@ -711,6 +758,8 @@ bool InitSanityCheck(void)
 
 bool AppInitServers(boost::thread_group& threadGroup)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     RPCServer::OnStopped(&OnRPCStopped);
     RPCServer::OnPreCommand(&OnRPCPreCommand);
     if (!InitHTTPServer())
@@ -731,6 +780,8 @@ bool AppInitServers(boost::thread_group& threadGroup)
  */
 bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
 // ********************************************************* Step 1: setup
 #ifdef _MSC_VER
     // Turn off Microsoft heap dump noise
@@ -1222,6 +1273,8 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
     if (mapArgs.count("-onlynet")) {
         std::set<enum Network> nets;
         BOOST_FOREACH (std::string snet, mapMultiArgs["-onlynet"]) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             enum Network net = ParseNetwork(snet);
             if (net == NET_UNROUTABLE)
                 return InitError(strprintf(_("Unknown network specified in -onlynet: '%s'"), snet));
@@ -1236,6 +1289,8 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
 
     if (mapArgs.count("-whitelist")) {
         BOOST_FOREACH (const std::string& net, mapMultiArgs["-whitelist"]) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             CSubNet subnet(net);
             if (!subnet.IsValid())
                 return InitError(strprintf(_("Invalid netmask specified in -whitelist: '%s'"), net));
@@ -1296,12 +1351,16 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
     if (fListen) {
         if (mapArgs.count("-bind") || mapArgs.count("-whitebind")) {
             BOOST_FOREACH (std::string strBind, mapMultiArgs["-bind"]) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
                 CService addrBind;
                 if (!Lookup(strBind.c_str(), addrBind, GetListenPort(), false))
                     return InitError(strprintf(_("Cannot resolve -bind address: '%s'"), strBind));
                 fBound |= Bind(addrBind, (BF_EXPLICIT | BF_REPORT_ERROR));
             }
             BOOST_FOREACH (std::string strBind, mapMultiArgs["-whitebind"]) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
                 CService addrBind;
                 if (!Lookup(strBind.c_str(), addrBind, 0, false))
                     return InitError(strprintf(_("Cannot resolve -whitebind address: '%s'"), strBind));
@@ -1321,6 +1380,8 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
 
     if (mapArgs.count("-externalip")) {
         BOOST_FOREACH (string strAddr, mapMultiArgs["-externalip"]) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             CService addrLocal(strAddr, GetListenPort(), fNameLookup);
             if (!addrLocal.IsValid())
                 return InitError(strprintf(_("Cannot resolve -externalip address: '%s'"), strAddr));
@@ -1654,6 +1715,8 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
             // Restore wallet transaction metadata after -zapwallettxes=1
             if (GetBoolArg("-zapwallettxes", false) && GetArg("-zapwallettxes", "1") != "2") {
                 BOOST_FOREACH (const CWalletTx& wtxOld, vWtx) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
                     uint256 hash = wtxOld.GetHash();
                     std::map<uint256, CWalletTx>::iterator mi = pwalletMain->mapWallet.find(hash);
                     if (mi != pwalletMain->mapWallet.end()) {

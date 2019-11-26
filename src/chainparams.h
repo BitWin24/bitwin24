@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
@@ -47,97 +48,231 @@ public:
         MAX_BASE58_TYPES
     };
 
-    const uint256& HashGenesisBlock() const { return hashGenesisBlock; }
-    const MessageStartChars& MessageStart() const { return pchMessageStart; }
-    const std::vector<unsigned char>& AlertKey() const { return vAlertPubKey; }
-    int GetDefaultPort() const { return nDefaultPort; }
-    const uint256& ProofOfWorkLimit() const { return bnProofOfWorkLimit; }
-    int SubsidyHalvingInterval() const { return nSubsidyHalvingInterval; }
+    const uint256& HashGenesisBlock() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return hashGenesisBlock; }
+    const MessageStartChars& MessageStart() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return pchMessageStart; }
+    const std::vector<unsigned char>& AlertKey() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return vAlertPubKey; }
+    int GetDefaultPort() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nDefaultPort; }
+    const uint256& ProofOfWorkLimit() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return bnProofOfWorkLimit; }
+    int SubsidyHalvingInterval() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nSubsidyHalvingInterval; }
     /** Used to check majorities for block version upgrade */
-    int EnforceBlockUpgradeMajority() const { return nEnforceBlockUpgradeMajority; }
-    int RejectBlockOutdatedMajority() const { return nRejectBlockOutdatedMajority; }
-    int ToCheckBlockUpgradeMajority() const { return nToCheckBlockUpgradeMajority; }
-    int MaxReorganizationDepth() const { return nMaxReorganizationDepth; }
+    int EnforceBlockUpgradeMajority() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nEnforceBlockUpgradeMajority; }
+    int RejectBlockOutdatedMajority() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nRejectBlockOutdatedMajority; }
+    int ToCheckBlockUpgradeMajority() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nToCheckBlockUpgradeMajority; }
+    int MaxReorganizationDepth() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nMaxReorganizationDepth; }
 
     /** Used if GenerateBitcoins is called with a negative number of threads */
-    int DefaultMinerThreads() const { return nMinerThreads; }
-    const CBlock& GenesisBlock() const { return genesis; }
+    int DefaultMinerThreads() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nMinerThreads; }
+    const CBlock& GenesisBlock() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return genesis; }
     /** Make miner wait to have peers to avoid wasting work */
-    bool MiningRequiresPeers() const { return fMiningRequiresPeers; }
+    bool MiningRequiresPeers() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return fMiningRequiresPeers; }
     /** Headers first syncing is disabled */
-    bool HeadersFirstSyncingActive() const { return fHeadersFirstSyncingActive; };
+    bool HeadersFirstSyncingActive() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return fHeadersFirstSyncingActive; };
     /** Default value for -checkmempool and -checkblockindex argument */
-    bool DefaultConsistencyChecks() const { return fDefaultConsistencyChecks; }
+    bool DefaultConsistencyChecks() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return fDefaultConsistencyChecks; }
     /** Allow mining of a min-difficulty block */
-    bool AllowMinDifficultyBlocks() const { return fAllowMinDifficultyBlocks; }
+    bool AllowMinDifficultyBlocks() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return fAllowMinDifficultyBlocks; }
     /** Skip proof-of-work check: allow mining of any difficulty block */
-    bool SkipProofOfWorkCheck() const { return fSkipProofOfWorkCheck; }
+    bool SkipProofOfWorkCheck() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return fSkipProofOfWorkCheck; }
     /** Make standard checks */
-    bool RequireStandard() const { return fRequireStandard; }
-    int64_t TargetTimespan() const { return nTargetTimespan; }
-    int64_t TargetSpacing() const { return nTargetSpacing; }
-    int64_t Interval() const { return nTargetTimespan / nTargetSpacing; }
-    int COINBASE_MATURITY() const { return nMaturity; }
-    CAmount MaxMoneyOut() const { return nMaxMoneyOut; }
+    bool RequireStandard() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return fRequireStandard; }
+    int64_t TargetTimespan() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nTargetTimespan; }
+    int64_t TargetSpacing() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nTargetSpacing; }
+    int64_t Interval() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nTargetTimespan / nTargetSpacing; }
+    int COINBASE_MATURITY() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nMaturity; }
+    CAmount MaxMoneyOut() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nMaxMoneyOut; }
     /** The masternode count that we will allow the see-saw reward payments to be off by */
-    int MasternodeCountDrift() const { return nMasternodeCountDrift; }
+    int MasternodeCountDrift() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nMasternodeCountDrift; }
     /** Make miner stop after a block is found. In RPC, don't return until nGenProcLimit blocks are generated */
-    bool MineBlocksOnDemand() const { return fMineBlocksOnDemand; }
+    bool MineBlocksOnDemand() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return fMineBlocksOnDemand; }
     /** In the future use NetworkIDString() for RPC fields */
-    bool TestnetToBeDeprecatedFieldRPC() const { return fTestnetToBeDeprecatedFieldRPC; }
+    bool TestnetToBeDeprecatedFieldRPC() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return fTestnetToBeDeprecatedFieldRPC; }
     /** Return the BIP70 network string (main, test or regtest) */
-    std::string NetworkIDString() const { return strNetworkID; }
-    const std::vector<CDNSSeedData>& DNSSeeds() const { return vSeeds; }
-    const std::vector<unsigned char>& Base58Prefix(Base58Type type) const { return base58Prefixes[type]; }
-    const std::vector<CAddress>& FixedSeeds() const { return vFixedSeeds; }
+    std::string NetworkIDString() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return strNetworkID; }
+    const std::vector<CDNSSeedData>& DNSSeeds() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return vSeeds; }
+    const std::vector<unsigned char>& Base58Prefix(Base58Type type) const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return base58Prefixes[type]; }
+    const std::vector<CAddress>& FixedSeeds() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return vFixedSeeds; }
     virtual const Checkpoints::CCheckpointData& Checkpoints() const = 0;
-    int PoolMaxTransactions() const { return nPoolMaxTransactions; }
-    bool ZeroCoinEnabled() const { return fZeroCoinEnabled; }
+    int PoolMaxTransactions() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nPoolMaxTransactions; }
+    bool ZeroCoinEnabled() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return fZeroCoinEnabled; }
 
     /** Spork key and Masternode Handling **/
-    std::string SporkKey() const { return strSporkKey; }
-    std::string SporkKeyOld() const { return strSporkKeyOld; }
-    int64_t NewSporkStart() const { return nEnforceNewSporkKey; }
-    int64_t RejectOldSporkKey() const { return nRejectOldSporkKey; }
-    std::string ObfuscationPoolDummyAddress() const { return strObfuscationPoolDummyAddress; }
-    int64_t StartMasternodePayments() const { return nStartMasternodePayments; }
-    int64_t Budget_Fee_Confirmations() const { return nBudget_Fee_Confirmations; }
+    std::string SporkKey() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return strSporkKey; }
+    std::string SporkKeyOld() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return strSporkKeyOld; }
+    int64_t NewSporkStart() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nEnforceNewSporkKey; }
+    int64_t RejectOldSporkKey() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nRejectOldSporkKey; }
+    std::string ObfuscationPoolDummyAddress() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return strObfuscationPoolDummyAddress; }
+    int64_t StartMasternodePayments() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nStartMasternodePayments; }
+    int64_t Budget_Fee_Confirmations() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nBudget_Fee_Confirmations; }
 
-    CBaseChainParams::Network NetworkID() const { return networkID; }
+    CBaseChainParams::Network NetworkID() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return networkID; }
 
     /** Zerocoin **/
-    std::string Zerocoin_Modulus() const { return zerocoinModulus; }
+    std::string Zerocoin_Modulus() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return zerocoinModulus; }
     libzerocoin::ZerocoinParams* Zerocoin_Params(bool useModulusV1) const;
-    int Zerocoin_MaxSpendsPerTransaction() const { return nMaxZerocoinSpendsPerTransaction; }
-    CAmount Zerocoin_MintFee() const { return nMinZerocoinMintFee; }
-    int Zerocoin_MintRequiredConfirmations() const { return nMintRequiredConfirmations; }
-    int Zerocoin_RequiredAccumulation() const { return nRequiredAccumulation; }
-    int Zerocoin_DefaultSpendSecurity() const { return nDefaultSecurityLevel; }
-    int Zerocoin_HeaderVersion() const { return nZerocoinHeaderVersion; }
-    int Zerocoin_RequiredStakeDepth() const { return nZerocoinRequiredStakeDepth; }
+    int Zerocoin_MaxSpendsPerTransaction() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nMaxZerocoinSpendsPerTransaction; }
+    CAmount Zerocoin_MintFee() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nMinZerocoinMintFee; }
+    int Zerocoin_MintRequiredConfirmations() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nMintRequiredConfirmations; }
+    int Zerocoin_RequiredAccumulation() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nRequiredAccumulation; }
+    int Zerocoin_DefaultSpendSecurity() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nDefaultSecurityLevel; }
+    int Zerocoin_HeaderVersion() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nZerocoinHeaderVersion; }
+    int Zerocoin_RequiredStakeDepth() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nZerocoinRequiredStakeDepth; }
 
-    int64_t SwapAmount() const { return nSwapAmount; }
-    int64_t SwapPoWBlocks() const { return nSwapPoWBlocks; }
-    int64_t SwapCoinbaseValue() const { return nSwapCoinbaseValue; }
+    int64_t SwapAmount() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nSwapAmount; }
+    int64_t SwapPoWBlocks() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nSwapPoWBlocks; }
+    int64_t SwapCoinbaseValue() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nSwapCoinbaseValue; }
 
     /** Height or Time Based Activations **/
-    int ModifierUpgradeBlock() const { return nModifierUpdateBlock; }
-    int LAST_POW_BLOCK() const { return nLastPOWBlock; }
-    int Zerocoin_StartHeight() const { return nZerocoinStartHeight; }
-    int Zerocoin_Block_EnforceSerialRange() const { return nBlockEnforceSerialRange; }
-    int Zerocoin_Block_RecalculateAccumulators() const { return nBlockRecalculateAccumulators; }
-    int Zerocoin_Block_FirstFraudulent() const { return nBlockFirstFraudulent; }
-    int Zerocoin_Block_LastGoodCheckpoint() const { return nBlockLastGoodCheckpoint; }
-    int Zerocoin_StartTime() const { return nZerocoinStartTime; }
-    int Block_Enforce_Invalid() const { return nBlockEnforceInvalidUTXO; }
-    int Zerocoin_Block_V2_Start() const { return nBlockZerocoinV2; }
-    CAmount InvalidAmountFiltered() const { return nInvalidAmountFiltered; };
+    int ModifierUpgradeBlock() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nModifierUpdateBlock; }
+    int LAST_POW_BLOCK() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nLastPOWBlock; }
+    int Zerocoin_StartHeight() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nZerocoinStartHeight; }
+    int Zerocoin_Block_EnforceSerialRange() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nBlockEnforceSerialRange; }
+    int Zerocoin_Block_RecalculateAccumulators() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nBlockRecalculateAccumulators; }
+    int Zerocoin_Block_FirstFraudulent() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nBlockFirstFraudulent; }
+    int Zerocoin_Block_LastGoodCheckpoint() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nBlockLastGoodCheckpoint; }
+    int Zerocoin_StartTime() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nZerocoinStartTime; }
+    int Block_Enforce_Invalid() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nBlockEnforceInvalidUTXO; }
+    int Zerocoin_Block_V2_Start() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nBlockZerocoinV2; }
+    CAmount InvalidAmountFiltered() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nInvalidAmountFiltered; };
 
-    CAmount BlockReward() const { return nBlockReward; }
-    CAmount BlockReward2() const { return nBlockReward2; }
-    CAmount MaxSupply() const { return nMaxSupply; }
-    CAmount BlocksPerYear() const { return nBlocksPerYear; }
-    CAmount MasternodeTolerance() const { return nMasternodeTolerance; }
+    CAmount BlockReward() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nBlockReward; }
+    CAmount BlockReward2() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nBlockReward2; }
+    CAmount MaxSupply() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nMaxSupply; }
+    CAmount BlocksPerYear() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nBlocksPerYear; }
+    CAmount MasternodeTolerance() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nMasternodeTolerance; }
 
 protected:
     CChainParams() {}

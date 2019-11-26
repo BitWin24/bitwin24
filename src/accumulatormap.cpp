@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2017-2018 The PIVX developers
 // Copyright (c) 2018 The MAC developers
 // Copyright (c) 2019 The BITWIN24 developers
@@ -16,6 +17,8 @@ using namespace std;
 //Construct accumulators for all denominations
 AccumulatorMap::AccumulatorMap(libzerocoin::ZerocoinParams* params)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     this->params = params;
     for (auto& denom : zerocoinDenomList) {
         unique_ptr<Accumulator> uptr(new Accumulator(params, denom));
@@ -26,11 +29,15 @@ AccumulatorMap::AccumulatorMap(libzerocoin::ZerocoinParams* params)
 //Reset each accumulator to its default state
 void AccumulatorMap::Reset()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     Reset(params);
 }
 
 void AccumulatorMap::Reset(libzerocoin::ZerocoinParams* params2)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     this->params = params2;
     mapAccumulators.clear();
     for (auto& denom : zerocoinDenomList) {
@@ -42,6 +49,8 @@ void AccumulatorMap::Reset(libzerocoin::ZerocoinParams* params2)
 //Load a checkpoint containing 8 32bit checksums of accumulator values.
 bool AccumulatorMap::Load(uint256 nCheckpoint)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     for (auto& denom : zerocoinDenomList) {
         uint32_t nChecksum = ParseChecksum(nCheckpoint, denom);
 
@@ -57,6 +66,8 @@ bool AccumulatorMap::Load(uint256 nCheckpoint)
 //Load accumulator map from a hard-checkpoint
 void AccumulatorMap::Load(const AccumulatorCheckpoints::Checkpoint& checkpoint)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
      for (auto it : checkpoint)
          mapAccumulators.at(it.first)->setValue(it.second);
 }
@@ -64,6 +75,8 @@ void AccumulatorMap::Load(const AccumulatorCheckpoints::Checkpoint& checkpoint)
 //Add a zerocoin to the accumulator of its denomination.
 bool AccumulatorMap::Accumulate(const PublicCoin& pubCoin, bool fSkipValidation)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CoinDenomination denom = pubCoin.getDenomination();
     if (denom == CoinDenomination::ZQ_ERROR)
         return false;
@@ -78,6 +91,8 @@ bool AccumulatorMap::Accumulate(const PublicCoin& pubCoin, bool fSkipValidation)
 //Get the value of a specific accumulator
 CBigNum AccumulatorMap::GetValue(CoinDenomination denom)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (denom == CoinDenomination::ZQ_ERROR)
         return CBigNum(0);
     return mapAccumulators.at(denom)->getValue();
@@ -86,6 +101,8 @@ CBigNum AccumulatorMap::GetValue(CoinDenomination denom)
 //Calculate a 32bit checksum of each accumulator value. Concatenate checksums into uint256
 uint256 AccumulatorMap::GetCheckpoint()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     uint256 nCheckpoint;
 
     //Prevent possible overflows from future changes to the list and forgetting to update this code

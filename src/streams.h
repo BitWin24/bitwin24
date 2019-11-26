@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2017 The PIVX developers
@@ -50,6 +51,8 @@ public:
 
     explicit CDataStream(int nTypeIn, int nVersionIn)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         Init(nTypeIn, nVersionIn);
     }
 
@@ -82,6 +85,8 @@ public:
 
     void Init(int nTypeIn, int nVersionIn)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         nReadPos = 0;
         nType = nTypeIn;
         nVersion = nVersionIn;
@@ -89,12 +94,16 @@ public:
 
     CDataStream& operator+=(const CDataStream& b)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         vch.insert(vch.end(), b.begin(), b.end());
         return *this;
     }
 
     friend CDataStream operator+(const CDataStream& a, const CDataStream& b)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         CDataStream ret = a;
         ret += b;
         return (ret);
@@ -102,6 +111,8 @@ public:
 
     std::string str() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return (std::string(begin(), end()));
     }
 
@@ -109,26 +120,54 @@ public:
     //
     // Vector subset
     //
-    const_iterator begin() const { return vch.begin() + nReadPos; }
-    iterator begin() { return vch.begin() + nReadPos; }
-    const_iterator end() const { return vch.end(); }
-    iterator end() { return vch.end(); }
-    size_type size() const { return vch.size() - nReadPos; }
-    bool empty() const { return vch.size() == nReadPos; }
-    void resize(size_type n, value_type c = 0) { vch.resize(n + nReadPos, c); }
-    void reserve(size_type n) { vch.reserve(n + nReadPos); }
-    const_reference operator[](size_type pos) const { return vch[pos + nReadPos]; }
-    reference operator[](size_type pos) { return vch[pos + nReadPos]; }
+    const_iterator begin() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return vch.begin() + nReadPos; }
+    iterator begin() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return vch.begin() + nReadPos; }
+    const_iterator end() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return vch.end(); }
+    iterator end() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return vch.end(); }
+    size_type size() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return vch.size() - nReadPos; }
+    bool empty() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return vch.size() == nReadPos; }
+    void resize(size_type n, value_type c = 0) { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+vch.resize(n + nReadPos, c); }
+    void reserve(size_type n) { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+vch.reserve(n + nReadPos); }
+    const_reference operator[](size_type pos) const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return vch[pos + nReadPos]; }
+    reference operator[](size_type pos) { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return vch[pos + nReadPos]; }
     void clear()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         vch.clear();
         nReadPos = 0;
     }
-    iterator insert(iterator it, const char& x = char()) { return vch.insert(it, x); }
-    void insert(iterator it, size_type n, const char& x) { vch.insert(it, n, x); }
+    iterator insert(iterator it, const char& x = char()) { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return vch.insert(it, x); }
+    void insert(iterator it, size_type n, const char& x) { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+vch.insert(it, n, x); }
 
     void insert(iterator it, std::vector<char>::const_iterator first, std::vector<char>::const_iterator last)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         assert(last - first >= 0);
         if (it == vch.begin() + nReadPos && (unsigned int)(last - first) <= nReadPos) {
             // special case for inserting at the front when there's room
@@ -141,6 +180,8 @@ public:
 #if !defined(_MSC_VER) || _MSC_VER >= 1300
     void insert(iterator it, const char* first, const char* last)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         assert(last - first >= 0);
         if (it == vch.begin() + nReadPos && (unsigned int)(last - first) <= nReadPos) {
             // special case for inserting at the front when there's room
@@ -153,6 +194,8 @@ public:
 
     iterator erase(iterator it)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (it == vch.begin() + nReadPos) {
             // special case for erasing from the front
             if (++nReadPos >= vch.size()) {
@@ -167,6 +210,8 @@ public:
 
     iterator erase(iterator first, iterator last)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (first == vch.begin() + nReadPos) {
             // special case for erasing from the front
             if (last == vch.end()) {
@@ -182,12 +227,16 @@ public:
 
     inline void Compact()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         vch.erase(vch.begin(), vch.begin() + nReadPos);
         nReadPos = 0;
     }
 
     bool Rewind(size_type n)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         // Rewind by n characters if the buffer hasn't been compacted yet
         if (n > nReadPos)
             return false;
@@ -199,19 +248,39 @@ public:
     //
     // Stream subset
     //
-    bool eof() const { return size() == 0; }
-    CDataStream* rdbuf() { return this; }
-    int in_avail() { return size(); }
+    bool eof() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return size() == 0; }
+    CDataStream* rdbuf() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return this; }
+    int in_avail() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return size(); }
 
-    void SetType(int n) { nType = n; }
-    int GetType() { return nType; }
-    void SetVersion(int n) { nVersion = n; }
-    int GetVersion() { return nVersion; }
-    void ReadVersion() { *this >> nVersion; }
-    void WriteVersion() { *this << nVersion; }
+    void SetType(int n) { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+nType = n; }
+    int GetType() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nType; }
+    void SetVersion(int n) { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+nVersion = n; }
+    int GetVersion() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nVersion; }
+    void ReadVersion() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+*this >> nVersion; }
+    void WriteVersion() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+*this << nVersion; }
 
     CDataStream& read(char* pch, size_t nSize)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         // Read from the beginning of the buffer
         unsigned int nReadPosNext = nReadPos + nSize;
         if (nReadPosNext >= vch.size()) {
@@ -230,6 +299,8 @@ public:
 
     CDataStream& ignore(int nSize)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         // Ignore from the beginning of the buffer
         assert(nSize >= 0);
         unsigned int nReadPosNext = nReadPos + nSize;
@@ -246,6 +317,8 @@ public:
 
     CDataStream& write(const char* pch, size_t nSize)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         // Write to the end of the buffer
         vch.insert(vch.end(), pch, pch + nSize);
         return (*this);
@@ -284,6 +357,8 @@ public:
 
     void GetAndClear(CSerializeData& data)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         data.insert(data.end(), begin(), end());
         clear();
     }
@@ -318,11 +393,15 @@ public:
 
     ~CAutoFile()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         fclose();
     }
 
     void fclose()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (file) {
             ::fclose(file);
             file = NULL;
@@ -335,6 +414,8 @@ public:
      */
     FILE* release()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         FILE* ret = file;
         file = NULL;
         return ret;
@@ -344,24 +425,42 @@ public:
      * @note Ownership of the FILE* will remain with this class. Use this only if the scope of the
      * CAutoFile outlives use of the passed pointer.
      */
-    FILE* Get() const { return file; }
+    FILE* Get() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return file; }
 
     /** Return true if the wrapped FILE* is NULL, false otherwise.
      */
-    bool IsNull() const { return (file == NULL); }
+    bool IsNull() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return (file == NULL); }
 
     //
     // Stream subset
     //
-    void SetType(int n) { nType = n; }
-    int GetType() { return nType; }
-    void SetVersion(int n) { nVersion = n; }
-    int GetVersion() { return nVersion; }
-    void ReadVersion() { *this >> nVersion; }
-    void WriteVersion() { *this << nVersion; }
+    void SetType(int n) { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+nType = n; }
+    int GetType() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nType; }
+    void SetVersion(int n) { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+nVersion = n; }
+    int GetVersion() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nVersion; }
+    void ReadVersion() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+*this >> nVersion; }
+    void WriteVersion() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+*this << nVersion; }
 
     CAutoFile& read(char* pch, size_t nSize)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (!file)
             throw std::ios_base::failure("CAutoFile::read : file handle is NULL");
         if (fread(pch, 1, nSize, file) != nSize)
@@ -371,6 +470,8 @@ public:
 
     CAutoFile& write(const char* pch, size_t nSize)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (!file)
             throw std::ios_base::failure("CAutoFile::write : file handle is NULL");
         if (fwrite(pch, 1, nSize, file) != nSize)
@@ -459,11 +560,15 @@ public:
 
     ~CBufferedFile()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         fclose();
     }
 
     void fclose()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (src) {
             ::fclose(src);
             src = NULL;
@@ -473,12 +578,16 @@ public:
     // check whether we're at the end of the source file
     bool eof() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return nReadPos == nSrcPos && feof(src);
     }
 
     // read a number of bytes
     CBufferedFile& read(char* pch, size_t nSize)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (nSize + nReadPos > nReadLimit)
             throw std::ios_base::failure("Read attempted past buffer limit");
         if (nSize + nRewind > vchBuf.size())
@@ -503,12 +612,16 @@ public:
     // return the current reading position
     uint64_t GetPos()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return nReadPos;
     }
 
     // rewind to a given reading position
     bool SetPos(uint64_t nPos)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         nReadPos = nPos;
         if (nReadPos + nRewind < nSrcPos) {
             nReadPos = nSrcPos - nRewind;
@@ -523,6 +636,8 @@ public:
 
     bool Seek(uint64_t nPos)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         long nLongPos = nPos;
         if (nPos != (uint64_t)nLongPos)
             return false;
@@ -538,6 +653,8 @@ public:
     // no argument removes the limit
     bool SetLimit(uint64_t nPos = (uint64_t)(-1))
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (nPos < nReadPos)
             return false;
         nReadLimit = nPos;
@@ -555,6 +672,8 @@ public:
     // search for a given byte in the stream, and remain positioned on it
     void FindByte(char ch)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         while (true) {
             if (nReadPos == nSrcPos)
                 Fill();

@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2015-2018 The PIVX developers
@@ -198,6 +199,8 @@ public:
 
     bool complete() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (!in_data)
             return false;
         return (hdr.nMessageSize == nDataPos);
@@ -205,6 +208,8 @@ public:
 
     void SetVersion(int nVersionIn)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         hdrbuf.SetVersion(nVersionIn);
         vRecv.SetVersion(nVersionIn);
     }
@@ -232,11 +237,15 @@ public:
 
     CBanEntry()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         SetNull();
     }
 
     CBanEntry(int64_t nCreateTimeIn)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         SetNull();
         nCreateTime = nCreateTimeIn;
     }
@@ -254,6 +263,8 @@ public:
 
     void SetNull()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         nVersion = CBanEntry::CURRENT_VERSION;
         nCreateTime = 0;
         nBanUntil = 0;
@@ -262,6 +273,8 @@ public:
 
     std::string banReasonToString()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         switch (banReason) {
         case BanReasonNodeMisbehaving:
             return "node misbehaving";
@@ -398,6 +411,8 @@ public:
 
     int GetRefCount()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         assert(nRefCount >= 0);
         return nRefCount;
     }
@@ -405,6 +420,8 @@ public:
     // requires LOCK(cs_vRecvMsg)
     unsigned int GetTotalRecvSize()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         unsigned int total = 0;
         BOOST_FOREACH (const CNetMessage& msg, vRecvMsg)
             total += msg.vRecv.size() + 24;
@@ -417,6 +434,8 @@ public:
     // requires LOCK(cs_vRecvMsg)
     void SetRecvVersion(int nVersionIn)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         nRecvVersion = nVersionIn;
         BOOST_FOREACH (CNetMessage& msg, vRecvMsg)
             msg.SetVersion(nVersionIn);
@@ -424,23 +443,31 @@ public:
 
     CNode* AddRef()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         nRefCount++;
         return this;
     }
 
     void Release()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         nRefCount--;
     }
 
 
     void AddAddressKnown(const CAddress& addr)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         setAddrKnown.insert(addr);
     }
 
     void PushAddress(const CAddress& addr)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         // Known checking here is only to save space from duplicates.
         // SendMessages will filter it again for knowns that were added
         // after addresses were pushed.
@@ -456,7 +483,11 @@ public:
 
     void AddInventoryKnown(const CInv& inv)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             LOCK(cs_inventory);
             setInventoryKnown.insert(inv);
         }
@@ -464,7 +495,11 @@ public:
 
     void PushInventory(const CInv& inv)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             LOCK(cs_inventory);
             if (!setInventoryKnown.count(inv))
                 vInventoryToSend.push_back(inv);
@@ -487,6 +522,8 @@ public:
 
     void PushMessage(const char* pszCommand)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         try {
             BeginMessage(pszCommand);
             EndMessage();
@@ -654,7 +691,11 @@ public:
 
     bool HasFulfilledRequest(std::string strRequest)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         BOOST_FOREACH (std::string& type, vecRequestsFulfilled) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             if (type == strRequest) return true;
         }
         return false;
@@ -662,6 +703,8 @@ public:
 
     void ClearFulfilledRequest(std::string strRequest)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         std::vector<std::string>::iterator it = vecRequestsFulfilled.begin();
         while (it != vecRequestsFulfilled.end()) {
             if ((*it) == strRequest) {
@@ -674,6 +717,8 @@ public:
 
     void FulfilledRequest(std::string strRequest)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (HasFulfilledRequest(strRequest)) return;
         vecRequestsFulfilled.push_back(strRequest);
     }

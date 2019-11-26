@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2018 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -15,6 +16,8 @@ using namespace std;
 
 CzBWITracker::CzBWITracker(std::string strWalletFile)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     this->strWalletFile = strWalletFile;
     mapSerialHashes.clear();
     mapPendingSpends.clear();
@@ -23,12 +26,16 @@ CzBWITracker::CzBWITracker(std::string strWalletFile)
 
 CzBWITracker::~CzBWITracker()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     mapSerialHashes.clear();
     mapPendingSpends.clear();
 }
 
 void CzBWITracker::Init()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     //Load all CZerocoinMints and CDeterministicMints from the database
     if (!fInitialized) {
         ListMints(false, false, true);
@@ -38,6 +45,8 @@ void CzBWITracker::Init()
 
 bool CzBWITracker::Archive(CMintMeta& meta)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (mapSerialHashes.count(meta.hashSerial))
         mapSerialHashes.at(meta.hashSerial).isArchived = true;
 
@@ -61,6 +70,8 @@ bool CzBWITracker::Archive(CMintMeta& meta)
 
 bool CzBWITracker::UnArchive(const uint256& hashPubcoin, bool isDeterministic)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CWalletDB walletdb(strWalletFile);
     if (isDeterministic) {
         CDeterministicMint dMint;
@@ -80,6 +91,8 @@ bool CzBWITracker::UnArchive(const uint256& hashPubcoin, bool isDeterministic)
 
 CMintMeta CzBWITracker::Get(const uint256 &hashSerial)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (!mapSerialHashes.count(hashSerial))
         return CMintMeta();
 
@@ -88,6 +101,8 @@ CMintMeta CzBWITracker::Get(const uint256 &hashSerial)
 
 CMintMeta CzBWITracker::GetMetaFromPubcoin(const uint256& hashPubcoin)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     for (auto it : mapSerialHashes) {
         CMintMeta meta = it.second;
         if (meta.hashPubcoin == hashPubcoin)
@@ -99,6 +114,8 @@ CMintMeta CzBWITracker::GetMetaFromPubcoin(const uint256& hashPubcoin)
 
 bool CzBWITracker::GetMetaFromStakeHash(const uint256& hashStake, CMintMeta& meta) const
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     for (auto& it : mapSerialHashes) {
         if (it.second.hashStake == hashStake) {
             meta = it.second;
@@ -111,6 +128,8 @@ bool CzBWITracker::GetMetaFromStakeHash(const uint256& hashStake, CMintMeta& met
 
 std::vector<uint256> CzBWITracker::GetSerialHashes()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     vector<uint256> vHashes;
     for (auto it : mapSerialHashes) {
         if (it.second.isArchived)
@@ -125,6 +144,8 @@ std::vector<uint256> CzBWITracker::GetSerialHashes()
 
 CAmount CzBWITracker::GetBalance(bool fConfirmedOnly, bool fUnconfirmedOnly) const
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CAmount nTotal = 0;
     //! zerocoin specific fields
     std::map<libzerocoin::CoinDenomination, unsigned int> myZerocoinSupply;
@@ -133,6 +154,8 @@ CAmount CzBWITracker::GetBalance(bool fConfirmedOnly, bool fUnconfirmedOnly) con
     }
 
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         //LOCK(cs_bitwin24tracker);
         // Get Unused coins
         for (auto& it : mapSerialHashes) {
@@ -157,11 +180,15 @@ CAmount CzBWITracker::GetBalance(bool fConfirmedOnly, bool fUnconfirmedOnly) con
 
 CAmount CzBWITracker::GetUnconfirmedBalance() const
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     return GetBalance(false, true);
 }
 
 std::vector<CMintMeta> CzBWITracker::GetMints(bool fConfirmedOnly) const
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     vector<CMintMeta> vMints;
     for (auto& it : mapSerialHashes) {
         CMintMeta mint = it.second;
@@ -178,6 +205,8 @@ std::vector<CMintMeta> CzBWITracker::GetMints(bool fConfirmedOnly) const
 //Does a mint in the tracker have this txid
 bool CzBWITracker::HasMintTx(const uint256& txid)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     for (auto it : mapSerialHashes) {
         if (it.second.txid == txid)
             return true;
@@ -188,6 +217,8 @@ bool CzBWITracker::HasMintTx(const uint256& txid)
 
 bool CzBWITracker::HasPubcoin(const CBigNum &bnValue) const
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     // Check if this mint's pubcoin value belongs to our mapSerialHashes (which includes hashpubcoin values)
     uint256 hash = GetPubCoinHash(bnValue);
     return HasPubcoinHash(hash);
@@ -195,6 +226,8 @@ bool CzBWITracker::HasPubcoin(const CBigNum &bnValue) const
 
 bool CzBWITracker::HasPubcoinHash(const uint256& hashPubcoin) const
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     for (auto it : mapSerialHashes) {
         CMintMeta meta = it.second;
         if (meta.hashPubcoin == hashPubcoin)
@@ -205,18 +238,24 @@ bool CzBWITracker::HasPubcoinHash(const uint256& hashPubcoin) const
 
 bool CzBWITracker::HasSerial(const CBigNum& bnSerial) const
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     uint256 hash = GetSerialHash(bnSerial);
     return HasSerialHash(hash);
 }
 
 bool CzBWITracker::HasSerialHash(const uint256& hashSerial) const
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     auto it = mapSerialHashes.find(hashSerial);
     return it != mapSerialHashes.end();
 }
 
 bool CzBWITracker::UpdateZerocoinMint(const CZerocoinMint& mint)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (!HasSerial(mint.GetSerialNumber()))
         return error("%s: mint %s is not known", __func__, mint.GetValue().GetHex());
 
@@ -235,6 +274,8 @@ bool CzBWITracker::UpdateZerocoinMint(const CZerocoinMint& mint)
 
 bool CzBWITracker::UpdateState(const CMintMeta& meta)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CWalletDB walletdb(strWalletFile);
 
     if (meta.isDeterministic) {
@@ -278,6 +319,8 @@ bool CzBWITracker::UpdateState(const CMintMeta& meta)
 
 void CzBWITracker::Add(const CDeterministicMint& dMint, bool isNew, bool isArchived)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CMintMeta meta;
     meta.hashPubcoin = dMint.GetPubcoinHash();
     meta.nHeight = dMint.GetHeight();
@@ -297,6 +340,8 @@ void CzBWITracker::Add(const CDeterministicMint& dMint, bool isNew, bool isArchi
 
 void CzBWITracker::Add(const CZerocoinMint& mint, bool isNew, bool isArchived)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CMintMeta meta;
     meta.hashPubcoin = GetPubCoinHash(mint.GetValue());
     meta.nHeight = mint.GetHeight();
@@ -317,6 +362,8 @@ void CzBWITracker::Add(const CZerocoinMint& mint, bool isNew, bool isArchived)
 
 void CzBWITracker::SetPubcoinUsed(const uint256& hashPubcoin, const uint256& txid)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (!HasPubcoinHash(hashPubcoin))
         return;
     CMintMeta meta = GetMetaFromPubcoin(hashPubcoin);
@@ -327,6 +374,8 @@ void CzBWITracker::SetPubcoinUsed(const uint256& hashPubcoin, const uint256& txi
 
 void CzBWITracker::SetPubcoinNotUsed(const uint256& hashPubcoin)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (!HasPubcoinHash(hashPubcoin))
         return;
     CMintMeta meta = GetMetaFromPubcoin(hashPubcoin);
@@ -340,6 +389,8 @@ void CzBWITracker::SetPubcoinNotUsed(const uint256& hashPubcoin)
 
 void CzBWITracker::RemovePending(const uint256& txid)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     uint256 hashSerial;
     for (auto it : mapPendingSpends) {
         if (it.second == txid) {
@@ -354,6 +405,8 @@ void CzBWITracker::RemovePending(const uint256& txid)
 
 bool CzBWITracker::UpdateStatusInternal(const std::set<uint256>& setMempool, CMintMeta& mint)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     //! Check whether this mint has been spent and is considered 'pending' or 'confirmed'
     // If there is not a record of the block height, then look it up and assign it
     uint256 txidMint;
@@ -430,6 +483,8 @@ bool CzBWITracker::UpdateStatusInternal(const std::set<uint256>& setMempool, CMi
 
 std::set<CMintMeta> CzBWITracker::ListMints(bool fUnusedOnly, bool fMatureOnly, bool fUpdateStatus)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CWalletDB walletdb(strWalletFile);
     if (fUpdateStatus) {
         std::list<CZerocoinMint> listMintsDB = walletdb.ListMintedCoins();
@@ -447,6 +502,8 @@ std::set<CMintMeta> CzBWITracker::ListMints(bool fUnusedOnly, bool fMatureOnly, 
     std::set<CMintMeta> setMints;
     std::set<uint256> setMempool;
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         LOCK(mempool.cs);
         mempool.getTransactions(setMempool);
     }
@@ -490,5 +547,7 @@ std::set<CMintMeta> CzBWITracker::ListMints(bool fUnusedOnly, bool fMatureOnly, 
 
 void CzBWITracker::Clear()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     mapSerialHashes.clear();
 }

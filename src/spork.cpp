@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2014-2016 The Dash developers
 // Copyright (c) 2016-2018 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
@@ -29,6 +30,8 @@ std::map<int, CSporkMessage> mapSporksActive;
 // BITWIN24: on startup load spork values from previous session if they exist in the sporkDB
 void LoadSporksFromDB()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     for (int i = SPORK_START; i <= SPORK_END; ++i) {
         // Since not all spork IDs are in use, we have to exclude undefined IDs
         std::string strSpork = sporkManager.GetSporkNameByID(i);
@@ -59,6 +62,8 @@ void LoadSporksFromDB()
 
 void ProcessSpork(CNode* pfrom, std::string& strCommand, CDataStream& vRecv)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (fLiteMode) return; //disable all obfuscation/masternode related functionality
 
     if (strCommand == "spork") {
@@ -120,6 +125,8 @@ void ProcessSpork(CNode* pfrom, std::string& strCommand, CDataStream& vRecv)
 // grab the value of the spork on the network, or the default
 int64_t GetSporkValue(int nSporkID)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     int64_t r = -1;
 
     if (mapSporksActive.count(nSporkID)) {
@@ -146,6 +153,8 @@ int64_t GetSporkValue(int nSporkID)
 // grab the spork value, and see if it's off
 bool IsSporkActive(int nSporkID)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     int64_t r = GetSporkValue(nSporkID);
     if (r == -1) return false;
     return r < GetTime();
@@ -154,6 +163,8 @@ bool IsSporkActive(int nSporkID)
 
 void ReprocessBlocks(int nBlocks)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::map<uint256, int64_t>::iterator it = mapRejectedBlocks.begin();
     while (it != mapRejectedBlocks.end()) {
         //use a window twice as large as is usual for the nBlocks we want to reset
@@ -174,6 +185,8 @@ void ReprocessBlocks(int nBlocks)
 
     CValidationState state;
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         LOCK(cs_main);
         DisconnectBlocksAndReprocess(nBlocks);
     }
@@ -185,6 +198,8 @@ void ReprocessBlocks(int nBlocks)
 
 bool CSporkManager::CheckSignature(CSporkMessage& spork, bool fCheckSigner)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     //note: need to investigate why this is failing
     std::string strMessage = boost::lexical_cast<std::string>(spork.nSporkID) + boost::lexical_cast<std::string>(spork.nValue) + boost::lexical_cast<std::string>(spork.nTimeSigned);
     CPubKey pubkeynew(ParseHex(Params().SporkKey()));
@@ -206,6 +221,8 @@ bool CSporkManager::CheckSignature(CSporkMessage& spork, bool fCheckSigner)
 
 bool CSporkManager::Sign(CSporkMessage& spork)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::string strMessage = boost::lexical_cast<std::string>(spork.nSporkID) + boost::lexical_cast<std::string>(spork.nValue) + boost::lexical_cast<std::string>(spork.nTimeSigned);
 
     CKey key2;
@@ -232,6 +249,8 @@ bool CSporkManager::Sign(CSporkMessage& spork)
 
 bool CSporkManager::UpdateSpork(int nSporkID, int64_t nValue)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CSporkMessage msg;
     msg.nSporkID = nSporkID;
     msg.nValue = nValue;
@@ -249,12 +268,16 @@ bool CSporkManager::UpdateSpork(int nSporkID, int64_t nValue)
 
 void CSporkManager::Relay(CSporkMessage& msg)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CInv inv(MSG_SPORK, msg.GetHash());
     RelayInv(inv);
 }
 
 bool CSporkManager::SetPrivKey(std::string strPrivKey)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CSporkMessage msg;
 
     // Test signing successful, proceed
@@ -272,6 +295,8 @@ bool CSporkManager::SetPrivKey(std::string strPrivKey)
 
 int CSporkManager::GetSporkIDByName(std::string strName)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (strName == "SPORK_2_SWIFTTX") return SPORK_2_SWIFTTX;
     if (strName == "SPORK_3_SWIFTTX_BLOCK_FILTERING") return SPORK_3_SWIFTTX_BLOCK_FILTERING;
     if (strName == "SPORK_5_MAX_VALUE") return SPORK_5_MAX_VALUE;
@@ -289,6 +314,8 @@ int CSporkManager::GetSporkIDByName(std::string strName)
 
 std::string CSporkManager::GetSporkNameByID(int id)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (id == SPORK_2_SWIFTTX) return "SPORK_2_SWIFTTX";
     if (id == SPORK_3_SWIFTTX_BLOCK_FILTERING) return "SPORK_3_SWIFTTX_BLOCK_FILTERING";
     if (id == SPORK_5_MAX_VALUE) return "SPORK_5_MAX_VALUE";

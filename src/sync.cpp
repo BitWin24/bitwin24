@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2017-2018 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
@@ -16,6 +17,8 @@
 #ifdef DEBUG_LOCKCONTENTION
 void PrintLockContention(const char* pszName, const char* pszFile, int nLine)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     LogPrintf("LOCKCONTENTION: %s\n", pszName);
     LogPrintf("Locker: %s:%d\n", pszFile, nLine);
 }
@@ -36,6 +39,8 @@ void PrintLockContention(const char* pszName, const char* pszFile, int nLine)
 struct CLockLocation {
     CLockLocation(const char* pszName, const char* pszFile, int nLine, bool fTryIn)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         mutexName = pszName;
         sourceFile = pszFile;
         sourceLine = nLine;
@@ -44,10 +49,14 @@ struct CLockLocation {
 
     std::string ToString() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return mutexName + "  " + sourceFile + ":" + itostr(sourceLine) + (fTry ? " (TRY)" : "");
     }
 
-    std::string MutexName() const { return mutexName; }
+    std::string MutexName() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return mutexName; }
 
     bool fTry;
 private:
@@ -67,7 +76,9 @@ struct LockData {
     // after LockData disappears.
     bool available;
     LockData() : available(true) {}
-    ~LockData() { available = false; }
+    ~LockData() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+available = false; }
 
     LockOrders lockorders;
     InvLockOrders invlockorders;
@@ -78,6 +89,8 @@ boost::thread_specific_ptr<LockStack> lockstack;
 
 static void potential_deadlock_detected(const std::pair<void*, void*>& mismatch, const LockStack& s1, const LockStack& s2)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     LogPrintf("POTENTIAL DEADLOCK DETECTED\n");
     LogPrintf("Previous lock order was:\n");
     BOOST_FOREACH (const PAIRTYPE(void*, CLockLocation) & i, s2) {
@@ -103,6 +116,8 @@ static void potential_deadlock_detected(const std::pair<void*, void*>& mismatch,
 
 static void push_lock(void* c, const CLockLocation& locklocation, bool fTry)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (lockstack.get() == NULL)
         lockstack.reset(new LockStack);
 
@@ -128,21 +143,29 @@ static void push_lock(void* c, const CLockLocation& locklocation, bool fTry)
 
 static void pop_lock()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     (*lockstack).pop_back();
 }
 
 void EnterCritical(const char* pszName, const char* pszFile, int nLine, void* cs, bool fTry)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     push_lock(cs, CLockLocation(pszName, pszFile, nLine, fTry), fTry);
 }
 
 void LeaveCritical()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     pop_lock();
 }
 
 std::string LocksHeld()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::string result;
     BOOST_FOREACH (const PAIRTYPE(void*, CLockLocation) & i, *lockstack)
         result += i.second.ToString() + std::string("\n");
@@ -151,6 +174,8 @@ std::string LocksHeld()
 
 void AssertLockHeldInternal(const char* pszName, const char* pszFile, int nLine, void* cs)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     BOOST_FOREACH (const PAIRTYPE(void*, CLockLocation) & i, *lockstack)
         if (i.first == cs)
             return;
@@ -160,6 +185,8 @@ void AssertLockHeldInternal(const char* pszName, const char* pszFile, int nLine,
 
 void DeleteLock(void* cs)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (!lockdata.available) {
         // We're already shutting down.
         return;

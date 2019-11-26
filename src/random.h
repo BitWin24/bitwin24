@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
@@ -41,6 +42,8 @@ extern uint32_t insecure_rand_Rz;
 extern uint32_t insecure_rand_Rw;
 static inline uint32_t insecure_rand(void)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     insecure_rand_Rz = 36969 * (insecure_rand_Rz & 65535) + (insecure_rand_Rz >> 16);
     insecure_rand_Rw = 18000 * (insecure_rand_Rw & 65535) + (insecure_rand_Rw >> 16);
     return (insecure_rand_Rw << 16) + insecure_rand_Rz;

@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2015-2018 The PIVX developers
@@ -122,20 +123,46 @@ enum {
 
 inline unsigned int GetSerializeSize(char a, int, int = 0)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     return sizeof(a);
 }
-inline unsigned int GetSerializeSize(signed char a, int, int = 0) { return sizeof(a); }
-inline unsigned int GetSerializeSize(unsigned char a, int, int = 0) { return sizeof(a); }
-inline unsigned int GetSerializeSize(signed short a, int, int = 0) { return sizeof(a); }
-inline unsigned int GetSerializeSize(unsigned short a, int, int = 0) { return sizeof(a); }
-inline unsigned int GetSerializeSize(signed int a, int, int = 0) { return sizeof(a); }
-inline unsigned int GetSerializeSize(unsigned int a, int, int = 0) { return sizeof(a); }
-inline unsigned int GetSerializeSize(signed long a, int, int = 0) { return sizeof(a); }
-inline unsigned int GetSerializeSize(unsigned long a, int, int = 0) { return sizeof(a); }
-inline unsigned int GetSerializeSize(signed long long a, int, int = 0) { return sizeof(a); }
-inline unsigned int GetSerializeSize(unsigned long long a, int, int = 0) { return sizeof(a); }
-inline unsigned int GetSerializeSize(float a, int, int = 0) { return sizeof(a); }
-inline unsigned int GetSerializeSize(double a, int, int = 0) { return sizeof(a); }
+inline unsigned int GetSerializeSize(signed char a, int, int = 0) { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return sizeof(a); }
+inline unsigned int GetSerializeSize(unsigned char a, int, int = 0) { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return sizeof(a); }
+inline unsigned int GetSerializeSize(signed short a, int, int = 0) { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return sizeof(a); }
+inline unsigned int GetSerializeSize(unsigned short a, int, int = 0) { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return sizeof(a); }
+inline unsigned int GetSerializeSize(signed int a, int, int = 0) { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return sizeof(a); }
+inline unsigned int GetSerializeSize(unsigned int a, int, int = 0) { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return sizeof(a); }
+inline unsigned int GetSerializeSize(signed long a, int, int = 0) { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return sizeof(a); }
+inline unsigned int GetSerializeSize(unsigned long a, int, int = 0) { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return sizeof(a); }
+inline unsigned int GetSerializeSize(signed long long a, int, int = 0) { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return sizeof(a); }
+inline unsigned int GetSerializeSize(unsigned long long a, int, int = 0) { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return sizeof(a); }
+inline unsigned int GetSerializeSize(float a, int, int = 0) { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return sizeof(a); }
+inline unsigned int GetSerializeSize(double a, int, int = 0) { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return sizeof(a); }
 
 template <typename Stream>
 inline void Serialize(Stream& s, char a, int, int = 0)
@@ -269,7 +296,9 @@ inline void Unserialize(Stream& s, double& a, int, int = 0)
     READDATA(s, a);
 }
 
-inline unsigned int GetSerializeSize(bool a, int, int = 0) { return sizeof(char); }
+inline unsigned int GetSerializeSize(bool a, int, int = 0) { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return sizeof(char); }
 template <typename Stream>
 inline void Serialize(Stream& s, bool a, int, int = 0)
 {
@@ -286,7 +315,9 @@ inline void Unserialize(Stream& s, bool& a, int, int = 0)
     a = f;
 }
 // Serializatin for libzerocoin::CoinDenomination
-inline unsigned int GetSerializeSize(libzerocoin::CoinDenomination a, int, int = 0) { return sizeof(libzerocoin::CoinDenomination); }
+inline unsigned int GetSerializeSize(libzerocoin::CoinDenomination a, int, int = 0) { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return sizeof(libzerocoin::CoinDenomination); }
 template <typename Stream>
 inline void Serialize(Stream& s, libzerocoin::CoinDenomination a, int, int = 0)
 {
@@ -303,7 +334,9 @@ inline void Unserialize(Stream& s, libzerocoin::CoinDenomination& a, int, int = 
 }
 
 // Serialization for libzerocoin::SpendType
-inline unsigned int GetSerializedSize(libzerocoin::SpendType a, int, int = 0) { return sizeof(libzerocoin::SpendType); }
+inline unsigned int GetSerializedSize(libzerocoin::SpendType a, int, int = 0) { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return sizeof(libzerocoin::SpendType); }
 template <typename Stream>
 inline void Serialize(Stream& s, libzerocoin::SpendType a, int, int = 0)
 {
@@ -486,13 +519,23 @@ public:
         pbegin = (char*)begin_ptr(v);
         pend = (char*)end_ptr(v);
     }
-    char* begin() { return pbegin; }
-    const char* begin() const { return pbegin; }
-    char* end() { return pend; }
-    const char* end() const { return pend; }
+    char* begin() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return pbegin; }
+    const char* begin() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return pbegin; }
+    char* end() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return pend; }
+    const char* end() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return pend; }
 
     unsigned int GetSerializeSize(int, int = 0) const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return pend - pbegin;
     }
 
@@ -520,6 +563,8 @@ public:
 
     unsigned int GetSerializeSize(int, int) const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return GetSizeOfVarInt<I>(n);
     }
 
@@ -567,6 +612,8 @@ public:
 
     unsigned int GetSerializeSize(int, int = 0) const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return GetSizeOfCompactSize(string.size()) + string.size();
     }
 };
@@ -798,6 +845,8 @@ inline void Unserialize(Stream& is, std::vector<T, A>& v, int nType, int nVersio
  */
 inline unsigned int GetSerializeSize(const CScript& v, int nType, int nVersion)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     return GetSerializeSize((const std::vector<unsigned char>&)v, nType, nVersion);
 }
 
@@ -910,10 +959,14 @@ void Unserialize(Stream& is, std::set<K, Pred, A>& m, int nType, int nVersion)
  * Support for ADD_SERIALIZE_METHODS and READWRITE macro
  */
 struct CSerActionSerialize {
-    bool ForRead() const { return false; }
+    bool ForRead() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return false; }
 };
 struct CSerActionUnserialize {
-    bool ForRead() const { return true; }
+    bool ForRead() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return true; }
 };
 
 template <typename Stream, typename T>
@@ -942,6 +995,8 @@ public:
 
     CSizeComputer& write(const char* psz, size_t nSize)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         this->nSize += nSize;
         return *this;
     }
@@ -949,6 +1004,8 @@ public:
     /** Pretend _nSize bytes are written, without specifying them. */
     void seek(size_t _nSize)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         this->nSize += _nSize;
     }
 
@@ -961,6 +1018,8 @@ public:
 
     size_t size() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return nSize;
     }
 };

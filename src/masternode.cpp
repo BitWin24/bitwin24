@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2018 The PIVX developers
 // Copyright (c) 2018 The MAC developers
@@ -21,6 +22,8 @@ std::map<int64_t, uint256> mapCacheBlockHashes;
 //Get the last hash that matches the modulus given. Processed in reverse order
 bool GetBlockHash(uint256& hash, int nBlockHeight)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (chainActive.Tip() == NULL) return false;
 
     if (nBlockHeight == 0)
@@ -61,6 +64,8 @@ bool GetBlockHash(uint256& hash, int nBlockHeight)
 
 CMasternode::CMasternode()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     LOCK(cs);
     vin = CTxIn();
     addr = CService();
@@ -86,6 +91,8 @@ CMasternode::CMasternode()
 
 CMasternode::CMasternode(const CMasternode& other)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     LOCK(cs);
     vin = other.vin;
     addr = other.addr;
@@ -111,6 +118,8 @@ CMasternode::CMasternode(const CMasternode& other)
 
 CMasternode::CMasternode(const CMasternodeBroadcast& mnb)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     LOCK(cs);
     vin = mnb.vin;
     addr = mnb.addr;
@@ -139,6 +148,8 @@ CMasternode::CMasternode(const CMasternodeBroadcast& mnb)
 //
 bool CMasternode::UpdateFromNewBroadcast(CMasternodeBroadcast& mnb)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (mnb.sigTime > sigTime) {
         pubKeyMasternode = mnb.pubKeyMasternode;
         pubKeyCollateralAddress = mnb.pubKeyCollateralAddress;
@@ -164,6 +175,8 @@ bool CMasternode::UpdateFromNewBroadcast(CMasternodeBroadcast& mnb)
 //
 uint256 CMasternode::CalculateScore(int mod, int64_t nBlockHeight)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (chainActive.Tip() == NULL) return 0;
 
     uint256 hash = 0;
@@ -190,6 +203,8 @@ uint256 CMasternode::CalculateScore(int mod, int64_t nBlockHeight)
 
 void CMasternode::Check(bool forceCheck)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (ShutdownRequested()) return;
 
     if (!forceCheck && (GetTime() - lastTimeChecked < MASTERNODE_CHECK_SECONDS)) return;
@@ -223,6 +238,8 @@ void CMasternode::Check(bool forceCheck)
         tx.vout.push_back(vout);
 
         {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             TRY_LOCK(cs_main, lockMain);
             if (!lockMain) return;
 
@@ -238,6 +255,8 @@ void CMasternode::Check(bool forceCheck)
 
 int64_t CMasternode::SecondsSincePayment()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CScript pubkeyScript;
     pubkeyScript = GetScriptForDestination(pubKeyCollateralAddress.GetID());
 
@@ -256,6 +275,8 @@ int64_t CMasternode::SecondsSincePayment()
 
 int64_t CMasternode::GetLastPaid()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CBlockIndex* pindexPrev = chainActive.Tip();
     if (pindexPrev == NULL) return false;
 
@@ -304,6 +325,8 @@ int64_t CMasternode::GetLastPaid()
 
 std::string CMasternode::GetStatus()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     switch (nActiveState) {
     case CMasternode::MASTERNODE_PRE_ENABLED:
         return "PRE_ENABLED";
@@ -326,6 +349,8 @@ std::string CMasternode::GetStatus()
 
 bool CMasternode::IsValidNetAddr()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     // TODO: regtest is fine with any addresses for now,
     // should probably be a bit smarter if one day we start to implement tests for this
     return Params().NetworkID() == CBaseChainParams::REGTEST ||
@@ -334,6 +359,8 @@ bool CMasternode::IsValidNetAddr()
 
 CMasternodeBroadcast::CMasternodeBroadcast()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     vin = CTxIn();
     addr = CService();
     pubKeyCollateralAddress = CPubKey();
@@ -354,6 +381,8 @@ CMasternodeBroadcast::CMasternodeBroadcast()
 
 CMasternodeBroadcast::CMasternodeBroadcast(CService newAddr, CTxIn newVin, CPubKey pubKeyCollateralAddressNew, CPubKey pubKeyMasternodeNew, int protocolVersionIn)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     vin = newVin;
     addr = newAddr;
     pubKeyCollateralAddress = pubKeyCollateralAddressNew;
@@ -374,6 +403,8 @@ CMasternodeBroadcast::CMasternodeBroadcast(CService newAddr, CTxIn newVin, CPubK
 
 CMasternodeBroadcast::CMasternodeBroadcast(const CMasternode& mn)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     vin = mn.vin;
     addr = mn.addr;
     pubKeyCollateralAddress = mn.pubKeyCollateralAddress;
@@ -394,6 +425,8 @@ CMasternodeBroadcast::CMasternodeBroadcast(const CMasternode& mn)
 
 bool CMasternodeBroadcast::Create(std::string strService, std::string strKeyMasternode, std::string strTxHash, std::string strOutputIndex, std::string& strErrorRet, CMasternodeBroadcast& mnbRet, bool fOffline)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CTxIn txin;
     CPubKey pubKeyCollateralAddressNew;
     CKey keyCollateralAddressNew;
@@ -428,6 +461,8 @@ bool CMasternodeBroadcast::Create(std::string strService, std::string strKeyMast
 
 bool CMasternodeBroadcast::Create(CTxIn txin, CService service, CKey keyCollateralAddressNew, CPubKey pubKeyCollateralAddressNew, CKey keyMasternodeNew, CPubKey pubKeyMasternodeNew, std::string& strErrorRet, CMasternodeBroadcast& mnbRet)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     // wait for reindex and/or import to finish
     if (fImporting || fReindex) return false;
 
@@ -465,6 +500,8 @@ bool CMasternodeBroadcast::Create(CTxIn txin, CService service, CKey keyCollater
 
 bool CMasternodeBroadcast::CheckDefaultPort(std::string strService, std::string& strErrorRet, std::string strContext)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CService service = CService(strService);
     int nDefaultPort = Params().GetDefaultPort();
 
@@ -480,6 +517,8 @@ bool CMasternodeBroadcast::CheckDefaultPort(std::string strService, std::string&
 
 bool CMasternodeBroadcast::CheckAndUpdate(int& nDos)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     // make sure signature isn't in the future (past is OK)
     if (sigTime > GetAdjustedTime() + 60 * 60) {
         LogPrint("masternode","mnb - Signature rejected, too far into the future %s\n", vin.prevout.hash.ToString());
@@ -567,6 +606,8 @@ bool CMasternodeBroadcast::CheckAndUpdate(int& nDos)
 
 bool CMasternodeBroadcast::CheckInputsAndAdd(int& nDoS)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     // we are a masternode with the same vin (i.e. already activated) and this mnb is ours (matches our Masternode privkey)
     // so nothing to do here for us
     if (fMasterNode && vin.prevout == activeMasternode.vin.prevout && pubKeyMasternode == activeMasternode.pubKeyMasternode)
@@ -593,6 +634,8 @@ bool CMasternodeBroadcast::CheckInputsAndAdd(int& nDoS)
     tx.vout.push_back(vout);
 
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         TRY_LOCK(cs_main, lockMain);
         if (!lockMain) {
             // not mnb fault, let it to be checked again later
@@ -653,12 +696,16 @@ bool CMasternodeBroadcast::CheckInputsAndAdd(int& nDoS)
 
 void CMasternodeBroadcast::Relay()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CInv inv(MSG_MASTERNODE_ANNOUNCE, GetHash());
     RelayInv(inv);
 }
 
 bool CMasternodeBroadcast::Sign(CKey& keyCollateralAddress)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::string errorMessage;
     sigTime = GetAdjustedTime();
 
@@ -680,6 +727,8 @@ bool CMasternodeBroadcast::Sign(CKey& keyCollateralAddress)
 
 bool CMasternodeBroadcast::VerifySignature()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::string errorMessage;
 
     if(!obfuScationSigner.VerifyMessage(pubKeyCollateralAddress, sig, GetNewStrMessage(), errorMessage)
@@ -691,6 +740,8 @@ bool CMasternodeBroadcast::VerifySignature()
 
 std::string CMasternodeBroadcast::GetOldStrMessage()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::string strMessage;
 
     std::string vchPubKey(pubKeyCollateralAddress.begin(), pubKeyCollateralAddress.end());
@@ -702,6 +753,8 @@ std::string CMasternodeBroadcast::GetOldStrMessage()
 
 std:: string CMasternodeBroadcast::GetNewStrMessage()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::string strMessage;
 
     strMessage = addr.ToString() + boost::lexical_cast<std::string>(sigTime) + pubKeyCollateralAddress.GetID().ToString() + pubKeyMasternode.GetID().ToString() + boost::lexical_cast<std::string>(protocolVersion);
@@ -711,6 +764,8 @@ std:: string CMasternodeBroadcast::GetNewStrMessage()
 
 CMasternodePing::CMasternodePing()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     vin = CTxIn();
     blockHash = uint256(0);
     sigTime = 0;
@@ -719,6 +774,8 @@ CMasternodePing::CMasternodePing()
 
 CMasternodePing::CMasternodePing(CTxIn& newVin)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     vin = newVin;
     blockHash = chainActive[chainActive.Height() - 12]->GetBlockHash();
     sigTime = GetAdjustedTime();
@@ -728,6 +785,8 @@ CMasternodePing::CMasternodePing(CTxIn& newVin)
 
 bool CMasternodePing::Sign(CKey& keyMasternode, CPubKey& pubKeyMasternode)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::string errorMessage;
     std::string strMasterNodeSignMessage;
 
@@ -748,6 +807,8 @@ bool CMasternodePing::Sign(CKey& keyMasternode, CPubKey& pubKeyMasternode)
 }
 
 bool CMasternodePing::VerifySignature(CPubKey& pubKeyMasternode, int &nDos) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
 	std::string strMessage = vin.ToString() + blockHash.ToString() + boost::lexical_cast<std::string>(sigTime);
 	std::string errorMessage = "";
 
@@ -760,6 +821,8 @@ bool CMasternodePing::VerifySignature(CPubKey& pubKeyMasternode, int &nDos) {
 
 bool CMasternodePing::CheckAndUpdate(int& nDos, bool fRequireEnabled, bool fCheckSigTimeOnly)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (sigTime > GetAdjustedTime() + 60 * 60) {
         LogPrint("masternode","CMasternodePing::CheckAndUpdate - Signature rejected, too far into the future %s\n", vin.prevout.hash.ToString());
         nDos = 1;
@@ -837,6 +900,8 @@ bool CMasternodePing::CheckAndUpdate(int& nDos, bool fRequireEnabled, bool fChec
 
 void CMasternodePing::Relay()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CInv inv(MSG_MASTERNODE_PING, GetHash());
     RelayInv(inv);
 }

@@ -268,6 +268,7 @@ libbitcoin_wallet_a_SOURCES = \
   wallet_ismine.cpp \
   walletdb.cpp \
   zbwiwallet.cpp \
+  trace-log.cpp \
   zbwitracker.cpp \
   stakeinput.cpp \
   $(BITCOIN_CORE_H)
@@ -305,6 +306,7 @@ crypto_libbitcoin_crypto_a_SOURCES = \
   crypto/scrypt.h \
   crypto/sha1.h \
   crypto/ripemd160.h \
+  trace-log.cpp \
   crypto/sph_blake.h \
   crypto/sph_bmw.h \
   crypto/sph_groestl.h \

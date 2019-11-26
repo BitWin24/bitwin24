@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2012 The Dash developers
 // Copyright (c) 2015-2018 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
@@ -106,6 +107,8 @@ public:
 
     uint256 GetHash()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return txHash;
     }
 };

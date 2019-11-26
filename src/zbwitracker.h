@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2018 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -29,7 +30,9 @@ public:
     bool HasSerial(const CBigNum& bnSerial) const;
     bool HasSerialHash(const uint256& hashSerial) const;
     bool HasMintTx(const uint256& txid);
-    bool IsEmpty() const { return mapSerialHashes.empty(); }
+    bool IsEmpty() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return mapSerialHashes.empty(); }
     void Init();
     CMintMeta Get(const uint256& hashSerial);
     CMintMeta GetMetaFromPubcoin(const uint256& hashPubcoin);

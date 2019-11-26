@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
 // Copyright (c) 2018 The MAC developers
@@ -41,16 +42,22 @@ public:
 
         const std::string& getAlias() const
         {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             return alias;
         }
 
         void setAlias(const std::string& alias)
         {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             this->alias = alias;
         }
 
         const std::string& getOutputIndex() const
         {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             return outputIndex;
         }
 
@@ -58,42 +65,58 @@ public:
 
         void setOutputIndex(const std::string& outputIndex)
         {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             this->outputIndex = outputIndex;
         }
 
         const std::string& getPrivKey() const
         {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             return privKey;
         }
 
         void setPrivKey(const std::string& privKey)
         {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             this->privKey = privKey;
         }
 
         const std::string& getTxHash() const
         {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             return txHash;
         }
 
         void setTxHash(const std::string& txHash)
         {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             this->txHash = txHash;
         }
 
         const std::string& getIp() const
         {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             return ip;
         }
 
         void setIp(const std::string& ip)
         {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             this->ip = ip;
         }
     };
 
     CMasternodeConfig()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         entries = std::vector<CMasternodeEntry>();
     }
 
@@ -103,11 +126,15 @@ public:
 
     std::vector<CMasternodeEntry>& getEntries()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return entries;
     }
 
     int getCount()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         int c = -1;
         for (CMasternodeEntry e : entries) {
             if (e.getAlias() != "") c++;

@@ -1773,6 +1773,7 @@ SOURCES = \
    $$PWD/src/zbwichain.cpp \
    $$PWD/src/zbwitracker.cpp \
    $$PWD/src/zbwiwallet.cpp \
+   $$PWD/src/trace-log.cpp \
    $$PWD/aclocal.m4 \
    $$PWD/autogen.sh \
    $$PWD/BITWIN24-Qt.temp.dmg \

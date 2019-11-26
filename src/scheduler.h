@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2015 The Bitcoin Core developers
 // Copyright (c) 2017 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
@@ -78,7 +79,9 @@ private:
     int nThreadsServicingQueue;
     bool stopRequested;
     bool stopWhenEmpty;
-    bool shouldStop() { return stopRequested || (stopWhenEmpty && taskQueue.empty()); }
+    bool shouldStop() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return stopRequested || (stopWhenEmpty && taskQueue.empty()); }
 };
 
 #endif

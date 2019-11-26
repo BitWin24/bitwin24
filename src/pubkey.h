@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2016-2018 The PIVX developers
@@ -55,6 +56,8 @@ private:
     //! Compute the length of a pubkey with a given first byte.
     unsigned int static GetLen(unsigned char chHeader)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (chHeader == 2 || chHeader == 3)
             return COMPRESSED_PUBLIC_KEY_SIZE;
         if (chHeader == 4 || chHeader == 6 || chHeader == 7)
@@ -65,6 +68,8 @@ private:
     //! Set this key data to be invalid
     void Invalidate()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         vch[0] = 0xFF;
     }
 
@@ -96,23 +101,37 @@ public:
     //! Construct a public key from a byte vector.
     explicit CPubKey(const std::vector<unsigned char>& _vch)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         Set(_vch.begin(), _vch.end());
     }
 
     //! Simple read-only vector-like interface to the pubkey data.
-    unsigned int size() const { return GetLen(vch[0]); }
-    const unsigned char* begin() const { return vch; }
-    const unsigned char* end() const { return vch + size(); }
-    const unsigned char& operator[](unsigned int pos) const { return vch[pos]; }
+    unsigned int size() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return GetLen(vch[0]); }
+    const unsigned char* begin() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return vch; }
+    const unsigned char* end() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return vch + size(); }
+    const unsigned char& operator[](unsigned int pos) const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return vch[pos]; }
 
     //! Comparator implementation.
     friend bool operator==(const CPubKey& a, const CPubKey& b)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return a.vch[0] == b.vch[0] &&
                memcmp(a.vch, b.vch, a.size()) == 0;
     }
     friend bool operator!=(const CPubKey& a, const CPubKey& b)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return !(a == b);
     }
     friend bool operator<(const CPubKey& a, const CPubKey& b)
@@ -124,6 +143,8 @@ public:
     //! Implement serialization, as if this was a byte vector.
     unsigned int GetSerializeSize(int nType, int nVersion) const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return size() + 1;
     }
     template <typename Stream>
@@ -151,12 +172,16 @@ public:
     //! Get the KeyID of this public key (hash of its serialization)
     CKeyID GetID() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return CKeyID(Hash160(vch, vch + size()));
     }
 
     //! Get the 256-bit hash of this public key.
     uint256 GetHash() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return Hash(vch, vch + size());
     }
 
@@ -167,6 +192,8 @@ public:
      */
     bool IsValid() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return size() > 0;
     }
 
@@ -176,6 +203,8 @@ public:
     //! Check whether this is a compressed public key.
     bool IsCompressed() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return size() == COMPRESSED_PUBLIC_KEY_SIZE;
     }
 
@@ -201,11 +230,15 @@ public:
 
     std::vector<unsigned char> Raw() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return std::vector<unsigned char>(vch, vch + size());
     }
 
     std::string GetHex()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         std::string my_std_string(reinterpret_cast<const char*>(vch), 65);
         return my_std_string;
     }
@@ -220,6 +253,8 @@ struct CExtPubKey {
 
     friend bool operator==(const CExtPubKey& a, const CExtPubKey& b)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return a.nDepth == b.nDepth &&
             memcmp(&a.vchFingerprint[0], &b.vchFingerprint[0], sizeof(vchFingerprint)) == 0 &&
             a.nChild == b.nChild &&
@@ -233,6 +268,8 @@ struct CExtPubKey {
 
     void Serialize(CSizeComputer& s) const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         // Optimized implementation for ::GetSerializeSize that avoids copying.
         s.seek(BIP32_EXTKEY_SIZE + 1); // add one byte for the size (compact int)
     }

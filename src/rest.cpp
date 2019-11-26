@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin Core developers
 // Copyright (c) 2017 The PIVX developers
@@ -67,6 +68,8 @@ extern UniValue blockheaderToJSON(const CBlockIndex* blockindex);
 
 static bool RESTERR(HTTPRequest* req, enum HTTPStatusCode status, string message)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     req->WriteHeader("Content-Type", "text/plain");
     req->WriteReply(status, message + "\r\n");
     return false;
@@ -74,6 +77,8 @@ static bool RESTERR(HTTPRequest* req, enum HTTPStatusCode status, string message
 
 static enum RetFormat ParseDataFormat(vector<string>& params, const string& strReq)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     boost::split(params, strReq, boost::is_any_of("."));
     if (params.size() > 1) {
         for (unsigned int i = 0; i < ARRAYLEN(rf_names); i++)
@@ -86,6 +91,8 @@ static enum RetFormat ParseDataFormat(vector<string>& params, const string& strR
 
 static string AvailableDataFormatsString()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     string formats = "";
     for (unsigned int i = 0; i < ARRAYLEN(rf_names); i++)
         if (strlen(rf_names[i].name) > 0) {
@@ -102,6 +109,8 @@ static string AvailableDataFormatsString()
 
 static bool ParseHashStr(const string& strReq, uint256& v)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (!IsHex(strReq) || (strReq.size() != 64))
         return false;
 
@@ -111,6 +120,8 @@ static bool ParseHashStr(const string& strReq, uint256& v)
 
 static bool CheckWarmup(HTTPRequest* req)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::string statusmessage;
     if (RPCIsInWarmup(&statusmessage))
          return RESTERR(req, HTTP_SERVICE_UNAVAILABLE, "Service temporarily unavailable: " + statusmessage);
@@ -120,6 +131,8 @@ static bool CheckWarmup(HTTPRequest* req)
 static bool rest_headers(HTTPRequest* req,
                          const std::string& strURIPart)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (!CheckWarmup(req))
         return false;
     vector<string> params;
@@ -142,6 +155,8 @@ static bool rest_headers(HTTPRequest* req,
     std::vector<const CBlockIndex *> headers;
     headers.reserve(count);
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         LOCK(cs_main);
         BlockMap::const_iterator it = mapBlockIndex.find(hash);
         const CBlockIndex *pindex = (it != mapBlockIndex.end()) ? it->second : NULL;
@@ -155,6 +170,8 @@ static bool rest_headers(HTTPRequest* req,
 
     CDataStream ssHeader(SER_NETWORK, PROTOCOL_VERSION);
     BOOST_FOREACH(const CBlockIndex *pindex, headers) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         ssHeader << pindex->GetBlockHeader();
     }
 
@@ -175,6 +192,8 @@ static bool rest_headers(HTTPRequest* req,
     case RF_JSON: {
         UniValue jsonHeaders(UniValue::VARR);
         BOOST_FOREACH(const CBlockIndex *pindex, headers) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             jsonHeaders.push_back(blockheaderToJSON(pindex));
         }
         string strJSON = jsonHeaders.write() + "\n";
@@ -195,6 +214,8 @@ static bool rest_block(HTTPRequest* req,
                        const std::string& strURIPart,
                        bool showTxDetails)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (!CheckWarmup(req))
         return false;
     vector<string> params;
@@ -208,6 +229,8 @@ static bool rest_block(HTTPRequest* req,
     CBlock block;
     CBlockIndex* pblockindex = NULL;
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         LOCK(cs_main);
         if (mapBlockIndex.count(hash) == 0)
             return RESTERR(req, HTTP_NOT_FOUND, hashStr + " not found");
@@ -257,16 +280,22 @@ static bool rest_block(HTTPRequest* req,
 
 static bool rest_block_extended(HTTPRequest* req, const std::string& strURIPart)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     return rest_block(req, strURIPart, true);
 }
 
 static bool rest_block_notxdetails(HTTPRequest* req, const std::string& strURIPart)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     return rest_block(req, strURIPart, false);
 }
 
 static bool rest_chaininfo(HTTPRequest* req, const std::string& strURIPart)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (!CheckWarmup(req))
         return false;
     vector<string> params;
@@ -292,6 +321,8 @@ static bool rest_chaininfo(HTTPRequest* req, const std::string& strURIPart)
 
 static bool rest_mempool_info(HTTPRequest* req, const std::string& strURIPart)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (!CheckWarmup(req))
         return false;
     vector<string> params;
@@ -317,6 +348,8 @@ static bool rest_mempool_info(HTTPRequest* req, const std::string& strURIPart)
 
 static bool rest_mempool_contents(HTTPRequest* req, const std::string& strURIPart)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (!CheckWarmup(req))
         return false;
     vector<string> params;
@@ -342,6 +375,8 @@ static bool rest_mempool_contents(HTTPRequest* req, const std::string& strURIPar
 
 static bool rest_tx(HTTPRequest* req, const std::string& strURIPart)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (!CheckWarmup(req))
         return false;
     vector<string> params;
@@ -395,6 +430,8 @@ static bool rest_tx(HTTPRequest* req, const std::string& strURIPart)
 
 static bool rest_getutxos(HTTPRequest* req, const std::string& strURIPart)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (!CheckWarmup(req))
         return false;
     vector<string> params;
@@ -493,6 +530,8 @@ static bool rest_getutxos(HTTPRequest* req, const std::string& strURIPart)
     std::string bitmapStringRepresentation;
     boost::dynamic_bitset<unsigned char> hits(vOutPoints.size());
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         LOCK2(cs_main, mempool.cs);
 
         CCoinsView viewDummy;
@@ -561,6 +600,8 @@ static bool rest_getutxos(HTTPRequest* req, const std::string& strURIPart)
 
         UniValue utxos(UniValue::VARR);
         BOOST_FOREACH (const CCoin& coin, outs) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             UniValue utxo(UniValue::VOBJ);
             utxo.push_back(Pair("txvers", (int32_t)coin.nTxVer));
             utxo.push_back(Pair("height", (int32_t)coin.nHeight));
@@ -605,6 +646,8 @@ static const struct {
 
 bool StartREST()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     for (unsigned int i = 0; i < ARRAYLEN(uri_prefixes); i++)
         RegisterHTTPHandler(uri_prefixes[i].prefix, false, uri_prefixes[i].handler);
     return true;
@@ -612,10 +655,14 @@ bool StartREST()
 
 void InterruptREST()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
 }
 
 void StopREST()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     for (unsigned int i = 0; i < ARRAYLEN(uri_prefixes); i++)
         UnregisterHTTPHandler(uri_prefixes[i].prefix, false);
 }

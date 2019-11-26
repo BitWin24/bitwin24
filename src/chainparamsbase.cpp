@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2016-2017 The PIVX developers
@@ -77,12 +78,16 @@ static CBaseChainParams* pCurrentBaseParams = 0;
 
 const CBaseChainParams& BaseParams()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     assert(pCurrentBaseParams);
     return *pCurrentBaseParams;
 }
 
 void SelectBaseParams(CBaseChainParams::Network network)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     switch (network) {
     case CBaseChainParams::MAIN:
         pCurrentBaseParams = &mainParams;
@@ -104,6 +109,8 @@ void SelectBaseParams(CBaseChainParams::Network network)
 
 CBaseChainParams::Network NetworkIdFromCommandLine()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     bool fRegTest = GetBoolArg("-regtest", false);
     bool fTestNet = GetBoolArg("-testnet", false);
 
@@ -118,6 +125,8 @@ CBaseChainParams::Network NetworkIdFromCommandLine()
 
 bool SelectBaseParamsFromCommandLine()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CBaseChainParams::Network network = NetworkIdFromCommandLine();
     if (network == CBaseChainParams::MAX_NETWORK_TYPES)
         return false;

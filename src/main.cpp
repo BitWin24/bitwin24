@@ -81,6 +81,7 @@ bool fCheckBlockIndex = false;
 bool fVerifyingBlocks = false;
 unsigned int nCoinCacheSize = 5000;
 bool fAlerts = DEFAULT_ALERTS;
+const int START_HEIGHT_REWARD_BASED_ON_MN_COUNT = 55275;
 
 unsigned int nStakeMinAge = 60 * 60;
 int64_t nReserveBalance = 0;
@@ -1760,7 +1761,31 @@ double ConvertBitsToDouble(unsigned int nBits)
     return dDiff;
 }
 
-int64_t GetBlockValue(int nHeight)
+int64_t GetPhaseMultiplier(int nHeight)
+{
+    int64_t currentPhaseMultiplier = 0;
+
+    int64_t nMoneySupply = 0;
+    if(chainActive.Tip()->nHeight < nHeight)
+        nMoneySupply = chainActive[chainActive.Tip()->nHeight]->nMoneySupply;
+    else
+        nMoneySupply = chainActive[nHeight]->nMoneySupply;
+
+    if (nMoneySupply < 14000000 * COIN)
+        currentPhaseMultiplier = 2050;
+    else if (nMoneySupply < 17000000 * COIN)
+        currentPhaseMultiplier = 1000;
+    else if (nMoneySupply < 18000000 * COIN)
+        currentPhaseMultiplier = 500;
+    else if (nMoneySupply < 19000000 * COIN)
+        currentPhaseMultiplier = 130;
+    else if (nMoneySupply >= 19000000 * COIN)
+        currentPhaseMultiplier = 60;
+
+    return currentPhaseMultiplier;
+}
+
+int64_t GetBlockValue(int nHeight, int nMasternodeCount)
 {
     int64_t nSubsidy = 0;
     if (nHeight >= 0 && nHeight <= Params().LAST_POW_BLOCK()) {
@@ -1772,22 +1797,61 @@ int64_t GetBlockValue(int nHeight)
         }
     }
     else {
-        const int reward2Star = 5150;
-        if (nHeight < reward2Star) {
-            const CAmount currentSupply = (nHeight - Params().SwapPoWBlocks()) * Params().BlockReward()
-                                          + Params().SwapAmount();
-            if ((currentSupply + Params().BlockReward()) <= Params().MaxSupply())
+        int64_t nMoneySupply = chainActive.Tip()->nMoneySupply;
+        if (nHeight < 230) {
+            if ((nMoneySupply + Params().BlockReward()) <= Params().MaxSupply())
                 nSubsidy = Params().BlockReward();
-        } else {
-            const CAmount supplyBeforeReward2 = (reward2Star - Params().SwapPoWBlocks() - 1) * Params().BlockReward()
-                                                + Params().SwapAmount();
-            const CAmount currentSupply = (nHeight - reward2Star) * Params().BlockReward2() + supplyBeforeReward2;
-            if ((currentSupply + Params().BlockReward2()) <= Params().MaxSupply())
+        } else if (nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT) {
+            if ((nMoneySupply + Params().BlockReward2()) <= Params().MaxSupply())
                 nSubsidy = Params().BlockReward2();
+        } else {
+            if(nHeight <= chainActive.Height())
+            {
+                // for old blocks the number of masternodes is unknown, the return value from the block
+                return chainActive[nHeight]->nMoneySupply - chainActive[nHeight - 1]->nMoneySupply;
+            }
+            else
+            {
+                int64_t currentPhaseMultiplier = GetPhaseMultiplier(nHeight);
+
+                const int64_t collateral = 3000 * COIN;
+                const int64_t newSubsidy = nMasternodeCount * collateral / Params().BlocksPerYear()
+                                           * currentPhaseMultiplier / 1000 * 100 / 80;
+
+                if ((nMoneySupply + newSubsidy) <= Params().MaxSupply())
+                    nSubsidy = newSubsidy;
+                else
+                    nSubsidy = Params().MaxSupply() - nMoneySupply;
+            }
         }
     }
 
     return nSubsidy;
+}
+
+/** returns:
+ * -1 if reward not based on block height
+ * -2 if reward is trimmed
+ * -3 unknown
+ * */
+int GetMasternodeCountBasedOnBlockReward(int nHeight, CAmount reward)
+{
+    if(nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT)
+        return -1;
+
+    if(chainActive.Tip()->nHeight > nHeight)
+        return -3;
+
+    int64_t nMoneySupply = chainActive[nHeight]->nMoneySupply;
+
+    if ((nMoneySupply + GetBlockValue(nHeight, mnodeman.size())) == Params().MaxSupply())
+        return -2;
+
+    int64_t currentPhaseMultiplier = GetPhaseMultiplier(nHeight);
+
+    const int64_t collateral = 3000 * COIN;
+
+    return round((double) reward * Params().BlocksPerYear() * 1000 * 80 / 100 / collateral / currentPhaseMultiplier);
 }
 
 int64_t GetMasternodePayment(int64_t blockValue)
@@ -1894,7 +1958,7 @@ void Misbehaving(NodeId pnode, int howmuch)
         return;
 
     state->nMisbehavior += howmuch;
-    int banscore = GetArg("-banscore", 100);
+    int banscore = GetArg("-banscore", 200);
     if (state->nMisbehavior >= banscore && state->nMisbehavior - howmuch < banscore) {
         LogPrintf("Misbehaving: %s (%d -> %d) BAN THRESHOLD EXCEEDED\n", state->name, state->nMisbehavior - howmuch, state->nMisbehavior);
         state->fShouldBan = true;
@@ -2774,6 +2838,30 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     CAmount nExpectedMint = GetBlockValue(pindex->pprev->nHeight);
     if (block.IsProofOfWork())
         nExpectedMint += nFees;
+    if(pindex->pprev->nHeight >= START_HEIGHT_REWARD_BASED_ON_MN_COUNT)
+    {
+        // can't validate, just accept
+        nExpectedMint = pindex->nMoneySupply - pindex->pprev->nMoneySupply;
+        if(masternodeSync.IsSynced() && !IsInitialBlockDownload())
+        {
+            int masternodeCount = GetMasternodeCountBasedOnBlockReward(pindex->pprev->nHeight, nExpectedMint);
+            if(masternodeCount >= 0)
+            {
+                if(masternodeCount > mnodeman.size() + Params().MasternodeTolerance()
+                   || masternodeCount < mnodeman.size() - Params().MasternodeTolerance()
+                   || masternodeCount < 0)
+                {
+                    int minLevel = mnodeman.size() - Params().MasternodeTolerance();
+                    if (minLevel < 0) minLevel = 0;
+                    return state.DoS(100,error("ConnectBlock() : unexpected number of masternodes, %d not in range [%d - %d]",
+                                               masternodeCount, minLevel,
+                                               mnodeman.size() + Params().MasternodeTolerance()),
+                                     REJECT_INVALID, "bad-cb-amount");
+                }
+            }
+        }
+        nExpectedMint += nFees;
+    }
 
     //Check that the block does not overmint
     if (!IsBlockValueValid(block, nExpectedMint, pindex->nMint)) {

@@ -136,6 +136,8 @@ public:
     CAmount BlockReward() const { return nBlockReward; }
     CAmount BlockReward2() const { return nBlockReward2; }
     CAmount MaxSupply() const { return nMaxSupply; }
+    CAmount BlocksPerYear() const { return nBlocksPerYear; }
+    CAmount MasternodeTolerance() const { return nMasternodeTolerance; }
 
 protected:
     CChainParams() {}
@@ -203,10 +205,13 @@ protected:
     int nBlockLastGoodCheckpoint;
     int nBlockEnforceInvalidUTXO;
     int nBlockZerocoinV2;
+    int nMasternodeTolerance;
 
     CAmount nBlockReward;
     CAmount nBlockReward2;
     CAmount nMaxSupply;
+
+    int nBlocksPerYear;
 };
 
 /**

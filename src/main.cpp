@@ -1778,7 +1778,7 @@ int64_t GetPhaseMultiplier(int nHeight)
     else if (nMoneySupply < 18000000 * COIN)
         currentPhaseMultiplier = 500;
     else if (nMoneySupply < 19000000 * COIN)
-        currentPhaseMultiplier = 130;
+        currentPhaseMultiplier = 125;
     else if (nMoneySupply >= 19000000 * COIN)
         currentPhaseMultiplier = 60;
 

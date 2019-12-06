@@ -1797,8 +1797,9 @@ int64_t GetBlockValue(int nHeight, int nMasternodeCount)
         }
     }
     else {
+        const int reward2Start = 5150;
         int64_t nMoneySupply = chainActive.Tip()->nMoneySupply;
-        if (nHeight < 230) {
+        if (nHeight < reward2Start) {
             if ((nMoneySupply + Params().BlockReward()) <= Params().MaxSupply())
                 nSubsidy = Params().BlockReward();
         } else if (nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT) {

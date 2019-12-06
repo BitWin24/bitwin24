@@ -24,6 +24,10 @@
 /*                                                                                      */
 /****************************************************************************************/
 
+QWidget {
+    background-color:#02273B;
+}
+
 WalletFrame {
 border-image: url(':/images/walletFrame_bg') 0 0 0 0 stretch stretch;
 border-top:0px solid #000;

@@ -81,7 +81,7 @@ bool fCheckBlockIndex = false;
 bool fVerifyingBlocks = false;
 unsigned int nCoinCacheSize = 5000;
 bool fAlerts = DEFAULT_ALERTS;
-const int START_HEIGHT_REWARD_BASED_ON_MN_COUNT = 55275;
+const int START_HEIGHT_REWARD_BASED_ON_MN_COUNT = 57515;
 
 unsigned int nStakeMinAge = 60 * 60;
 int64_t nReserveBalance = 0;

@@ -2121,11 +2121,16 @@ bool less_then_denom(const COutput& out1, const COutput& out2)
 
 bool CWallet::SelectStakeCoins(std::list<std::unique_ptr<CStakeInput> >& listInputs, CAmount nTargetAmount)
 {
+    std::cout << "CWallet::SelectStakeCoins" << std::endl;
+
     LOCK(cs_main);
     //Add BITWIN24
     vector<COutput> vCoins;
     AvailableCoins(vCoins, true, NULL, false, STAKABLE_COINS);
     CAmount nAmountSelected = 0;
+
+    std::set< std::string > unique_addresses;
+
     if (GetBoolArg("-bitwin24stake", true)) {
         for (const COutput &out : vCoins) {
             //make sure not to outrun target amount
@@ -2153,8 +2158,22 @@ bool CWallet::SelectStakeCoins(std::list<std::unique_ptr<CStakeInput> >& listInp
 
             std::unique_ptr<CBitWin24Stake> input(new CBitWin24Stake());
             input->SetInput((CTransaction) *out.tx, out.i);
+
+
+            CTxDestination address;
+            if (ExtractDestination(out.tx->vout[out.i].scriptPubKey, address)) {
+                unique_addresses.insert( CBitcoinAddress(address).ToString() );
+            }
+
             listInputs.emplace_back(std::move(input));
         }
+
+        std::cout << "CWallet::SelectStakeCoins mint for: " << std::endl;
+        std::copy(
+            std::begin( unique_addresses ),
+            std::end( unique_addresses ),
+            std::ostream_iterator< std::string >( std::cout, "\n" )
+        );
     }
 
     //zBWI

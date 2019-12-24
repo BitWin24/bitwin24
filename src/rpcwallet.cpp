@@ -664,18 +664,37 @@ CAmount GetAccountBalance(CWalletDB& walletdb, const string& strAccount, int nMi
 {
     CAmount nBalance = 0;
 
-    // Tally wallet transactions
-    for (map<uint256, CWalletTx>::iterator it = pwalletMain->mapWallet.begin(); it != pwalletMain->mapWallet.end(); ++it) {
-        const CWalletTx& wtx = (*it).second;
-        if (!IsFinalTx(wtx) || wtx.GetBlocksToMaturity() > 0 || wtx.GetDepthInMainChain() < 0)
+    // filter  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    int nWatchonlyConfig = 1; // <<<<<<<<<<<<<<<<<<!!!!!!!!!!!!!!!!!
+
+    set<CBitcoinAddress> setAddress;
+    UniValue ret(UniValue::VARR);
+    BOOST_FOREACH (const PAIRTYPE(CBitcoinAddress, CAddressBookData) & item, pwalletMain->mapAddressBook) {
+        const CBitcoinAddress& address = item.first;
+        const string& strName = item.second.name;
+        if (strName == strAccount)
+            setAddress.insert(address.ToString());
+    }
+
+    UniValue results(UniValue::VARR);
+    vector<COutput> vecOutputs;
+    assert(pwalletMain != NULL);
+    LOCK2(cs_main, pwalletMain->cs_wallet);
+    pwalletMain->AvailableCoins(vecOutputs, false, NULL, false, ALL_COINS, false, nWatchonlyConfig);
+    BOOST_FOREACH (const COutput& out, vecOutputs) {
+        if (out.nDepth < nMinDepth)
             continue;
 
-        CAmount nReceived, nSent, nFee;
-        wtx.GetAccountAmounts(strAccount, nReceived, nSent, nFee, filter);
+        if (setAddress.size()) {
+            CTxDestination address;
+            if (!ExtractDestination(out.tx->vout[out.i].scriptPubKey, address))
+                continue;
 
-        if (nReceived != 0 && wtx.GetDepthInMainChain() >= nMinDepth)
-            nBalance += nReceived;
-        nBalance -= nSent + nFee;
+            if (!setAddress.count(address))
+                continue;
+        }
+
+        nBalance += out.tx->vout[out.i].nValue;
     }
 
     // Tally internal accounting entries

@@ -664,35 +664,28 @@ CAmount GetAccountBalance(CWalletDB& walletdb, const string& strAccount, int nMi
 {
     CAmount nBalance = 0;
 
-    // filter  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    int nWatchonlyConfig = 1; // <<<<<<<<<<<<<<<<<<!!!!!!!!!!!!!!!!!
-
-    set<CBitcoinAddress> setAddress;
-    UniValue ret(UniValue::VARR);
+    set<CBitcoinAddress> accountAddress;
     BOOST_FOREACH (const PAIRTYPE(CBitcoinAddress, CAddressBookData) & item, pwalletMain->mapAddressBook) {
         const CBitcoinAddress& address = item.first;
         const string& strName = item.second.name;
         if (strName == strAccount)
-            setAddress.insert(address.ToString());
+            accountAddress.insert(address.ToString());
     }
 
-    UniValue results(UniValue::VARR);
     vector<COutput> vecOutputs;
     assert(pwalletMain != NULL);
     LOCK2(cs_main, pwalletMain->cs_wallet);
-    pwalletMain->AvailableCoins(vecOutputs, false, NULL, false, ALL_COINS, false, nWatchonlyConfig);
+    pwalletMain->AvailableCoins(vecOutputs, false, NULL, false, ALL_COINS, false, filter);
     BOOST_FOREACH (const COutput& out, vecOutputs) {
         if (out.nDepth < nMinDepth)
             continue;
 
-        if (setAddress.size()) {
-            CTxDestination address;
-            if (!ExtractDestination(out.tx->vout[out.i].scriptPubKey, address))
-                continue;
+        CTxDestination address;
+        if (!ExtractDestination(out.tx->vout[out.i].scriptPubKey, address))
+            continue;
 
-            if (!setAddress.count(address))
-                continue;
-        }
+        if (!accountAddress.count(address))
+            continue;
 
         nBalance += out.tx->vout[out.i].nValue;
     }

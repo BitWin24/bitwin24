@@ -2009,6 +2009,11 @@ void CWallet::AvailableCoins(vector<COutput>& vCoins, bool fOnlyConfirmed, const
                 if (nCoinType == STAKABLE_COINS) {
                     if (pcoin->vout[i].IsZerocoinMint())
                         continue;
+
+                    CTxDestination txAddress;
+                    if ( ExtractDestination(pcoin->vout[i].scriptPubKey, txAddress) && !IsStakingEnabled( CBitcoinAddress(txAddress) ) ) {
+                        continue;
+                    }
                 }
 
                 isminetype mine = IsMine(pcoin->vout[i]);
@@ -2121,7 +2126,7 @@ bool less_then_denom(const COutput& out1, const COutput& out2)
 
 bool CWallet::SelectStakeCoins(std::list<std::unique_ptr<CStakeInput> >& listInputs, CAmount nTargetAmount)
 {
-    std::cout << "CWallet::SelectStakeCoins" << std::endl;
+    // std::cout << "CWallet::SelectStakeCoins" << std::endl;
 
     LOCK(cs_main);
     //Add BITWIN24
@@ -2168,12 +2173,12 @@ bool CWallet::SelectStakeCoins(std::list<std::unique_ptr<CStakeInput> >& listInp
             listInputs.emplace_back(std::move(input));
         }
 
-        std::cout << "CWallet::SelectStakeCoins mint for: " << std::endl;
-        std::copy(
-            std::begin( unique_addresses ),
-            std::end( unique_addresses ),
-            std::ostream_iterator< std::string >( std::cout, "\n" )
-        );
+        // std::cout << "CWallet::SelectStakeCoins mint for: " << std::endl;
+        // std::copy(
+        //     std::begin( unique_addresses ),
+        //     std::end( unique_addresses ),
+        //     std::ostream_iterator< std::string >( std::cout, "\n" )
+        // );
     }
 
     //zBWI
@@ -3858,6 +3863,32 @@ void CWallet::ListLockedCoins(std::vector<COutPoint>& vOutpts)
         COutPoint outpt = (*it);
         vOutpts.push_back(outpt);
     }
+}
+
+void CWallet::DisableStaking( const CBitcoinAddress& address ) 
+{
+    AssertLockHeld(cs_wallet);
+
+    stakingAddresses.erase(address);
+}
+
+void CWallet::EnableStaking( const CBitcoinAddress& address )
+{
+    AssertLockHeld(cs_wallet);
+
+    stakingAddresses.insert(address);
+}
+
+bool CWallet::IsStakingEnabled( const CBitcoinAddress& address ) const
+{
+    AssertLockHeld(cs_wallet);
+
+    return stakingAddresses.find( address ) != stakingAddresses.end();
+}
+
+const set<CBitcoinAddress>& CWallet::GetStakingAddresses() const
+{
+    return stakingAddresses;
 }
 
 /** @} */ // end of Actions

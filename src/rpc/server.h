@@ -268,6 +268,8 @@ extern UniValue getrawtransaction(const UniValue& params, bool fHelp); // in rpc
 extern UniValue listunspent(const UniValue& params, bool fHelp);
 extern UniValue lockunspent(const UniValue& params, bool fHelp);
 extern UniValue listlockunspent(const UniValue& params, bool fHelp);
+extern UniValue switchstaking(const UniValue& params, bool fHelp);
+extern UniValue liststaking(const UniValue& params, bool fHelp);
 extern UniValue createrawtransaction(const UniValue& params, bool fHelp);
 extern UniValue decoderawtransaction(const UniValue& params, bool fHelp);
 extern UniValue decodescript(const UniValue& params, bool fHelp);

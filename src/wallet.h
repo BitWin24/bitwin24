@@ -180,6 +180,11 @@ private:
     int64_t nLastResend;
 
     /**
+     * List of addresses excluded from staking
+     */
+    std::set<CBitcoinAddress> stakingAddresses;
+
+    /**
      * Used to keep track of spent outpoints, and
      * detect and report conflicts (double-spends or
      * mutated transactions where the mutant gets mined).
@@ -401,6 +406,11 @@ public:
     void UnlockAllCoins();
     void ListLockedCoins(std::vector<COutPoint>& vOutpts);
     CAmount GetTotalValue(std::vector<CTxIn> vCoins);
+
+    void DisableStaking( const CBitcoinAddress& address );
+    void EnableStaking( const CBitcoinAddress& address );    
+    bool IsStakingEnabled( const CBitcoinAddress& address ) const;
+    const set<CBitcoinAddress>& GetStakingAddresses() const;
 
     //  keystore implementation
     // Generate a new key

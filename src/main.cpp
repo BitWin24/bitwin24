@@ -1862,7 +1862,6 @@ int64_t GetMasternodePayment(int64_t blockValue)
 
 bool IsInitialBlockDownload()
 {
-    return false;
     LOCK(cs_main);
     if (fImporting || fReindex || fVerifyingBlocks || chainActive.Height() < Checkpoints::GetTotalBlocksEstimate())
         return true;

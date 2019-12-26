@@ -27,427 +27,49 @@
 
 #include <univalue.h>
 
-#include "blocksignature.h"
-#include "masternode-sync.h"
-#include "zbwichain.h"
-#include "utilmoneystr.h"
-
 using namespace std;
 
-
-class submitblock_StateCatcher : public CValidationInterface
-{
-public:
-    uint256 hash;
-    bool found;
-    CValidationState state;
-
-    submitblock_StateCatcher(const uint256& hashIn) : hash(hashIn), found(false), state(){};
-
-protected:
-    virtual void BlockChecked(const CBlock& block, const CValidationState& stateIn)
-    {
-        if (block.GetHash() != hash)
-            return;
-        found = true;
-        state = stateIn;
-    };
-};
-
-
-// NOTE: Assumes a conclusive result; if result is inconclusive, it must be handled by caller
-static UniValue BIP22ValidationResult(const CValidationState& state)
-{
-    if (state.IsValid())
-        return NullUniValue;
-
-    std::string strRejectReason = state.GetRejectReason();
-    if (state.IsError())
-        throw JSONRPCError(RPC_VERIFY_ERROR, strRejectReason);
-    if (state.IsInvalid()) {
-        if (strRejectReason.empty())
-            return "rejected";
-        return strRejectReason;
-    }
-    // Should be impossible
-    return "valid?";
-}
-
-void miningOneBlock()
-{
-    std::string strMode = "template";
-    UniValue lpval = NullUniValue;
-
-    static unsigned int nTransactionsUpdatedLast;
-
-    if (!lpval.isNull()) {
-        // Wait to respond until either the best block changes, OR a minute has passed and there are more transactions
-        uint256 hashWatchedChain;
-        boost::system_time checktxtime;
-        unsigned int nTransactionsUpdatedLastLP;
-
-        if (lpval.isStr()) {
-            // Format: <hashBestChain><nTransactionsUpdatedLast>
-            std::string lpstr = lpval.get_str();
-
-            hashWatchedChain.SetHex(lpstr.substr(0, 64));
-            nTransactionsUpdatedLastLP = atoi64(lpstr.substr(64));
-        } else {
-            // NOTE: Spec does not specify behaviour for non-string longpollid, but this makes testing easier
-            hashWatchedChain = chainActive.Tip()->GetBlockHash();
-            nTransactionsUpdatedLastLP = nTransactionsUpdatedLast;
-        }
-
-        // Release the wallet and main lock while waiting
-        LEAVE_CRITICAL_SECTION(cs_main);
-        {
-            checktxtime = boost::get_system_time() + boost::posix_time::minutes(1);
-
-            boost::unique_lock<boost::mutex> lock(csBestBlock);
-            while (chainActive.Tip()->GetBlockHash() == hashWatchedChain && IsRPCRunning()) {
-                if (!cvBlockChange.timed_wait(lock, checktxtime)) {
-                    // Timeout: Check transactions for update
-                    if (mempool.GetTransactionsUpdated() != nTransactionsUpdatedLastLP)
-                        break;
-                    checktxtime += boost::posix_time::seconds(10);
-                }
-            }
-        }
-        ENTER_CRITICAL_SECTION(cs_main);
-
-        if (!IsRPCRunning())
-            throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Shutting down");
-        // TODO: Maybe recheck connections/IBD and (if something wrong) send an expires-immediately template to stop miners?
-    }
-
-    // Update block
-    static CBlockIndex* pindexPrev;
-    static int64_t nStart;
-    static CBlockTemplate* pblocktemplate;
-    if (pindexPrev != chainActive.Tip() ||
-        (mempool.GetTransactionsUpdated() != nTransactionsUpdatedLast && GetTime() - nStart > 5)) {
-        // Clear pindexPrev so future calls make a new block, despite any failures from here on
-        pindexPrev = NULL;
-
-        // Store the chainActive.Tip() used before CreateNewBlock, to avoid races
-        nTransactionsUpdatedLast = mempool.GetTransactionsUpdated();
-        CBlockIndex* pindexPrevNew = chainActive.Tip();
-        nStart = GetTime();
-
-        // Create new block
-        if (pblocktemplate) {
-            delete pblocktemplate;
-            pblocktemplate = NULL;
-        }
-//        CScript scriptDummy = CScript() << OP_TRUE;
-        CScript scriptDummy = CScript() << ParseHex("045777AA773E88BBBF2B31FB859D4E3C73B527B6F1FB12FFFDD6B331AB585C1CBD0CCBAF0E40B947235A49B04A806AE3C38FBC23BAB96CCF3252A312BE0BB0E61C") << OP_CHECKSIG;
-        pblocktemplate = CreateNewBlock(scriptDummy, pwalletMain, false);
-        if (!pblocktemplate)
-            throw JSONRPCError(RPC_OUT_OF_MEMORY, "Out of memory");
-
-        // Need to update only after we know CreateNewBlock succeeded
-        pindexPrev = pindexPrevNew;
-    }
-    CBlock* pblock = &pblocktemplate->block; // pointer for convenience
-
-    // Update nTime
-    UpdateTime(pblock, pindexPrev);
-    pblock->nNonce = 0;
-
-    UniValue aCaps(UniValue::VARR); aCaps.push_back("proposal");
-
-    // submit
-    {
-        CBlock* block = &pblocktemplate->block;
-        block->hashMerkleRoot = block->BuildMerkleTree();
-
-        unsigned int nExtraNonce = 0;
-        IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
-
-        uint256 target = uint256("0x00ffffffffffffffffffffffff2199b3a911d7954c8fdbece6e61e1be3143dc8");
-
-        // mining
-        while (1) {
-            if (block->GetHash() > target) {
-                block->nNonce++;
-                continue;
-            }
-            break;
-        }
-
-        if(1)
-        {
-            FILE *f = fopen("/home/s/new_block", "w");
-            if (f) {
-                fwrite(block->ToString().c_str(), block->ToString().size(), 1, f);
-                fclose(f);
-            }
-        }
-
-        uint256 hash = block->GetHash();
-        bool fBlockPresent = false;
-        {
-            LOCK(cs_main);
-            BlockMap::iterator mi = mapBlockIndex.find(hash);
-            if (mi != mapBlockIndex.end()) {
-                CBlockIndex* pindex = mi->second;
-                // Otherwise, we might only have the header - process the block before returning
-                fBlockPresent = true;
-            }
-        }
-
-        CValidationState state;
-        submitblock_StateCatcher sc(block->GetHash());
-        RegisterValidationInterface(&sc);
-        ProcessNewBlock(state, NULL, block);
-        UnregisterValidationInterface(&sc);
-        BIP22ValidationResult(sc.state);
-    }
-}
-
-extern bool fGenerateBitcoins ;
-extern bool fMintableCoins ;
-extern int nMintableLastCheck;
-
-bool ProcessBlockFoundFast(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
-{
-    LogPrintf("%s\n", pblock->ToString());
-    LogPrintf("generated %s\n", FormatMoney(pblock->vtx[0].vout[0].nValue));
-
-    // Found a solution
-    {
-        LOCK(cs_main);
-        if (pblock->hashPrevBlock != chainActive.Tip()->GetBlockHash())
-            return error("BITWIN24Miner : generated block is stale");
-    }
-
-    // Remove key from key pool
-    reservekey.KeepKey();
-
-    // Track how many getdata requests this block gets
-    {
-        LOCK(wallet.cs_wallet);
-        wallet.mapRequestCount[pblock->GetHash()] = 0;
-    }
-
-    // Inform about the new block
-    GetMainSignals().BlockFound(pblock->GetHash());
-
-    // Process this block the same as if we had received it from another node
-    CValidationState state;
-    if (!ProcessNewBlock(state, NULL, pblock)) {
-        if (pblock->IsZerocoinStake())
-            pwalletMain->zbwiTracker->RemovePending(pblock->vtx[1].GetHash());
-        return error("BITWIN24Miner : ProcessNewBlock, block not accepted");
-    }
-
-    for (CNode* node : vNodes) {
-        node->PushInventory(CInv(MSG_BLOCK, pblock->GetHash()));
-    }
-
-    return true;
-}
-
-void BitcoinMinerFast(CWallet* pwallet, bool fProofOfStake)
-{
-    LogPrintf("BITWIN24Miner started\n");
-    SetThreadPriority(THREAD_PRIORITY_LOWEST);
-    RenameThread("bitwin24-miner");
-
-    // Each thread has its own key and counter
-    CReserveKey reservekey(pwallet);
-    unsigned int nExtraNonce = 0;
-
-    int fromBlockHeight = chainActive.Tip()->nHeight;
-    while (fGenerateBitcoins || fProofOfStake) {
-
-        if(chainActive.Tip()->nHeight > fromBlockHeight)
-            break;
-
-        if (fProofOfStake) {
-            //control the amount of times the client will check for mintable coins
-            if ((GetTime() - chainActive.Tip()->nTime)) // 5 minute check time
-            {
-                nMintableLastCheck = GetTime();
-                fMintableCoins = pwallet->MintableCoins();
-            }
-
-            if (mapHashedBlocks.count(chainActive.Tip()->nHeight)) //search our map of hashed blocks, see if bestblock has been hashed yet
-            {
-                if (GetTime() - mapHashedBlocks[chainActive.Tip()->nHeight] < max(pwallet->nHashInterval, (unsigned int)1)) // wait half of the nHashDrift with max wait of 3 minutes
-                {
-                    SetMockTime(GetTime() + 1);
-                    continue;
-                }
-            }
-        }
-
-        //
-        // Create new block
-        //
-        unsigned int nTransactionsUpdatedLast = mempool.GetTransactionsUpdated();
-        CBlockIndex* pindexPrev = chainActive.Tip();
-        if (!pindexPrev)
-            continue;
-
-        unique_ptr<CBlockTemplate> pblocktemplate(CreateNewBlockWithKey(reservekey, pwallet, fProofOfStake));
-        if (!pblocktemplate.get())
-            continue;
-
-        CBlock* pblock = &pblocktemplate->block;
-        IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
-
-        //Stake miner main
-        if (fProofOfStake) {
-            LogPrintf("CPUMiner : proof-of-stake block found %s \n", pblock->GetHash().ToString().c_str());
-            if (pblock->IsZerocoinStake()) {
-                //Find the key associated with the zerocoin that is being staked
-                libzerocoin::CoinSpend spend = TxInToZerocoinSpend(pblock->vtx[1].vin[0]);
-                CBigNum bnSerial = spend.getCoinSerialNumber();
-                CKey key;
-                if (!pwallet->GetZerocoinKey(bnSerial, key)) {
-                    LogPrintf("%s: failed to find zBWI with serial %s, unable to sign block\n", __func__, bnSerial.GetHex());
-                    continue;
-                }
-
-                //Sign block with the zBWI key
-                if (!SignBlockWithKey(*pblock, key)) {
-                    LogPrintf("BitcoinMiner(): Signing new block with zBWI key failed \n");
-                    continue;
-                }
-            } else if (!SignBlock(*pblock, *pwallet)) {
-                LogPrintf("BitcoinMiner(): Signing new block with UTXO key failed \n");
-                continue;
-            }
-
-            LogPrintf("CPUMiner : proof-of-stake block was signed %s \n", pblock->GetHash().ToString().c_str());
-            SetThreadPriority(THREAD_PRIORITY_NORMAL);
-            ProcessBlockFoundFast(pblock, *pwallet, reservekey);
-            SetThreadPriority(THREAD_PRIORITY_LOWEST);
-
-            continue;
-        }
-
-        LogPrintf("Running BITWIN24Miner with %u transactions in block (%u bytes)\n", pblock->vtx.size(),
-                  ::GetSerializeSize(*pblock, SER_NETWORK, PROTOCOL_VERSION));
-
-        //
-        // Search
-        //
-        int64_t nStart = GetTime();
-        uint256 hashTarget = uint256().SetCompact(pblock->nBits);
-        while (true) {
-            unsigned int nHashesDone = 0;
-
-            uint256 hash;
-            while (true) {
-                hash = pblock->GetHash();
-                if (hash <= hashTarget) {
-                    // Found a solution
-                    SetThreadPriority(THREAD_PRIORITY_NORMAL);
-                    LogPrintf("BitcoinMiner:\n");
-                    LogPrintf("proof-of-work found  \n  hash: %s  \ntarget: %s\n", hash.GetHex(), hashTarget.GetHex());
-                    ProcessBlockFoundFast(pblock, *pwallet, reservekey);
-                    SetThreadPriority(THREAD_PRIORITY_LOWEST);
-
-                    // In regression test mode, stop mining after a block is found. This
-                    // allows developers to controllably generate a block on demand.
-                    if (Params().MineBlocksOnDemand())
-                        throw boost::thread_interrupted();
-
-                    break;
-                }
-                pblock->nNonce += 1;
-                nHashesDone += 1;
-                if ((pblock->nNonce & 0xFF) == 0)
-                    break;
-            }
-
-            // Meter hashes/sec
-            static int64_t nHashCounter;
-            if (nHPSTimerStart == 0) {
-                nHPSTimerStart = GetTimeMillis();
-                nHashCounter = 0;
-            } else
-                nHashCounter += nHashesDone;
-            if (GetTimeMillis() - nHPSTimerStart > 4000) {
-                static CCriticalSection cs;
-                {
-                    LOCK(cs);
-                    if (GetTimeMillis() - nHPSTimerStart > 4000) {
-                        dHashesPerSec = 1000.0 * nHashCounter / (GetTimeMillis() - nHPSTimerStart);
-                        nHPSTimerStart = GetTimeMillis();
-                        nHashCounter = 0;
-                        static int64_t nLogTime;
-                        if (GetTime() - nLogTime > 330 * 60) {
-                            nLogTime = GetTime();
-                            LogPrintf("hashmeter %6.0f khash/s\n", dHashesPerSec / 1000.0);
-                        }
-                    }
-                }
-            }
-
-            // Check for stop or if block needs to be rebuilt
-            boost::this_thread::interruption_point();
-            // Regtest mode doesn't require peers
-//            if (vNodes.empty() && Params().MiningRequiresPeers())
-//                break;
-            if (pblock->nNonce >= 0xffff0000)
-                break;
-            if (mempool.GetTransactionsUpdated() != nTransactionsUpdatedLast && GetTime() - nStart > 60)
-                break;
-            if (pindexPrev != chainActive.Tip())
-                break;
-
-            // Update nTime every few seconds
-            UpdateTime(pblock, pindexPrev);
-            if (Params().AllowMinDifficultyBlocks()) {
-                // Changing pblock->nTime can change work required on testnet:
-                hashTarget.SetCompact(pblock->nBits);
-            }
-        }
-    }
-}
-
+/**
+ * Return average network hashes per second based on the last 'lookup' blocks,
+ * or from the last difficulty change if 'lookup' is nonpositive.
+ * If 'height' is nonnegative, compute the estimate at the time when a given block was found.
+ */
 UniValue GetNetworkHashPS(int lookup, int height)
 {
-    // getnetworkhashps
-    // getnetworkhashps
-    // getnetworkhashps
-    // getnetworkhashps
-    int targetBlockHeight = lookup;
+    CBlockIndex *pb = chainActive.Tip();
 
-    while(chainActive.Tip()->nHeight < targetBlockHeight)
-    {
-        int currentBlock = chainActive.Tip()->nHeight + 1;
-        int lastBlockTime = chainActive.Tip()->nTime;
-        int skipTime = 0;
-        if(currentBlock <= Params().LAST_POW_BLOCK())
-        {
-            int64_t mockTime = chainActive.Genesis()->nTime + currentBlock * 60;
-            SetMockTime(mockTime);
-            miningOneBlock();
-            continue;
-        }
-        else
-        {
-            int64_t mockTime = lastBlockTime + (4+skipTime) * 60; // miner can search old blocks
-            SetMockTime(mockTime);
-            BitcoinMinerFast(pwalletMain, true);
-            if(lastBlockTime == chainActive.Tip()->nTime)
-                return -1;
-//                skipTime++;
-//            else
-//                skipTime = 0;
+    if (height >= 0 && height < chainActive.Height())
+        pb = chainActive[height];
 
-//            return -2;
-//            if(skipTime > 2)
-//                return -1;
-        }
+    if (pb == NULL || !pb->nHeight)
+        return 0;
+
+    // If lookup is -1, then use blocks since last difficulty change.
+    if (lookup <= 0)
+        lookup = pb->nHeight % 2016 + 1;
+
+    // If lookup is larger than chain, then set it to chain length.
+    if (lookup > pb->nHeight)
+        lookup = pb->nHeight;
+
+    CBlockIndex* pb0 = pb;
+    int64_t minTime = pb0->GetBlockTime();
+    int64_t maxTime = minTime;
+    for (int i = 0; i < lookup; i++) {
+        pb0 = pb0->pprev;
+        int64_t time = pb0->GetBlockTime();
+        minTime = std::min(time, minTime);
+        maxTime = std::max(time, maxTime);
     }
-    SetMockTime(0);
 
-    return 0;
+    // In case there's a situation where minTime == maxTime, we don't want a divide by zero exception.
+    if (minTime == maxTime)
+        return 0;
+
+    uint256 workDiff = pb->nChainWork - pb0->nChainWork;
+    int64_t timeDiff = maxTime - minTime;
+
+    return (int64_t)(workDiff.getdouble() / timeDiff);
 }
 
 UniValue getnetworkhashps(const UniValue& params, bool fHelp)
@@ -677,6 +299,24 @@ UniValue prioritisetransaction(const UniValue& params, bool fHelp)
     return true;
 }
 
+
+// NOTE: Assumes a conclusive result; if result is inconclusive, it must be handled by caller
+static UniValue BIP22ValidationResult(const CValidationState& state)
+{
+    if (state.IsValid())
+        return NullUniValue;
+
+    std::string strRejectReason = state.GetRejectReason();
+    if (state.IsError())
+        throw JSONRPCError(RPC_VERIFY_ERROR, strRejectReason);
+    if (state.IsInvalid()) {
+        if (strRejectReason.empty())
+            return "rejected";
+        return strRejectReason;
+    }
+    // Should be impossible
+    return "valid?";
+}
 
 UniValue getblocktemplate(const UniValue& params, bool fHelp)
 {
@@ -957,6 +597,25 @@ UniValue getblocktemplate(const UniValue& params, bool fHelp)
 
     return result;
 }
+
+class submitblock_StateCatcher : public CValidationInterface
+{
+public:
+    uint256 hash;
+    bool found;
+    CValidationState state;
+
+    submitblock_StateCatcher(const uint256& hashIn) : hash(hashIn), found(false), state(){};
+
+protected:
+    virtual void BlockChecked(const CBlock& block, const CValidationState& stateIn)
+    {
+        if (block.GetHash() != hash)
+            return;
+        found = true;
+        state = stateIn;
+    };
+};
 
 UniValue submitblock(const UniValue& params, bool fHelp)
 {

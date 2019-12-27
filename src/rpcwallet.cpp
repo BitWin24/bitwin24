@@ -2138,33 +2138,33 @@ UniValue enablestaking(const UniValue& params, bool fHelp)
     return true;
 }
 
-UniValue liststaking(const UniValue& params, bool fHelp)
+UniValue isstakingenabled(const UniValue& params, bool fHelp)
 {
-    if (fHelp)
+    if (fHelp || params.size() != 1)
     {
         throw runtime_error(
-            "liststaking\n"
-            "list addresses that participate in staking for current node"
+            "isstakingenabled\n"
+            "returns status of staking for the given address"
+            "\nArguments:\n"
+            "1.\"address\"   (string) bitwin24 address to check if staking is enabled\n"
             "\nResult:\n"
-            " \"addresses\"    (string) A json array of bitwin24 addresses\n"
-            "  [\n"
-            "    \"address\"   (string) bitwin24 address\n"
-            "    ,...\n"
-            "  ]\n"
+            "   Boolean - true if staking is enabled, false otherwise"
             +
-            HelpExampleCli("liststaking") +
-            HelpExampleRpc("liststaking")
+            HelpExampleCli("isstakingenabled", "\"GdcUoRJmsFAhDZLamKwFw5vs43VQn1iQUX\"") +
+            HelpExampleRpc("isstakingenabled", "\"GdcUoRJmsFAhDZLamKwFw5vs43VQn1iQUX\"")
         );
     }
 
     LOCK2(cs_main, pwalletMain->cs_wallet);
 
-    UniValue ret(UniValue::VARR);
-    BOOST_FOREACH (auto& address, pwalletMain->GetStakingAddresses()) {
-        ret.push_back(address.ToString());
+    RPCTypeCheck(params, boost::assign::list_of(UniValue::VSTR));
+    const CBitcoinAddress address{ params[0].get_str() };
+    if (!address.IsValid())
+    {
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, string("Invalid BITWIN24 address: ") + params[0].get_str());
     }
 
-    return ret;
+    return pwalletMain->IsStakingEnabled(address);
 }
 
 UniValue settxfee(const UniValue& params, bool fHelp)

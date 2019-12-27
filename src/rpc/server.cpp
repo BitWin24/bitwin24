@@ -415,7 +415,7 @@ static const CRPCCommand vRPCCommands[] =
         {"wallet", "listaddressgroupings", &listaddressgroupings, false, false, true},
         {"wallet", "listlockunspent", &listlockunspent, false, false, true},
         {"wallet", "enablestaking", &enablestaking, true, false, true},
-        {"wallet", "liststaking", &liststaking, true, false, true},
+        {"wallet", "isstakingenabled", &isstakingenabled, true, false, true},
         {"wallet", "listreceivedbyaccount", &listreceivedbyaccount, false, false, true},
         {"wallet", "listreceivedbyaddress", &listreceivedbyaddress, false, false, true},
         {"wallet", "listsinceblock", &listsinceblock, false, false, true},

@@ -3852,26 +3852,26 @@ void CWallet::DisableStaking( const CBitcoinAddress& address )
 {
     AssertLockHeld(cs_wallet);
 
-    StakingAccountsDb::instance().removeStakingAccount( address.ToString() );
+    StakingAccountsDb::instance().add( address.ToString() );
 }
 
 void CWallet::EnableStaking( const CBitcoinAddress& address )
 {
     AssertLockHeld(cs_wallet);
 
-    StakingAccountsDb::instance().addStakingAccount( address.ToString() );
+    StakingAccountsDb::instance().remove( address.ToString() );
 }
 
 bool CWallet::IsStakingEnabled( const CBitcoinAddress& address ) const
 {
     AssertLockHeld(cs_wallet);
 
-    return StakingAccountsDb::instance().isStakingAccount( address.ToString() );
+    return !StakingAccountsDb::instance().exist( address.ToString() );
 }
 
 set<CBitcoinAddress> CWallet::GetStakingAddresses() const
 {
-    return StakingAccountsDb::instance().getStakingAccounts();
+    return StakingAccountsDb::instance().get();
 }
 
 /** @} */ // end of Actions

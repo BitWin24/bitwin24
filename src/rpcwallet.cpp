@@ -2087,12 +2087,12 @@ UniValue listlockunspent(const UniValue& params, bool fHelp)
     return ret;
 }
 
-UniValue switchstaking(const UniValue& params, bool fHelp)
+UniValue enablestaking(const UniValue& params, bool fHelp)
 {
     if (fHelp || params.size() != 2)
     {
         throw runtime_error(
-            "switchstaking\n"
+            "enablestaking\n"
             "enable/disable staking for the given addresses"
             "\nArguments:\n"
             "1. enable           (boolean, required) Whether to include (true) or exclude (false) in staking UTXOs of the specified bitwin24 addresses\n"
@@ -2102,8 +2102,8 @@ UniValue switchstaking(const UniValue& params, bool fHelp)
             "      ,...\n"
             "    ]\n"
             +
-            HelpExampleCli("switchstaking", "false \"[\\\"GdcUoRJmsFAhDZLamKwFw5vs43VQn1iQUX\\\",\\\"GZm9YbkxKHMEvHJKcteuJvFwtXPCvMZiwg\\\"]\"") +
-            HelpExampleRpc("switchstaking", "false \"[\\\"GdcUoRJmsFAhDZLamKwFw5vs43VQn1iQUX\\\",\\\"GZm9YbkxKHMEvHJKcteuJvFwtXPCvMZiwg\\\"]\"")
+            HelpExampleCli("enablestaking", "false \"[\\\"GdcUoRJmsFAhDZLamKwFw5vs43VQn1iQUX\\\",\\\"GZm9YbkxKHMEvHJKcteuJvFwtXPCvMZiwg\\\"]\"") +
+            HelpExampleRpc("enablestaking", "false \"[\\\"GdcUoRJmsFAhDZLamKwFw5vs43VQn1iQUX\\\",\\\"GZm9YbkxKHMEvHJKcteuJvFwtXPCvMZiwg\\\"]\"")
         );
     }
 
@@ -2162,10 +2162,7 @@ UniValue liststaking(const UniValue& params, bool fHelp)
 
     UniValue ret(UniValue::VARR);
     BOOST_FOREACH (auto& address, pwalletMain->GetStakingAddresses()) {
-        UniValue o(UniValue::VOBJ);
-
-        o.push_back(Pair("address", address.ToString()));
-        ret.push_back(o);
+        ret.push_back(address.ToString());
     }
 
     return ret;

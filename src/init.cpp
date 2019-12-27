@@ -49,7 +49,7 @@
 #include "wallet.h"
 #include "walletdb.h"
 #include "accumulators.h"
-
+#include "staking_accounts_db.h"
 #endif
 
 #include <fstream>
@@ -980,6 +980,9 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
     fSendFreeTransactions = GetBoolArg("-sendfreetransactions", false);
 
     std::string strWalletFile = GetArg("-wallet", "wallet.dat");
+
+    // init StakingAccountsDb instance and load db
+    StakingAccountsDb::instance();
 #endif // ENABLE_WALLET
 
     fIsBareMultisigStd = GetBoolArg("-permitbaremultisig", true) != 0;

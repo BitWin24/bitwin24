@@ -2096,7 +2096,7 @@ UniValue enablestaking(const UniValue& params, bool fHelp)
             "enable/disable staking for the given addresses"
             "\nArguments:\n"
             "1. enable           (boolean, required) Whether to include (true) or exclude (false) in staking UTXOs of the specified bitwin24 addresses\n"
-            "2. \"addresses\"    (string) A json array of bitwin24 addresses to filter\n"
+            "2. \"addresses\"    (string) A json array of bitwin24 addresses\n"
             "    [\n"
             "      \"address\"   (string) bitwin24 address\n"
             "      ,...\n"
@@ -2144,17 +2144,16 @@ UniValue liststaking(const UniValue& params, bool fHelp)
     {
         throw runtime_error(
             "liststaking\n"
-            "locks|unlocks staking for the given addresses"
-            "\nArguments:\n"
-            "1. unlock           (boolean, required) Whether to unlock (true) or lock (false) UTXOs of the specified bitwin24 addresses\n"
-            "2. \"addresses\"    (string) A json array of bitwin24 addresses to filter\n"
-            "    [\n"
-            "      \"address\"   (string) bitwin24 address\n"
-            "      ,...\n"
-            "    ]\n"
+            "list addresses that participate in staking for current node"
+            "\nResult:\n"
+            " \"addresses\"    (string) A json array of bitwin24 addresses\n"
+            "  [\n"
+            "    \"address\"   (string) bitwin24 address\n"
+            "    ,...\n"
+            "  ]\n"
             +
-            HelpExampleCli("liststaking", "false \"[\\\"GdcUoRJmsFAhDZLamKwFw5vs43VQn1iQUX\\\",\\\"1LtvqCaApEdUGFkpKMM4MstjcaL4dKg8SP\\\"]\"") +
-            HelpExampleRpc("liststaking", "false \"[\\\"GdcUoRJmsFAhDZLamKwFw5vs43VQn1iQUX\\\",\\\"1LtvqCaApEdUGFkpKMM4MstjcaL4dKg8SP\\\"]\"")
+            HelpExampleCli("liststaking") +
+            HelpExampleRpc("liststaking")
         );
     }
 

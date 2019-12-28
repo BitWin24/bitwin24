@@ -2164,7 +2164,10 @@ UniValue isstakingenabled(const UniValue& params, bool fHelp)
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, string("Invalid BITWIN24 address: ") + params[0].get_str());
     }
 
-    return pwalletMain->IsStakingEnabled(address);
+    UniValue result(UniValue::VOBJ);
+    result.push_back(Pair("enabled", pwalletMain->IsStakingEnabled(address)));
+    result.push_back(Pair("address", address.ToString()));
+    return result;
 }
 
 UniValue settxfee(const UniValue& params, bool fHelp)

@@ -2148,7 +2148,10 @@ UniValue isstakingenabled(const UniValue& params, bool fHelp)
             "\nArguments:\n"
             "1.\"address\"   (string) bitwin24 address to check if staking is enabled\n"
             "\nResult:\n"
-            "   Boolean - true if staking is enabled, false otherwise"
+            "{\n"
+            "  \"enabled\": true|false, (boolean) true if staking is enabled, false otherwise\n"
+            "  \"address\":             (string) bitwin24 address\n"
+            "}\n"
             +
             HelpExampleCli("isstakingenabled", "\"GdcUoRJmsFAhDZLamKwFw5vs43VQn1iQUX\"") +
             HelpExampleRpc("isstakingenabled", "\"GdcUoRJmsFAhDZLamKwFw5vs43VQn1iQUX\"")

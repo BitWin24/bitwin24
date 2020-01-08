@@ -19,6 +19,7 @@
 #include "script/sign.h"
 #include "spork.h"
 #include "stakeinput.h"
+#include "staking_accounts_db.h"
 #include "swifttx.h"
 #include "timedata.h"
 #include "txdb.h"
@@ -2009,6 +2010,11 @@ void CWallet::AvailableCoins(vector<COutput>& vCoins, bool fOnlyConfirmed, const
                 if (nCoinType == STAKABLE_COINS) {
                     if (pcoin->vout[i].IsZerocoinMint())
                         continue;
+
+                    CTxDestination txAddress;
+                    if ( ExtractDestination(pcoin->vout[i].scriptPubKey, txAddress) && !IsStakingEnabled( CBitcoinAddress(txAddress) ) ) {
+                        continue;
+                    }
                 }
 
                 isminetype mine = IsMine(pcoin->vout[i]);
@@ -2126,6 +2132,7 @@ bool CWallet::SelectStakeCoins(std::list<std::unique_ptr<CStakeInput> >& listInp
     vector<COutput> vCoins;
     AvailableCoins(vCoins, true, NULL, false, STAKABLE_COINS);
     CAmount nAmountSelected = 0;
+
     if (GetBoolArg("-bitwin24stake", true)) {
         for (const COutput &out : vCoins) {
             //make sure not to outrun target amount
@@ -3839,6 +3846,32 @@ void CWallet::ListLockedCoins(std::vector<COutPoint>& vOutpts)
         COutPoint outpt = (*it);
         vOutpts.push_back(outpt);
     }
+}
+
+void CWallet::DisableStaking( const CBitcoinAddress& address ) 
+{
+    AssertLockHeld(cs_wallet);
+
+    StakingAccountsDb::instance().add( address.ToString() );
+}
+
+void CWallet::EnableStaking( const CBitcoinAddress& address )
+{
+    AssertLockHeld(cs_wallet);
+
+    StakingAccountsDb::instance().remove( address.ToString() );
+}
+
+bool CWallet::IsStakingEnabled( const CBitcoinAddress& address ) const
+{
+    AssertLockHeld(cs_wallet);
+
+    return !StakingAccountsDb::instance().exist( address.ToString() );
+}
+
+set<CBitcoinAddress> CWallet::GetStakingAddresses() const
+{
+    return StakingAccountsDb::instance().get();
 }
 
 /** @} */ // end of Actions

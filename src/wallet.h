@@ -402,6 +402,11 @@ public:
     void ListLockedCoins(std::vector<COutPoint>& vOutpts);
     CAmount GetTotalValue(std::vector<CTxIn> vCoins);
 
+    void DisableStaking( const CBitcoinAddress& address );
+    void EnableStaking( const CBitcoinAddress& address );    
+    bool IsStakingEnabled( const CBitcoinAddress& address ) const;
+    set<CBitcoinAddress> GetStakingAddresses() const;
+
     //  keystore implementation
     // Generate a new key
     CPubKey GenerateNewKey();

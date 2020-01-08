@@ -112,6 +112,7 @@ HEADERS += src/activemasternode.h \
            src/rpcserver.h \
            src/serialize.h \
            src/spork.h \
+           src/staking_accounts_db.h \
            src/streams.h \
            src/sync.h \
            src/threadsafety.h \
@@ -422,6 +423,7 @@ SOURCES += src/activemasternode.cpp \
            src/rpcserver.cpp \
            src/rpcwallet.cpp \
            src/spork.cpp \
+           src/staking_accounts_db.cpp \
            src/sync.cpp \
            src/timedata.cpp \
            src/txdb.cpp \

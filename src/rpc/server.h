@@ -269,6 +269,7 @@ extern UniValue listunspent(const UniValue& params, bool fHelp);
 extern UniValue lockunspent(const UniValue& params, bool fHelp);
 extern UniValue listlockunspent(const UniValue& params, bool fHelp);
 extern UniValue enablestaking(const UniValue& params, bool fHelp);
+extern UniValue liststakingaddresses(const UniValue& params, bool fHelp);
 extern UniValue isstakingenabled(const UniValue& params, bool fHelp);
 extern UniValue createrawtransaction(const UniValue& params, bool fHelp);
 extern UniValue decoderawtransaction(const UniValue& params, bool fHelp);

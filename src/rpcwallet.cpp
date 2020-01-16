@@ -2135,6 +2135,11 @@ UniValue enablestaking(const UniValue& params, bool fHelp)
         if (uniqueAddresses.count(address))
             throw JSONRPCError(RPC_INVALID_PARAMETER, string("Invalid parameter, duplicated address: ") + input.get_str());
 
+        const auto mi = pwalletMain->mapAddressBook.find(address.Get());
+        if (mi == pwalletMain->mapAddressBook.end()) {
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, string("Not found, BITWIN24 address: ") + input.get_str());
+        }
+
         uniqueAddresses.insert(address);
     }
 
@@ -2148,6 +2153,46 @@ UniValue enablestaking(const UniValue& params, bool fHelp)
     }
 
     return true;
+}
+
+UniValue liststakingaddresses(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() != 0)
+    {
+        throw runtime_error(
+            "liststakingaddresses\n"
+            "enable/disable staking for the given addresses"
+            "\nResult:\n"
+            "\n["
+            "{\n"
+            "  \"enabled\": true|false, (boolean) true if staking is enabled, false otherwise\n"
+            "  \"address\":             (string) bitwin24 address\n"
+            "}\n"
+            "\n ...,"
+            "{\n"
+            "  \"enabled\": true|false, (boolean) true if staking is enabled, false otherwise\n"
+            "  \"address\":             (string) bitwin24 address\n"
+            "\n]"
+            +
+            HelpExampleCli("liststakingaddresses", "") +
+            HelpExampleRpc("liststakingaddresses", "")
+        );
+    }
+
+    LOCK2(cs_main, pwalletMain->cs_wallet);
+    UniValue result(UniValue::VARR);
+
+    for( auto item : pwalletMain->mapAddressBook )
+    {
+        UniValue entry(UniValue::VOBJ);
+        const CBitcoinAddress& address = item.first;
+        entry.push_back(Pair("enabled", pwalletMain->IsStakingEnabled(address)));
+        entry.push_back(Pair("address", address.ToString()));
+
+        result.push_back( entry );
+    }
+
+    return result;
 }
 
 UniValue isstakingenabled(const UniValue& params, bool fHelp)

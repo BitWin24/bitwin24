@@ -205,7 +205,7 @@ sleep 7
 
 #Adding bootstrap files 
 
-cd ~/.bitwin24/ && rm -rf blocks chainstate sporks zerocoin
+cd ~/.bitwin24/ && rm -rf blocks chainstate sporks zerocoin peers.dat
 cd ~/.bitwin24/ && wget https://github.com/BitWin24/guides/raw/master/bootstrap.zip
 cd ~/.bitwin24/ && unzip bootstrap.zip
 

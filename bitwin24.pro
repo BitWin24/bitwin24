@@ -350,6 +350,7 @@ HEADERS = \
    $$PWD/src/spork.h \
    $$PWD/src/sporkdb.h \
    $$PWD/src/stakeinput.h \
+   $$PWD/src/staking_accounts_db.h \
    $$PWD/src/streams.h \
    $$PWD/src/swifttx.h \
    $$PWD/src/sync.h \
@@ -1755,6 +1756,7 @@ SOURCES = \
    $$PWD/src/spork.cpp \
    $$PWD/src/sporkdb.cpp \
    $$PWD/src/stakeinput.cpp \
+   $$PWD/src/staking_accounts_db.cpp \
    $$PWD/src/swifttx.cpp \
    $$PWD/src/sync.cpp \
    $$PWD/src/timedata.cpp \

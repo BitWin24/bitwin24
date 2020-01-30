@@ -21,7 +21,9 @@ class CMasterNodeWitness
 public:
     static const int32_t CURRENT_VERSION=0;
     CAmount nVersion;
+    uint256 nTargetBlockHash;
     std::vector<ActiveMasterNodeProof> nProofs;
+    bool nRemoved;
 
     CMasterNodeWitness()
     {
@@ -34,6 +36,8 @@ public:
     inline void SerializationOp(Stream& s, Operation ser_action, int nType, int nVersion) {
         READWRITE(this->nVersion);
         READWRITE(nProofs);
+        READWRITE(nTargetBlockHash);
+        READWRITE(nRemoved);
     }
 
     void SetNull()
@@ -57,8 +61,6 @@ public:
         return nProofs.empty();
     }
 
-    uint256 GetHash() const;
-
     bool operator==(const CMasterNodeWitness& a, const CMasterNodeWitness& b)
     {
         if (a.nVersion != b.nVersion || a.nProofs.size() != b.nProofs.size())
@@ -80,6 +82,8 @@ public:
 };
 
 
+/** Proof of active masternode, must contains ping and masternode broadcast
+ */
 class ActiveMasterNodeProofs
 {
 public:
@@ -124,8 +128,6 @@ public:
     {
         return nPing.vchSig.empty() || nBroadcast.sig..empty();
     }
-
-    uint256 GetHash() const;
 
     bool operator==(const CMasterNodeWitness& a, const CMasterNodeWitness& b)
     {

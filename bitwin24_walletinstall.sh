@@ -168,8 +168,8 @@ fi
 #Installing Daemon
 cd ~
 rm -rf /usr/local/bin/bitwin24*
-wget https://github.com/BitWin24/bitwin24/releases/download/v0.0.6/bitwin24-1.0.0-x86_64-linux-gnu.tar.gz
-tar -xzvf bitwin24-1.0.0-x86_64-linux-gnu.tar.gz
+wget https://github.com/BitWin24/bitwin24/releases/download/v0.0.7/bitwin24-0.0.7-x86_64-linux-gnu.tar.gz
+tar -xzvf bitwin24-0.0.7-x86_64-linux-gnu.tar.gz
 cd /root/bitwin24-1.0.0/bin/  2>/dev/null  >/dev/null
 sudo chmod -R 755 bitwin24-cli  2>/dev/null  >/dev/null
 sudo chmod -R 755 bitwin24d  2>/dev/null  >/dev/null

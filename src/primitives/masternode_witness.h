@@ -10,7 +10,7 @@
 #include "util.h"
 #include "../masternode.h"
 
-class ActiveMasterNodeProof;
+class ActiveMasterNodeProofs;
 
 /** List proofs of active master nodes.  For validate reward in fresh block.
  *  Record will be removed later, for trusted blocks
@@ -22,7 +22,7 @@ public:
     static const int32_t CURRENT_VERSION=0;
     CAmount nVersion;
     uint256 nTargetBlockHash;
-    std::vector<ActiveMasterNodeProof> nProofs;
+    std::vector<ActiveMasterNodeProofs> nProofs;
     bool nRemoved;
 
     CMasterNodeWitness()

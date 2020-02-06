@@ -10,7 +10,6 @@
 
 MasterNodeWitnessManager::MasterNodeWitnessManager()
 {
-
 }
 
 bool MasterNodeWitnessManager::exist(const uint256 &targetBlockHash) const
@@ -20,10 +19,8 @@ bool MasterNodeWitnessManager::exist(const uint256 &targetBlockHash) const
 
 bool MasterNodeWitnessManager::add(const CMasterNodeWitness &proof)
 {
-    if (!exist(proof.nTargetBlockHash))
-    {
-        if (!isValid(proof))
-        {
+    if (!exist(proof.nTargetBlockHash)) {
+        if (!proof.IsValid(0)) {
             LogPrint("MasterNodeWitnessManager", "Added proof %s\n", proof.ToString());
             _witnesses[proof.nTargetBlockHash] = proof;
             return true;
@@ -34,8 +31,7 @@ bool MasterNodeWitnessManager::add(const CMasterNodeWitness &proof)
 
 bool MasterNodeWitnessManager::remove(const CMasterNodeWitness &proof)
 {
-    if (exist(proof.nTargetBlockHash))
-    {
+    if (exist(proof.nTargetBlockHash)) {
         LogPrint("MasterNodeWitnessManager", "Removed proof %s\n", proof.ToString());
         _witnesses.erase(proof.nTargetBlockHash);
         return true;
@@ -43,8 +39,9 @@ bool MasterNodeWitnessManager::remove(const CMasterNodeWitness &proof)
     return false;
 }
 
-bool MasterNodeWitnessManager::isValid(const CMasterNodeWitness &proof)
+bool MasterNodeWitnessManager::isRemoved(const uint256 &targetBlockHash)
 {
+    return exist(targetBlockHash) && _witnesses[targetBlockHash].nRemoved;
 }
 
 void MasterNodeWitnessManager::update()
@@ -53,12 +50,10 @@ void MasterNodeWitnessManager::update()
 
 void MasterNodeWitnessManager::save()
 {
-
 }
 
 void MasterNodeWitnessManager::load()
 {
-
 }
 
 const CMasterNodeWitness &MasterNodeWitnessManager::find(const uint256 &targetBlockHash)

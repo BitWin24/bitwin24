@@ -10,16 +10,44 @@
 std::string CMasterNodeWitness::ToString() const
 {
     std::stringstream s;
-    s << strprintf("CMasterNodeWitness(target block hash=%s, ver=%d, count proofs=%d, removed=%d)\n",
+    s << strprintf("CMasterNodeWitness(target block hash=%s, ver=%d, count proofs=%d, removed=%d, signature=%s)\n",
                    nTargetBlockHash.ToString(),
                    nVersion,
                    nProofs.size(),
-                   nRemoved);
-    for (unsigned int i = 0; i < nProofs.size(); i++)
-    {
+                   nRemoved,
+                   nSignature.ToString());
+    for (unsigned int i = 0; i < nProofs.size(); i++) {
         s << "  " << nProofs[i].ToString() << "\n";
     }
     return s.str();
+}
+
+bool CMasterNodeWitness::Sign(CKey &keyWitness, CPubKey &pubKeyWitness)
+{
+    std::string errorMessage;
+
+    uint256 hash = GetHash();
+
+    if (!keyWitness.Sign(hash, vchSig)) {
+        LogPrint("witness", "CMasterNodeWitness::Sign() - Can't sign\n");
+        return false;
+    }
+    return true;
+}
+
+std::string CMasterNodeWitness::IsValid(int64_t atTime) const
+{
+    return true;
+}
+
+std::string CMasterNodeWitness::SignatureValid() const
+{
+    CPubKey pubkey;
+    if (!pubkey.RecoverCompact(GetHash(), vchSig)) {
+        errorMessage = _("Error recovering public key.");
+        return false;
+    }
+    return (pubkey.GetID() == pubKeyWitness.GetID());
 }
 
 std::string ActiveMasterNodeProofs::ToString() const

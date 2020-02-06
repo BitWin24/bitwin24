@@ -19,11 +19,13 @@ class ActiveMasterNodeProofs;
 class CMasterNodeWitness
 {
 public:
-    static const int32_t CURRENT_VERSION=0;
+    static const int32_t CURRENT_VERSION = 0;
     CAmount nVersion;
     uint256 nTargetBlockHash;
     std::vector<ActiveMasterNodeProofs> nProofs;
     bool nRemoved;
+    std::vector<unsigned char> vchSig;
+    CPubKey pubKeyWitness;
 
     CMasterNodeWitness()
     {
@@ -32,12 +34,15 @@ public:
 
     ADD_SERIALIZE_METHODS;
 
-    template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action, int nType, int nVersion) {
+    template<typename Stream, typename Operation>
+    inline void SerializationOp(Stream &s, Operation ser_action, int nType, int nVersion)
+    {
         READWRITE(this->nVersion);
         READWRITE(nProofs);
         READWRITE(nTargetBlockHash);
         READWRITE(nRemoved);
+        READWRITE(pubKeyWitness);
+        READWRITE(vchSig);
     }
 
     void SetNull()
@@ -61,7 +66,7 @@ public:
         return nProofs.empty();
     }
 
-    bool operator==(const CMasterNodeWitness& a, const CMasterNodeWitness& b)
+    bool operator==(const CMasterNodeWitness &a, const CMasterNodeWitness &b)
     {
         if (a.nVersion != b.nVersion || a.nProofs.size() != b.nProofs.size())
             return false;
@@ -73,14 +78,27 @@ public:
         return true;
     }
 
-    bool operator!=(const CMasterNodeWitness& a, const CMasterNodeWitness& b)
+    bool operator!=(const CMasterNodeWitness &a, const CMasterNodeWitness &b)
     {
         return !(a == b);
     }
 
-    std::string ToString() const;
-};
+    uint256 GetHash()
+    {
+        CHashWriter ss(SER_GETHASH, 0);
+        ss << nVersion;
+        ss << nProofs;
+        ss << nTargetBlockHash;
+        ss << nRemoved;
 
+        return ss.GetHash();
+    }
+
+    std::string ToString() const;
+    bool Sign(CKey &keyWitness, CPubKey &pubKeyWitness);
+    bool IsValid(int64_t atTime) const;
+    bool SignatureValid() const;
+};
 
 /** Proof of active masternode, must contains ping and masternode broadcast
  */
@@ -99,8 +117,9 @@ public:
 
     ADD_SERIALIZE_METHODS;
 
-    template <typename Stream, typename Operation>
-    inline void SerializationOp(Stream& s, Operation ser_action, int nType, int nVersion) {
+    template<typename Stream, typename Operation>
+    inline void SerializationOp(Stream &s, Operation ser_action, int nType, int nVersion)
+    {
         READWRITE(this->nVersion);
         READWRITE(nPing);
         READWRITE(nBroadcast);
@@ -129,7 +148,7 @@ public:
         return nPing.vchSig.empty() || nBroadcast.sig..empty();
     }
 
-    bool operator==(const CMasterNodeWitness& a, const CMasterNodeWitness& b)
+    bool operator==(const CMasterNodeWitness &a, const CMasterNodeWitness &b)
     {
         if (a.nVersion != b.nVersion || a.nProofs.size() != b.nProofs.size())
             return false;
@@ -141,7 +160,7 @@ public:
         return true;
     }
 
-    bool operator!=(const CMasterNodeWitness& a, const CMasterNodeWitness& b)
+    bool operator!=(const CMasterNodeWitness &a, const CMasterNodeWitness &b)
     {
         return !(a == b);
     }

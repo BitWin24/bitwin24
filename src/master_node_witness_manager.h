@@ -26,8 +26,8 @@ public:
     bool exist(const uint256 &targetBlockHash) const;
     bool add(const CMasterNodeWitness &proof);
     bool remove(const CMasterNodeWitness &proof);
-    bool isValid(const CMasterNodeWitness &proof);
-    const CMasterNodeWitness& find(const uint256 &targetBlockHash);
+    bool isRemoved(const uint256 &targetBlockHash);
+    const CMasterNodeWitness &find(const uint256 &targetBlockHash);
 
     void update();
     void save();

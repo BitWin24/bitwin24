@@ -23,15 +23,15 @@ class MasterNodeWitnessManager: public CLevelDBWrapper
 public:
     MasterNodeWitnessManager();
 
-    bool exist(const uint256 &targetBlockHash) const;
-    bool add(const CMasterNodeWitness &proof);
-    bool remove(const CMasterNodeWitness &proof);
-    bool isRemoved(const uint256 &targetBlockHash);
-    const CMasterNodeWitness &find(const uint256 &targetBlockHash);
+    bool Exist(const uint256 &targetBlockHash) const;
+    bool Add(const CMasterNodeWitness &proof);
+    bool Remove(const uint256 &targetBlockHash);
+    const CMasterNodeWitness &Find(const uint256 &targetBlockHash);
 
-    void update();
-    void save();
-    void load();
+    void Update();
+    void Save();
+    void Load();
 private:
     std::map<uint256, CMasterNodeWitness> _witnesses;
+    int64_t _lastUpdate;
 };

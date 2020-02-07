@@ -12,12 +12,12 @@ MasterNodeWitnessManager::MasterNodeWitnessManager()
 {
 }
 
-bool MasterNodeWitnessManager::exist(const uint256 &targetBlockHash) const
+bool MasterNodeWitnessManager::Exist(const uint256 &targetBlockHash) const
 {
     return _witnesses.find(targetBlockHash) != _witnesses.end();
 }
 
-bool MasterNodeWitnessManager::add(const CMasterNodeWitness &proof)
+bool MasterNodeWitnessManager::Add(const CMasterNodeWitness &proof)
 {
     if (!exist(proof.nTargetBlockHash)) {
         if (!proof.IsValid(0)) {
@@ -29,26 +29,39 @@ bool MasterNodeWitnessManager::add(const CMasterNodeWitness &proof)
     return false;
 }
 
-bool MasterNodeWitnessManager::remove(const CMasterNodeWitness &proof)
+bool MasterNodeWitnessManager::Remove(const uint256 &targetBlockHash)
 {
-    if (exist(proof.nTargetBlockHash)) {
-        LogPrint("MasterNodeWitnessManager", "Removed proof %s\n", proof.ToString());
-        _witnesses.erase(proof.nTargetBlockHash);
+    if (exist(targetBlockHash)) {
+        LogPrint("MasterNodeWitnessManager", "Removed proof for target block %s\n", targetBlockHash.ToString());
+        _witnesses.erase(targetBlockHash);
         return true;
     }
     return false;
 }
 
-bool MasterNodeWitnessManager::isRemoved(const uint256 &targetBlockHash)
+void MasterNodeWitnessManager::Update()
 {
-    return exist(targetBlockHash) && _witnesses[targetBlockHash].nRemoved;
+    if (GetAdjustedTime() - _lastUpdate < 5 * 60 * 1000) {
+        return;
+    }
+    _lastUpdate = GetAdjustedTime();
+
+    int64_t thresholdTime = GetAdjustedTime() - MASTERNODE_REMOVAL_SECONDS;
+    std::map<uint256, CMasterNodeWitness>::iterator it = _witnesses.begin();
+    std::vector<uint256> toRemove;
+    while (it != _witnesses.end()) {
+        if (!it->second->IsValid(thresholdTime)) {
+            toRemove.push(it->first);
+        }
+        it++;
+    }
+
+    for (int i = 0; i < toRemove.size(); i++) {
+        Remove(toRemove[i]);
+    }
 }
 
-void MasterNodeWitnessManager::update()
-{
-}
-
-void MasterNodeWitnessManager::save()
+void MasterNodeWitnessManager::Save()
 {
 }
 

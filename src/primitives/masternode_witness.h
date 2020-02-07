@@ -94,6 +94,11 @@ public:
         return ss.GetHash();
     }
 
+    int CountMasterNodes()
+    {
+        return nProofs.size();
+    }
+
     std::string ToString() const;
     bool Sign(CKey &keyWitness, CPubKey &pubKeyWitness);
     bool IsValid(int64_t atTime) const;

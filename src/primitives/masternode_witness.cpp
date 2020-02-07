@@ -37,6 +37,45 @@ bool CMasterNodeWitness::Sign(CKey &keyWitness, CPubKey &pubKeyWitness)
 
 std::string CMasterNodeWitness::IsValid(int64_t atTime) const
 {
+    std::vector<CTxIn> checkedOut;
+    for (int i = 0; i < nProofs.size(); i++) {
+        const CMasternodePing &ping = nProofs[i].nPing;
+        const CMasternodeBroadcast &broadcast = nProofs[i].nBroadcast;
+
+        if (ping.sigTime < (atTime - MASTERNODE_REMOVAL_SECONDS) || ping.sigTime > atTime) {
+            return false;
+        }
+
+        if (ping.vin != broadcast.vin) {
+            return false;
+        }
+
+        if (!broadcast.VerifySignature()) {
+            return false;
+        }
+
+        int nDos = 0;
+        if (!ping.VerifySignature(broadcast.pubKeyMasternode, nDos) || nDos != 0) {
+            return false;
+        }
+
+        uint256 hashBlock = 0;
+        CTransaction tx2;
+        GetTransaction(ping.vin.prevout.hash, tx2, hashBlock, true);
+        BlockMap::iterator mi = mapBlockIndex.find(hashBlock);
+        if (mi != mapBlockIndex.end() && (*mi).second) {
+            CBlockIndex* pMNIndex = (*mi).second;
+            CBlockIndex* pConfIndex = chainActive[pMNIndex->nHeight + MASTERNODE_MIN_CONFIRMATIONS - 1];
+            if (pConfIndex->GetBlockTime() > atTime) {
+                return false;
+            }
+        }
+
+        if (checkedOut.find(ping.vin) != checkedOut.end()) {
+            return false;
+        }
+        checkedOut.push(ping.vin);
+    }
     return true;
 }
 

@@ -1,6 +1,3 @@
-// Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2013 The Bitcoin developers
-// Copyright (c) 2015-2017 The PIVX developers
 // Copyright (c) 2019-2020 The BITWIN24 developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -150,7 +147,7 @@ public:
 
     bool IsEmpty() const
     {
-        return nPing.vchSig.empty() || nBroadcast.sig..empty();
+        return nPing.vchSig.empty() || nBroadcast.nPing.empty();
     }
 
     bool operator==(const CMasterNodeWitness &a, const CMasterNodeWitness &b)

@@ -1,6 +1,3 @@
-// Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2013 The Bitcoin developers
-// Copyright (c) 2015-2017 The PIVX developers
 // Copyright (c) 2019-2020 The BITWIN24 developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -42,6 +39,10 @@ std::string CMasterNodeWitness::IsValid(int64_t atTime) const
         const CMasternodePing &ping = nProofs[i].nPing;
         const CMasternodeBroadcast &broadcast = nProofs[i].nBroadcast;
 
+        if (ping.IsNull() || broadcast.IsNull()) {
+            return false;
+        }
+
         if (ping.sigTime < (atTime - MASTERNODE_REMOVAL_SECONDS) || ping.sigTime > atTime) {
             return false;
         }
@@ -64,8 +65,8 @@ std::string CMasterNodeWitness::IsValid(int64_t atTime) const
         GetTransaction(ping.vin.prevout.hash, tx2, hashBlock, true);
         BlockMap::iterator mi = mapBlockIndex.find(hashBlock);
         if (mi != mapBlockIndex.end() && (*mi).second) {
-            CBlockIndex* pMNIndex = (*mi).second;
-            CBlockIndex* pConfIndex = chainActive[pMNIndex->nHeight + MASTERNODE_MIN_CONFIRMATIONS - 1];
+            CBlockIndex *pMNIndex = (*mi).second;
+            CBlockIndex *pConfIndex = chainActive[pMNIndex->nHeight + MASTERNODE_MIN_CONFIRMATIONS - 1];
             if (pConfIndex->GetBlockTime() > atTime) {
                 return false;
             }

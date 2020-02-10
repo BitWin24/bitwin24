@@ -7,12 +7,10 @@
 std::string CMasterNodeWitness::ToString() const
 {
     std::stringstream s;
-    s << strprintf("CMasterNodeWitness(target block hash=%s, ver=%d, count proofs=%d, removed=%d, signature=%s)\n",
+    s << strprintf("CMasterNodeWitness(target block hash=%s, ver=%d, count proofs=%d)\n",
                    nTargetBlockHash.ToString(),
                    nVersion,
-                   nProofs.size(),
-                   nRemoved,
-                   nSignature.ToString());
+                   nProofs.size());
     for (unsigned int i = 0; i < nProofs.size(); i++) {
         s << "  " << nProofs[i].ToString() << "\n";
     }
@@ -32,16 +30,12 @@ bool CMasterNodeWitness::Sign(CKey &keyWitness, CPubKey &pubKeyWitness)
     return true;
 }
 
-std::string CMasterNodeWitness::IsValid(int64_t atTime) const
+bool CMasterNodeWitness::IsValid(int64_t atTime) const
 {
     std::vector<CTxIn> checkedOut;
-    for (int i = 0; i < nProofs.size(); i++) {
-        const CMasternodePing &ping = nProofs[i].nPing;
-        const CMasternodeBroadcast &broadcast = nProofs[i].nBroadcast;
-
-        if (ping.IsNull() || broadcast.IsNull()) {
-            return false;
-        }
+    for (unsigned i = 0; i < nProofs.size(); i++) {
+        CMasternodePing ping = nProofs[i].nPing;
+        CMasternodeBroadcast broadcast = nProofs[i].nBroadcast;
 
         if (ping.sigTime < (atTime - MASTERNODE_REMOVAL_SECONDS) || ping.sigTime > atTime) {
             return false;
@@ -72,19 +66,18 @@ std::string CMasterNodeWitness::IsValid(int64_t atTime) const
             }
         }
 
-        if (checkedOut.find(ping.vin) != checkedOut.end()) {
+        if (std::find(checkedOut.begin(), checkedOut.end(), ping.vin) != checkedOut.end()) {
             return false;
         }
-        checkedOut.push(ping.vin);
+        checkedOut.push_back(ping.vin);
     }
     return true;
 }
 
-std::string CMasterNodeWitness::SignatureValid() const
+bool CMasterNodeWitness::SignatureValid() const
 {
     CPubKey pubkey;
     if (!pubkey.RecoverCompact(GetHash(), vchSig)) {
-        errorMessage = _("Error recovering public key.");
         return false;
     }
     return (pubkey.GetID() == pubKeyWitness.GetID());

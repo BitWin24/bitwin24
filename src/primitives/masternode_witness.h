@@ -8,6 +8,8 @@
 #include "../masternode.h"
 
 class ActiveMasterNodeProofs;
+bool operator==(const ActiveMasterNodeProofs& a, const ActiveMasterNodeProofs& b);
+bool operator!=(const ActiveMasterNodeProofs& a, const ActiveMasterNodeProofs& b);
 
 /** List proofs of active master nodes.  For validate reward in fresh block.
  *  Record will be removed later, for trusted blocks
@@ -61,25 +63,26 @@ public:
         return nProofs.empty();
     }
 
-    friend bool operator==(const CMasterNodeWitness &a, const CMasterNodeWitness &b)
+    bool operator==(const CMasterNodeWitness &a)
     {
-        if (a.nVersion != b.nVersion || a.nProofs.size() != b.nProofs.size()) {
+        if (nVersion != a.nVersion || nProofs.size() != a.nProofs.size()) {
             return false;
         }
-        for (int i = 0; i < a.nProofs.size(); ++i) {
-            if (a.nProofs[i] != b.nProofs[i]) {
+
+        for (unsigned i = 0; i < nProofs.size(); ++i) {
+            if (nProofs[i] != a.nProofs[i]) {
                 return false;
             }
         }
         return true;
     }
 
-    friend bool operator!=(const CMasterNodeWitness &a, const CMasterNodeWitness &b)
+    bool operator!=(const CMasterNodeWitness &a)
     {
-        return !(a == b);
+        return !(*this == a);
     }
 
-    uint256 GetHash()
+    uint256 GetHash() const
     {
         CHashWriter ss(SER_GETHASH, 0);
         ss << nVersion;
@@ -148,7 +151,7 @@ public:
         return nPing.blockHash == 0 || nBroadcast.sigTime == 0;
     }
 
-    friend bool operator==(const ActiveMasterNodeProofs &a, const ActiveMasterNodeProofs &b)
+    friend bool operator==(const ActiveMasterNodeProofs& a, const ActiveMasterNodeProofs& b)
     {
         if (a.nVersion != b.nVersion
             || a.nPing != b.nPing
@@ -157,8 +160,7 @@ public:
         }
         return true;
     }
-
-    friend bool operator!=(const ActiveMasterNodeProofs &a, const ActiveMasterNodeProofs &b)
+    friend bool operator!=(const ActiveMasterNodeProofs& a, const ActiveMasterNodeProofs& b)
     {
         return !(a == b);
     }

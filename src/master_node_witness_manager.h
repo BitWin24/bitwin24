@@ -30,7 +30,7 @@ public:
     bool Add(const CMasterNodeWitness &proof, bool validate = false);
     bool Remove(const uint256 &targetBlockHash);
     const CMasterNodeWitness &Find(const uint256 &targetBlockHash);
-    CMasterNodeWitness CreateMasterNodeWitness(uint256 targetBlockHash = 0);
+    CMasterNodeWitness CreateMasterNodeWitnessSnapshot(uint256 targetBlockHash = 0);
 
     void Update();
     void Save();

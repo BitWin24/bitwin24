@@ -1654,7 +1654,7 @@ CAmount CWallet::GetEarnings(bool fMasternodeOnly) const
         for (map<uint256, CWalletTx>::const_iterator it = mapWallet.begin(); it != mapWallet.end(); ++it) {
             const CWalletTx* pcoin = &(*it).second;
 
-            if (/*pcoin->IsTrusted() &&*/ pcoin->IsCoinStake()) {
+            if (/*pcoin->IsTrusted() &&*/ pcoin->IsCoinStake() && pcoin->GetDepthInMainChain() > 12 ) {
                 if (isminetype mine = IsMine(pcoin->vout[1])) {
                     if(!fMasternodeOnly && !(mine & ISMINE_WATCH_ONLY)) {
                         CAmount credit = pcoin->GetCredit(ISMINE_ALL);

@@ -7,6 +7,7 @@
 
 #include "master_node_witness_manager.h"
 #include "primitives/masternode_witness.h"
+#include "masternodeman.h"
 
 MasterNodeWitnessManager::MasterNodeWitnessManager()
 {
@@ -17,10 +18,10 @@ bool MasterNodeWitnessManager::Exist(const uint256 &targetBlockHash) const
     return _witnesses.find(targetBlockHash) != _witnesses.end();
 }
 
-bool MasterNodeWitnessManager::Add(const CMasterNodeWitness &proof)
+bool MasterNodeWitnessManager::Add(const CMasterNodeWitness &proof, bool validate)
 {
     if (!exist(proof.nTargetBlockHash)) {
-        if (!proof.IsValid(0)) {
+        if (!validate || proof.IsValid(GetAdjustedTime())) {
             LogPrint("MasterNodeWitnessManager", "Added proof %s\n", proof.ToString());
             _witnesses[proof.nTargetBlockHash] = proof;
             return true;
@@ -74,4 +75,26 @@ const CMasterNodeWitness &MasterNodeWitnessManager::find(const uint256 &targetBl
     if (exist(targetBlockHash))
         return _witnesses[targetBlockHash];
     return CMasterNodeWitness();
+}
+
+CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uint256 targetBlockHash)
+{
+    CMasterNodeWitness result;
+    result.nVersion = 0;
+    result.nTargetBlockHash = targetBlockHash;
+
+    std::map<uint256, CMasternodeBroadcast>::iterator it = mnodeman.mapSeenMasternodeBroadcast.begin();
+    std::vector<uint256> toRemove;
+    while (it != mnodeman.mapSeenMasternodeBroadcast.end()) {
+        if (!it->second->IsValid(thresholdTime)) {
+            ActiveMasterNodeProofs proof;
+            proof.nVersion = 0;
+            proof.nBroadcast = it->second;
+            proof.nPing = proof.nBroadcast.lastPing;
+            result.nProofs.push(proof);
+        }
+        it++;
+    }
+
+    return result;
 }

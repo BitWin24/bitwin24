@@ -20,7 +20,6 @@ public:
     CAmount nVersion;
     uint256 nTargetBlockHash;
     std::vector<ActiveMasterNodeProofs> nProofs;
-    bool nRemoved;
     std::vector<unsigned char> vchSig;
     CPubKey pubKeyWitness;
 
@@ -37,7 +36,6 @@ public:
         READWRITE(this->nVersion);
         READWRITE(nProofs);
         READWRITE(nTargetBlockHash);
-        READWRITE(nRemoved);
         READWRITE(pubKeyWitness);
         READWRITE(vchSig);
     }
@@ -86,7 +84,6 @@ public:
         ss << nVersion;
         ss << nProofs;
         ss << nTargetBlockHash;
-        ss << nRemoved;
 
         return ss.GetHash();
     }

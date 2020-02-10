@@ -87,7 +87,7 @@ std::string ActiveMasterNodeProofs::ToString() const
 {
     std::stringstream s;
     s << strprintf("ActiveMasterNodeProofs(ver=%d\n", nVersion);
-    s << "  " << nPing.ToString() << "\n";
-    s << "  " << nBroadcast.ToString() << "\n";
+    s << "\tPing " << nPing.blockHash.ToString() << "\n" << strprintf("sigTime %lli\n", nPing.sigTime) << "\n";
+    s << "\tBroadcast " << nBroadcast.addr.ToString() << "\n" << nBroadcast.vin.ToString() << "\n";
     return s.str();
 }

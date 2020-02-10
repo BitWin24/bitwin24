@@ -2203,8 +2203,8 @@ bool CheckInputs(const CTransaction& tx, CValidationState& state, const CCoinsVi
 
 bool DisconnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex, CCoinsViewCache& view, bool* pfClean)
 {
-    CMasterNodeWitness witness = mnWitnessManager.CreateMasterNodeWitnessSnapshot(block.GetHash());
-    LogPrint("witness", "%s\n", witness.ToString());
+//    CMasterNodeWitness witness = mnWitnessManager.CreateMasterNodeWitnessSnapshot(block.GetHash());
+//    LogPrint("witness", "%s\n", witness.ToString());
 
     if (pindex->GetBlockHash() != view.GetBestBlock())
         LogPrintf("%s : pindex=%s view=%s\n", __func__, pindex->GetBlockHash().GetHex(), view.GetBestBlock().GetHex());

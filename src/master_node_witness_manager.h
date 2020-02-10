@@ -14,6 +14,9 @@
 #include <string>
 
 class CMasterNodeWitness;
+class MasterNodeWitnessManager;
+
+extern MasterNodeWitnessManager mnWitnessManager;
 
 /*
  * Contains proofs of active master nodes

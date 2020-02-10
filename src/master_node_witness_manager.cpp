@@ -9,6 +9,8 @@
 #include "primitives/masternode_witness.h"
 #include "masternodeman.h"
 
+MasterNodeWitnessManager mnWitnessManager;
+
 MasterNodeWitnessManager::MasterNodeWitnessManager()
 {
 }

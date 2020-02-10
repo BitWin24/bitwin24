@@ -61,19 +61,20 @@ public:
         return nProofs.empty();
     }
 
-    bool operator==(const CMasterNodeWitness &a, const CMasterNodeWitness &b)
+    friend bool operator==(const CMasterNodeWitness &a, const CMasterNodeWitness &b)
     {
-        if (a.nVersion != b.nVersion || a.nProofs.size() != b.nProofs.size())
+        if (a.nVersion != b.nVersion || a.nProofs.size() != b.nProofs.size()) {
             return false;
-
-        for (int i = 0; i < a.nProofs.size(); ++i)
-            if (a.nProofs[i] != b.nProofs[i])
+        }
+        for (int i = 0; i < a.nProofs.size(); ++i) {
+            if (a.nProofs[i] != b.nProofs[i]) {
                 return false;
-
+            }
+        }
         return true;
     }
 
-    bool operator!=(const CMasterNodeWitness &a, const CMasterNodeWitness &b)
+    friend bool operator!=(const CMasterNodeWitness &a, const CMasterNodeWitness &b)
     {
         return !(a == b);
     }
@@ -144,22 +145,20 @@ public:
 
     bool IsEmpty() const
     {
-        return nPing.vchSig.empty() || nBroadcast.nPing.empty();
+        return nPing.blockHash == 0 || nBroadcast.sigTime == 0;
     }
 
-    bool operator==(const CMasterNodeWitness &a, const CMasterNodeWitness &b)
+    friend bool operator==(const ActiveMasterNodeProofs &a, const ActiveMasterNodeProofs &b)
     {
-        if (a.nVersion != b.nVersion || a.nProofs.size() != b.nProofs.size())
+        if (a.nVersion != b.nVersion
+            || a.nPing != b.nPing
+            || a.nBroadcast != b.nBroadcast) {
             return false;
-
-        for (int i = 0; i < a.nProofs.size(); ++i)
-            if (a.nProofs[i] != b.nProofs[i])
-                return false;
-
+        }
         return true;
     }
 
-    bool operator!=(const CMasterNodeWitness &a, const CMasterNodeWitness &b)
+    friend bool operator!=(const ActiveMasterNodeProofs &a, const ActiveMasterNodeProofs &b)
     {
         return !(a == b);
     }

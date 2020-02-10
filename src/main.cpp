@@ -36,10 +36,11 @@
 #include "utilmoneystr.h"
 #include "validationinterface.h"
 #include "zbwichain.h"
-
 #include "primitives/zerocoin.h"
 #include "libzerocoin/Denominations.h"
 #include "invalid.h"
+#include "master_node_witness_manager.h"
+#include "primitives/masternode_witness.h"
 
 #include <sstream>
 
@@ -2202,6 +2203,9 @@ bool CheckInputs(const CTransaction& tx, CValidationState& state, const CCoinsVi
 
 bool DisconnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex, CCoinsViewCache& view, bool* pfClean)
 {
+    CMasterNodeWitness witness = mnWitnessManager.CreateMasterNodeWitness(block.GetHash());
+    LogPrint("witness", "%s\n", witness.ToString());
+
     if (pindex->GetBlockHash() != view.GetBestBlock())
         LogPrintf("%s : pindex=%s view=%s\n", __func__, pindex->GetBlockHash().GetHex(), view.GetBestBlock().GetHex());
     assert(pindex->GetBlockHash() == view.GetBestBlock());

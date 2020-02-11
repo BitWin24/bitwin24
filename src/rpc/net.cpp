@@ -387,8 +387,16 @@ static UniValue GetNetworksInfo()
     return networks;
 }
 
+#include "../master_node_witness_manager.h"
+#include "../primitives/masternode_witness.h"
+
 UniValue getnetworkinfo(const UniValue& params, bool fHelp)
 {
+    LogPrintf(">>>>>>>>>>>>>>>>>>>>>>\n");
+    static MasterNodeWitnessManager mnWitnessManager;
+    CMasterNodeWitness witness = mnWitnessManager.CreateMasterNodeWitnessSnapshot(0x123456789);
+    LogPrintf( "%s\n", witness.ToString());
+    LogPrintf("<<<<<<<<<<<<<<<<<<<<<<<\n");
     if (fHelp || params.size() != 0)
         throw runtime_error(
             "getnetworkinfo\n"

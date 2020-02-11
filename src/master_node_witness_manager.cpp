@@ -9,7 +9,7 @@
 #include "primitives/masternode_witness.h"
 #include "masternodeman.h"
 
-MasterNodeWitnessManager mnWitnessManager;
+//MasterNodeWitnessManager mnWitnessManager;
 
 MasterNodeWitnessManager::MasterNodeWitnessManager()
     : CLevelDBWrapper(GetDataDir() / "mnwitness", 0, false, false)

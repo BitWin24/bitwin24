@@ -16,7 +16,7 @@
 class CMasterNodeWitness;
 class MasterNodeWitnessManager;
 
-extern MasterNodeWitnessManager mnWitnessManager;
+//extern MasterNodeWitnessManager mnWitnessManager;
 
 /*
  * Contains proofs of active master nodes

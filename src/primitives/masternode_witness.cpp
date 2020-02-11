@@ -3,17 +3,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "masternode_witness.h"
-
-
-const char *GetTimeStamp(float epochStr)
-{
-    static char timestamp[64] = "";
-    time_t tt = 0;
-    memset(timestamp, '\0', 64);
-    tt = epochStr;
-    strftime(timestamp, 64, "%Y-%m-%d:%H:%M:%S", localtime(&tt));
-    return timestamp;
-}
+#include "../util.h"
 
 std::string CMasterNodeWitness::ToString() const
 {
@@ -98,7 +88,7 @@ std::string ActiveMasterNodeProofs::ToString() const
 {
     std::stringstream s;
     s << strprintf("\tActiveMasterNodeProofs ver=%d\n", nVersion);
-    s << "\tPing " << nPing.blockHash.ToString() << " " << strprintf("sigTime %s", GetTimeStamp(nPing.sigTime)) << "\n";
+    s << "\tPing " << nPing.blockHash.ToString() << " " << strprintf("sigTime %s", EpochTimeToHumanReadableFormat(nPing.sigTime)) << "\n";
     s << "\tBroadcast " << nBroadcast.addr.ToString() << " " << nBroadcast.vin.ToString() << "\n";
     return s.str();
 }

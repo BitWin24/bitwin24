@@ -1388,7 +1388,7 @@ void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
             address = CNoDestination();
         }
 
-        COutputEntry output = {address, txout.nValue, (int)i};
+        COutputEntry output = {address, GetCredit(filter) - GetDebit(filter), (int)i};
 
         // If we are debited by the transaction, add the output as a "sent" entry
         if (nDebit > 0)

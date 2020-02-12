@@ -8,11 +8,12 @@
 #include "master_node_witness_manager.h"
 #include "primitives/masternode_witness.h"
 #include "masternodeman.h"
+#include <exception>
 
 //MasterNodeWitnessManager mnWitnessManager;
 
 MasterNodeWitnessManager::MasterNodeWitnessManager()
-    : CLevelDBWrapper(GetDataDir() / "mnwitness", 0, false, false)
+    : CLevelDBWrapper(GetDataDir() / "mnwitness", 0, false, false), _lastUpdate(0)
 {
 }
 
@@ -67,10 +68,37 @@ void MasterNodeWitnessManager::Update()
 
 void MasterNodeWitnessManager::Save()
 {
+    EraseDB();
+    std::map<uint256, CMasterNodeWitness>::iterator it = _witnesses.begin();
+    while (it != _witnesses.end()) {
+        Write(it->first, it->second);
+        it++;
+    }
+
+    Sync();
+    Flush();
 }
 
 void MasterNodeWitnessManager::Load()
 {
+    boost::scoped_ptr<leveldb::Iterator> pcursor(NewIterator());
+    pcursor->SeekToFirst();
+
+    while (pcursor->Valid()) {
+        try {
+            leveldb::Slice slValue = pcursor->value();
+            CDataStream ssValue(slValue.data(), slValue.data() + slValue.size(), SER_DISK, CLIENT_VERSION);
+            CMasterNodeWitness witness;
+            ssValue >> witness;
+
+            Add(witness);
+
+            pcursor->Next();
+        }
+        catch (std::exception &e) {
+            LogPrintf("%s : Deserialize or I/O error - %s\n", __func__, e.what());
+        }
+    }
 }
 
 CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uint256 targetBlockHash)
@@ -91,7 +119,6 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
     }
 
     std::map<uint256, CMasternodeBroadcast>::iterator it = mnodeman.mapSeenMasternodeBroadcast.begin();
-    std::vector<uint256> toRemove;
     while (it != mnodeman.mapSeenMasternodeBroadcast.end()) {
         std::pair<uint256, uint32_t> key(it->second.vin.prevout.hash, it->second.vin.prevout.n);
         if (pings.find(key) != pings.end()) {
@@ -105,4 +132,40 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
     }
 
     return result;
+}
+
+void MasterNodeWitnessManager::EraseDB()
+{
+    boost::scoped_ptr<leveldb::Iterator> pcursor(NewIterator());
+
+    std::vector<uint256> toRemove;
+    while (pcursor->Valid()) {
+        try {
+            leveldb::Slice slKey = pcursor->key();
+            CDataStream ssKey(slKey.data(), slKey.data() + slKey.size(), SER_DISK, CLIENT_VERSION);
+            uint256 targetBlockHash;
+            ssKey >> targetBlockHash;
+
+            toRemove.push_back(targetBlockHash);
+
+            pcursor->Next();
+        }
+        catch (std::exception &e) {
+            LogPrintf("%s : Deserialize or I/O error - %s\n", __func__, e.what());
+        }
+    }
+
+    for (std::vector<uint256>::iterator it = toRemove.begin(); it != toRemove.end(); it++) {
+        uint256 target = *it;
+        Erase(target, true);
+    }
+
+    _witnesses.clear();
+}
+
+const CMasterNodeWitness &MasterNodeWitnessManager::Get(const uint256 &targetBlockHash)
+{
+    if (Exist(targetBlockHash))
+        return _witnesses[targetBlockHash];
+    return CMasterNodeWitness();
 }

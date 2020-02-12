@@ -29,13 +29,14 @@ public:
     bool Exist(const uint256 &targetBlockHash) const;
     bool Add(const CMasterNodeWitness &proof, bool validate = false);
     bool Remove(const uint256 &targetBlockHash);
-    const CMasterNodeWitness &Find(const uint256 &targetBlockHash);
+    const CMasterNodeWitness &Get(const uint256 &targetBlockHash);
     CMasterNodeWitness CreateMasterNodeWitnessSnapshot(uint256 targetBlockHash = 0);
 
     void Update();
     void Save();
     void Load();
 private:
+    void EraseDB();
     std::map<uint256, CMasterNodeWitness> _witnesses;
     int64_t _lastUpdate;
 };

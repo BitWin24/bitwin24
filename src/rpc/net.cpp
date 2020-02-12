@@ -393,17 +393,31 @@ static UniValue GetNetworksInfo()
 UniValue getnetworkinfo(const UniValue& params, bool fHelp)
 {
     LogPrintf(">>>>>>>>>>>>>>>>>>>>>>\n");
-    static MasterNodeWitnessManager mnWitnessManager;
-    CMasterNodeWitness witness = mnWitnessManager.CreateMasterNodeWitnessSnapshot(0x123456789);
-    LogPrintf("%s\n", witness.ToString());
-    LogPrintf("is valid %d\n", witness.IsValid(GetAdjustedTime()));
-    LogPrintf("is valid in future %d\n", witness.IsValid(GetAdjustedTime() + 24 * 60 * 60));
-    LogPrintf("is valid in past %d\n", witness.IsValid(GetAdjustedTime() - 24 * 60 * 60));
-    CKey keyMasternode;
-    keyMasternode.MakeNewKey(false);
-    witness.pubKeyWitness = keyMasternode.GetPubKey();;
-    bool wSigned = witness.Sign(keyMasternode);
-    LogPrintf("signed %d, sign valid %d\n", wSigned, witness.SignatureValid());
+    if (0) {
+        static MasterNodeWitnessManager mnWitnessManager;
+        CMasterNodeWitness witness = mnWitnessManager.CreateMasterNodeWitnessSnapshot(0x123456789);
+        LogPrintf("%s\n", witness.ToString());
+        LogPrintf("is valid %d\n", witness.IsValid(GetAdjustedTime()));
+        LogPrintf("is valid in future %d\n", witness.IsValid(GetAdjustedTime() + 24 * 60 * 60));
+        LogPrintf("is valid in past %d\n", witness.IsValid(GetAdjustedTime() - 24 * 60 * 60));
+        CKey keyMasternode;
+        keyMasternode.MakeNewKey(false);
+        witness.pubKeyWitness = keyMasternode.GetPubKey();
+        bool wSigned = witness.Sign(keyMasternode);
+        LogPrintf("signed %d, sign valid %d\n", wSigned, witness.SignatureValid());
+        mnWitnessManager.Add(witness);
+        mnWitnessManager.Save();
+    }
+    if (1) {
+        MasterNodeWitnessManager mnWitnessManagerTest;
+        mnWitnessManagerTest.Load();
+        CMasterNodeWitness witness = mnWitnessManagerTest.Get(0x123456789);
+        LogPrintf("mnWitnessManagerTest loaded %s\n", witness.ToString());
+        LogPrintf("mnWitnessManagerTest is valid %d\n", witness.IsValid(GetAdjustedTime()));
+        LogPrintf("mnWitnessManagerTest is valid in future %d\n", witness.IsValid(GetAdjustedTime() + 24 * 60 * 60));
+        LogPrintf("mnWitnessManagerTest is valid in past %d\n", witness.IsValid(GetAdjustedTime() - 24 * 60 * 60));
+        LogPrintf("mnWitnessManagerTest sign valid %d\n", witness.SignatureValid());
+    }
     LogPrintf("<<<<<<<<<<<<<<<<<<<<<<<\n");
     if (fHelp || params.size() != 0)
         throw runtime_error(

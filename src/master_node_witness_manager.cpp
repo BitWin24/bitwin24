@@ -109,9 +109,13 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
 
     std::map<std::pair<uint256, uint32_t>, CMasternodePing> pings;
 
+    int64_t atTime = GetAdjustedTime();
+
     std::map<uint256, CMasternodePing>::iterator pingIt = mnodeman.mapSeenMasternodePing.begin();
     while (pingIt != mnodeman.mapSeenMasternodePing.end()) {
         const CMasternodePing &ping = pingIt->second;
+        if (ping.sigTime < (atTime - MASTERNODE_REMOVAL_SECONDS) || ping.sigTime > (atTime + MASTERNODE_PING_SECONDS))
+            continue;
         std::pair<uint256, uint32_t> key(ping.vin.prevout.hash, ping.vin.prevout.n);
         if (pings.find(key) == pings.end() || pings[key].sigTime < ping.sigTime)
             pings[key] = ping;

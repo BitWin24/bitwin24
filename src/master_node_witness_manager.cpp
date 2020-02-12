@@ -79,14 +79,28 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
     result.nVersion = 0;
     result.nTargetBlockHash = targetBlockHash;
 
+    std::map<std::pair<uint256, uint32_t>, CMasternodePing> pings;
+
+    std::map<uint256, CMasternodePing>::iterator pingIt = mnodeman.mapSeenMasternodePing.begin();
+    while (pingIt != mnodeman.mapSeenMasternodePing.end()) {
+        const CMasternodePing &ping = pingIt->second;
+        std::pair<uint256, uint32_t> key(ping.vin.prevout.hash, ping.vin.prevout.n);
+        if (pings.find(key) == pings.end() || pings[key].sigTime < ping.sigTime)
+            pings[key] = ping;
+        pingIt++;
+    }
+
     std::map<uint256, CMasternodeBroadcast>::iterator it = mnodeman.mapSeenMasternodeBroadcast.begin();
     std::vector<uint256> toRemove;
     while (it != mnodeman.mapSeenMasternodeBroadcast.end()) {
-        ActiveMasterNodeProofs proof;
-        proof.nVersion = 0;
-        proof.nBroadcast = it->second;
-        proof.nPing = proof.nBroadcast.lastPing;
-        result.nProofs.push_back(proof);
+        std::pair<uint256, uint32_t> key(it->second.vin.prevout.hash, it->second.vin.prevout.n);
+        if (pings.find(key) != pings.end()) {
+            ActiveMasterNodeProofs proof;
+            proof.nVersion = 0;
+            proof.nBroadcast = it->second;
+            proof.nPing = pings[key];
+            result.nProofs.push_back(proof);
+        }
         it++;
     }
 

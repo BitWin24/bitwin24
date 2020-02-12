@@ -38,7 +38,7 @@ bool CMasterNodeWitness::IsValid(int64_t atTime) const
         CMasternodePing ping = nProofs[i].nPing;
         CMasternodeBroadcast broadcast = nProofs[i].nBroadcast;
 
-        if (ping.sigTime < (atTime - MASTERNODE_REMOVAL_SECONDS) || ping.sigTime > atTime) {
+        if (ping.sigTime < (atTime - MASTERNODE_REMOVAL_SECONDS) || ping.sigTime > (atTime + MASTERNODE_PING_SECONDS)) {
             return false;
         }
 

@@ -46,7 +46,7 @@ bool MasterNodeWitnessManager::Remove(const uint256 &targetBlockHash)
 
 void MasterNodeWitnessManager::Update()
 {
-    if (GetAdjustedTime() - _lastUpdate < 5 * 60 * 1000) {
+    if (GetAdjustedTime() - _lastUpdate < 5 * 60) {
         return;
     }
     _lastUpdate = GetAdjustedTime();

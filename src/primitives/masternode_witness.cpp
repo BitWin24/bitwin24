@@ -18,13 +18,13 @@ std::string CMasterNodeWitness::ToString() const
     return s.str();
 }
 
-bool CMasterNodeWitness::Sign(CKey &keyWitness, CPubKey &pubKeyWitness)
+bool CMasterNodeWitness::Sign(CKey &keyWitness)
 {
     std::string errorMessage;
 
     uint256 hash = GetHash();
 
-    if (!keyWitness.Sign(hash, vchSig)) {
+    if (!keyWitness.SignCompact(hash, vchSig)) {
         LogPrint("witness", "CMasterNodeWitness::Sign() - Can't sign\n");
         return false;
     }

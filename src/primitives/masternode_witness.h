@@ -98,7 +98,7 @@ public:
     }
 
     std::string ToString() const;
-    bool Sign(CKey &keyWitness, CPubKey &pubKeyWitness);
+    bool Sign(CKey &keyWitness);
     bool IsValid(int64_t atTime) const;
     bool SignatureValid() const;
 };

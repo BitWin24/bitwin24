@@ -131,6 +131,7 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
         pingIt++;
     }
 
+    std::vector<CTxIn> included;
     std::map<uint256, CMasternodeBroadcast>::iterator it = mnodeman.mapSeenMasternodeBroadcast.begin();
     while (it != mnodeman.mapSeenMasternodeBroadcast.end()) {
         std::pair<uint256, uint32_t> key(it->second.vin.prevout.hash, it->second.vin.prevout.n);
@@ -139,7 +140,9 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
             proof.nVersion = 0;
             proof.nBroadcast = it->second;
             proof.nPing = pings[key];
-            result.nProofs.push_back(proof);
+            if (std::find(included.begin(), included.end(), proof.nPing.vin) == included.end())
+                result.nProofs.push_back(proof);
+            included.push_back(proof.nPing.vin);
         }
         it++;
     }

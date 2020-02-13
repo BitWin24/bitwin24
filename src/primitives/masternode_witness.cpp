@@ -38,8 +38,11 @@ bool CMasterNodeWitness::IsValid(int64_t atTime) const
         CMasternodePing ping = nProofs[i].nPing;
         CMasternodeBroadcast broadcast = nProofs[i].nBroadcast;
 
-        if (ping.sigTime < (atTime - MASTERNODE_REMOVAL_SECONDS) || ping.sigTime > (atTime + MASTERNODE_PING_SECONDS)) {
-            LogPrintf("atTime %s ping.sigTime %s ping.vin.prevout.hash %s \n", atTime, ping.sigTime, ping.vin.prevout.hash.ToString());
+        if (ping.sigTime<(atTime - MASTERNODE_REMOVAL_SECONDS) || ping.sigTime>(atTime + MASTERNODE_PING_SECONDS)) {
+            LogPrintf("atTime %s ping.sigTime %s ping.vin.prevout.hash %s \n",
+                      atTime,
+                      ping.sigTime,
+                      ping.vin.prevout.hash.ToString());
             return false;
         }
 
@@ -94,7 +97,9 @@ std::string ActiveMasterNodeProofs::ToString() const
 {
     std::stringstream s;
     s << strprintf("\tActiveMasterNodeProofs ver=%d\n", nVersion);
-    s << "\tPing " << nPing.vin.ToString() << " " << strprintf("sigTime %s", EpochTimeToHumanReadableFormat(nPing.sigTime)) << "\n";
-    s << "\tBroadcast " << nBroadcast.addr.ToString() << " " << nBroadcast.vin.ToString() << "\n";
+    s << "\tPing " << nPing.vin.ToString() << " "
+      << strprintf("sigTime %s", EpochTimeToHumanReadableFormat(nPing.sigTime)) << "\n";
+    s << "\tBroadcast " << nBroadcast.addr.ToString() << " " << nBroadcast.vin.ToString()
+      << EpochTimeToHumanReadableFormat(nBroadcast.sigTime) << "\n";
     return s.str();
 }

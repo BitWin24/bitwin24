@@ -81,23 +81,30 @@ void MasterNodeWitnessManager::Save()
 
 void MasterNodeWitnessManager::Load()
 {
+    _witnesses.clear();
+
     try {
         boost::scoped_ptr<leveldb::Iterator> pcursor(NewIterator());
         pcursor->SeekToFirst();
 
         while (pcursor->Valid()) {
-            leveldb::Slice slValue = pcursor->value();
-            CDataStream ssValue(slValue.data(), slValue.data() + slValue.size(), SER_DISK, CLIENT_VERSION);
-            CMasterNodeWitness witness;
-            ssValue >> witness;
+            try {
+                leveldb::Slice slValue = pcursor->value();
+                CDataStream ssValue(slValue.data(), slValue.data() + slValue.size(), SER_DISK, CLIENT_VERSION);
+                CMasterNodeWitness witness;
+                ssValue >> witness;
 
-            Add(witness);
+                Add(witness);
 
-            pcursor->Next();
+                pcursor->Next();
+            }
+            catch (std::exception &e) {
+                LogPrintf("%s : Deserialize or I/O error - %s\n", __func__, e.what());
+            }
         }
     }
-    catch (std::exception &e) {
-        LogPrintf("%s : Deserialize or I/O error - %s\n", __func__, e.what());
+    catch (...) {
+        LogPrintf("db for witnesses of master nodes not exist \n");
     }
 }
 
@@ -142,7 +149,6 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
 
 void MasterNodeWitnessManager::EraseDB()
 {
-
     std::vector<uint256> toRemove;
     try {
         boost::scoped_ptr<leveldb::Iterator> pcursor(NewIterator());
@@ -166,14 +172,13 @@ void MasterNodeWitnessManager::EraseDB()
         uint256 target = *it;
         Erase(target, true);
     }
-
-    _witnesses.clear();
 }
 
 const CMasterNodeWitness &MasterNodeWitnessManager::Get(const uint256 &targetBlockHash)
 {
     if (Exist(targetBlockHash))
         return _witnesses[targetBlockHash];
+    LogPrintf("Witness for target block hash not exist - %s\n", targetBlockHash.ToString());
     static CMasterNodeWitness result;
     return result;
 }

@@ -393,8 +393,8 @@ static UniValue GetNetworksInfo()
 UniValue getnetworkinfo(const UniValue& params, bool fHelp)
 {
     LogPrintf(">>>>>>>>>>>>>>>>>>>>>>\n");
-    int64_t targetTime =  GetAdjustedTime();
-    if (0) {
+    int64_t targetTime = GetAdjustedTime();
+    if (1) {
         LogPrintf("--------Create------------\n");
 //        static MasterNodeWitnessManager mnWitnessManager;
         MasterNodeWitnessManager mnWitnessManager;
@@ -412,6 +412,7 @@ UniValue getnetworkinfo(const UniValue& params, bool fHelp)
         mnWitnessManager.Save();
         LogPrintf("<<<--------Create------------\n");
     }
+
     if (1) {
         LogPrintf("--------Loading------------\n");
         MasterNodeWitnessManager mnWitnessManagerTest;

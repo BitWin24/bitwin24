@@ -10,8 +10,6 @@
 #include "masternodeman.h"
 #include <exception>
 
-//MasterNodeWitnessManager mnWitnessManager;
-
 MasterNodeWitnessManager::MasterNodeWitnessManager()
     : CLevelDBWrapper(GetDataDir() / "mnwitness", 0, false, false), _lastUpdate(0)
 {

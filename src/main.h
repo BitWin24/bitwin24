@@ -54,6 +54,7 @@ class CInv;
 class CScriptCheck;
 class CValidationInterface;
 class CValidationState;
+class MasterNodeWitnessManager;
 
 struct CBlockTemplate;
 struct CNodeStateStats;
@@ -628,6 +629,9 @@ extern CZerocoinDB* zerocoinDB;
 
 /** Global variable that points to the spork database (protected by cs_main) */
 extern CSporkDB* pSporkDB;
+
+/** Global variable that points to the master node witnesses */
+extern MasterNodeWitnessManager* pMNWitness;
 
 struct CBlockTemplate {
     CBlock block;

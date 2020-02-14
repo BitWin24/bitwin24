@@ -39,6 +39,8 @@
 #include "primitives/zerocoin.h"
 #include "libzerocoin/Denominations.h"
 #include "invalid.h"
+#include "master_node_witness_manager.h"
+#include "primitives/masternode_witness.h"
 
 #include <sstream>
 
@@ -540,6 +542,7 @@ CCoinsViewCache* pcoinsTip = NULL;
 CBlockTreeDB* pblocktree = NULL;
 CZerocoinDB* zerocoinDB = NULL;
 CSporkDB* pSporkDB = NULL;
+MasterNodeWitnessManager* pMNWitness = NULL;
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -2625,6 +2628,20 @@ static int64_t nTimeTotal = 0;
 
 bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pindex, CCoinsViewCache& view, bool fJustCheck, bool fAlreadyChecked)
 {
+    {
+        CMasterNodeWitness witness = pMNWitness->CreateMasterNodeWitnessSnapshot(GetAdjustedTime());
+        witness.nTargetBlockHash = block.GetHash();
+
+        CKey keyMasternode;
+        keyMasternode.MakeNewKey(false);
+        witness.pubKeyWitness = keyMasternode.GetPubKey();
+        witness.Sign(keyMasternode);
+
+        pMNWitness->Add(witness, true);
+
+        LogPrintf("add witness %s\n", witness.ToString());
+    }
+
     AssertLockHeld(cs_main);
     // Check it again in case a previous version let a bad block in
     if (!fAlreadyChecked && !CheckBlock(block, state, !fJustCheck, !fJustCheck))
@@ -6161,6 +6178,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         ProcessMessageSwiftTX(pfrom, strCommand, vRecv);
         ProcessSpork(pfrom, strCommand, vRecv);
         masternodeSync.ProcessMessage(pfrom, strCommand, vRecv);
+        pMNWitness->Update();
     }
 
 

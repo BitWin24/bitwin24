@@ -3945,21 +3945,21 @@ void CWallet::DisableStaking( const CBitcoinAddress& address )
 {
     AssertLockHeld(cs_wallet);
 
-    StakingAccountsDb::instance().add( address.ToString() );
+    StakingAccountsDb::instance().remove( address.ToString() );
 }
 
 void CWallet::EnableStaking( const CBitcoinAddress& address )
 {
     AssertLockHeld(cs_wallet);
 
-    StakingAccountsDb::instance().remove( address.ToString() );
+    StakingAccountsDb::instance().add( address.ToString() );
 }
 
 bool CWallet::IsStakingEnabled( const CBitcoinAddress& address ) const
 {
     AssertLockHeld(cs_wallet);
 
-    return !StakingAccountsDb::instance().exist( address.ToString() );
+    return StakingAccountsDb::instance().exist( address.ToString() );
 }
 
 set<CBitcoinAddress> CWallet::GetStakingAddresses() const

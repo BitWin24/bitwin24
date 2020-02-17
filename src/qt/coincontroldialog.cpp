@@ -130,6 +130,7 @@ CoinControlDialog::CoinControlDialog(QWidget* parent, bool fMultisigEnabled) : Q
 
     ui->treeWidget->setColumnWidth(COLUMN_CHECKBOX, 84);
     ui->treeWidget->setColumnWidth(COLUMN_AMOUNT, 100);
+    ui->treeWidget->setColumnWidth(COLUMN_STAKING, 80);
     ui->treeWidget->setColumnWidth(COLUMN_LABEL, 170);
     ui->treeWidget->setColumnWidth(COLUMN_ADDRESS, 190);
     ui->treeWidget->setColumnWidth(COLUMN_DATE, 80);
@@ -831,6 +832,13 @@ void CoinControlDialog::updateView()
             itemOutput->setText(COLUMN_AMOUNT, BitcoinUnits::format(nDisplayUnit, out.tx->vout[out.i].nValue));
             itemOutput->setToolTip(COLUMN_AMOUNT, BitcoinUnits::format(nDisplayUnit, out.tx->vout[out.i].nValue));
             itemOutput->setText(COLUMN_AMOUNT_INT64, QString::number(out.tx->vout[out.i].nValue)); // padding so that sorting works correctly
+
+            // staking
+            const bool enabled_staking = pwalletMain->IsStakingEnabled(outputAddress);
+            itemOutput->setIcon(COLUMN_STAKING, enabled_staking ?  QIcon(":/icons/lock_open") : QIcon(":/icons/lock_closed"));
+            // hack for ordering data; we add invisible text 1 - if staking is enabled, 0 - if disabled
+            itemOutput->setData(COLUMN_STAKING, Qt::DisplayRole, QString::number(enabled_staking) );
+            itemOutput->setForeground(COLUMN_STAKING, QColor(Qt::transparent));
 
             // date
             itemOutput->setText(COLUMN_DATE, GUIUtil::dateTimeStr(out.tx->GetTxTime()));

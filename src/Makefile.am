@@ -157,6 +157,7 @@ BITCOIN_CORE_H = \
   spork.h \
   sporkdb.h \
   stakeinput.h \
+  staking_accounts_db.h \
   streams.h \
   sync.h \
   threadsafety.h \
@@ -270,6 +271,7 @@ libbitcoin_wallet_a_SOURCES = \
   zbwiwallet.cpp \
   zbwitracker.cpp \
   stakeinput.cpp \
+  staking_accounts_db.cpp \
   $(BITCOIN_CORE_H)
 
 # crypto primitives library

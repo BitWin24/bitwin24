@@ -664,18 +664,30 @@ CAmount GetAccountBalance(CWalletDB& walletdb, const string& strAccount, int nMi
 {
     CAmount nBalance = 0;
 
-    // Tally wallet transactions
-    for (map<uint256, CWalletTx>::iterator it = pwalletMain->mapWallet.begin(); it != pwalletMain->mapWallet.end(); ++it) {
-        const CWalletTx& wtx = (*it).second;
-        if (!IsFinalTx(wtx) || wtx.GetBlocksToMaturity() > 0 || wtx.GetDepthInMainChain() < 0)
+    set<CBitcoinAddress> accountAddress;
+    BOOST_FOREACH (const PAIRTYPE(CBitcoinAddress, CAddressBookData) & item, pwalletMain->mapAddressBook) {
+        const CBitcoinAddress& address = item.first;
+        const string& strName = item.second.name;
+        if (strName == strAccount)
+            accountAddress.insert(address.ToString());
+    }
+
+    vector<COutput> vecOutputs;
+    assert(pwalletMain != NULL);
+    LOCK2(cs_main, pwalletMain->cs_wallet);
+    pwalletMain->AvailableCoins(vecOutputs, false, NULL, false, ALL_COINS, false, filter);
+    BOOST_FOREACH (const COutput& out, vecOutputs) {
+        if (out.nDepth < nMinDepth)
             continue;
 
-        CAmount nReceived, nSent, nFee;
-        wtx.GetAccountAmounts(strAccount, nReceived, nSent, nFee, filter);
+        CTxDestination address;
+        if (!ExtractDestination(out.tx->vout[out.i].scriptPubKey, address))
+            continue;
 
-        if (nReceived != 0 && wtx.GetDepthInMainChain() >= nMinDepth)
-            nBalance += nReceived;
-        nBalance -= nSent + nFee;
+        if (!accountAddress.count(address))
+            continue;
+
+        nBalance += out.tx->vout[out.i].nValue;
     }
 
     // Tally internal accounting entries
@@ -1237,11 +1249,11 @@ UniValue listreceivedbyaccount(const UniValue& params, bool fHelp)
     return ListReceived(params, true);
 }
 
-static void MaybePushAddress(UniValue & entry, const CTxDestination &dest)
+static void MaybePushAddress(UniValue & entry, const std::string& key, const CTxDestination& value)
 {
     CBitcoinAddress addr;
-    if (addr.Set(dest))
-        entry.push_back(Pair("address", addr.ToString()));
+    if (addr.Set(value))
+        entry.push_back(Pair(key, addr.ToString()));
 }
 
 void ListTransactions(const CWalletTx& wtx, const string& strAccount, int nMinDepth, bool fLong, UniValue& ret, const isminefilter& filter)
@@ -1257,21 +1269,28 @@ void ListTransactions(const CWalletTx& wtx, const string& strAccount, int nMinDe
     bool involvesWatchonly = wtx.IsFromMe(ISMINE_WATCH_ONLY);
 
     // Sent
-    if ((!listSent.empty() || nFee != 0) && (fAllAccounts || strAccount == strSentAccount)) {
+    if ((!listSent.empty() || nFee != 0) ) {
         BOOST_FOREACH (const COutputEntry& s, listSent) {
-            UniValue entry(UniValue::VOBJ);
-            if (involvesWatchonly || (::IsMine(*pwalletMain, s.destination) & ISMINE_WATCH_ONLY))
-                entry.push_back(Pair("involvesWatchonly", true));
-            entry.push_back(Pair("account", strSentAccount));
-            MaybePushAddress(entry, s.destination);
-            std::map<std::string, std::string>::const_iterator it = wtx.mapValue.find("DS");
-            entry.push_back(Pair("category", (it != wtx.mapValue.end() && it->second == "1") ? "darksent" : "send"));
-            entry.push_back(Pair("amount", ValueFromAmount(-s.amount)));
-            entry.push_back(Pair("vout", s.vout));
-            entry.push_back(Pair("fee", ValueFromAmount(-nFee)));
-            if (fLong)
-                WalletTxToJSON(wtx, entry);
-            ret.push_back(entry);
+            string account;
+            if (pwalletMain->mapAddressBook.count(s.source))
+                account = pwalletMain->mapAddressBook[s.source].name;
+
+            if (fAllAccounts || account == strAccount) {
+                UniValue entry(UniValue::VOBJ);
+                if (involvesWatchonly || (::IsMine(*pwalletMain, s.destination) & ISMINE_WATCH_ONLY))
+                    entry.push_back(Pair("involvesWatchonly", true));
+                entry.push_back(Pair("account", account));
+                MaybePushAddress(entry, "from", s.source);
+                MaybePushAddress(entry, "address", s.destination);
+                std::map<std::string, std::string>::const_iterator it = wtx.mapValue.find("DS");
+                entry.push_back(Pair("category", (it != wtx.mapValue.end() && it->second == "1") ? "darksent" : "send"));
+                entry.push_back(Pair("amount", ValueFromAmount(-s.amount)));
+                entry.push_back(Pair("vout", s.vout));
+                entry.push_back(Pair("fee", ValueFromAmount(-nFee)));
+                if (fLong)
+                    WalletTxToJSON(wtx, entry);
+                ret.push_back(entry);
+            }
         }
     }
 
@@ -1286,7 +1305,8 @@ void ListTransactions(const CWalletTx& wtx, const string& strAccount, int nMinDe
                 if (involvesWatchonly || (::IsMine(*pwalletMain, r.destination) & ISMINE_WATCH_ONLY))
                     entry.push_back(Pair("involvesWatchonly", true));
                 entry.push_back(Pair("account", account));
-                MaybePushAddress(entry, r.destination);
+                MaybePushAddress(entry, "from", r.source);
+                MaybePushAddress(entry, "address", r.destination);
                 if (wtx.IsCoinBase()) {
                     if (wtx.GetDepthInMainChain() < 1)
                         entry.push_back(Pair("category", "orphan"));
@@ -2085,6 +2105,137 @@ UniValue listlockunspent(const UniValue& params, bool fHelp)
     }
 
     return ret;
+}
+
+UniValue enablestaking(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() != 2)
+    {
+        throw runtime_error(
+            "enablestaking\n"
+            "enable/disable staking for the given addresses"
+            "\nArguments:\n"
+            "1. enable           (boolean, required) Whether to include (true) or exclude (false) in staking UTXOs of the specified bitwin24 addresses\n"
+            "2. \"addresses\"    (string) A json array of bitwin24 addresses\n"
+            "    [\n"
+            "      \"address\"   (string) bitwin24 address\n"
+            "      ,...\n"
+            "    ]\n"
+            +
+            HelpExampleCli("enablestaking", "false \"[\\\"GdcUoRJmsFAhDZLamKwFw5vs43VQn1iQUX\\\",\\\"GZm9YbkxKHMEvHJKcteuJvFwtXPCvMZiwg\\\"]\"") +
+            HelpExampleRpc("enablestaking", "false \"[\\\"GdcUoRJmsFAhDZLamKwFw5vs43VQn1iQUX\\\",\\\"GZm9YbkxKHMEvHJKcteuJvFwtXPCvMZiwg\\\"]\"")
+        );
+    }
+
+    LOCK2(cs_main, pwalletMain->cs_wallet);
+
+    RPCTypeCheck(params, boost::assign::list_of(UniValue::VBOOL)(UniValue::VARR));
+
+    const bool enableStaking{ params[0].get_bool() };
+
+    set<CBitcoinAddress> uniqueAddresses;
+    UniValue inputs = params[1].get_array();
+    for (unsigned int inx = 0; inx < inputs.size(); inx++) {
+        const UniValue& input = inputs[inx];
+        CBitcoinAddress address(input.get_str());
+        if (!address.IsValid())
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, string("Invalid BITWIN24 address: ") + input.get_str());
+        if (uniqueAddresses.count(address))
+            throw JSONRPCError(RPC_INVALID_PARAMETER, string("Invalid parameter, duplicated address: ") + input.get_str());
+
+        const auto mi = pwalletMain->mapAddressBook.find(address.Get());
+        if (mi == pwalletMain->mapAddressBook.end()) {
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, string("Not found, BITWIN24 address: ") + input.get_str());
+        }
+
+        uniqueAddresses.insert(address);
+    }
+
+    for( const auto& address : uniqueAddresses ) {
+        if( enableStaking ) {
+            pwalletMain->EnableStaking( address );
+        }
+        else {
+            pwalletMain->DisableStaking( address );
+        } 
+    }
+
+    return true;
+}
+
+UniValue liststakingaddresses(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() != 0)
+    {
+        throw runtime_error(
+            "liststakingaddresses\n"
+            "enable/disable staking for the given addresses"
+            "\nResult:\n"
+            "\n["
+            "{\n"
+            "  \"enabled\": true|false, (boolean) true if staking is enabled, false otherwise\n"
+            "  \"address\":             (string) bitwin24 address\n"
+            "}\n"
+            "\n ...,"
+            "{\n"
+            "  \"enabled\": true|false, (boolean) true if staking is enabled, false otherwise\n"
+            "  \"address\":             (string) bitwin24 address\n"
+            "\n]"
+            +
+            HelpExampleCli("liststakingaddresses", "") +
+            HelpExampleRpc("liststakingaddresses", "")
+        );
+    }
+
+    LOCK2(cs_main, pwalletMain->cs_wallet);
+    UniValue result(UniValue::VARR);
+
+    for( auto item : pwalletMain->mapAddressBook )
+    {
+        UniValue entry(UniValue::VOBJ);
+        const CBitcoinAddress& address = item.first;
+        entry.push_back(Pair("enabled", pwalletMain->IsStakingEnabled(address)));
+        entry.push_back(Pair("address", address.ToString()));
+
+        result.push_back( entry );
+    }
+
+    return result;
+}
+
+UniValue isstakingenabled(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() != 1)
+    {
+        throw runtime_error(
+            "isstakingenabled\n"
+            "returns status of staking for the given address"
+            "\nArguments:\n"
+            "1.\"address\"   (string) bitwin24 address to check if staking is enabled\n"
+            "\nResult:\n"
+            "{\n"
+            "  \"enabled\": true|false, (boolean) true if staking is enabled, false otherwise\n"
+            "  \"address\":             (string) bitwin24 address\n"
+            "}\n"
+            +
+            HelpExampleCli("isstakingenabled", "\"GdcUoRJmsFAhDZLamKwFw5vs43VQn1iQUX\"") +
+            HelpExampleRpc("isstakingenabled", "\"GdcUoRJmsFAhDZLamKwFw5vs43VQn1iQUX\"")
+        );
+    }
+
+    LOCK2(cs_main, pwalletMain->cs_wallet);
+
+    RPCTypeCheck(params, boost::assign::list_of(UniValue::VSTR));
+    const CBitcoinAddress address{ params[0].get_str() };
+    if (!address.IsValid())
+    {
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, string("Invalid BITWIN24 address: ") + params[0].get_str());
+    }
+
+    UniValue result(UniValue::VOBJ);
+    result.push_back(Pair("enabled", pwalletMain->IsStakingEnabled(address)));
+    result.push_back(Pair("address", address.ToString()));
+    return result;
 }
 
 UniValue settxfee(const UniValue& params, bool fHelp)

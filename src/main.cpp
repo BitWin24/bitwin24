@@ -40,6 +40,7 @@
 #include "libzerocoin/Denominations.h"
 #include "invalid.h"
 #include "master_node_witness_manager.h"
+#include "primitives/masternode_witness.h"
 
 #include <sstream>
 
@@ -2840,25 +2841,58 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     CAmount nExpectedMint = GetBlockValue(pindex->pprev->nHeight);
     if (block.IsProofOfWork())
         nExpectedMint += nFees;
-    if(pindex->pprev->nHeight >= START_HEIGHT_REWARD_BASED_ON_MN_COUNT)
-    {
-        // can't validate, just accept
+    if (pindex->pprev->nHeight >= START_HEIGHT_REWARD_BASED_ON_MN_COUNT) {
+        // default value for accept without check
         nExpectedMint = pindex->nMoneySupply - pindex->pprev->nMoneySupply;
-        if(masternodeSync.IsSynced() && !IsInitialBlockDownload())
-        {
-            int masternodeCount = GetMasternodeCountBasedOnBlockReward(pindex->pprev->nHeight, nExpectedMint);
-            if(masternodeCount >= 0)
-            {
-                if(masternodeCount > mnodeman.size() + Params().MasternodeTolerance()
-                   || masternodeCount < mnodeman.size() - Params().MasternodeTolerance()
-                   || masternodeCount < 0)
-                {
+        int masterNodeCount = GetMasternodeCountBasedOnBlockReward(pindex->pprev->nHeight, nExpectedMint);
+        if (pMNWitness->Exist(block.GetHash())) {
+            const CMasterNodeWitness &witness = pMNWitness->Get(block.GetHash());
+            bool signOfProofValid = false;
+            if (block.IsProofOfStake()) {
+                CPubKey pubkey;
+                bool fzBWIStake = block.vtx[1].IsZerocoinSpend();
+                if (fzBWIStake) {
+                    libzerocoin::CoinSpend spend = TxInToZerocoinSpend(block.vtx[1].vin[0]);
+                    pubkey = spend.getPubKey();
+                } else {
+                    txnouttype whichType;
+                    std::vector<valtype> vSolutions;
+                    const CTxOut& txout = block.vtx[1].vout[1];
+                    if (!Solver(txout.scriptPubKey, whichType, vSolutions))
+                        return false;
+                    if (whichType == TX_PUBKEY || whichType == TX_PUBKEYHASH) {
+                        valtype& vchPubKey = vSolutions[0];
+                        pubkey = CPubKey(vchPubKey);
+                    }
+                }
+                signOfProofValid = pubkey == witness.pubKeyWitness;
+            }
+            if (witness.nProofs.size() != masterNodeCount
+                || !witness.IsValid(block.nTime)
+                || !witness.SignatureValid()
+                || !signOfProofValid) {
+                return state.DoS(
+                    100,
+                    error("ConnectBlock() : not valid proof or unexpected number of masternodes in proof: %s",
+                          witness.ToString()),
+                    REJECT_INVALID,
+                    "bad-cb-proof");
+            }
+        }
+        else if (masternodeSync.IsSynced() && !IsInitialBlockDownload()) {
+            if (masterNodeCount >= 0) {
+                if (masterNodeCount > mnodeman.size() + Params().MasternodeTolerance()
+                    || masterNodeCount < mnodeman.size() - Params().MasternodeTolerance()
+                    || masterNodeCount < 0) {
                     int minLevel = mnodeman.size() - Params().MasternodeTolerance();
                     if (minLevel < 0) minLevel = 0;
-                    return state.DoS(100,error("ConnectBlock() : unexpected number of masternodes, %d not in range [%d - %d]",
-                                               masternodeCount, minLevel,
-                                               mnodeman.size() + Params().MasternodeTolerance()),
-                                     REJECT_INVALID, "bad-cb-amount");
+                    return state.DoS(
+                        100,
+                        error("ConnectBlock() : unexpected number of masternodes, %d not in range [%d - %d]",
+                              masterNodeCount, minLevel,
+                              mnodeman.size() + Params().MasternodeTolerance()),
+                        REJECT_INVALID,
+                        "bad-cb-amount");
                 }
             }
         }

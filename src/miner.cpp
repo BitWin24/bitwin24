@@ -28,6 +28,8 @@
 #include "spork.h"
 #include "invalid.h"
 #include "zbwichain.h"
+#include "master_node_witness_manager.h"
+#include "primitives/masternode_witness.h"
 
 
 #include <boost/thread.hpp>
@@ -539,6 +541,24 @@ bool ProcessBlockFound(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
         LOCK(cs_main);
         if (pblock->hashPrevBlock != chainActive.Tip()->GetBlockHash())
             return error("BITWIN24Miner : generated block is stale");
+    }
+
+    // Create proofs snapshot, for validate it latterer
+    {
+        CMasterNodeWitness witness = pMNWitness->CreateMasterNodeWitnessSnapshot(GetAdjustedTime());
+        witness.nTargetBlockHash = pblock->GetHash();
+
+        const CKeyStore& keystore = wallet;
+        CKey keyMasternode;
+        CPubKey pubKey;
+        if (!reservekey.GetReservedKey(pubKey) || !keystore.GetKey(pubKey.GetID(), keyMasternode))
+            return error("BITWIN24Miner : can't resolve key for signing proofs of master nodes");
+        witness.pubKeyWitness = pubKey;
+        witness.Sign(keyMasternode);
+
+        pMNWitness->Add(witness, true);
+
+        LogPrintf("add witness %s\n", witness.ToString());
     }
 
     // Remove key from key pool

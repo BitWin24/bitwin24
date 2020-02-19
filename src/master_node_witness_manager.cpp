@@ -87,13 +87,15 @@ void MasterNodeWitnessManager::UpdateThread()
             const int WAITING_PROOFS_TIME = 30;
             for (int i = 0; i < _blocks.size(); i++) {
                 CValidationState state;
-                if (Exist(_blocks[i].block.GetHash()) || (_blocks[i].creatingTime + WAITING_PROOFS_TIME) < GetAdjustedTime()) {
-                    if (!mapBlockIndex.count(_blocks[i].block.GetHash())) {
+                uint256 blockHash = _blocks[i].block.GetHash();
+                if (Exist(blockHash) || (_blocks[i].creatingTime + WAITING_PROOFS_TIME) < GetAdjustedTime()) {
+                    if (!mapBlockIndex.count(blockHash)) {
+                        LogPrintf("try process new block %s, proof exist %d \n", blockHash.ToString(), Exist(blockHash));
                         CNode *pfrom = FindNode(_blocks[i].nodeID);
                         ProcessNewBlock(state, pfrom, &_blocks[i].block);
                         int nDoS;
                         if (state.IsInvalid(nDoS) && pfrom) {
-                            CInv inv(MSG_BLOCK, _blocks[i].block.GetHash());
+                            CInv inv(MSG_BLOCK, blockHash);
                             string strCommand = "block";
                             pfrom->PushMessage("reject",
                                                strCommand,

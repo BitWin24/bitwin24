@@ -5963,11 +5963,23 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
                         }
                     }
                 } else {
+                    LogPrint("net",
+                             "proof for block hash not exist %s, wait proof peer=%d\n",
+                             block.GetHash().ToString(),
+                             pfrom->id);
                     pMNWitness->HoldBlock(block, pfrom->GetId());
                     if (pfrom->nVersion >= MASTER_NODE_WITNESS_VERSION) {
+                        LogPrint("net",
+                                 "block received from node with new protocol  %s, try ask for proof, peer=%d\n",
+                                 block.GetHash().ToString(),
+                                 pfrom->id);
                         pfrom->PushMessage("getmnwitness", block.GetHash());
                     }
                     else { // Block received from node with old protocol, try ask proof from others
+                        LogPrint("net",
+                                 "block received from node with old protocol  %s, try ask for proof from all peers, peer=%d\n",
+                                 block.GetHash().ToString(),
+                                 pfrom->id);
                         BOOST_FOREACH(CNode * pnode, vNodes)
                             if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
                                 pnode->PushMessage("getmnwitness", block.GetHash());
@@ -5999,12 +6011,18 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
 
         if (witness.SignatureValid()) {
             pMNWitness->Add(witness);
+        } else {
+
         }
     }
 
-    else if (strCommand == "getmnwitness") {
+    else if (strCommand == "getmnwitness") {;
         uint256 targetHash;
         vRecv >> targetHash;
+        LogPrint("net",
+                 "request of mn witness %s peer=%d\n",
+                 targetHash.ToString(),
+                 pfrom->id);
         if(pMNWitness->Exist(targetHash)) {
             pfrom->PushMessage("mnwitness", pMNWitness->Get(targetHash));
         }

@@ -1418,6 +1418,7 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
 
                 pMNWitness = new MasterNodeWitnessManager();
                 pMNWitness->Load();
+                threadGroup.create_thread(boost::bind(&MasterNodeWitnessManager::UpdateThread, pMNWitness));
 
                 pblocktree = new CBlockTreeDB(nBlockTreeDBCache, false, fReindex);
                 pcoinsdbview = new CCoinsViewDB(nCoinDBCache, false, fReindex);

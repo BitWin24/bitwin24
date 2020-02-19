@@ -11,8 +11,17 @@
 #include <exception>
 
 MasterNodeWitnessManager::MasterNodeWitnessManager()
-    : CLevelDBWrapper(GetDataDir() / "mnwitness", 0, false, false), _lastUpdate(0)
+    : CLevelDBWrapper(GetDataDir() / "mnwitness", 0, false, false), _lastUpdate(0), _threadRuning(false),
+      _stopThread(false)
 {
+}
+
+MasterNodeWitnessManager::~MasterNodeWitnessManager()
+{
+    _stopThread = true;
+    while (_threadRuning) {
+        MilliSleep(50);
+    }
 }
 
 bool MasterNodeWitnessManager::Exist(const uint256 &targetBlockHash) const
@@ -22,6 +31,7 @@ bool MasterNodeWitnessManager::Exist(const uint256 &targetBlockHash) const
 
 bool MasterNodeWitnessManager::Add(const CMasterNodeWitness &proof, bool validate)
 {
+    boost::lock_guard<boost::mutex> guard(_mtx);
     if (!Exist(proof.nTargetBlockHash)) {
         if (!validate || proof.IsValid(GetAdjustedTime())) {
             LogPrint("MasterNodeWitnessManager", "Added proof %s\n", proof.ToString());
@@ -34,6 +44,7 @@ bool MasterNodeWitnessManager::Add(const CMasterNodeWitness &proof, bool validat
 
 bool MasterNodeWitnessManager::Remove(const uint256 &targetBlockHash)
 {
+    boost::lock_guard<boost::mutex> guard(_mtx);
     if (Exist(targetBlockHash)) {
         LogPrint("MasterNodeWitnessManager", "Removed proof for target block %s\n", targetBlockHash.ToString());
         _witnesses.erase(targetBlockHash);
@@ -42,30 +53,39 @@ bool MasterNodeWitnessManager::Remove(const uint256 &targetBlockHash)
     return false;
 }
 
-void MasterNodeWitnessManager::Update()
+void MasterNodeWitnessManager::UpdateThread()
 {
-    if (GetAdjustedTime() - _lastUpdate < 5 * 60) {
-        return;
-    }
-    _lastUpdate = GetAdjustedTime();
+    _stopThread = false;
+    _threadRuning = true;
+    while (!_stopThread) {
+        MilliSleep(1000);
+        LogPrint("MasterNodeWitnessManager", "MasterNodeWitnessManager::Update\n");
+        LogPrintf("MasterNodeWitnessManager::Update\n");
 
-    int64_t thresholdTime = GetAdjustedTime() - MASTERNODE_REMOVAL_SECONDS;
-    std::map<uint256, CMasterNodeWitness>::iterator it = _witnesses.begin();
-    std::vector<uint256> toRemove;
-    while (it != _witnesses.end()) {
-        if (!it->second.IsValid(thresholdTime)) {
-            toRemove.push_back(it->first);
+        if (GetAdjustedTime() - _lastUpdate > 5 * 60) {
+            _lastUpdate = GetAdjustedTime();
+
+            int64_t thresholdTime = GetAdjustedTime() - MASTERNODE_REMOVAL_SECONDS;
+            std::map<uint256, CMasterNodeWitness>::iterator it = _witnesses.begin();
+            std::vector<uint256> toRemove;
+            while (it != _witnesses.end()) {
+                if (!it->second.IsValid(thresholdTime)) {
+                    toRemove.push_back(it->first);
+                }
+                it++;
+            }
+
+            for (unsigned i = 0; i < toRemove.size(); i++) {
+                Remove(toRemove[i]);
+            }
         }
-        it++;
     }
-
-    for (unsigned i = 0; i < toRemove.size(); i++) {
-        Remove(toRemove[i]);
-    }
+    _threadRuning = false;
 }
 
 void MasterNodeWitnessManager::Save()
 {
+    boost::lock_guard<boost::mutex> guard(_mtx);
     EraseDB();
     std::map<uint256, CMasterNodeWitness>::iterator it = _witnesses.begin();
     while (it != _witnesses.end()) {

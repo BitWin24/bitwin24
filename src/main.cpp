@@ -5969,6 +5969,28 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         }
     }
 
+    else if (strCommand == "mnwitness") {
+        CMasterNodeWitness witness;
+        vRecv >> witness;
+        LogPrint("net",
+                 "received master node witness for block hash %s peer=%d\n",
+                 witness.nTargetBlockHash.ToString(),
+                 pfrom->id);
+
+        if (pMNWitness->Exist(witness.GetHash())) {
+            LogPrint("net",
+                     "witness already exist %s, received from peer=%d\n",
+                     witness.nTargetBlockHash.ToString(),
+                     pfrom->id);
+            return true;
+        }
+
+        if (witness.SignatureValid()) {
+            if (pMNWitness->Add(witness)) {
+            }
+        }
+    }
+
 
     // This asymmetric behavior for inbound and outbound connections was introduced
     // to prevent a fingerprinting attack: an attacker can send specific fake addresses
@@ -6197,7 +6219,6 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         ProcessMessageSwiftTX(pfrom, strCommand, vRecv);
         ProcessSpork(pfrom, strCommand, vRecv);
         masternodeSync.ProcessMessage(pfrom, strCommand, vRecv);
-        pMNWitness->Update();
     }
 
 

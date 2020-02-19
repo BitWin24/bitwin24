@@ -12,6 +12,7 @@
 
 #include <unordered_set>
 #include <string>
+#include <boost/thread/mutex.hpp>
 
 class CMasterNodeWitness;
 class MasterNodeWitnessManager;
@@ -23,6 +24,7 @@ class MasterNodeWitnessManager: public CLevelDBWrapper
 {
 public:
     MasterNodeWitnessManager();
+    ~MasterNodeWitnessManager();
 
     bool Exist(const uint256 &targetBlockHash) const;
     bool Add(const CMasterNodeWitness &proof, bool validate = false);
@@ -30,11 +32,14 @@ public:
     const CMasterNodeWitness &Get(const uint256 &targetBlockHash);
     CMasterNodeWitness CreateMasterNodeWitnessSnapshot(uint256 targetBlockHash = 0);
 
-    void Update();
+    void UpdateThread();
     void Save();
     void Load();
 private:
     void EraseDB();
     std::map<uint256, CMasterNodeWitness> _witnesses;
     int64_t _lastUpdate;
+    bool _threadRuning;
+    bool _stopThread;
+    boost::mutex _mtx;
 };

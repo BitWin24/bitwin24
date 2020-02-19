@@ -2879,7 +2879,10 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
                     "bad-cb-proof");
             }
         }
-        else if (masternodeSync.IsSynced() && !IsInitialBlockDownload()) {
+        else if (masternodeSync.IsSynced()
+            && !IsInitialBlockDownload()
+            && !fImporting && !fReindex
+            && (block.nTime + MASTERNODE_REMOVAL_SECONDS) < GetAdjustedTime()) {
             if (masterNodeCount >= 0) {
                 if (masterNodeCount > mnodeman.size() + Params().MasternodeTolerance()
                     || masterNodeCount < mnodeman.size() - Params().MasternodeTolerance()
@@ -5951,7 +5954,8 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
 
             CValidationState state;
             if (!mapBlockIndex.count(block.GetHash())) {
-                if (pMNWitness->Exist(block.GetHash())) {
+                if (pMNWitness->Exist(block.GetHash())
+                    || (block.nTime + MASTERNODE_REMOVAL_SECONDS) < GetAdjustedTime()) {
                     ProcessNewBlock(state, pfrom, &block);
                     int nDoS;
                     if (state.IsInvalid(nDoS)) {

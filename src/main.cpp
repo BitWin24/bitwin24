@@ -5966,6 +5966,9 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
                             if (lockMain) Misbehaving(pfrom->GetId(), nDoS);
                         }
                     }
+                    BOOST_FOREACH(CNode * pnode, vNodes)
+                    if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
+                        pnode->PushMessage("getmnwitness", block.GetHash());
                 } else {
                     LogPrint("net",
                              "proof for block hash not exist %s, wait proof peer=%d\n",

@@ -5951,14 +5951,26 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
 
             CValidationState state;
             if (!mapBlockIndex.count(block.GetHash())) {
-                ProcessNewBlock(state, pfrom, &block);
-                int nDoS;
-                if(state.IsInvalid(nDoS)) {
-                    pfrom->PushMessage("reject", strCommand, state.GetRejectCode(),
-                                       state.GetRejectReason().substr(0, MAX_REJECT_MESSAGE_LENGTH), inv.hash);
-                    if(nDoS > 0) {
-                        TRY_LOCK(cs_main, lockMain);
-                        if(lockMain) Misbehaving(pfrom->GetId(), nDoS);
+                if (pMNWitness->Exist(block.GetHash())) {
+                    ProcessNewBlock(state, pfrom, &block);
+                    int nDoS;
+                    if (state.IsInvalid(nDoS)) {
+                        pfrom->PushMessage("reject", strCommand, state.GetRejectCode(),
+                                           state.GetRejectReason().substr(0, MAX_REJECT_MESSAGE_LENGTH), inv.hash);
+                        if (nDoS > 0) {
+                            TRY_LOCK(cs_main, lockMain);
+                            if (lockMain) Misbehaving(pfrom->GetId(), nDoS);
+                        }
+                    }
+                } else {
+                    pMNWitness->HoldBlock(block, pfrom->GetId());
+                    if (pfrom->nVersion >= MASTER_NODE_WITNESS_VERSION) {
+                        pfrom->PushMessage("getmnwitness", block.GetHash());
+                    }
+                    else { // Block received from node with old protocol, try ask proof from others
+                        BOOST_FOREACH(CNode * pnode, vNodes)
+                            if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
+                                pnode->PushMessage("getmnwitness", block.GetHash());
                     }
                 }
                 //disconnect this node if its old protocol version
@@ -5977,7 +5989,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
                  witness.nTargetBlockHash.ToString(),
                  pfrom->id);
 
-        if (pMNWitness->Exist(witness.GetHash())) {
+        if (pMNWitness->Exist(witness.nTargetBlockHash)) {
             LogPrint("net",
                      "witness already exist %s, received from peer=%d\n",
                      witness.nTargetBlockHash.ToString(),
@@ -5986,11 +5998,17 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         }
 
         if (witness.SignatureValid()) {
-            if (pMNWitness->Add(witness)) {
-            }
+            pMNWitness->Add(witness);
         }
     }
 
+    else if (strCommand == "getmnwitness") {
+        uint256 targetHash;
+        vRecv >> targetHash;
+        if(pMNWitness->Exist(targetHash)) {
+            pfrom->PushMessage("mnwitness", pMNWitness->Get(targetHash));
+        }
+    }
 
     // This asymmetric behavior for inbound and outbound connections was introduced
     // to prevent a fingerprinting attack: an attacker can send specific fake addresses

@@ -385,6 +385,17 @@ CNode* FindNode(const CService& addr)
     return NULL;
 }
 
+CNode* FindNode(const NodeId& id)
+{
+    LOCK(cs_vNodes);
+    for (CNode* pnode : vNodes) {
+        if (pnode->GetId() == id) {
+            return (pnode);
+        }
+    }
+    return NULL;
+}
+
 CNode* ConnectNode(CAddress addrConnect, const char* pszDest, bool obfuScationMaster)
 {
     if (pszDest == NULL) {

@@ -16,6 +16,7 @@
 
 class CMasterNodeWitness;
 class MasterNodeWitnessManager;
+class CBlock;
 
 /*
  * Contains proofs of active master nodes
@@ -35,11 +36,20 @@ public:
     void UpdateThread();
     void Save();
     void Load();
+
+    void HoldBlock(CBlock block, int nodeId);
 private:
     void EraseDB();
     std::map<uint256, CMasterNodeWitness> _witnesses;
     int64_t _lastUpdate;
-    bool _threadRuning;
+    bool _threadRunning;
     bool _stopThread;
     boost::mutex _mtx;
+    struct BlockInfo
+    {
+        CBlock block;
+        int nodeID;
+        int64_t creatingTime;
+    };
+    std::vector<BlockInfo> _blocks;
 };

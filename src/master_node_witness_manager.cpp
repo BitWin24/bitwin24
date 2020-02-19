@@ -9,9 +9,11 @@
 #include "primitives/masternode_witness.h"
 #include "masternodeman.h"
 #include <exception>
+#include "primitives/block.h"
+#include "serialize.h"
 
 MasterNodeWitnessManager::MasterNodeWitnessManager()
-    : CLevelDBWrapper(GetDataDir() / "mnwitness", 0, false, false), _lastUpdate(0), _threadRuning(false),
+    : CLevelDBWrapper(GetDataDir() / "mnwitness", 0, false, false), _lastUpdate(0), _threadRunning(false),
       _stopThread(false)
 {
 }
@@ -19,7 +21,7 @@ MasterNodeWitnessManager::MasterNodeWitnessManager()
 MasterNodeWitnessManager::~MasterNodeWitnessManager()
 {
     _stopThread = true;
-    while (_threadRuning) {
+    while (_threadRunning) {
         MilliSleep(50);
     }
 }
@@ -56,13 +58,12 @@ bool MasterNodeWitnessManager::Remove(const uint256 &targetBlockHash)
 void MasterNodeWitnessManager::UpdateThread()
 {
     _stopThread = false;
-    _threadRuning = true;
+    _threadRunning = true;
     while (!_stopThread) {
-        MilliSleep(1000);
-        LogPrint("MasterNodeWitnessManager", "MasterNodeWitnessManager::Update\n");
-        LogPrintf("MasterNodeWitnessManager::Update\n");
+        MilliSleep(5000);
 
         if (GetAdjustedTime() - _lastUpdate > 5 * 60) {
+            LogPrintf("MasterNodeWitnessManager::Update: begin remove old pings\n");
             _lastUpdate = GetAdjustedTime();
 
             int64_t thresholdTime = GetAdjustedTime() - MASTERNODE_REMOVAL_SECONDS;
@@ -78,9 +79,40 @@ void MasterNodeWitnessManager::UpdateThread()
             for (unsigned i = 0; i < toRemove.size(); i++) {
                 Remove(toRemove[i]);
             }
+            LogPrintf("MasterNodeWitnessManager::Update: finished removing old pings\n");
+        }
+
+        {
+            boost::lock_guard<boost::mutex> guard(_mtx);
+            const int WAITING_PROOFS_TIME = 30;
+            for (int i = 0; i < _blocks.size(); i++) {
+                CValidationState state;
+                if (Exist(_blocks[i].block.GetHash()) || (_blocks[i].creatingTime + WAITING_PROOFS_TIME) < GetAdjustedTime()) {
+                    if (!mapBlockIndex.count(_blocks[i].block.GetHash())) {
+                        CNode *pfrom = FindNode(_blocks[i].nodeID);
+                        ProcessNewBlock(state, pfrom, &_blocks[i].block);
+                        int nDoS;
+                        if (state.IsInvalid(nDoS) && pfrom) {
+                            CInv inv(MSG_BLOCK, _blocks[i].block.GetHash());
+                            string strCommand = "block";
+                            pfrom->PushMessage("reject",
+                                               strCommand,
+                                               state.GetRejectCode(),
+                                               state.GetRejectReason().substr(0, MAX_REJECT_MESSAGE_LENGTH),
+                                               inv.hash);
+                            if (nDoS > 0) {
+                                TRY_LOCK(cs_main, lockMain);
+                                if (lockMain) Misbehaving(pfrom->GetId(), nDoS);
+                            }
+                        }
+                    }
+                    _blocks.erase(_blocks.begin() + i);
+                    i--;
+                }
+            }
         }
     }
-    _threadRuning = false;
+    _threadRunning = false;
 }
 
 void MasterNodeWitnessManager::Save()
@@ -202,4 +234,13 @@ const CMasterNodeWitness &MasterNodeWitnessManager::Get(const uint256 &targetBlo
     LogPrintf("Witness for target block hash not exist - %s\n", targetBlockHash.ToString());
     static CMasterNodeWitness result;
     return result;
+}
+
+void MasterNodeWitnessManager::HoldBlock(CBlock block, int nodeId)
+{
+    BlockInfo info;
+    info.block = block;
+    info.nodeID = nodeId;
+    info.creatingTime = GetAdjustedTime();
+    _blocks.push_back(info);
 }

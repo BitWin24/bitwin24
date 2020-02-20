@@ -82,7 +82,6 @@ bool fCheckBlockIndex = false;
 bool fVerifyingBlocks = false;
 unsigned int nCoinCacheSize = 5000;
 bool fAlerts = DEFAULT_ALERTS;
-const int START_HEIGHT_REWARD_BASED_ON_MN_COUNT = 57515;
 
 unsigned int nStakeMinAge = 60 * 60;
 int64_t nReserveBalance = 0;
@@ -5964,7 +5963,8 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             CValidationState state;
             if (!mapBlockIndex.count(block.GetHash())) {
                 if (pMNWitness->Exist(block.GetHash())
-                    || (block.nTime + MASTERNODE_REMOVAL_SECONDS) < GetAdjustedTime()) {
+                    || (block.nTime + MASTERNODE_REMOVAL_SECONDS) < GetAdjustedTime()
+                    || chainActive.Tip()->nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT) {
                     ProcessNewBlock(state, pfrom, &block);
                     int nDoS;
                     if (state.IsInvalid(nDoS)) {

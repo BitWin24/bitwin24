@@ -11,6 +11,7 @@
 #include <exception>
 #include "primitives/block.h"
 #include "serialize.h"
+#include "chainparams.h"
 
 MasterNodeWitnessManager::MasterNodeWitnessManager()
     : CLevelDBWrapper(GetDataDir() / "mnwitness", 0, false, false), _lastUpdate(0),
@@ -74,18 +75,27 @@ void MasterNodeWitnessManager::UpdateThread()
             }
 
             for (unsigned i = 0; i < toRemove.size(); i++) {
+                LogPrintf("remove old proof %s\n", toRemove[i].ToString());
                 Remove(toRemove[i]);
             }
         }
 
         {
             boost::lock_guard<boost::mutex> guard(_mtx);
-            const int WAITING_PROOFS_TIME = 5;
+            const int WAITING_PROOFS_TIME = 10;
+            LogPrintf("in queue have %d blocks \n",_blocks.size());
             for (int i = 0; i < _blocks.size(); i++) {
                 CValidationState state;
-                const CBlock& block = _blocks[i].block;
+                const CBlock &block = _blocks[i].block;
                 uint256 blockHash = block.GetHash();
-                if (Exist(blockHash) || (_blocks[i].creatingTime + WAITING_PROOFS_TIME) > GetAdjustedTime()) {
+                LogPrintf("watching %s, proof exist %d, block time %s, received % \n",
+                          blockHash.ToString(),
+                          Exist(blockHash),
+                          EpochTimeToHumanReadableFormat(block.nTime),
+                          EpochTimeToHumanReadableFormat(_blocks[i].creatingTime));
+                if (Exist(blockHash)
+                    || (_blocks[i].creatingTime + WAITING_PROOFS_TIME) < GetAdjustedTime()
+                    || chainActive.Tip()->nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT) {
                     if (!mapBlockIndex.count(blockHash)) {
                         LogPrintf("try process new block %s, proof exist %d \n",
                                   blockHash.ToString(),

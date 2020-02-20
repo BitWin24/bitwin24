@@ -33,7 +33,7 @@ bool MasterNodeWitnessManager::Add(const CMasterNodeWitness &proof, bool validat
 {
     boost::lock_guard<boost::mutex> guard(_mtx);
     if (!Exist(proof.nTargetBlockHash)) {
-        if (!validate || proof.IsValid(GetAdjustedTime())) {
+        if (!validate || proof.IsValid(GetTime())) {
             LogPrintf("Added proof %s\n", proof.ToString());
             _witnesses[proof.nTargetBlockHash] = proof;
             return true;
@@ -61,10 +61,10 @@ void MasterNodeWitnessManager::UpdateThread()
         MilliSleep(5000);
         boost::lock_guard<boost::mutex> guard(_mtxGlobal);
 
-        if (GetAdjustedTime() - _lastUpdate > 5 * 60) {
-            _lastUpdate = GetAdjustedTime();
+        if (GetTime() - _lastUpdate > 5 * 60) {
+            _lastUpdate = GetTime();
 
-            int64_t thresholdTime = GetAdjustedTime() - MASTERNODE_REMOVAL_SECONDS;
+            int64_t thresholdTime = GetTime() - MASTERNODE_REMOVAL_SECONDS;
             std::map<uint256, CMasterNodeWitness>::iterator it = _witnesses.begin();
             std::vector<uint256> toRemove;
             while (it != _witnesses.end()) {
@@ -94,7 +94,7 @@ void MasterNodeWitnessManager::UpdateThread()
                           EpochTimeToHumanReadableFormat(block.nTime),
                           EpochTimeToHumanReadableFormat(_blocks[i].creatingTime));
                 if (Exist(blockHash)
-                    || (_blocks[i].creatingTime + WAITING_PROOFS_TIME) < GetAdjustedTime()
+                    || (_blocks[i].creatingTime + WAITING_PROOFS_TIME) < GetTime()
                     || chainActive.Tip()->nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT) {
                     if (!mapBlockIndex.count(blockHash)) {
                         if (!mapBlockIndex.count(block.hashPrevBlock)) {
@@ -185,7 +185,7 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
 
     std::map<std::pair<uint256, uint32_t>, CMasternodePing> pings;
 
-    int64_t atTime = GetAdjustedTime();
+    int64_t atTime = GetTime();
 
     std::map<uint256, CMasternodePing>::iterator pingIt = mnodeman.mapSeenMasternodePing.begin();
     while (pingIt != mnodeman.mapSeenMasternodePing.end()) {
@@ -265,6 +265,6 @@ void MasterNodeWitnessManager::HoldBlock(CBlock block, int nodeId)
     BlockInfo info;
     info.block = block;
     info.nodeID = nodeId;
-    info.creatingTime = GetAdjustedTime();
+    info.creatingTime = GetTime();
     _blocks.push_back(info);
 }

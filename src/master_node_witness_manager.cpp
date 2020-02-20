@@ -83,12 +83,15 @@ void MasterNodeWitnessManager::UpdateThread()
             const int WAITING_PROOFS_TIME = 5;
             for (int i = 0; i < _blocks.size(); i++) {
                 CValidationState state;
-                uint256 blockHash = _blocks[i].block.GetHash();
-                if (Exist(blockHash) || (_blocks[i].creatingTime + WAITING_PROOFS_TIME) < GetAdjustedTime()) {
+                const CBlock& block = _blocks[i].block;
+                uint256 blockHash = block.GetHash();
+                if (Exist(blockHash) || (_blocks[i].creatingTime + WAITING_PROOFS_TIME) > GetAdjustedTime()) {
                     if (!mapBlockIndex.count(blockHash)) {
                         LogPrintf("try process new block %s, proof exist %d \n",
                                   blockHash.ToString(),
                                   Exist(blockHash));
+                        if (!mapBlockIndex.count(block.hashPrevBlock))
+                            continue;
                         CNode *pfrom = FindNode(_blocks[i].nodeID);
                         ProcessNewBlock(state, pfrom, &_blocks[i].block);
                         int nDoS;
@@ -105,9 +108,9 @@ void MasterNodeWitnessManager::UpdateThread()
                                 if (lockMain) Misbehaving(pfrom->GetId(), nDoS);
                             }
                         }
+                        _blocks.erase(_blocks.begin() + i);
+                        i--;
                     }
-                    _blocks.erase(_blocks.begin() + i);
-                    i--;
                 }
             }
         }

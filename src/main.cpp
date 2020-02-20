@@ -5975,29 +5975,33 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
                             if (lockMain) Misbehaving(pfrom->GetId(), nDoS);
                         }
                     }
-                    BOOST_FOREACH(CNode * pnode, vNodes)
-                    if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
-                        pnode->PushMessage("getmnwitness", block.GetHash());
+                    if ((block.nTime + MASTERNODE_REMOVAL_SECONDS) < GetAdjustedTime()) {
+                        BOOST_FOREACH(CNode * pnode, vNodes)
+                            if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
+                                pnode->PushMessage("getmnwitness", block.GetHash());
+                    }
                 }
                 else {
                     LogPrintf("proof for block hash not exist %s, wait proof peer=%d\n",
                               block.GetHash().ToString(),
                               pfrom->id);
                     pMNWitness->HoldBlock(block, pfrom->GetId());
-                    if (pfrom->nVersion >= MASTER_NODE_WITNESS_VERSION) {
-                        LogPrintf("block received from node with new protocol  %s, try ask for proof, peer=%d\n",
-                                  block.GetHash().ToString(),
-                                  pfrom->id);
-                        pfrom->PushMessage("getmnwitness", block.GetHash());
-                    }
-                    else { // Block received from node with old protocol, try ask proof from others
-                        LogPrintf(
-                            "block received from node with old protocol  %s, try ask for proof from all peers, peer=%d\n",
-                            block.GetHash().ToString(),
-                            pfrom->id);
-                        BOOST_FOREACH(CNode * pnode, vNodes)
-                        if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
-                            pnode->PushMessage("getmnwitness", block.GetHash());
+                    if ((block.nTime + MASTERNODE_REMOVAL_SECONDS) > GetAdjustedTime()) {
+                        if (pfrom->nVersion >= MASTER_NODE_WITNESS_VERSION) {
+                            LogPrintf("block received from node with new protocol  %s, try ask for proof, peer=%d\n",
+                                      block.GetHash().ToString(),
+                                      pfrom->id);
+                            pfrom->PushMessage("getmnwitness", block.GetHash());
+                        }
+                        else { // Block received from node with old protocol, try ask proof from others
+                            LogPrintf(
+                                "block received from node with old protocol  %s, try ask for proof from all peers, peer=%d\n",
+                                block.GetHash().ToString(),
+                                pfrom->id);
+                            BOOST_FOREACH(CNode * pnode, vNodes)
+                            if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
+                                pnode->PushMessage("getmnwitness", block.GetHash());
+                        }
                     }
                 }
                 //disconnect this node if its old protocol version

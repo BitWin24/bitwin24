@@ -5368,8 +5368,7 @@ void static ProcessGetData(CNode* pfrom)
 bool fRequestedSporksIDB = false;
 bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, int64_t nTimeReceived)
 {
-    LogPrint("net",
-             "strCommand %s peer=%d version %d\n",
+    LogPrintf("strCommand %s peer=%d version %d\n",
              strCommand,
              pfrom->id,
              pfrom->nVersion);
@@ -5944,7 +5943,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         vRecv >> block;
         uint256 hashBlock = block.GetHash();
         CInv inv(MSG_BLOCK, hashBlock);
-        LogPrint("net", "received block %s peer=%d\n", inv.hash.ToString(), pfrom->id);
+        LogPrintf("received block %s peer=%d\n", inv.hash.ToString(), pfrom->id);
 
         //sometimes we will be sent their most recent block and its not the one we want, in that case tell where we are
         if (!mapBlockIndex.count(block.hashPrevBlock)) {
@@ -5959,6 +5958,11 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             }
         } else {
             pfrom->AddInventoryKnown(inv);
+
+            LogPrintf("received block %s, time in block %s, Tip()->nHeight %d \n",
+                      block.GetHash().ToString(),
+                      EpochTimeToHumanReadableFormat(block.nTime),
+                      chainActive.Tip()->nHeight);
 
             CValidationState state;
             if (!mapBlockIndex.count(block.GetHash())) {

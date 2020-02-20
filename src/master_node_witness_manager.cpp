@@ -88,7 +88,7 @@ void MasterNodeWitnessManager::UpdateThread()
                 CValidationState state;
                 const CBlock &block = _blocks[i].block;
                 uint256 blockHash = block.GetHash();
-                LogPrintf("watching %s, proof exist %d, block time %s, received % \n",
+                LogPrintf("watching %s, proof exist %d, block time %s, received %s \n",
                           blockHash.ToString(),
                           Exist(blockHash),
                           EpochTimeToHumanReadableFormat(block.nTime),
@@ -97,11 +97,15 @@ void MasterNodeWitnessManager::UpdateThread()
                     || (_blocks[i].creatingTime + WAITING_PROOFS_TIME) < GetAdjustedTime()
                     || chainActive.Tip()->nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT) {
                     if (!mapBlockIndex.count(blockHash)) {
+                        if (!mapBlockIndex.count(block.hashPrevBlock)) {
+                            LogPrintf("previous block not connected hash %s, new block hash %s \n",
+                                      block.hashPrevBlock.ToString(),
+                                      block.GetHash().ToString());
+                            continue;
+                        }
                         LogPrintf("try process new block %s, proof exist %d \n",
                                   blockHash.ToString(),
                                   Exist(blockHash));
-                        if (!mapBlockIndex.count(block.hashPrevBlock))
-                            continue;
                         CNode *pfrom = FindNode(_blocks[i].nodeID);
                         ProcessNewBlock(state, pfrom, &_blocks[i].block);
                         int nDoS;

@@ -5171,8 +5171,12 @@ void static ProcessGetData(CNode* pfrom)
                     CBlock block;
                     if (!ReadBlockFromDisk(block, (*mi).second))
                         assert(!"cannot load block from disk");
-                    if (inv.type == MSG_BLOCK)
+                    if (inv.type == MSG_BLOCK){
+                        if (pfrom->nVersion >= MASTER_NODE_WITNESS_VERSION && pMNWitness->Exist(block.GetHash())) {
+                            pfrom->PushMessage("mnwitness", pMNWitness->Get(block.GetHash()));
+                        }
                         pfrom->PushMessage("block", block);
+                    }
                     else // MSG_FILTERED_BLOCK)
                     {
                         LOCK(pfrom->cs_filter);
@@ -5365,6 +5369,11 @@ void static ProcessGetData(CNode* pfrom)
 bool fRequestedSporksIDB = false;
 bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, int64_t nTimeReceived)
 {
+    LogPrint("net",
+             "strCommand %s peer=%d version %d\n",
+             strCommand,
+             pfrom->id,
+             pfrom->nVersion);
     RandAddSeedPerfmon();
     LogPrint("net", "received: %s (%u bytes) peer=%d\n", SanitizeString(strCommand), vRecv.size(), pfrom->id);
     if (mapArgs.count("-dropmessagestest") && GetRand(atoi(mapArgs["-dropmessagestest"])) == 0) {
@@ -5969,27 +5978,26 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
                     BOOST_FOREACH(CNode * pnode, vNodes)
                     if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
                         pnode->PushMessage("getmnwitness", block.GetHash());
-                } else {
-                    LogPrint("net",
-                             "proof for block hash not exist %s, wait proof peer=%d\n",
-                             block.GetHash().ToString(),
-                             pfrom->id);
+                }
+                else {
+                    LogPrintf("proof for block hash not exist %s, wait proof peer=%d\n",
+                              block.GetHash().ToString(),
+                              pfrom->id);
                     pMNWitness->HoldBlock(block, pfrom->GetId());
                     if (pfrom->nVersion >= MASTER_NODE_WITNESS_VERSION) {
-                        LogPrint("net",
-                                 "block received from node with new protocol  %s, try ask for proof, peer=%d\n",
-                                 block.GetHash().ToString(),
-                                 pfrom->id);
+                        LogPrintf("block received from node with new protocol  %s, try ask for proof, peer=%d\n",
+                                  block.GetHash().ToString(),
+                                  pfrom->id);
                         pfrom->PushMessage("getmnwitness", block.GetHash());
                     }
                     else { // Block received from node with old protocol, try ask proof from others
-                        LogPrint("net",
-                                 "block received from node with old protocol  %s, try ask for proof from all peers, peer=%d\n",
-                                 block.GetHash().ToString(),
-                                 pfrom->id);
+                        LogPrintf(
+                            "block received from node with old protocol  %s, try ask for proof from all peers, peer=%d\n",
+                            block.GetHash().ToString(),
+                            pfrom->id);
                         BOOST_FOREACH(CNode * pnode, vNodes)
-                            if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
-                                pnode->PushMessage("getmnwitness", block.GetHash());
+                        if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
+                            pnode->PushMessage("getmnwitness", block.GetHash());
                     }
                 }
                 //disconnect this node if its old protocol version
@@ -6003,33 +6011,32 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
     else if (strCommand == "mnwitness") {
         CMasterNodeWitness witness;
         vRecv >> witness;
-        LogPrint("net",
-                 "received master node witness for block hash %s peer=%d\n",
-                 witness.nTargetBlockHash.ToString(),
-                 pfrom->id);
+        LogPrintf("received master node witness for block hash %s peer=%d\n",
+                  witness.nTargetBlockHash.ToString(),
+                  pfrom->id);
 
         if (pMNWitness->Exist(witness.nTargetBlockHash)) {
-            LogPrint("net",
-                     "witness already exist %s, received from peer=%d\n",
-                     witness.nTargetBlockHash.ToString(),
-                     pfrom->id);
+            LogPrintf("witness already exist %s, received from peer=%d\n",
+                      witness.nTargetBlockHash.ToString(),
+                      pfrom->id);
             return true;
         }
 
         if (witness.SignatureValid()) {
             pMNWitness->Add(witness);
-        } else {
-
+        }
+        else {
+            LogPrintf("received not valid proof from peer=%d\n", pfrom->id);
+//            Misbehaving(pfrom->GetId(), 20);
         }
     }
 
     else if (strCommand == "getmnwitness") {;
         uint256 targetHash;
         vRecv >> targetHash;
-        LogPrint("net",
-                 "request of mn witness %s peer=%d\n",
-                 targetHash.ToString(),
-                 pfrom->id);
+        LogPrintf("request of mn witness %s peer=%d\n",
+                  targetHash.ToString(),
+                  pfrom->id);
         if(pMNWitness->Exist(targetHash)) {
             pfrom->PushMessage("mnwitness", pMNWitness->Get(targetHash));
         }

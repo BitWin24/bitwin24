@@ -42,9 +42,9 @@ private:
     void EraseDB();
     std::map<uint256, CMasterNodeWitness> _witnesses;
     int64_t _lastUpdate;
-    bool _threadRunning;
     bool _stopThread;
     boost::mutex _mtx;
+    boost::mutex _mtxGlobal;
     struct BlockInfo
     {
         CBlock block;

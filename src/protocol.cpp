@@ -15,7 +15,7 @@
 #include <arpa/inet.h>
 #endif
 
-static const char* ppszTypeName[] =
+static const char *ppszTypeName[] =
     {
         "ERROR",
         "tx",
@@ -33,7 +33,10 @@ static const char* ppszTypeName[] =
         "mn quorum",
         "mn announce",
         "mn ping",
-        "dstx"};
+        "dstx",
+        "mnwitness",
+        "getmnwitness"
+    };
 
 CMessageHeader::CMessageHeader()
 {

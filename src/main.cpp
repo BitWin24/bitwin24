@@ -5961,7 +5961,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
 
             LogPrintf("received block %s, time in block %s, Tip()->nHeight %d \n",
                       block.GetHash().ToString(),
-                      EpochTimeToHumanReadableFormat(block.nTime),
+                      EpochTimeToHumanReadableFormat(block.nTime).c_str(),
                       chainActive.Tip()->nHeight);
 
             CValidationState state;

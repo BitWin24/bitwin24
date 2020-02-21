@@ -230,6 +230,6 @@ void TraceThread(const char* name, Callable func)
     }
 }
 
-const char * EpochTimeToHumanReadableFormat(float epochStr);
+std::string EpochTimeToHumanReadableFormat(float epochStr);
 
 #endif // BITCOIN_UTIL_H

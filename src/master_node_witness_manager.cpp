@@ -91,8 +91,15 @@ void MasterNodeWitnessManager::UpdateThread()
                 LogPrintf("watching %s, proof exist %d, block time %s, received %s \n",
                           blockHash.ToString(),
                           Exist(blockHash),
-                          EpochTimeToHumanReadableFormat(block.nTime),
-                          EpochTimeToHumanReadableFormat(_blocks[i].creatingTime));
+                          EpochTimeToHumanReadableFormat(block.nTime).c_str(),
+                          EpochTimeToHumanReadableFormat(_blocks[i].creatingTime).c_str());
+                LogPrintf("block time %d, received %d \n",
+                          (block.nTime),
+                          (_blocks[i].creatingTime));
+                LogPrintf("received %s \n",
+                          EpochTimeToHumanReadableFormat(_blocks[i].creatingTime).c_str());
+                LogPrintf("GetTime() %s \n",
+                          EpochTimeToHumanReadableFormat(GetTime()));
                 if (Exist(blockHash)
                     || (_blocks[i].creatingTime + WAITING_PROOFS_TIME) < GetTime()
                     || chainActive.Tip()->nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT) {

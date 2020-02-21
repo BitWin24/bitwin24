@@ -2844,7 +2844,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
         // default value for accept without check
         nExpectedMint = pindex->nMoneySupply - pindex->pprev->nMoneySupply;
         int masterNodeCount = GetMasternodeCountBasedOnBlockReward(pindex->pprev->nHeight, nExpectedMint);
-        bool unknownHeight = (masterNodeCount == -3)
+        bool unknownHeight = (masterNodeCount == -3);
         LogPrintf("unknownHeight %d\n", unknownHeight);
         LogPrintf("nExpectedMint %d\n", nExpectedMint);
         LogPrintf("masterNodeCount %d\n", masterNodeCount);

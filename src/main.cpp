@@ -2881,7 +2881,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
         else if (masternodeSync.IsSynced()
             && !IsInitialBlockDownload()
             && !fImporting && !fReindex
-            && (block.nTime + MASTERNODE_REMOVAL_SECONDS) < GetTime()) {
+            && (block.nTime + MASTERNODE_REMOVAL_SECONDS) < GetAdjustedTime()) {
             if (masterNodeCount >= 0) {
                 if (masterNodeCount > mnodeman.size() + Params().MasternodeTolerance()
                     || masterNodeCount < mnodeman.size() - Params().MasternodeTolerance()
@@ -5981,7 +5981,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
                             if (lockMain) Misbehaving(pfrom->GetId(), nDoS);
                         }
                     }
-                    if ((block.nTime + MASTERNODE_REMOVAL_SECONDS) < GetTime()) {
+                    if ((block.nTime + MASTERNODE_REMOVAL_SECONDS) < GetAdjustedTime()) {
                         BOOST_FOREACH(CNode * pnode, vNodes)
                             if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
                                 pnode->PushMessage("getmnwitness", block.GetHash());
@@ -5992,7 +5992,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
                               block.GetHash().ToString(),
                               pfrom->id);
                     pMNWitness->HoldBlock(block, pfrom->GetId());
-                    if ((block.nTime + MASTERNODE_REMOVAL_SECONDS) > GetTime()) {
+                    if ((block.nTime + MASTERNODE_REMOVAL_SECONDS) > GetAdjustedTime()) {
                         if (pfrom->nVersion >= MASTER_NODE_WITNESS_VERSION) {
                             LogPrintf("block received from node with new protocol  %s, try ask for proof, peer=%d\n",
                                       block.GetHash().ToString(),

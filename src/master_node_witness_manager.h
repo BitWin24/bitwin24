@@ -51,5 +51,5 @@ private:
         int nodeID;
         int64_t creatingTime;
     };
-    std::vector<BlockInfo> _blocks;
+    std::map<uint256, BlockInfo> _blocks;
 };

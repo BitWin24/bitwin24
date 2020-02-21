@@ -83,26 +83,25 @@ void MasterNodeWitnessManager::UpdateThread()
         {
             boost::lock_guard<boost::mutex> guard(_mtx);
             const int WAITING_PROOFS_TIME = 10;
-            LogPrintf("in queue have %d blocks \n",_blocks.size());
-            for (int i = 0; i < _blocks.size(); i++) {
+            LogPrintf("in queue have %d blocks \n", _blocks.size());
+            for (auto it = _blocks.begin(); it != _blocks.end(); it++) {
                 CValidationState state;
-                const CBlock &block = _blocks[i].block;
+                const CBlock &block = it->second.block;
                 uint256 blockHash = block.GetHash();
                 LogPrintf("watching %s, proof exist %d, block time %s, received %s \n",
                           blockHash.ToString(),
                           Exist(blockHash),
                           EpochTimeToHumanReadableFormat(block.nTime).c_str(),
-                          EpochTimeToHumanReadableFormat(_blocks[i].creatingTime).c_str());
-                LogPrintf("block time %d, received %d \n",
-                          (block.nTime),
-                          (_blocks[i].creatingTime));
-                LogPrintf("received %s \n",
-                          EpochTimeToHumanReadableFormat(_blocks[i].creatingTime).c_str());
-                LogPrintf("GetTime() %s \n",
-                          EpochTimeToHumanReadableFormat(GetTime()));
+                          EpochTimeToHumanReadableFormat(it->second.creatingTime).c_str());
                 if (Exist(blockHash)
-                    || (_blocks[i].creatingTime + WAITING_PROOFS_TIME) < GetTime()
+                    || (it->second.creatingTime + WAITING_PROOFS_TIME) < GetTime()
                     || chainActive.Tip()->nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT) {
+                    LogPrintf("mapBlockIndex.count(blockHash) %s %d \n",
+                              blockHash.ToString(),
+                              mapBlockIndex.count(blockHash));
+                    LogPrintf("mapBlockIndex.count(block.hashPrevBlock) %s %d \n",
+                              block.hashPrevBlock.ToString(),
+                              mapBlockIndex.count(block.hashPrevBlock));
                     if (!mapBlockIndex.count(blockHash)) {
                         if (!mapBlockIndex.count(block.hashPrevBlock)) {
                             LogPrintf("previous block not connected hash %s, new block hash %s \n",
@@ -113,8 +112,8 @@ void MasterNodeWitnessManager::UpdateThread()
                         LogPrintf("try process new block %s, proof exist %d \n",
                                   blockHash.ToString(),
                                   Exist(blockHash));
-                        CNode *pfrom = FindNode(_blocks[i].nodeID);
-                        ProcessNewBlock(state, pfrom, &_blocks[i].block);
+                        CNode *pfrom = FindNode(it->second.nodeID);
+                        ProcessNewBlock(state, pfrom, &it->second.block);
                         int nDoS;
                         if (state.IsInvalid(nDoS) && pfrom) {
                             CInv inv(MSG_BLOCK, blockHash);
@@ -129,8 +128,7 @@ void MasterNodeWitnessManager::UpdateThread()
                                 if (lockMain) Misbehaving(pfrom->GetId(), nDoS);
                             }
                         }
-                        _blocks.erase(_blocks.begin() + i);
-                        i--;
+                        _blocks.erase(it);
                     }
                 }
             }
@@ -269,9 +267,11 @@ const CMasterNodeWitness &MasterNodeWitnessManager::Get(const uint256 &targetBlo
 
 void MasterNodeWitnessManager::HoldBlock(CBlock block, int nodeId)
 {
-    BlockInfo info;
-    info.block = block;
-    info.nodeID = nodeId;
-    info.creatingTime = GetTime();
-    _blocks.push_back(info);
+    if (!_blocks.count(block.GetHash())) {
+        BlockInfo info;
+        info.block = block;
+        info.nodeID = nodeId;
+        info.creatingTime = GetTime();
+        _blocks[block.GetHash()] = info;
+    }
 }

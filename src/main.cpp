@@ -2844,6 +2844,11 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
         // default value for accept without check
         nExpectedMint = pindex->nMoneySupply - pindex->pprev->nMoneySupply;
         int masterNodeCount = GetMasternodeCountBasedOnBlockReward(pindex->pprev->nHeight, nExpectedMint);
+        bool unknownHeight = (masterNodeCount == -3)
+        LogPrintf("unknownHeight %d\n", unknownHeight);
+        LogPrintf("nExpectedMint %d\n", nExpectedMint);
+        LogPrintf("masterNodeCount %d\n", masterNodeCount);
+        LogPrintf("block %s\n", block.GetHash().ToString());
         if (pMNWitness->Exist(block.GetHash())) {
             const CMasterNodeWitness &witness = pMNWitness->Get(block.GetHash());
             bool signOfProofValid = false;
@@ -2885,7 +2890,8 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
                     "bad-cb-proof");
             }
         }
-        else if (masternodeSync.IsSynced()
+        else if (!unknownHeight
+            && masternodeSync.IsSynced()
             && !IsInitialBlockDownload()
             && !fImporting && !fReindex) {
             if (masterNodeCount >= 0) {

@@ -2872,6 +2872,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
                 LogPrintf("pubkey %s, witness.pubKeyWitness %s\n", pubkey.GetHash().ToString(), CPubKey(witness.pubKeyWitness).GetHash().ToString());
                 LogPrintf("new block %s\n", block.ToString());
             }
+            LogPrintf("(witness.nProofs.size() %d,  masterNodeCount %d\n", witness.nProofs.size(), masterNodeCount);
             if (witness.nProofs.size() != masterNodeCount
                 || !witness.IsValid(block.nTime)
                 || !witness.SignatureValid()

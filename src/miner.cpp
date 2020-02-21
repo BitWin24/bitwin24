@@ -548,12 +548,27 @@ bool ProcessBlockFound(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
         CMasterNodeWitness witness = pMNWitness->CreateMasterNodeWitnessSnapshot(pblock->GetHash());
         witness.nTargetBlockHash = pblock->GetHash();
 
+        CPubKey pubkey;
+        bool fzBWIStake = pblock->vtx[1].IsZerocoinSpend();
+        if (fzBWIStake) {
+            libzerocoin::CoinSpend spend = TxInToZerocoinSpend(pblock->vtx[1].vin[0]);
+            pubkey = spend.getPubKey();
+        } else {
+            txnouttype whichType;
+            std::vector<valtype> vSolutions;
+            const CTxOut& txout = pblock->vtx[1].vout[1];
+            if (!Solver(txout.scriptPubKey, whichType, vSolutions))
+                return error("BITWIN24Miner : can't resolve key for signing proofs of master nodes");
+            if (whichType == TX_PUBKEY || whichType == TX_PUBKEYHASH) {
+                valtype& vchPubKey = vSolutions[0];
+                pubkey = CPubKey(vchPubKey);
+            }
+        }
         const CKeyStore& keystore = wallet;
         CKey keyMasternode;
-        CPubKey pubKey;
-        if (!reservekey.GetReservedKey(pubKey) || !keystore.GetKey(pubKey.GetID(), keyMasternode))
+        if (!keystore.GetKey(pubkey.GetID(), keyMasternode))
             return error("BITWIN24Miner : can't resolve key for signing proofs of master nodes");
-        witness.pubKeyWitness = pubKey;
+        witness.pubKeyWitness = pubkey;
         witness.Sign(keyMasternode);
 
         pMNWitness->Add(witness, true);

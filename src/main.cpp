@@ -2858,13 +2858,19 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
                     std::vector<valtype> vSolutions;
                     const CTxOut& txout = block.vtx[1].vout[1];
                     if (!Solver(txout.scriptPubKey, whichType, vSolutions))
-                        return false;
+                        return state.DoS(
+                            100,
+                            error("ConnectBlock() : proof signature not corresponding to block %s", block.GetHash().ToString()),
+                            REJECT_INVALID,
+                            "bad-cb-amount");
                     if (whichType == TX_PUBKEY || whichType == TX_PUBKEYHASH) {
                         valtype& vchPubKey = vSolutions[0];
                         pubkey = CPubKey(vchPubKey);
                     }
                 }
-                signOfProofValid = pubkey == witness.pubKeyWitness;
+                signOfProofValid = (pubkey == witness.pubKeyWitness);
+                LogPrintf("pubkey %s, witness.pubKeyWitness %s\n", pubkey.GetHash().ToString(), CPubKey(witness.pubKeyWitness).GetHash().ToString());
+                LogPrintf("new block %s\n", block.ToString());
             }
             if (witness.nProofs.size() != masterNodeCount
                 || !witness.IsValid(block.nTime)
@@ -2872,7 +2878,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
                 || !signOfProofValid) {
                 return state.DoS(
                     100,
-                    error("ConnectBlock() : not valid proof or unexpected number of masternodes in proof: %s",
+                    error("ConnectBlock() : not valid proof or unexpected number of master nodes in proof: %s",
                           witness.ToString()),
                     REJECT_INVALID,
                     "bad-cb-proof");
@@ -2880,8 +2886,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
         }
         else if (masternodeSync.IsSynced()
             && !IsInitialBlockDownload()
-            && !fImporting && !fReindex
-            && (block.nTime + MASTERNODE_REMOVAL_SECONDS) < GetAdjustedTime()) {
+            && !fImporting && !fReindex) {
             if (masterNodeCount >= 0) {
                 if (masterNodeCount > mnodeman.size() + Params().MasternodeTolerance()
                     || masterNodeCount < mnodeman.size() - Params().MasternodeTolerance()

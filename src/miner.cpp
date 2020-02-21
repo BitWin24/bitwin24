@@ -545,7 +545,7 @@ bool ProcessBlockFound(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
 
     // Create proofs snapshot, for validate it latterer
     {
-        CMasterNodeWitness witness = pMNWitness->CreateMasterNodeWitnessSnapshot(GetAdjustedTime());
+        CMasterNodeWitness witness = pMNWitness->CreateMasterNodeWitnessSnapshot(pblock->nTime);
         witness.nTargetBlockHash = pblock->GetHash();
 
         const CKeyStore& keystore = wallet;

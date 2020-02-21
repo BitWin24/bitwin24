@@ -5951,10 +5951,12 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
                 //we already asked for this block, so lets work backwards and ask for the previous block
                 pfrom->PushMessage("getblocks", chainActive.GetLocator(), block.hashPrevBlock);
                 pfrom->vBlockRequested.push_back(block.hashPrevBlock);
+                LogPrintf("request getblocks block.hashPrevBlock %s peer=%d\n", block.hashPrevBlock.ToString(), pfrom->id);
             } else {
                 //ask to sync to this block
                 pfrom->PushMessage("getblocks", chainActive.GetLocator(), hashBlock);
                 pfrom->vBlockRequested.push_back(hashBlock);
+                LogPrintf("request getblocks hashBlock %s peer=%d\n", hashBlock.ToString(), pfrom->id);
             }
         } else {
             pfrom->AddInventoryKnown(inv);
@@ -5967,7 +5969,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             CValidationState state;
             if (!mapBlockIndex.count(block.GetHash())) {
                 if (pMNWitness->Exist(block.GetHash())
-                    || (block.nTime + MASTERNODE_REMOVAL_SECONDS) < GetTime()
+                    || pfrom->nVersion < MASTER_NODE_WITNESS_VERSION
                     || chainActive.Tip()->nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT) {
                     ProcessNewBlock(state, pfrom, &block);
                     int nDoS;

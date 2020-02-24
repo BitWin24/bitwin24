@@ -83,6 +83,7 @@ void MasterNodeWitnessManager::UpdateThread()
 
         {
             boost::lock_guard<boost::mutex> guard(_mtx);
+            std::vector<uint256> toRemove;
             const int WAITING_PROOFS_TIME = 10;
             LogPrintf("in queue have %d blocks \n", _blocks.size());
             for (auto it = _blocks.begin(); it != _blocks.end(); it++) {
@@ -129,10 +130,15 @@ void MasterNodeWitnessManager::UpdateThread()
                                 if (lockMain) Misbehaving(pfrom->GetId(), nDoS);
                             }
                         }
-                        _blocks.erase(it);
+                        toRemove.push_back(it);
                     }
                 }
             }
+
+            for (auto it = toRemove.begin(); iy != toRemove.end(); it++) {
+                _blocks.erase(it);
+            }
+
         }
     }
 }
@@ -227,7 +233,7 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
                     skip = true;
                 }
             }
-            if (!skip &&  std::find(included.begin(), included.end(), proof.nPing.vin) == included.end())
+            if (!skip && std::find(included.begin(), included.end(), proof.nPing.vin) == included.end())
                 result.nProofs.push_back(proof);
             included.push_back(proof.nPing.vin);
         }

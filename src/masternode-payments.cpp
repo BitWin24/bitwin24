@@ -323,6 +323,7 @@ void CMasternodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_t nFe
 
     CMasterNodeWitness witness = pMNWitness->CreateMasterNodeWitnessSnapshot();
     CAmount blockValue = GetBlockValue(pindexPrev->nHeight + 1, witness.nProofs.size());
+    LogPrint("masternode", "CMasternodePayments::FillBlockPayee: value=%d; mn=%d", blockValue, witness.nProofs.size());
     CAmount masternodePayment = GetMasterNodePayment(blockValue);
 
     if (hasPayment) {
@@ -546,6 +547,7 @@ bool CMasternodeBlockPayees::IsTransactionValid(const CTransaction& txNew)
 
     CMasterNodeWitness witness = pMNWitness->CreateMasterNodeWitnessSnapshot();
     CAmount nReward = GetBlockValue(nBlockHeight, witness.nProofs.size());
+    LogPrint("masternode", "CMasternodeBlockPayees::IsTransactionValid: value=%d; mn=%d", nReward, witness.nProofs.size());
 
     CAmount requiredMasternodePayment = GetMasterNodePayment(nReward);
 

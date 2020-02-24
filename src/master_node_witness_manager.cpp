@@ -135,7 +135,7 @@ void MasterNodeWitnessManager::UpdateThread()
                 }
             }
 
-            for (auto it = toRemove.begin(); iy != toRemove.end(); it++) {
+            for (auto it = toRemove.begin(); it != toRemove.end(); it++) {
                 _blocks.erase(it);
             }
 

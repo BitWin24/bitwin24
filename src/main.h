@@ -230,6 +230,12 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
 
 bool ActivateBestChain(CValidationState& state, CBlock* pblock = NULL, bool fAlreadyChecked = false);
 CAmount GetBlockValue(int nHeight, int nMasternodeCount = 0);
+/**
+ *  0 if witchout errors
+ * -1 if reward not based on block height
+ * -2 if reward is trimmed
+ * -3 unknown
+ * */
 int GetMasterNodeCountBasedOnBlockReward(int nHeight, CAmount reward, int& errorCode);
 int64_t GetPhaseMultiplier(int nHeight);
 

@@ -1832,7 +1832,7 @@ int64_t GetBlockValue(int nHeight, int nMasternodeCount)
 }
 
 /**
- *  0 if witchout errors
+ *  0 if without errors
  * -1 if reward not based on block height
  * -2 if reward is trimmed
  * -3 unknown
@@ -1864,12 +1864,6 @@ int GetMasterNodeCountBasedOnBlockReward(int nHeight, CAmount reward, int& error
     return round((double) reward * Params().BlocksPerYear() * 1000 * 80 / 100 / collateral / currentPhaseMultiplier);
 }
 
-/**
- *  0 if witchout errors
- * -1 if reward not based on block height
- * -2 if reward is trimmed
- * -3 unknown
- * */
 int GetContextualMasterNodeCountBasedOnBlockReward(CAmount reward)
 {
     int64_t currentPhaseMultiplier = GetPhaseMultiplier(chainActive.Tip()->nHeight);

@@ -1831,23 +1831,31 @@ int64_t GetBlockValue(int nHeight, int nMasternodeCount)
     return nSubsidy;
 }
 
-/** returns:
+/**
+ *  0 if witchout errors
  * -1 if reward not based on block height
  * -2 if reward is trimmed
  * -3 unknown
  * */
-int GetMasternodeCountBasedOnBlockReward(int nHeight, CAmount reward)
+int GetMasterNodeCountBasedOnBlockReward(int nHeight, CAmount reward, int& errorCode)
 {
-    if(nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT)
-        return -1;
+    errorCode = 0;
+    if (nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT) {
+        errorCode = -1;
+        return 0;
+    }
 
-    if(chainActive.Tip()->nHeight < nHeight)
-        return -3;
+    if (chainActive.Tip()->nHeight < nHeight) {
+        errorCode = -3;
+        return 0;
+    }
 
     int64_t nMoneySupply = chainActive[nHeight]->nMoneySupply;
 
-    if ((nMoneySupply + GetBlockValue(nHeight, mnodeman.size())) == Params().MaxSupply())
-        return -2;
+    if ((nMoneySupply + GetBlockValue(nHeight, mnodeman.size())) == Params().MaxSupply()) {
+        errorCode = -2;
+        return 0;
+    }
 
     int64_t currentPhaseMultiplier = GetPhaseMultiplier(nHeight);
 
@@ -1856,7 +1864,7 @@ int GetMasternodeCountBasedOnBlockReward(int nHeight, CAmount reward)
     return round((double) reward * Params().BlocksPerYear() * 1000 * 80 / 100 / collateral / currentPhaseMultiplier);
 }
 
-int64_t GetMasternodePayment(int64_t blockValue)
+int64_t GetMasterNodePayment(int64_t blockValue)
 {
     return blockValue * 80 / 100;
 }
@@ -2843,13 +2851,18 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     if (pindex->pprev->nHeight >= START_HEIGHT_REWARD_BASED_ON_MN_COUNT) {
         // default value for accept without check
         nExpectedMint = pindex->nMoneySupply - pindex->pprev->nMoneySupply;
-        int masterNodeCount = GetMasternodeCountBasedOnBlockReward(pindex->pprev->nHeight, nExpectedMint);
-        bool unknownHeight = (masterNodeCount == -3);
-        LogPrintf("unknownHeight %d\n", unknownHeight);
+        int errorCode = 0;
+        int masterNodeCount = GetMasterNodeCountBasedOnBlockReward(pindex->pprev->nHeight, nExpectedMint, errorCode);
+        bool cantResolveMasterNodeCount = (errorCode == 0);
+        if(errorCode == -3) {
+            masterNodeCount = GetMasterNodeCountBasedOnBlockReward(chainActive.Tip()->nHeight, nExpectedMint, errorCode);
+            cantResolveMasterNodeCount = (errorCode == 0);
+        }
+        LogPrintf("cantResolveMasterNodeCount %d\n", cantResolveMasterNodeCount);
         LogPrintf("nExpectedMint %d\n", nExpectedMint);
         LogPrintf("masterNodeCount %d\n", masterNodeCount);
         LogPrintf("block %s\n", block.GetHash().ToString());
-        if (pMNWitness->Exist(block.GetHash())) {
+        if (pMNWitness->Exist(block.GetHash()) && !cantResolveMasterNodeCount) {
             const CMasterNodeWitness &witness = pMNWitness->Get(block.GetHash());
             bool signOfProofValid = false;
             if (block.IsProofOfStake()) {
@@ -2877,7 +2890,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
                 LogPrintf("pubkey %s, witness.pubKeyWitness %s\n", pubkey.GetHash().ToString(), CPubKey(witness.pubKeyWitness).GetHash().ToString());
                 LogPrintf("new block %s\n", block.ToString());
             }
-            LogPrintf("(witness.nProofs.size() %d,  masterNodeCount %d\n", witness.nProofs.size(), masterNodeCount);
+            LogPrintf("witness.nProofs.size() %d,  masterNodeCount %d\n", witness.nProofs.size(), masterNodeCount);
             if (witness.nProofs.size() != masterNodeCount
                 || !witness.IsValid(block.nTime)
                 || !witness.SignatureValid()
@@ -2890,7 +2903,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
                     "bad-cb-proof");
             }
         }
-        else if (!unknownHeight
+        else if (!cantResolveMasterNodeCount
             && masternodeSync.IsSynced()
             && !IsInitialBlockDownload()
             && !fImporting && !fReindex) {

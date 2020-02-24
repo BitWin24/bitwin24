@@ -317,7 +317,7 @@ void CMasternodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_t nFe
     }
 
     CAmount blockValue = GetBlockValue(pindexPrev->nHeight + 1, mnodeman.size());
-    CAmount masternodePayment = GetMasternodePayment(blockValue);
+    CAmount masternodePayment = GetMasterNodePayment(blockValue);
 
     if (hasPayment) {
         if (fProofOfStake) {
@@ -540,7 +540,7 @@ bool CMasternodeBlockPayees::IsTransactionValid(const CTransaction& txNew)
 
     CAmount nReward = GetBlockValue(nBlockHeight, mnodeman.size());
 
-    CAmount requiredMasternodePayment = GetMasternodePayment(nReward);
+    CAmount requiredMasternodePayment = GetMasterNodePayment(nReward);
 
     //require at least 6 signatures
     BOOST_FOREACH (CMasternodePayee& payee, vecPayments)

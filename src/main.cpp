@@ -1864,6 +1864,21 @@ int GetMasterNodeCountBasedOnBlockReward(int nHeight, CAmount reward, int& error
     return round((double) reward * Params().BlocksPerYear() * 1000 * 80 / 100 / collateral / currentPhaseMultiplier);
 }
 
+/**
+ *  0 if witchout errors
+ * -1 if reward not based on block height
+ * -2 if reward is trimmed
+ * -3 unknown
+ * */
+int GetContextualMasterNodeCountBasedOnBlockReward(CAmount reward)
+{
+    int64_t currentPhaseMultiplier = GetPhaseMultiplier(chainActive.Tip()->nHeight);
+
+    const int64_t collateral = 3000 * COIN;
+
+    return round((double) reward * Params().BlocksPerYear() * 1000 * 80 / 100 / collateral / currentPhaseMultiplier);
+}
+
 int64_t GetMasterNodePayment(int64_t blockValue)
 {
     return blockValue * 80 / 100;
@@ -2855,8 +2870,8 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
         int masterNodeCount = GetMasterNodeCountBasedOnBlockReward(pindex->pprev->nHeight, nExpectedMint, errorCode);
         bool cantResolveMasterNodeCount = (errorCode == 0);
         if(errorCode == -3) {
-            masterNodeCount = GetMasterNodeCountBasedOnBlockReward(chainActive.Tip()->nHeight, nExpectedMint, errorCode);
-            cantResolveMasterNodeCount = (errorCode == 0);
+            masterNodeCount = GetContextualMasterNodeCountBasedOnBlockReward(nExpectedMint);
+            cantResolveMasterNodeCount = false;
         }
         if (pMNWitness->Exist(block.GetHash()) && !cantResolveMasterNodeCount) {
             const CMasterNodeWitness &witness = pMNWitness->Get(block.GetHash());

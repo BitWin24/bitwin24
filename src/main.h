@@ -236,7 +236,14 @@ CAmount GetBlockValue(int nHeight, int nMasternodeCount = 0);
  * -2 if reward is trimmed
  * -3 unknown
  * */
-int GetMasterNodeCountBasedOnBlockReward(int nHeight, CAmount reward, int& errorCode);
+int GetMasterNodeCountBasedOnBlockReward(int nHeight, CAmount reward);
+/**
+ *  0 if witchout errors
+ * -1 if reward not based on block height
+ * -2 if reward is trimmed
+ * -3 unknown
+ * */
+int GetContextualMasterNodeCountBasedOnBlockReward(CAmount reward, int& errorCode);
 int64_t GetPhaseMultiplier(int nHeight);
 
 /** Create a new block index entry for a given block hash */

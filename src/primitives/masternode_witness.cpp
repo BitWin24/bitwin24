@@ -4,6 +4,7 @@
 
 #include "masternode_witness.h"
 #include "../util.h"
+#include "../obfuscation.h"
 
 std::string CMasterNodeWitness::ToString() const
 {
@@ -63,6 +64,24 @@ bool CMasterNodeWitness::IsValid(int64_t atTime) const
             CBlockIndex *pMNIndex = (*mi).second;
             CBlockIndex *pConfIndex = chainActive[pMNIndex->nHeight + MASTERNODE_MIN_CONFIRMATIONS - 1];
             if (pConfIndex->GetBlockTime() > atTime) {
+                return false;
+            }
+        }
+
+        // check that Master node vin\vout is not spent
+        {
+            CValidationState state;
+            CMutableTransaction dummyTx = CMutableTransaction();
+            CTxOut vout = CTxOut(2999.99 * COIN, obfuScationPool.collateralPubKey);
+            dummyTx.vin.push_back(ping.vin);
+            dummyTx.vout.push_back(vout);
+
+            TRY_LOCK(cs_main, lockMain);
+            if (!lockMain) {
+                return false;
+            }
+
+            if (!AcceptableInputs(mempool, state, CTransaction(tx), false, NULL)) {
                 return false;
             }
         }

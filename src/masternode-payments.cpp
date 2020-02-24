@@ -6,7 +6,9 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "masternode-payments.h"
+
 #include "addrman.h"
+#include "main.h"
 #include "masternode-budget.h"
 #include "masternode-sync.h"
 #include "masternodeman.h"
@@ -15,6 +17,9 @@
 #include "sync.h"
 #include "util.h"
 #include "utilmoneystr.h"
+
+#include "primitives/masternode_witness.h"
+
 #include <boost/filesystem.hpp>
 #include <boost/lexical_cast.hpp>
 
@@ -316,7 +321,8 @@ void CMasternodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_t nFe
         }
     }
 
-    CAmount blockValue = GetBlockValue(pindexPrev->nHeight + 1, mnodeman.size());
+    CMasterNodeWitness witness = pMNWitness->CreateMasterNodeWitnessSnapshot();
+    CAmount blockValue = GetBlockValue(pindexPrev->nHeight + 1, witness.nProofs.size());
     CAmount masternodePayment = GetMasterNodePayment(blockValue);
 
     if (hasPayment) {
@@ -538,7 +544,8 @@ bool CMasternodeBlockPayees::IsTransactionValid(const CTransaction& txNew)
 
     std::string strPayeesPossible = "";
 
-    CAmount nReward = GetBlockValue(nBlockHeight, mnodeman.size());
+    CMasterNodeWitness witness = pMNWitness->CreateMasterNodeWitnessSnapshot();
+    CAmount nReward = GetBlockValue(nBlockHeight, witness.nProofs.size());
 
     CAmount requiredMasternodePayment = GetMasterNodePayment(nReward);
 
@@ -635,7 +642,8 @@ void CMasternodePayments::CleanPaymentList()
     }
 
     //keep up to five cycles for historical sake
-    int nLimit = std::max(int(mnodeman.size() * 1.25), 1000);
+    CMasterNodeWitness witness = pMNWitness->CreateMasterNodeWitnessSnapshot();
+    int nLimit = std::max(int(witness.nProofs.size() * 1.25), 1000);
 
     std::map<uint256, CMasternodePaymentWinner>::iterator it = mapMasternodePayeeVotes.begin();
     while (it != mapMasternodePayeeVotes.end()) {

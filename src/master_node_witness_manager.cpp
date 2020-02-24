@@ -242,10 +242,8 @@ void MasterNodeWitnessManager::EraseDB()
 
     for (std::vector<uint256>::iterator it = toRemove.begin(); it != toRemove.end(); it++) {
         uint256 target = *it;
-        LogPrintf("EraseDB target %s\n", target.ToString());
         Erase(target, true);
     }
-    LogPrintf("EraseDB ok\n");
 }
 
 const CMasterNodeWitness &MasterNodeWitnessManager::Get(const uint256 &targetBlockHash)

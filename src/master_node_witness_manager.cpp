@@ -12,6 +12,7 @@
 #include "primitives/block.h"
 #include "serialize.h"
 #include "chainparams.h"
+#include "obfuscation.h"
 
 MasterNodeWitnessManager::MasterNodeWitnessManager()
     : CLevelDBWrapper(GetDataDir() / "mnwitness", 0, false, false), _lastUpdate(0),
@@ -214,7 +215,19 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
             proof.nVersion = 0;
             proof.nBroadcast = it->second;
             proof.nPing = pings[key];
-            if (std::find(included.begin(), included.end(), proof.nPing.vin) == included.end())
+            bool skip = false;
+            {
+                CValidationState state;
+                CMutableTransaction dummyTx = CMutableTransaction();
+                CTxOut vout = CTxOut(2999.99 * COIN, obfuScationPool.collateralPubKey);
+                dummyTx.vin.push_back(proof.nPing.vin);
+                dummyTx.vout.push_back(vout);
+
+                if (!AcceptableInputs(mempool, state, CTransaction(dummyTx), false, NULL)) {
+                    skip = true;
+                }
+            }
+            if (!skip ||  std::find(included.begin(), included.end(), proof.nPing.vin) == included.end())
                 result.nProofs.push_back(proof);
             included.push_back(proof.nPing.vin);
         }

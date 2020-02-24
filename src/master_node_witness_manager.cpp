@@ -227,7 +227,7 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
                     skip = true;
                 }
             }
-            if (!skip ||  std::find(included.begin(), included.end(), proof.nPing.vin) == included.end())
+            if (!skip &&  std::find(included.begin(), included.end(), proof.nPing.vin) == included.end())
                 result.nProofs.push_back(proof);
             included.push_back(proof.nPing.vin);
         }

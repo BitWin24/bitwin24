@@ -81,7 +81,7 @@ bool CMasterNodeWitness::IsValid(int64_t atTime) const
                 return false;
             }
 
-            if (!AcceptableInputs(mempool, state, CTransaction(tx), false, NULL)) {
+            if (!AcceptableInputs(mempool, state, CTransaction(dummyTx), false, NULL)) {
                 return false;
             }
         }

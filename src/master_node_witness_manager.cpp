@@ -130,13 +130,13 @@ void MasterNodeWitnessManager::UpdateThread()
                                 if (lockMain) Misbehaving(pfrom->GetId(), nDoS);
                             }
                         }
-                        toRemove.push_back(it);
+                        toRemove.push_back(it->first);
                     }
                 }
             }
 
             for (auto it = toRemove.begin(); it != toRemove.end(); it++) {
-                _blocks.erase(it);
+                _blocks.erase(*it);
             }
 
         }

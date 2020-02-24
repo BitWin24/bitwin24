@@ -1841,7 +1841,7 @@ int GetMasternodeCountBasedOnBlockReward(int nHeight, CAmount reward)
     if(nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT)
         return -1;
 
-    if(chainActive.Tip()->nHeight > nHeight)
+    if(chainActive.Tip()->nHeight < nHeight)
         return -3;
 
     int64_t nMoneySupply = chainActive[nHeight]->nMoneySupply;

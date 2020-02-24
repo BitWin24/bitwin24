@@ -229,7 +229,8 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
                 dummyTx.vin.push_back(proof.nPing.vin);
                 dummyTx.vout.push_back(vout);
 
-                if (!AcceptableInputs(mempool, state, CTransaction(dummyTx), false, NULL)) {
+                TRY_LOCK(cs_main, lockMain);
+                if (lockMain && !AcceptableInputs(mempool, state, CTransaction(dummyTx), false, NULL)) {
                     skip = true;
                 }
             }

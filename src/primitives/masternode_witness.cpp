@@ -63,7 +63,7 @@ bool CMasterNodeWitness::IsValid(int64_t atTime) const
         if (mi != mapBlockIndex.end() && (*mi).second) {
             CBlockIndex *pMNIndex = (*mi).second;
             CBlockIndex *pConfIndex = chainActive[pMNIndex->nHeight + MASTERNODE_MIN_CONFIRMATIONS - 1];
-            if (pConfIndex->GetBlockTime() > atTime) {
+            if (pConfIndex && pConfIndex->GetBlockTime() > atTime) {
                 return false;
             }
         }
@@ -76,7 +76,8 @@ bool CMasterNodeWitness::IsValid(int64_t atTime) const
             dummyTx.vin.push_back(ping.vin);
             dummyTx.vout.push_back(vout);
 
-            if (!AcceptableInputs(mempool, state, CTransaction(dummyTx), false, NULL)) {
+            TRY_LOCK(cs_main, lockMain);
+            if (lockMain && !AcceptableInputs(mempool, state, CTransaction(dummyTx), false, NULL)) {
                 return false;
             }
         }

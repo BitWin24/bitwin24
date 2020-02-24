@@ -573,7 +573,6 @@ bool ProcessBlockFound(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
 
         pMNWitness->Add(witness, true);
 
-        LogPrintf("send witness to all %s\n", witness.ToString());
         BOOST_FOREACH(CNode * pnode, vNodes)
             if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
                 pnode->PushMessage("mnwitness", witness);

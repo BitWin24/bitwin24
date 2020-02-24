@@ -387,46 +387,9 @@ static UniValue GetNetworksInfo()
     return networks;
 }
 
-#include "../master_node_witness_manager.h"
-#include "../primitives/masternode_witness.h"
-
 UniValue getnetworkinfo(const UniValue& params, bool fHelp)
 {
-    LogPrintf(">>>>>>>>>>>>>>>>>>>>>>\n");
-    int64_t targetTime = GetAdjustedTime();
-    if (1) {
-        LogPrintf("--------Create------------\n");
-//        static MasterNodeWitnessManager mnWitnessManager;
-        MasterNodeWitnessManager mnWitnessManager;
-        CMasterNodeWitness witness = mnWitnessManager.CreateMasterNodeWitnessSnapshot(0x123456789);
-        LogPrintf("%s\n", witness.ToString());
-        LogPrintf("is valid %d\n", witness.IsValid(targetTime));
-        LogPrintf("is valid in future %d\n", witness.IsValid(targetTime + 24 * 60 * 60));
-        LogPrintf("is valid in past %d\n", witness.IsValid(targetTime - 24 * 60 * 60));
-        CKey keyMasternode;
-        keyMasternode.MakeNewKey(false);
-        witness.pubKeyWitness = keyMasternode.GetPubKey();
-        bool wSigned = witness.Sign(keyMasternode);
-        LogPrintf("signed %d, sign valid %d\n", wSigned, witness.SignatureValid());
-        mnWitnessManager.Add(witness);
-        mnWitnessManager.Save();
-        LogPrintf("<<<--------Create------------\n");
-    }
-
-    if (1) {
-        LogPrintf("--------Loading------------\n");
-        MasterNodeWitnessManager mnWitnessManagerTest;
-        mnWitnessManagerTest.Load();
-        CMasterNodeWitness witness = mnWitnessManagerTest.Get(0x123456789);
-        LogPrintf("mnWitnessManagerTest loaded %s\n", witness.ToString());
-        LogPrintf("mnWitnessManagerTest is valid %d\n", witness.IsValid(targetTime));
-        LogPrintf("mnWitnessManagerTest is valid in future %d\n", witness.IsValid(targetTime + 24 * 60 * 60));
-        LogPrintf("mnWitnessManagerTest is valid in past %d\n", witness.IsValid(targetTime - 24 * 60 * 60));
-        LogPrintf("mnWitnessManagerTest sign valid %d\n", witness.SignatureValid());
-        LogPrintf("<<--------Loading------------\n");
-    }
-    LogPrintf("<<<<<<<<<<<<<<<<<<<<<<<\n");
-    if (fHelp || params.size() != 0) {
+    if (fHelp || params.size() != 0)
         throw runtime_error(
             "getnetworkinfo\n"
             "\nReturns an object containing various state info regarding P2P networking.\n"
@@ -461,7 +424,6 @@ UniValue getnetworkinfo(const UniValue& params, bool fHelp)
 
             "\nExamples:\n" +
             HelpExampleCli("getnetworkinfo", "") + HelpExampleRpc("getnetworkinfo", ""));
-    }
 
     LOCK(cs_main);
 

@@ -35,8 +35,6 @@ bool MasterNodeWitnessManager::Add(const CMasterNodeWitness &proof, bool validat
     boost::lock_guard<boost::mutex> guard(_mtx);
     if (!Exist(proof.nTargetBlockHash)) {
         if (!validate || proof.IsValid(GetAdjustedTime())) {
-            LogPrintf("Added proof %s\n", proof.ToString());
-            _witnesses[proof.nTargetBlockHash] = proof;
             return true;
         }
     }
@@ -47,7 +45,6 @@ bool MasterNodeWitnessManager::Remove(const uint256 &targetBlockHash)
 {
     boost::lock_guard<boost::mutex> guard(_mtx);
     if (Exist(targetBlockHash)) {
-        LogPrintf("Removed proof for target block %s\n", targetBlockHash.ToString());
         _witnesses.erase(targetBlockHash);
         return true;
     }
@@ -58,7 +55,6 @@ void MasterNodeWitnessManager::UpdateThread()
 {
     _stopThread = false;
     while (!_stopThread) {
-        LogPrintf("MasterNodeWitnessManager::UpdateThread loop\n");
         MilliSleep(5000);
         boost::lock_guard<boost::mutex> guard(_mtxGlobal);
 
@@ -76,7 +72,6 @@ void MasterNodeWitnessManager::UpdateThread()
             }
 
             for (unsigned i = 0; i < toRemove.size(); i++) {
-                LogPrintf("remove old proof %s\n", toRemove[i].ToString());
                 Remove(toRemove[i]);
             }
         }
@@ -85,35 +80,17 @@ void MasterNodeWitnessManager::UpdateThread()
             boost::lock_guard<boost::mutex> guard(_mtx);
             std::vector<uint256> toRemove;
             const int WAITING_PROOFS_TIME = 10;
-            LogPrintf("in queue have %d blocks \n", _blocks.size());
             for (auto it = _blocks.begin(); it != _blocks.end(); it++) {
                 CValidationState state;
                 const CBlock &block = it->second.block;
                 uint256 blockHash = block.GetHash();
-                LogPrintf("watching %s, proof exist %d, block time %s, received %s \n",
-                          blockHash.ToString(),
-                          Exist(blockHash),
-                          EpochTimeToHumanReadableFormat(block.nTime).c_str(),
-                          EpochTimeToHumanReadableFormat(it->second.creatingTime).c_str());
                 if (Exist(blockHash)
                     || (it->second.creatingTime + WAITING_PROOFS_TIME) < GetTime()
                     || chainActive.Tip()->nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT) {
-                    LogPrintf("mapBlockIndex.count(blockHash) %s %d \n",
-                              blockHash.ToString(),
-                              mapBlockIndex.count(blockHash));
-                    LogPrintf("mapBlockIndex.count(block.hashPrevBlock) %s %d \n",
-                              block.hashPrevBlock.ToString(),
-                              mapBlockIndex.count(block.hashPrevBlock));
                     if (!mapBlockIndex.count(blockHash)) {
                         if (!mapBlockIndex.count(block.hashPrevBlock)) {
-                            LogPrintf("previous block not connected hash %s, new block hash %s \n",
-                                      block.hashPrevBlock.ToString(),
-                                      block.GetHash().ToString());
                             continue;
                         }
-                        LogPrintf("try process new block %s, proof exist %d \n",
-                                  blockHash.ToString(),
-                                  Exist(blockHash));
                         CNode *pfrom = FindNode(it->second.nodeID);
                         ProcessNewBlock(state, pfrom, &it->second.block);
                         int nDoS;
@@ -149,14 +126,12 @@ void MasterNodeWitnessManager::Save()
     EraseDB();
     std::map<uint256, CMasterNodeWitness>::iterator it = _witnesses.begin();
     while (it != _witnesses.end()) {
-        LogPrintf("save _witnesses %s \n", it->first.ToString());
         Write(it->first, it->second);
         it++;
     }
 
     Sync();
     Flush();
-    LogPrintf("MasterNodeWitnessManager::Save ok \n");
 }
 
 void MasterNodeWitnessManager::Load()
@@ -246,19 +221,16 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
 
 void MasterNodeWitnessManager::EraseDB()
 {
-    LogPrintf("EraseDB\n");
     std::vector<uint256> toRemove;
     try {
         boost::scoped_ptr<leveldb::Iterator> pcursor(NewIterator());
         pcursor->SeekToFirst();
         while (pcursor->Valid()) {
-            LogPrintf("pcursor->Valid\n");
             leveldb::Slice slKey = pcursor->key();
             CDataStream ssKey(slKey.data(), slKey.data() + slKey.size(), SER_DISK, CLIENT_VERSION);
             uint256 targetBlockHash;
             ssKey >> targetBlockHash;
 
-            LogPrintf("EraseDB add target %s\n", targetBlockHash.ToString());
             toRemove.push_back(targetBlockHash);
 
             pcursor->Next();
@@ -280,7 +252,6 @@ const CMasterNodeWitness &MasterNodeWitnessManager::Get(const uint256 &targetBlo
 {
     if (Exist(targetBlockHash))
         return _witnesses[targetBlockHash];
-    LogPrintf("Witness for target block hash not exist - %s\n", targetBlockHash.ToString());
     static CMasterNodeWitness result;
     return result;
 }

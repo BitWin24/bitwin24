@@ -803,7 +803,6 @@ bool CNetAddr::IsTor() const
 
 bool CNetAddr::IsLocal() const
 {
-    return false;
     // IPv4 loopback
     if (IsIPv4() && (GetByte(3) == 127 || GetByte(3) == 0))
         return true;

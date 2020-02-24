@@ -568,6 +568,11 @@ void CBudgetManager::FillBlockPayee(CMutableTransaction& txNew, CAmount nFees, b
 
     CMasterNodeWitness witness = pMNWitness->CreateMasterNodeWitnessSnapshot();
     CAmount blockValue = GetBlockValue(pindexPrev->nHeight, witness.nProofs.size());
+    LogPrintf("witness.nProofs.size() %d, blockValue %d  %s:%d\n",
+              witness.nProofs.size(),
+              blockValue,
+              pindexPrev->nHeight,
+              __FILE__, __LINE__);
 
     if (fProofOfStake) {
         if (nHighestCount > 0) {

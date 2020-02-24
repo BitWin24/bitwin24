@@ -3054,6 +3054,11 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
             CAmount nReward;
             CMasterNodeWitness witness = pMNWitness->CreateMasterNodeWitnessSnapshot();
             nReward = GetBlockValue(chainActive.Height() + 1, witness.nProofs.size());
+            LogPrintf("witness.nProofs.size() %d, blockValue %d, height %d %s:%d\n",
+                      witness.nProofs.size(),
+                      nReward,
+                      chainActive.Height() + 1,
+                      __FILE__, __LINE__);
             nCredit += nReward;
 
             // Create the output transaction(s)

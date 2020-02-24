@@ -28,6 +28,8 @@
 #include "spork.h"
 #include "invalid.h"
 #include "zbwichain.h"
+#include "master_node_witness_manager.h"
+#include "primitives/masternode_witness.h"
 
 
 #include <boost/thread.hpp>
@@ -539,6 +541,41 @@ bool ProcessBlockFound(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
         LOCK(cs_main);
         if (pblock->hashPrevBlock != chainActive.Tip()->GetBlockHash())
             return error("BITWIN24Miner : generated block is stale");
+    }
+
+    // Create proofs snapshot, for validate it latterer
+    {
+        CMasterNodeWitness witness = pMNWitness->CreateMasterNodeWitnessSnapshot(pblock->GetHash());
+        witness.nTargetBlockHash = pblock->GetHash();
+
+        CPubKey pubkey;
+        bool fzBWIStake = pblock->vtx[1].IsZerocoinSpend();
+        if (fzBWIStake) {
+            libzerocoin::CoinSpend spend = TxInToZerocoinSpend(pblock->vtx[1].vin[0]);
+            pubkey = spend.getPubKey();
+        } else {
+            txnouttype whichType;
+            std::vector<valtype> vSolutions;
+            const CTxOut& txout = pblock->vtx[1].vout[1];
+            if (!Solver(txout.scriptPubKey, whichType, vSolutions))
+                return error("BITWIN24Miner : can't resolve key for signing proofs of master nodes");
+            if (whichType == TX_PUBKEY || whichType == TX_PUBKEYHASH) {
+                valtype& vchPubKey = vSolutions[0];
+                pubkey = CPubKey(vchPubKey);
+            }
+        }
+        const CKeyStore& keystore = wallet;
+        CKey keyMasternode;
+        if (!keystore.GetKey(pubkey.GetID(), keyMasternode))
+            return error("BITWIN24Miner : can't resolve key for signing proofs of master nodes");
+        witness.pubKeyWitness = pubkey;
+        witness.Sign(keyMasternode);
+
+        pMNWitness->Add(witness, true);
+
+        BOOST_FOREACH(CNode * pnode, vNodes)
+            if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
+                pnode->PushMessage("mnwitness", witness);
     }
 
     // Remove key from key pool

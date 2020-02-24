@@ -104,6 +104,7 @@ BITCOIN_CORE_H = \
   primitives/deterministicmint.h \
   primitives/transaction.h \
   primitives/zerocoin.h \
+  primitives/masternode_witness.h \
   core_io.h \
   crypter.h \
   denomination_functions.h \
@@ -129,6 +130,7 @@ BITCOIN_CORE_H = \
   masternode-budget.h \
   masternode-sync.h \
   masternodeman.h \
+  master_node_witness_manager.h \
   masternodeconfig.h \
   merkleblock.h \
   miner.h \
@@ -259,10 +261,12 @@ libbitcoin_wallet_a_SOURCES = \
   masternode-sync.cpp \
   masternodeconfig.cpp \
   masternodeman.cpp \
+  master_node_witness_manager.cpp \
   mintpool.cpp \
   rpcdump.cpp \
   primitives/deterministicmint.cpp \
   primitives/zerocoin.cpp \
+  primitives/masternode_witness.cpp \
   rpcwallet.cpp \
   kernel.cpp \
   wallet.cpp \

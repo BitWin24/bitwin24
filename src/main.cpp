@@ -36,10 +36,11 @@
 #include "utilmoneystr.h"
 #include "validationinterface.h"
 #include "zbwichain.h"
-
 #include "primitives/zerocoin.h"
 #include "libzerocoin/Denominations.h"
 #include "invalid.h"
+#include "master_node_witness_manager.h"
+#include "primitives/masternode_witness.h"
 
 #include <sstream>
 
@@ -81,7 +82,6 @@ bool fCheckBlockIndex = false;
 bool fVerifyingBlocks = false;
 unsigned int nCoinCacheSize = 5000;
 bool fAlerts = DEFAULT_ALERTS;
-const int START_HEIGHT_REWARD_BASED_ON_MN_COUNT = 57515;
 
 unsigned int nStakeMinAge = 60 * 60;
 int64_t nReserveBalance = 0;
@@ -541,6 +541,7 @@ CCoinsViewCache* pcoinsTip = NULL;
 CBlockTreeDB* pblocktree = NULL;
 CZerocoinDB* zerocoinDB = NULL;
 CSporkDB* pSporkDB = NULL;
+MasterNodeWitnessManager* pMNWitness = NULL;
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -1830,23 +1831,31 @@ int64_t GetBlockValue(int nHeight, int nMasternodeCount)
     return nSubsidy;
 }
 
-/** returns:
+/**
+ *  0 if without errors
  * -1 if reward not based on block height
  * -2 if reward is trimmed
  * -3 unknown
  * */
-int GetMasternodeCountBasedOnBlockReward(int nHeight, CAmount reward)
+int GetMasterNodeCountBasedOnBlockReward(int nHeight, CAmount reward, int& errorCode)
 {
-    if(nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT)
-        return -1;
+    errorCode = 0;
+    if (nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT) {
+        errorCode = -1;
+        return 0;
+    }
 
-    if(chainActive.Tip()->nHeight > nHeight)
-        return -3;
+    if (chainActive.Tip()->nHeight < nHeight) {
+        errorCode = -3;
+        return 0;
+    }
 
     int64_t nMoneySupply = chainActive[nHeight]->nMoneySupply;
 
-    if ((nMoneySupply + GetBlockValue(nHeight, mnodeman.size())) == Params().MaxSupply())
-        return -2;
+    if ((nMoneySupply + GetBlockValue(nHeight, mnodeman.size())) == Params().MaxSupply()) {
+        errorCode = -2;
+        return 0;
+    }
 
     int64_t currentPhaseMultiplier = GetPhaseMultiplier(nHeight);
 
@@ -1855,7 +1864,16 @@ int GetMasternodeCountBasedOnBlockReward(int nHeight, CAmount reward)
     return round((double) reward * Params().BlocksPerYear() * 1000 * 80 / 100 / collateral / currentPhaseMultiplier);
 }
 
-int64_t GetMasternodePayment(int64_t blockValue)
+int GetContextualMasterNodeCountBasedOnBlockReward(CAmount reward)
+{
+    int64_t currentPhaseMultiplier = GetPhaseMultiplier(chainActive.Tip()->nHeight);
+
+    const int64_t collateral = 3000 * COIN;
+
+    return round((double) reward * Params().BlocksPerYear() * 1000 * 80 / 100 / collateral / currentPhaseMultiplier);
+}
+
+int64_t GetMasterNodePayment(int64_t blockValue)
 {
     return blockValue * 80 / 100;
 }
@@ -2839,25 +2857,71 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     CAmount nExpectedMint = GetBlockValue(pindex->pprev->nHeight);
     if (block.IsProofOfWork())
         nExpectedMint += nFees;
-    if(pindex->pprev->nHeight >= START_HEIGHT_REWARD_BASED_ON_MN_COUNT)
-    {
-        // can't validate, just accept
+    if (pindex->pprev->nHeight >= START_HEIGHT_REWARD_BASED_ON_MN_COUNT) {
+        // default value for accept without check
         nExpectedMint = pindex->nMoneySupply - pindex->pprev->nMoneySupply;
-        if(masternodeSync.IsSynced() && !IsInitialBlockDownload())
-        {
-            int masternodeCount = GetMasternodeCountBasedOnBlockReward(pindex->pprev->nHeight, nExpectedMint);
-            if(masternodeCount >= 0)
-            {
-                if(masternodeCount > mnodeman.size() + Params().MasternodeTolerance()
-                   || masternodeCount < mnodeman.size() - Params().MasternodeTolerance()
-                   || masternodeCount < 0)
-                {
+        int errorCode = 0;
+        int masterNodeCount = GetMasterNodeCountBasedOnBlockReward(pindex->pprev->nHeight, nExpectedMint, errorCode);
+        bool cantResolveMasterNodeCount = (errorCode == 0);
+        if(errorCode == -3) {
+            masterNodeCount = GetContextualMasterNodeCountBasedOnBlockReward(nExpectedMint);
+            cantResolveMasterNodeCount = false;
+        }
+        if (pMNWitness->Exist(block.GetHash()) && !cantResolveMasterNodeCount) {
+            const CMasterNodeWitness &witness = pMNWitness->Get(block.GetHash());
+            bool signOfProofValid = false;
+            if (block.IsProofOfStake()) {
+                CPubKey pubkey;
+                bool fzBWIStake = block.vtx[1].IsZerocoinSpend();
+                if (fzBWIStake) {
+                    libzerocoin::CoinSpend spend = TxInToZerocoinSpend(block.vtx[1].vin[0]);
+                    pubkey = spend.getPubKey();
+                } else {
+                    txnouttype whichType;
+                    std::vector<valtype> vSolutions;
+                    const CTxOut& txout = block.vtx[1].vout[1];
+                    if (!Solver(txout.scriptPubKey, whichType, vSolutions))
+                        return state.DoS(
+                            100,
+                            error("ConnectBlock() : proof signature not corresponding to block %s", block.GetHash().ToString()),
+                            REJECT_INVALID,
+                            "bad-cb-amount");
+                    if (whichType == TX_PUBKEY || whichType == TX_PUBKEYHASH) {
+                        valtype& vchPubKey = vSolutions[0];
+                        pubkey = CPubKey(vchPubKey);
+                    }
+                }
+                signOfProofValid = (pubkey == witness.pubKeyWitness);
+            }
+            if (witness.nProofs.size() != masterNodeCount
+                || !witness.IsValid(block.nTime)
+                || !witness.SignatureValid()
+                || !signOfProofValid) {
+                return state.DoS(
+                    100,
+                    error("ConnectBlock() : not valid proof or unexpected number of master nodes in proof: %s",
+                          witness.ToString()),
+                    REJECT_INVALID,
+                    "bad-cb-proof");
+            }
+        }
+        else if (!cantResolveMasterNodeCount
+            && masternodeSync.IsSynced()
+            && !IsInitialBlockDownload()
+            && !fImporting && !fReindex) {
+            if (masterNodeCount >= 0) {
+                if (masterNodeCount > mnodeman.size() + Params().MasternodeTolerance()
+                    || masterNodeCount < mnodeman.size() - Params().MasternodeTolerance()
+                    || masterNodeCount < 0) {
                     int minLevel = mnodeman.size() - Params().MasternodeTolerance();
                     if (minLevel < 0) minLevel = 0;
-                    return state.DoS(100,error("ConnectBlock() : unexpected number of masternodes, %d not in range [%d - %d]",
-                                               masternodeCount, minLevel,
-                                               mnodeman.size() + Params().MasternodeTolerance()),
-                                     REJECT_INVALID, "bad-cb-amount");
+                    return state.DoS(
+                        100,
+                        error("ConnectBlock() : unexpected number of masternodes, %d not in range [%d - %d]",
+                              masterNodeCount, minLevel,
+                              mnodeman.size() + Params().MasternodeTolerance()),
+                        REJECT_INVALID,
+                        "bad-cb-amount");
                 }
             }
         }
@@ -5133,8 +5197,12 @@ void static ProcessGetData(CNode* pfrom)
                     CBlock block;
                     if (!ReadBlockFromDisk(block, (*mi).second))
                         assert(!"cannot load block from disk");
-                    if (inv.type == MSG_BLOCK)
+                    if (inv.type == MSG_BLOCK) {
+                        if (pfrom->nVersion >= MASTER_NODE_WITNESS_VERSION && pMNWitness->Exist(block.GetHash())) {
+                            pfrom->PushMessage("mnwitness", pMNWitness->Get(block.GetHash()));
+                        }
                         pfrom->PushMessage("block", block);
+                    }
                     else // MSG_FILTERED_BLOCK)
                     {
                         LOCK(pfrom->cs_filter);
@@ -5898,8 +5966,6 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         vRecv >> block;
         uint256 hashBlock = block.GetHash();
         CInv inv(MSG_BLOCK, hashBlock);
-        LogPrint("net", "received block %s peer=%d\n", inv.hash.ToString(), pfrom->id);
-
         //sometimes we will be sent their most recent block and its not the one we want, in that case tell where we are
         if (!mapBlockIndex.count(block.hashPrevBlock)) {
             if (find(pfrom->vBlockRequested.begin(), pfrom->vBlockRequested.end(), hashBlock) != pfrom->vBlockRequested.end()) {
@@ -5916,14 +5982,44 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
 
             CValidationState state;
             if (!mapBlockIndex.count(block.GetHash())) {
-                ProcessNewBlock(state, pfrom, &block);
-                int nDoS;
-                if(state.IsInvalid(nDoS)) {
-                    pfrom->PushMessage("reject", strCommand, state.GetRejectCode(),
-                                       state.GetRejectReason().substr(0, MAX_REJECT_MESSAGE_LENGTH), inv.hash);
-                    if(nDoS > 0) {
-                        TRY_LOCK(cs_main, lockMain);
-                        if(lockMain) Misbehaving(pfrom->GetId(), nDoS);
+                if (pMNWitness->Exist(block.GetHash())
+                    || pfrom->nVersion < MASTER_NODE_WITNESS_VERSION
+                    || chainActive.Tip()->nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT) {
+                    ProcessNewBlock(state, pfrom, &block);
+                    int nDoS;
+                    if (state.IsInvalid(nDoS)) {
+                        pfrom->PushMessage("reject", strCommand, state.GetRejectCode(),
+                                           state.GetRejectReason().substr(0, MAX_REJECT_MESSAGE_LENGTH), inv.hash);
+                        if (nDoS > 0) {
+                            TRY_LOCK(cs_main, lockMain);
+                            if (lockMain) Misbehaving(pfrom->GetId(), nDoS);
+                        }
+                    }
+                    if ((block.nTime + MASTERNODE_REMOVAL_SECONDS) < GetAdjustedTime()) {
+                        BOOST_FOREACH(CNode * pnode, vNodes)
+                        if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
+                            pnode->PushMessage("getmnwitness", block.GetHash());
+                    }
+                }
+                else {
+                    pMNWitness->HoldBlock(block, pfrom->GetId());
+                    if ((block.nTime + MASTERNODE_REMOVAL_SECONDS) > GetAdjustedTime()) {
+                        if (pfrom->nVersion >= MASTER_NODE_WITNESS_VERSION) {
+                            LogPrint("net",
+                                     "block received from node with new protocol  %s, try ask for proof, peer=%d\n",
+                                     block.GetHash().ToString(),
+                                     pfrom->id);
+                            pfrom->PushMessage("getmnwitness", block.GetHash());
+                        }
+                        else { // Block received from node with old protocol, try ask proof from others
+                            LogPrint("net",
+                                     "block received from node with old protocol  %s, try ask for proof from all peers, peer=%d\n",
+                                     block.GetHash().ToString(),
+                                     pfrom->id);
+                            BOOST_FOREACH(CNode * pnode, vNodes)
+                            if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
+                                pnode->PushMessage("getmnwitness", block.GetHash());
+                        }
                     }
                 }
                 //disconnect this node if its old protocol version
@@ -5934,6 +6030,36 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         }
     }
 
+    else if (strCommand == "mnwitness") {
+        CMasterNodeWitness witness;
+        vRecv >> witness;
+        LogPrint("net", "received master node witness for block hash %s peer=%d\n",
+                 witness.nTargetBlockHash.ToString(),
+                 pfrom->id);
+
+        if (pMNWitness->Exist(witness.nTargetBlockHash)) {
+            return true;
+        }
+
+        if (witness.SignatureValid()) {
+            pMNWitness->Add(witness);
+        }
+        else {
+            LogPrintf("received not valid proof from peer=%d\n", pfrom->id);
+//            Misbehaving(pfrom->GetId(), 20);
+        }
+    }
+
+    else if (strCommand == "getmnwitness") {;
+        uint256 targetHash;
+        vRecv >> targetHash;
+        LogPrintf("request of mn witness %s peer=%d\n",
+                  targetHash.ToString(),
+                  pfrom->id);
+        if(pMNWitness->Exist(targetHash)) {
+            pfrom->PushMessage("mnwitness", pMNWitness->Get(targetHash));
+        }
+    }
 
     // This asymmetric behavior for inbound and outbound connections was introduced
     // to prevent a fingerprinting attack: an attacker can send specific fake addresses

@@ -26,7 +26,8 @@
 #include "util.h"
 #include "utilmoneystr.h"
 #include "zbwichain.h"
-
+#include "primitives/masternode_witness.h"
+#include "master_node_witness_manager.h"
 #include "denomination_functions.h"
 #include "libzerocoin/Denominations.h"
 #include "zbwiwallet.h"
@@ -3144,7 +3145,8 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
 
             // Calculate reward
             CAmount nReward;
-            nReward = GetBlockValue(chainActive.Height() + 1, mnodeman.size());
+            CMasterNodeWitness witness = pMNWitness->CreateMasterNodeWitnessSnapshot();
+            nReward = GetBlockValue(chainActive.Height() + 1, witness.nProofs.size());
             nCredit += nReward;
 
             // Create the output transaction(s)

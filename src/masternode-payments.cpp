@@ -19,6 +19,7 @@
 #include "utilmoneystr.h"
 
 #include "primitives/masternode_witness.h"
+#include "master_node_witness_manager.hs"
 
 #include <boost/filesystem.hpp>
 #include <boost/lexical_cast.hpp>

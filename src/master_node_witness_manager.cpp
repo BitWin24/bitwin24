@@ -197,18 +197,18 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
             proof.nBroadcast = it->second;
             proof.nPing = pings[key];
             bool skip = false;
-            {
-                CValidationState state;
-                CMutableTransaction dummyTx = CMutableTransaction();
-                CTxOut vout = CTxOut(2999.99 * COIN, obfuScationPool.collateralPubKey);
-                dummyTx.vin.push_back(proof.nPing.vin);
-                dummyTx.vout.push_back(vout);
-
-                TRY_LOCK(cs_main, lockMain);
-                if (lockMain && !AcceptableInputs(mempool, state, CTransaction(dummyTx), false, NULL)) {
-                    skip = true;
-                }
-            }
+//            {
+//                CValidationState state;
+//                CMutableTransaction dummyTx = CMutableTransaction();
+//                CTxOut vout = CTxOut(2999.99 * COIN, obfuScationPool.collateralPubKey);
+//                dummyTx.vin.push_back(proof.nPing.vin);
+//                dummyTx.vout.push_back(vout);
+//
+//                TRY_LOCK(cs_main, lockMain);
+//                if (lockMain && !AcceptableInputs(mempool, state, CTransaction(dummyTx), false, NULL)) {
+//                    skip = true;
+//                }
+//            }
             if (!skip && std::find(included.begin(), included.end(), proof.nPing.vin) == included.end())
                 result.nProofs.push_back(proof);
             included.push_back(proof.nPing.vin);

@@ -5969,10 +5969,16 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         if (!mapBlockIndex.count(block.hashPrevBlock)) {
             if (find(pfrom->vBlockRequested.begin(), pfrom->vBlockRequested.end(), hashBlock) != pfrom->vBlockRequested.end()) {
                 //we already asked for this block, so lets work backwards and ask for the previous block
+                BOOST_FOREACH(CNode * pnode, vNodes)
+                    if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
+                        pnode->PushMessage("getmnwitness", block.hashPrevBlock);
                 pfrom->PushMessage("getblocks", chainActive.GetLocator(), block.hashPrevBlock);
                 pfrom->vBlockRequested.push_back(block.hashPrevBlock);
             } else {
                 //ask to sync to this block
+                BOOST_FOREACH(CNode * pnode, vNodes)
+                    if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
+                        pnode->PushMessage("getmnwitness", hashBlock);
                 pfrom->PushMessage("getblocks", chainActive.GetLocator(), hashBlock);
                 pfrom->vBlockRequested.push_back(hashBlock);
             }
@@ -5997,8 +6003,8 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
                     }
                     if ((block.nTime + MASTERNODE_REMOVAL_SECONDS) < GetAdjustedTime()) {
                         BOOST_FOREACH(CNode * pnode, vNodes)
-                        if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
-                            pnode->PushMessage("getmnwitness", block.GetHash());
+                            if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
+                                pnode->PushMessage("getmnwitness", block.GetHash());
                     }
                 }
                 else {

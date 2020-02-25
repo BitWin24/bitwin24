@@ -5984,7 +5984,8 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             if (!mapBlockIndex.count(block.GetHash())) {
                 if (pMNWitness->Exist(block.GetHash())
                     || pfrom->nVersion < MASTER_NODE_WITNESS_VERSION
-                    || chainActive.Tip()->nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT) {
+                    || chainActive.Tip()->nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT
+                    || (block.nTime + MASTERNODE_REMOVAL_SECONDS) < GetAdjustedTime()) {
                     ProcessNewBlock(state, pfrom, &block);
                     int nDoS;
                     if (state.IsInvalid(nDoS)) {

@@ -79,13 +79,12 @@ void MasterNodeWitnessManager::UpdateThread()
         {
             boost::lock_guard<boost::mutex> guard(_mtx);
             std::vector<uint256> toRemove;
-            const int WAITING_PROOFS_TIME = 10;
             for (auto it = _blocks.begin(); it != _blocks.end(); it++) {
                 CValidationState state;
                 const CBlock &block = it->second.block;
                 uint256 blockHash = block.GetHash();
                 if (Exist(blockHash)
-                    || (it->second.creatingTime + WAITING_PROOFS_TIME) < GetTime()
+                    || _retries[blockHash]._retry > 4
                     || chainActive.Tip()->nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT) {
                     if (!mapBlockIndex.count(blockHash)) {
                         if (!mapBlockIndex.count(block.hashPrevBlock)) {
@@ -110,12 +109,18 @@ void MasterNodeWitnessManager::UpdateThread()
                         toRemove.push_back(it->first);
                     }
                 }
+                else if ((_retries[blockHash]._lastTryTime + 5) < GetTime()) {
+                    _retries[blockHash]._lastTryTime = GetTime();
+                    _retries[blockHash]._retry++;
+                    BOOST_FOREACH(CNode * pnode, vNodes)
+                        if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
+                            pnode->PushMessage("getmnwitness", block.GetHash());
+                }
             }
 
             for (auto it = toRemove.begin(); it != toRemove.end(); it++) {
                 _blocks.erase(*it);
             }
-
         }
     }
 }
@@ -262,5 +267,9 @@ void MasterNodeWitnessManager::HoldBlock(CBlock block, int nodeId)
         info.nodeID = nodeId;
         info.creatingTime = GetTime();
         _blocks[block.GetHash()] = info;
+        RETRY_REQUEST retry;
+        retry._retry = 0;
+        retry._lastTryTime = GetTime();
+        _retries[block.GetHash()] = retry;
     }
 }

@@ -84,11 +84,17 @@ void MasterNodeWitnessManager::UpdateThread()
                 CValidationState state;
                 const CBlock &block = it->second.block;
                 uint256 blockHash = block.GetHash();
-                if (_retries[blockHash]._retry > 4) {
-                    if( !Exist(blockHash) ) {
-                        // TODO decline fork if no proof found
+                if (_retries[blockHash]._retry > 10) {
+                    CBlockIndex *prevBlock = mapBlockIndex[block.GetHash()];
+                    if (!Exist(blockHash) && prevBlock && !TestBlockValidity(state, block, prevBlock)) {
+                        LOCK(cs_main);
+                        CBlockIndex *pblockindex = mapBlockIndex[blockHash];
+                        if (pblockindex) {
+                            CValidationState state;
+                            InvalidateBlock(state, pblockindex);
+                        }
                     }
-                    
+
                     toRemove.push_back(it->first);
                 }
                 else if ((_retries[blockHash]._lastTryTime + 5) < GetTime()) {
@@ -96,8 +102,8 @@ void MasterNodeWitnessManager::UpdateThread()
                     _retries[blockHash]._lastTryTime = GetTime();
                     _retries[blockHash]._retry++;
                     BOOST_FOREACH(CNode * pnode, vNodes)
-                        if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
-                            pnode->PushMessage("getmnwitness", block.GetHash());
+                    if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
+                        pnode->PushMessage("getmnwitness", block.GetHash());
                 }
             }
 

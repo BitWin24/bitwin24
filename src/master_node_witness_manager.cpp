@@ -90,11 +90,15 @@ void MasterNodeWitnessManager::UpdateThread()
                         if (!mapBlockIndex.count(block.hashPrevBlock)) {
                             continue;
                         }
+                        CInv inv(MSG_BLOCK, blockHash);
                         CNode *pfrom = FindNode(it->second.nodeID);
+                        if(!pfrom)
+                            LogPrintf("received block from unknown peer %d", it->second.nodeID);
+                        if(pfrom)
+                            pfrom->AddInventoryKnown(inv);
                         ProcessNewBlock(state, pfrom, &it->second.block);
                         int nDoS;
                         if (state.IsInvalid(nDoS) && pfrom) {
-                            CInv inv(MSG_BLOCK, blockHash);
                             string strCommand = "block";
                             pfrom->PushMessage("reject",
                                                strCommand,

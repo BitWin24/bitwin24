@@ -5982,45 +5982,24 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
 
             CValidationState state;
             if (!mapBlockIndex.count(block.GetHash())) {
-                if (pMNWitness->Exist(block.GetHash())
-                    || pfrom->nVersion < MASTER_NODE_WITNESS_VERSION
-                    || chainActive.Tip()->nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT
-                    || (block.nTime + MASTERNODE_REMOVAL_SECONDS) < GetAdjustedTime()) {
-                    ProcessNewBlock(state, pfrom, &block);
-                    int nDoS;
-                    if (state.IsInvalid(nDoS)) {
-                        pfrom->PushMessage("reject", strCommand, state.GetRejectCode(),
-                                           state.GetRejectReason().substr(0, MAX_REJECT_MESSAGE_LENGTH), inv.hash);
-                        if (nDoS > 0) {
-                            TRY_LOCK(cs_main, lockMain);
-                            if (lockMain) Misbehaving(pfrom->GetId(), nDoS);
-                        }
+                ProcessNewBlock(state, pfrom, &block);
+                int nDoS;
+                if (state.IsInvalid(nDoS)) {
+                    pfrom->PushMessage("reject", strCommand, state.GetRejectCode(),
+                                        state.GetRejectReason().substr(0, MAX_REJECT_MESSAGE_LENGTH), inv.hash);
+                    if (nDoS > 0) {
+                        TRY_LOCK(cs_main, lockMain);
+                        if (lockMain) Misbehaving(pfrom->GetId(), nDoS);
                     }
+                }
+
+                if (!pMNWitness->Exist(block.GetHash()) && pfrom->nVersion < MASTER_NODE_WITNESS_VERSION && chainActive.Tip()->nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT ) {
+
+                    pMNWitness->HoldBlock(block, pfrom->GetId());
                     if ((block.nTime + MASTERNODE_REMOVAL_SECONDS) < GetAdjustedTime()) {
                         BOOST_FOREACH(CNode * pnode, vNodes)
                         if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
                             pnode->PushMessage("getmnwitness", block.GetHash());
-                    }
-                }
-                else {
-                    pMNWitness->HoldBlock(block, pfrom->GetId());
-                    if ((block.nTime + MASTERNODE_REMOVAL_SECONDS) > GetAdjustedTime()) {
-                        if (pfrom->nVersion >= MASTER_NODE_WITNESS_VERSION) {
-                            LogPrint("net",
-                                     "block received from node with new protocol  %s, try ask for proof, peer=%d\n",
-                                     block.GetHash().ToString(),
-                                     pfrom->id);
-                            pfrom->PushMessage("getmnwitness", block.GetHash());
-                        }
-                        else { // Block received from node with old protocol, try ask proof from others
-                            LogPrint("net",
-                                     "block received from node with old protocol  %s, try ask for proof from all peers, peer=%d\n",
-                                     block.GetHash().ToString(),
-                                     pfrom->id);
-                            BOOST_FOREACH(CNode * pnode, vNodes)
-                            if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
-                                pnode->PushMessage("getmnwitness", block.GetHash());
-                        }
                     }
                 }
                 //disconnect this node if its old protocol version

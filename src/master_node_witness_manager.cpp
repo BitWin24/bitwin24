@@ -35,6 +35,7 @@ bool MasterNodeWitnessManager::Add(const CMasterNodeWitness &proof, bool validat
     boost::lock_guard<boost::mutex> guard(_mtx);
     if (!Exist(proof.nTargetBlockHash)) {
         if (!validate || proof.IsValid(GetAdjustedTime())) {
+            _witnesses[proof.nTargetBlockHash] = proof;
             return true;
         }
     }
@@ -83,33 +84,15 @@ void MasterNodeWitnessManager::UpdateThread()
                 CValidationState state;
                 const CBlock &block = it->second.block;
                 uint256 blockHash = block.GetHash();
-                if (Exist(blockHash)
-                    || _retries[blockHash]._retry > 4
-                    || chainActive.Tip()->nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT) {
-                    if (!mapBlockIndex.count(blockHash)) {
-                        if (!mapBlockIndex.count(block.hashPrevBlock)) {
-                            continue;
-                        }
-                        CNode *pfrom = FindNode(it->second.nodeID);
-                        ProcessNewBlock(state, pfrom, &it->second.block);
-                        int nDoS;
-                        if (state.IsInvalid(nDoS) && pfrom) {
-                            CInv inv(MSG_BLOCK, blockHash);
-                            string strCommand = "block";
-                            pfrom->PushMessage("reject",
-                                               strCommand,
-                                               state.GetRejectCode(),
-                                               state.GetRejectReason().substr(0, MAX_REJECT_MESSAGE_LENGTH),
-                                               inv.hash);
-                            if (nDoS > 0) {
-                                TRY_LOCK(cs_main, lockMain);
-                                if (lockMain) Misbehaving(pfrom->GetId(), nDoS);
-                            }
-                        }
-                        toRemove.push_back(it->first);
+                if (_retries[blockHash]._retry > 4) {
+                    if( !Exist(blockHash) ) {
+                        // TODO decline fork if no proof found
                     }
+                    
+                    toRemove.push_back(it->first);
                 }
                 else if ((_retries[blockHash]._lastTryTime + 5) < GetTime()) {
+                    LogPrintf("Retry proof %s\n", block.ToString());
                     _retries[blockHash]._lastTryTime = GetTime();
                     _retries[blockHash]._retry++;
                     BOOST_FOREACH(CNode * pnode, vNodes)

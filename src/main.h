@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
@@ -124,7 +125,9 @@ static const unsigned char REJECT_INSUFFICIENTFEE = 0x42;
 static const unsigned char REJECT_CHECKPOINT = 0x43;
 
 struct BlockHasher {
-    size_t operator()(const uint256& hash) const { return hash.GetLow64(); }
+    size_t operator()(const uint256& hash) const {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return hash.GetLow64(); }
 };
 
 extern CScript COINBASE_FLAGS;
@@ -286,11 +289,15 @@ struct CDiskTxPos : public CDiskBlockPos {
 
     CDiskTxPos()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         SetNull();
     }
 
     void SetNull()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         CDiskBlockPos::SetNull();
         nTxOffset = 0;
     }
@@ -419,6 +426,8 @@ public:
 
     void swap(CScriptCheck& check)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         scriptPubKey.swap(check.scriptPubKey);
         std::swap(ptxTo, check.ptxTo);
         std::swap(nIn, check.nIn);
@@ -427,7 +436,9 @@ public:
         std::swap(error, check.error);
     }
 
-    ScriptError GetScriptError() const { return error; }
+    ScriptError GetScriptError() const {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return error; }
 };
 
 
@@ -495,6 +506,8 @@ public:
 
     void SetNull()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         nBlocks = 0;
         nSize = 0;
         nUndoSize = 0;
@@ -506,6 +519,8 @@ public:
 
     CBlockFileInfo()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         SetNull();
     }
 
@@ -514,6 +529,8 @@ public:
     /** update statistics (does not update nSize) */
     void AddBlock(unsigned int nHeightIn, uint64_t nTimeIn)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (nBlocks == 0 || nHeightFirst > nHeightIn)
             nHeightFirst = nHeightIn;
         if (nBlocks == 0 || nTimeFirst > nTimeIn)
@@ -544,6 +561,8 @@ public:
     CValidationState() : mode(MODE_VALID), nDoS(0), chRejectCode(0), corruptionPossible(false) {}
     bool DoS(int level, bool ret = false, unsigned char chRejectCodeIn = 0, std::string strRejectReasonIn = "", bool corruptionIn = false)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         chRejectCode = chRejectCodeIn;
         strRejectReason = strRejectReasonIn;
         corruptionPossible = corruptionIn;
@@ -557,10 +576,14 @@ public:
         unsigned char _chRejectCode = 0,
         std::string _strRejectReason = "")
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return DoS(0, ret, _chRejectCode, _strRejectReason);
     }
     bool Error(std::string strRejectReasonIn = "")
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (mode == MODE_VALID)
             strRejectReason = strRejectReasonIn;
         mode = MODE_ERROR;
@@ -568,23 +591,33 @@ public:
     }
     bool Abort(const std::string& msg)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         AbortNode(msg);
         return Error(msg);
     }
     bool IsValid() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return mode == MODE_VALID;
     }
     bool IsInvalid() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return mode == MODE_INVALID;
     }
     bool IsError() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return mode == MODE_ERROR;
     }
     bool IsInvalid(int& nDoSOut) const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (IsInvalid()) {
             nDoSOut = nDoS;
             return true;
@@ -593,10 +626,16 @@ public:
     }
     bool CorruptionPossible() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return corruptionPossible;
     }
-    unsigned char GetRejectCode() const { return chRejectCode; }
-    std::string GetRejectReason() const { return strRejectReason; }
+    unsigned char GetRejectCode() const {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return chRejectCode; }
+    std::string GetRejectReason() const {
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return strRejectReason; }
 };
 
 /** RAII wrapper for VerifyDB: Verify consistency of the block and coin databases */

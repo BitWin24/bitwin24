@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
@@ -66,6 +67,8 @@ public:
 
     CTxDSIn(const CTxIn& in)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         prevout = in.prevout;
         scriptSig = in.scriptSig;
         prevPubKey = in.prevPubKey;
@@ -84,6 +87,8 @@ public:
 
     CTxDSOut(const CTxOut& out)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         nValue = out.nValue;
         nRounds = out.nRounds;
         scriptPubKey = out.scriptPubKey;
@@ -105,6 +110,8 @@ public:
 
     CObfuScationEntry()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         isSet = false;
         collateral = CTransaction();
         amount = 0;
@@ -113,6 +120,8 @@ public:
     /// Add entries to use for Obfuscation
     bool Add(const std::vector<CTxIn> vinIn, int64_t amountIn, const CTransaction collateralIn, const std::vector<CTxOut> voutIn)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (isSet) {
             return false;
         }
@@ -133,7 +142,11 @@ public:
 
     bool AddSig(const CTxIn& vin)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         BOOST_FOREACH (CTxDSIn& s, sev) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             if (s.prevout == vin.prevout && s.nSequence == vin.nSequence) {
                 if (s.fHasSig) {
                     return false;
@@ -151,6 +164,8 @@ public:
 
     bool IsExpired()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return (GetTime() - addedTime) > OBFUSCATION_QUEUE_TIMEOUT; // 120 seconds
     }
 };
@@ -170,6 +185,8 @@ public:
 
     CObfuscationQueue()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         nDenom = 0;
         vin = CTxIn();
         time = 0;
@@ -191,6 +208,8 @@ public:
 
     bool GetAddress(CService& addr)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         CMasternode* pmn = mnodeman.Find(vin);
         if (pmn != NULL) {
             addr = pmn->addr;
@@ -202,6 +221,8 @@ public:
     /// Get the protocol version
     bool GetProtocolVersion(int& protocolVersion)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         CMasternode* pmn = mnodeman.Find(vin);
         if (pmn != NULL) {
             protocolVersion = pmn->protocolVersion;
@@ -224,6 +245,8 @@ public:
     /// Is this Obfuscation expired?
     bool IsExpired()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return (GetTime() - time) > OBFUSCATION_QUEUE_TIMEOUT; // 120 seconds
     }
 
@@ -332,6 +355,8 @@ public:
 
     CObfuscationPool()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         /* Obfuscation uses collateral addresses to trust parties entering the pool
             to behave themselves. If they don't it takes their money. */
 
@@ -364,11 +389,15 @@ public:
 
     void InitCollateralAddress()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         SetCollateralAddress(Params().ObfuscationPoolDummyAddress());
     }
 
     void SetMinBlockSpacing(int minBlockSpacingIn)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         minBlockSpacing = minBlockSpacingIn;
     }
 
@@ -380,11 +409,15 @@ public:
 
     bool IsNull() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return state == POOL_STATUS_ACCEPTING_ENTRIES && entries.empty();
     }
 
     int GetState() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return state;
     }
 
@@ -392,24 +425,32 @@ public:
 
     int GetEntriesCount() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return entries.size();
     }
 
     /// Get the time the last entry was accepted (time in UTC milliseconds)
     int GetLastEntryAccepted() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return lastEntryAccepted;
     }
 
     /// Get the count of the accepted entries
     int GetCountEntriesAccepted() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return countEntriesAccepted;
     }
 
     // Set the 'state' value, with some logging and capturing when the state changed
     void UpdateState(unsigned int newState)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (fMasterNode && (newState == POOL_STATUS_ERROR || newState == POOL_STATUS_SUCCESS)) {
             // LogPrint("obfuscation", "CObfuscationPool::UpdateState() - Can't set state to ERROR or SUCCESS as a Masternode. \n");
             return;
@@ -428,12 +469,16 @@ public:
     /// Get the maximum number of transactions for the pool
     int GetMaxPoolTransactions()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return Params().PoolMaxTransactions();
     }
 
     /// Do we have enough users to take entries?
     bool IsSessionReady()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return sessionUsers >= GetMaxPoolTransactions();
     }
 

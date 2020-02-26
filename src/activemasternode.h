@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2014-2016 The Dash developers
 // Copyright (c) 2015-2018 The PIVX developers
 // Copyright (c) 2018 The MAC developers
@@ -53,6 +54,8 @@ public:
 
     CActiveMasternode()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         status = ACTIVE_MASTERNODE_INITIAL;
     }
 

@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2017-2018 The PIVX developers
 // Copyright (c) 2018 The MAC developers
@@ -60,6 +61,8 @@ public:
 
     CMasterKey()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         // 25000 rounds is just under 0.1 seconds on a 1.86 GHz Pentium M
         // ie slightly lower than the lowest hardware we need bother supporting
         nDeriveIterations = 25000;
@@ -86,6 +89,8 @@ public:
 
     void CleanKey()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         OPENSSL_cleanse(chKey, sizeof(chKey));
         OPENSSL_cleanse(chIV, sizeof(chIV));
         fKeySet = false;
@@ -93,6 +98,8 @@ public:
 
     CCrypter()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         fKeySet = false;
 
         // Try to keep the key data out of swap (and be a bit over-careful to keep the IV that we don't even use out of swap)
@@ -104,6 +111,8 @@ public:
 
     ~CCrypter()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         CleanKey();
 
         LockedPageManager::Instance().UnlockRange(&chKey[0], sizeof chKey);
@@ -150,15 +159,21 @@ public:
 
     bool IsCrypted() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return fUseCrypto;
     }
 
     bool IsLocked() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (!IsCrypted())
             return false;
         bool result;
         {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             LOCK(cs_KeyStore);
             result = vMasterKey.empty();
         }
@@ -171,7 +186,11 @@ public:
     bool AddKeyPubKey(const CKey& key, const CPubKey& pubkey);
     bool HaveKey(const CKeyID& address) const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             LOCK(cs_KeyStore);
             if (!IsCrypted())
                 return CBasicKeyStore::HaveKey(address);
@@ -183,6 +202,8 @@ public:
     bool GetPubKey(const CKeyID& address, CPubKey& vchPubKeyOut) const;
     void GetKeys(std::set<CKeyID>& setAddress) const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (!IsCrypted()) {
             CBasicKeyStore::GetKeys(setAddress);
             return;

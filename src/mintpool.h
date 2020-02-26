@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2017-2018 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -43,10 +44,14 @@ public:
 
     //The count of the next mint to generate will have be a mint that is already in the pool
     //therefore need to return the next value that has not been removed from the pool yet
-    uint32_t CountOfLastRemoved() { return nCountLastRemoved; }
+    uint32_t CountOfLastRemoved() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nCountLastRemoved; }
 
     //The next pool count returns the next count that will be added to the pool
-    uint32_t CountOfLastGenerated() { return nCountLastGenerated; }
+    uint32_t CountOfLastGenerated() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nCountLastGenerated; }
 };
 
 

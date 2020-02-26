@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2017 The PIVX developers
@@ -66,6 +67,8 @@ protected:
     /** helper function to efficiently calculate the number of nodes at given height in the merkle tree */
     unsigned int CalcTreeWidth(int height)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return (nTransactions + (1 << height) - 1) >> height;
     }
 

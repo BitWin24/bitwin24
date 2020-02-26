@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2017 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -9,6 +10,8 @@ CSporkDB::CSporkDB(size_t nCacheSize, bool fMemory, bool fWipe) : CLevelDBWrappe
 
 bool CSporkDB::WriteSpork(const int nSporkId, const CSporkMessage& spork)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     LogPrintf("Wrote spork %s to database\n", sporkManager.GetSporkNameByID(nSporkId));
     return Write(nSporkId, spork);
 
@@ -16,10 +19,14 @@ bool CSporkDB::WriteSpork(const int nSporkId, const CSporkMessage& spork)
 
 bool CSporkDB::ReadSpork(const int nSporkId, CSporkMessage& spork)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     return Read(nSporkId, spork);
 }
 
 bool CSporkDB::SporkExists(const int nSporkId)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     return Exists(nSporkId);
 }

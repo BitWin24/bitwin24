@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
@@ -78,6 +79,8 @@ public:
 
     bool operator()(const TxPriority& a, const TxPriority& b)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (byFee) {
             if (a.get<1>() == b.get<1>())
                 return a.get<0>() < b.get<0>();
@@ -92,6 +95,8 @@ public:
 
 void UpdateTime(CBlockHeader* pblock, const CBlockIndex* pindexPrev)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     pblock->nTime = std::max(pindexPrev->GetMedianTimePast() + 1, GetAdjustedTime());
 
     // Updating time can change work required on testnet:
@@ -102,6 +107,8 @@ void UpdateTime(CBlockHeader* pblock, const CBlockIndex* pindexPrev)
 std::pair<int, std::pair<uint256, uint256> > pCheckpointCache;
 CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, CWallet* pwallet, bool fProofOfStake)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CReserveKey reservekey(pwallet);
 
     // Create new block
@@ -179,6 +186,8 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, CWallet* pwallet, 
     CAmount nFees = 0;
 
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         LOCK2(cs_main, mempool.cs);
 
         CBlockIndex* pindexPrev = chainActive.Tip();
@@ -413,6 +422,8 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, CWallet* pwallet, 
             // Add transactions that depend on this one to the priority queue
             if (mapDependers.count(hash)) {
                 BOOST_FOREACH (COrphan* porphan, mapDependers[hash]) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
                     if (!porphan->setDependsOn.empty()) {
                         porphan->setDependsOn.erase(hash);
                         if (porphan->setDependsOn.empty()) {
@@ -497,6 +508,8 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, CWallet* pwallet, 
 
 void IncrementExtraNonce(CBlock* pblock, CBlockIndex* pindexPrev, unsigned int& nExtraNonce)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     // Update nExtraNonce
     static uint256 hashPrevBlock;
     if (hashPrevBlock != pblock->hashPrevBlock) {
@@ -523,6 +536,8 @@ int64_t nHPSTimerStart = 0;
 
 CBlockTemplate* CreateNewBlockWithKey(CReserveKey& reservekey, CWallet* pwallet, bool fProofOfStake)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CPubKey pubkey;
     if (!reservekey.GetReservedKey(pubkey))
         return NULL;
@@ -533,11 +548,15 @@ CBlockTemplate* CreateNewBlockWithKey(CReserveKey& reservekey, CWallet* pwallet,
 
 bool ProcessBlockFound(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     LogPrintf("%s\n", pblock->ToString());
     LogPrintf("generated %s\n", FormatMoney(pblock->vtx[0].vout[0].nValue));
 
     // Found a solution
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         LOCK(cs_main);
         if (pblock->hashPrevBlock != chainActive.Tip()->GetBlockHash())
             return error("BITWIN24Miner : generated block is stale");
@@ -583,6 +602,8 @@ bool ProcessBlockFound(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
 
     // Track how many getdata requests this block gets
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         LOCK(wallet.cs_wallet);
         wallet.mapRequestCount[pblock->GetHash()] = 0;
     }
@@ -613,6 +634,8 @@ int nMintableLastCheck = 0;
 
 void BitcoinMiner(CWallet* pwallet, bool fProofOfStake)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     LogPrintf("BITWIN24Miner started\n");
     SetThreadPriority(THREAD_PRIORITY_LOWEST);
     RenameThread("bitwin24-miner");
@@ -752,6 +775,8 @@ void BitcoinMiner(CWallet* pwallet, bool fProofOfStake)
             if (GetTimeMillis() - nHPSTimerStart > 4000) {
                 static CCriticalSection cs;
                 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
                     LOCK(cs);
                     if (GetTimeMillis() - nHPSTimerStart > 4000) {
                         dHashesPerSec = 1000.0 * nHashCounter / (GetTimeMillis() - nHPSTimerStart);
@@ -790,6 +815,8 @@ void BitcoinMiner(CWallet* pwallet, bool fProofOfStake)
 
 void static ThreadBitcoinMiner(void* parg)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     boost::this_thread::interruption_point();
     CWallet* pwallet = (CWallet*)parg;
     try {
@@ -806,6 +833,8 @@ void static ThreadBitcoinMiner(void* parg)
 
 void GenerateBitcoins(bool fGenerate, CWallet* pwallet, int nThreads)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     static boost::thread_group* minerThreads = NULL;
     fGenerateBitcoins = fGenerate;
 

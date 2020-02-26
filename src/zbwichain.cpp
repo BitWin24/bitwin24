@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2018 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -15,6 +16,8 @@
 
 bool BlockToMintValueVector(const CBlock& block, const libzerocoin::CoinDenomination denom, vector<CBigNum>& vValues)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     for (const CTransaction& tx : block.vtx) {
         if(!tx.IsZerocoinMint())
             continue;
@@ -40,6 +43,8 @@ bool BlockToMintValueVector(const CBlock& block, const libzerocoin::CoinDenomina
 
 bool BlockToPubcoinList(const CBlock& block, std::list<libzerocoin::PublicCoin>& listPubcoins, bool fFilterInvalid)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     for (const CTransaction& tx : block.vtx) {
         if(!tx.IsZerocoinMint())
             continue;
@@ -82,6 +87,8 @@ bool BlockToPubcoinList(const CBlock& block, std::list<libzerocoin::PublicCoin>&
 //return a list of zerocoin mints contained in a specific block
 bool BlockToZerocoinMintList(const CBlock& block, std::list<CZerocoinMint>& vMints, bool fFilterInvalid)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     for (const CTransaction& tx : block.vtx) {
         if(!tx.IsZerocoinMint())
             continue;
@@ -127,6 +134,8 @@ bool BlockToZerocoinMintList(const CBlock& block, std::list<CZerocoinMint>& vMin
 
 void FindMints(std::vector<CMintMeta> vMintsToFind, std::vector<CMintMeta>& vMintsToUpdate, std::vector<CMintMeta>& vMissingMints)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     // see which mints are in our public zerocoin database. The mint should be here if it exists, unless
     // something went wrong
     for (CMintMeta meta : vMintsToFind) {
@@ -206,29 +215,39 @@ void FindMints(std::vector<CMintMeta> vMintsToFind, std::vector<CMintMeta>& vMin
 
 int GetZerocoinStartHeight()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     return Params().Zerocoin_StartHeight();
 }
 
 bool GetZerocoinMint(const CBigNum& bnPubcoin, uint256& txHash)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     txHash = 0;
     return zerocoinDB->ReadCoinMint(bnPubcoin, txHash);
 }
 
 bool IsPubcoinInBlockchain(const uint256& hashPubcoin, uint256& txid)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     txid = 0;
     return zerocoinDB->ReadCoinMint(hashPubcoin, txid);
 }
 
 bool IsSerialKnown(const CBigNum& bnSerial)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     uint256 txHash = 0;
     return zerocoinDB->ReadCoinSpend(bnSerial, txHash);
 }
 
 bool IsSerialInBlockchain(const CBigNum& bnSerial, int& nHeightTx)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     uint256 txHash = 0;
     // if not in zerocoinDB then its not in the blockchain
     if (!zerocoinDB->ReadCoinSpend(bnSerial, txHash))
@@ -239,12 +258,16 @@ bool IsSerialInBlockchain(const CBigNum& bnSerial, int& nHeightTx)
 
 bool IsSerialInBlockchain(const uint256& hashSerial, int& nHeightTx, uint256& txidSpend)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CTransaction tx;
     return IsSerialInBlockchain(hashSerial, nHeightTx, txidSpend, tx);
 }
 
 bool IsSerialInBlockchain(const uint256& hashSerial, int& nHeightTx, uint256& txidSpend, CTransaction& tx)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     txidSpend = 0;
     // if not in zerocoinDB then its not in the blockchain
     if (!zerocoinDB->ReadCoinSpend(hashSerial, txidSpend))
@@ -255,6 +278,8 @@ bool IsSerialInBlockchain(const uint256& hashSerial, int& nHeightTx, uint256& tx
 
 std::string ReindexZerocoinDB()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (!zerocoinDB->WipeCoins("spends") || !zerocoinDB->WipeCoins("mints")) {
         return _("Failed to wipe zerocoinDB");
     }
@@ -332,11 +357,15 @@ std::string ReindexZerocoinDB()
 
 bool RemoveSerialFromDB(const CBigNum& bnSerial)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     return zerocoinDB->EraseCoinSpend(bnSerial);
 }
 
 libzerocoin::CoinSpend TxInToZerocoinSpend(const CTxIn& txin)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     // extract the CoinSpend from the txin
     std::vector<char, zero_after_free_allocator<char> > dataTxIn;
     dataTxIn.insert(dataTxIn.end(), txin.scriptSig.begin() + BIGNUM_SIZE, txin.scriptSig.end());
@@ -350,6 +379,8 @@ libzerocoin::CoinSpend TxInToZerocoinSpend(const CTxIn& txin)
 
 bool TxOutToPublicCoin(const CTxOut& txout, libzerocoin::PublicCoin& pubCoin, CValidationState& state)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CBigNum publicZerocoin;
     vector<unsigned char> vchZeroMint;
     vchZeroMint.insert(vchZeroMint.end(), txout.scriptPubKey.begin() + SCRIPT_OFFSET,
@@ -370,6 +401,8 @@ bool TxOutToPublicCoin(const CTxOut& txout, libzerocoin::PublicCoin& pubCoin, CV
 //return a list of zerocoin spends contained in a specific block, list may have many denominations
 std::list<libzerocoin::CoinDenomination> ZerocoinSpendListFromBlock(const CBlock& block, bool fFilterInvalid)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::list<libzerocoin::CoinDenomination> vSpends;
     for (const CTransaction& tx : block.vtx) {
         if (!tx.IsZerocoinSpend())

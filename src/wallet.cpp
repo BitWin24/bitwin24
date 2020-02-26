@@ -3850,7 +3850,7 @@ void CWallet::ListLockedCoins(std::vector<COutPoint>& vOutpts)
     }
 }
 
-void CWallet::DisableStaking( const CBitcoinAddress& address ) 
+void CWallet::DisableStaking( const CBitcoinAddress& address )
 {
     AssertLockHeld(cs_wallet);
 

@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
 // Copyright (c) 2018 The MAC developers
@@ -74,7 +75,9 @@ public:
     void Process();
     bool IsSynced();
     bool IsBlockchainSynced();
-    bool IsMasternodeListSynced() { return RequestedMasternodeAssets > MASTERNODE_SYNC_LIST; }
+    bool IsMasternodeListSynced() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return RequestedMasternodeAssets > MASTERNODE_SYNC_LIST; }
     void ClearFulfilledRequest();
 };
 

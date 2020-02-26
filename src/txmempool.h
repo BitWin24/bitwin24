@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2016-2018 The PIVX developers
@@ -18,11 +19,15 @@ class CAutoFile;
 
 inline double AllowFreeThreshold()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     return COIN * 1440 / 250;
 }
 
 inline bool AllowFree(double dPriority)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     // Large (in bytes) low-priority (new, small-coin) transactions
     // need a fee.
     return dPriority > AllowFreeThreshold();
@@ -51,12 +56,22 @@ public:
     CTxMemPoolEntry();
     CTxMemPoolEntry(const CTxMemPoolEntry& other);
 
-    const CTransaction& GetTx() const { return this->tx; }
+    const CTransaction& GetTx() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return this->tx; }
     double GetPriority(unsigned int currentHeight) const;
-    CAmount GetFee() const { return nFee; }
-    size_t GetTxSize() const { return nTxSize; }
-    int64_t GetTime() const { return nTime; }
-    unsigned int GetHeight() const { return nHeight; }
+    CAmount GetFee() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nFee; }
+    size_t GetTxSize() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nTxSize; }
+    int64_t GetTime() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nTime; }
+    unsigned int GetHeight() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nHeight; }
 };
 
 class CMinerPolicyEstimator;
@@ -68,18 +83,26 @@ public:
     const CTransaction* ptx;
     uint32_t n;
 
-    CInPoint() { SetNull(); }
+    CInPoint() { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+SetNull(); }
     CInPoint(const CTransaction* ptxIn, uint32_t nIn)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         ptx = ptxIn;
         n = nIn;
     }
     void SetNull()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         ptx = NULL;
         n = (uint32_t)-1;
     }
-    bool IsNull() const { return (ptx == NULL && n == (uint32_t)-1); }
+    bool IsNull() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return (ptx == NULL && n == (uint32_t)-1); }
 };
 
 /**
@@ -118,7 +141,9 @@ public:
      * check does nothing.
      */
     void check(const CCoinsViewCache* pcoins) const;
-    void setSanityCheck(bool _fSanityCheck) { fSanityCheck = _fSanityCheck; }
+    void setSanityCheck(bool _fSanityCheck) { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+fSanityCheck = _fSanityCheck; }
 
     bool addUnchecked(const uint256& hash, const CTxMemPoolEntry& entry);
     void remove(const CTransaction& tx, std::list<CTransaction>& removed, bool fRecursive = false);
@@ -139,17 +164,23 @@ public:
 
     unsigned long size()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         LOCK(cs);
         return mapTx.size();
     }
     uint64_t GetTotalTxSize()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         LOCK(cs);
         return totalTxSize;
     }
 
     bool exists(uint256 hash)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         LOCK(cs);
         return (mapTx.count(hash) != 0);
     }

@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2014-2016 The Dash developers
 // Copyright (c) 2016-2018 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
@@ -84,6 +85,8 @@ public:
 
     uint256 GetHash()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         uint256 n = HashQuark(BEGIN(nSporkID), END(nTimeSigned));
         return n;
     }

@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2017 The PIVX developers
 // Copyright (c) 2018 The MAC developers
@@ -24,6 +25,8 @@ using namespace std;
 
 string FormatScript(const CScript& script)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     string ret;
     CScript::const_iterator it = script.begin();
     opcodetype op;
@@ -59,6 +62,8 @@ string FormatScript(const CScript& script)
 
 string EncodeHexTx(const CTransaction& tx)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CDataStream ssTx(SER_NETWORK, PROTOCOL_VERSION);
     ssTx << tx;
     return HexStr(ssTx.begin(), ssTx.end());
@@ -68,6 +73,8 @@ void ScriptPubKeyToUniv(const CScript& scriptPubKey,
     UniValue& out,
     bool fIncludeHex)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     txnouttype type;
     vector<CTxDestination> addresses;
     int nRequired;
@@ -92,6 +99,8 @@ void ScriptPubKeyToUniv(const CScript& scriptPubKey,
 
 void TxToUniv(const CTransaction& tx, const uint256& hashBlock, UniValue& entry)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     entry.pushKV("txid", tx.GetHash().GetHex());
     entry.pushKV("version", tx.nVersion);
     entry.pushKV("locktime", (int64_t)tx.nLockTime);

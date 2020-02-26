@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2015 The Bitcoin Core developers
 // Copyright (c) 2017 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
@@ -20,6 +21,8 @@ public:
     }
 
     ~reverse_lock() {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         templock.lock();
         templock.swap(lock);
     }

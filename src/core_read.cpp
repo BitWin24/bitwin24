@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2015-2017 The PIVX developers
 // Copyright (c) 2018 The MAC developers
@@ -29,6 +30,8 @@ using namespace std;
 
 CScript ParseScript(std::string s)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CScript result;
 
     static map<string, opcodetype> mapOpNames;
@@ -83,6 +86,8 @@ CScript ParseScript(std::string s)
 
 bool DecodeHexTx(CTransaction& tx, const std::string& strHexTx)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (!IsHex(strHexTx))
         return false;
 
@@ -99,6 +104,8 @@ bool DecodeHexTx(CTransaction& tx, const std::string& strHexTx)
 
 bool DecodeHexBlk(CBlock& block, const std::string& strHexBlk)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (!IsHex(strHexBlk))
         return false;
 
@@ -115,6 +122,8 @@ bool DecodeHexBlk(CBlock& block, const std::string& strHexBlk)
 
 uint256 ParseHashUV(const UniValue& v, const string& strName)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     string strHex;
     if (v.isStr())
         strHex = v.getValStr();
@@ -123,6 +132,8 @@ uint256 ParseHashUV(const UniValue& v, const string& strName)
 
 uint256 ParseHashStr(const std::string& strHex, const std::string& strName)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (!IsHex(strHex)) // Note: IsHex("") is false
         throw runtime_error(strName + " must be hexadecimal string (not '" + strHex + "')");
 
@@ -133,6 +144,8 @@ uint256 ParseHashStr(const std::string& strHex, const std::string& strName)
 
 vector<unsigned char> ParseHexUV(const UniValue& v, const string& strName)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     string strHex;
     if (v.isStr())
         strHex = v.getValStr();

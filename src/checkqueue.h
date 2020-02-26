@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2012-2014 The Bitcoin developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -68,6 +69,8 @@ private:
     /** Internal function that does bulk of the verification work. */
     bool Loop(bool fMaster = false)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         boost::condition_variable& cond = fMaster ? condMaster : condWorker;
         std::vector<T> vChecks;
         vChecks.reserve(nBatchSize);
@@ -75,6 +78,8 @@ private:
         bool fOk = true;
         do {
             {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
                 boost::unique_lock<boost::mutex> lock(mutex);
                 // first do the clean-up of the previous loop run (allowing us to do it in the same critsect)
                 if (nNow) {
@@ -133,20 +138,28 @@ public:
     //! Worker thread
     void Thread()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         Loop();
     }
 
     //! Wait until execution finishes, and return whether all evaluations where successful.
     bool Wait()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return Loop(true);
     }
 
     //! Add a batch of checks to the queue
     void Add(std::vector<T>& vChecks)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         boost::unique_lock<boost::mutex> lock(mutex);
         BOOST_FOREACH (T& check, vChecks) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             queue.push_back(T());
             check.swap(queue.back());
         }
@@ -159,10 +172,14 @@ public:
 
     ~CCheckQueue()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     }
 
     bool IsIdle()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         boost::unique_lock<boost::mutex> lock(mutex);
         return (nTotal == nIdle && nTodo == 0 && fAllOk == true);
     }
@@ -191,6 +208,8 @@ public:
 
     bool Wait()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (pqueue == NULL)
             return true;
         bool fRet = pqueue->Wait();
@@ -200,12 +219,16 @@ public:
 
     void Add(std::vector<T>& vChecks)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (pqueue != NULL)
             pqueue->Add(vChecks);
     }
 
     ~CCheckQueueControl()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (!fDone)
             Wait();
     }

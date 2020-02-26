@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2012 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -27,22 +28,42 @@ protected:
 
 public:
     mruset(size_type nMaxSizeIn = 0) { nMaxSize = nMaxSizeIn; }
-    iterator begin() const { return set.begin(); }
-    iterator end() const { return set.end(); }
-    size_type size() const { return set.size(); }
-    bool empty() const { return set.empty(); }
-    iterator find(const key_type& k) const { return set.find(k); }
-    size_type count(const key_type& k) const { return set.count(k); }
+    iterator begin() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return set.begin(); }
+    iterator end() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return set.end(); }
+    size_type size() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return set.size(); }
+    bool empty() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return set.empty(); }
+    iterator find(const key_type& k) const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return set.find(k); }
+    size_type count(const key_type& k) const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return set.count(k); }
     void clear()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         set.clear();
         queue.clear();
     }
-    bool inline friend operator==(const mruset<T>& a, const mruset<T>& b) { return a.set == b.set; }
-    bool inline friend operator==(const mruset<T>& a, const std::set<T>& b) { return a.set == b; }
+    bool inline friend operator==(const mruset<T>& a, const mruset<T>& b) { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return a.set == b.set; }
+    bool inline friend operator==(const mruset<T>& a, const std::set<T>& b) { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return a.set == b; }
     bool inline friend operator<(const mruset<T>& a, const mruset<T>& b) { return a.set < b.set; }
     std::pair<iterator, bool> insert(const key_type& x)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         std::pair<iterator, bool> ret = set.insert(x);
         if (ret.second) {
             if (nMaxSize && queue.size() == nMaxSize) {
@@ -53,9 +74,13 @@ public:
         }
         return ret;
     }
-    size_type max_size() const { return nMaxSize; }
+    size_type max_size() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nMaxSize; }
     size_type max_size(size_type s)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (s)
             while (queue.size() > s) {
                 set.erase(queue.front());

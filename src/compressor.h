@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2017 The PIVX developers
@@ -62,6 +63,8 @@ public:
 
     unsigned int GetSerializeSize(int nType, int nVersion) const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         std::vector<unsigned char> compr;
         if (Compress(compr))
             return compr.size();

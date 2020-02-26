@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2018 The PIVX developers
 // Copyright (c) 2018 The MAC developers
@@ -68,6 +69,8 @@ public:
 
     uint256 GetHash()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         CHashWriter ss(SER_GETHASH, PROTOCOL_VERSION);
         ss << vin;
         ss << sigTime;
@@ -76,6 +79,8 @@ public:
 
     void swap(CMasternodePing& first, CMasternodePing& second) // nothrow
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         // enable ADL (not necessary in our case, but good practice)
         using std::swap;
 
@@ -89,15 +94,21 @@ public:
 
     CMasternodePing& operator=(CMasternodePing from)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         swap(*this, from);
         return *this;
     }
     friend bool operator==(const CMasternodePing& a, const CMasternodePing& b)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return a.vin == b.vin && a.blockHash == b.blockHash;
     }
     friend bool operator!=(const CMasternodePing& a, const CMasternodePing& b)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return !(a == b);
     }
 };
@@ -156,6 +167,8 @@ public:
 
     void swap(CMasternode& first, CMasternode& second) // nothrow
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         // enable ADL (not necessary in our case, but good practice)
         using std::swap;
 
@@ -181,15 +194,21 @@ public:
 
     CMasternode& operator=(CMasternode from)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         swap(*this, from);
         return *this;
     }
     friend bool operator==(const CMasternode& a, const CMasternode& b)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return a.vin == b.vin;
     }
     friend bool operator!=(const CMasternode& a, const CMasternode& b)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return !(a.vin == b.vin);
     }
 
@@ -226,6 +245,8 @@ public:
 
     inline uint64_t SliceHash(uint256& hash, int slice)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         uint64_t n = 0;
         memcpy(&n, &hash + slice * 64, 64);
         return n;
@@ -235,11 +256,15 @@ public:
 
     bool IsBroadcastedWithin(int seconds)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return (GetAdjustedTime() - sigTime) < seconds;
     }
 
     bool IsPingedWithin(int seconds, int64_t now = -1)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         now == -1 ? now = GetAdjustedTime() : now;
 
         return (lastPing == CMasternodePing()) ? false : now - lastPing.sigTime < seconds;
@@ -247,17 +272,23 @@ public:
 
     void Disable()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         sigTime = 0;
         lastPing = CMasternodePing();
     }
 
     bool IsEnabled()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return activeState == MASTERNODE_ENABLED;
     }
 
     int GetMasternodeInputAge()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (chainActive.Tip() == NULL) return 0;
 
         if (cacheInputAge == 0) {
@@ -272,6 +303,8 @@ public:
 
     std::string Status()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         std::string strStatus = "ACTIVE";
 
         if (activeState == CMasternode::MASTERNODE_ENABLED) strStatus = "ENABLED";
@@ -325,6 +358,8 @@ public:
 
     uint256 GetHash()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         CHashWriter ss(SER_GETHASH, PROTOCOL_VERSION);
         ss << sigTime;
         ss << pubKeyCollateralAddress;

@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2014-2017 The Bitcoin developers
 // Copyright (c) 2017-2018 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
@@ -33,16 +34,22 @@ int64_t GetTimeOffset()
 
 int64_t GetAdjustedTime()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     return GetTime() + GetTimeOffset();
 }
 
 static int64_t abs64(int64_t n)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     return (n >= 0 ? n : -n);
 }
 
 void AddTimeData(const CNetAddr& ip, int64_t nOffsetSample)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     LOCK(cs_nTimeOffset);
     // Ignore duplicates
     static set<CNetAddr> setKnown;

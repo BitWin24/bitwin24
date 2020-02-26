@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2014 The Bitcoin developers
 // Copyright (c) 2017 The PIVX developers
 // Copyright (c) 2018 The MAC developers
@@ -27,8 +28,12 @@ public:
         MAX_NETWORK_TYPES
     };
 
-    const std::string& DataDir() const { return strDataDir; }
-    int RPCPort() const { return nRPCPort; }
+    const std::string& DataDir() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return strDataDir; }
+    int RPCPort() const { 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+return nRPCPort; }
 
 protected:
     CBaseChainParams() {}

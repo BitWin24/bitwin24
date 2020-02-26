@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2017-2018 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -15,6 +16,8 @@ using namespace libzerocoin;
 
 CzBWIWallet::CzBWIWallet(std::string strWalletFile)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     this->strWalletFile = strWalletFile;
     CWalletDB walletdb(strWalletFile);
 
@@ -71,6 +74,8 @@ CzBWIWallet::CzBWIWallet(std::string strWalletFile)
 bool CzBWIWallet::SetMasterSeed(const uint256& seedMaster, bool fResetCount)
 {
 
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
+
     CWalletDB walletdb(strWalletFile);
     if (pwalletMain->IsLocked())
         return false;
@@ -95,17 +100,23 @@ bool CzBWIWallet::SetMasterSeed(const uint256& seedMaster, bool fResetCount)
 
 void CzBWIWallet::Lock()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     seedMaster = 0;
 }
 
 void CzBWIWallet::AddToMintPool(const std::pair<uint256, uint32_t>& pMint, bool fVerbose)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     mintPool.Add(pMint, fVerbose);
 }
 
 //Add the next 20 mints to the mint pool
 void CzBWIWallet::GenerateMintPool(uint32_t nCountStart, uint32_t nCountEnd)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
 
     //Is locked
     if (seedMaster == 0)
@@ -157,6 +168,8 @@ void CzBWIWallet::GenerateMintPool(uint32_t nCountStart, uint32_t nCountEnd)
 // pubcoin hashes are stored to db so that a full accounting of mints belonging to the seed can be tracked without regenerating
 bool CzBWIWallet::LoadMintPoolFromDB()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     map<uint256, vector<pair<uint256, uint32_t> > > mapMintPool = CWalletDB(strWalletFile).MapMintPool();
 
     uint256 hashSeed = Hash(seedMaster.begin(), seedMaster.end());
@@ -168,12 +181,16 @@ bool CzBWIWallet::LoadMintPoolFromDB()
 
 void CzBWIWallet::RemoveMintsFromPool(const std::vector<uint256>& vPubcoinHashes)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     for (const uint256& hash : vPubcoinHashes)
         mintPool.Remove(hash);
 }
 
 void CzBWIWallet::GetState(int& nCount, int& nLastGenerated)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     nCount = this->nCountLastUsed + 1;
     nLastGenerated = mintPool.CountOfLastGenerated();
 }
@@ -181,6 +198,8 @@ void CzBWIWallet::GetState(int& nCount, int& nLastGenerated)
 //Catch the counter up with the chain
 void CzBWIWallet::SyncWithChain(bool fGenerateMintPool)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     uint32_t nLastCountUsed = 0;
     bool found = true;
     CWalletDB walletdb(strWalletFile);
@@ -282,6 +301,8 @@ void CzBWIWallet::SyncWithChain(bool fGenerateMintPool)
 
 bool CzBWIWallet::SetMintSeen(const CBigNum& bnValue, const int& nHeight, const uint256& txid, const CoinDenomination& denom)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (!mintPool.Has(bnValue))
         return error("%s: value not in pool", __func__);
     pair<uint256, uint32_t> pMint = mintPool.Get(bnValue);
@@ -345,6 +366,8 @@ bool CzBWIWallet::SetMintSeen(const CBigNum& bnValue, const int& nHeight, const 
 // Check if the value of the commitment meets requirements
 bool IsValidCoinValue(const CBigNum& bnValue)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     return bnValue >= Params().Zerocoin_Params(false)->accumulatorParams.minCoinValue &&
     bnValue <= Params().Zerocoin_Params(false)->accumulatorParams.maxCoinValue &&
     bnValue.isPrime();
@@ -352,6 +375,8 @@ bool IsValidCoinValue(const CBigNum& bnValue)
 
 void CzBWIWallet::SeedToZBWI(const uint512& seedZerocoin, CBigNum& bnValue, CBigNum& bnSerial, CBigNum& bnRandomness, CKey& key)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     ZerocoinParams* params = Params().Zerocoin_Params(false);
 
     //convert state seed into a seed for the private key
@@ -401,6 +426,8 @@ void CzBWIWallet::SeedToZBWI(const uint512& seedZerocoin, CBigNum& bnValue, CBig
 
 uint512 CzBWIWallet::GetZerocoinSeed(uint32_t n)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CDataStream ss(SER_GETHASH, 0);
     ss << seedMaster << n;
     uint512 zerocoinSeed = Hash512(ss.begin(), ss.end());
@@ -409,6 +436,8 @@ uint512 CzBWIWallet::GetZerocoinSeed(uint32_t n)
 
 void CzBWIWallet::UpdateCount()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     nCountLastUsed++;
     CWalletDB walletdb(strWalletFile);
     walletdb.WriteZBWICount(nCountLastUsed);
@@ -416,6 +445,8 @@ void CzBWIWallet::UpdateCount()
 
 void CzBWIWallet::GenerateDeterministicZBWI(CoinDenomination denom, PrivateCoin& coin, CDeterministicMint& dMint, bool fGenerateOnly)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     GenerateMint(nCountLastUsed + 1, denom, coin, dMint);
     if (fGenerateOnly)
         return;
@@ -426,6 +457,8 @@ void CzBWIWallet::GenerateDeterministicZBWI(CoinDenomination denom, PrivateCoin&
 
 void CzBWIWallet::GenerateMint(const uint32_t& nCount, const CoinDenomination denom, PrivateCoin& coin, CDeterministicMint& dMint)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     uint512 seedZerocoin = GetZerocoinSeed(nCount);
     CBigNum bnValue;
     CBigNum bnSerial;
@@ -447,6 +480,8 @@ void CzBWIWallet::GenerateMint(const uint32_t& nCount, const CoinDenomination de
 
 bool CzBWIWallet::RegenerateMint(const CDeterministicMint& dMint, CZerocoinMint& mint)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     //Check that the seed is correct    todo:handling of incorrect, or multiple seeds
     uint256 hashSeed = Hash(seedMaster.begin(), seedMaster.end());
     if (hashSeed != dMint.GetSeedHash())

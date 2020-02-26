@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2017-2018 The PIVX developers
 // Copyright (c) 2018 The MAC developers
 // Copyright (c) 2019 The BITWIN24 developers
@@ -10,6 +11,8 @@
 
 bool SignBlockWithKey(CBlock& block, const CKey& key)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (!key.Sign(block.GetHash(), block.vchBlockSig))
         return error("%s: failed to sign block hash with key", __func__);
 
@@ -18,6 +21,8 @@ bool SignBlockWithKey(CBlock& block, const CKey& key)
 
 bool GetKeyIDFromUTXO(const CTxOut& txout, CKeyID& keyID)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::vector<valtype> vSolutions;
     txnouttype whichType;
     if (!Solver(txout.scriptPubKey, whichType, vSolutions))
@@ -33,6 +38,8 @@ bool GetKeyIDFromUTXO(const CTxOut& txout, CKeyID& keyID)
 
 bool SignBlock(CBlock& block, const CKeyStore& keystore)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CKeyID keyID;
     if (block.IsProofOfWork()) {
         bool fFoundID = false;
@@ -58,6 +65,8 @@ bool SignBlock(CBlock& block, const CKeyStore& keystore)
 
 bool CheckBlockSignature(const CBlock& block)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (block.IsProofOfWork())
         return block.vchBlockSig.empty();
 

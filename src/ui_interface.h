@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2012-2014 The Bitcoin developers
 // Copyright (c) 2017-2018 The PIVX developers
@@ -118,6 +119,8 @@ extern CClientUIInterface uiInterface;
  */
 inline std::string _(const char* psz)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     boost::optional<std::string> rv = uiInterface.Translate(psz);
     return rv ? (*rv) : psz;
 }

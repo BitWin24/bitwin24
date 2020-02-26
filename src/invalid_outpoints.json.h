@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2018 The PIVX developers
 // Copyright (c) 2018 The MAC developers
 // Copyright (c) 2019 The BITWIN24 developers
@@ -10,6 +11,8 @@
 
 std::string LoadInvalidOutPoints()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::string str = "[\n"
             "  {\n"
             "    \"txid\": \"00405ad8cc4ec7b6be27dedc6bf19f2febf8e338031fe552d7bf5c0dfd6e67de\",\n"
@@ -2088,11 +2091,11 @@ std::string LoadInvalidOutPoints()
             "    \"n\": 1\n"
             "  },\n"
             "  {\n"
-            "    \"txid\": \"546311dbb2579bf0560f2daed29fc2b8340731b18ab7bf0547523c00d9d179c5\",\n"
+            "    \"txid\": \"546311dbb2579bf0560f2daed29fc2b8240731b18ab7bf0547523c00d9d179c5\",\n"
             "    \"n\": 0\n"
             "  },\n"
             "  {\n"
-            "    \"txid\": \"546311dbb2579bf0560f2daed29fc2b8340731b18ab7bf0547523c00d9d179c5\",\n"
+            "    \"txid\": \"546311dbb2579bf0560f2daed29fc2b8240731b18ab7bf0547523c00d9d179c5\",\n"
             "    \"n\": 1\n"
             "  },\n"
             "  {\n"

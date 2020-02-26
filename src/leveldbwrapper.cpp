@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2012-2014 The Bitcoin developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -15,6 +16,8 @@
 
 void HandleError(const leveldb::Status& status)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (status.ok())
         return;
     LogPrintf("%s\n", status.ToString());
@@ -29,6 +32,8 @@ void HandleError(const leveldb::Status& status)
 
 static leveldb::Options GetOptions(size_t nCacheSize)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     leveldb::Options options;
     options.block_cache = leveldb::NewLRUCache(nCacheSize / 2);
     options.write_buffer_size = nCacheSize / 4; // up to two write buffers may be held in memory simultaneously
@@ -45,6 +50,8 @@ static leveldb::Options GetOptions(size_t nCacheSize)
 
 CLevelDBWrapper::CLevelDBWrapper(const boost::filesystem::path& path, size_t nCacheSize, bool fMemory, bool fWipe)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     penv = NULL;
     readoptions.verify_checksums = true;
     iteroptions.verify_checksums = true;
@@ -70,6 +77,8 @@ CLevelDBWrapper::CLevelDBWrapper(const boost::filesystem::path& path, size_t nCa
 
 CLevelDBWrapper::~CLevelDBWrapper()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     delete pdb;
     pdb = NULL;
     delete options.filter_policy;
@@ -82,6 +91,8 @@ CLevelDBWrapper::~CLevelDBWrapper()
 
 bool CLevelDBWrapper::WriteBatch(CLevelDBBatch& batch, bool fSync)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     leveldb::Status status = pdb->Write(fSync ? syncoptions : writeoptions, &batch.batch);
     HandleError(status);
     return true;

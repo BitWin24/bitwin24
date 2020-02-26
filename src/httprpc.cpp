@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2015-2017 The Bitcoin Core developers
 // Copyright (c) 2017 The PIVX developers
 // Copyright (c) 2018 The MAC developers
@@ -46,10 +47,14 @@ public:
     }
     const char* Name()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return "HTTP";
     }
     RPCTimerBase* NewTimer(boost::function<void(void)>& func, int64_t millis)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return new HTTPRPCTimer(base, func, millis);
     }
 private:
@@ -64,6 +69,8 @@ static HTTPRPCTimerInterface* httpRPCTimerInterface = 0;
 
 static void JSONErrorReply(HTTPRequest* req, const UniValue& objError, const UniValue& id)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     // Send error reply from json-rpc error object
     int nStatus = HTTP_INTERNAL_SERVER_ERROR;
     int code = find_value(objError, "code").get_int();
@@ -81,6 +88,8 @@ static void JSONErrorReply(HTTPRequest* req, const UniValue& objError, const Uni
 
 static bool RPCAuthorized(const std::string& strAuth)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (strRPCUserColonPass.empty()) // Belt-and-suspenders measure if InitRPCAuthentication was not called
         return false;
     if (strAuth.substr(0, 6) != "Basic ")
@@ -93,6 +102,8 @@ static bool RPCAuthorized(const std::string& strAuth)
 
 static bool HTTPReq_JSONRPC(HTTPRequest* req, const std::string &)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     // JSONRPC handles only POST
     if (req->GetRequestMethod() != HTTPRequest::POST) {
         req->WriteReply(HTTP_BAD_METHOD, "JSONRPC server handles only POST requests");
@@ -154,6 +165,8 @@ static bool HTTPReq_JSONRPC(HTTPRequest* req, const std::string &)
 
 static bool InitRPCAuthentication()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (mapArgs["-rpcpassword"] == "")
     {
         LogPrintf("No rpcpassword set - using random cookie authentication\n");
@@ -171,6 +184,8 @@ static bool InitRPCAuthentication()
 
 bool StartHTTPRPC()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     LogPrint("rpc", "Starting HTTP RPC server\n");
     if (!InitRPCAuthentication())
         return false;
@@ -185,11 +200,15 @@ bool StartHTTPRPC()
 
 void InterruptHTTPRPC()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     LogPrint("rpc", "Interrupting HTTP RPC server\n");
 }
 
 void StopHTTPRPC()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     LogPrint("rpc", "Stopping HTTP RPC server\n");
     UnregisterHTTPHandler("/", true);
     if (httpRPCTimerInterface) {

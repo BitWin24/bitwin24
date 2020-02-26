@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2015-2017 The PIVX developers
@@ -14,6 +15,8 @@ using namespace std;
 
 CMerkleBlock::CMerkleBlock(const CBlock& block, CBloomFilter& filter)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     header = block.GetBlockHeader();
 
     vector<bool> vMatch;
@@ -37,6 +40,8 @@ CMerkleBlock::CMerkleBlock(const CBlock& block, CBloomFilter& filter)
 
 uint256 CPartialMerkleTree::CalcHash(int height, unsigned int pos, const std::vector<uint256>& vTxid)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (height == 0) {
         // hash at height 0 is the txids themself
         return vTxid[pos];
@@ -55,6 +60,8 @@ uint256 CPartialMerkleTree::CalcHash(int height, unsigned int pos, const std::ve
 
 void CPartialMerkleTree::TraverseAndBuild(int height, unsigned int pos, const std::vector<uint256>& vTxid, const std::vector<bool>& vMatch)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     // determine whether this node is the parent of at least one matched txid
     bool fParentOfMatch = false;
     for (unsigned int p = pos << height; p < (pos + 1) << height && p < nTransactions; p++)
@@ -74,6 +81,8 @@ void CPartialMerkleTree::TraverseAndBuild(int height, unsigned int pos, const st
 
 uint256 CPartialMerkleTree::TraverseAndExtract(int height, unsigned int pos, unsigned int& nBitsUsed, unsigned int& nHashUsed, std::vector<uint256>& vMatch)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (nBitsUsed >= vBits.size()) {
         // overflowed the bits array - failure
         fBad = true;
@@ -122,6 +131,8 @@ CPartialMerkleTree::CPartialMerkleTree() : nTransactions(0), fBad(true) {}
 
 uint256 CPartialMerkleTree::ExtractMatches(std::vector<uint256>& vMatch)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     vMatch.clear();
     // An empty set will not work
     if (nTransactions == 0)

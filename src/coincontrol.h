@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2011-2013 The Bitcoin developers
 // Copyright (c) 2014-2016 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
@@ -30,11 +31,15 @@ public:
 
     CCoinControl()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         SetNull();
     }
 
     void SetNull()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         destChange = CNoDestination();
         setSelected.clear();
         useSwiftTX = false;
@@ -48,42 +53,58 @@ public:
 
     bool HasSelected() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return (setSelected.size() > 0);
     }
 
     bool IsSelected(const uint256& hash, unsigned int n) const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         COutPoint outpt(hash, n);
         return (setSelected.count(outpt) > 0);
     }
 
     void Select(const COutPoint& output)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         setSelected.insert(output);
     }
 
     void UnSelect(const COutPoint& output)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         setSelected.erase(output);
     }
 
     void UnSelectAll()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         setSelected.clear();
     }
 
     void ListSelected(std::vector<COutPoint>& vOutpoints)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         vOutpoints.assign(setSelected.begin(), setSelected.end());
     }
 
     unsigned int QuantitySelected()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return setSelected.size();
     }
 
     void SetSelection(std::set<COutPoint> setSelected)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         this->setSelected.clear();
         this->setSelected = setSelected;
     }

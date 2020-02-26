@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2014 The Bitcoin developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -34,6 +35,8 @@ public:
 
     void input(T value)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (vValues.size() == nSize) {
             vValues.erase(vValues.begin());
         }
@@ -46,6 +49,8 @@ public:
 
     T median() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         int size = vSorted.size();
         assert(size > 0);
         if (size & 1) // Odd number of elements
@@ -59,11 +64,15 @@ public:
 
     int size() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return vValues.size();
     }
 
     std::vector<T> sorted() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return vSorted;
     }
 };

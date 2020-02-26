@@ -1,3 +1,4 @@
+#include "trace-log.h" //++++++++++++++++++
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2017 The PIVX developers
 // Copyright (c) 2018 The MAC developers
@@ -23,16 +24,22 @@ CMasternodeSync masternodeSync;
 
 CMasternodeSync::CMasternodeSync()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     Reset();
 }
 
 bool CMasternodeSync::IsSynced()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     return RequestedMasternodeAssets == MASTERNODE_SYNC_FINISHED;
 }
 
 bool CMasternodeSync::IsBlockchainSynced()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     static bool fBlockchainSynced = false;
     static int64_t lastProcess = GetTime();
 
@@ -64,6 +71,8 @@ bool CMasternodeSync::IsBlockchainSynced()
 
 void CMasternodeSync::Reset()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     lastMasternodeList = 0;
     lastMasternodeWinner = 0;
     lastBudgetItem = 0;
@@ -87,6 +96,8 @@ void CMasternodeSync::Reset()
 
 void CMasternodeSync::AddedMasternodeList(uint256 hash)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (mnodeman.mapSeenMasternodeBroadcast.count(hash)) {
         if (mapSeenSyncMNB[hash] < MASTERNODE_SYNC_THRESHOLD) {
             lastMasternodeList = GetTime();
@@ -100,6 +111,8 @@ void CMasternodeSync::AddedMasternodeList(uint256 hash)
 
 void CMasternodeSync::AddedMasternodeWinner(uint256 hash)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (masternodePayments.mapMasternodePayeeVotes.count(hash)) {
         if (mapSeenSyncMNW[hash] < MASTERNODE_SYNC_THRESHOLD) {
             lastMasternodeWinner = GetTime();
@@ -113,6 +126,8 @@ void CMasternodeSync::AddedMasternodeWinner(uint256 hash)
 
 void CMasternodeSync::AddedBudgetItem(uint256 hash)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (budget.mapSeenMasternodeBudgetProposals.count(hash) || budget.mapSeenMasternodeBudgetVotes.count(hash) ||
         budget.mapSeenFinalizedBudgets.count(hash) || budget.mapSeenFinalizedBudgetVotes.count(hash)) {
         if (mapSeenSyncBudget[hash] < MASTERNODE_SYNC_THRESHOLD) {
@@ -127,16 +142,22 @@ void CMasternodeSync::AddedBudgetItem(uint256 hash)
 
 bool CMasternodeSync::IsBudgetPropEmpty()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     return sumBudgetItemProp == 0 && countBudgetItemProp > 0;
 }
 
 bool CMasternodeSync::IsBudgetFinEmpty()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     return sumBudgetItemFin == 0 && countBudgetItemFin > 0;
 }
 
 void CMasternodeSync::GetNextAsset()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     switch (RequestedMasternodeAssets) {
     case (MASTERNODE_SYNC_INITIAL):
     case (MASTERNODE_SYNC_FAILED): // should never be used here actually, use Reset() instead
@@ -163,6 +184,8 @@ void CMasternodeSync::GetNextAsset()
 
 std::string CMasternodeSync::GetSyncStatus()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     switch (masternodeSync.RequestedMasternodeAssets) {
     case MASTERNODE_SYNC_INITIAL:
         return _("Synchronization pending...");
@@ -184,6 +207,8 @@ std::string CMasternodeSync::GetSyncStatus()
 
 void CMasternodeSync::ProcessMessage(CNode* pfrom, std::string& strCommand, CDataStream& vRecv)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (strCommand == "ssc") { //Sync status count
         int nItemID;
         int nCount;
@@ -221,10 +246,14 @@ void CMasternodeSync::ProcessMessage(CNode* pfrom, std::string& strCommand, CDat
 
 void CMasternodeSync::ClearFulfilledRequest()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     TRY_LOCK(cs_vNodes, lockRecv);
     if (!lockRecv) return;
 
     BOOST_FOREACH (CNode* pnode, vNodes) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         pnode->ClearFulfilledRequest("getspork");
         pnode->ClearFulfilledRequest("mnsync");
         pnode->ClearFulfilledRequest("mnwsync");
@@ -234,6 +263,8 @@ void CMasternodeSync::ClearFulfilledRequest()
 
 void CMasternodeSync::Process()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     static int tick = 0;
 
     if (tick++ % MASTERNODE_SYNC_TIMEOUT != 0) return;
@@ -267,6 +298,8 @@ void CMasternodeSync::Process()
     if (!lockRecv) return;
 
     BOOST_FOREACH (CNode* pnode, vNodes) {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (Params().NetworkID() == CBaseChainParams::REGTEST) {
             if (RequestedMasternodeAttempt <= 2) {
                 pnode->PushMessage("getsporks"); //get current network sporks

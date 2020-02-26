@@ -1,3 +1,4 @@
+#include <trace-log.h> //++++++++++++++++++
 // Copyright (c) 2019-2020 The BITWIN24 developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -27,6 +28,8 @@ public:
 
     CMasterNodeWitness()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         SetNull();
     }
 
@@ -44,27 +47,37 @@ public:
 
     void SetNull()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         nVersion = -1;
     }
 
     bool IsNull() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return nVersion == -1;
     }
 
     void SetEmpty()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         nVersion = CURRENT_VERSION;
         nProofs.clear();
     }
 
     bool IsEmpty() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return nProofs.empty();
     }
 
     bool operator==(const CMasterNodeWitness &a)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (nVersion != a.nVersion || nProofs.size() != a.nProofs.size()) {
             return false;
         }
@@ -79,11 +92,15 @@ public:
 
     bool operator!=(const CMasterNodeWitness &a)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return !(*this == a);
     }
 
     uint256 GetHash() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         CHashWriter ss(SER_GETHASH, 0);
         ss << nVersion;
         ss << nProofs;
@@ -94,6 +111,8 @@ public:
 
     int CountMasterNodes()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return nProofs.size();
     }
 
@@ -115,6 +134,8 @@ public:
 
     ActiveMasterNodeProofs()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         SetNull();
     }
 
@@ -130,17 +151,23 @@ public:
 
     void SetNull()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         SetEmpty();
         nVersion = -1;
     }
 
     bool IsNull() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return nVersion == -1;
     }
 
     void SetEmpty()
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         nVersion = CURRENT_VERSION;
         nPing = CMasternodePing();
         nBroadcast = CMasternodeBroadcast();
@@ -148,11 +175,15 @@ public:
 
     bool IsEmpty() const
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return nPing.blockHash == 0 || nBroadcast.sigTime == 0;
     }
 
     friend bool operator==(const ActiveMasterNodeProofs& a, const ActiveMasterNodeProofs& b)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         if (a.nVersion != b.nVersion
             || a.nPing != b.nPing
             || a.nBroadcast != b.nBroadcast) {
@@ -162,6 +193,8 @@ public:
     }
     friend bool operator!=(const ActiveMasterNodeProofs& a, const ActiveMasterNodeProofs& b)
     {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
         return !(a == b);
     }
 

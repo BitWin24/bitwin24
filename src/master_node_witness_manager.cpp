@@ -1,3 +1,4 @@
+#include <trace-log.h> //++++++++++++++++++
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2013 The Bitcoin developers
 // Copyright (c) 2015-2017 The PIVX developers
@@ -22,16 +23,22 @@ MasterNodeWitnessManager::MasterNodeWitnessManager()
 
 MasterNodeWitnessManager::~MasterNodeWitnessManager()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     _stopThread = true;
 }
 
 bool MasterNodeWitnessManager::Exist(const uint256 &targetBlockHash) const
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     return _witnesses.find(targetBlockHash) != _witnesses.end();
 }
 
 bool MasterNodeWitnessManager::Add(const CMasterNodeWitness &proof, bool validate)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     boost::lock_guard<boost::mutex> guard(_mtx);
     if (!Exist(proof.nTargetBlockHash)) {
         if (!validate || proof.IsValid(GetAdjustedTime())) {
@@ -44,6 +51,8 @@ bool MasterNodeWitnessManager::Add(const CMasterNodeWitness &proof, bool validat
 
 bool MasterNodeWitnessManager::Remove(const uint256 &targetBlockHash)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     boost::lock_guard<boost::mutex> guard(_mtx);
     if (Exist(targetBlockHash)) {
         _witnesses.erase(targetBlockHash);
@@ -54,6 +63,8 @@ bool MasterNodeWitnessManager::Remove(const uint256 &targetBlockHash)
 
 void MasterNodeWitnessManager::UpdateThread()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     _stopThread = false;
     while (!_stopThread) {
         MilliSleep(5000);
@@ -78,6 +89,8 @@ void MasterNodeWitnessManager::UpdateThread()
         }
 
         {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
             boost::lock_guard<boost::mutex> guard(_mtx);
             std::vector<uint256> toRemove;
             for (auto it = _blocks.begin(); it != _blocks.end(); it++) {
@@ -132,6 +145,8 @@ void MasterNodeWitnessManager::UpdateThread()
 
 void MasterNodeWitnessManager::Save()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     boost::lock_guard<boost::mutex> guard(_mtxGlobal);
     EraseDB();
     std::map<uint256, CMasterNodeWitness>::iterator it = _witnesses.begin();
@@ -146,6 +161,8 @@ void MasterNodeWitnessManager::Save()
 
 void MasterNodeWitnessManager::Load()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     boost::lock_guard<boost::mutex> guard(_mtxGlobal);
     _witnesses.clear();
 
@@ -176,6 +193,8 @@ void MasterNodeWitnessManager::Load()
 
 CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uint256 targetBlockHash)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CMasterNodeWitness result;
     result.nVersion = 0;
     result.nTargetBlockHash = targetBlockHash;
@@ -231,6 +250,8 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
 
 void MasterNodeWitnessManager::EraseDB()
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::vector<uint256> toRemove;
     try {
         boost::scoped_ptr<leveldb::Iterator> pcursor(NewIterator());
@@ -258,6 +279,8 @@ void MasterNodeWitnessManager::EraseDB()
 
 const CMasterNodeWitness &MasterNodeWitnessManager::Get(const uint256 &targetBlockHash)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (Exist(targetBlockHash))
         return _witnesses[targetBlockHash];
     static CMasterNodeWitness result;
@@ -266,6 +289,8 @@ const CMasterNodeWitness &MasterNodeWitnessManager::Get(const uint256 &targetBlo
 
 void MasterNodeWitnessManager::HoldBlock(CBlock block, int nodeId)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     if (!_blocks.count(block.GetHash())) {
         BlockInfo info;
         info.block = block;

@@ -1,3 +1,4 @@
+#include <trace-log.h> //++++++++++++++++++
 // Copyright (c) 2019-2020 The BITWIN24 developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -8,6 +9,8 @@
 
 std::string CMasterNodeWitness::ToString() const
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::stringstream s;
     s << strprintf("CMasterNodeWitness(target block hash=%s, ver=%d, count proofs=%d)\n",
                    nTargetBlockHash.ToString(),
@@ -21,6 +24,8 @@ std::string CMasterNodeWitness::ToString() const
 
 bool CMasterNodeWitness::Sign(CKey &keyWitness)
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::string errorMessage;
 
     uint256 hash = GetHash();
@@ -34,6 +39,8 @@ bool CMasterNodeWitness::Sign(CKey &keyWitness)
 
 bool CMasterNodeWitness::IsValid(int64_t atTime) const
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::vector<CTxIn> checkedOut;
     for (unsigned i = 0; i < nProofs.size(); i++) {
         CMasternodePing ping = nProofs[i].nPing;
@@ -92,6 +99,8 @@ bool CMasterNodeWitness::IsValid(int64_t atTime) const
 
 bool CMasterNodeWitness::SignatureValid() const
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     CPubKey pubkey;
     if (!pubkey.RecoverCompact(GetHash(), vchSig)) {
         return false;
@@ -101,6 +110,8 @@ bool CMasterNodeWitness::SignatureValid() const
 
 std::string ActiveMasterNodeProofs::ToString() const
 {
+
+	FUNC_LOG_TRACE();//+++++++++++++++++++++++++++
     std::stringstream s;
     s << strprintf("\tActiveMasterNodeProofs ver=%d\n", nVersion);
     s << "\tPing " << nPing.vin.ToString() << " "

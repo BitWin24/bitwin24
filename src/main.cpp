@@ -2862,7 +2862,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
         nExpectedMint = pindex->nMoneySupply - pindex->pprev->nMoneySupply;
         int errorCode = 0;
         int masterNodeCount = GetMasterNodeCountBasedOnBlockReward(pindex->pprev->nHeight, nExpectedMint, errorCode);
-        bool cantResolveMasterNodeCount = (errorCode == 0);
+        bool cantResolveMasterNodeCount = (errorCode != 0);
         if(errorCode == -3) {
             masterNodeCount = GetContextualMasterNodeCountBasedOnBlockReward(nExpectedMint);
             cantResolveMasterNodeCount = false;

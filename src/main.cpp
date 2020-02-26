@@ -2862,13 +2862,17 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
         nExpectedMint = pindex->nMoneySupply - pindex->pprev->nMoneySupply;
         int errorCode = 0;
         int masterNodeCount = GetMasterNodeCountBasedOnBlockReward(pindex->pprev->nHeight, nExpectedMint, errorCode);
-        bool cantResolveMasterNodeCount = (errorCode == 0);
+        bool cantResolveMasterNodeCount = (errorCode != 0);
         if(errorCode == -3) {
             masterNodeCount = GetContextualMasterNodeCountBasedOnBlockReward(nExpectedMint);
             cantResolveMasterNodeCount = false;
         }
-        if (pMNWitness->Exist(block.GetHash()) && !cantResolveMasterNodeCount) {
+        if (pMNWitness->Exist(block.GetHash())
+            && !cantResolveMasterNodeCount
+            && !IsInitialBlockDownload()
+            && !fImporting && !fReindex) {
             const CMasterNodeWitness &witness = pMNWitness->Get(block.GetHash());
+            LogPrintf("validate block with proofs %s\n", block.GetHash().ToString());
             bool signOfProofValid = false;
             if (block.IsProofOfStake()) {
                 CPubKey pubkey;
@@ -5965,26 +5969,54 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         CBlock block;
         vRecv >> block;
         uint256 hashBlock = block.GetHash();
-        CInv inv(MSG_BLOCK, hashBlock);
         //sometimes we will be sent their most recent block and its not the one we want, in that case tell where we are
         if (!mapBlockIndex.count(block.hashPrevBlock)) {
             if (find(pfrom->vBlockRequested.begin(), pfrom->vBlockRequested.end(), hashBlock) != pfrom->vBlockRequested.end()) {
                 //we already asked for this block, so lets work backwards and ask for the previous block
+                BOOST_FOREACH(CNode * pnode, vNodes)
+                    if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
+                        pnode->PushMessage("getmnwitness", block.hashPrevBlock);
                 pfrom->PushMessage("getblocks", chainActive.GetLocator(), block.hashPrevBlock);
                 pfrom->vBlockRequested.push_back(block.hashPrevBlock);
             } else {
                 //ask to sync to this block
+                BOOST_FOREACH(CNode * pnode, vNodes)
+                    if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
+                        pnode->PushMessage("getmnwitness", hashBlock);
                 pfrom->PushMessage("getblocks", chainActive.GetLocator(), hashBlock);
                 pfrom->vBlockRequested.push_back(hashBlock);
             }
-        } else {
-            pfrom->AddInventoryKnown(inv);
 
+            {
+                pMNWitness->HoldBlock(block, pfrom->GetId());
+                if ((block.nTime + MASTERNODE_REMOVAL_SECONDS) > GetAdjustedTime()) {
+                    if (pfrom->nVersion >= MASTER_NODE_WITNESS_VERSION) {
+                        LogPrint("net",
+                                 "block received from node with new protocol  %s, try ask for proof, peer=%d\n",
+                                 block.GetHash().ToString(),
+                                 pfrom->id);
+                        pfrom->PushMessage("getmnwitness", block.GetHash());
+                    }
+                    else { // Block received from node with old protocol, try ask proof from others
+                        LogPrint("net",
+                                 "block received from node with old protocol  %s, try ask for proof from all peers, peer=%d\n",
+                                 block.GetHash().ToString(),
+                                 pfrom->id);
+                        BOOST_FOREACH(CNode * pnode, vNodes)
+                            if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
+                                pnode->PushMessage("getmnwitness", block.GetHash());
+                    }
+                }
+            }
+        } else {
             CValidationState state;
             if (!mapBlockIndex.count(block.GetHash())) {
                 if (pMNWitness->Exist(block.GetHash())
                     || pfrom->nVersion < MASTER_NODE_WITNESS_VERSION
-                    || chainActive.Tip()->nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT) {
+                    || chainActive.Tip()->nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT
+                    || (block.nTime + MASTERNODE_REMOVAL_SECONDS) < GetAdjustedTime()) {
+                    CInv inv(MSG_BLOCK, hashBlock);
+                    pfrom->AddInventoryKnown(inv);
                     ProcessNewBlock(state, pfrom, &block);
                     int nDoS;
                     if (state.IsInvalid(nDoS)) {
@@ -5997,8 +6029,8 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
                     }
                     if ((block.nTime + MASTERNODE_REMOVAL_SECONDS) < GetAdjustedTime()) {
                         BOOST_FOREACH(CNode * pnode, vNodes)
-                        if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
-                            pnode->PushMessage("getmnwitness", block.GetHash());
+                            if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
+                                pnode->PushMessage("getmnwitness", block.GetHash());
                     }
                 }
                 else {
@@ -6017,8 +6049,8 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
                                      block.GetHash().ToString(),
                                      pfrom->id);
                             BOOST_FOREACH(CNode * pnode, vNodes)
-                            if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
-                                pnode->PushMessage("getmnwitness", block.GetHash());
+                                if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
+                                    pnode->PushMessage("getmnwitness", block.GetHash());
                         }
                     }
                 }

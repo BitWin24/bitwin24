@@ -52,4 +52,10 @@ private:
         int64_t creatingTime;
     };
     std::map<uint256, BlockInfo> _blocks;
+    struct RETRY_REQUEST
+    {
+        int64_t _lastTryTime;
+        int64_t _retry;
+    };
+    std::map<uint256, RETRY_REQUEST> _retries;
 };

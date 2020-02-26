@@ -13,6 +13,27 @@
 #include "serialize.h"
 #include "chainparams.h"
 #include "obfuscation.h"
+#include "main.h"
+
+
+class Witness_StateCatcher : public CValidationInterface
+{
+public:
+    uint256 hash;
+    bool found;
+    CValidationState state;
+
+    Witness_StateCatcher(const uint256& hashIn) : hash(hashIn), found(false), state(){};
+
+protected:
+    virtual void BlockChecked(const CBlock& block, const CValidationState& stateIn)
+    {
+        if (block.GetHash() != hash)
+            return;
+        found = true;
+        state = stateIn;
+    };
+};
 
 MasterNodeWitnessManager::MasterNodeWitnessManager()
     : CLevelDBWrapper(GetDataDir() / "mnwitness", 0, false, false), _lastUpdate(0),
@@ -35,6 +56,8 @@ bool MasterNodeWitnessManager::Add(const CMasterNodeWitness &proof, bool validat
     boost::lock_guard<boost::mutex> guard(_mtx);
     if (!Exist(proof.nTargetBlockHash)) {
         if (!validate || proof.IsValid(GetAdjustedTime())) {
+            LogPrintf("add proof %s\n", proof.nTargetBlockHash.ToString());
+            _witnesses[proof.nTargetBlockHash] = proof;
             return true;
         }
     }
@@ -45,6 +68,7 @@ bool MasterNodeWitnessManager::Remove(const uint256 &targetBlockHash)
 {
     boost::lock_guard<boost::mutex> guard(_mtx);
     if (Exist(targetBlockHash)) {
+        LogPrintf("remove proof %s\n", targetBlockHash.ToString());
         _witnesses.erase(targetBlockHash);
         return true;
     }
@@ -79,23 +103,30 @@ void MasterNodeWitnessManager::UpdateThread()
         {
             boost::lock_guard<boost::mutex> guard(_mtx);
             std::vector<uint256> toRemove;
-            const int WAITING_PROOFS_TIME = 10;
             for (auto it = _blocks.begin(); it != _blocks.end(); it++) {
-                CValidationState state;
                 const CBlock &block = it->second.block;
                 uint256 blockHash = block.GetHash();
-                if (Exist(blockHash)
-                    || (it->second.creatingTime + WAITING_PROOFS_TIME) < GetTime()
+                bool proofExist = Exist(blockHash);
+                if (proofExist
+                    || _retries[blockHash]._retry > 5
                     || chainActive.Tip()->nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT) {
                     if (!mapBlockIndex.count(blockHash)) {
                         if (!mapBlockIndex.count(block.hashPrevBlock)) {
                             continue;
                         }
+                        CInv inv(MSG_BLOCK, blockHash);
                         CNode *pfrom = FindNode(it->second.nodeID);
+                        if(!pfrom)
+                            LogPrintf("received block from unknown peer %d", it->second.nodeID);
+                        if(pfrom)
+                            pfrom->AddInventoryKnown(inv);
+                        CValidationState state;
+                        Witness_StateCatcher sc(block.GetHash());
+                        RegisterValidationInterface(&sc);
                         ProcessNewBlock(state, pfrom, &it->second.block);
+                        UnregisterValidationInterface(&sc);
                         int nDoS;
                         if (state.IsInvalid(nDoS) && pfrom) {
-                            CInv inv(MSG_BLOCK, blockHash);
                             string strCommand = "block";
                             pfrom->PushMessage("reject",
                                                strCommand,
@@ -110,12 +141,18 @@ void MasterNodeWitnessManager::UpdateThread()
                         toRemove.push_back(it->first);
                     }
                 }
+                else if (!proofExist && (_retries[blockHash]._lastTryTime + 10) < GetTime()) {
+                    _retries[blockHash]._lastTryTime = GetTime();
+                    _retries[blockHash]._retry++;
+                    BOOST_FOREACH(CNode * pnode, vNodes)
+                        if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
+                            pnode->PushMessage("getmnwitness", block.GetHash());
+                }
             }
 
             for (auto it = toRemove.begin(); it != toRemove.end(); it++) {
                 _blocks.erase(*it);
             }
-
         }
     }
 }
@@ -197,18 +234,18 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
             proof.nBroadcast = it->second;
             proof.nPing = pings[key];
             bool skip = false;
-//            {
-//                CValidationState state;
-//                CMutableTransaction dummyTx = CMutableTransaction();
-//                CTxOut vout = CTxOut(2999.99 * COIN, obfuScationPool.collateralPubKey);
-//                dummyTx.vin.push_back(proof.nPing.vin);
-//                dummyTx.vout.push_back(vout);
-//
-//                TRY_LOCK(cs_main, lockMain);
-//                if (lockMain && !AcceptableInputs(mempool, state, CTransaction(dummyTx), false, NULL)) {
-//                    skip = true;
-//                }
-//            }
+            {
+                CValidationState state;
+                CMutableTransaction dummyTx = CMutableTransaction();
+                CTxOut vout = CTxOut(2999.99 * COIN, obfuScationPool.collateralPubKey);
+                dummyTx.vin.push_back(proof.nPing.vin);
+                dummyTx.vout.push_back(vout);
+
+                TRY_LOCK(cs_main, lockMain);
+                if (lockMain && !AcceptableInputs(mempool, state, CTransaction(dummyTx), false, NULL)) {
+                    skip = true;
+                }
+            }
             if (!skip && std::find(included.begin(), included.end(), proof.nPing.vin) == included.end())
                 result.nProofs.push_back(proof);
             included.push_back(proof.nPing.vin);
@@ -262,5 +299,9 @@ void MasterNodeWitnessManager::HoldBlock(CBlock block, int nodeId)
         info.nodeID = nodeId;
         info.creatingTime = GetTime();
         _blocks[block.GetHash()] = info;
+        RETRY_REQUEST retry;
+        retry._retry = 0;
+        retry._lastTryTime = GetTime();
+        _retries[block.GetHash()] = retry;
     }
 }

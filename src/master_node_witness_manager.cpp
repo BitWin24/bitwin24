@@ -108,7 +108,7 @@ void MasterNodeWitnessManager::UpdateThread()
                 uint256 blockHash = block.GetHash();
                 bool proofExist = Exist(blockHash);
                 if (proofExist
-                    || _retries[blockHash]._retry > 4
+                    || _retries[blockHash]._retry > 5
                     || chainActive.Tip()->nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT) {
                     if (!mapBlockIndex.count(blockHash)) {
                         if (!mapBlockIndex.count(block.hashPrevBlock)) {
@@ -141,7 +141,7 @@ void MasterNodeWitnessManager::UpdateThread()
                         toRemove.push_back(it->first);
                     }
                 }
-                else if (!proofExist && (_retries[blockHash]._lastTryTime + 5) < GetTime()) {
+                else if (!proofExist && (_retries[blockHash]._lastTryTime + 10) < GetTime()) {
                     _retries[blockHash]._lastTryTime = GetTime();
                     _retries[blockHash]._retry++;
                     BOOST_FOREACH(CNode * pnode, vNodes)

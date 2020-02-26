@@ -2867,7 +2867,10 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
             masterNodeCount = GetContextualMasterNodeCountBasedOnBlockReward(nExpectedMint);
             cantResolveMasterNodeCount = false;
         }
-        if (pMNWitness->Exist(block.GetHash()) && !cantResolveMasterNodeCount) {
+        if (pMNWitness->Exist(block.GetHash())
+            && !cantResolveMasterNodeCount
+            && !IsInitialBlockDownload()
+            && !fImporting && !fReindex) {
             const CMasterNodeWitness &witness = pMNWitness->Get(block.GetHash());
             LogPrintf("validate block with proofs %s\n", block.GetHash().ToString());
             bool signOfProofValid = false;

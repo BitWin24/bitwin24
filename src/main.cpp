@@ -5982,6 +5982,28 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
                 pfrom->PushMessage("getblocks", chainActive.GetLocator(), hashBlock);
                 pfrom->vBlockRequested.push_back(hashBlock);
             }
+
+            {
+                pMNWitness->HoldBlock(block, pfrom->GetId());
+                if ((block.nTime + MASTERNODE_REMOVAL_SECONDS) > GetAdjustedTime()) {
+                    if (pfrom->nVersion >= MASTER_NODE_WITNESS_VERSION) {
+                        LogPrint("net",
+                                 "block received from node with new protocol  %s, try ask for proof, peer=%d\n",
+                                 block.GetHash().ToString(),
+                                 pfrom->id);
+                        pfrom->PushMessage("getmnwitness", block.GetHash());
+                    }
+                    else { // Block received from node with old protocol, try ask proof from others
+                        LogPrint("net",
+                                 "block received from node with old protocol  %s, try ask for proof from all peers, peer=%d\n",
+                                 block.GetHash().ToString(),
+                                 pfrom->id);
+                        BOOST_FOREACH(CNode * pnode, vNodes)
+                            if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
+                                pnode->PushMessage("getmnwitness", block.GetHash());
+                    }
+                }
+            }
         } else {
             CValidationState state;
             if (!mapBlockIndex.count(block.GetHash())) {
@@ -6023,8 +6045,8 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
                                      block.GetHash().ToString(),
                                      pfrom->id);
                             BOOST_FOREACH(CNode * pnode, vNodes)
-                            if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
-                                pnode->PushMessage("getmnwitness", block.GetHash());
+                                if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
+                                    pnode->PushMessage("getmnwitness", block.GetHash());
                         }
                     }
                 }

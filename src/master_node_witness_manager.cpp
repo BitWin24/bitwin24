@@ -13,6 +13,27 @@
 #include "serialize.h"
 #include "chainparams.h"
 #include "obfuscation.h"
+#include "main.h"
+
+
+class Witness_StateCatcher : public CValidationInterface
+{
+public:
+    uint256 hash;
+    bool found;
+    CValidationState state;
+
+    Witness_StateCatcher(const uint256& hashIn) : hash(hashIn), found(false), state(){};
+
+protected:
+    virtual void BlockChecked(const CBlock& block, const CValidationState& stateIn)
+    {
+        if (block.GetHash() != hash)
+            return;
+        found = true;
+        state = stateIn;
+    };
+};
 
 MasterNodeWitnessManager::MasterNodeWitnessManager()
     : CLevelDBWrapper(GetDataDir() / "mnwitness", 0, false, false), _lastUpdate(0),
@@ -81,10 +102,10 @@ void MasterNodeWitnessManager::UpdateThread()
             boost::lock_guard<boost::mutex> guard(_mtx);
             std::vector<uint256> toRemove;
             for (auto it = _blocks.begin(); it != _blocks.end(); it++) {
-                CValidationState state;
                 const CBlock &block = it->second.block;
                 uint256 blockHash = block.GetHash();
-                if (Exist(blockHash)
+                bool proofExist = Exist(blockHash);
+                if (proofExist
                     || _retries[blockHash]._retry > 4
                     || chainActive.Tip()->nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT) {
                     if (!mapBlockIndex.count(blockHash)) {
@@ -97,7 +118,11 @@ void MasterNodeWitnessManager::UpdateThread()
                             LogPrintf("received block from unknown peer %d", it->second.nodeID);
                         if(pfrom)
                             pfrom->AddInventoryKnown(inv);
+                        CValidationState state;
+                        Witness_StateCatcher sc(block.GetHash());
+                        RegisterValidationInterface(&sc);
                         ProcessNewBlock(state, pfrom, &it->second.block);
+                        UnregisterValidationInterface(&sc);
                         int nDoS;
                         if (state.IsInvalid(nDoS) && pfrom) {
                             string strCommand = "block";
@@ -114,7 +139,7 @@ void MasterNodeWitnessManager::UpdateThread()
                         toRemove.push_back(it->first);
                     }
                 }
-                else if ((_retries[blockHash]._lastTryTime + 5) < GetTime()) {
+                else if (!proofExist && (_retries[blockHash]._lastTryTime + 5) < GetTime()) {
                     _retries[blockHash]._lastTryTime = GetTime();
                     _retries[blockHash]._retry++;
                     BOOST_FOREACH(CNode * pnode, vNodes)

@@ -26,7 +26,8 @@
 #include "util.h"
 #include "utilmoneystr.h"
 #include "zbwichain.h"
-
+#include "primitives/masternode_witness.h"
+#include "master_node_witness_manager.h"
 #include "denomination_functions.h"
 #include "libzerocoin/Denominations.h"
 #include "zbwiwallet.h"
@@ -1344,59 +1345,152 @@ CAmount CWalletTx::GetLockedWatchOnlyCredit() const
     return nCredit;
 }
 
+// Extract source
+CTxDestination CWalletTx::ExtractSource() const {
+    CTxDestination source;
+    BOOST_FOREACH (const CTxIn& txin, vin) {
+        const auto mi = pwallet->mapWallet.find(txin.prevout.hash);
+        if (mi == pwallet->mapWallet.end()) {
+            continue;
+        }
+
+        const CWalletTx& prev = (*mi).second;
+        if (txin.prevout.n >= prev.vout.size()) {
+            continue;
+        }
+
+        if (!(pwallet->IsMine(prev.vout[txin.prevout.n]) & ISMINE_SPENDABLE)) {
+            continue;
+        }
+
+        if (!ExtractDestination(prev.vout[txin.prevout.n].scriptPubKey, source)) {
+            source = CNoDestination();
+        }
+    }
+
+    return source;
+}
+
 void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
     list<COutputEntry>& listSent,
-    CAmount& nFee,
+    CAmount& nTxFee,
     string& strSentAccount,
     const isminefilter& filter) const
 {
-    nFee = 0;
+    nTxFee = 0;
     listReceived.clear();
     listSent.clear();
     strSentAccount = strFromAccount;
 
-    // Compute fee:
-    CAmount nDebit = GetDebit(filter);
-    if (nDebit > 0) // debit>0 means we signed/sent this transaction
-    {
-        CAmount nValueOut = GetValueOut();
-        nFee = nDebit - nValueOut;
+    const CAmount nCredit = GetCredit(ISMINE_ALL);
+    const CAmount nDebit = GetDebit(ISMINE_ALL);
+    const CAmount nNet = nCredit - nDebit;
+
+    // Zerocoin is ignored
+    if (IsZerocoinSpend() || IsZerocoinMint()) {
+        return;
     }
 
-    // Sent/received.
-    for (unsigned int i = 0; i < vout.size(); ++i) {
-        const CTxOut& txout = vout[i];
-        isminetype fIsMine = pwallet->IsMine(txout);
-        // Only need to handle txouts if AT LEAST one of these is true:
-        //   1) they debit from us (sent)
-        //   2) the output is to us (received)
-        if (nDebit > 0) {
-            // Don't report 'change' txouts
-            if (pwallet->IsChange(txout))
-                continue;
-        } else if (!(fIsMine & filter) && !IsZerocoinSpend())
-            continue;
-
-        // In either case, we need to get the destination address
+    if (IsCoinStake()) {
         CTxDestination address;
-        if (txout.scriptPubKey.IsZerocoinMint()) {
-            address = CNoDestination();
-        } else if (!ExtractDestination(txout.scriptPubKey, address)) {
-            if (!IsCoinStake() && !IsCoinBase()) {
-                LogPrintf("CWalletTx::GetAmounts: Unknown transaction type found, txid %s\n", this->GetHash().ToString());
+        if (!ExtractDestination(vout[1].scriptPubKey, address))
+            return;
+
+        if (pwallet->IsMine(vout[1])) {
+            // BITWIN24 stake reward
+            COutputEntry reward{ CNoDestination{}, address, nNet, 1 };
+            listReceived.push_back( reward );
+        } 
+        else {
+            //Masternode reward
+            CTxDestination destMN;
+            int nIndexMN = vout.size() - 1;
+            if (ExtractDestination(vout[nIndexMN].scriptPubKey, destMN) && IsMine(*pwallet, destMN)) {
+                COutputEntry reward{ CNoDestination{}, destMN, vout[nIndexMN].nValue, nIndexMN };
+                listReceived.push_back( reward );
             }
-            address = CNoDestination();
+        }
+    } 
+    else if (nNet > 0 || IsCoinBase()) {
+        //
+        // Credit
+        //
+        int index = 0;
+        for(const CTxOut& txout: vout) {
+            isminetype mine = pwallet->IsMine(txout);
+            if (mine) {
+                CTxDestination address;
+                if (ExtractDestination(txout.scriptPubKey, address) && IsMine(*pwallet, address)) {
+                    // Received by BITWIN24 Address
+                    COutputEntry received{ ExtractSource(), address, txout.nValue, index++ };
+                    listReceived.push_back( received );
+                }
+            }
+        }
+    } 
+    else {
+        nTxFee = nDebit - GetValueOut();
+
+        int nFromMe = 0;
+        isminetype fAllFromMe = ISMINE_SPENDABLE;
+        BOOST_FOREACH (const CTxIn& txin, vin) {
+            if (pwallet->IsMine(txin)) {
+                nFromMe++;
+            }
+            isminetype mine = pwallet->IsMine(txin);
+            if (fAllFromMe > mine) fAllFromMe = mine;
         }
 
-        COutputEntry output = {address, txout.nValue, (int)i};
+        isminetype fAllToMe = ISMINE_SPENDABLE;
+        int nToMe = 0;
+        BOOST_FOREACH (const CTxOut& txout, vout) {
+            if (pwallet->IsMine(txout)) {
+                nToMe++;
+            }
+            isminetype mine = pwallet->IsMine(txout);
+            if (fAllToMe > mine) fAllToMe = mine;
+        }
 
-        // If we are debited by the transaction, add the output as a "sent" entry
-        if (nDebit > 0)
-            listSent.push_back(output);
+        if (fAllFromMe && fAllToMe) {
+            // Payment to self
+            // TODO: this section still not accurate but covers most cases,
+            // might need some additional work however
+            CTxDestination address;
+            if (ExtractDestination(vout[0].scriptPubKey, address)) {
+                // Sent to BITWIN24 Address
+                COutputEntry sentToSelf{ address, address, -(nDebit - GetChange()), 0 };
+                listSent.push_back( sentToSelf );
+            }
+        }
+        else if (fAllFromMe) {
+            //
+            // Debit
+            //
+            for (unsigned int nOut = 0; nOut < vout.size(); nOut++) {
+                const CTxOut& txout = vout[nOut];
 
-        // If we are receiving the output, add it as a "received" entry
-        if (fIsMine & filter)
-            listReceived.push_back(output);
+                if (pwallet->IsMine(txout) || pwallet->IsChange(txout)) {
+                    // Ignore parts sent to self, as this is usually the change
+                    // from a transaction sent back to our own address.
+                    continue;
+                }
+
+                CTxDestination address;
+                if (ExtractDestination(txout.scriptPubKey, address)) {
+                    // Sent to BITWIN24 Address
+
+                    CAmount nValue = txout.nValue;
+                    /* Add fee to first output */
+                    if (nTxFee > 0) {
+                        nValue += nTxFee;
+                        nTxFee = 0;
+                    }
+
+                    COutputEntry sentToAddress{ ExtractSource(), address, nValue, static_cast< int >( nOut ) };
+                    listSent.push_back( sentToAddress );
+                } 
+            }
+        }
     }
 }
 
@@ -1654,7 +1748,7 @@ CAmount CWallet::GetEarnings(bool fMasternodeOnly) const
         for (map<uint256, CWalletTx>::const_iterator it = mapWallet.begin(); it != mapWallet.end(); ++it) {
             const CWalletTx* pcoin = &(*it).second;
 
-            if (/*pcoin->IsTrusted() &&*/ pcoin->IsCoinStake()) {
+            if (/*pcoin->IsTrusted() &&*/ pcoin->IsCoinStake() && pcoin->GetDepthInMainChain() > 12 ) {
                 if (isminetype mine = IsMine(pcoin->vout[1])) {
                     if(!fMasternodeOnly && !(mine & ISMINE_WATCH_ONLY)) {
                         CAmount credit = pcoin->GetCredit(ISMINE_ALL);
@@ -3051,7 +3145,8 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
 
             // Calculate reward
             CAmount nReward;
-            nReward = GetBlockValue(chainActive.Height() + 1, mnodeman.size());
+            CMasterNodeWitness witness = pMNWitness->CreateMasterNodeWitnessSnapshot();
+            nReward = GetBlockValue(chainActive.Height() + 1, witness.nProofs.size());
             nCredit += nReward;
 
             // Create the output transaction(s)
@@ -3852,21 +3947,21 @@ void CWallet::DisableStaking( const CBitcoinAddress& address )
 {
     AssertLockHeld(cs_wallet);
 
-    StakingAccountsDb::instance().add( address.ToString() );
+    StakingAccountsDb::instance().remove( address.ToString() );
 }
 
 void CWallet::EnableStaking( const CBitcoinAddress& address )
 {
     AssertLockHeld(cs_wallet);
 
-    StakingAccountsDb::instance().remove( address.ToString() );
+    StakingAccountsDb::instance().add( address.ToString() );
 }
 
 bool CWallet::IsStakingEnabled( const CBitcoinAddress& address ) const
 {
     AssertLockHeld(cs_wallet);
 
-    return !StakingAccountsDb::instance().exist( address.ToString() );
+    return StakingAccountsDb::instance().exist( address.ToString() );
 }
 
 set<CBitcoinAddress> CWallet::GetStakingAddresses() const

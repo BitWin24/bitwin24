@@ -17,6 +17,8 @@
 #include "util.h"
 #include <boost/filesystem.hpp>
 #include <boost/lexical_cast.hpp>
+#include "master_node_witness_manager.h"
+#include "primitives/masternode_witness.h"
 
 CBudgetManager budget;
 CCriticalSection cs_budget;
@@ -564,7 +566,8 @@ void CBudgetManager::FillBlockPayee(CMutableTransaction& txNew, CAmount nFees, b
         ++it;
     }
 
-    CAmount blockValue = GetBlockValue(pindexPrev->nHeight, mnodeman.size());
+    CMasterNodeWitness witness = pMNWitness->CreateMasterNodeWitnessSnapshot();
+    CAmount blockValue = GetBlockValue(pindexPrev->nHeight, witness.nProofs.size());
 
     if (fProofOfStake) {
         if (nHighestCount > 0) {

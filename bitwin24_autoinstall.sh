@@ -177,6 +177,7 @@ fi
 #Installing Daemon
 echo -e "${GREEN}Downloading and installing BitWin24 deamon...${NC}"
 cd ~
+rm -rf /bitwin24-1.0.0
 rm -rf /usr/local/bin/bitwin24*
 wget https://github.com/BitWin24/bitwin24/releases/download/v0.0.6/bitwin24-1.0.0-x86_64-linux-gnu.tar.gz
 tar -xzvf bitwin24-1.0.0-x86_64-linux-gnu.tar.gz
@@ -227,7 +228,7 @@ done
 #Adding bootstrap files 
 
 cd ~/.bitwin24/ && rm -rf blocks chainstate sporks zerocoin peers.dat
-cd ~/.bitwin24/ && wget https://github.com/BitWin24/guides/raw/master/bootstrap.zip
+cd ~/.bitwin24/ && wget https://www.dropbox.com/s/mg606h8lqgwqk5m/bootstrap.zip
 cd ~/.bitwin24/ && unzip bootstrap.zip
 
 sleep 5 

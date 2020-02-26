@@ -834,8 +834,11 @@ void CoinControlDialog::updateView()
             itemOutput->setText(COLUMN_AMOUNT_INT64, QString::number(out.tx->vout[out.i].nValue)); // padding so that sorting works correctly
 
             // staking
-            bool enabled_staking = pwalletMain->IsStakingEnabled(outputAddress);
+            const bool enabled_staking = pwalletMain->IsStakingEnabled(outputAddress);
             itemOutput->setIcon(COLUMN_STAKING, enabled_staking ?  QIcon(":/icons/lock_open") : QIcon(":/icons/lock_closed"));
+            // hack for ordering data; we add invisible text 1 - if staking is enabled, 0 - if disabled
+            itemOutput->setData(COLUMN_STAKING, Qt::DisplayRole, QString::number(enabled_staking) );
+            itemOutput->setForeground(COLUMN_STAKING, QColor(Qt::transparent));
 
             // date
             itemOutput->setText(COLUMN_DATE, GUIUtil::dateTimeStr(out.tx->GetTxTime()));

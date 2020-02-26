@@ -54,6 +54,7 @@ class CInv;
 class CScriptCheck;
 class CValidationInterface;
 class CValidationState;
+class MasterNodeWitnessManager;
 
 struct CBlockTemplate;
 struct CNodeStateStats;
@@ -224,17 +225,19 @@ bool GetTransaction(const uint256& hash, CTransaction& tx, uint256& hashBlock, b
 
 // ***TODO***
 double ConvertBitsToDouble(unsigned int nBits);
-int64_t GetMasternodePayment(int64_t blockValue);
+int64_t GetMasterNodePayment(int64_t blockValue);
 unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader* pblock, bool fProofOfStake);
 
 bool ActivateBestChain(CValidationState& state, CBlock* pblock = NULL, bool fAlreadyChecked = false);
 CAmount GetBlockValue(int nHeight, int nMasternodeCount = 0);
-/** returns:
+/**
+ *  0 if without errors
  * -1 if reward not based on block height
  * -2 if reward is trimmed
  * -3 unknown
  * */
-int GetMasternodeCountBasedOnBlockReward(int nHeight, CAmount reward);
+int GetMasterNodeCountBasedOnBlockReward(int nHeight, CAmount reward);
+int GetContextualMasterNodeCountBasedOnBlockReward(CAmount reward, int& errorCode);
 int64_t GetPhaseMultiplier(int nHeight);
 
 /** Create a new block index entry for a given block hash */
@@ -628,6 +631,9 @@ extern CZerocoinDB* zerocoinDB;
 
 /** Global variable that points to the spork database (protected by cs_main) */
 extern CSporkDB* pSporkDB;
+
+/** Global variable that points to the master node witnesses */
+extern MasterNodeWitnessManager* pMNWitness;
 
 struct CBlockTemplate {
     CBlock block;

@@ -15,12 +15,15 @@
 #include "checkpoints.h"
 #include "clientversion.h"
 #include "main.h"
+#include "master_node_witness_manager.h"
 #include "masternode-sync.h"
 #include "masternodeman.h"
 #include "net.h"
 #include "netbase.h"
 #include "ui_interface.h"
 #include "util.h"
+
+#include "primitives/masternode_witness.h"
 
 #include <stdint.h>
 
@@ -74,11 +77,15 @@ int ClientModel::getNumConnections(unsigned int flags) const
 
 QString ClientModel::getMasternodeCountString() const
 {
+    // TODO fix protocol determination
     int ipv4 = 0, ipv6 = 0, onion = 0;
-    mnodeman.CountNetworks(ActiveProtocol(), ipv4, ipv6, onion);
-    int nUnknown = mnodeman.size() - ipv4 - ipv6 - onion;
-    if(nUnknown < 0) nUnknown = 0;
-    return tr("Total: %1 (IPv4: %2 / IPv6: %3 / Tor: %4 / Unknown: %5)").arg(QString::number((int)mnodeman.size())).arg(QString::number((int)ipv4)).arg(QString::number((int)ipv6)).arg(QString::number((int)onion)).arg(QString::number((int)nUnknown));
+    //mnodeman.CountNetworks(ActiveProtocol(), ipv4, ipv6, onion);
+
+    CMasterNodeWitness witness = pMNWitness->CreateMasterNodeWitnessSnapshot();
+    const int totalProofs = witness.nProofs.size();
+    //int nUnknown = totalProofs - ipv4 - ipv6 - onion;
+    //if(nUnknown < 0) nUnknown = 0;
+    return tr("Total: %1 (IPv4: %2 / IPv6: %3 / Tor: %4 / Unknown: %5)").arg(QString::number((int)totalProofs)).arg(QString::number((int)ipv4)).arg(QString::number((int)ipv6)).arg(QString::number((int)onion)).arg(QString::number((int)totalProofs));
 }
 
 int ClientModel::getNumBlocks() const

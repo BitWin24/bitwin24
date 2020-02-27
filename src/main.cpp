@@ -2910,6 +2910,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
             }
         }
         else if (!cantResolveMasterNodeCount
+            && block.nTime >= (GetAdjustedTime() - 15 * 60) // For blocks older than 15 minutes, we skip validation according to the old protocol
             && masternodeSync.IsSynced()
             && !IsInitialBlockDownload()
             && !fImporting && !fReindex) {

@@ -2107,6 +2107,38 @@ UniValue listlockunspent(const UniValue& params, bool fHelp)
     return ret;
 }
 
+void SplitUTXOs() {
+    vector<COutput> vCoins;
+    {
+        LOCK2(cs_main, pwalletMain->cs_wallet);
+        pwalletMain->AvailableCoins(vCoins, true, nullptr, false, STAKABLE_COINS);
+    }
+
+    const CAmount splitThreshold = 50;
+    CMutableTransaction splitUtxoTx;
+    for( const auto& out: vCoins ) {
+        CTxDestination txAddress;
+        if ( ExtractDestination(out.tx->vout[out.i].scriptPubKey, txAddress) ) {
+            continue;
+        }
+
+        if( out.Value() <= splitThreshold ) {
+            continue;
+        }
+
+        uint64_t nSplitBlock = out.Value() / splitThreshold;
+        for ( int i = 0; i < nSplitBlock; i++ ) {
+            if ( i == nSplitBlock - 1 ) {
+                const uint64_t nRemainder =  out.Value() % nSplitBlock;
+                splitUtxoTx.vout.push_back(CTxOut((out.Value() / nSplitBlock) + nRemainder, out.tx->vout[i].scriptPubKey));
+            } 
+            else {
+                splitUtxoTx.vout.push_back(CTxOut(out.Value() / nSplitBlock, out.tx->vout[i].scriptPubKey));
+            }
+        }
+    }
+}
+
 UniValue enablestaking(const UniValue& params, bool fHelp)
 {
     if (fHelp || params.size() != 2)

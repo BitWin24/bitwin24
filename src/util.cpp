@@ -832,3 +832,14 @@ void SetThreadPriority(int nPriority)
 #endif // PRIO_THREAD
 #endif // WIN32
 }
+
+std::string EpochTimeToHumanReadableFormat(float epochStr)
+{
+    char timestamp[64] = "";
+    time_t tt = 0;
+    memset(timestamp, '\0', 64);
+    tt = epochStr;
+    strftime(timestamp, 64, "%Y-%m-%d:%H:%M:%S", localtime(&tt));
+    std::string result(timestamp);
+    return result;
+}

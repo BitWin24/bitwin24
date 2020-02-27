@@ -26,7 +26,8 @@
 #include "util.h"
 #include "utilmoneystr.h"
 #include "zbwichain.h"
-
+#include "primitives/masternode_witness.h"
+#include "master_node_witness_manager.h"
 #include "denomination_functions.h"
 #include "libzerocoin/Denominations.h"
 #include "zbwiwallet.h"
@@ -3144,7 +3145,8 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
 
             // Calculate reward
             CAmount nReward;
-            nReward = GetBlockValue(chainActive.Height() + 1, mnodeman.size());
+            CMasterNodeWitness witness = pMNWitness->CreateMasterNodeWitnessSnapshot();
+            nReward = GetBlockValue(chainActive.Height() + 1, witness.nProofs.size());
             nCredit += nReward;
 
             // Create the output transaction(s)
@@ -3945,21 +3947,21 @@ void CWallet::DisableStaking( const CBitcoinAddress& address )
 {
     AssertLockHeld(cs_wallet);
 
-    StakingAccountsDb::instance().add( address.ToString() );
+    StakingAccountsDb::instance().remove( address.ToString() );
 }
 
 void CWallet::EnableStaking( const CBitcoinAddress& address )
 {
     AssertLockHeld(cs_wallet);
 
-    StakingAccountsDb::instance().remove( address.ToString() );
+    StakingAccountsDb::instance().add( address.ToString() );
 }
 
 bool CWallet::IsStakingEnabled( const CBitcoinAddress& address ) const
 {
     AssertLockHeld(cs_wallet);
 
-    return !StakingAccountsDb::instance().exist( address.ToString() );
+    return StakingAccountsDb::instance().exist( address.ToString() );
 }
 
 set<CBitcoinAddress> CWallet::GetStakingAddresses() const

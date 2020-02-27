@@ -43,6 +43,8 @@
 #include "utilmoneystr.h"
 #include "validationinterface.h"
 #include "zbwichain.h"
+#include "primitives/masternode_witness.h"
+#include "master_node_witness_manager.h"
 
 #ifdef ENABLE_WALLET
 #include "db.h"
@@ -214,6 +216,7 @@ void PrepareShutdown()
     DumpBudgets();
     DumpMasternodePayments();
     UnregisterNodeSignals(GetNodeSignals());
+    pMNWitness->Save();
 
     if (fFeeEstimatesInitialized) {
         boost::filesystem::path est_path = GetDataDir() / FEE_ESTIMATES_FILENAME;
@@ -245,6 +248,8 @@ void PrepareShutdown()
         zerocoinDB = NULL;
         delete pSporkDB;
         pSporkDB = NULL;
+        delete pMNWitness;
+        pMNWitness = NULL;
     }
 #ifdef ENABLE_WALLET
     if (pwalletMain)
@@ -1405,10 +1410,15 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
                 delete pblocktree;
                 delete zerocoinDB;
                 delete pSporkDB;
+                delete pMNWitness;
 
                 //BITWIN24 specific: zerocoin and spork DB's
                 zerocoinDB = new CZerocoinDB(0, false, fReindex);
                 pSporkDB = new CSporkDB(0, false, false);
+
+                pMNWitness = new MasterNodeWitnessManager();
+                pMNWitness->Load();
+                threadGroup.create_thread(boost::bind(&MasterNodeWitnessManager::UpdateThread, pMNWitness));
 
                 pblocktree = new CBlockTreeDB(nBlockTreeDBCache, false, fReindex);
                 pcoinsdbview = new CCoinsViewDB(nCoinDBCache, false, fReindex);

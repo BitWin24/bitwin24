@@ -2867,10 +2867,21 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
             masterNodeCount = GetContextualMasterNodeCountBasedOnBlockReward(nExpectedMint);
             cantResolveMasterNodeCount = false;
         }
-        if (pMNWitness->Exist(block.GetHash())
-            && !cantResolveMasterNodeCount
+        if (!cantResolveMasterNodeCount
             && !IsInitialBlockDownload()
-            && !fImporting && !fReindex) {
+            && !fImporting
+            && !fReindex
+            && pindex->pprev->nHeight >= START_HEIGHT_PROOF_WITH_MN_COUNT) {
+            if (!pMNWitness->Exist(block.GetHash())
+                && block.nTime > (GetAdjustedTime() - MASTERNODE_REMOVAL_SECONDS)) {
+                return state.DoS(
+                    5,
+                    error("ConnectBlock() : we do not accept fresh blocks without proofs, proof not found for %s",
+                          block.GetHash().ToString()),
+                    REJECT_INVALID,
+                    "proof-not-found");
+            }
+
             const CMasterNodeWitness &witness = pMNWitness->Get(block.GetHash());
             LogPrintf("validate block with proofs %s\n", block.GetHash().ToString());
             bool signOfProofValid = false;
@@ -2907,27 +2918,6 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
                           witness.ToString()),
                     REJECT_INVALID,
                     "bad-cb-proof");
-            }
-        }
-        else if (!cantResolveMasterNodeCount
-            && block.nTime >= (GetAdjustedTime() - 15 * 60) // For blocks older than 15 minutes, we skip validation according to the old protocol
-            && masternodeSync.IsSynced()
-            && !IsInitialBlockDownload()
-            && !fImporting && !fReindex) {
-            if (masterNodeCount >= 0) {
-                if (masterNodeCount > mnodeman.size() + Params().MasternodeTolerance()
-                    || masterNodeCount < mnodeman.size() - Params().MasternodeTolerance()
-                    || masterNodeCount < 0) {
-                    int minLevel = mnodeman.size() - Params().MasternodeTolerance();
-                    if (minLevel < 0) minLevel = 0;
-                    return state.DoS(
-                        100,
-                        error("ConnectBlock() : unexpected number of masternodes, %d not in range [%d - %d]",
-                              masterNodeCount, minLevel,
-                              mnodeman.size() + Params().MasternodeTolerance()),
-                        REJECT_INVALID,
-                        "bad-cb-amount");
-                }
             }
         }
         nExpectedMint += nFees;

@@ -108,7 +108,7 @@ void MasterNodeWitnessManager::UpdateThread()
                 uint256 blockHash = block.GetHash();
                 bool proofExist = Exist(blockHash);
                 if (proofExist
-                    || _retries[blockHash]._retry > 5
+                    || _retries[blockHash]._retry > 10
                     || chainActive.Tip()->nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT) {
                     if (!mapBlockIndex.count(blockHash)) {
                         if (!mapBlockIndex.count(block.hashPrevBlock)) {
@@ -117,7 +117,7 @@ void MasterNodeWitnessManager::UpdateThread()
                         CInv inv(MSG_BLOCK, blockHash);
                         CNode *pfrom = FindNode(it->second.nodeID);
                         if(!pfrom)
-                            LogPrintf("received block from unknown peer %d", it->second.nodeID);
+                            LogPrintf("received block from unknown peer %d\n", it->second.nodeID);
                         if(pfrom)
                             pfrom->AddInventoryKnown(inv);
                         CValidationState state;
@@ -127,6 +127,7 @@ void MasterNodeWitnessManager::UpdateThread()
                         UnregisterValidationInterface(&sc);
                         int nDoS;
                         if (state.IsInvalid(nDoS) && pfrom) {
+                            LogPrintf("Block invalid %s, reason: %s\n", blockHash.ToString(), state.GetRejectReason());
                             string strCommand = "block";
                             pfrom->PushMessage("reject",
                                                strCommand,

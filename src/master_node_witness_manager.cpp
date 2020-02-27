@@ -138,6 +138,9 @@ void MasterNodeWitnessManager::UpdateThread()
                                 if (lockMain) Misbehaving(pfrom->GetId(), nDoS);
                             }
                         }
+
+                        AddBroadCastToMNManager(blockHash);
+
                         toRemove.push_back(it->first);
                     }
                 }
@@ -303,5 +306,34 @@ void MasterNodeWitnessManager::HoldBlock(CBlock block, int nodeId)
         retry._retry = 0;
         retry._lastTryTime = GetTime();
         _retries[block.GetHash()] = retry;
+    }
+}
+
+void MasterNodeWitnessManager::AddBroadCastToMNManager(const uint256 &targetBlockHash)
+{
+    if (!Exist(targetBlockHash)) {
+        return;
+    }
+    CMasterNodeWitness witness = Get(targetBlockHash);
+    for (auto it = witness.nProofs.begin(); it != witness.nProofs.end(); it++) {
+        CMasternodeBroadcast mnb = (*it).nBroadcast;
+        mnb.lastPing = (*it).nPing;
+
+        if (mnodeman.mapSeenMasternodeBroadcast.count(mnb.GetHash())) { //seen
+            masternodeSync.AddedMasternodeList(mnb.GetHash());
+            continue;
+        }
+        mnodeman.mapSeenMasternodeBroadcast.insert(make_pair(mnb.GetHash(), mnb));
+
+        int nDoS = 0;
+        if (!mnb.CheckAndUpdate(nDoS)) {
+            continue;
+        }
+
+        // make sure it's still unspent
+        //  - this is checked later by .check() in many places and by ThreadCheckObfuScationPool()
+        if (mnb.CheckInputsAndAdd(nDoS)) {
+            masternodeSync.AddedMasternodeList(mnb.GetHash());
+        }
     }
 }

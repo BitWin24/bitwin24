@@ -5964,7 +5964,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         try {
             CMasterNodeWitness witness;
             vRecv >> witness;
-            if (witness.nVersion != 0 && !pMNWitness->Exist(witness.nTargetBlockHash)) {
+            if (witness.nVersion == 0 && !pMNWitness->Exist(witness.nTargetBlockHash)) {
                 LogPrintf("received proof with block %s\n", witness.nTargetBlockHash.ToString());
                 if (witness.SignatureValid()) {
                     pMNWitness->Add(witness);

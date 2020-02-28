@@ -670,7 +670,7 @@ UniValue submitblock(const UniValue& params, bool fHelp)
                 ssStream >> blockStub;
                 CMasterNodeWitness witness;
                 ssStream >> witness;
-                if (witness.nVersion != 0 && !pMNWitness->Exist(witness.nTargetBlockHash)) {
+                if (witness.nVersion == 0 && !pMNWitness->Exist(witness.nTargetBlockHash)) {
                     if (witness.SignatureValid()) {
                         LogPrintf("submit block with proof %s\n", witness.nTargetBlockHash.ToString());
                         pMNWitness->Add(witness);

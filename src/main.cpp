@@ -2872,9 +2872,9 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
             && !IsInitialBlockDownload()
             && !fImporting
             && !fReindex
-            && pindex->pprev->nHeight >= START_HEIGHT_PROOF_WITH_MN_COUNT) {
-            if (!pMNWitness->Exist(block.GetHash())
-                && block.nTime > (GetAdjustedTime() - MASTERNODE_REMOVAL_SECONDS)) {
+            && pindex->pprev->nHeight >= START_HEIGHT_PROOF_WITH_MN_COUNT
+            && block.nTime >= (GetAdjustedTime() - MASTERNODE_REMOVAL_SECONDS)) {
+            if (!pMNWitness->Exist(block.GetHash())) {
                 return state.DoS(
                     5,
                     error("ConnectBlock() : we do not accept fresh blocks without proofs, proof not found for %s",

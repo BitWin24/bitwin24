@@ -140,7 +140,7 @@ void MasterNodeWitnessManager::UpdateThread()
                             }
                         }
 
-                        AddBroadCastToMNManager(blockHash);
+//                        AddBroadCastToMNManager(blockHash);
 
                         toRemove.push_back(it->first);
                     }

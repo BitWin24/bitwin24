@@ -2867,6 +2867,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
             masterNodeCount = GetContextualMasterNodeCountBasedOnBlockReward(nExpectedMint);
             cantResolveMasterNodeCount = false;
         }
+        skipCheckProofs = true;
         if (!cantResolveMasterNodeCount
             && !skipCheckProofs
             && !IsInitialBlockDownload()

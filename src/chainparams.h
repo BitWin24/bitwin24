@@ -255,7 +255,7 @@ void SelectParams(CBaseChainParams::Network network);
  */
 bool SelectParamsFromCommandLine();
 
-const int START_HEIGHT_REWARD_BASED_ON_MN_COUNT = 57515;
-const int START_HEIGHT_PROOF_WITH_MN_COUNT = 166200;
+const int START_HEIGHT_REWARD_BASED_ON_MN_COUNT = 10000;
+const int START_HEIGHT_PROOF_WITH_MN_COUNT = 25000;
 
 #endif // BITCOIN_CHAINPARAMS_H

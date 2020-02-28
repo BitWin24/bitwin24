@@ -85,7 +85,7 @@ void MasterNodeWitnessManager::UpdateThread()
         if (GetTime() - _lastUpdate > 5 * 60) {
             _lastUpdate = GetTime();
 
-            int64_t thresholdTime = GetAdjustedTime() - MASTERNODE_REMOVAL_SECONDS;
+            int64_t thresholdTime = GetAdjustedTime() - 2 * MASTERNODE_REMOVAL_SECONDS;
             std::map<uint256, CMasterNodeWitness>::iterator it = _witnesses.begin();
             std::vector<uint256> toRemove;
             while (it != _witnesses.end()) {

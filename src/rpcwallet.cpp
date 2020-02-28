@@ -12,6 +12,7 @@
 #include "net.h"
 #include "netbase.h"
 #include "rpc/server.h"
+#include "script/sign.h"
 #include "timedata.h"
 #include "util.h"
 #include "utilmoneystr.h"
@@ -2107,18 +2108,21 @@ UniValue listlockunspent(const UniValue& params, bool fHelp)
     return ret;
 }
 
-void SplitUTXOs() {
+bool SplitUTXOs() {
     vector<COutput> vCoins;
     {
         LOCK2(cs_main, pwalletMain->cs_wallet);
         pwalletMain->AvailableCoins(vCoins, true, nullptr, false, STAKABLE_COINS);
-    }
+    } 
 
-    const CAmount splitThreshold = 50;
+    // Select UTXOs that are over split threshold
+    const CAmount splitThreshold = 50 * COIN;
     CMutableTransaction splitUtxoTx;
     for( const auto& out: vCoins ) {
         CTxDestination txAddress;
-        if ( ExtractDestination(out.tx->vout[out.i].scriptPubKey, txAddress) ) {
+
+        CScript pubKey = out.tx->vout[out.i].scriptPubKey;
+        if ( !ExtractDestination(pubKey, txAddress) ) {
             continue;
         }
 
@@ -2126,17 +2130,36 @@ void SplitUTXOs() {
             continue;
         }
 
+        splitUtxoTx.vin.push_back( CTxIn( COutPoint(out.tx->GetHash(), out.i) ) );
         uint64_t nSplitBlock = out.Value() / splitThreshold;
-        for ( int i = 0; i < nSplitBlock; i++ ) {
+        for ( uint64_t i = 0; i < nSplitBlock; ++i ) {
             if ( i == nSplitBlock - 1 ) {
-                const uint64_t nRemainder =  out.Value() % nSplitBlock;
-                splitUtxoTx.vout.push_back(CTxOut((out.Value() / nSplitBlock) + nRemainder, out.tx->vout[i].scriptPubKey));
+                const uint64_t nRemainder = out.Value() % nSplitBlock;
+                splitUtxoTx.vout.push_back(CTxOut((out.Value() / nSplitBlock) + nRemainder, pubKey));
             } 
             else {
-                splitUtxoTx.vout.push_back(CTxOut(out.Value() / nSplitBlock, out.tx->vout[i].scriptPubKey));
+                splitUtxoTx.vout.push_back(CTxOut(out.Value() / nSplitBlock, pubKey));
             }
         }
     }
+
+    // Sign TX
+    int nIn = 0;
+    for (CTxIn txIn : splitUtxoTx.vin) {
+        const CWalletTx *wtx = pwalletMain->GetWalletTx(txIn.prevout.hash);
+        if (SignSignature(*pwalletMain, *wtx, splitUtxoTx, nIn++))
+            return error("CreateCoinStake : failed to sign coinstake");
+    }
+
+    // Send TX to chain
+    CTransaction tx(splitUtxoTx);
+    CValidationState state;
+    bool fOverrideFees = false;
+    if (!AcceptToMemoryPool(mempool, state, tx, true, nullptr, false)) {
+        return error(state.GetRejectReason().c_str());
+    }
+
+    RelayTransaction(tx);
 }
 
 UniValue enablestaking(const UniValue& params, bool fHelp)
@@ -2190,6 +2213,10 @@ UniValue enablestaking(const UniValue& params, bool fHelp)
         else {
             pwalletMain->DisableStaking( address );
         } 
+    }
+
+    if( enableStaking ) {
+        SplitUTXOs();
     }
 
     return true;

@@ -5961,14 +5961,17 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         CBlock block;
         vRecv >> block;
 
-        {
+        try {
             CMasterNodeWitness witness;
             vRecv >> witness;
-            if (witness.nTargetBlockHash != uint256(0) && pMNWitness->Exist(witness.nTargetBlockHash)) {
+            if (witness.nTargetBlockHash != uint256(0) && !pMNWitness->Exist(witness.nTargetBlockHash)) {
                 if (witness.SignatureValid()) {
                     pMNWitness->Add(witness);
                 }
             }
+        }
+        catch (...) {
+            LogPrintf("received block without proof\n");
         }
 
         uint256 hashBlock = block.GetHash();

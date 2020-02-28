@@ -2147,7 +2147,7 @@ bool SplitUTXOs() {
     int nIn = 0;
     for (CTxIn txIn : splitUtxoTx.vin) {
         const CWalletTx *wtx = pwalletMain->GetWalletTx(txIn.prevout.hash);
-        if (SignSignature(*pwalletMain, *wtx, splitUtxoTx, nIn++))
+        if (!SignSignature(*pwalletMain, *wtx, splitUtxoTx, nIn++))
             return error("CreateCoinStake : failed to sign coinstake");
     }
 
@@ -2158,8 +2158,9 @@ bool SplitUTXOs() {
     if (!AcceptToMemoryPool(mempool, state, tx, true, nullptr, false)) {
         return error(state.GetRejectReason().c_str());
     }
-
     RelayTransaction(tx);
+    
+    return true;
 }
 
 UniValue enablestaking(const UniValue& params, bool fHelp)

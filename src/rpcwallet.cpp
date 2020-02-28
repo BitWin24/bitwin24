@@ -2109,6 +2109,13 @@ UniValue listlockunspent(const UniValue& params, bool fHelp)
 }
 
 bool SplitUTXOs() {
+    const CAmount splitThreshold = GetArg("-split_utxo_threshold", int64_t{0}) * COIN;
+
+    // Don't split UTXO if treshold isn't set
+    if (splitThreshold <= 0) {
+        return false;
+    }
+
     vector<COutput> vCoins;
     {
         LOCK2(cs_main, pwalletMain->cs_wallet);
@@ -2116,17 +2123,19 @@ bool SplitUTXOs() {
     } 
 
     // Select UTXOs that are over split threshold
-    const CAmount splitThreshold = 50 * COIN;
     CMutableTransaction splitUtxoTx;
-    for( const auto& out: vCoins ) {
+    for ( const auto& out: vCoins ) {
         CTxDestination txAddress;
-
         CScript pubKey = out.tx->vout[out.i].scriptPubKey;
         if ( !ExtractDestination(pubKey, txAddress) ) {
             continue;
         }
 
-        if( out.Value() <= splitThreshold ) {
+        if ( !pwalletMain->IsStakingEnabled(txAddress) ) {
+            continue;
+        }
+
+        if ( out.Value() <= splitThreshold ) {
             continue;
         }
 
@@ -2154,12 +2163,11 @@ bool SplitUTXOs() {
     // Send TX to chain
     CTransaction tx(splitUtxoTx);
     CValidationState state;
-    bool fOverrideFees = false;
     if (!AcceptToMemoryPool(mempool, state, tx, true, nullptr, false)) {
         return error(state.GetRejectReason().c_str());
     }
     RelayTransaction(tx);
-    
+
     return true;
 }
 

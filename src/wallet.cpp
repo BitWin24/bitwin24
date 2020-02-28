@@ -2105,9 +2105,11 @@ void CWallet::AvailableCoins(vector<COutput>& vCoins, bool fOnlyConfirmed, const
                     if (pcoin->vout[i].IsZerocoinMint())
                         continue;
 
-                    CTxDestination txAddress;
-                    if ( ExtractDestination(pcoin->vout[i].scriptPubKey, txAddress) && !IsStakingEnabled( CBitcoinAddress(txAddress) ) ) {
-                        continue;
+                    if( GetArg("-staking_per_address", true) ) {
+                        CTxDestination txAddress;
+                        if ( ExtractDestination(pcoin->vout[i].scriptPubKey, txAddress) && !IsStakingEnabled( CBitcoinAddress(txAddress) ) ) {
+                            continue;
+                        }
                     }
                 }
 

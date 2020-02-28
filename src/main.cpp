@@ -5197,7 +5197,7 @@ void static ProcessGetData(CNode* pfrom)
                         if (pfrom->nVersion >= MASTER_NODE_WITNESS_VERSION && pMNWitness->Exist(block.GetHash())) {
                             pfrom->PushMessage("mnwitness", pMNWitness->Get(block.GetHash()));
                         }
-                        pfrom->PushMessage("block", block);
+                        pfrom->PushMessage("block", block, pMNWitness->Get(block.GetHash()));
                     }
                     else // MSG_FILTERED_BLOCK)
                     {
@@ -5960,6 +5960,17 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
     {
         CBlock block;
         vRecv >> block;
+
+        {
+            CMasterNodeWitness witness;
+            vRecv >> witness;
+            if (witness.nTargetBlockHash != uint256(0) && pMNWitness->Exist(witness.nTargetBlockHash)) {
+                if (witness.SignatureValid()) {
+                    pMNWitness->Add(witness);
+                }
+            }
+        }
+
         uint256 hashBlock = block.GetHash();
         //sometimes we will be sent their most recent block and its not the one we want, in that case tell where we are
         if (!mapBlockIndex.count(block.hashPrevBlock)) {

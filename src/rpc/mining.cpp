@@ -20,6 +20,8 @@
 #include "db.h"
 #include "wallet.h"
 #endif
+#include "../main.h"
+#include "../master_node_witness_manager.h"
 
 #include <stdint.h>
 
@@ -656,6 +658,11 @@ UniValue submitblock(const UniValue& params, bool fHelp)
             // Otherwise, we might only have the header - process the block before returning
             fBlockPresent = true;
         }
+    }
+
+    if(chainActive.Tip()->nHeight >= START_HEIGHT_PROOF_WITH_MN_COUNT) {
+        pMNWitness->HoldBlock(block, -1);
+        return "Hold block, waiting proof";
     }
 
     CValidationState state;

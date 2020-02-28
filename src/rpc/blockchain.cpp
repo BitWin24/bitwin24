@@ -16,6 +16,9 @@
 #include "utilmoneystr.h"
 #include "accumulatormap.h"
 #include "accumulators.h"
+#include "../master_node_witness_manager.h"
+#include "../primitives/masternode_witness.h"
+#include "../main.h"
 
 #include <stdint.h>
 #include <univalue.h>
@@ -352,6 +355,10 @@ UniValue getblock(const UniValue& params, bool fHelp)
     if (!fVerbose) {
         CDataStream ssBlock(SER_NETWORK, PROTOCOL_VERSION);
         ssBlock << block;
+        if(pMNWitness->Exist(block.GetHash())) {
+            LogPrintf("get raw block with proof for %s\n", block.GetHash().ToString());
+            ssBlock << pMNWitness->Get(block.GetHash());
+        }
         std::string strHex = HexStr(ssBlock.begin(), ssBlock.end());
         return strHex;
     }

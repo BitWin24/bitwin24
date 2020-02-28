@@ -22,6 +22,7 @@
 #endif
 #include "../main.h"
 #include "../master_node_witness_manager.h"
+#include "../primitives/masternode_witness.h"
 
 #include <stdint.h>
 
@@ -660,7 +661,26 @@ UniValue submitblock(const UniValue& params, bool fHelp)
         }
     }
 
-    if(chainActive.Tip()->nHeight >= START_HEIGHT_PROOF_WITH_MN_COUNT) {
+    if (chainActive.Tip()->nHeight >= START_HEIGHT_PROOF_WITH_MN_COUNT) {
+        try {
+            if (IsHex(params[0].get_str())) {
+                std::vector<unsigned char> blockData(ParseHex(params[0].get_str()));
+                CDataStream ssStream(blockData, SER_NETWORK, PROTOCOL_VERSION);
+                CBlock blockStub;
+                ssStream >> blockStub;
+                CMasterNodeWitness witness;
+                ssStream >> witness;
+                if (witness.nVersion != 0 && !pMNWitness->Exist(witness.nTargetBlockHash)) {
+                    if (witness.SignatureValid()) {
+                        LogPrintf("submit block with proof %s\n", witness.nTargetBlockHash.ToString());
+                        pMNWitness->Add(witness);
+                    }
+                }
+            }
+        }
+        catch (...) {
+        }
+
         pMNWitness->HoldBlock(block, -1);
         return "Hold block, waiting proof";
     }

@@ -2642,7 +2642,7 @@ static int64_t nTimeIndex = 0;
 static int64_t nTimeCallbacks = 0;
 static int64_t nTimeTotal = 0;
 
-bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pindex, CCoinsViewCache& view, bool fJustCheck, bool fAlreadyChecked)
+bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pindex, CCoinsViewCache& view, bool fJustCheck, bool fAlreadyChecked, bool skipCheckProofs)
 {
     AssertLockHeld(cs_main);
     // Check it again in case a previous version let a bad block in
@@ -2868,6 +2868,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
             cantResolveMasterNodeCount = false;
         }
         if (!cantResolveMasterNodeCount
+            && !skipCheckProofs
             && !IsInitialBlockDownload()
             && !fImporting
             && !fReindex

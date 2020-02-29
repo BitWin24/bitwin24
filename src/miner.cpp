@@ -547,6 +547,7 @@ bool ProcessBlockFound(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
     {
         CMasterNodeWitness witness = pMNWitness->CreateMasterNodeWitnessSnapshot(pblock->GetHash());
         witness.nTargetBlockHash = pblock->GetHash();
+        witness.nTime = pblock->nTime;
 
         CPubKey pubkey;
         bool fzBWIStake = pblock->vtx[1].IsZerocoinSpend();

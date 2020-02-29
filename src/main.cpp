@@ -6072,7 +6072,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
     else if (strCommand == "mnwitness") {
         CMasterNodeWitness witness;
         vRecv >> witness;
-        LogPrint("net", "received master node witness for block hash %s peer=%d\n",
+        LogPrint("net", "received master node witness for block hash %s from peer=%d\n",
                  witness.nTargetBlockHash.ToString(),
                  pfrom->id);
 
@@ -6092,9 +6092,9 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
     else if (strCommand == "getmnwitness") {;
         uint256 targetHash;
         vRecv >> targetHash;
-        LogPrintf("request of mn witness %s peer=%d\n",
-                  targetHash.ToString(),
-                  pfrom->id);
+        LogPrintf("peer %d ask from us mn witness for block hash %s\n",
+                  pfrom->id,
+                  targetHash.ToString());
         if(pMNWitness->Exist(targetHash)) {
             pfrom->PushMessage("mnwitness", pMNWitness->Get(targetHash));
         }

@@ -359,6 +359,9 @@ UniValue getblock(const UniValue& params, bool fHelp)
             LogPrintf("get raw block with proof for %s\n", block.GetHash().ToString());
             ssBlock << pMNWitness->Get(block.GetHash());
         }
+        else {
+            LogPrintf("get raw block without proof for %s\n", block.GetHash().ToString());
+        }
         std::string strHex = HexStr(ssBlock.begin(), ssBlock.end());
         return strHex;
     }

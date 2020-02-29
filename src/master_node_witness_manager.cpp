@@ -89,7 +89,7 @@ void MasterNodeWitnessManager::UpdateThread()
             std::map<uint256, CMasterNodeWitness>::iterator it = _witnesses.begin();
             std::vector<uint256> toRemove;
             while (it != _witnesses.end()) {
-                if (!it->second.IsValid(thresholdTime)) {
+                if (it->second.nTime < thresholdTime) {
                     toRemove.push_back(it->first);
                 }
                 it++;
@@ -210,15 +210,14 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
     CMasterNodeWitness result;
     result.nVersion = 0;
     result.nTargetBlockHash = targetBlockHash;
+    result.nTime = GetAdjustedTime();
 
     std::map<std::pair<uint256, uint32_t>, CMasternodePing> pings;
-
-    int64_t atTime = GetAdjustedTime();
 
     std::map<uint256, CMasternodePing>::iterator pingIt = mnodeman.mapSeenMasternodePing.begin();
     while (pingIt != mnodeman.mapSeenMasternodePing.end()) {
         const CMasternodePing &ping = pingIt->second;
-        if (ping.sigTime<(atTime - MASTERNODE_REMOVAL_SECONDS) || ping.sigTime>(atTime + MASTERNODE_PING_SECONDS)) {
+        if (ping.sigTime < (result.nTime - MASTERNODE_REMOVAL_SECONDS) || ping.sigTime>(result.nTime + MASTERNODE_PING_SECONDS)) {
             pingIt++;
             continue;
         }

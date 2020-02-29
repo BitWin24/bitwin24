@@ -5972,7 +5972,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             }
         }
         catch (...) {
-            LogPrintf("received block without proof\n");
+            LogPrintf("received block without proof %s\n", witness.nTargetBlockHash.ToString());
         }
 
         uint256 hashBlock = block.GetHash();

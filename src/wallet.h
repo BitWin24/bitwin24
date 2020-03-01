@@ -732,7 +732,6 @@ static void WriteOrderPos(const int64_t& nOrderPos, mapValue_t& mapValue)
 }
 
 struct COutputEntry {
-    CTxDestination source;
     CTxDestination destination;
     CAmount amount;
     int vout;
@@ -1054,9 +1053,6 @@ public:
     void RelayWalletTransaction(std::string strCommand = "tx");
 
     std::set<uint256> GetConflicts() const;
-
-private:
-    CTxDestination ExtractSource() const;
 };
 
 

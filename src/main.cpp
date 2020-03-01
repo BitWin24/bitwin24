@@ -2642,7 +2642,7 @@ static int64_t nTimeIndex = 0;
 static int64_t nTimeCallbacks = 0;
 static int64_t nTimeTotal = 0;
 
-bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pindex, CCoinsViewCache& view, bool fJustCheck, bool fAlreadyChecked)
+bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pindex, CCoinsViewCache& view, bool fJustCheck, bool fAlreadyChecked, bool skipCheckProofs)
 {
     AssertLockHeld(cs_main);
     // Check it again in case a previous version let a bad block in
@@ -2867,10 +2867,22 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
             masterNodeCount = GetContextualMasterNodeCountBasedOnBlockReward(nExpectedMint);
             cantResolveMasterNodeCount = false;
         }
-        if (pMNWitness->Exist(block.GetHash())
-            && !cantResolveMasterNodeCount
+        if (!cantResolveMasterNodeCount
+            && !skipCheckProofs
             && !IsInitialBlockDownload()
-            && !fImporting && !fReindex) {
+            && !fImporting
+            && !fReindex
+            && pindex->pprev->nHeight >= START_HEIGHT_PROOF_WITH_MN_COUNT
+            && block.nTime >= (GetAdjustedTime() - MASTERNODE_REMOVAL_SECONDS)) {
+            if (!pMNWitness->Exist(block.GetHash())) {
+                return state.DoS(
+                    5,
+                    error("ConnectBlock() : we do not accept fresh blocks without proofs, proof not found for %s",
+                          block.GetHash().ToString()),
+                    REJECT_INVALID,
+                    "proof-not-found");
+            }
+
             const CMasterNodeWitness &witness = pMNWitness->Get(block.GetHash());
             LogPrintf("validate block with proofs %s\n", block.GetHash().ToString());
             bool signOfProofValid = false;
@@ -2907,26 +2919,6 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
                           witness.ToString()),
                     REJECT_INVALID,
                     "bad-cb-proof");
-            }
-        }
-        else if (!cantResolveMasterNodeCount
-            && masternodeSync.IsSynced()
-            && !IsInitialBlockDownload()
-            && !fImporting && !fReindex) {
-            if (masterNodeCount >= 0) {
-                if (masterNodeCount > mnodeman.size() + Params().MasternodeTolerance()
-                    || masterNodeCount < mnodeman.size() - Params().MasternodeTolerance()
-                    || masterNodeCount < 0) {
-                    int minLevel = mnodeman.size() - Params().MasternodeTolerance();
-                    if (minLevel < 0) minLevel = 0;
-                    return state.DoS(
-                        100,
-                        error("ConnectBlock() : unexpected number of masternodes, %d not in range [%d - %d]",
-                              masterNodeCount, minLevel,
-                              mnodeman.size() + Params().MasternodeTolerance()),
-                        REJECT_INVALID,
-                        "bad-cb-amount");
-                }
             }
         }
         nExpectedMint += nFees;
@@ -4452,7 +4444,7 @@ bool TestBlockValidity(CValidationState& state, const CBlock& block, CBlockIndex
         return false;
     if (!ContextualCheckBlock(block, state, pindexPrev))
         return false;
-    if (!ConnectBlock(block, state, &indexDummy, viewNew, true))
+    if (!ConnectBlock(block, state, &indexDummy, viewNew, true, false, true))
         return false;
     assert(state.IsValid());
 
@@ -5205,7 +5197,7 @@ void static ProcessGetData(CNode* pfrom)
                         if (pfrom->nVersion >= MASTER_NODE_WITNESS_VERSION && pMNWitness->Exist(block.GetHash())) {
                             pfrom->PushMessage("mnwitness", pMNWitness->Get(block.GetHash()));
                         }
-                        pfrom->PushMessage("block", block);
+                        pfrom->PushMessage("block", block, pMNWitness->Get(block.GetHash()));
                     }
                     else // MSG_FILTERED_BLOCK)
                     {
@@ -5968,6 +5960,21 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
     {
         CBlock block;
         vRecv >> block;
+
+        try {
+            CMasterNodeWitness witness;
+            vRecv >> witness;
+            if (witness.nVersion == 0 && !pMNWitness->Exist(witness.nTargetBlockHash)) {
+                LogPrintf("received proof with block %s\n", witness.nTargetBlockHash.ToString());
+                if (witness.SignatureValid()) {
+                    pMNWitness->Add(witness);
+                }
+            }
+        }
+        catch (...) {
+            LogPrintf("received block without proof %s\n", block.GetHash().ToString());
+        }
+
         uint256 hashBlock = block.GetHash();
         //sometimes we will be sent their most recent block and its not the one we want, in that case tell where we are
         if (!mapBlockIndex.count(block.hashPrevBlock)) {
@@ -6065,7 +6072,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
     else if (strCommand == "mnwitness") {
         CMasterNodeWitness witness;
         vRecv >> witness;
-        LogPrint("net", "received master node witness for block hash %s peer=%d\n",
+        LogPrint("net", "received master node witness for block hash %s from peer=%d\n",
                  witness.nTargetBlockHash.ToString(),
                  pfrom->id);
 
@@ -6085,9 +6092,9 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
     else if (strCommand == "getmnwitness") {;
         uint256 targetHash;
         vRecv >> targetHash;
-        LogPrintf("request of mn witness %s peer=%d\n",
-                  targetHash.ToString(),
-                  pfrom->id);
+        LogPrintf("peer %d ask from us mn witness for block hash %s\n",
+                  pfrom->id,
+                  targetHash.ToString());
         if(pMNWitness->Exist(targetHash)) {
             pfrom->PushMessage("mnwitness", pMNWitness->Get(targetHash));
         }

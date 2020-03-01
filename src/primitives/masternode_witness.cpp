@@ -9,7 +9,8 @@
 std::string CMasterNodeWitness::ToString() const
 {
     std::stringstream s;
-    s << strprintf("CMasterNodeWitness(target block hash=%s, ver=%d, count proofs=%d)\n",
+    s << strprintf("CMasterNodeWitness(target time=%s block hash=%s, ver=%d, count proofs=%d)\n",
+                   EpochTimeToHumanReadableFormat(nTime),
                    nTargetBlockHash.ToString(),
                    nVersion,
                    nProofs.size());

@@ -85,11 +85,11 @@ void MasterNodeWitnessManager::UpdateThread()
         if (GetTime() - _lastUpdate > 5 * 60) {
             _lastUpdate = GetTime();
 
-            int64_t thresholdTime = GetAdjustedTime() - MASTERNODE_REMOVAL_SECONDS;
+            int64_t thresholdTime = GetAdjustedTime() - 2 * MASTERNODE_REMOVAL_SECONDS;
             std::map<uint256, CMasterNodeWitness>::iterator it = _witnesses.begin();
             std::vector<uint256> toRemove;
             while (it != _witnesses.end()) {
-                if (!it->second.IsValid(thresholdTime)) {
+                if (it->second.nTime < thresholdTime) {
                     toRemove.push_back(it->first);
                 }
                 it++;
@@ -108,7 +108,7 @@ void MasterNodeWitnessManager::UpdateThread()
                 uint256 blockHash = block.GetHash();
                 bool proofExist = Exist(blockHash);
                 if (proofExist
-                    || _retries[blockHash]._retry > 5
+                    || _retries[blockHash]._retry > 10
                     || chainActive.Tip()->nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT) {
                     if (!mapBlockIndex.count(blockHash)) {
                         if (!mapBlockIndex.count(block.hashPrevBlock)) {
@@ -117,7 +117,7 @@ void MasterNodeWitnessManager::UpdateThread()
                         CInv inv(MSG_BLOCK, blockHash);
                         CNode *pfrom = FindNode(it->second.nodeID);
                         if(!pfrom)
-                            LogPrintf("received block from unknown peer %d", it->second.nodeID);
+                            LogPrintf("received block from unknown peer %d\n", it->second.nodeID);
                         if(pfrom)
                             pfrom->AddInventoryKnown(inv);
                         CValidationState state;
@@ -127,6 +127,7 @@ void MasterNodeWitnessManager::UpdateThread()
                         UnregisterValidationInterface(&sc);
                         int nDoS;
                         if (state.IsInvalid(nDoS) && pfrom) {
+                            LogPrintf("Block invalid %s, reason: %s\n", blockHash.ToString(), state.GetRejectReason());
                             string strCommand = "block";
                             pfrom->PushMessage("reject",
                                                strCommand,
@@ -209,15 +210,14 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
     CMasterNodeWitness result;
     result.nVersion = 0;
     result.nTargetBlockHash = targetBlockHash;
+    result.nTime = GetAdjustedTime();
 
     std::map<std::pair<uint256, uint32_t>, CMasternodePing> pings;
-
-    int64_t atTime = GetAdjustedTime();
 
     std::map<uint256, CMasternodePing>::iterator pingIt = mnodeman.mapSeenMasternodePing.begin();
     while (pingIt != mnodeman.mapSeenMasternodePing.end()) {
         const CMasternodePing &ping = pingIt->second;
-        if (ping.sigTime<(atTime - MASTERNODE_REMOVAL_SECONDS) || ping.sigTime>(atTime + MASTERNODE_PING_SECONDS)) {
+        if (ping.sigTime < (result.nTime - MASTERNODE_REMOVAL_SECONDS) || ping.sigTime>(result.nTime + MASTERNODE_PING_SECONDS)) {
             pingIt++;
             continue;
         }

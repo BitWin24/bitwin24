@@ -20,6 +20,9 @@
 #include "db.h"
 #include "wallet.h"
 #endif
+#include "../main.h"
+#include "../master_node_witness_manager.h"
+#include "../primitives/masternode_witness.h"
 
 #include <stdint.h>
 
@@ -656,6 +659,34 @@ UniValue submitblock(const UniValue& params, bool fHelp)
             // Otherwise, we might only have the header - process the block before returning
             fBlockPresent = true;
         }
+    }
+
+    if (chainActive.Tip()->nHeight >= START_HEIGHT_PROOF_WITH_MN_COUNT) {
+        bool proofExist = false;
+        try {
+            if (IsHex(params[0].get_str())) {
+                std::vector<unsigned char> blockData(ParseHex(params[0].get_str()));
+                CDataStream ssStream(blockData, SER_NETWORK, PROTOCOL_VERSION);
+                CBlock blockStub;
+                ssStream >> blockStub;
+                CMasterNodeWitness witness;
+                ssStream >> witness;
+                if (witness.nVersion == 0 && !pMNWitness->Exist(witness.nTargetBlockHash)) {
+                    if (witness.SignatureValid()) {
+                        LogPrintf("submit block with proof %s\n", witness.nTargetBlockHash.ToString());
+                        pMNWitness->Add(witness);
+                        proofExist = true;
+                    }
+                }
+            }
+        }
+        catch (...) {
+        }
+
+        pMNWitness->HoldBlock(block, -1);
+        if (proofExist)
+            return "Received block, with proof";
+        return "Hold block, waiting proof";
     }
 
     CValidationState state;

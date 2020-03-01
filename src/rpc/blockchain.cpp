@@ -16,6 +16,9 @@
 #include "utilmoneystr.h"
 #include "accumulatormap.h"
 #include "accumulators.h"
+#include "../master_node_witness_manager.h"
+#include "../primitives/masternode_witness.h"
+#include "../main.h"
 
 #include <stdint.h>
 #include <univalue.h>
@@ -293,7 +296,7 @@ UniValue getblockhash(const UniValue& params, bool fHelp)
 
 UniValue getblock(const UniValue& params, bool fHelp)
 {
-    if (fHelp || params.size() < 1 || params.size() > 2)
+    if (fHelp || params.size() < 1 || params.size() > 3)
         throw runtime_error(
             "getblock \"hash\" ( verbose )\n"
             "\nIf verbose is false, returns a string that is serialized, hex-encoded data for block 'hash'.\n"
@@ -302,6 +305,7 @@ UniValue getblock(const UniValue& params, bool fHelp)
             "\nArguments:\n"
             "1. \"hash\"          (string, required) The block hash\n"
             "2. verbose           (boolean, optional, default=true) true for a json object, false for the hex encoded data\n"
+            "3. include witness   (boolean, optional, default=false) true to add witness to the end of the block\n"
 
             "\nResult (for verbose = true):\n"
             "{\n"
@@ -340,6 +344,10 @@ UniValue getblock(const UniValue& params, bool fHelp)
     if (params.size() > 1)
         fVerbose = params[1].get_bool();
 
+    bool fIncludeWitness = false;
+    if (params.size() > 2)
+        fIncludeWitness = params[2].get_bool();
+
     if (mapBlockIndex.count(hash) == 0)
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Block not found");
 
@@ -352,6 +360,15 @@ UniValue getblock(const UniValue& params, bool fHelp)
     if (!fVerbose) {
         CDataStream ssBlock(SER_NETWORK, PROTOCOL_VERSION);
         ssBlock << block;
+        if (fIncludeWitness) {
+            if(pMNWitness->Exist(block.GetHash())) {
+                LogPrintf("get raw block with proof for %s\n", block.GetHash().ToString());
+                ssBlock << pMNWitness->Get(block.GetHash());
+            }
+            else {
+                LogPrintf("get raw block without proof for %s\n", block.GetHash().ToString());
+            }
+        }
         std::string strHex = HexStr(ssBlock.begin(), ssBlock.end());
         return strHex;
     }

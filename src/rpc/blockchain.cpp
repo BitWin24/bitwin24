@@ -305,6 +305,7 @@ UniValue getblock(const UniValue& params, bool fHelp)
             "\nArguments:\n"
             "1. \"hash\"          (string, required) The block hash\n"
             "2. verbose           (boolean, optional, default=true) true for a json object, false for the hex encoded data\n"
+            "3. include witness   (boolean, optional, default=false) true to add witness to the end of the block\n"
 
             "\nResult (for verbose = true):\n"
             "{\n"
@@ -343,6 +344,10 @@ UniValue getblock(const UniValue& params, bool fHelp)
     if (params.size() > 1)
         fVerbose = params[1].get_bool();
 
+    bool fIncludeWitness = false;
+    if (params.size() > 2)
+        fIncludeWitness = params[2].get_bool();
+
     if (mapBlockIndex.count(hash) == 0)
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Block not found");
 
@@ -355,12 +360,14 @@ UniValue getblock(const UniValue& params, bool fHelp)
     if (!fVerbose) {
         CDataStream ssBlock(SER_NETWORK, PROTOCOL_VERSION);
         ssBlock << block;
-        if(pMNWitness->Exist(block.GetHash())) {
-            LogPrintf("get raw block with proof for %s\n", block.GetHash().ToString());
-            ssBlock << pMNWitness->Get(block.GetHash());
-        }
-        else {
-            LogPrintf("get raw block without proof for %s\n", block.GetHash().ToString());
+        if (fIncludeWitness) {
+            if(pMNWitness->Exist(block.GetHash())) {
+                LogPrintf("get raw block with proof for %s\n", block.GetHash().ToString());
+                ssBlock << pMNWitness->Get(block.GetHash());
+            }
+            else {
+                LogPrintf("get raw block without proof for %s\n", block.GetHash().ToString());
+            }
         }
         std::string strHex = HexStr(ssBlock.begin(), ssBlock.end());
         return strHex;

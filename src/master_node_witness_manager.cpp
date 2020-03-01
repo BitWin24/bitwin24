@@ -85,11 +85,11 @@ void MasterNodeWitnessManager::UpdateThread()
         if (GetTime() - _lastUpdate > 5 * 60) {
             _lastUpdate = GetTime();
 
-            int64_t thresholdTime = GetAdjustedTime() - MASTERNODE_REMOVAL_SECONDS;
+            int64_t thresholdTime = GetAdjustedTime() - 2 * MASTERNODE_REMOVAL_SECONDS;
             std::map<uint256, CMasterNodeWitness>::iterator it = _witnesses.begin();
             std::vector<uint256> toRemove;
             while (it != _witnesses.end()) {
-                if (!it->second.IsValid(thresholdTime)) {
+                if (it->second.nTime < thresholdTime) {
                     toRemove.push_back(it->first);
                 }
                 it++;
@@ -108,7 +108,7 @@ void MasterNodeWitnessManager::UpdateThread()
                 uint256 blockHash = block.GetHash();
                 bool proofExist = Exist(blockHash);
                 if (proofExist
-                    || _retries[blockHash]._retry > 5
+                    || _retries[blockHash]._retry > 10
                     || chainActive.Tip()->nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT) {
                     if (!mapBlockIndex.count(blockHash)) {
                         if (!mapBlockIndex.count(block.hashPrevBlock)) {
@@ -117,7 +117,7 @@ void MasterNodeWitnessManager::UpdateThread()
                         CInv inv(MSG_BLOCK, blockHash);
                         CNode *pfrom = FindNode(it->second.nodeID);
                         if(!pfrom)
-                            LogPrintf("received block from unknown peer %d", it->second.nodeID);
+                            LogPrintf("received block from unknown peer %d\n", it->second.nodeID);
                         if(pfrom)
                             pfrom->AddInventoryKnown(inv);
                         CValidationState state;
@@ -127,6 +127,7 @@ void MasterNodeWitnessManager::UpdateThread()
                         UnregisterValidationInterface(&sc);
                         int nDoS;
                         if (state.IsInvalid(nDoS) && pfrom) {
+                            LogPrintf("Block invalid %s, reason: %s\n", blockHash.ToString(), state.GetRejectReason());
                             string strCommand = "block";
                             pfrom->PushMessage("reject",
                                                strCommand,
@@ -138,6 +139,9 @@ void MasterNodeWitnessManager::UpdateThread()
                                 if (lockMain) Misbehaving(pfrom->GetId(), nDoS);
                             }
                         }
+
+                        AddBroadCastToMNManager(blockHash);
+
                         toRemove.push_back(it->first);
                     }
                 }
@@ -206,15 +210,14 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
     CMasterNodeWitness result;
     result.nVersion = 0;
     result.nTargetBlockHash = targetBlockHash;
+    result.nTime = GetAdjustedTime();
 
     std::map<std::pair<uint256, uint32_t>, CMasternodePing> pings;
-
-    int64_t atTime = GetAdjustedTime();
 
     std::map<uint256, CMasternodePing>::iterator pingIt = mnodeman.mapSeenMasternodePing.begin();
     while (pingIt != mnodeman.mapSeenMasternodePing.end()) {
         const CMasternodePing &ping = pingIt->second;
-        if (ping.sigTime<(atTime - MASTERNODE_REMOVAL_SECONDS) || ping.sigTime>(atTime + MASTERNODE_PING_SECONDS)) {
+        if (ping.sigTime < (result.nTime - MASTERNODE_REMOVAL_SECONDS) || ping.sigTime>(result.nTime + MASTERNODE_PING_SECONDS)) {
             pingIt++;
             continue;
         }
@@ -303,5 +306,34 @@ void MasterNodeWitnessManager::HoldBlock(CBlock block, int nodeId)
         retry._retry = 0;
         retry._lastTryTime = GetTime();
         _retries[block.GetHash()] = retry;
+    }
+}
+
+void MasterNodeWitnessManager::AddBroadCastToMNManager(const uint256 &targetBlockHash)
+{
+    if (!Exist(targetBlockHash)) {
+        return;
+    }
+    CMasterNodeWitness witness = Get(targetBlockHash);
+    for (auto it = witness.nProofs.begin(); it != witness.nProofs.end(); it++) {
+        CMasternodeBroadcast mnb = (*it).nBroadcast;
+        mnb.lastPing = (*it).nPing;
+
+        if (mnodeman.mapSeenMasternodeBroadcast.count(mnb.GetHash())) { //seen
+            masternodeSync.AddedMasternodeList(mnb.GetHash());
+            continue;
+        }
+        mnodeman.mapSeenMasternodeBroadcast.insert(make_pair(mnb.GetHash(), mnb));
+
+        int nDoS = 0;
+        if (!mnb.CheckAndUpdate(nDoS)) {
+            continue;
+        }
+
+        // make sure it's still unspent
+        //  - this is checked later by .check() in many places and by ThreadCheckObfuScationPool()
+        if (mnb.CheckInputsAndAdd(nDoS)) {
+            masternodeSync.AddedMasternodeList(mnb.GetHash());
+        }
     }
 }

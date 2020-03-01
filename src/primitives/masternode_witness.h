@@ -20,6 +20,7 @@ class CMasterNodeWitness
 public:
     static const int32_t CURRENT_VERSION = 0;
     CAmount nVersion;
+    uint32_t nTime;
     uint256 nTargetBlockHash;
     std::vector<ActiveMasterNodeProofs> nProofs;
     std::vector<unsigned char> vchSig;
@@ -36,6 +37,7 @@ public:
     inline void SerializationOp(Stream &s, Operation ser_action, int nType, int nVersion)
     {
         READWRITE(this->nVersion);
+        READWRITE(nTime);
         READWRITE(nProofs);
         READWRITE(nTargetBlockHash);
         READWRITE(pubKeyWitness);
@@ -88,6 +90,7 @@ public:
         ss << nVersion;
         ss << nProofs;
         ss << nTargetBlockHash;
+        ss << nTime;
 
         return ss.GetHash();
     }

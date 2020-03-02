@@ -19,6 +19,7 @@ declare -r COIN_TGZ=$(echo ${COIN_ARH} | awk -F'/' '{print $NF}')
 declare -r CONFIG_FILE="${COIN_NAME}.conf"
 declare -r CONFIG_FOLDER="${HOME}/.${COIN_NAME}"
 
+
 #Color codes
 RED='\033[0;91m'
 GREEN='\033[1;32m'

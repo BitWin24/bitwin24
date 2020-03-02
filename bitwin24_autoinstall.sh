@@ -9,6 +9,7 @@
 # bash bitwin24_autoinstall.sh
 #
 
+
 declare -r COIN_NAME='bitwin24'
 declare -r COIN_DAEMON="${COIN_NAME}d"
 declare -r COIN_CLI="${COIN_NAME}-cli"
@@ -18,7 +19,6 @@ declare -r COIN_ARH='https://github.com/BitWin24/bitwin24/releases/download/v0.0
 declare -r COIN_TGZ=$(echo ${COIN_ARH} | awk -F'/' '{print $NF}')
 declare -r CONFIG_FILE="${COIN_NAME}.conf"
 declare -r CONFIG_FOLDER="${HOME}/.${COIN_NAME}"
-
 
 #Color codes
 RED='\033[0;91m'
@@ -238,13 +238,13 @@ done
     
 #Adding bootstrap files 
 
-cd ~/.bitwin24/ && rm -rf blocks chainstate sporks zerocoin peers.dat
+cd ~/.bitwin24/ && rm -rf blocks chainstate sporks zerocoin peers.dat bootstrap*
 cd ~/.bitwin24/ && wget ${BOOTSTRAP_LINK}
 cd ~/.bitwin24/ && unzip bootstrap.zip
 
 sleep 5 
 
-cd ~/.bitwin24/ && rm -rf bootstrap.zip
+cd ~/.bitwin24/ && rm -rf bootstrap.zip*
 
 
 # Create bitwin24.conf

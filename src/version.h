@@ -39,7 +39,4 @@ static const int MEMPOOL_GD_VERSION = 60002;
 //! "filter*" commands are disabled without NODE_BLOOM after and including this version
 static const int NO_BLOOM_VERSION = 70005;
 
-//! "mnwitness, getmnwitness" commands are disabled without MASTER_NODE_WITNESS_VERSION after and including this version
-static const int MASTER_NODE_WITNESS_VERSION = 70915;
-
 #endif // BITCOIN_VERSION_H

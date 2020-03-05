@@ -56,7 +56,6 @@ bool MasterNodeWitnessManager::Add(const CMasterNodeWitness &proof, bool validat
     boost::lock_guard<boost::mutex> guard(_mtx);
     if (!Exist(proof.nTargetBlockHash)) {
         if (!validate || proof.IsValid(GetAdjustedTime())) {
-            LogPrintf("add proof %s\n", proof.nTargetBlockHash.ToString());
             _witnesses[proof.nTargetBlockHash] = proof;
             return true;
         }
@@ -68,7 +67,6 @@ bool MasterNodeWitnessManager::Remove(const uint256 &targetBlockHash)
 {
     boost::lock_guard<boost::mutex> guard(_mtx);
     if (Exist(targetBlockHash)) {
-        LogPrintf("remove proof %s\n", targetBlockHash.ToString());
         _witnesses.erase(targetBlockHash);
         return true;
     }

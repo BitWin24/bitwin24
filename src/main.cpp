@@ -2859,7 +2859,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
         nExpectedMint += nFees;
     if (pindex->pprev->nHeight >= START_HEIGHT_REWARD_BASED_ON_MN_COUNT) {
         // default value for accept without check
-        nExpectedMint = pindex->nMoneySupply - pindex->pprev->nMoneySupply;
+        nExpectedMint = pindex->nMint;
         int errorCode = 0;
         int masterNodeCount = GetMasterNodeCountBasedOnBlockReward(pindex->pprev->nHeight, nExpectedMint, errorCode);
         bool cantResolveMasterNodeCount = (errorCode != 0);

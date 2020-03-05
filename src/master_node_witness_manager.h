@@ -36,8 +36,9 @@ public:
     void UpdateThread();
     void Save();
     void Load();
-private:
+
     void AddBroadCastToMNManager(const uint256 &targetBlockHash);
+private:
     void EraseDB();
     std::map<uint256, CMasterNodeWitness> _witnesses;
     int64_t _lastUpdate;

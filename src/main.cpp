@@ -6005,6 +6005,9 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
                 pfrom->AddInventoryKnown(inv);
                 ProcessNewBlock(state, pfrom, &block);
                 int nDoS;
+                if (!state.IsInvalid(nDoS)) {
+                    pMNWitness->AddBroadCastToMNManager(block.GetHash());
+                }
                 if (state.IsInvalid(nDoS)) {
                     pfrom->PushMessage("reject", strCommand, state.GetRejectCode(),
                                        state.GetRejectReason().substr(0, MAX_REJECT_MESSAGE_LENGTH), inv.hash);

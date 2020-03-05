@@ -2884,7 +2884,6 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
             }
 
             const CMasterNodeWitness &witness = pMNWitness->Get(block.GetHash());
-            LogPrintf("validate block with proofs %s\n", block.GetHash().ToString());
             bool signOfProofValid = false;
             if (block.IsProofOfStake()) {
                 CPubKey pubkey;

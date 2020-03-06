@@ -39,9 +39,9 @@
 #include <vector>
 
 static const int CLIENT_VERSION =
-    1000000 * CLIENT_VERSION_MAJOR + 3  // Picking up from PIVX
-    + 10000 * CLIENT_VERSION_MINOR + 1  // "
-    + 100 * CLIENT_VERSION_REVISION+ 1  // "
+    1000000 * CLIENT_VERSION_MAJOR
+    + 10000 * CLIENT_VERSION_MINOR
+    + 100 * CLIENT_VERSION_REVISION
     + 1 * CLIENT_VERSION_BUILD;
 
 extern const std::string CLIENT_NAME;

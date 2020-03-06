@@ -573,10 +573,6 @@ bool ProcessBlockFound(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
         witness.Sign(keyMasternode);
 
         pMNWitness->Add(witness, true);
-
-        BOOST_FOREACH(CNode * pnode, vNodes)
-            if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
-                pnode->PushMessage("mnwitness", witness);
     }
 
     // Remove key from key pool

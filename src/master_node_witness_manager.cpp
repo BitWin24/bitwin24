@@ -56,7 +56,6 @@ bool MasterNodeWitnessManager::Add(const CMasterNodeWitness &proof, bool validat
     boost::lock_guard<boost::mutex> guard(_mtx);
     if (!Exist(proof.nTargetBlockHash)) {
         if (!validate || proof.IsValid(GetAdjustedTime())) {
-            LogPrintf("add proof %s\n", proof.nTargetBlockHash.ToString());
             _witnesses[proof.nTargetBlockHash] = proof;
             return true;
         }
@@ -68,7 +67,6 @@ bool MasterNodeWitnessManager::Remove(const uint256 &targetBlockHash)
 {
     boost::lock_guard<boost::mutex> guard(_mtx);
     if (Exist(targetBlockHash)) {
-        LogPrintf("remove proof %s\n", targetBlockHash.ToString());
         _witnesses.erase(targetBlockHash);
         return true;
     }
@@ -97,65 +95,6 @@ void MasterNodeWitnessManager::UpdateThread()
 
             for (unsigned i = 0; i < toRemove.size(); i++) {
                 Remove(toRemove[i]);
-            }
-        }
-
-        {
-            boost::lock_guard<boost::mutex> guard(_mtx);
-            std::vector<uint256> toRemove;
-            for (auto it = _blocks.begin(); it != _blocks.end(); it++) {
-                const CBlock &block = it->second.block;
-                uint256 blockHash = block.GetHash();
-                bool proofExist = Exist(blockHash);
-                if (proofExist
-                    || _retries[blockHash]._retry > 10
-                    || chainActive.Tip()->nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT) {
-                    if (!mapBlockIndex.count(blockHash)) {
-                        if (!mapBlockIndex.count(block.hashPrevBlock)) {
-                            continue;
-                        }
-                        CInv inv(MSG_BLOCK, blockHash);
-                        CNode *pfrom = FindNode(it->second.nodeID);
-                        if(!pfrom)
-                            LogPrintf("received block from unknown peer %d\n", it->second.nodeID);
-                        if(pfrom)
-                            pfrom->AddInventoryKnown(inv);
-                        CValidationState state;
-                        Witness_StateCatcher sc(block.GetHash());
-                        RegisterValidationInterface(&sc);
-                        ProcessNewBlock(state, pfrom, &it->second.block);
-                        UnregisterValidationInterface(&sc);
-                        int nDoS;
-                        if (state.IsInvalid(nDoS) && pfrom) {
-                            LogPrintf("Block invalid %s, reason: %s\n", blockHash.ToString(), state.GetRejectReason());
-                            string strCommand = "block";
-                            pfrom->PushMessage("reject",
-                                               strCommand,
-                                               state.GetRejectCode(),
-                                               state.GetRejectReason().substr(0, MAX_REJECT_MESSAGE_LENGTH),
-                                               inv.hash);
-                            if (nDoS > 0) {
-                                TRY_LOCK(cs_main, lockMain);
-                                if (lockMain) Misbehaving(pfrom->GetId(), nDoS);
-                            }
-                        }
-
-                        AddBroadCastToMNManager(blockHash);
-
-                        toRemove.push_back(it->first);
-                    }
-                }
-                else if (!proofExist && (_retries[blockHash]._lastTryTime + 10) < GetTime()) {
-                    _retries[blockHash]._lastTryTime = GetTime();
-                    _retries[blockHash]._retry++;
-                    BOOST_FOREACH(CNode * pnode, vNodes)
-                        if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
-                            pnode->PushMessage("getmnwitness", block.GetHash());
-                }
-            }
-
-            for (auto it = toRemove.begin(); it != toRemove.end(); it++) {
-                _blocks.erase(*it);
             }
         }
     }
@@ -292,21 +231,6 @@ const CMasterNodeWitness &MasterNodeWitnessManager::Get(const uint256 &targetBlo
         return _witnesses[targetBlockHash];
     static CMasterNodeWitness result;
     return result;
-}
-
-void MasterNodeWitnessManager::HoldBlock(CBlock block, int nodeId)
-{
-    if (!_blocks.count(block.GetHash())) {
-        BlockInfo info;
-        info.block = block;
-        info.nodeID = nodeId;
-        info.creatingTime = GetTime();
-        _blocks[block.GetHash()] = info;
-        RETRY_REQUEST retry;
-        retry._retry = 0;
-        retry._lastTryTime = GetTime();
-        _retries[block.GetHash()] = retry;
-    }
 }
 
 void MasterNodeWitnessManager::AddBroadCastToMNManager(const uint256 &targetBlockHash)

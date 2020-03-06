@@ -682,11 +682,6 @@ UniValue submitblock(const UniValue& params, bool fHelp)
         }
         catch (...) {
         }
-
-        pMNWitness->HoldBlock(block, -1);
-        if (proofExist)
-            return "Received block, with proof";
-        return "Hold block, waiting proof";
     }
 
     CValidationState state;

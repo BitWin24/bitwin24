@@ -5975,6 +5975,8 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
                 pfrom->vBlockRequested.push_back(hashBlock);
             }
         } else {
+            CInv inv(MSG_BLOCK, hashBlock);
+            pfrom->AddInventoryKnown(inv);
             CValidationState state;
             if (!mapBlockIndex.count(block.GetHash())) {
                 if (chainActive.Tip()->nHeight > START_HEIGHT_REWARD_BASED_ON_MN_COUNT
@@ -6000,8 +6002,6 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
                         return false;
                     }
                 }
-                CInv inv(MSG_BLOCK, hashBlock);
-                pfrom->AddInventoryKnown(inv);
                 ProcessNewBlock(state, pfrom, &block);
                 int nDoS;
                 if (!state.IsInvalid(nDoS)) {

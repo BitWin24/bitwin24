@@ -215,11 +215,16 @@ bool CBitWin24Stake::CreateTxOuts(CWallet* pwallet, vector<CTxOut>& vout, CAmoun
     } else
         scriptPubKey = scriptPubKeyKernel;
 
-    vout.emplace_back(CTxOut(0, scriptPubKey));
-
-    // Calculate if we need to split the output
-    if (nTotal / 2 > (CAmount)(pwallet->nStakeSplitThreshold * COIN))
-        vout.emplace_back(CTxOut(0, scriptPubKey));
+    const CAmount splitAmount = static_cast<CAmount>(pwallet->nStakeSplitThreshold) * COIN;
+    const auto nSplits = nTotal / splitAmount + 1;
+    CAmount usedAmount = 0;
+    for (size_t i = 0; i < nSplits - 1; i++)
+    {
+       vout.emplace_back(splitAmount, scriptPubKey);
+       usedAmount += splitAmount;
+       //TODO: check tx size
+    }
+    vout.emplace_back(nTotal - usedAmount, scriptPubKey);
 
     return true;
 }

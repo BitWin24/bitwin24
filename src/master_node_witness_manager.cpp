@@ -77,7 +77,7 @@ void MasterNodeWitnessManager::UpdateThread()
 {
     _stopThread = false;
     while (!_stopThread) {
-        MilliSleep(5000);
+        MilliSleep(2 * 60 * 1000);
         boost::lock_guard<boost::mutex> guard(_mtxGlobal);
 
         if (GetTime() - _lastUpdate > 5 * 60) {

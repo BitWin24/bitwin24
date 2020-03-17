@@ -3150,22 +3150,13 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
             nCredit += nReward;
 
             // Create the output transaction(s)
+            CAmount nMinFee = 0;
             vector<CTxOut> vout;
-            if (!stakeInput->CreateTxOuts(this, vout, nCredit)) {
+            if (!stakeInput->CreateTxOuts(this, vout, nCredit - nMinFee)) {
                 LogPrintf("%s : failed to get scriptPubKey\n", __func__);
                 continue;
             }
             txNew.vout.insert(txNew.vout.end(), vout.begin(), vout.end());
-
-            CAmount nMinFee = 0;
-            if (!stakeInput->IsZBWI()) {
-                // Set output amount
-                if (txNew.vout.size() == 3) {
-                    txNew.vout[1].nValue = ((nCredit - nMinFee) / 2 / CENT) * CENT;
-                    txNew.vout[2].nValue = nCredit - nMinFee - txNew.vout[1].nValue;
-                } else
-                    txNew.vout[1].nValue = nCredit - nMinFee;
-            }
 
             // Limit size
             unsigned int nBytes = ::GetSerializeSize(txNew, SER_NETWORK, PROTOCOL_VERSION);

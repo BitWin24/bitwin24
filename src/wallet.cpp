@@ -2309,7 +2309,7 @@ bool CWallet::MintableCoins()
             return false;
 
         vector<COutput> vCoins;
-        AvailableCoins(vCoins, true);
+        AvailableCoins(vCoins, true, NULL, false, STAKABLE_COINS);
 
         for (const COutput& out : vCoins) {
             int64_t nTxTime = out.tx->GetTxTime();

@@ -9,7 +9,8 @@
 std::string CMasterNodeWitness::ToString() const
 {
     std::stringstream s;
-    s << strprintf("CMasterNodeWitness(target block hash=%s, ver=%d, count proofs=%d)\n",
+    s << strprintf("CMasterNodeWitness(target time=%s block hash=%s, ver=%d, count proofs=%d)\n",
+                   EpochTimeToHumanReadableFormat(nTime),
                    nTargetBlockHash.ToString(),
                    nVersion,
                    nProofs.size());
@@ -69,18 +70,18 @@ bool CMasterNodeWitness::IsValid(int64_t atTime) const
         }
 
         // check that Master node vin\vout is not spent
-//        {
-//            CValidationState state;
-//            CMutableTransaction dummyTx = CMutableTransaction();
-//            CTxOut vout = CTxOut(2999.99 * COIN, obfuScationPool.collateralPubKey);
-//            dummyTx.vin.push_back(ping.vin);
-//            dummyTx.vout.push_back(vout);
-//
-//            TRY_LOCK(cs_main, lockMain);
-//            if (lockMain && !AcceptableInputs(mempool, state, CTransaction(dummyTx), false, NULL)) {
-//                return false;
-//            }
-//        }
+        {
+            CValidationState state;
+            CMutableTransaction dummyTx = CMutableTransaction();
+            CTxOut vout = CTxOut(2999.99 * COIN, obfuScationPool.collateralPubKey);
+            dummyTx.vin.push_back(ping.vin);
+            dummyTx.vout.push_back(vout);
+
+            TRY_LOCK(cs_main, lockMain);
+            if (lockMain && !AcceptableInputs(mempool, state, CTransaction(dummyTx), false, NULL)) {
+                return false;
+            }
+        }
 
         if (std::find(checkedOut.begin(), checkedOut.end(), ping.vin) != checkedOut.end()) {
             return false;

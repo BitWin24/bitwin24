@@ -13,6 +13,27 @@
 #include "serialize.h"
 #include "chainparams.h"
 #include "obfuscation.h"
+#include "main.h"
+
+
+class Witness_StateCatcher : public CValidationInterface
+{
+public:
+    uint256 hash;
+    bool found;
+    CValidationState state;
+
+    Witness_StateCatcher(const uint256& hashIn) : hash(hashIn), found(false), state(){};
+
+protected:
+    virtual void BlockChecked(const CBlock& block, const CValidationState& stateIn)
+    {
+        if (block.GetHash() != hash)
+            return;
+        found = true;
+        state = stateIn;
+    };
+};
 
 MasterNodeWitnessManager::MasterNodeWitnessManager()
     : CLevelDBWrapper(GetDataDir() / "mnwitness", 0, false, false), _lastUpdate(0),
@@ -35,6 +56,7 @@ bool MasterNodeWitnessManager::Add(const CMasterNodeWitness &proof, bool validat
     boost::lock_guard<boost::mutex> guard(_mtx);
     if (!Exist(proof.nTargetBlockHash)) {
         if (!validate || proof.IsValid(GetAdjustedTime())) {
+            _witnesses[proof.nTargetBlockHash] = proof;
             return true;
         }
     }
@@ -61,11 +83,11 @@ void MasterNodeWitnessManager::UpdateThread()
         if (GetTime() - _lastUpdate > 5 * 60) {
             _lastUpdate = GetTime();
 
-            int64_t thresholdTime = GetAdjustedTime() - MASTERNODE_REMOVAL_SECONDS;
+            int64_t thresholdTime = GetAdjustedTime() - 2 * MASTERNODE_REMOVAL_SECONDS;
             std::map<uint256, CMasterNodeWitness>::iterator it = _witnesses.begin();
             std::vector<uint256> toRemove;
             while (it != _witnesses.end()) {
-                if (!it->second.IsValid(thresholdTime)) {
+                if (it->second.nTime < thresholdTime) {
                     toRemove.push_back(it->first);
                 }
                 it++;
@@ -74,48 +96,6 @@ void MasterNodeWitnessManager::UpdateThread()
             for (unsigned i = 0; i < toRemove.size(); i++) {
                 Remove(toRemove[i]);
             }
-        }
-
-        {
-            boost::lock_guard<boost::mutex> guard(_mtx);
-            std::vector<uint256> toRemove;
-            const int WAITING_PROOFS_TIME = 10;
-            for (auto it = _blocks.begin(); it != _blocks.end(); it++) {
-                CValidationState state;
-                const CBlock &block = it->second.block;
-                uint256 blockHash = block.GetHash();
-                if (Exist(blockHash)
-                    || (it->second.creatingTime + WAITING_PROOFS_TIME) < GetTime()
-                    || chainActive.Tip()->nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT) {
-                    if (!mapBlockIndex.count(blockHash)) {
-                        if (!mapBlockIndex.count(block.hashPrevBlock)) {
-                            continue;
-                        }
-                        CNode *pfrom = FindNode(it->second.nodeID);
-                        ProcessNewBlock(state, pfrom, &it->second.block);
-                        int nDoS;
-                        if (state.IsInvalid(nDoS) && pfrom) {
-                            CInv inv(MSG_BLOCK, blockHash);
-                            string strCommand = "block";
-                            pfrom->PushMessage("reject",
-                                               strCommand,
-                                               state.GetRejectCode(),
-                                               state.GetRejectReason().substr(0, MAX_REJECT_MESSAGE_LENGTH),
-                                               inv.hash);
-                            if (nDoS > 0) {
-                                TRY_LOCK(cs_main, lockMain);
-                                if (lockMain) Misbehaving(pfrom->GetId(), nDoS);
-                            }
-                        }
-                        toRemove.push_back(it->first);
-                    }
-                }
-            }
-
-            for (auto it = toRemove.begin(); it != toRemove.end(); it++) {
-                _blocks.erase(*it);
-            }
-
         }
     }
 }
@@ -169,15 +149,14 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
     CMasterNodeWitness result;
     result.nVersion = 0;
     result.nTargetBlockHash = targetBlockHash;
+    result.nTime = GetAdjustedTime();
 
     std::map<std::pair<uint256, uint32_t>, CMasternodePing> pings;
-
-    int64_t atTime = GetAdjustedTime();
 
     std::map<uint256, CMasternodePing>::iterator pingIt = mnodeman.mapSeenMasternodePing.begin();
     while (pingIt != mnodeman.mapSeenMasternodePing.end()) {
         const CMasternodePing &ping = pingIt->second;
-        if (ping.sigTime<(atTime - MASTERNODE_REMOVAL_SECONDS) || ping.sigTime>(atTime + MASTERNODE_PING_SECONDS)) {
+        if (ping.sigTime < (result.nTime - MASTERNODE_REMOVAL_SECONDS) || ping.sigTime>(result.nTime + MASTERNODE_PING_SECONDS)) {
             pingIt++;
             continue;
         }
@@ -197,18 +176,18 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
             proof.nBroadcast = it->second;
             proof.nPing = pings[key];
             bool skip = false;
-//            {
-//                CValidationState state;
-//                CMutableTransaction dummyTx = CMutableTransaction();
-//                CTxOut vout = CTxOut(2999.99 * COIN, obfuScationPool.collateralPubKey);
-//                dummyTx.vin.push_back(proof.nPing.vin);
-//                dummyTx.vout.push_back(vout);
-//
-//                TRY_LOCK(cs_main, lockMain);
-//                if (lockMain && !AcceptableInputs(mempool, state, CTransaction(dummyTx), false, NULL)) {
-//                    skip = true;
-//                }
-//            }
+            {
+                CValidationState state;
+                CMutableTransaction dummyTx = CMutableTransaction();
+                CTxOut vout = CTxOut(2999.99 * COIN, obfuScationPool.collateralPubKey);
+                dummyTx.vin.push_back(proof.nPing.vin);
+                dummyTx.vout.push_back(vout);
+
+                TRY_LOCK(cs_main, lockMain);
+                if (lockMain && !AcceptableInputs(mempool, state, CTransaction(dummyTx), false, NULL)) {
+                    skip = true;
+                }
+            }
             if (!skip && std::find(included.begin(), included.end(), proof.nPing.vin) == included.end())
                 result.nProofs.push_back(proof);
             included.push_back(proof.nPing.vin);
@@ -254,13 +233,31 @@ const CMasterNodeWitness &MasterNodeWitnessManager::Get(const uint256 &targetBlo
     return result;
 }
 
-void MasterNodeWitnessManager::HoldBlock(CBlock block, int nodeId)
+void MasterNodeWitnessManager::AddBroadCastToMNManager(const uint256 &targetBlockHash)
 {
-    if (!_blocks.count(block.GetHash())) {
-        BlockInfo info;
-        info.block = block;
-        info.nodeID = nodeId;
-        info.creatingTime = GetTime();
-        _blocks[block.GetHash()] = info;
+    if (!Exist(targetBlockHash)) {
+        return;
+    }
+    CMasterNodeWitness witness = Get(targetBlockHash);
+    for (auto it = witness.nProofs.begin(); it != witness.nProofs.end(); it++) {
+        CMasternodeBroadcast mnb = (*it).nBroadcast;
+        mnb.lastPing = (*it).nPing;
+
+        if (mnodeman.mapSeenMasternodeBroadcast.count(mnb.GetHash())) { //seen
+            masternodeSync.AddedMasternodeList(mnb.GetHash());
+            continue;
+        }
+        mnodeman.mapSeenMasternodeBroadcast.insert(make_pair(mnb.GetHash(), mnb));
+
+        int nDoS = 0;
+        if (!mnb.CheckAndUpdate(nDoS)) {
+            continue;
+        }
+
+        // make sure it's still unspent
+        //  - this is checked later by .check() in many places and by ThreadCheckObfuScationPool()
+        if (mnb.CheckInputsAndAdd(nDoS)) {
+            masternodeSync.AddedMasternodeList(mnb.GetHash());
+        }
     }
 }

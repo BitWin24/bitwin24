@@ -77,14 +77,15 @@ int ClientModel::getNumConnections(unsigned int flags) const
 
 QString ClientModel::getMasternodeCountString() const
 {
+    // TODO fix protocol determination
     int ipv4 = 0, ipv6 = 0, onion = 0;
-    mnodeman.CountNetworks(ActiveProtocol(), ipv4, ipv6, onion);
+    //mnodeman.CountNetworks(ActiveProtocol(), ipv4, ipv6, onion);
 
     CMasterNodeWitness witness = pMNWitness->CreateMasterNodeWitnessSnapshot();
     const int totalProofs = witness.nProofs.size();
-    int nUnknown = totalProofs - ipv4 - ipv6 - onion;
-    if(nUnknown < 0) nUnknown = 0;
-    return tr("Total: %1 (IPv4: %2 / IPv6: %3 / Tor: %4 / Unknown: %5)").arg(QString::number((int)totalProofs)).arg(QString::number((int)ipv4)).arg(QString::number((int)ipv6)).arg(QString::number((int)onion)).arg(QString::number((int)nUnknown));
+    //int nUnknown = totalProofs - ipv4 - ipv6 - onion;
+    //if(nUnknown < 0) nUnknown = 0;
+    return tr("Total: %1 (IPv4: %2 / IPv6: %3 / Tor: %4 / Unknown: %5)").arg(QString::number((int)totalProofs)).arg(QString::number((int)ipv4)).arg(QString::number((int)ipv6)).arg(QString::number((int)onion)).arg(QString::number((int)totalProofs));
 }
 
 int ClientModel::getNumBlocks() const

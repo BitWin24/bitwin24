@@ -216,13 +216,15 @@ bool CBitWin24Stake::CreateTxOuts(CWallet* pwallet, vector<CTxOut>& vout, CAmoun
         scriptPubKey = scriptPubKeyKernel;
 
     const CAmount splitAmount = static_cast<CAmount>(pwallet->nStakeSplitThreshold) * COIN;
-    const auto nSplits = nTotal / splitAmount + 1;
+    const size_t nSplits = nTotal / splitAmount + 1;
     CAmount usedAmount = 0;
-    for (size_t i = 0; i < std::min<decltype(nSplits)>(nSplits - 1, MAX_SPLIT_OUTPUT_COUNT); i++)
+    // Split UTXO to equal parts defined by nStakeSplitThreshold
+    for (size_t i = 0; i < std::min<size_t>(nSplits - 1, MAX_SPLIT_OUTPUT_COUNT); i++)
     {
        vout.emplace_back(splitAmount, scriptPubKey);
        usedAmount += splitAmount;
     }
+    // Put remainder into the last output
     vout.emplace_back(nTotal - usedAmount, scriptPubKey);
 
     return true;

@@ -963,6 +963,8 @@ int64_t CWalletTx::GetComputedTxTime() const
         else
             return nTimeReceived;
     }
+    if (IsInMainChain() && mapBlockIndex.count(hashBlock))
+        return mapBlockIndex.at(hashBlock)->GetBlockTime();
     return GetTxTime();
 }
 

@@ -328,6 +328,8 @@ void TransactionRecord::updateStatus(const CWalletTx& wtx)
     AssertLockHeld(cs_main);
     // Determine transaction status
 
+    time = wtx.GetComputedTxTime();
+
     // Find the block the tx is in
     CBlockIndex* pindex = NULL;
     BlockMap::iterator mi = mapBlockIndex.find(wtx.hashBlock);

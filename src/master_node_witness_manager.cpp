@@ -56,7 +56,6 @@ bool MasterNodeWitnessManager::Add(const CMasterNodeWitness &proof, bool validat
     boost::lock_guard<boost::mutex> guard(_mtx);
     if (!Exist(proof.nTargetBlockHash)) {
         if (!validate || proof.IsValid(GetAdjustedTime())) {
-            LogPrintf("add proof %s\n", proof.nTargetBlockHash.ToString());
             _witnesses[proof.nTargetBlockHash] = proof;
             return true;
         }
@@ -68,7 +67,6 @@ bool MasterNodeWitnessManager::Remove(const uint256 &targetBlockHash)
 {
     boost::lock_guard<boost::mutex> guard(_mtx);
     if (Exist(targetBlockHash)) {
-        LogPrintf("remove proof %s\n", targetBlockHash.ToString());
         _witnesses.erase(targetBlockHash);
         return true;
     }
@@ -79,17 +77,17 @@ void MasterNodeWitnessManager::UpdateThread()
 {
     _stopThread = false;
     while (!_stopThread) {
-        MilliSleep(5000);
+        MilliSleep(2 * 60 * 1000);
         boost::lock_guard<boost::mutex> guard(_mtxGlobal);
 
         if (GetTime() - _lastUpdate > 5 * 60) {
             _lastUpdate = GetTime();
 
-            int64_t thresholdTime = GetAdjustedTime() - MASTERNODE_REMOVAL_SECONDS;
+            int64_t thresholdTime = GetAdjustedTime() - 2 * MASTERNODE_REMOVAL_SECONDS;
             std::map<uint256, CMasterNodeWitness>::iterator it = _witnesses.begin();
             std::vector<uint256> toRemove;
             while (it != _witnesses.end()) {
-                if (!it->second.IsValid(thresholdTime)) {
+                if (it->second.nTime < thresholdTime) {
                     toRemove.push_back(it->first);
                 }
                 it++;
@@ -97,61 +95,6 @@ void MasterNodeWitnessManager::UpdateThread()
 
             for (unsigned i = 0; i < toRemove.size(); i++) {
                 Remove(toRemove[i]);
-            }
-        }
-
-        {
-            boost::lock_guard<boost::mutex> guard(_mtx);
-            std::vector<uint256> toRemove;
-            for (auto it = _blocks.begin(); it != _blocks.end(); it++) {
-                const CBlock &block = it->second.block;
-                uint256 blockHash = block.GetHash();
-                bool proofExist = Exist(blockHash);
-                if (proofExist
-                    || _retries[blockHash]._retry > 5
-                    || chainActive.Tip()->nHeight < START_HEIGHT_REWARD_BASED_ON_MN_COUNT) {
-                    if (!mapBlockIndex.count(blockHash)) {
-                        if (!mapBlockIndex.count(block.hashPrevBlock)) {
-                            continue;
-                        }
-                        CInv inv(MSG_BLOCK, blockHash);
-                        CNode *pfrom = FindNode(it->second.nodeID);
-                        if(!pfrom)
-                            LogPrintf("received block from unknown peer %d", it->second.nodeID);
-                        if(pfrom)
-                            pfrom->AddInventoryKnown(inv);
-                        CValidationState state;
-                        Witness_StateCatcher sc(block.GetHash());
-                        RegisterValidationInterface(&sc);
-                        ProcessNewBlock(state, pfrom, &it->second.block);
-                        UnregisterValidationInterface(&sc);
-                        int nDoS;
-                        if (state.IsInvalid(nDoS) && pfrom) {
-                            string strCommand = "block";
-                            pfrom->PushMessage("reject",
-                                               strCommand,
-                                               state.GetRejectCode(),
-                                               state.GetRejectReason().substr(0, MAX_REJECT_MESSAGE_LENGTH),
-                                               inv.hash);
-                            if (nDoS > 0) {
-                                TRY_LOCK(cs_main, lockMain);
-                                if (lockMain) Misbehaving(pfrom->GetId(), nDoS);
-                            }
-                        }
-                        toRemove.push_back(it->first);
-                    }
-                }
-                else if (!proofExist && (_retries[blockHash]._lastTryTime + 10) < GetTime()) {
-                    _retries[blockHash]._lastTryTime = GetTime();
-                    _retries[blockHash]._retry++;
-                    BOOST_FOREACH(CNode * pnode, vNodes)
-                        if (pnode->nVersion >= MASTER_NODE_WITNESS_VERSION)
-                            pnode->PushMessage("getmnwitness", block.GetHash());
-                }
-            }
-
-            for (auto it = toRemove.begin(); it != toRemove.end(); it++) {
-                _blocks.erase(*it);
             }
         }
     }
@@ -206,15 +149,14 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
     CMasterNodeWitness result;
     result.nVersion = 0;
     result.nTargetBlockHash = targetBlockHash;
+    result.nTime = GetAdjustedTime();
 
     std::map<std::pair<uint256, uint32_t>, CMasternodePing> pings;
-
-    int64_t atTime = GetAdjustedTime();
 
     std::map<uint256, CMasternodePing>::iterator pingIt = mnodeman.mapSeenMasternodePing.begin();
     while (pingIt != mnodeman.mapSeenMasternodePing.end()) {
         const CMasternodePing &ping = pingIt->second;
-        if (ping.sigTime<(atTime - MASTERNODE_REMOVAL_SECONDS) || ping.sigTime>(atTime + MASTERNODE_PING_SECONDS)) {
+        if (ping.sigTime < (result.nTime - MASTERNODE_REMOVAL_SECONDS) || ping.sigTime>(result.nTime + MASTERNODE_PING_SECONDS)) {
             pingIt++;
             continue;
         }
@@ -291,17 +233,31 @@ const CMasterNodeWitness &MasterNodeWitnessManager::Get(const uint256 &targetBlo
     return result;
 }
 
-void MasterNodeWitnessManager::HoldBlock(CBlock block, int nodeId)
+void MasterNodeWitnessManager::AddBroadCastToMNManager(const uint256 &targetBlockHash)
 {
-    if (!_blocks.count(block.GetHash())) {
-        BlockInfo info;
-        info.block = block;
-        info.nodeID = nodeId;
-        info.creatingTime = GetTime();
-        _blocks[block.GetHash()] = info;
-        RETRY_REQUEST retry;
-        retry._retry = 0;
-        retry._lastTryTime = GetTime();
-        _retries[block.GetHash()] = retry;
+    if (!Exist(targetBlockHash)) {
+        return;
+    }
+    CMasterNodeWitness witness = Get(targetBlockHash);
+    for (auto it = witness.nProofs.begin(); it != witness.nProofs.end(); it++) {
+        CMasternodeBroadcast mnb = (*it).nBroadcast;
+        mnb.lastPing = (*it).nPing;
+
+        if (mnodeman.mapSeenMasternodeBroadcast.count(mnb.GetHash())) { //seen
+            masternodeSync.AddedMasternodeList(mnb.GetHash());
+            continue;
+        }
+        mnodeman.mapSeenMasternodeBroadcast.insert(make_pair(mnb.GetHash(), mnb));
+
+        int nDoS = 0;
+        if (!mnb.CheckAndUpdate(nDoS)) {
+            continue;
+        }
+
+        // make sure it's still unspent
+        //  - this is checked later by .check() in many places and by ThreadCheckObfuScationPool()
+        if (mnb.CheckInputsAndAdd(nDoS)) {
+            masternodeSync.AddedMasternodeList(mnb.GetHash());
+        }
     }
 }

@@ -963,6 +963,8 @@ int64_t CWalletTx::GetComputedTxTime() const
         else
             return nTimeReceived;
     }
+    if (IsInMainChain() && mapBlockIndex.count(hashBlock))
+        return mapBlockIndex.at(hashBlock)->GetBlockTime();
     return GetTxTime();
 }
 
@@ -2307,7 +2309,7 @@ bool CWallet::MintableCoins()
             return false;
 
         vector<COutput> vCoins;
-        AvailableCoins(vCoins, true);
+        AvailableCoins(vCoins, true, NULL, false, STAKABLE_COINS);
 
         for (const COutput& out : vCoins) {
             int64_t nTxTime = out.tx->GetTxTime();
@@ -3150,22 +3152,13 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
             nCredit += nReward;
 
             // Create the output transaction(s)
+            CAmount nMinFee = 0;
             vector<CTxOut> vout;
-            if (!stakeInput->CreateTxOuts(this, vout, nCredit)) {
+            if (!stakeInput->CreateTxOuts(this, vout, nCredit - nMinFee)) {
                 LogPrintf("%s : failed to get scriptPubKey\n", __func__);
                 continue;
             }
             txNew.vout.insert(txNew.vout.end(), vout.begin(), vout.end());
-
-            CAmount nMinFee = 0;
-            if (!stakeInput->IsZBWI()) {
-                // Set output amount
-                if (txNew.vout.size() == 3) {
-                    txNew.vout[1].nValue = ((nCredit - nMinFee) / 2 / CENT) * CENT;
-                    txNew.vout[2].nValue = nCredit - nMinFee - txNew.vout[1].nValue;
-                } else
-                    txNew.vout[1].nValue = nCredit - nMinFee;
-            }
 
             // Limit size
             unsigned int nBytes = ::GetSerializeSize(txNew, SER_NETWORK, PROTOCOL_VERSION);
@@ -3947,21 +3940,21 @@ void CWallet::DisableStaking( const CBitcoinAddress& address )
 {
     AssertLockHeld(cs_wallet);
 
-    StakingAccountsDb::instance().remove( address.ToString() );
+    StakingAccountsDb::instance().add( address.ToString() );
 }
 
 void CWallet::EnableStaking( const CBitcoinAddress& address )
 {
     AssertLockHeld(cs_wallet);
 
-    StakingAccountsDb::instance().add( address.ToString() );
+    StakingAccountsDb::instance().remove( address.ToString() );
 }
 
 bool CWallet::IsStakingEnabled( const CBitcoinAddress& address ) const
 {
     AssertLockHeld(cs_wallet);
 
-    return StakingAccountsDb::instance().exist( address.ToString() );
+    return !StakingAccountsDb::instance().exist( address.ToString() );
 }
 
 set<CBitcoinAddress> CWallet::GetStakingAddresses() const

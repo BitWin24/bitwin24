@@ -2133,6 +2133,9 @@ UniValue enablestaking(const UniValue& params, bool fHelp)
 
     const bool enableStaking{ params[0].get_bool() };
 
+    std::vector<COutput> vCoins;
+    pwalletMain->AvailableCoins(vCoins);
+
     set<CBitcoinAddress> uniqueAddresses;
     UniValue inputs = params[1].get_array();
     for (unsigned int inx = 0; inx < inputs.size(); inx++) {
@@ -2145,7 +2148,21 @@ UniValue enablestaking(const UniValue& params, bool fHelp)
 
         const auto mi = pwalletMain->mapAddressBook.find(address.Get());
         if (mi == pwalletMain->mapAddressBook.end()) {
-            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, string("Not found, BITWIN24 address: ") + input.get_str());
+            bool found = false;
+
+            BOOST_FOREACH (const COutput& out, vCoins) {
+                COutput cout = out;
+                CTxDestination avaibleAddress;
+                if (!ExtractDestination(cout.tx->vout[cout.i].scriptPubKey, avaibleAddress))
+                    continue;
+                if (avaibleAddress == address.Get()) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found)
+                throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, string("Not found, BITWIN24 address: ") + input.get_str());
         }
 
         uniqueAddresses.insert(address);

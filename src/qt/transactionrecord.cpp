@@ -19,7 +19,7 @@
  */
 bool TransactionRecord::showTransaction(const CWalletTx& wtx)
 {
-    if (wtx.IsCoinBase()) {
+    if (wtx.IsCoinBase() || wtx.IsCoinStake()) {
         // Ensures we show generated coins / mined transactions at depth 1
         if (!wtx.IsInMainChain()) {
             return false;
@@ -327,6 +327,11 @@ void TransactionRecord::updateStatus(const CWalletTx& wtx)
 {
     AssertLockHeld(cs_main);
     // Determine transaction status
+
+    qint64 oldTime = time;
+    time = wtx.GetComputedTxTime();
+    if (time == 0)
+        time = oldTime;
 
     // Find the block the tx is in
     CBlockIndex* pindex = NULL;

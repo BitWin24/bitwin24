@@ -37,26 +37,12 @@ public:
     void Save();
     void Load();
 
-    void HoldBlock(CBlock block, int nodeId);
-private:
     void AddBroadCastToMNManager(const uint256 &targetBlockHash);
+private:
     void EraseDB();
     std::map<uint256, CMasterNodeWitness> _witnesses;
     int64_t _lastUpdate;
     bool _stopThread;
     boost::mutex _mtx;
     boost::mutex _mtxGlobal;
-    struct BlockInfo
-    {
-        CBlock block;
-        int nodeID;
-        int64_t creatingTime;
-    };
-    std::map<uint256, BlockInfo> _blocks;
-    struct RETRY_REQUEST
-    {
-        int64_t _lastTryTime;
-        int64_t _retry;
-    };
-    std::map<uint256, RETRY_REQUEST> _retries;
 };

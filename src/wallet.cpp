@@ -1496,6 +1496,174 @@ void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
     }
 }
 
+void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
+                           list<COutputEntry>& listSent,
+                           CAmount& nTxFee,
+                           string& strSentAccount,
+                           const string& targetAccount,
+                           const isminefilter& filter) const
+{
+    nTxFee = 0;
+    listReceived.clear();
+    listSent.clear();
+    strSentAccount = strFromAccount;
+
+    // Zerocoin is ignored
+    if (IsZerocoinSpend() || IsZerocoinMint()) {
+        return;
+    }
+
+    CAmount volatile sumIn = 0;
+    CAmount volatile sumOut = 0;
+    int volatile numVinFromMe = 0;
+    int volatile numVoutToMe = 0;
+    BOOST_FOREACH (const CTxIn& txin, vin) {
+        const auto mi = pwallet->mapWallet.find(txin.prevout.hash);
+        if (mi != pwallet->mapWallet.end()) {
+            const CWalletTx& prev = (*mi).second;
+            if (txin.prevout.n < prev.vout.size()) {
+                const auto& prevout = prev.vout[txin.prevout.n];
+                CTxDestination dest;
+                if (ExtractDestination(prevout.scriptPubKey, dest)) {
+                    CBitcoinAddress address = dest;
+                    const auto mi = pwallet->mapAddressBook.find(address.Get());
+                    if (mi != pwallet->mapAddressBook.end() && !(*mi).second.name.empty()) {
+                        if (pwallet->IsMine(txin) && (*mi).second.name == targetAccount) {
+                            sumIn += prevout.nValue;
+                            numVinFromMe++;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    for (size_t nOut = 0; nOut < vout.size(); nOut++) {
+        const auto& txout = vout[nOut];
+        if (pwallet->IsChange(txout)) {
+            sumOut += txout.nValue;
+        }
+        else {
+            CTxDestination dest;
+            if (ExtractDestination(txout.scriptPubKey, dest)) {
+                CBitcoinAddress address = dest;
+                const auto mi = pwallet->mapAddressBook.find(address.Get());
+                if (mi != pwallet->mapAddressBook.end() && !(*mi).second.name.empty()) {
+                    if (pwallet->IsMine(txout) && (*mi).second.name == targetAccount) {
+                        sumOut += txout.nValue;
+                        numVoutToMe++;
+                    }
+                }
+            }
+        }
+    }
+
+    if (IsCoinStake()) {
+        CTxDestination address;
+        if (!ExtractDestination(vout[1].scriptPubKey, address))
+            return;
+
+        if (pwallet->IsMine(vout[1])) {
+            // BITWIN24 stake reward
+            COutputEntry reward{ CNoDestination{}, address, sumOut - sumIn, 1 };
+            listReceived.push_back( reward );
+        }
+        else {
+            //Masternode reward
+            CTxDestination destMN;
+            int nIndexMN = vout.size() - 1;
+            if (ExtractDestination(vout[nIndexMN].scriptPubKey, destMN) && IsMine(*pwallet, destMN)) {
+                COutputEntry reward{ CNoDestination{}, destMN, vout[nIndexMN].nValue, nIndexMN };
+                listReceived.push_back( reward );
+            }
+        }
+        return;
+    }
+    else if (IsCoinBase()) {
+        int index = 0;
+        for(const CTxOut& txout: vout) {
+            isminetype mine = pwallet->IsMine(txout);
+            if (mine) {
+                CTxDestination address;
+                if (ExtractDestination(txout.scriptPubKey, address) && IsMine(*pwallet, address)) {
+                    // Received by BITWIN24 Address
+                    COutputEntry received{ ExtractSource(), address, txout.nValue, index++ };
+                    listReceived.push_back( received );
+                }
+            }
+        }
+        return;
+    }
+
+    if (sumOut > sumIn) {
+        for(size_t nOut = 0; nOut < vout.size(); nOut++) {
+            const auto& txout = vout[nOut];
+            CTxDestination dest;
+            if (ExtractDestination(txout.scriptPubKey, dest)) {
+                CBitcoinAddress address = dest;
+                const auto mi = pwallet->mapAddressBook.find(address.Get());
+                if (mi != pwallet->mapAddressBook.end() && !(*mi).second.name.empty()) {
+                    if (pwallet->IsMine(txout) && (*mi).second.name == targetAccount) {
+                        // Received by BITWIN24 Address
+                        COutputEntry received{ ExtractSource(), dest, txout.nValue, nOut };
+                        listReceived.push_back( received );
+                    }
+                }
+            }
+        }
+    }
+    else {
+        nTxFee = GetDebit(ISMINE_ALL) - GetValueOut();
+
+        bool allFromMe = numVinFromMe == vin.size();
+        bool allToMe = numVoutToMe == vin.size();
+        if (allFromMe && allToMe) {
+            // Payment to self
+            // TODO: this section still not accurate but covers most cases,
+            // might need some additional work however
+            CTxDestination address;
+            if (ExtractDestination(vout[0].scriptPubKey, address)) {
+                // Sent to BITWIN24 Address
+                COutputEntry sentToSelf{ address, address, -(sumIn - GetChange()), 0 };
+                listSent.push_back( sentToSelf );
+            }
+        }
+        else if (allFromMe) {
+            for (size_t nOut = 0; nOut < vout.size(); nOut++) {
+                const auto& txout = vout[nOut];
+
+                if (pwallet->IsChange(txout)) {
+                    // Ignore parts sent to self, as this is usually the change
+                    // from a transaction sent back to our own address.
+                    continue;
+                }
+
+                CTxDestination dest;
+                if (ExtractDestination(txout.scriptPubKey, dest)) {
+                    CBitcoinAddress address = dest;
+                    const auto mi = pwallet->mapAddressBook.find(address.Get());
+                    if (mi != pwallet->mapAddressBook.end() && !(*mi).second.name.empty()) {
+                        if ((*mi).second.name == targetAccount) {
+                            // Ignore transfer to self
+                            continue;
+                        }
+                    }
+
+                    // Sent to BITWIN24 Address
+                    CAmount nValue = txout.nValue;
+                    /* Add fee to first output */
+                    if (nTxFee > 0) {
+                        nValue += nTxFee;
+                        nTxFee = 0;
+                    }
+
+                    COutputEntry sentToAddress{ ExtractSource(), dest, nValue, static_cast< int >( nOut ) };
+                    listSent.push_back( sentToAddress );
+                }
+            }
+        }
+    }
+}
+
 void CWalletTx::GetAccountAmounts(const string& strAccount, CAmount& nReceived, CAmount& nSent, CAmount& nFee, const isminefilter& filter) const
 {
     nReceived = nSent = nFee = 0;

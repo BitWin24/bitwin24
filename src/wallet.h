@@ -1013,6 +1013,13 @@ public:
         std::string& strSentAccount,
         const isminefilter& filter) const;
 
+    void GetAmounts(std::list<COutputEntry>& listReceived,
+        std::list<COutputEntry>& listSent,
+        CAmount& nFee,
+        std::string& strSentAccount,
+        const string& targetAccount,
+        const isminefilter& filter) const;
+
     void GetAccountAmounts(const std::string& strAccount, CAmount& nReceived, CAmount& nSent, CAmount& nFee, const isminefilter& filter) const;
 
     bool IsFromMe(const isminefilter& filter) const

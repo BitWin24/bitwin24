@@ -58,6 +58,18 @@ bool CWalletDB::ErasePurpose(const string& strPurpose)
     return Erase(make_pair(string("purpose"), strPurpose));
 }
 
+bool CWalletDB::WriteAddressToSplit(const string& strAddress)
+{
+    nWalletDBUpdated++;
+    return Write(std::make_pair(std::string("addrtosplit"), strAddress), '1');
+}
+
+bool CWalletDB::EraseAddressToSplit(const string& strAddress)
+{
+    nWalletDBUpdated++;
+    return Erase(std::make_pair(std::string("addrtosplit"), strAddress));
+}
+
 bool CWalletDB::WriteTx(uint256 hash, const CWalletTx& wtx)
 {
     nWalletDBUpdated++;
@@ -433,6 +445,14 @@ bool ReadKeyValue(CWallet* pwallet, CDataStream& ssKey, CDataStream& ssValue, CW
             string strAddress;
             ssKey >> strAddress;
             ssValue >> pwallet->mapAddressBook[CBitcoinAddress(strAddress).Get()].purpose;
+        } else if (strType == "addrtosplit") {
+            string strAddress;
+            ssKey >> strAddress;
+            char ch;
+            ssValue >> ch;
+            if (ch == '1') {
+                pwallet->addressesToSplit.insert(CBitcoinAddress(strAddress));
+            }
         } else if (strType == "tx") {
             uint256 hash;
             ssKey >> hash;

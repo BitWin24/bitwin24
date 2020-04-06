@@ -405,6 +405,9 @@ public:
     void ListLockedCoins(std::vector<COutPoint>& vOutpts);
     CAmount GetTotalValue(std::vector<CTxIn> vCoins);
 
+    bool DisableSplitOnStake( const CBitcoinAddress& address );
+    bool EnableSplitOnStake( const CBitcoinAddress& address );
+
     void DisableStaking( const CBitcoinAddress& address );
     void EnableStaking( const CBitcoinAddress& address );    
     bool IsStakingEnabled( const CBitcoinAddress& address ) const;

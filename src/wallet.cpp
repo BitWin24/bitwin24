@@ -4104,6 +4104,25 @@ void CWallet::ListLockedCoins(std::vector<COutPoint>& vOutpts)
     }
 }
 
+bool CWallet::DisableSplitOnStake( const CBitcoinAddress& address )
+{
+    AssertLockHeld(cs_wallet);
+
+    const auto it = addressesToSplit.find(address);
+    if (it != addressesToSplit.end()) {
+        addressesToSplit.erase(it);
+    }
+    return CWalletDB(strWalletFile).EraseAddressToSplit(address.ToString());
+}
+
+bool CWallet::EnableSplitOnStake( const CBitcoinAddress& address )
+{
+    AssertLockHeld(cs_wallet);
+
+    addressesToSplit.insert(address);
+    return CWalletDB(strWalletFile).WriteAddressToSplit(address.ToString());
+}
+
 void CWallet::DisableStaking( const CBitcoinAddress& address ) 
 {
     AssertLockHeld(cs_wallet);

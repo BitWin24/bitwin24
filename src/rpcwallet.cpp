@@ -2187,13 +2187,10 @@ UniValue enablestaking(const UniValue& params, bool fHelp)
         }
 
         if (splitOnStake) {
-            pwalletMain->addressesToSplit.insert(address);
+            pwalletMain->EnableSplitOnStake(address);
         }
         else {
-            const auto it = pwalletMain->addressesToSplit.find(address);
-            if (it != pwalletMain->addressesToSplit.end()) {
-                pwalletMain->addressesToSplit.erase(it);
-            }
+            pwalletMain->DisableSplitOnStake(address);
         }
     }
 

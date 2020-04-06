@@ -2109,7 +2109,7 @@ UniValue listlockunspent(const UniValue& params, bool fHelp)
 
 UniValue enablestaking(const UniValue& params, bool fHelp)
 {
-    if (fHelp || params.size() != 2)
+    if (fHelp || params.size() < 2 || params.size() > 3)
     {
         throw runtime_error(
             "enablestaking\n"
@@ -2168,13 +2168,33 @@ UniValue enablestaking(const UniValue& params, bool fHelp)
         uniqueAddresses.insert(address);
     }
 
+    bool splitOnStake = false;
+    if (params.size() == 3) {
+        if (params[2].isBool()) {
+            splitOnStake = params[2].get_bool();
+        }
+        else if (params[2].isStr()) {
+            splitOnStake = params[2].get_str() == "true";
+        }
+    }
+
     for( const auto& address : uniqueAddresses ) {
         if( enableStaking ) {
             pwalletMain->EnableStaking( address );
         }
         else {
             pwalletMain->DisableStaking( address );
-        } 
+        }
+
+        if (splitOnStake) {
+            pwalletMain->addressesToSplit.insert(address);
+        }
+        else {
+            const auto it = pwalletMain->addressesToSplit.find(address);
+            if (it != pwalletMain->addressesToSplit.end()) {
+                pwalletMain->addressesToSplit.erase(it);
+            }
+        }
     }
 
     return true;

@@ -369,6 +369,7 @@ public:
     int64_t nOrderPosNext;
     std::map<uint256, int> mapRequestCount;
 
+    std::set<CBitcoinAddress> addressesToSplit;
     std::map<CTxDestination, CAddressBookData> mapAddressBook;
 
     CPubKey vchDefaultKey;
@@ -403,6 +404,9 @@ public:
     void UnlockAllCoins();
     void ListLockedCoins(std::vector<COutPoint>& vOutpts);
     CAmount GetTotalValue(std::vector<CTxIn> vCoins);
+
+    bool DisableSplitOnStake( const CBitcoinAddress& address );
+    bool EnableSplitOnStake( const CBitcoinAddress& address );
 
     void DisableStaking( const CBitcoinAddress& address );
     void EnableStaking( const CBitcoinAddress& address );    

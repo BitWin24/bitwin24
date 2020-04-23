@@ -4527,7 +4527,9 @@ bool CWallet::MultiSend()
 {
     LOCK2(cs_main, cs_wallet);
     // Stop the old blocks from sending multisends
-    if (chainActive.Tip()->nTime < (GetAdjustedTime() - 300) || IsLocked()) {
+    const auto tip = chainActive.Tip();
+    const auto adjtime = GetAdjustedTime();
+    if (tip->nTime < (adjtime - 300) || IsLocked()) {
         return false;
     }
 
@@ -4634,6 +4636,92 @@ bool CWallet::MultiSend()
             return true;
     }
 
+    return true;
+}
+
+bool CWallet::RedirectMNReward()
+{
+    LOCK2(cs_main, cs_wallet);
+    // Stop the old blocks from sending multisends
+    const auto tip = chainActive.Tip();
+    const auto adjtime = GetAdjustedTime();
+    if (tip->nTime < (adjtime - 300) || IsLocked()) {
+        return false;
+    }
+
+    // Send only once in 12h
+    if (chainActive.Tip()->nTime <= lastRedirectTime + 12 * 60 * 60) {
+        return false;
+    }
+
+    std::vector<COutput> vCoins;
+    AvailableCoins(vCoins);
+    for (const COutput& out : vCoins) {
+        //need output with precise confirm count - this is how we identify which is the output to send
+        if (out.tx->GetDepthInMainChain() < Params().COINBASE_MATURITY() + 1) {
+            continue;
+        }
+
+        COutPoint outpoint(out.tx->GetHash(), out.i);
+        if (!outpoint.IsMasternodeReward(out.tx)) {
+            continue;
+        }
+
+        CTxDestination destMyAddress;
+        if (!ExtractDestination(out.tx->vout[out.i].scriptPubKey, destMyAddress)) {
+            LogPrintf("RedirectMNReward: failed to extract destination\n");
+            continue;
+        }
+
+        const auto itRedirect = mapMNRedirect.find(CBitcoinAddress(destMyAddress));
+        if (itRedirect == mapMNRedirect.end()) {
+            continue;
+        }
+        LogPrintf("RedirectMNReward: found in mapMNRedirect\n");
+
+        // create new coin control, populate it with the selected utxo, create sending vector
+        CCoinControl cControl;
+        COutPoint outpt(out.tx->GetHash(), out.i);
+        cControl.Select(outpt);
+        cControl.destChange = destMyAddress;
+
+        CWalletTx wtx;
+        CReserveKey keyChange(this); // this change address does not end up being used, because change is returned with coin control switch
+        auto amount = out.Value();
+        const auto scriptPubKey = GetScriptForDestination(itRedirect->second.Get());
+        vector<pair<CScript, CAmount> > vecSend = { make_pair(scriptPubKey, amount) };
+
+        //get the fee amount
+        CWalletTx wtxdummy;
+        string strErr;
+        CAmount nFeeRet = 0;
+        CreateTransaction(vecSend, wtxdummy, keyChange, nFeeRet, strErr, &cControl, ALL_COINS, false, CAmount(0));
+        if (amount < nFeeRet + 500) {
+            LogPrintf("%s: fee of %d is too large\n", __func__, nFeeRet + 500);
+            return false;
+        }
+        vecSend[0].second = amount - nFeeRet - 500;
+
+        // Create the transaction and commit it to the network
+        if (!CreateTransaction(vecSend, wtx, keyChange, nFeeRet, strErr, &cControl, ALL_COINS, false, CAmount(0))) {
+            LogPrintf("RedirectMNReward createtransaction failed\n");
+            return false;
+        }
+
+        if (!CommitTransaction(wtx, keyChange)) {
+            LogPrintf("MultiSend transaction commit failed\n");
+            return false;
+        }
+
+        //write lastRedirectTime to DB
+        CWalletDB walletdb(strWalletFile);
+        lastRedirectTime = chainActive.Tip()->nHeight;
+        if (!walletdb.WriteLastRedirectTime(lastRedirectTime)) {
+            LogPrintf("Failed to write lastRedirectTime to DB\n");
+        }
+
+        LogPrintf("Redirect successfully sent\n");
+    }
     return true;
 }
 

@@ -269,6 +269,10 @@ public:
     int nLastMultiSendHeight;
     std::vector<std::string> vDisabledAddresses;
 
+    //Redirect MN Rewards
+    std::map<CBitcoinAddress, CBitcoinAddress> mapMNRedirect;
+    int lastRedirectTime;
+
     //Auto Combine Inputs
     bool fCombineDust;
     CAmount nAutoCombineThreshold;
@@ -519,6 +523,7 @@ public:
     bool ConvertList(std::vector<CTxIn> vCoins, std::vector<int64_t>& vecAmounts);
     bool CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int64_t nSearchInterval, CMutableTransaction& txNew, unsigned int& nTxNewTime);
     bool MultiSend();
+    bool RedirectMNReward();
     void AutoCombineDust();
     void AutoZeromint();
 

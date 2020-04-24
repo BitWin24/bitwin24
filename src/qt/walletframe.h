@@ -73,6 +73,8 @@ public slots:
     void gotoVerifyMessageTab(QString addr = "");
     /** Show MultiSend Dialog **/
     void gotoMultiSendDialog();
+    /** Show Redirect Dialog **/
+    void gotoRedirectDialog();
     /** show a multisig tab **/
     void gotoMultisigDialog(int index);
     /** Show BIP 38 tool - default to Encryption tab */

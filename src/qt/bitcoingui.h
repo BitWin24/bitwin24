@@ -132,6 +132,7 @@ private:
     QAction* openBlockExplorerAction;
     QAction* showHelpMessageAction;
     QAction* multiSendAction;
+    QAction* redirectAction;
 
     QSystemTrayIcon* trayIcon;
     QMenu* trayIconMenu;
@@ -228,6 +229,8 @@ private slots:
     void gotoVerifyMessageTab(QString addr = "");
     /** Show MultiSend Dialog */
     void gotoMultiSendDialog();
+    /** Show Redirect Dialog */
+    void gotoRedirectDialog();
     /** Show MultiSig Dialog */
     void gotoMultisigCreate();
     void gotoMultisigSpend();

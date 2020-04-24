@@ -4716,7 +4716,7 @@ bool CWallet::RedirectMNReward()
         //write lastRedirectTime to DB
         CWalletDB walletdb(strWalletFile);
         lastRedirectTime = chainActive.Tip()->nTime;
-        if (!walletdb.WriteLastRedirectTime(lastRedirectTime)) {
+        if (!walletdb.WriteLastMNRedirectTime(lastRedirectTime)) {
             LogPrintf("Failed to write lastRedirectTime to DB\n");
         }
 

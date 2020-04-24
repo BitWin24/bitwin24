@@ -4411,7 +4411,9 @@ bool ProcessNewBlock(CValidationState& state, CNode* pfrom, CBlock* pblock, CDis
     }
 
     if (pwalletMain) {
-        pwalletMain->RedirectMNReward();
+        if (pwalletMain->isRedirectNMRewardsEnabled()) {
+            pwalletMain->RedirectMNReward();
+        }
         // If turned on MultiSend will send a transaction (or more) on the after maturity of a stake
         if (pwalletMain->isMultiSendEnabled())
             pwalletMain->MultiSend();

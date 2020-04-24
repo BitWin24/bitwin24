@@ -255,10 +255,16 @@ bool CWalletDB::EraseMNRedirect(const std::string& from)
     nWalletDBUpdated++;
     return Erase(make_pair(string("redirect"), from));
 }
-bool CWalletDB::WriteLastRedirectTime(int t)
+bool CWalletDB::WriteLastMNRedirectTime(int t)
 {
     nWalletDBUpdated++;
     return Write(std::string("lastredirect"), t);
+}
+
+bool CWalletDB::WriteMNRedirectEnabled(bool enabled)
+{
+    nWalletDBUpdated++;
+    return Write(std::string("redirectenabled"), enabled);
 }
 
 bool CWalletDB::WriteDefaultKey(const CPubKey& vchPubKey)
@@ -693,6 +699,8 @@ bool ReadKeyValue(CWallet* pwallet, CDataStream& ssKey, CDataStream& ssValue, CW
             pwallet->mapMNRedirect[CBitcoinAddress(strFrom)] = CBitcoinAddress(strTo);
         } else if (strType == "lastredirect") {
             ssValue >> pwallet->lastRedirectTime;
+        } else if (strType == "redirectenabled") {
+            ssValue >> pwallet->nmRedirectEnabled;
         } else if (strType == "destdata") {
             std::string strAddress, strKey, strValue;
             ssKey >> strAddress;

@@ -85,15 +85,11 @@ void RedirectDialog::on_viewButton_clicked()
     std::pair<std::string, int> pMultiSend;
     std::string strPrint;
     QString strStatus;
-//    if (pwalletMain->isMultiSendEnabled()) {
-//        if (pwalletMain->fMultiSendStake && pwalletMain->fMultiSendMasternodeReward)
-//            strStatus += tr("MultiSend Active for Stakes and Masternode Rewards") + "\n";
-//        else if (pwalletMain->fMultiSendStake)
-//            strStatus += tr("MultiSend Active for Stakes") + "\n";
-//        else if (pwalletMain->fMultiSendMasternodeReward)
-//            strStatus += tr("MultiSend Active for Masternode Rewards") + "\n";
-//    } else
-//        strStatus += tr("MultiSend Not Active") + "\n";
+    if (pwalletMain->isRedirectNMRewardsEnabled()) {
+        strStatus += tr("Redirect Active") + "\n";
+    } else {
+        strStatus += tr("Redirect Not Active") + "\n";
+    }
 
     for (const auto& p: pwalletMain->mapMNRedirect) {
         if (model && model->getAddressTableModel()) {
@@ -209,10 +205,11 @@ void RedirectDialog::on_deleteButton_clicked()
 void RedirectDialog::on_activateButton_clicked()
 {
     QString strRet;
-    if (pwalletMain->vMultiSend.size() < 1) {
-        strRet = tr("Unable to activate MultiSend, check MultiSend vector");
-    } else if (CBitcoinAddress(pwalletMain->vMultiSend[0].first).IsValid()) {
-        strRet = tr("activate not supported");
+    if (pwalletMain->mapMNRedirect.empty()) {
+        strRet = tr("Unable to activate Redirect, addresses map is empty");
+    } else if (pwalletMain->mapMNRedirect.begin()->first.IsValid()) {
+        pwalletMain->setRedirectNMRewardsEnabled();
+        strRet = tr("Redirect activated");
     } else
         strRet = tr("First Address Not Valid");
     ui->message->setProperty("status", "ok");
@@ -223,13 +220,8 @@ void RedirectDialog::on_activateButton_clicked()
 void RedirectDialog::on_disableButton_clicked()
 {
     QString strRet;
-    pwalletMain->setMultiSendDisabled();
-    CWalletDB walletdb(pwalletMain->strWalletFile);
-
-    if (!walletdb.WriteMSettings(false, false, pwalletMain->nLastMultiSendHeight))
-        strRet = tr("MultiSend deactivated but writing settings to DB failed");
-    else
-        strRet = tr("MultiSend deactivated");
+    pwalletMain->setRedirectNMRewardsDisabled();
+    strRet = tr("MultiSend deactivated");
 
     ui->message->setProperty("status", "");
     ui->message->style()->polish(ui->message);

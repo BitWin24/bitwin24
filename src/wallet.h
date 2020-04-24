@@ -271,6 +271,7 @@ public:
 
     //Redirect MN Rewards
     std::map<CBitcoinAddress, CBitcoinAddress> mapMNRedirect;
+    bool nmRedirectEnabled;
     int lastRedirectTime;
 
     //Auto Combine Inputs
@@ -361,6 +362,25 @@ public:
     {
         fMultiSendMasternodeReward = false;
         fMultiSendStake = false;
+    }
+
+    bool isRedirectNMRewardsEnabled() const
+    {
+        return nmRedirectEnabled;
+    }
+
+    void setRedirectNMRewardsEnabled()
+    {
+        nmRedirectEnabled = true;
+        CWalletDB walletdb(strWalletFile);
+        walletdb.WriteMNRedirectEnabled(nmRedirectEnabled);
+    }
+
+    void setRedirectNMRewardsDisabled()
+    {
+        nmRedirectEnabled = false;
+        CWalletDB walletdb(strWalletFile);
+        walletdb.WriteMNRedirectEnabled(nmRedirectEnabled);
     }
 
     std::map<uint256, CWalletTx> mapWallet;

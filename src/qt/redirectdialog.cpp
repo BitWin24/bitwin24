@@ -130,7 +130,7 @@ void RedirectDialog::on_addButton_clicked()
     }
     const auto it = pwalletMain->mapMNRedirect.find(fromAddress);
     if (it != pwalletMain->mapMNRedirect.end()) {
-        if (!(it->second == toAddress)) {
+        if (it->second == toAddress) {
             ui->message->setProperty("status", "error");
             ui->message->style()->polish(ui->message);
             ui->message->setText(tr("This pair of addresses is already present."));

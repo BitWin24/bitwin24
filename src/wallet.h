@@ -269,6 +269,11 @@ public:
     int nLastMultiSendHeight;
     std::vector<std::string> vDisabledAddresses;
 
+    //Redirect MN Rewards
+    std::map<CBitcoinAddress, CBitcoinAddress> mapMNRedirect;
+    bool nmRedirectEnabled;
+    int lastRedirectTime;
+
     //Auto Combine Inputs
     bool fCombineDust;
     CAmount nAutoCombineThreshold;
@@ -357,6 +362,25 @@ public:
     {
         fMultiSendMasternodeReward = false;
         fMultiSendStake = false;
+    }
+
+    bool isRedirectNMRewardsEnabled() const
+    {
+        return nmRedirectEnabled;
+    }
+
+    void setRedirectNMRewardsEnabled()
+    {
+        nmRedirectEnabled = true;
+        CWalletDB walletdb(strWalletFile);
+        walletdb.WriteMNRedirectEnabled(nmRedirectEnabled);
+    }
+
+    void setRedirectNMRewardsDisabled()
+    {
+        nmRedirectEnabled = false;
+        CWalletDB walletdb(strWalletFile);
+        walletdb.WriteMNRedirectEnabled(nmRedirectEnabled);
     }
 
     std::map<uint256, CWalletTx> mapWallet;
@@ -519,6 +543,7 @@ public:
     bool ConvertList(std::vector<CTxIn> vCoins, std::vector<int64_t>& vecAmounts);
     bool CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int64_t nSearchInterval, CMutableTransaction& txNew, unsigned int& nTxNewTime);
     bool MultiSend();
+    bool RedirectMNReward();
     void AutoCombineDust();
     void AutoZeromint();
 

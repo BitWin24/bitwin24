@@ -245,6 +245,28 @@ bool CWalletDB::WriteAutoCombineSettings(bool fEnable, CAmount nCombineThreshold
     return Write(std::string("autocombinesettings"), pSettings, true);
 }
 
+bool CWalletDB::WriteMNRedirect(const std::string& from, const std::string& to)
+{
+    nWalletDBUpdated++;
+    return Write(make_pair(string("redirect"), from), to);
+}
+bool CWalletDB::EraseMNRedirect(const std::string& from)
+{
+    nWalletDBUpdated++;
+    return Erase(make_pair(string("redirect"), from));
+}
+bool CWalletDB::WriteLastMNRedirectTime(int t)
+{
+    nWalletDBUpdated++;
+    return Write(std::string("lastredirect"), t);
+}
+
+bool CWalletDB::WriteMNRedirectEnabled(bool enabled)
+{
+    nWalletDBUpdated++;
+    return Write(std::string("redirectenabled"), enabled);
+}
+
 bool CWalletDB::WriteDefaultKey(const CPubKey& vchPubKey)
 {
     nWalletDBUpdated++;
@@ -670,6 +692,15 @@ bool ReadKeyValue(CWallet* pwallet, CDataStream& ssKey, CDataStream& ssValue, CW
             ssValue >> pSettings;
             pwallet->fCombineDust = pSettings.first;
             pwallet->nAutoCombineThreshold = pSettings.second;
+        } else if (strType == "redirect") {
+            std::string strFrom, strTo;
+            ssKey >> strFrom;
+            ssValue >> strTo;
+            pwallet->mapMNRedirect[CBitcoinAddress(strFrom)] = CBitcoinAddress(strTo);
+        } else if (strType == "lastredirect") {
+            ssValue >> pwallet->lastRedirectTime;
+        } else if (strType == "redirectenabled") {
+            ssValue >> pwallet->nmRedirectEnabled;
         } else if (strType == "destdata") {
             std::string strAddress, strKey, strValue;
             ssKey >> strAddress;

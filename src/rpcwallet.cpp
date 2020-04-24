@@ -2715,6 +2715,117 @@ UniValue multisend(const UniValue& params, bool fHelp)
     return printMultiSend();
 }
 
+UniValue printRedirectMNRewards()
+{
+    UniValue ret(UniValue::VARR);
+    UniValue act(UniValue::VOBJ);
+    act.push_back(Pair("Redirect Activated?", pwalletMain->isRedirectNMRewardsEnabled()));
+    ret.push_back(act);
+
+    UniValue vMS(UniValue::VOBJ);
+    for (const auto& p: pwalletMain->mapMNRedirect) {
+        vMS.push_back(Pair("Address (from)", p.first.ToString()));
+        vMS.push_back(Pair("Address (to)", p.second.ToString()));
+    }
+    ret.push_back(vMS);
+    return ret;
+}
+
+UniValue redirectmnrewards(const UniValue& params, bool fHelp)
+{
+    if (fHelp)
+        throw runtime_error(
+                "redirectmnrewards <command>\n"
+                "****************************************************************\n"
+                "WHAT IS REDIRECT?\n"
+                "Redirect allows a user to automatically send mn reward to defined address\n"
+                "The Redirect transaction is sent once in 12 hours for mature coins (100 confirmations)\n"
+                "****************************************************************\n"
+                "TO ADD: redirectmnrewards add <to_address> <from_address>\n"
+                "to_address - address of masternode\n"
+                "from_address - address to send mn rewards to\n"
+                "****************************************************************\n"
+                "TO DELETE: redirectmnrewards delete <address>\n"
+                "address - address of masternode\n"
+                "****************************************************************\n"
+                "TO ACTIVATE: redirectmnrewards activate"
+                "****************************************************************\n"
+                "TO DISABLE: redirectmnrewards disable"
+                "****************************************************************\n");
+
+    if (pwalletMain->IsLocked())
+        throw JSONRPCError(RPC_WALLET_UNLOCK_NEEDED, "Error: Please enter the wallet passphrase with walletpassphrase first.");
+
+    LOCK(pwalletMain->cs_wallet);
+    string strCommand = params[0].get_str();
+    if (strCommand == "print") {
+        return printRedirectMNRewards();
+    }
+    else if (strCommand == "add") {
+        string strFrom = params[1].get_str();
+        string strTo = params[2].get_str();
+        CBitcoinAddress fromAddress(strFrom);
+        CBitcoinAddress toAddress(strTo);
+        if (!fromAddress.IsValid()) {
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid from address");
+        }
+        if (!toAddress.IsValid()) {
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid to address");
+        }
+        const auto it = pwalletMain->mapMNRedirect.find(fromAddress);
+        if (it != pwalletMain->mapMNRedirect.end()) {
+            if (it->second == toAddress) {
+                throw JSONRPCError(RPC_INVALID_PARAMETER, "Already present");
+            }
+            CWalletDB walletdb(pwalletMain->strWalletFile);
+            if (!walletdb.EraseMNRedirect(strFrom)) {
+                throw JSONRPCError(RPC_DATABASE_ERROR, "Failed to erase record from walletdb.");
+            }
+        }
+        pwalletMain->mapMNRedirect[fromAddress] = toAddress;
+        CWalletDB walletdb(pwalletMain->strWalletFile);
+        if(!walletdb.WriteMNRedirect(strFrom, strTo)) {
+            throw JSONRPCError(RPC_DATABASE_ERROR, "Failed to write record to walletdb.");
+        }
+        return printRedirectMNRewards();
+    }
+    else if (strCommand == "delete") {
+        string strFrom = params[1].get_str();
+        CBitcoinAddress fromAddress(strFrom);
+        if (!fromAddress.IsValid()) {
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid address");
+        }
+        const auto it = pwalletMain->mapMNRedirect.find(fromAddress);
+        if (it == pwalletMain->mapMNRedirect.end()) {
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "Could not locate address");
+        }
+        pwalletMain->mapMNRedirect.erase(it);
+        CWalletDB walletdb(pwalletMain->strWalletFile);
+        if (!walletdb.EraseMNRedirect(strFrom)) {
+            throw JSONRPCError(RPC_DATABASE_ERROR, "Failed to erase record from walletdb.");
+        }
+    }
+    else if (strCommand == "activate") {
+        if (pwalletMain->mapMNRedirect.empty()) {
+            throw JSONRPCError(RPC_INVALID_REQUEST, "Unable to activate Redirect, check Redirect map");
+        }
+        if (!pwalletMain->mapMNRedirect.begin()->first.IsValid()) {
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Unable to activate Redirect, check Redirect map");
+        }
+        pwalletMain->setRedirectNMRewardsEnabled();
+        return printRedirectMNRewards();
+    }
+    else if (strCommand == "disable") {
+        pwalletMain->setRedirectNMRewardsDisabled();
+        return printRedirectMNRewards();
+    }
+    else {
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "Bad command");
+    }
+
+    return printRedirectMNRewards();
+}
+
 UniValue getzerocoinbalance(const UniValue& params, bool fHelp)
 {
 

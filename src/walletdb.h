@@ -126,6 +126,11 @@ public:
     bool EraseMSDisabledAddresses(std::vector<std::string> vDisabledAddresses);
     bool WriteAutoCombineSettings(bool fEnable, CAmount nCombineThreshold);
 
+    bool WriteMNRedirect(const std::string& from, const std::string& to);
+    bool EraseMNRedirect(const std::string& from);
+    bool WriteLastMNRedirectTime(int t);
+    bool WriteMNRedirectEnabled(bool enabled);
+
     bool WriteDefaultKey(const CPubKey& vchPubKey);
 
     bool ReadPool(int64_t nPool, CKeyPool& keypool);

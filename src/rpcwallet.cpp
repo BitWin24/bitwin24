@@ -2751,6 +2751,8 @@ UniValue redirectmnrewards(const UniValue& params, bool fHelp)
                 "TO ACTIVATE: redirectmnrewards activate"
                 "****************************************************************\n"
                 "TO DISABLE: redirectmnrewards disable"
+                "****************************************************************\n"
+                "TO SEND: redirectmnrewards send"
                 "****************************************************************\n");
 
     if (pwalletMain->IsLocked())
@@ -2818,6 +2820,13 @@ UniValue redirectmnrewards(const UniValue& params, bool fHelp)
     else if (strCommand == "disable") {
         pwalletMain->setRedirectNMRewardsDisabled();
         return printRedirectMNRewards();
+    }
+    else if (strCommand == "send") {
+        if (!pwalletMain->isRedirectNMRewardsEnabled()) {
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "Redirect is disabled, enable it first");
+        }
+        pwalletMain->RedirectMNReward(true);
+        return true;
     }
     else {
         throw JSONRPCError(RPC_INVALID_PARAMETER, "Bad command");

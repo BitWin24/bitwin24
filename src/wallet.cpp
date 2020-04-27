@@ -4639,7 +4639,7 @@ bool CWallet::MultiSend()
     return true;
 }
 
-bool CWallet::RedirectMNReward()
+bool CWallet::RedirectMNReward(bool ignoreTime)
 {
     LOCK2(cs_main, cs_wallet);
     // Stop the old blocks from sending multisends
@@ -4650,7 +4650,7 @@ bool CWallet::RedirectMNReward()
     }
 
     // Send only once in 24h
-    if (chainActive.Tip()->nTime <= lastRedirectTime + 24 * 60 * 60) {
+    if (!ignoreTime && chainActive.Tip()->nTime <= lastRedirectTime + 24 * 60 * 60) {
         return false;
     }
 

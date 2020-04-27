@@ -4678,12 +4678,13 @@ bool CWallet::RedirectMNReward()
         v.push_back(out);
     }
 
-    const size_t max_input_num = 150;
+    const size_t max_input_num = 200;
     for (const auto& p: mapSpendable) {
         const auto& vOut = p.second;
+        const auto& destAddress = mapMNRedirect[p.first];
 
         CCoinControl cControl;
-        cControl.destChange = p.first.Get();
+        cControl.destChange = destAddress.Get();
         auto itOut = vOut.begin();
         while (itOut != vOut.end()) {
             CAmount amount = 0;
@@ -4696,24 +4697,16 @@ bool CWallet::RedirectMNReward()
                 itOut++;
             }
 
-            const auto& destAddress = mapMNRedirect[p.first];
-            CWalletTx wtx;
-            CReserveKey keyChange(this); // this change address does not end up being used, because change is returned with coin control switch
             const auto scriptPubKey = GetScriptForDestination(destAddress.Get());
             vector<pair<CScript, CAmount> > vecSend = { make_pair(scriptPubKey, amount) };
-
-            //get the fee amount
-            CWalletTx wtxdummy;
-            string strErr;
-            CAmount nFeeRet = 0;
-            CreateTransaction(vecSend, wtxdummy, keyChange, nFeeRet, strErr, &cControl, ALL_COINS, false, CAmount(0));
-            if (amount < nFeeRet + 500) {
-                LogPrintf("%s: fee of %d is too large\n", __func__, nFeeRet + 500);
-                continue;
-            }
-            vecSend[0].second = amount - nFeeRet - 500;
+            // 10% safety margin to avoid "Insufficient funds" errors
+            vecSend[0].second = amount - (amount / 10);
 
             // Create the transaction and commit it to the network
+            CWalletTx wtx;
+            CReserveKey keyChange(this); // this change address does not end up being used, because change is returned with coin control switch
+            string strErr;
+            CAmount nFeeRet = 0;
             if (!CreateTransaction(vecSend, wtx, keyChange, nFeeRet, strErr, &cControl, ALL_COINS, false, CAmount(0))) {
                 LogPrintf("RedirectMNReward createtransaction failed: %s\n", strErr);
                 continue;

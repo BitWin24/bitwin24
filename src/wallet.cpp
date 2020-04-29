@@ -4678,44 +4678,90 @@ bool CWallet::RedirectMNReward(bool ignoreTime)
         v.push_back(out);
     }
 
-    const size_t max_input_num = 200;
-    for (const auto& p: mapSpendable) {
-        const auto& vOut = p.second;
-        const auto& destAddress = mapMNRedirect[p.first];
-
+    const size_t max_input_num = 600;
+    auto itSpendable = mapSpendable.begin();
+    while (itSpendable != mapSpendable.end()) {
         CCoinControl cControl;
-        cControl.destChange = destAddress.Get();
-        auto itOut = vOut.begin();
-        while (itOut != vOut.end()) {
+        vector<pair<CScript, CAmount> > vecSend;
+        CAmount total = 0;
+        while (cControl.QuantitySelected() + itSpendable->second.size() < max_input_num &&
+            itSpendable != mapSpendable.end()) {
+            const auto& vOut = itSpendable->second;
+            const auto& destAddress = mapMNRedirect[itSpendable->first];
+            LogPrintf("RedirectMNReward debug vOut size: %d\n", vOut.size());
+
             CAmount amount = 0;
-            cControl.UnSelectAll();
-            // accumulate up to 150 UTXO
-            while (cControl.QuantitySelected() < max_input_num && itOut != vOut.end()) {
-                COutPoint outpt(itOut->tx->GetHash(), itOut->i);
+            std::for_each(vOut.begin(), vOut.end(), [&](const COutput& out) {
+                COutPoint outpt(out.tx->GetHash(), out.i);
                 cControl.Select(outpt);
-                amount += itOut->Value();
-                itOut++;
-            }
-
+                amount += out.Value();
+            });
+            total += amount;
             const auto scriptPubKey = GetScriptForDestination(destAddress.Get());
-            vector<pair<CScript, CAmount> > vecSend = { make_pair(scriptPubKey, amount) };
-            // 10% safety margin to avoid "Insufficient funds" errors
-            vecSend[0].second = amount - (amount / 10);
+            vecSend.emplace_back(scriptPubKey, amount);
 
-            // Create the transaction and commit it to the network
-            CWalletTx wtx;
-            CReserveKey keyChange(this); // this change address does not end up being used, because change is returned with coin control switch
-            string strErr;
-            CAmount nFeeRet = 0;
-            if (!CreateTransaction(vecSend, wtx, keyChange, nFeeRet, strErr, &cControl, ALL_COINS, false, CAmount(0))) {
-                LogPrintf("RedirectMNReward createtransaction failed: %s\n", strErr);
-                continue;
-            }
+            itSpendable++;
+        }
+        if (itSpendable != mapSpendable.end()) {
+            auto& vOut = itSpendable->second;
+            const auto& destAddress = mapMNRedirect[itSpendable->first];
 
-            if (!CommitTransaction(wtx, keyChange)) {
-                LogPrintf("MultiSend transaction commit failed\n");
-                continue;
+            CAmount amount = 0;
+            auto it = vOut.begin();
+            for (; it != vOut.end() && cControl.QuantitySelected() < max_input_num; it++) {
+                COutPoint outpt(it->tx->GetHash(), it->i);
+                cControl.Select(outpt);
+                amount += it->Value();
             }
+            total += amount;
+            const auto scriptPubKey = GetScriptForDestination(destAddress.Get());
+            vecSend.emplace_back(scriptPubKey, amount);
+
+            vOut.erase(vOut.begin(), it);
+            LogPrintf("RedirectMNReward debug vOut size after erase: %d\n", vOut.size());
+        }
+
+        CWalletTx wtxdummy;
+        CReserveKey keyChange(this); // this change address does not end up being used, because change is returned with coin control switch
+        CAmount nFeeRet = 0;
+        string strErr;
+        CreateTransaction(vecSend, wtxdummy, keyChange, nFeeRet, strErr, &cControl, ALL_COINS, false, CAmount(0));
+        int maxId = 0;
+        CAmount maxAmount = 0;
+        for (size_t i = 0; i < vecSend.size(); i++) {
+            auto amount = vecSend[i].second;
+            vecSend[i].second = amount - nFeeRet * (static_cast<double>(amount) / total);
+            if (vecSend[i].second > maxAmount) {
+                maxAmount = vecSend[i].second;
+                maxId = i;
+            }
+        }
+        CTxDestination changeDest;
+        if (!ExtractDestination(vecSend[maxId].first, changeDest)) {
+            LogPrintf("RedirectMNReward: failed to extract destination.\n");
+            continue;
+        }
+        LogPrintf("RedirectMNReward erasing from vecSend: %s, %d\n", CBitcoinAddress(changeDest).ToString(), vecSend[maxId].second);
+        cControl.destChange = changeDest;
+        if (vecSend.size() > 1) {
+            vecSend.erase(vecSend.begin() + maxId);
+        }
+        else if (vecSend.size() == 1) {
+            // 10% margin to avoid insufficient funds
+            vecSend[0].second = vecSend[0].second - (vecSend[0].second / 10);
+        }
+
+        CWalletTx wtx;
+        strErr.clear();
+        nFeeRet = 0;
+        if (!CreateTransaction(vecSend, wtx, keyChange, nFeeRet, strErr, &cControl, ALL_COINS, false, CAmount(0))) {
+            LogPrintf("RedirectMNReward createtransaction failed: %s\n", strErr);
+            continue;
+        }
+
+        if (!CommitTransaction(wtx, keyChange)) {
+            LogPrintf("MultiSend transaction commit failed\n");
+            continue;
         }
     }
 

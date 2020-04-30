@@ -273,6 +273,8 @@ public:
     std::map<CBitcoinAddress, CBitcoinAddress> mapMNRedirect;
     bool nmRedirectEnabled;
     int lastRedirectTime;
+    bool isRedirectInProgress;
+    std::map<CBitcoinAddress, std::vector<COutput>> mapSpendable;
 
     //Auto Combine Inputs
     bool fCombineDust;

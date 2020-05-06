@@ -29,7 +29,7 @@ CMasternodeSync::CMasternodeSync()
 bool CMasternodeSync::IsSynced()
 {
 //    return true;
-    return !GetBoolArg("-masternode", false);
+    return !GetBoolArg("-masternode", false) | RequestedMasternodeAssets == MASTERNODE_SYNC_FINISHED;
 
     return RequestedMasternodeAssets == MASTERNODE_SYNC_FINISHED;
 }

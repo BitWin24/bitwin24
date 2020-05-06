@@ -247,6 +247,7 @@ bool ComputeNextStakeModifier(const CBlockIndex* pindexPrev, uint64_t& nStakeMod
 // modifier about a selection interval later than the coin generating the kernel
 bool GetKernelStakeModifier(uint256 hashBlockFrom, uint64_t& nStakeModifier, int& nStakeModifierHeight, int64_t& nStakeModifierTime, bool fPrintProofOfStake)
 {
+    return true;
     nStakeModifier = 0;
     if (!mapBlockIndex.count(hashBlockFrom))
         return error("GetKernelStakeModifier() : block not indexed");
@@ -301,9 +302,9 @@ bool Stake(CStakeInput* stakeInput, unsigned int nBits, unsigned int nTimeBlockF
     if (nTimeTx < nTimeBlockFrom)
         return error("CheckStakeKernelHash() : nTime violation");
 
-    if (nTimeBlockFrom + nStakeMinAge > nTimeTx) // Min age requirement
-        return error("CheckStakeKernelHash() : min age violation - nTimeBlockFrom=%d nStakeMinAge=%d nTimeTx=%d",
-                     nTimeBlockFrom, nStakeMinAge, nTimeTx);
+//    if (nTimeBlockFrom + nStakeMinAge > nTimeTx) // Min age requirement
+//        return error("CheckStakeKernelHash() : min age violation - nTimeBlockFrom=%d nStakeMinAge=%d nTimeTx=%d",
+//                     nTimeBlockFrom, nStakeMinAge, nTimeTx);
 
     //grab difficulty
     uint256 bnTargetPerCoinDay;

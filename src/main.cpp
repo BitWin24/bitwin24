@@ -83,7 +83,7 @@ bool fVerifyingBlocks = false;
 unsigned int nCoinCacheSize = 5000;
 bool fAlerts = DEFAULT_ALERTS;
 
-unsigned int nStakeMinAge = 60 * 60;
+unsigned int nStakeMinAge = 5 * 60;
 int64_t nReserveBalance = 0;
 
 /** Fees smaller than this (in ubwi) are considered zero fee (for relaying and mining)
@@ -4095,16 +4095,16 @@ bool ContextualCheckBlock(const CBlock& block, CValidationState& state, CBlockIn
             return state.DoS(10, error("%s : contains a non-final transaction", __func__), REJECT_INVALID, "bad-txns-nonfinal");
         }
 
-    // Enforce block.nVersion=2 rule that the coinbase starts with serialized block height
-    // if 750 of the last 1,000 blocks are version 2 or greater (51/100 if testnet):
-    if (block.nVersion >= 2 &&
-        CBlockIndex::IsSuperMajority(2, pindexPrev, Params().EnforceBlockUpgradeMajority())) {
-        CScript expect = CScript() << nHeight;
-        if (block.vtx[0].vin[0].scriptSig.size() < expect.size() ||
-            !std::equal(expect.begin(), expect.end(), block.vtx[0].vin[0].scriptSig.begin())) {
-            return state.DoS(100, error("%s : block height mismatch in coinbase", __func__), REJECT_INVALID, "bad-cb-height");
-        }
-    }
+//    // Enforce block.nVersion=2 rule that the coinbase starts with serialized block height
+//    // if 750 of the last 1,000 blocks are version 2 or greater (51/100 if testnet):
+//    if (block.nVersion >= 2 &&
+//        CBlockIndex::IsSuperMajority(2, pindexPrev, Params().EnforceBlockUpgradeMajority())) {
+//        CScript expect = CScript() << nHeight;
+//        if (block.vtx[0].vin[0].scriptSig.size() < expect.size() ||
+//            !std::equal(expect.begin(), expect.end(), block.vtx[0].vin[0].scriptSig.begin())) {
+//            return state.DoS(100, error("%s : block height mismatch in coinbase", __func__), REJECT_INVALID, "bad-cb-height");
+//        }
+//    }
 
     return true;
 }

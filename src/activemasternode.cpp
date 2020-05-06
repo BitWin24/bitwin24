@@ -125,7 +125,12 @@ void CActiveMasternode::ManageStatus()
             return;
         } else {
             notCapableReason = "Could not find suitable coins!";
+            LogPrintf("++++++++++++++++++++++++++++\n");
+            LogPrintf("Cvin- %s\n", vin.ToString());
+//            LogPrintf("Cvin- %s\n", pubKeyCollateralAddress.ToString());
+//            LogPrintf("Cvin- %s\n", keyCollateralAddress.ToString());
             LogPrintf("CActiveMasternode::ManageStatus() - %s\n", notCapableReason);
+            LogPrintf("++++++++++++++++++++---++++++++\n");
             return;
         }
     }

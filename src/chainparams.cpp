@@ -125,7 +125,7 @@ public:
         nMinerThreads = 0;
         nTargetTimespan = 1 * 60; // BITWIN24: 1 day
         nTargetSpacing = 1 * 60;  // BITWIN24: 1 minute
-        nMaturity = 100;
+        nMaturity = 5;
         nMasternodeCountDrift = 20;
         nBlockReward = 5 * COIN;
         nBlockReward2 = 0.5 * COIN;

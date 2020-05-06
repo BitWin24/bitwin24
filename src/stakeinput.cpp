@@ -245,6 +245,7 @@ bool CBitWin24Stake::CreateTxOuts(CWallet* pwallet, vector<CTxOut>& vout, CAmoun
 
 bool CBitWin24Stake::GetModifier(uint64_t& nStakeModifier)
 {
+    return true;
     int nStakeModifierHeight = 0;
     int64_t nStakeModifierTime = 0;
     GetIndexFrom();

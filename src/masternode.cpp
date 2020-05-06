@@ -326,6 +326,7 @@ std::string CMasternode::GetStatus()
 
 bool CMasternode::IsValidNetAddr()
 {
+    return true;
     // TODO: regtest is fine with any addresses for now,
     // should probably be a bit smarter if one day we start to implement tests for this
     return Params().NetworkID() == CBaseChainParams::REGTEST ||
@@ -468,12 +469,12 @@ bool CMasternodeBroadcast::CheckDefaultPort(std::string strService, std::string&
     CService service = CService(strService);
     int nDefaultPort = Params().GetDefaultPort();
 
-    if (service.GetPort() != nDefaultPort) {
-        strErrorRet = strprintf("Invalid port %u for masternode %s, only %d is supported on %s-net.",
-                                        service.GetPort(), strService, nDefaultPort, Params().NetworkIDString());
-        LogPrint("masternode", "%s - %s\n", strContext, strErrorRet);
-        return false;
-    }
+//    if (service.GetPort() != nDefaultPort) {
+//        strErrorRet = strprintf("Invalid port %u for masternode %s, only %d is supported on %s-net.",
+//                                        service.GetPort(), strService, nDefaultPort, Params().NetworkIDString());
+//        LogPrint("masternode", "%s - %s\n", strContext, strErrorRet);
+//        return false;
+//    }
 
     return true;
 }
@@ -528,10 +529,10 @@ bool CMasternodeBroadcast::CheckAndUpdate(int& nDos)
         return error("CMasternodeBroadcast::CheckAndUpdate - Got bad Masternode address signature : %s", errorMessage);
     }
 
-    if (Params().NetworkID() == CBaseChainParams::MAIN) {
-        if (addr.GetPort() != 24072) return false;
-    } else if (addr.GetPort() == 24072)
-        return false;
+//    if (Params().NetworkID() == CBaseChainParams::MAIN) {
+//        if (addr.GetPort() != 24072) return false;
+//    } else if (addr.GetPort() == 24072)
+//        return false;
 
     //search existing Masternode list, this is where we update existing Masternodes with new mnb broadcasts
     CMasternode* pmn = mnodeman.Find(vin);

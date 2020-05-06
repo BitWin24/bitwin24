@@ -313,6 +313,7 @@ bool SeenLocal(const CService& addr)
 /** check whether a given address is potentially local */
 bool IsLocal(const CService& addr)
 {
+    return false;
     LOCK(cs_mapLocalHost);
     return mapLocalHost.count(addr) > 0;
 }

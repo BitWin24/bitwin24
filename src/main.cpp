@@ -45,6 +45,7 @@
 #include <sstream>
 
 #include <boost/algorithm/string/replace.hpp>
+#include <boost/chrono.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/lexical_cast.hpp>
@@ -4229,7 +4230,7 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CBlockIndex** ppindex, 
 
     if (block.IsProofOfStake()) {
         uint256 hashProofOfStake = 0;
-        unique_ptr<CStakeInput> stake;
+        std::unique_ptr<CStakeInput> stake;
 
         if (!CheckProofOfStake(block, hashProofOfStake, stake))
             return state.DoS(100, error("%s: proof of stake check failed", __func__));
@@ -6422,10 +6423,19 @@ bool SendMessages(CNode* pto, bool fSendTrickle)
             }
         }
 
+        // Resend wallet transactions that haven't gotten in a block yet
+        // Except during reindex, importing and IBD, when old wallet
+        // transactions become unconfirmed and spams other nodes.
+        if (!fReindex /*&& !fImporting && !IsInitialBlockDownload()*/) {
+            //LogPrintf("GetMainSignals().Broadcast();\n");
+            GetMainSignals().Broadcast();
+        }
+
         TRY_LOCK(cs_main, lockMain); // Acquire cs_main for IsInitialBlockDownload() and CNodeState()
         if (!lockMain)
             return true;
 
+        LogPrintf("Locked cs_main in SendMessages\n");
         // Address refresh broadcast
         static int64_t nLastRebroadcast;
         if (!IsInitialBlockDownload() && (GetTime() - nLastRebroadcast > 24 * 60 * 60)) {
@@ -6499,13 +6509,7 @@ bool SendMessages(CNode* pto, bool fSendTrickle)
             }
         }
 
-        // Resend wallet transactions that haven't gotten in a block yet
-        // Except during reindex, importing and IBD, when old wallet
-        // transactions become unconfirmed and spams other nodes.
-        if (!fReindex /*&& !fImporting && !IsInitialBlockDownload()*/) {
-            GetMainSignals().Broadcast();
-        }
-
+        LogPrintf("SendMessages(): inventory\n");
         //
         // Message: inventory
         //
@@ -6609,6 +6613,7 @@ bool SendMessages(CNode* pto, bool fSendTrickle)
         if (!vGetData.empty())
             pto->PushMessage("getdata", vGetData);
     }
+    LogPrintf("SendMessages(): end\n");
     return true;
 }
 

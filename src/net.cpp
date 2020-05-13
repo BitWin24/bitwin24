@@ -933,7 +933,9 @@ void ThreadSocketHandler()
         }
 
         {
+            LogPrintf("Locking cs_vNodes in ThreadSocketHandler()\n");
             LOCK(cs_vNodes);
+            LogPrintf("Locked cs_vNodes in ThreadSocketHandler()\n");
             BOOST_FOREACH (CNode* pnode, vNodes) {
                 if (pnode->hSocket == INVALID_SOCKET)
                     continue;
@@ -971,6 +973,7 @@ void ThreadSocketHandler()
                 }
             }
         }
+        LogPrintf("Released cs_vNodes in ThreadSocketHandler()\n");
 
         int nSelect = select(have_fds ? hSocketMax + 1 : 0,
             &fdsetRecv, &fdsetSend, &fdsetError, &timeout);
@@ -1042,11 +1045,13 @@ void ThreadSocketHandler()
         //
         vector<CNode*> vNodesCopy;
         {
+            LogPrintf("Locking cs_vNodes in ThreadSocketHandler()1\n");
             LOCK(cs_vNodes);
             vNodesCopy = vNodes;
             BOOST_FOREACH (CNode* pnode, vNodesCopy)
                 pnode->AddRef();
         }
+        LogPrintf("Released cs_vNodes in ThreadSocketHandler()1\n");
         BOOST_FOREACH (CNode* pnode, vNodesCopy) {
             boost::this_thread::interruption_point();
 
@@ -1511,12 +1516,14 @@ void ThreadMessageHandler()
     while (true) {
         vector<CNode*> vNodesCopy;
         {
+            LogPrintf("Locking cs_vNodes in ThreadMessageHandler()\n");
             LOCK(cs_vNodes);
             vNodesCopy = vNodes;
             BOOST_FOREACH (CNode* pnode, vNodesCopy) {
                 pnode->AddRef();
             }
         }
+        LogPrintf("Released cs_vNodes in ThreadMessageHandler()\n");
 
         // Poll the connected nodes for messages
         CNode* pnodeTrickle = NULL;
@@ -1538,6 +1545,7 @@ void ThreadMessageHandler()
 
                     if (pnode->nSendSize < SendBufferSize()) {
                         if (!pnode->vRecvGetData.empty() || (!pnode->vRecvMsg.empty() && pnode->vRecvMsg[0].complete())) {
+                            LogPrintf("ThreadMessageHandler(): skip sleep\n");
                             fSleep = false;
                         }
                     }

@@ -76,8 +76,10 @@ public:
     {
         qDebug() << "TransactionTablePriv::refreshWallet";
         cachedWallet.clear();
+        LogPrintf("refreshWallet()1\n");
         {
             LOCK2(cs_main, wallet->cs_wallet);
+            LogPrintf("refreshWallet()2\n");
             for (std::map<uint256, CWalletTx>::iterator it = wallet->mapWallet.begin(); it != wallet->mapWallet.end(); ++it) {
                 if (TransactionRecord::showTransaction(it->second))
                     cachedWallet.append(TransactionRecord::decomposeTransaction(wallet, it->second));
@@ -121,7 +123,9 @@ public:
                 break;
             }
             if (showTransaction) {
+                LogPrintf("updateWallet()1\n");
                 LOCK2(cs_main, wallet->cs_wallet);
+                LogPrintf("updateWallet()2\n");
                 // Find transaction in wallet
                 std::map<uint256, CWalletTx>::iterator mi = wallet->mapWallet.find(hash);
                 if (mi == wallet->mapWallet.end()) {
@@ -179,9 +183,11 @@ public:
             // If a status update is needed (blocks came in since last check),
             //  update the status of this transaction from the wallet. Otherwise,
             // simply re-use the cached status.
+            //LogPrintf("index()1\n");
             TRY_LOCK(cs_main, lockMain);
             if (lockMain) {
                 TRY_LOCK(wallet->cs_wallet, lockWallet);
+                //LogPrintf("index()2\n");
                 if (lockWallet && rec->statusUpdateNeeded()) {
                     std::map<uint256, CWalletTx>::iterator mi = wallet->mapWallet.find(rec->hash);
 
@@ -197,8 +203,10 @@ public:
 
     QString describe(TransactionRecord* rec, int unit)
     {
+        LogPrintf("describe()1\n");
         {
             LOCK2(cs_main, wallet->cs_wallet);
+            LogPrintf("describe()2\n");
             std::map<uint256, CWalletTx>::iterator mi = wallet->mapWallet.find(rec->hash);
             if (mi != wallet->mapWallet.end()) {
                 return TransactionDesc::toHTML(wallet, mi->second, rec, unit);

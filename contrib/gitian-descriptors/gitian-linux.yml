@@ -2,7 +2,7 @@
 name: "bitwin24-linux-1.0"
 enable_cache: true
 suites:
-- "trusty"
+- "xenial"
 architectures:
 - "amd64"
 packages:

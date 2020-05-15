@@ -985,9 +985,6 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
     fSendFreeTransactions = GetBoolArg("-sendfreetransactions", false);
 
     std::string strWalletFile = GetArg("-wallet", "wallet.dat");
-
-    // init StakingAccountsDb instance and load db
-    StakingAccountsDb::instance();
 #endif // ENABLE_WALLET
 
     fIsBareMultisigStd = GetBoolArg("-permitbaremultisig", true) != 0;
@@ -1424,6 +1421,11 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
                 pcoinsdbview = new CCoinsViewDB(nCoinDBCache, false, fReindex);
                 pcoinscatcher = new CCoinsViewErrorCatcher(pcoinsdbview);
                 pcoinsTip = new CCoinsViewCache(pcoinscatcher);
+
+#ifdef ENABLE_WALLET
+                // init StakingAccountsDb instance and load db
+                StakingAccountsDb::instance();
+#endif
 
                 if (fReindex)
                     pblocktree->WriteReindexing(true);

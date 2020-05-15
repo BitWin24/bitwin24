@@ -250,13 +250,11 @@ void MasterNodeWitnessManager::AddBroadCastToMNManager(const uint256 &targetBloc
         mnodeman.mapSeenMasternodeBroadcast.insert(make_pair(mnb.GetHash(), mnb));
 
         int nDoS = 0;
-        if (!mnb.CheckAndUpdate(nDoS)) {
+        if (!mnb.CheckAndUpdate(nDoS, true)) {
             continue;
         }
 
-        // make sure it's still unspent
-        //  - this is checked later by .check() in many places and by ThreadCheckObfuScationPool()
-        if (mnb.CheckInputsAndAdd(nDoS)) {
+        if (mnb.CheckInputsForWitness()) {
             masternodeSync.AddedMasternodeList(mnb.GetHash());
         }
     }

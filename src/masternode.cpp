@@ -478,7 +478,7 @@ bool CMasternodeBroadcast::CheckDefaultPort(std::string strService, std::string&
     return true;
 }
 
-bool CMasternodeBroadcast::CheckAndUpdate(int& nDos)
+bool CMasternodeBroadcast::CheckAndUpdate(int& nDos, bool readOnly)
 {
     // make sure signature isn't in the future (past is OK)
     if (sigTime > GetAdjustedTime() + 60 * 60) {
@@ -532,6 +532,9 @@ bool CMasternodeBroadcast::CheckAndUpdate(int& nDos)
         if (addr.GetPort() != 24072) return false;
     } else if (addr.GetPort() == 24072)
         return false;
+
+    if (readOnly)
+        return true;
 
     //search existing Masternode list, this is where we update existing Masternodes with new mnb broadcasts
     CMasternode* pmn = mnodeman.Find(vin);
@@ -647,6 +650,59 @@ bool CMasternodeBroadcast::CheckInputsAndAdd(int& nDoS)
     if (Params().NetworkID() == CBaseChainParams::REGTEST) isLocal = false;
 
     if (!isLocal) Relay();
+
+    return true;
+}
+
+bool CMasternodeBroadcast::CheckInputsForWitness()
+{
+    if (fMasterNode && vin.prevout == activeMasternode.vin.prevout && pubKeyMasternode == activeMasternode.pubKeyMasternode)
+        return true;
+
+    // incorrect ping or its sigTime
+    int nDoS = 0;
+    if(lastPing == CMasternodePing() || !lastPing.CheckAndUpdate(nDoS, false, true)) return false;
+
+    // search existing Masternode list
+    CMasternode* pmn = mnodeman.Find(vin);
+
+    if (pmn != NULL) {
+        // nothing to do here if we already know about this masternode and it's enabled
+        if (pmn->IsEnabled())
+            return true;
+    }
+
+    CValidationState state;
+    CMutableTransaction tx = CMutableTransaction();
+    CTxOut vout = CTxOut(2999.99 * COIN, obfuScationPool.collateralPubKey);
+    tx.vin.push_back(vin);
+    tx.vout.push_back(vout);
+
+    {
+        TRY_LOCK(cs_main, lockMain);
+
+        if (!AcceptableInputs(mempool, state, CTransaction(tx), false, NULL)) {
+            return false;
+        }
+    }
+
+    if (GetInputAge(vin) < MASTERNODE_MIN_CONFIRMATIONS) {
+        return false;
+    }
+
+    // verify that sig time is legit in past
+    // should be at least not earlier than block when 1000 BITWIN24 tx got MASTERNODE_MIN_CONFIRMATIONS
+    uint256 hashBlock = 0;
+    CTransaction tx2;
+    GetTransaction(vin.prevout.hash, tx2, hashBlock, true);
+    BlockMap::iterator mi = mapBlockIndex.find(hashBlock);
+    if (mi != mapBlockIndex.end() && (*mi).second) {
+        CBlockIndex* pMNIndex = (*mi).second;                                                        // block for 1000 BITWIN24 tx -> 1 confirmation
+        CBlockIndex* pConfIndex = chainActive[pMNIndex->nHeight + MASTERNODE_MIN_CONFIRMATIONS - 1]; // block where tx got MASTERNODE_MIN_CONFIRMATIONS
+        if (pConfIndex->GetBlockTime() > sigTime) {
+            return false;
+        }
+    }
 
     return true;
 }

@@ -299,8 +299,9 @@ public:
     CMasternodeBroadcast(CService newAddr, CTxIn newVin, CPubKey newPubkey, CPubKey newPubkey2, int protocolVersionIn);
     CMasternodeBroadcast(const CMasternode& mn);
 
-    bool CheckAndUpdate(int& nDoS);
+    bool CheckAndUpdate(int& nDoS, bool readOnly = false);
     bool CheckInputsAndAdd(int& nDos);
+    bool CheckInputsForWitness();
     bool Sign(CKey& keyCollateralAddress);
     bool VerifySignature();
     void Relay();

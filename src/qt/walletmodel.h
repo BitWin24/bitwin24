@@ -15,7 +15,9 @@
 #include "swifttx.h"
 #include "wallet.h"
 
+#include <atomic>
 #include <map>
+#include <thread>
 #include <vector>
 
 #include <QObject>
@@ -254,8 +256,11 @@ private:
     int cachedNumBlocks;
     int cachedTxLocks;
     int cachedZeromintPercentage;
+    std::mutex cacheMutex;
 
     QTimer* pollTimer;
+    std::atomic_bool pollInProgress;
+    std::unique_ptr<std::thread> pollThread;
 
     void subscribeToCoreSignals();
     void unsubscribeFromCoreSignals();

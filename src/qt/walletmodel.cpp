@@ -160,6 +160,8 @@ void WalletModel::pollBalanceChanged()
     if (!lockWallet)
         return;
 
+    const auto t_begin = boost::chrono::high_resolution_clock::now();
+    boost::chrono::high_resolution_clock::time_point t_mid1, t_mid2;
     if (fForceCheckBalanceChanged || chainActive.Height() != cachedNumBlocks || nZeromintPercentage != cachedZeromintPercentage || cachedTxLocks != nCompleteTXLocks) {
         fForceCheckBalanceChanged = false;
 
@@ -168,13 +170,20 @@ void WalletModel::pollBalanceChanged()
         cachedZeromintPercentage = nZeromintPercentage;
 
         checkBalanceChanged();
+        t_mid1 = boost::chrono::high_resolution_clock::now();
         if (transactionTableModel) {
             transactionTableModel->updateConfirmations();
         }
+        t_mid2 = boost::chrono::high_resolution_clock::now();
 
         // Address in receive tab may have been used
         emit notifyReceiveAddressChanged();
     }
+    const auto t_end = boost::chrono::high_resolution_clock::now();
+    LogPrintf("WalletModel::pollBalanceChanged() %d ms, %d ms, %d ms\n",
+        boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
+        boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid1 - t_begin).count(),
+        boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid2 - t_begin).count());
 }
 
 void WalletModel::emitBalanceChanged()
@@ -190,16 +199,21 @@ void WalletModel::checkBalanceChanged()
 {
     TRY_LOCK(cs_main, lockMain);
     if (!lockMain) return;
-
+    
+    const auto t_begin = boost::chrono::high_resolution_clock::now();
     CAmount newBalance = getBalance();
     CAmount newUnconfirmedBalance = getUnconfirmedBalance();
     CAmount newImmatureBalance = getImmatureBalance();
     CAmount newZerocoinBalance = getZerocoinBalance();
     CAmount newUnconfirmedZerocoinBalance = getUnconfirmedZerocoinBalance();
     CAmount newImmatureZerocoinBalance = getImmatureZerocoinBalance();
+    const auto t_mid1 = boost::chrono::high_resolution_clock::now(); //+89
     CAmount newEarnings = getEarnings();
+    const auto t_mid2 = boost::chrono::high_resolution_clock::now(); //+64
     CAmount newMasternodeEarnings = getMasternodeEarnings();
+    const auto t_mid3 = boost::chrono::high_resolution_clock::now(); //+63
     CAmount newStakeEarnings = getStakeEarnings();
+    const auto t_mid4 = boost::chrono::high_resolution_clock::now(); //+126
     CAmount newWatchOnlyBalance = 0;
     CAmount newWatchUnconfBalance = 0;
     CAmount newWatchImmatureBalance = 0;
@@ -232,6 +246,13 @@ void WalletModel::checkBalanceChanged()
                             newWatchOnlyBalance, newWatchUnconfBalance, newWatchImmatureBalance,
                             newEarnings, newMasternodeEarnings, newStakeEarnings);
     }
+    const auto t_end = boost::chrono::high_resolution_clock::now();
+    LogPrintf("WalletModel::checkBalanceChanged() %d ms, %d ms, %d ms, %d ms, %d ms\n",
+        boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
+        boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid1 - t_begin).count(),
+        boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid2 - t_begin).count(),
+        boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid3 - t_begin).count(),
+        boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid4 - t_begin).count());
 }
 
 void WalletModel::updateTransaction()
@@ -394,7 +415,8 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(WalletModelTransaction& tran
     if (isAnonymizeOnlyUnlocked()) {
         return AnonymizeOnlyUnlocked;
     }
-
+    const auto t_begin = boost::chrono::high_resolution_clock::now();
+    boost::chrono::high_resolution_clock::time_point t_mid;
     {
         LOCK2(cs_main, wallet->cs_wallet);
         CWalletTx* newTx = transaction.getTransaction();
@@ -412,6 +434,7 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(WalletModelTransaction& tran
                 newTx->vOrderForm.push_back(make_pair("Message", rcp.message.toStdString()));
             }
         }
+        t_mid = boost::chrono::high_resolution_clock::now();
 
         CReserveKey* keyChange = transaction.getPossibleKeyChange();
 
@@ -425,7 +448,7 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(WalletModelTransaction& tran
         ssTx << *t;
         transaction_array.append(&(ssTx[0]), ssTx.size());
     }
-
+    const auto t_mid1 = boost::chrono::high_resolution_clock::now();
     // Add addresses / update labels that we've sent to to the address book,
     // and emit coinsSent signal for each recipient
     foreach (const SendCoinsRecipient& rcp, transaction.getRecipients()) {
@@ -440,8 +463,12 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(WalletModelTransaction& tran
         }
         emit coinsSent(wallet, rcp, transaction_array);
     }
-    checkBalanceChanged(); // update balance immediately, otherwise there could be a short noticeable delay until pollBalanceChanged hits
-
+    //checkBalanceChanged(); // update balance immediately, otherwise there could be a short noticeable delay until pollBalanceChanged hits
+    const auto t_end = boost::chrono::high_resolution_clock::now();
+    LogPrintf("WalletModel::sendCoins %d ms, %d ms, %d ms\n",
+            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
+            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid - t_begin).count(),
+            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid1 - t_begin).count());
     return SendCoinsReturn(OK);
 }
 

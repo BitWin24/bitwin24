@@ -413,17 +413,31 @@ void SendCoinsDialog::send(QList<SendCoinsRecipient> recipients, QString strFee,
         return;
     }
 
+    const auto t_begin = boost::chrono::high_resolution_clock::now();
     // now send the prepared transaction
     WalletModel::SendCoinsReturn sendStatus = model->sendCoins(currentTransaction);
     // process sendStatus and on error generate message shown to user
     processSendCoinsReturn(sendStatus);
-
+    const auto t_mid = boost::chrono::high_resolution_clock::now();
+    int tmp1, tmp2, tmp3;
     if (sendStatus.status == WalletModel::OK) {
         accept();
+        const auto t_1 = boost::chrono::high_resolution_clock::now();
+        tmp1 = boost::chrono::duration_cast<boost::chrono::milliseconds>(t_1 - t_mid).count();
         CoinControlDialog::coinControl->UnSelectAll();
+        const auto t_2 = boost::chrono::high_resolution_clock::now();
+        tmp2 = boost::chrono::duration_cast<boost::chrono::milliseconds>(t_2 - t_mid).count();
         coinControlUpdateLabels();
+        const auto t_3 = boost::chrono::high_resolution_clock::now();
+        tmp3 = boost::chrono::duration_cast<boost::chrono::milliseconds>(t_3 - t_mid).count();
     }
     fNewRecipientAllowed = true;
+
+    const auto t_end = boost::chrono::high_resolution_clock::now();
+    LogPrintf("SendCoinsDialog::send1 %d ms, %d ms, %d ms, %d ms, %d ms\n",
+            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
+            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid - t_begin).count(),
+            tmp1, tmp2, tmp3);
 }
 
 void SendCoinsDialog::clear()
@@ -449,6 +463,7 @@ void SendCoinsDialog::accept()
 
 SendCoinsEntry* SendCoinsDialog::addEntry()
 {
+    const auto t_begin = boost::chrono::high_resolution_clock::now();
     SendCoinsEntry* entry = new SendCoinsEntry(this);
     entry->setModel(model);
     ui->entries->addWidget(entry);
@@ -461,10 +476,18 @@ SendCoinsEntry* SendCoinsDialog::addEntry()
     entry->clear();
     entry->setFocus();
     ui->scrollAreaWidgetContents->resize(ui->scrollAreaWidgetContents->sizeHint());
+    const auto t_1 = boost::chrono::high_resolution_clock::now();
     qApp->processEvents();
+    const auto t_2 = boost::chrono::high_resolution_clock::now();
     QScrollBar* bar = ui->scrollArea->verticalScrollBar();
     if (bar)
         bar->setSliderPosition(bar->maximum());
+
+    const auto t_3 = boost::chrono::high_resolution_clock::now();
+    LogPrintf("SendCoinsDialog::addEntry() %d ms, %d ms, %d ms\n",
+              boost::chrono::duration_cast<boost::chrono::milliseconds>(t_1 - t_begin).count(),
+              boost::chrono::duration_cast<boost::chrono::milliseconds>(t_2 - t_begin).count(),
+              boost::chrono::duration_cast<boost::chrono::milliseconds>(t_3 - t_begin).count());
     return entry;
 }
 

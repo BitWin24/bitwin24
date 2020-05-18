@@ -6435,7 +6435,6 @@ bool SendMessages(CNode* pto, bool fSendTrickle)
         if (!lockMain)
             return true;
 
-        LogPrintf("Locked cs_main in SendMessages\n");
         // Address refresh broadcast
         static int64_t nLastRebroadcast;
         if (!IsInitialBlockDownload() && (GetTime() - nLastRebroadcast > 24 * 60 * 60)) {
@@ -6509,7 +6508,6 @@ bool SendMessages(CNode* pto, bool fSendTrickle)
             }
         }
 
-        LogPrintf("SendMessages(): inventory\n");
         //
         // Message: inventory
         //
@@ -6613,7 +6611,6 @@ bool SendMessages(CNode* pto, bool fSendTrickle)
         if (!vGetData.empty())
             pto->PushMessage("getdata", vGetData);
     }
-    LogPrintf("SendMessages(): end\n");
     return true;
 }
 

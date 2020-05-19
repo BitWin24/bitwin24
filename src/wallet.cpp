@@ -1822,7 +1822,6 @@ bool CWalletTx::InMempool() const
 
 void CWalletTx::RelayWalletTransaction(std::string strCommand)
 {
-    LogPrintf("RelayWalletTransaction()\n");
     LOCK(cs_main);
     if (!IsCoinBase()) {
         if (GetDepthInMainChain() == 0) {
@@ -1838,7 +1837,6 @@ void CWalletTx::RelayWalletTransaction(std::string strCommand)
             }
         }
     }
-    LogPrintf("RelayWalletTransaction() end\n");
 }
 
 set<uint256> CWalletTx::GetConflicts() const
@@ -1873,7 +1871,6 @@ void CWallet::ResendWalletTransactions()
     multimap<unsigned int, CWalletTx*> mapSorted;
     {
         LOCK(cs_wallet);
-        LogPrintf("ResendWalletTransactions(): before sorting\n");
         // Sort them in chronological order
         BOOST_FOREACH (PAIRTYPE(const uint256, CWalletTx) & item, mapWallet) {
             CWalletTx& wtx = item.second;
@@ -1883,7 +1880,6 @@ void CWallet::ResendWalletTransactions()
                 mapSorted.insert(make_pair(wtx.nTimeReceived, &wtx));
         }
     }
-    LogPrintf("ResendWalletTransactions(): after sorting\n");
     BOOST_FOREACH (PAIRTYPE(const unsigned int, CWalletTx*) & item, mapSorted) {
         CWalletTx& wtx = *item.second;
         wtx.RelayWalletTransaction();

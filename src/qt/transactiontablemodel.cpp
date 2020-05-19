@@ -78,11 +78,14 @@ public:
         cachedWallet.clear();
         {
             LOCK2(cs_main, wallet->cs_wallet);
-            for (std::map<uint256, CWalletTx>::iterator it = wallet->mapWallet.begin(); it != wallet->mapWallet.end(); ++it) {
-                if (TransactionRecord::showTransaction(it->second))
-                    cachedWallet.append(TransactionRecord::decomposeTransaction(wallet, it->second));
+            for (auto it = wallet->wtxOrdered.rbegin();
+                it != wallet->wtxOrdered.rend() && std::distance(wallet->wtxOrdered.rbegin(), it) != MAX_DISPLAYED_TRANSACTIONS;
+                ++it) {
+                if (it->second.first != nullptr && TransactionRecord::showTransaction(*it->second.first))
+                    cachedWallet.append(TransactionRecord::decomposeTransaction(wallet, *it->second.first));
             }
         }
+        sort(cachedWallet.begin(), cachedWallet.end(), TxLessThan());
     }
 
     /* Update our model of the wallet incrementally, to synchronize our model of the wallet
@@ -93,7 +96,7 @@ public:
     void updateWallet(const uint256& hash, int status, bool showTransaction)
     {
         qDebug() << "TransactionTablePriv::updateWallet : " + QString::fromStdString(hash.ToString()) + " " + QString::number(status);
-
+        const auto t_begin = boost::chrono::high_resolution_clock::now();
         // Find bounds of this transaction in model
         QList<TransactionRecord>::iterator lower = qLowerBound(
             cachedWallet.begin(), cachedWallet.end(), hash, TxLessThan());
@@ -109,7 +112,7 @@ public:
             if (!showTransaction && inModel)
                 status = CT_DELETED; /* In model, but want to hide, treat as deleted */
         }
-
+        const auto t_mid = boost::chrono::high_resolution_clock::now();
         qDebug() << "    inModel=" + QString::number(inModel) +
                         " Index=" + QString::number(lowerIndex) + "-" + QString::number(upperIndex) +
                         " showTransaction=" + QString::number(showTransaction) + " derivedStatus=" + QString::number(status);
@@ -140,10 +143,25 @@ public:
                         insert_idx += 1;
                     }
                     parent->endInsertRows();
+
+                    if (size() > MAX_DISPLAYED_TRANSACTIONS) {
+                        const auto extraRows = size() - MAX_DISPLAYED_TRANSACTIONS;
+                        auto tmpCache = cachedWallet.toVector();
+                        sort(tmpCache.begin(), tmpCache.end(),
+                            [](const TransactionRecord & a, const TransactionRecord & b) -> bool { return a.time < b.time; });
+                        parent->beginRemoveRows(QModelIndex(), size() - extraRows, size() - 1);
+                        for (auto it = tmpCache.begin(); it != tmpCache.end() && it != tmpCache.begin() + extraRows; it++) {
+                            const auto toRemove = std::remove_if(cachedWallet.begin(), cachedWallet.end(),
+                                [&](const TransactionRecord& record) -> bool { return record.hash == it->hash; });
+                            cachedWallet.erase(toRemove, cachedWallet.end());
+                        }
+                        parent->endRemoveRows();
+                    }
                 }
             }
             break;
         case CT_DELETED:
+            LogPrintf("updateWallet() CT_DELETED\n");
             if (!inModel) {
                 qWarning() << "TransactionTablePriv::updateWallet : Warning: Got CT_DELETED, but transaction is not in model";
                 break;
@@ -154,12 +172,17 @@ public:
             parent->endRemoveRows();
             break;
         case CT_UPDATED:
+            LogPrintf("updateWallet() CT_UPDATED\n");
             // Miscellaneous updates -- nothing to do, status update will take care of this, and is only computed for
             // visible transactions.
             if (parent)
                 parent->updateTime();
             break;
         }
+        const auto t_end = boost::chrono::high_resolution_clock::now();
+        LogPrintf("updateWallet %d ms, %d ms\n",
+            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
+            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid - t_begin).count());
     }
 
     int size()
@@ -179,9 +202,11 @@ public:
             // If a status update is needed (blocks came in since last check),
             //  update the status of this transaction from the wallet. Otherwise,
             // simply re-use the cached status.
+            //LogPrintf("index()1\n");
             TRY_LOCK(cs_main, lockMain);
             if (lockMain) {
                 TRY_LOCK(wallet->cs_wallet, lockWallet);
+                //LogPrintf("index()2\n");
                 if (lockWallet && rec->statusUpdateNeeded()) {
                     std::map<uint256, CWalletTx>::iterator mi = wallet->mapWallet.find(rec->hash);
 
@@ -197,8 +222,10 @@ public:
 
     QString describe(TransactionRecord* rec, int unit)
     {
+        LogPrintf("describe()1\n");
         {
             LOCK2(cs_main, wallet->cs_wallet);
+            LogPrintf("describe()2\n");
             std::map<uint256, CWalletTx>::iterator mi = wallet->mapWallet.find(rec->hash);
             if (mi != wallet->mapWallet.end()) {
                 return TransactionDesc::toHTML(wallet, mi->second, rec, unit);
@@ -245,12 +272,18 @@ void TransactionTableModel::updateTransaction(const QString& hash, int status, b
 
 void TransactionTableModel::updateConfirmations()
 {
+    const auto t_begin = boost::chrono::high_resolution_clock::now();
     // Blocks came in since last poll.
     // Invalidate status (number of confirmations) and (possibly) description
     //  for all rows. Qt is smart enough to only actually request the data for the
     //  visible rows.
     emit dataChanged(index(0, Status), index(priv->size() - 1, Status));
+    const auto t_mid = boost::chrono::high_resolution_clock::now();
     emit dataChanged(index(0, ToAddress), index(priv->size() - 1, ToAddress));
+    const auto t_end = boost::chrono::high_resolution_clock::now();
+    LogPrintf("TransactionTableModel::updateConfirmations() size - %d; %d ms, %d ms\n", priv->size(),
+        boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
+        boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid - t_begin).count());
 }
 
 int TransactionTableModel::rowCount(const QModelIndex& parent) const

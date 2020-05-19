@@ -15,6 +15,9 @@
 #include "swifttx.h"
 #include "wallet.h"
 
+#include <boost/thread.hpp>
+
+#include <atomic>
 #include <map>
 #include <vector>
 
@@ -254,8 +257,11 @@ private:
     int cachedNumBlocks;
     int cachedTxLocks;
     int cachedZeromintPercentage;
+    boost::mutex cacheMutex;
 
     QTimer* pollTimer;
+    std::atomic_bool pollInProgress;
+    std::unique_ptr<boost::thread> pollThread;
 
     void subscribeToCoreSignals();
     void unsubscribeFromCoreSignals();

@@ -149,7 +149,7 @@ void WalletModel::updateStatus()
 {
     EncryptionStatus newEncryptionStatus = getEncryptionStatus();
 
-    std::lock_guard<std::mutex> lock(cacheMutex);
+    boost::lock_guard<boost::mutex> lock(cacheMutex);
     if (cachedEncryptionStatus != newEncryptionStatus)
         emit encryptionStatusChanged(newEncryptionStatus);
 }
@@ -163,7 +163,7 @@ void WalletModel::pollBalanceChanged()
     if (pollThread) {
         pollThread->join();
     }
-    pollThread.reset(new std::thread([&, this]() {
+    pollThread.reset(new boost::thread([&, this]() {
         // Get required locks upfront. This avoids the GUI from getting stuck on
         // periodical polls if the core is holding the locks for a longer time -
         // for example, during a wallet rescan.
@@ -180,7 +180,7 @@ void WalletModel::pollBalanceChanged()
         boost::chrono::high_resolution_clock::time_point t_mid1, t_mid2;
         bool needCheck = false;
         {
-            std::lock_guard<std::mutex> lock(cacheMutex);
+            boost::lock_guard<boost::mutex> lock(cacheMutex);
             if (fForceCheckBalanceChanged ||
                 chainActive.Height() != cachedNumBlocks ||
                 nZeromintPercentage != cachedZeromintPercentage ||
@@ -228,7 +228,7 @@ void WalletModel::emitBalanceChanged()
     CAmount masternodeEarnings;
     CAmount stakeEarnings;
     {
-        std::lock_guard<std::mutex> lock(cacheMutex);
+        boost::lock_guard<boost::mutex> lock(cacheMutex);
         balance = cachedBalance;
         unconfirmedBalance = cachedUnconfirmedBalance;
         immatureBalance = cachedImmatureBalance;
@@ -279,7 +279,7 @@ void WalletModel::checkBalanceChanged()
 
     bool isChanged = false;
     {
-        std::lock_guard<std::mutex> lock(cacheMutex);
+        boost::lock_guard<boost::mutex> lock(cacheMutex);
         if (cachedBalance != newBalance || cachedUnconfirmedBalance != newUnconfirmedBalance || cachedImmatureBalance != newImmatureBalance ||
             cachedZerocoinBalance != newZerocoinBalance || cachedUnconfirmedZerocoinBalance != newUnconfirmedZerocoinBalance || cachedImmatureZerocoinBalance != newImmatureZerocoinBalance ||
             cachedWatchOnlyBalance != newWatchOnlyBalance || cachedWatchUnconfBalance != newWatchUnconfBalance || cachedWatchImmatureBalance != newWatchImmatureBalance ||

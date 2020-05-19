@@ -2741,16 +2741,18 @@ UniValue redirectmnrewards(const UniValue& params, bool fHelp)
                 "Redirect allows a user to automatically send mn reward to defined address\n"
                 "The Redirect transaction is sent once in 12 hours for mature coins (100 confirmations)\n"
                 "****************************************************************\n"
-                "TO ADD: redirectmnrewards add <to_address> <from_address>\n"
-                "to_address - address of masternode\n"
-                "from_address - address to send mn rewards to\n"
+                "TO ADD: redirectmnrewards add <from_address> <to_address>\n"
+                "from_address - address of masternode\n"
+                "to_address - address to send mn rewards to\n"
                 "****************************************************************\n"
                 "TO DELETE: redirectmnrewards delete <address>\n"
                 "address - address of masternode\n"
                 "****************************************************************\n"
-                "TO ACTIVATE: redirectmnrewards activate"
+                "TO ACTIVATE: redirectmnrewards activate\n"
                 "****************************************************************\n"
-                "TO DISABLE: redirectmnrewards disable"
+                "TO DISABLE: redirectmnrewards disable\n"
+                "****************************************************************\n"
+                "TO SEND: redirectmnrewards send\n"
                 "****************************************************************\n");
 
     if (pwalletMain->IsLocked())
@@ -2818,6 +2820,13 @@ UniValue redirectmnrewards(const UniValue& params, bool fHelp)
     else if (strCommand == "disable") {
         pwalletMain->setRedirectNMRewardsDisabled();
         return printRedirectMNRewards();
+    }
+    else if (strCommand == "send") {
+        if (!pwalletMain->isRedirectNMRewardsEnabled()) {
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "Redirect is disabled, enable it first");
+        }
+        pwalletMain->RedirectMNReward(true);
+        return true;
     }
     else {
         throw JSONRPCError(RPC_INVALID_PARAMETER, "Bad command");

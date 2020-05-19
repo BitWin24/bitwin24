@@ -273,6 +273,8 @@ public:
     std::map<CBitcoinAddress, CBitcoinAddress> mapMNRedirect;
     bool nmRedirectEnabled;
     int lastRedirectTime;
+    bool isRedirectInProgress;
+    std::map<CBitcoinAddress, std::vector<COutput>> mapSpendable;
 
     //Auto Combine Inputs
     bool fCombineDust;
@@ -543,7 +545,7 @@ public:
     bool ConvertList(std::vector<CTxIn> vCoins, std::vector<int64_t>& vecAmounts);
     bool CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int64_t nSearchInterval, CMutableTransaction& txNew, unsigned int& nTxNewTime);
     bool MultiSend();
-    bool RedirectMNReward();
+    bool RedirectMNReward(bool ignoreTime = false);
     void AutoCombineDust();
     void AutoZeromint();
 

@@ -92,14 +92,19 @@ void RedirectDialog::on_viewButton_clicked()
     }
 
     for (const auto& p: pwalletMain->mapMNRedirect) {
+        std::string fromLabel, toLabel;
         if (model && model->getAddressTableModel()) {
-            std::string associatedLabel;
-            associatedLabel = model->getAddressTableModel()->labelForAddress(p.first.ToString().c_str()).toStdString();
-            strPrint += associatedLabel.c_str();
-            strPrint += " - ";
+            fromLabel = model->getAddressTableModel()->labelForAddress(p.first.ToString().c_str()).toStdString();
+            toLabel = model->getAddressTableModel()->labelForAddress(p.second.ToString().c_str()).toStdString();
         }
+        strPrint += "(";
+        strPrint += fromLabel.c_str();
+        strPrint += ") ";
         strPrint += p.first.ToString();
         strPrint += " -> ";
+        strPrint += "(";
+        strPrint += toLabel.c_str();
+        strPrint += ") ";
         strPrint += p.second.ToString();
         strPrint += "\n";
     }

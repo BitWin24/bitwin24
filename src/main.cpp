@@ -45,7 +45,6 @@
 #include <sstream>
 
 #include <boost/algorithm/string/replace.hpp>
-#include <boost/chrono.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/lexical_cast.hpp>
@@ -4230,7 +4229,7 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CBlockIndex** ppindex, 
 
     if (block.IsProofOfStake()) {
         uint256 hashProofOfStake = 0;
-        std::unique_ptr<CStakeInput> stake;
+        unique_ptr<CStakeInput> stake;
 
         if (!CheckProofOfStake(block, hashProofOfStake, stake))
             return state.DoS(100, error("%s: proof of stake check failed", __func__));
@@ -6423,14 +6422,6 @@ bool SendMessages(CNode* pto, bool fSendTrickle)
             }
         }
 
-        // Resend wallet transactions that haven't gotten in a block yet
-        // Except during reindex, importing and IBD, when old wallet
-        // transactions become unconfirmed and spams other nodes.
-        if (!fReindex /*&& !fImporting && !IsInitialBlockDownload()*/) {
-            //LogPrintf("GetMainSignals().Broadcast();\n");
-            GetMainSignals().Broadcast();
-        }
-
         TRY_LOCK(cs_main, lockMain); // Acquire cs_main for IsInitialBlockDownload() and CNodeState()
         if (!lockMain)
             return true;
@@ -6506,6 +6497,13 @@ bool SendMessages(CNode* pto, bool fSendTrickle)
                 //pto->PushMessage("getheaders", chainActive.GetLocator(pindexStart), uint256(0));
                 pto->PushMessage("getblocks", chainActive.GetLocator(chainActive.Tip()), uint256(0));
             }
+        }
+
+        // Resend wallet transactions that haven't gotten in a block yet
+        // Except during reindex, importing and IBD, when old wallet
+        // transactions become unconfirmed and spams other nodes.
+        if (!fReindex /*&& !fImporting && !IsInitialBlockDownload()*/) {
+            GetMainSignals().Broadcast();
         }
 
         //

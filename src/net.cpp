@@ -1538,7 +1538,6 @@ void ThreadMessageHandler()
 
                     if (pnode->nSendSize < SendBufferSize()) {
                         if (!pnode->vRecvGetData.empty() || (!pnode->vRecvMsg.empty() && pnode->vRecvMsg[0].complete())) {
-                            LogPrintf("ThreadMessageHandler(): skip sleep\n");
                             fSleep = false;
                         }
                     }

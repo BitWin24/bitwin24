@@ -1615,7 +1615,7 @@ void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
         nTxFee = GetDebit(ISMINE_ALL) - GetValueOut();
 
         bool allFromMe = numVinFromMe == vin.size();
-        bool allToMe = numVoutToMe == vin.size();
+        bool allToMe = numVoutToMe == vout.size();
         if (allFromMe && allToMe) {
             // Payment to self
             // TODO: this section still not accurate but covers most cases,

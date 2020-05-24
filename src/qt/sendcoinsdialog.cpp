@@ -357,6 +357,11 @@ void SendCoinsDialog::send(QList<SendCoinsRecipient> recipients, QString strFee,
         return;
     }
 
+    if (!ui->messageTextLabel->text().isEmpty()) {
+        CWalletTx* wTx = currentTransaction.getTransaction();
+        wTx->mapValue["comment"] = ui->messageTextLabel->text().toStdString();
+    }
+
     CAmount txFee = currentTransaction.getTransactionFee();
     QString questionString = tr("Are you sure you want to send?");
     questionString.append("<br /><br />%1");

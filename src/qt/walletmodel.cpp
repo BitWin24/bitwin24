@@ -177,7 +177,6 @@ void WalletModel::pollBalanceChanged()
         pollInProgress = true;
 
         const auto t_begin = boost::chrono::high_resolution_clock::now();
-        boost::chrono::high_resolution_clock::time_point t_mid1, t_mid2;
         bool needCheck = false;
         {
             boost::lock_guard<boost::mutex> lock(cacheMutex);
@@ -194,20 +193,21 @@ void WalletModel::pollBalanceChanged()
             fForceCheckBalanceChanged = false;
 
             checkBalanceChanged();
-            t_mid1 = boost::chrono::high_resolution_clock::now();
+            const auto t_mid1 = boost::chrono::high_resolution_clock::now();
             if (transactionTableModel) {
                 transactionTableModel->updateConfirmations();
             }
-            t_mid2 = boost::chrono::high_resolution_clock::now();
+            const auto t_mid2 = boost::chrono::high_resolution_clock::now();
 
             // Address in receive tab may have been used
             emit notifyReceiveAddressChanged();
+
+            const auto t_end = boost::chrono::high_resolution_clock::now();
+            LogPrintf("WalletModel::pollBalanceChanged() %d ms, %d ms, %d ms\n",
+                boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
+                boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid1 - t_begin).count(),
+                boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid2 - t_begin).count());
         }
-        const auto t_end = boost::chrono::high_resolution_clock::now();
-        LogPrintf("WalletModel::pollBalanceChanged() %d ms, %d ms, %d ms\n",
-            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
-            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid1 - t_begin).count(),
-            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid2 - t_begin).count());
             
         pollInProgress = false;
     }));
@@ -254,20 +254,15 @@ void WalletModel::checkBalanceChanged()
     TRY_LOCK(cs_main, lockMain);
     if (!lockMain) return;
     
-    const auto t_begin = boost::chrono::high_resolution_clock::now();
     CAmount newBalance = getBalance();
     CAmount newUnconfirmedBalance = getUnconfirmedBalance();
     CAmount newImmatureBalance = getImmatureBalance();
     CAmount newZerocoinBalance = getZerocoinBalance();
     CAmount newUnconfirmedZerocoinBalance = getUnconfirmedZerocoinBalance();
     CAmount newImmatureZerocoinBalance = getImmatureZerocoinBalance();
-    const auto t_mid1 = boost::chrono::high_resolution_clock::now(); //+89
     CAmount newEarnings = getEarnings();
-    const auto t_mid2 = boost::chrono::high_resolution_clock::now(); //+64
     CAmount newMasternodeEarnings = getMasternodeEarnings();
-    const auto t_mid3 = boost::chrono::high_resolution_clock::now(); //+63
     CAmount newStakeEarnings = getStakeEarnings();
-    const auto t_mid4 = boost::chrono::high_resolution_clock::now(); //+126
     CAmount newWatchOnlyBalance = 0;
     CAmount newWatchUnconfBalance = 0;
     CAmount newWatchImmatureBalance = 0;
@@ -307,13 +302,6 @@ void WalletModel::checkBalanceChanged()
                             newWatchOnlyBalance, newWatchUnconfBalance, newWatchImmatureBalance,
                             newEarnings, newMasternodeEarnings, newStakeEarnings);
     }
-    const auto t_end = boost::chrono::high_resolution_clock::now();
-    LogPrintf("WalletModel::checkBalanceChanged() %d ms, %d ms, %d ms, %d ms, %d ms\n",
-        boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
-        boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid1 - t_begin).count(),
-        boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid2 - t_begin).count(),
-        boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid3 - t_begin).count(),
-        boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid4 - t_begin).count());
 }
 
 void WalletModel::updateTransaction()

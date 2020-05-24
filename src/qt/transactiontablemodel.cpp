@@ -180,9 +180,11 @@ public:
             break;
         }
         const auto t_end = boost::chrono::high_resolution_clock::now();
-        LogPrintf("updateWallet %d ms, %d ms\n",
-            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
-            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid - t_begin).count());
+        if (boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count() > 0) {
+            LogPrintf("updateWallet %d ms, %d ms\n",
+                boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
+                boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid - t_begin).count());
+        }
     }
 
     int size()
@@ -202,11 +204,9 @@ public:
             // If a status update is needed (blocks came in since last check),
             //  update the status of this transaction from the wallet. Otherwise,
             // simply re-use the cached status.
-            //LogPrintf("index()1\n");
             TRY_LOCK(cs_main, lockMain);
             if (lockMain) {
                 TRY_LOCK(wallet->cs_wallet, lockWallet);
-                //LogPrintf("index()2\n");
                 if (lockWallet && rec->statusUpdateNeeded()) {
                     std::map<uint256, CWalletTx>::iterator mi = wallet->mapWallet.find(rec->hash);
 
@@ -222,10 +222,8 @@ public:
 
     QString describe(TransactionRecord* rec, int unit)
     {
-        LogPrintf("describe()1\n");
         {
             LOCK2(cs_main, wallet->cs_wallet);
-            LogPrintf("describe()2\n");
             std::map<uint256, CWalletTx>::iterator mi = wallet->mapWallet.find(rec->hash);
             if (mi != wallet->mapWallet.end()) {
                 return TransactionDesc::toHTML(wallet, mi->second, rec, unit);

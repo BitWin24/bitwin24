@@ -210,6 +210,7 @@ void TransactionView::setModel(WalletModel* model)
         transactionView->setColumnWidth(TransactionTableModel::Watchonly, WATCHONLY_COLUMN_WIDTH);
         transactionView->setColumnWidth(TransactionTableModel::Date, DATE_COLUMN_WIDTH);
         transactionView->setColumnWidth(TransactionTableModel::Type, TYPE_COLUMN_WIDTH);
+        transactionView->setColumnWidth(TransactionTableModel::Comment, TYPE_COLUMN_WIDTH);
         transactionView->setColumnWidth(TransactionTableModel::Amount, AMOUNT_MINIMUM_COLUMN_WIDTH);
 
         // Note: it's a good idea to connect this signal AFTER the model is set

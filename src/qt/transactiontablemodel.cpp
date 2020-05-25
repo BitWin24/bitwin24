@@ -239,7 +239,7 @@ TransactionTableModel::TransactionTableModel(CWallet* wallet, WalletModel* paren
                                                                                      priv(new TransactionTablePriv(wallet, this)),
                                                                                      fProcessingQueuedTransactions(false)
 {
-    columns << QString() << QString() << tr("Date") << tr("Type") << tr("Address") << BitcoinUnits::getAmountColumnTitle(walletModel->getOptionsModel()->getDisplayUnit());
+    columns << QString() << QString() << tr("Date") << tr("Type") << tr("Address") << tr("Comment") << BitcoinUnits::getAmountColumnTitle(walletModel->getOptionsModel()->getDisplayUnit());
     priv->refreshWallet();
 
     connect(walletModel->getOptionsModel(), SIGNAL(displayUnitChanged(int)), this, SLOT(updateDisplayUnit()));
@@ -580,6 +580,8 @@ QVariant TransactionTableModel::data(const QModelIndex& index, int role) const
             return formatTxType(rec);
         case ToAddress:
             return formatTxToAddress(rec, false);
+        case Comment:
+            return QString::fromStdString(rec->comment);
         case Amount:
             return formatTxAmount(rec, true, BitcoinUnits::separatorAlways);
         }

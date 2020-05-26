@@ -891,6 +891,18 @@ bool WalletModel::saveReceiveRequest(const std::string& sAddress, const int64_t 
         return wallet->AddDestData(dest, key, sRequest);
 }
 
+bool WalletModel::setTxComment(uint256 hash, const std::string& comment)
+{
+    LOCK2(cs_main, wallet->cs_wallet);
+    const auto it = wallet->mapWallet.find(hash);
+    if (it == wallet->mapWallet.end()) {
+        return false;
+    }
+
+    it->second.mapValue["comment"] = comment;
+    return it->second.WriteToDisk();
+}
+
 bool WalletModel::isMine(CBitcoinAddress address)
 {
     return IsMine(*wallet, address.Get());

@@ -33,6 +33,7 @@ static int column_alignments[] = {
     Qt::AlignLeft | Qt::AlignVCenter, /* date */
     Qt::AlignLeft | Qt::AlignVCenter, /* type */
     Qt::AlignLeft | Qt::AlignVCenter, /* address */
+    Qt::AlignLeft | Qt::AlignVCenter, /* comment */
     Qt::AlignRight | Qt::AlignVCenter /* amount */
 };
 
@@ -207,10 +208,16 @@ public:
             TRY_LOCK(cs_main, lockMain);
             if (lockMain) {
                 TRY_LOCK(wallet->cs_wallet, lockWallet);
-                if (lockWallet && rec->statusUpdateNeeded()) {
+                if (lockWallet) {
                     std::map<uint256, CWalletTx>::iterator mi = wallet->mapWallet.find(rec->hash);
+                    if (mi == wallet->mapWallet.end()) {
+                        return rec;
+                    }
+                    if (mi->second.mapValue.count("comment")) {
+                        rec->comment = mi->second.mapValue["comment"];
+                    }
 
-                    if (mi != wallet->mapWallet.end()) {
+                    if (rec->statusUpdateNeeded()) {
                         rec->updateStatus(mi->second);
                     }
                 }
@@ -648,6 +655,8 @@ QVariant TransactionTableModel::data(const QModelIndex& index, int role) const
         return QString::fromStdString(rec->address);
     case LabelRole:
         return walletModel->getAddressTableModel()->labelForAddress(QString::fromStdString(rec->address));
+    case CommentRole:
+        return QString::fromStdString(rec->comment);
     case AmountRole:
         return qint64(rec->credit + rec->debit);
     case TxIDRole:

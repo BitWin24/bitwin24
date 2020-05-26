@@ -56,6 +56,8 @@ public:
         AddressRole,
         /** Label of address related to transaction */
         LabelRole,
+        /** Comment of transaction */
+        CommentRole,
         /** Net amount of transaction */
         AmountRole,
         /** Unique identifier */

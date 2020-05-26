@@ -22,6 +22,7 @@
 #include <QComboBox>
 #include <QDateTimeEdit>
 #include <QDesktopServices>
+#include <QInputDialog>
 #include <QDoubleValidator>
 #include <QHBoxLayout>
 #include <QHeaderView>
@@ -151,6 +152,7 @@ TransactionView::TransactionView(QWidget* parent) : QWidget(parent), model(0), t
     QAction* copyAmountAction = new QAction(tr("Copy amount"), this);
     QAction* copyTxIDAction = new QAction(tr("Copy transaction ID"), this);
     QAction* editLabelAction = new QAction(tr("Edit label"), this);
+    QAction* editCommentAction = new QAction(tr("Edit comment"), this);
     QAction* showDetailsAction = new QAction(tr("Show transaction details"), this);
 
     contextMenu = new QMenu();
@@ -159,6 +161,7 @@ TransactionView::TransactionView(QWidget* parent) : QWidget(parent), model(0), t
     contextMenu->addAction(copyAmountAction);
     contextMenu->addAction(copyTxIDAction);
     contextMenu->addAction(editLabelAction);
+    contextMenu->addAction(editCommentAction);
     contextMenu->addAction(showDetailsAction);
 
     mapperThirdPartyTxUrls = new QSignalMapper(this);
@@ -181,6 +184,7 @@ TransactionView::TransactionView(QWidget* parent) : QWidget(parent), model(0), t
     connect(copyAmountAction, SIGNAL(triggered()), this, SLOT(copyAmount()));
     connect(copyTxIDAction, SIGNAL(triggered()), this, SLOT(copyTxID()));
     connect(editLabelAction, SIGNAL(triggered()), this, SLOT(editLabel()));
+    connect(editCommentAction, SIGNAL(triggered()), this, SLOT(editComment()));
     connect(showDetailsAction, SIGNAL(triggered()), this, SLOT(showDetails()));
 }
 
@@ -366,6 +370,7 @@ void TransactionView::exportClicked()
         writer.addColumn(tr("Type"), TransactionTableModel::Type, Qt::EditRole);
         writer.addColumn(tr("Label"), 0, TransactionTableModel::LabelRole);
         writer.addColumn(tr("Address"), 0, TransactionTableModel::AddressRole);
+        writer.addColumn(tr("Comment"), 0, TransactionTableModel::CommentRole);
         writer.addColumn(BitcoinUnits::getAmountColumnTitle(model->getOptionsModel()->getDisplayUnit()), 0, TransactionTableModel::FormattedAmountRole);
         writer.addColumn(tr("ID"), 0, TransactionTableModel::TxIDRole);
 
@@ -408,6 +413,24 @@ void TransactionView::copyAmount()
 void TransactionView::copyTxID()
 {
     GUIUtil::copyEntryData(transactionView, 0, TransactionTableModel::TxIDRole);
+}
+
+void TransactionView::editComment()
+{
+    if (!transactionView->selectionModel() || !model)
+        return;
+    QModelIndexList selection = transactionView->selectionModel()->selectedRows();
+    if (!selection.isEmpty()) {
+        const auto hash = selection.at(0).data(TransactionTableModel::TxHashRole).toString();
+        const auto comment = selection.at(0).data(TransactionTableModel::CommentRole).toString();
+        bool ok = false;
+        QString text = QInputDialog::getText(this, tr("Edit comment"),
+                                             tr("New comment:"), QLineEdit::Normal,
+                                             comment, &ok);
+        if (ok && !text.isEmpty()) {
+            model->setTxComment(uint256S(hash.toStdString()), text.toStdString());
+        }
+    }
 }
 
 void TransactionView::editLabel()

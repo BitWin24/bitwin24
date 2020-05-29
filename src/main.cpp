@@ -5464,8 +5464,11 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
 
         pfrom->fClient = !(pfrom->nServices & NODE_NETWORK);
 
-        // Potentially mark this peer as a preferred download peer.
-        UpdatePreferredDownload(pfrom, State(pfrom->GetId()));
+        {
+            LOCK(cs_main);
+            // Potentially mark this peer as a preferred download peer.
+            UpdatePreferredDownload(pfrom, State(pfrom->GetId()));
+        }
 
         // Change version
         pfrom->PushMessage("verack");
@@ -6203,10 +6206,17 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             LOCK(cs_main);
             Misbehaving(pfrom->GetId(), 100);
         } else {
-            LOCK(pfrom->cs_filter);
-            if (pfrom->pfilter)
-                pfrom->pfilter->insert(vData);
-            else {
+            bool misbehaving = false;
+            {
+                LOCK(pfrom->cs_filter);
+                if (pfrom->pfilter) {
+                    pfrom->pfilter->insert(vData);
+                }
+                else {
+                    misbehaving = true;
+                }
+            }
+            if (misbehaving) {
                 LOCK(cs_main);
                 Misbehaving(pfrom->GetId(), 100);
             }

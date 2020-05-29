@@ -251,7 +251,7 @@ public:
 
     void Clear()
     {
-        LOCK2(cs_mapMasternodeBlocks, cs_mapMasternodePayeeVotes);
+        LOCK2(cs_mapMasternodePayeeVotes, cs_mapMasternodeBlocks);
         mapMasternodeBlocks.clear();
         mapMasternodePayeeVotes.clear();
     }

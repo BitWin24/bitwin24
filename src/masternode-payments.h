@@ -16,8 +16,9 @@
 using namespace std;
 
 extern CCriticalSection cs_vecPayments;
-extern CCriticalSection cs_mapMasternodeBlocks;
-extern CCriticalSection cs_mapMasternodePayeeVotes;
+extern CCriticalSection cs_mapMasternodeBlocksPayeeVotes;
+//extern CCriticalSection cs_mapMasternodeBlocks;
+//extern CCriticalSection cs_mapMasternodePayeeVotes;
 
 class CMasternodePayments;
 class CMasternodePaymentWinner;
@@ -251,7 +252,8 @@ public:
 
     void Clear()
     {
-        LOCK2(cs_mapMasternodePayeeVotes, cs_mapMasternodeBlocks);
+        LOCK(cs_mapMasternodeBlocksPayeeVotes);
+        //LOCK2(cs_mapMasternodePayeeVotes, cs_mapMasternodeBlocks);
         mapMasternodeBlocks.clear();
         mapMasternodePayeeVotes.clear();
     }
@@ -269,7 +271,8 @@ public:
 
     bool CanVote(COutPoint outMasternode, int nBlockHeight)
     {
-        LOCK(cs_mapMasternodePayeeVotes);
+        LOCK(cs_mapMasternodeBlocksPayeeVotes);
+        //LOCK(cs_mapMasternodePayeeVotes);
 
         if (mapMasternodesLastVote.count(outMasternode.hash + outMasternode.n)) {
             if (mapMasternodesLastVote[outMasternode.hash + outMasternode.n] == nBlockHeight) {

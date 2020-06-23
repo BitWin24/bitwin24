@@ -266,6 +266,7 @@ void CMasternodeSync::Process()
     TRY_LOCK(cs_vNodes, lockRecv);
     if (!lockRecv) return;
 
+    bool needUpdateStatus = false;
     BOOST_FOREACH (CNode* pnode, vNodes) {
         if (Params().NetworkID() == CBaseChainParams::REGTEST) {
             if (RequestedMasternodeAttempt <= 2) {
@@ -374,11 +375,13 @@ void CMasternodeSync::Process()
                     
                     // Hasn't received a new item in the last five seconds, so we'll move to the
                     GetNextAsset();
+                    needUpdateStatus = true;
 
                     // Try to activate our masternode if possible
-                    activeMasternode.ManageStatus();
+                    //activeMasternode.ManageStatus();
 
-                    return;
+                    break;
+                    //return;
                 }
 
                 // timeout
@@ -386,8 +389,10 @@ void CMasternodeSync::Process()
                     (RequestedMasternodeAttempt >= MASTERNODE_SYNC_THRESHOLD * 3 || GetTime() - nAssetSyncStarted > MASTERNODE_SYNC_TIMEOUT * 5)) {
                     // maybe there is no budgets at all, so just finish syncing
                     GetNextAsset();
-                    activeMasternode.ManageStatus();
-                    return;
+                    needUpdateStatus = true;
+                    //activeMasternode.ManageStatus();
+                    break;
+                    //return;
                 }
 
                 if (pnode->HasFulfilledRequest("busync")) continue;
@@ -402,5 +407,8 @@ void CMasternodeSync::Process()
                 return;
             }
         }
+    }
+    if (needUpdateStatus) {
+        activeMasternode.ManageStatus();
     }
 }

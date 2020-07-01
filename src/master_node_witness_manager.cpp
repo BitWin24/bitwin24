@@ -153,6 +153,10 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
 
     std::map<std::pair<uint256, uint32_t>, CMasternodePing> pings;
 
+    const auto t_begin = boost::chrono::high_resolution_clock::now();
+    if (mnodeman.mapSeenMasternodePing.size() > 0) {
+        LogPrintf("mnodeman.mapSeenMasternodePing size: %d", mnodeman.mapSeenMasternodePing.size());
+    }
     std::map<uint256, CMasternodePing>::iterator pingIt = mnodeman.mapSeenMasternodePing.begin();
     while (pingIt != mnodeman.mapSeenMasternodePing.end()) {
         const CMasternodePing &ping = pingIt->second;
@@ -166,6 +170,9 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
         pingIt++;
     }
 
+    if (mnodeman.mapSeenMasternodeBroadcast.size() > 0) {
+        LogPrintf("mnodeman.mapSeenMasternodeBroadcast size: %d", mnodeman.mapSeenMasternodeBroadcast.size());
+    }
     std::vector<CTxIn> included;
     std::map<uint256, CMasternodeBroadcast>::iterator it = mnodeman.mapSeenMasternodeBroadcast.begin();
     while (it != mnodeman.mapSeenMasternodeBroadcast.end()) {
@@ -194,6 +201,9 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
         }
         it++;
     }
+    const auto t_end = boost::chrono::high_resolution_clock::now();
+    LogPrintf("CreateMasterNodeWitnessSnapshot time %d ms\n",
+        boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count());
 
     return result;
 }

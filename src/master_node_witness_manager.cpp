@@ -154,11 +154,14 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
     std::map<std::pair<uint256, uint32_t>, CMasternodePing> pings;
 
     const auto t_begin = boost::chrono::high_resolution_clock::now();
-    if (mnodeman.mapSeenMasternodePing.size() > 0) {
-        LogPrintf("mnodeman.mapSeenMasternodePing size: %d", mnodeman.mapSeenMasternodePing.size());
+    if (mnodeman.mapSeenMasternodePingSize() > 0) {
+        LogPrintf("mnodeman.mapSeenMasternodePing size: %d", mnodeman.mapSeenMasternodePingSize());
     }
-    std::map<uint256, CMasternodePing>::iterator pingIt = mnodeman.mapSeenMasternodePing.begin();
-    while (pingIt != mnodeman.mapSeenMasternodePing.end()) {
+    const auto mapSeenMasternodePing = mnodeman.mapSeenMasternodePingCopy();
+    auto pingIt = mapSeenMasternodePing.begin();
+    volatile int i = 0;
+    while (pingIt != mapSeenMasternodePing.end()) {
+        i++;
         const CMasternodePing &ping = pingIt->second;
         if (ping.sigTime < (result.nTime - MASTERNODE_REMOVAL_SECONDS) || ping.sigTime>(result.nTime + MASTERNODE_PING_SECONDS)) {
             pingIt++;
@@ -170,12 +173,13 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
         pingIt++;
     }
 
-    if (mnodeman.mapSeenMasternodeBroadcast.size() > 0) {
-        LogPrintf("mnodeman.mapSeenMasternodeBroadcast size: %d", mnodeman.mapSeenMasternodeBroadcast.size());
+    if (mnodeman.mapSeenMasternodeBroadcastSize() > 0) {
+        LogPrintf("%d, mnodeman.mapSeenMasternodeBroadcast size: %d", i, mnodeman.mapSeenMasternodeBroadcastSize());
     }
+    const auto mapSeenMasternodeBroadcast = mnodeman.mapSeenMasternodeBroadcastCopy();
     std::vector<CTxIn> included;
-    std::map<uint256, CMasternodeBroadcast>::iterator it = mnodeman.mapSeenMasternodeBroadcast.begin();
-    while (it != mnodeman.mapSeenMasternodeBroadcast.end()) {
+    auto it = mapSeenMasternodeBroadcast.begin();
+    while (it != mapSeenMasternodeBroadcast.end()) {
         std::pair<uint256, uint32_t> key(it->second.vin.prevout.hash, it->second.vin.prevout.n);
         if (pings.find(key) != pings.end()) {
             ActiveMasterNodeProofs proof;
@@ -253,11 +257,11 @@ void MasterNodeWitnessManager::AddBroadCastToMNManager(const uint256 &targetBloc
         CMasternodeBroadcast mnb = (*it).nBroadcast;
         mnb.lastPing = (*it).nPing;
 
-        if (mnodeman.mapSeenMasternodeBroadcast.count(mnb.GetHash())) { //seen
+        if (mnodeman.mapSeenMasternodeBroadcastCount(mnb.GetHash())) { //seen
             masternodeSync.AddedMasternodeList(mnb.GetHash());
             continue;
         }
-        mnodeman.mapSeenMasternodeBroadcast.insert(make_pair(mnb.GetHash(), mnb));
+        mnodeman.mapSeenMasternodeBroadcastInsert(mnb.GetHash(), mnb);
 
         int nDoS = 0;
         if (!mnb.CheckAndUpdate(nDoS)) {

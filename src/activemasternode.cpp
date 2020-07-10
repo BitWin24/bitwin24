@@ -186,12 +186,16 @@ bool CActiveMasternode::SendMasternodePing(std::string& errorMessage)
         }
 
         pmn->lastPing = mnp;
-        mnodeman.mapSeenMasternodePing.insert(make_pair(mnp.GetHash(), mnp));
+        mnodeman.mapSeenMasternodePingInsert(mnp.GetHash(), mnp);
 
         //mnodeman.mapSeenMasternodeBroadcast.lastPing is probably outdated, so we'll update it
         CMasternodeBroadcast mnb(*pmn);
         uint256 hash = mnb.GetHash();
-        if (mnodeman.mapSeenMasternodeBroadcast.count(hash)) mnodeman.mapSeenMasternodeBroadcast[hash].lastPing = mnp;
+        if (mnodeman.mapSeenMasternodeBroadcastCount(hash)) {
+            mnodeman.mapSeenMasternodeBroadcastUpdate(hash, [&mnp](CMasternodeBroadcast& mnb) {
+                mnb.lastPing = mnp;
+            });
+        }
 
         mnp.Relay();
 

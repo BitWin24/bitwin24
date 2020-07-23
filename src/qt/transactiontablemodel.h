@@ -16,7 +16,7 @@ class WalletModel;
 
 class CWallet;
 
-constexpr size_t MAX_DISPLAYED_TRANSACTIONS = 1000;
+constexpr int MAX_UPDATED_TRANSACTIONS = 100;
 
 /** UI model for the transaction table of a wallet.
  */

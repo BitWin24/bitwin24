@@ -79,14 +79,11 @@ public:
         cachedWallet.clear();
         {
             LOCK2(cs_main, wallet->cs_wallet);
-            for (auto it = wallet->wtxOrdered.rbegin();
-                it != wallet->wtxOrdered.rend() && std::distance(wallet->wtxOrdered.rbegin(), it) != MAX_DISPLAYED_TRANSACTIONS;
-                ++it) {
-                if (it->second.first != nullptr && TransactionRecord::showTransaction(*it->second.first))
-                    cachedWallet.append(TransactionRecord::decomposeTransaction(wallet, *it->second.first));
+            for (std::map<uint256, CWalletTx>::iterator it = wallet->mapWallet.begin(); it != wallet->mapWallet.end(); ++it) {
+                if (TransactionRecord::showTransaction(it->second))
+                    cachedWallet.append(TransactionRecord::decomposeTransaction(wallet, it->second));
             }
         }
-        sort(cachedWallet.begin(), cachedWallet.end(), TxLessThan());
     }
 
     /* Update our model of the wallet incrementally, to synchronize our model of the wallet
@@ -144,20 +141,6 @@ public:
                         insert_idx += 1;
                     }
                     parent->endInsertRows();
-
-                    if (size() > MAX_DISPLAYED_TRANSACTIONS) {
-                        const auto extraRows = size() - MAX_DISPLAYED_TRANSACTIONS;
-                        auto tmpCache = cachedWallet.toVector();
-                        sort(tmpCache.begin(), tmpCache.end(),
-                            [](const TransactionRecord & a, const TransactionRecord & b) -> bool { return a.time < b.time; });
-                        parent->beginRemoveRows(QModelIndex(), size() - extraRows, size() - 1);
-                        for (auto it = tmpCache.begin(); it != tmpCache.end() && it != tmpCache.begin() + extraRows; it++) {
-                            const auto toRemove = std::remove_if(cachedWallet.begin(), cachedWallet.end(),
-                                [&](const TransactionRecord& record) -> bool { return record.hash == it->hash; });
-                            cachedWallet.erase(toRemove, cachedWallet.end());
-                        }
-                        parent->endRemoveRows();
-                    }
                 }
             }
             break;
@@ -282,9 +265,9 @@ void TransactionTableModel::updateConfirmations()
     // Invalidate status (number of confirmations) and (possibly) description
     //  for all rows. Qt is smart enough to only actually request the data for the
     //  visible rows.
-    emit dataChanged(index(0, Status), index(priv->size() - 1, Status));
+    emit dataChanged(index(0, Status), index(std::min(priv->size() - 1, MAX_UPDATED_TRANSACTIONS), Status));
     const auto t_mid = boost::chrono::high_resolution_clock::now();
-    emit dataChanged(index(0, ToAddress), index(priv->size() - 1, ToAddress));
+    emit dataChanged(index(0, ToAddress), index(std::min(priv->size() - 1, MAX_UPDATED_TRANSACTIONS), ToAddress));
     const auto t_end = boost::chrono::high_resolution_clock::now();
     LogPrintf("TransactionTableModel::updateConfirmations() size - %d; %d ms, %d ms\n", priv->size(),
         boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
@@ -715,12 +698,12 @@ void TransactionTableModel::updateDisplayUnit()
 {
     // emit dataChanged to update Amount column with the current unit
     updateAmountColumnTitle();
-    emit dataChanged(index(0, Amount), index(priv->size() - 1, Amount));
+    emit dataChanged(index(0, Amount), index(std::min(priv->size() - 1, MAX_UPDATED_TRANSACTIONS), Amount));
 }
 
 void TransactionTableModel::updateTime()
 {
-    emit dataChanged(index(0, ColumnIndex::Date), index(priv->size() - 1, ColumnIndex::Date));
+    emit dataChanged(index(0, ColumnIndex::Date), index(std::min(priv->size() - 1, MAX_UPDATED_TRANSACTIONS), ColumnIndex::Date));
 }
 
 // queue notifications to show a non freezing progress dialog e.g. for rescan

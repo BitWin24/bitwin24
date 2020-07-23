@@ -1258,6 +1258,11 @@ static void MaybePushAddress(UniValue & entry, const std::string& key, const CTx
 
 void ListTransactions(const CWalletTx& wtx, const string& strAccount, int nMinDepth, bool fLong, UniValue& ret, const isminefilter& filter)
 {
+    // Do not include transactions that are not in the chain
+    if (wtx.GetDepthInMainChain(false) == -1) {
+        return;
+    }
+
     CAmount nFee;
     string strSentAccount;
     list<COutputEntry> listReceived;

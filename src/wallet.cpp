@@ -4650,7 +4650,7 @@ bool CWallet::RedirectMNReward(bool ignoreTime)
     }
 
     // Send only once in 24h
-    if (!isRedirectInProgress && !ignoreTime && chainActive.Tip()->nTime <= lastRedirectTime + 24 * 60 * 60) {
+    if (!isRedirectInProgress && !ignoreTime && !isRedirectTimerUp()) {
         return false;
     }
 

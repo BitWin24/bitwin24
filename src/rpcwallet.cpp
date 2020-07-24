@@ -2725,6 +2725,7 @@ UniValue printRedirectMNRewards()
     UniValue ret(UniValue::VARR);
     UniValue act(UniValue::VOBJ);
     act.push_back(Pair("Redirect Activated?", pwalletMain->isRedirectNMRewardsEnabled()));
+    act.push_back(Pair("Time", std::to_string(pwalletMain->redirectDailyHour) + ":00"));
     ret.push_back(act);
 
     UniValue vMS(UniValue::VOBJ);

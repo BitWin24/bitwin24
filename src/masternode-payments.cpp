@@ -340,8 +340,17 @@ void CMasternodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_t nFe
             txNew.vout[i].nValue = masternodePayment;
 
             //subtract mn payment from the stake reward
-            if (!txNew.vout[1].IsZerocoinMint())
-                txNew.vout[i - 1].nValue -= masternodePayment;
+            if (!txNew.vout[1].IsZerocoinMint()) {
+                auto lastSplitUtxo = i - 1;
+                auto masternodePaymentRemained = masternodePayment;
+                while (txNew.vout[lastSplitUtxo].nValue <= masternodePaymentRemained) {
+                    masternodePaymentRemained -= txNew.vout[lastSplitUtxo].nValue;
+                    txNew.vout[lastSplitUtxo] = txNew.vout[txNew.vout.size() - 1];
+                    txNew.vout.resize(txNew.vout.size() - 1);
+                    lastSplitUtxo--;
+                }
+                txNew.vout[lastSplitUtxo].nValue -= masternodePaymentRemained;
+            }
         } else {
             txNew.vout.resize(2);
             txNew.vout[1].scriptPubKey = payee;

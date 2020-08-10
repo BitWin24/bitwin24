@@ -235,7 +235,6 @@ bool CBitWin24Stake::CreateTxOuts(CWallet* pwallet, vector<CTxOut>& vout, CAmoun
                 usedAmount += splitAmount;
             }
         }
-        LogPrintf("CreateCoinStake: last amount: %d", nTotal - usedAmount);
         // Put remainder into the last output
         vout.emplace_back(nTotal - usedAmount, scriptPubKey);
     }

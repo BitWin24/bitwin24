@@ -5141,13 +5141,13 @@ bool static AlreadyHave(const CInv& inv)
         }
         return false;
     case MSG_MASTERNODE_ANNOUNCE:
-        if (mnodeman.mapSeenMasternodeBroadcast.count(inv.hash)) {
+        if (mnodeman.mapSeenMasternodeBroadcastCount(inv.hash)) {
             masternodeSync.AddedMasternodeList(inv.hash);
             return true;
         }
         return false;
     case MSG_MASTERNODE_PING:
-        return mnodeman.mapSeenMasternodePing.count(inv.hash);
+        return mnodeman.mapSeenMasternodePingCount(inv.hash);
     }
     // Don't know what it is, just say we already got one
     return true;
@@ -5334,20 +5334,20 @@ void static ProcessGetData(CNode* pfrom)
                 }
 
                 if (!pushed && inv.type == MSG_MASTERNODE_ANNOUNCE) {
-                    if (mnodeman.mapSeenMasternodeBroadcast.count(inv.hash)) {
+                    if (mnodeman.mapSeenMasternodeBroadcastCount(inv.hash)) {
                         CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
                         ss.reserve(1000);
-                        ss << mnodeman.mapSeenMasternodeBroadcast[inv.hash];
+                        ss << mnodeman.mapSeenMasternodeBroadcastGet(inv.hash);
                         pfrom->PushMessage("mnb", ss);
                         pushed = true;
                     }
                 }
 
                 if (!pushed && inv.type == MSG_MASTERNODE_PING) {
-                    if (mnodeman.mapSeenMasternodePing.count(inv.hash)) {
+                    if (mnodeman.mapSeenMasternodePingCount(inv.hash)) {
                         CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
                         ss.reserve(1000);
-                        ss << mnodeman.mapSeenMasternodePing[inv.hash];
+                        ss << mnodeman.mapSeenMasternodePingGet(inv.hash);
                         pfrom->PushMessage("mnp", ss);
                         pushed = true;
                     }
@@ -5464,8 +5464,11 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
 
         pfrom->fClient = !(pfrom->nServices & NODE_NETWORK);
 
-        // Potentially mark this peer as a preferred download peer.
-        UpdatePreferredDownload(pfrom, State(pfrom->GetId()));
+        {
+            LOCK(cs_main);
+            // Potentially mark this peer as a preferred download peer.
+            UpdatePreferredDownload(pfrom, State(pfrom->GetId()));
+        }
 
         // Change version
         pfrom->PushMessage("verack");
@@ -6203,10 +6206,17 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             LOCK(cs_main);
             Misbehaving(pfrom->GetId(), 100);
         } else {
-            LOCK(pfrom->cs_filter);
-            if (pfrom->pfilter)
-                pfrom->pfilter->insert(vData);
-            else {
+            bool misbehaving = false;
+            {
+                LOCK(pfrom->cs_filter);
+                if (pfrom->pfilter) {
+                    pfrom->pfilter->insert(vData);
+                }
+                else {
+                    misbehaving = true;
+                }
+            }
+            if (misbehaving) {
                 LOCK(cs_main);
                 Misbehaving(pfrom->GetId(), 100);
             }

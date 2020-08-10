@@ -153,8 +153,12 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
 
     std::map<std::pair<uint256, uint32_t>, CMasternodePing> pings;
 
-    std::map<uint256, CMasternodePing>::iterator pingIt = mnodeman.mapSeenMasternodePing.begin();
-    while (pingIt != mnodeman.mapSeenMasternodePing.end()) {
+    const auto t_begin = boost::chrono::high_resolution_clock::now();
+    const auto mapSeenMasternodePing = mnodeman.mapSeenMasternodePingCopy();
+    auto pingIt = mapSeenMasternodePing.begin();
+    volatile int i = 0;
+    while (pingIt != mapSeenMasternodePing.end()) {
+        i++;
         const CMasternodePing &ping = pingIt->second;
         if (ping.sigTime < (result.nTime - MASTERNODE_REMOVAL_SECONDS) || ping.sigTime>(result.nTime + MASTERNODE_PING_SECONDS)) {
             pingIt++;
@@ -166,9 +170,10 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
         pingIt++;
     }
 
+    const auto mapSeenMasternodeBroadcast = mnodeman.mapSeenMasternodeBroadcastCopy();
     std::vector<CTxIn> included;
-    std::map<uint256, CMasternodeBroadcast>::iterator it = mnodeman.mapSeenMasternodeBroadcast.begin();
-    while (it != mnodeman.mapSeenMasternodeBroadcast.end()) {
+    auto it = mapSeenMasternodeBroadcast.begin();
+    while (it != mapSeenMasternodeBroadcast.end()) {
         std::pair<uint256, uint32_t> key(it->second.vin.prevout.hash, it->second.vin.prevout.n);
         if (pings.find(key) != pings.end()) {
             ActiveMasterNodeProofs proof;
@@ -194,6 +199,9 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
         }
         it++;
     }
+    const auto t_end = boost::chrono::high_resolution_clock::now();
+    LogPrintf("CreateMasterNodeWitnessSnapshot time %d ms\n",
+        boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count());
 
     return result;
 }
@@ -243,11 +251,11 @@ void MasterNodeWitnessManager::AddBroadCastToMNManager(const uint256 &targetBloc
         CMasternodeBroadcast mnb = (*it).nBroadcast;
         mnb.lastPing = (*it).nPing;
 
-        if (mnodeman.mapSeenMasternodeBroadcast.count(mnb.GetHash())) { //seen
+        if (mnodeman.mapSeenMasternodeBroadcastCount(mnb.GetHash())) { //seen
             masternodeSync.AddedMasternodeList(mnb.GetHash());
             continue;
         }
-        mnodeman.mapSeenMasternodeBroadcast.insert(make_pair(mnb.GetHash(), mnb));
+        mnodeman.mapSeenMasternodeBroadcastInsert(mnb.GetHash(), mnb);
 
         int nDoS = 0;
         if (!mnb.CheckAndUpdate(nDoS)) {

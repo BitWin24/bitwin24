@@ -154,9 +154,6 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
     std::map<std::pair<uint256, uint32_t>, CMasternodePing> pings;
 
     const auto t_begin = boost::chrono::high_resolution_clock::now();
-    if (mnodeman.mapSeenMasternodePingSize() > 0) {
-        LogPrintf("mnodeman.mapSeenMasternodePing size: %d", mnodeman.mapSeenMasternodePingSize());
-    }
     const auto mapSeenMasternodePing = mnodeman.mapSeenMasternodePingCopy();
     auto pingIt = mapSeenMasternodePing.begin();
     volatile int i = 0;
@@ -173,9 +170,6 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
         pingIt++;
     }
 
-    if (mnodeman.mapSeenMasternodeBroadcastSize() > 0) {
-        LogPrintf("%d, mnodeman.mapSeenMasternodeBroadcast size: %d", i, mnodeman.mapSeenMasternodeBroadcastSize());
-    }
     const auto mapSeenMasternodeBroadcast = mnodeman.mapSeenMasternodeBroadcastCopy();
     std::vector<CTxIn> included;
     auto it = mapSeenMasternodeBroadcast.begin();

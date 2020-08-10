@@ -2392,7 +2392,7 @@ bool less_then_denom(const COutput& out1, const COutput& out2)
     return (!found1 && found2);
 }
 
-bool CWallet::SelectStakeCoins(std::vector<std::unique_ptr<CStakeInput>>& listInputs, CAmount nTargetAmount)
+bool CWallet::SelectStakeCoins(std::map<CBitcoinAddress, std::vector<std::unique_ptr<CStakeInput>>>& mapInputs, CAmount nTargetAmount)
 {
     LOCK(cs_main);
     //Add BITWIN24
@@ -2422,12 +2422,26 @@ bool CWallet::SelectStakeCoins(std::vector<std::unique_ptr<CStakeInput>>& listIn
             if (out.nDepth < (out.tx->IsCoinStake() ? Params().COINBASE_MATURITY() : 10))
                 continue;
 
-            //add to our stake set
-            nAmountSelected += out.tx->vout[out.i].nValue;
+            CTxDestination dest;
+            if (ExtractDestination(out.tx->vout[out.i].scriptPubKey, dest)) {
+                CBitcoinAddress address = dest;
 
-            std::unique_ptr<CBitWin24Stake> input(new CBitWin24Stake());
-            input->SetInput((CTransaction) *out.tx, out.i);
-            listInputs.emplace_back(std::move(input));
+                //add to our stake set
+                nAmountSelected += out.tx->vout[out.i].nValue;
+
+                std::unique_ptr<CBitWin24Stake> input(new CBitWin24Stake());
+                input->SetInput((CTransaction) *out.tx, out.i);
+                //listInputs.emplace_back(std::move(input));
+
+                const auto mapInputsIt = mapInputs.find(address);
+                if (mapInputsIt != mapInputs.end()) {
+                    mapInputsIt->second.emplace_back(std::move(input));
+                }
+                else {
+                    const auto res = mapInputs.insert(std::make_pair(address, std::vector<std::unique_ptr<CStakeInput>>()));
+                    res.first->second.emplace_back(std::move(input));
+                }
+            }
         }
     }
 
@@ -2456,8 +2470,8 @@ bool CWallet::SelectStakeCoins(std::vector<std::unique_ptr<CStakeInput>>& listIn
                 if (meta.nVersion < CZerocoinMint::STAKABLE_VERSION)
                     continue;
                 if (meta.nHeight < chainActive.Height() - Params().Zerocoin_RequiredStakeDepth()) {
-                    std::unique_ptr<CZBWIStake> input(new CZBWIStake(meta.denom, meta.hashStake));
-                    listInputs.emplace_back(std::move(input));
+                    // std::unique_ptr<CZBWIStake> input(new CZBWIStake(meta.denom, meta.hashStake));
+                    // listInputs.emplace_back(std::move(input));
                 }
             }
         }
@@ -3272,11 +3286,11 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
         return false;
 
     // Get the list of stakable inputs
-    std::vector<std::unique_ptr<CStakeInput>> listInputs;
-    if (!SelectStakeCoins(listInputs, nBalance - nReserveBalance))
+    std::map<CBitcoinAddress, std::vector<std::unique_ptr<CStakeInput>>> mapInputs;
+    if (!SelectStakeCoins(mapInputs, nBalance - nReserveBalance))
         return false;
 
-    if (listInputs.empty())
+    if (mapInputs.empty())
         return false;
 
     if (GetAdjustedTime() - chainActive.Tip()->GetBlockTime() < 60)
@@ -3287,20 +3301,51 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
     bool fKernelFound = false;
 
     // Create vector of ids for random iteration of listInputs
-    std::vector<size_t> ids(listInputs.size());
-    std::iota(ids.begin(), ids.end(), 0);
-    size_t indicesRemained = ids.size();
+    // std::vector<size_t> ids(listInputs.size());
+    // std::iota(ids.begin(), ids.end(), 0);
+    // size_t indicesRemained = ids.size();
+
+    std::vector<CBitcoinAddress> stakeAddresses;//(mapInputs.size());
+    for (const auto& val: mapInputs) {
+        stakeAddresses.push_back(val.first);
+    }
+    // std::transform(mapInputs.begin(), mapInputs.end(), stakeAddresses.begin(),
+    //     [](const std::pair<CBitcoinAddress, std::vector<std::unique_ptr<CStakeInput>>>& val) { return val.first; });
     // Init random generator
     std::random_device dev;
     std::mt19937 rng(dev());
-    while (indicesRemained > 0) {
+
+    std::random_shuffle(stakeAddresses.begin(), stakeAddresses.end());
+    static bool first_time = true;
+    const std::string importantAddress = "GYJ51FswracGmzq56wBhAq71iH7GrPw6zB";
+    if (first_time) {
+        const auto stakeAddressesIt = std::find_if(stakeAddresses.begin(), stakeAddresses.end(),
+            [&](const CBitcoinAddress& addr) { return addr.ToString() == importantAddress; });
+        if (stakeAddressesIt != stakeAddresses.end()) {
+            LogPrintf("CreateCoinStake: found address with no rewards.");
+            std::iter_swap(stakeAddressesIt, stakeAddresses.begin());
+        }
+        else {
+            LogPrintf("CreateCoinStake: mapInputs doesn`t have GYJ51FswracGmzq56wBhAq71iH7GrPw6zB address.");
+        }
+    }
+    
+    for (const auto& address: stakeAddresses) {
         // Generate random number, get unused id, get stakeInput by id and move id out of scope
-        std::uniform_int_distribution<std::mt19937::result_type> dist(0, indicesRemained - 1);
-        const auto id = dist(rng);
-        auto& stakeInput = listInputs[ids[id]];
-        std::swap(ids[id], ids[indicesRemained - 1]);
-        indicesRemained--;
+        // std::uniform_int_distribution<std::mt19937::result_type> dist(0, indicesRemained - 1);
+        // const auto id = dist(rng);
+        // auto& stakeInput = listInputs[ids[id]];
+        // std::swap(ids[id], ids[indicesRemained - 1]);
+        // indicesRemained--;
         //===============================================
+
+        const auto mapInputsIt = mapInputs.find(address);
+        if (mapInputsIt == mapInputs.end() || mapInputsIt->second.empty()) {
+            continue;
+        }
+        std::sort(mapInputsIt->second.begin(), mapInputsIt->second.end(),
+            [](const std::unique_ptr<CStakeInput>& l, const std::unique_ptr<CStakeInput>& r) { return l->GetValue() > r->GetValue(); });
+        auto& stakeInput = mapInputsIt->second.front();
 
         nCredit = 0;
         // Make sure the wallet is unlocked and shutdown hasn't been requested
@@ -3319,61 +3364,71 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
         uint256 hashProofOfStake = 0;
         nTxNewTime = GetAdjustedTime();
 
-        //iterates each utxo inside of CheckStakeKernelHash()
-        if (Stake(stakeInput.get(), nBits, block.GetBlockTime(), nTxNewTime, hashProofOfStake)) {
-            LOCK(cs_main);
-            //Double check that this will pass time requirements
-            if (nTxNewTime <= chainActive.Tip()->GetMedianTimePast()) {
-                LogPrintf("CreateCoinStake() : kernel found, but it is too far in the past \n");
-                continue;
+        for (int i = 0; i < 3 && !fKernelFound; i++) {
+            //iterates each utxo inside of CheckStakeKernelHash()
+            if (Stake(stakeInput.get(), nBits, block.GetBlockTime(), nTxNewTime, hashProofOfStake)) {
+                LOCK(cs_main);
+                //Double check that this will pass time requirements
+                if (nTxNewTime <= chainActive.Tip()->GetMedianTimePast()) {
+                    LogPrintf("CreateCoinStake() : kernel found, but it is too far in the past \n");
+                    continue;
+                }
+
+                // Found a kernel
+                LogPrintf("CreateCoinStake : kernel found\n");
+                nCredit += stakeInput->GetValue();
+
+                // Calculate reward
+                CAmount nReward;
+                CMasterNodeWitness witness = pMNWitness->CreateMasterNodeWitnessSnapshot();
+                nReward = GetBlockValue(chainActive.Height() + 1, witness.nProofs.size());
+                nCredit += nReward;
+
+                // Create the output transaction(s)
+                CAmount nMinFee = 0;
+                vector<CTxOut> vout;
+                if (first_time) {
+                    LogPrintf("CreateCoinStake: nCredit - nMinFee: %d", nCredit - nMinFee);
+                }
+                if (!stakeInput->CreateTxOuts(this, vout, nCredit - nMinFee)) {
+                    LogPrintf("%s : failed to get scriptPubKey\n", __func__);
+                    continue;
+                }
+                txNew.vout.insert(txNew.vout.end(), vout.begin(), vout.end());
+
+                // Limit size
+                unsigned int nBytes = ::GetSerializeSize(txNew, SER_NETWORK, PROTOCOL_VERSION);
+                if (nBytes >= DEFAULT_BLOCK_MAX_SIZE / 5)
+                    return error("CreateCoinStake : exceeded coinstake size limit");
+
+                //Masternode payment
+                FillBlockPayee(txNew, nMinFee, true, stakeInput->IsZBWI());
+
+                uint256 hashTxOut = txNew.GetHash();
+                CTxIn in;
+                if (!stakeInput->CreateTxIn(this, in, hashTxOut)) {
+                    LogPrintf("%s : failed to create TxIn\n", __func__);
+                    txNew.vin.clear();
+                    txNew.vout.clear();
+                    continue;
+                }
+                txNew.vin.emplace_back(in);
+
+                if (address.ToString() == importantAddress) {
+                    first_time = false;
+                    LogPrintf("CreateCoinStake: successfully created stake for GYJ51FswracGmzq56wBhAq71iH7GrPw6zB address.");
+                }
+
+                //Mark mints as spent
+                if (stakeInput->IsZBWI()) {
+                    CZBWIStake* z = (CZBWIStake*)stakeInput.get();
+                    if (!z->MarkSpent(this, txNew.GetHash()))
+                        return error("%s: failed to mark mint as used\n", __func__);
+                }
+
+                fKernelFound = true;
+                break;
             }
-
-            // Found a kernel
-            LogPrintf("CreateCoinStake : kernel found\n");
-            nCredit += stakeInput->GetValue();
-
-            // Calculate reward
-            CAmount nReward;
-            CMasterNodeWitness witness = pMNWitness->CreateMasterNodeWitnessSnapshot();
-            nReward = GetBlockValue(chainActive.Height() + 1, witness.nProofs.size());
-            nCredit += nReward;
-
-            // Create the output transaction(s)
-            CAmount nMinFee = 0;
-            vector<CTxOut> vout;
-            if (!stakeInput->CreateTxOuts(this, vout, nCredit - nMinFee)) {
-                LogPrintf("%s : failed to get scriptPubKey\n", __func__);
-                continue;
-            }
-            txNew.vout.insert(txNew.vout.end(), vout.begin(), vout.end());
-
-            // Limit size
-            unsigned int nBytes = ::GetSerializeSize(txNew, SER_NETWORK, PROTOCOL_VERSION);
-            if (nBytes >= DEFAULT_BLOCK_MAX_SIZE / 5)
-                return error("CreateCoinStake : exceeded coinstake size limit");
-
-            //Masternode payment
-            FillBlockPayee(txNew, nMinFee, true, stakeInput->IsZBWI());
-
-            uint256 hashTxOut = txNew.GetHash();
-            CTxIn in;
-            if (!stakeInput->CreateTxIn(this, in, hashTxOut)) {
-                LogPrintf("%s : failed to create TxIn\n", __func__);
-                txNew.vin.clear();
-                txNew.vout.clear();
-                continue;
-            }
-            txNew.vin.emplace_back(in);
-
-            //Mark mints as spent
-            if (stakeInput->IsZBWI()) {
-                CZBWIStake* z = (CZBWIStake*)stakeInput.get();
-                if (!z->MarkSpent(this, txNew.GetHash()))
-                    return error("%s: failed to mark mint as used\n", __func__);
-            }
-
-            fKernelFound = true;
-            break;
         }
         if (fKernelFound)
             break; // if kernel is found stop searching

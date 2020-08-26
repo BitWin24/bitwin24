@@ -39,6 +39,9 @@
 #include <boost/filesystem/operations.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 
+#include <numeric>
+#include <random>
+
 using namespace std;
 
 /**
@@ -2389,7 +2392,7 @@ bool less_then_denom(const COutput& out1, const COutput& out2)
     return (!found1 && found2);
 }
 
-bool CWallet::SelectStakeCoins(std::list<std::unique_ptr<CStakeInput> >& listInputs, CAmount nTargetAmount)
+bool CWallet::SelectStakeCoins(std::vector<std::unique_ptr<CStakeInput>>& listInputs, CAmount nTargetAmount)
 {
     LOCK(cs_main);
     //Add BITWIN24
@@ -3269,7 +3272,7 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
         return false;
 
     // Get the list of stakable inputs
-    std::list<std::unique_ptr<CStakeInput> > listInputs;
+    std::vector<std::unique_ptr<CStakeInput>> listInputs;
     if (!SelectStakeCoins(listInputs, nBalance - nReserveBalance))
         return false;
 
@@ -3282,7 +3285,23 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
     CAmount nCredit;
     CScript scriptPubKeyKernel;
     bool fKernelFound = false;
-    for (std::unique_ptr<CStakeInput>& stakeInput : listInputs) {
+
+    // Create vector of ids for random iteration of listInputs
+    std::vector<size_t> ids(listInputs.size());
+    std::iota(ids.begin(), ids.end(), 0);
+    size_t indicesRemained = ids.size();
+    // Init random generator
+    std::random_device dev;
+    std::mt19937 rng(dev());
+    while (indicesRemained > 0) {
+        // Generate random number, get unused id, get stakeInput by id and move id out of scope
+        std::uniform_int_distribution<std::mt19937::result_type> dist(0, indicesRemained - 1);
+        const auto id = dist(rng);
+        auto& stakeInput = listInputs[ids[id]];
+        std::swap(ids[id], ids[indicesRemained - 1]);
+        indicesRemained--;
+        //===============================================
+
         nCredit = 0;
         // Make sure the wallet is unlocked and shutdown hasn't been requested
         if (IsLocked() || ShutdownRequested())

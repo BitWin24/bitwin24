@@ -251,7 +251,8 @@ void MasterNodeWitnessManager::AddBroadCastToMNManager(const uint256 &targetBloc
         CMasternodeBroadcast mnb = (*it).nBroadcast;
         mnb.lastPing = (*it).nPing;
 
-        if (mnodeman.mapSeenMasternodeBroadcastCount(mnb.GetHash())) { //seen
+        if (mnodeman.mapSeenMasternodeBroadcastCount(mnb.GetHash()) &&
+                mnodeman.Find(mnb.vin)) { //seen
             masternodeSync.AddedMasternodeList(mnb.GetHash());
             continue;
         }

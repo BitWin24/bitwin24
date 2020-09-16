@@ -2876,7 +2876,6 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
             && !fInitialBestChainActivation
             && pindex->pprev->nHeight >= START_HEIGHT_PROOF_WITH_MN_COUNT
             && block.nTime >= (GetAdjustedTime() - MASTERNODE_REMOVAL_SECONDS)) {
-            LogPrintf("DEBUG: ConnectBlock\n");
             if (!pMNWitness->Exist(block.GetHash())) {
                 LogPrintf("DEBUG: proof is missing for %s\n", block.GetHash().ToString());
                 return state.DoS(
@@ -5989,7 +5988,6 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             pfrom->AddInventoryKnown(inv);
             CValidationState state;
             if (!mapBlockIndex.count(block.GetHash())) {
-                LogPrintf("DEBUG: received a fresh block\n");
                 if (chainActive.Tip()->nHeight > START_HEIGHT_REWARD_BASED_ON_MN_COUNT
                     && (block.nTime + MASTERNODE_REMOVAL_SECONDS) >= GetAdjustedTime()) {
                     try {
@@ -5997,7 +5995,6 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
                         vRecv >> witness;
                         if (witness.nVersion == 0 && !pMNWitness->Exist(witness.nTargetBlockHash)) {
                             if (witness.SignatureValid()) {
-                                LogPrintf("DEBUG: adding new proof\n");
                                 pMNWitness->Add(witness);
                             }
                             else {

@@ -109,8 +109,14 @@ public:
     {
     }
 
-    TransactionRecord(uint256 hash, qint64 time, Type type, const std::string& address, const CAmount& debit, const CAmount& credit) : hash(hash), time(time), type(type), address(address), debit(debit), credit(credit),
-                                                                                                                                       idx(0)
+    TransactionRecord(uint256 hash,
+        qint64 time,
+        Type type,
+        const std::string& address,
+        const std::string& comment,
+        const CAmount& debit,
+        const CAmount& credit)
+        : hash(hash), time(time), type(type), address(address), comment(comment), debit(debit), credit(credit), idx(0)
     {
     }
 
@@ -125,6 +131,7 @@ public:
     qint64 time;
     Type type;
     std::string address;
+    std::string comment;
     CAmount debit;
     CAmount credit;
     /**@}*/

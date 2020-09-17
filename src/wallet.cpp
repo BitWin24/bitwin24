@@ -39,6 +39,9 @@
 #include <boost/filesystem/operations.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 
+#include <numeric>
+#include <random>
+
 using namespace std;
 
 /**
@@ -1496,6 +1499,174 @@ void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
     }
 }
 
+void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
+                           list<COutputEntry>& listSent,
+                           CAmount& nTxFee,
+                           string& strSentAccount,
+                           const string& targetAccount,
+                           const isminefilter& filter) const
+{
+    nTxFee = 0;
+    listReceived.clear();
+    listSent.clear();
+    strSentAccount = strFromAccount;
+
+    // Zerocoin is ignored
+    if (IsZerocoinSpend() || IsZerocoinMint()) {
+        return;
+    }
+
+    CAmount volatile sumIn = 0;
+    CAmount volatile sumOut = 0;
+    int volatile numVinFromMe = 0;
+    int volatile numVoutToMe = 0;
+    BOOST_FOREACH (const CTxIn& txin, vin) {
+        const auto mi = pwallet->mapWallet.find(txin.prevout.hash);
+        if (mi != pwallet->mapWallet.end()) {
+            const CWalletTx& prev = (*mi).second;
+            if (txin.prevout.n < prev.vout.size()) {
+                const auto& prevout = prev.vout[txin.prevout.n];
+                CTxDestination dest;
+                if (ExtractDestination(prevout.scriptPubKey, dest)) {
+                    CBitcoinAddress address = dest;
+                    const auto mi = pwallet->mapAddressBook.find(address.Get());
+                    if (mi != pwallet->mapAddressBook.end() && !(*mi).second.name.empty()) {
+                        if (pwallet->IsMine(txin) && (*mi).second.name == targetAccount) {
+                            sumIn += prevout.nValue;
+                            numVinFromMe++;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    for (size_t nOut = 0; nOut < vout.size(); nOut++) {
+        const auto& txout = vout[nOut];
+        if (pwallet->IsChange(txout)) {
+            sumOut += txout.nValue;
+        }
+        else {
+            CTxDestination dest;
+            if (ExtractDestination(txout.scriptPubKey, dest)) {
+                CBitcoinAddress address = dest;
+                const auto mi = pwallet->mapAddressBook.find(address.Get());
+                if (mi != pwallet->mapAddressBook.end() && !(*mi).second.name.empty()) {
+                    if (pwallet->IsMine(txout) && (*mi).second.name == targetAccount) {
+                        sumOut += txout.nValue;
+                        numVoutToMe++;
+                    }
+                }
+            }
+        }
+    }
+
+    if (IsCoinStake()) {
+        CTxDestination address;
+        if (!ExtractDestination(vout[1].scriptPubKey, address))
+            return;
+
+        if (pwallet->IsMine(vout[1])) {
+            // BITWIN24 stake reward
+            COutputEntry reward{ CNoDestination{}, address, sumOut - sumIn, 1 };
+            listReceived.push_back( reward );
+        }
+        else {
+            //Masternode reward
+            CTxDestination destMN;
+            int nIndexMN = vout.size() - 1;
+            if (ExtractDestination(vout[nIndexMN].scriptPubKey, destMN) && IsMine(*pwallet, destMN)) {
+                COutputEntry reward{ CNoDestination{}, destMN, vout[nIndexMN].nValue, nIndexMN };
+                listReceived.push_back( reward );
+            }
+        }
+        return;
+    }
+    else if (IsCoinBase()) {
+        int index = 0;
+        for(const CTxOut& txout: vout) {
+            isminetype mine = pwallet->IsMine(txout);
+            if (mine) {
+                CTxDestination address;
+                if (ExtractDestination(txout.scriptPubKey, address) && IsMine(*pwallet, address)) {
+                    // Received by BITWIN24 Address
+                    COutputEntry received{ ExtractSource(), address, txout.nValue, index++ };
+                    listReceived.push_back( received );
+                }
+            }
+        }
+        return;
+    }
+
+    if (sumOut > sumIn) {
+        for(size_t nOut = 0; nOut < vout.size(); nOut++) {
+            const auto& txout = vout[nOut];
+            CTxDestination dest;
+            if (ExtractDestination(txout.scriptPubKey, dest)) {
+                CBitcoinAddress address = dest;
+                const auto mi = pwallet->mapAddressBook.find(address.Get());
+                if (mi != pwallet->mapAddressBook.end() && !(*mi).second.name.empty()) {
+                    if (pwallet->IsMine(txout) && (*mi).second.name == targetAccount) {
+                        // Received by BITWIN24 Address
+                        COutputEntry received{ ExtractSource(), dest, txout.nValue, nOut };
+                        listReceived.push_back( received );
+                    }
+                }
+            }
+        }
+    }
+    else {
+        nTxFee = GetDebit(ISMINE_ALL) - GetValueOut();
+
+        bool allFromMe = numVinFromMe == vin.size();
+        bool allToMe = numVoutToMe == vout.size();
+        if (allFromMe && allToMe) {
+            // Payment to self
+            // TODO: this section still not accurate but covers most cases,
+            // might need some additional work however
+            CTxDestination address;
+            if (ExtractDestination(vout[0].scriptPubKey, address)) {
+                // Sent to BITWIN24 Address
+                COutputEntry sentToSelf{ address, address, -(sumIn - GetChange()), 0 };
+                listSent.push_back( sentToSelf );
+            }
+        }
+        else if (allFromMe) {
+            for (size_t nOut = 0; nOut < vout.size(); nOut++) {
+                const auto& txout = vout[nOut];
+
+                if (pwallet->IsChange(txout)) {
+                    // Ignore parts sent to self, as this is usually the change
+                    // from a transaction sent back to our own address.
+                    continue;
+                }
+
+                CTxDestination dest;
+                if (ExtractDestination(txout.scriptPubKey, dest)) {
+                    CBitcoinAddress address = dest;
+                    const auto mi = pwallet->mapAddressBook.find(address.Get());
+                    if (mi != pwallet->mapAddressBook.end() && !(*mi).second.name.empty()) {
+                        if ((*mi).second.name == targetAccount) {
+                            // Ignore transfer to self
+                            continue;
+                        }
+                    }
+
+                    // Sent to BITWIN24 Address
+                    CAmount nValue = txout.nValue;
+                    /* Add fee to first output */
+                    if (nTxFee > 0) {
+                        nValue += nTxFee;
+                        nTxFee = 0;
+                    }
+
+                    COutputEntry sentToAddress{ ExtractSource(), dest, nValue, static_cast< int >( nOut ) };
+                    listSent.push_back( sentToAddress );
+                }
+            }
+        }
+    }
+}
+
 void CWalletTx::GetAccountAmounts(const string& strAccount, CAmount& nReceived, CAmount& nSent, CAmount& nFee, const isminefilter& filter) const
 {
     nReceived = nSent = nFee = 0;
@@ -1700,10 +1871,10 @@ void CWallet::ResendWalletTransactions()
 
     // Rebroadcast any of our txes that aren't in a block yet
     LogPrintf("ResendWalletTransactions()\n");
+    multimap<unsigned int, CWalletTx*> mapSorted;
     {
         LOCK(cs_wallet);
         // Sort them in chronological order
-        multimap<unsigned int, CWalletTx*> mapSorted;
         BOOST_FOREACH (PAIRTYPE(const uint256, CWalletTx) & item, mapWallet) {
             CWalletTx& wtx = item.second;
             // Don't rebroadcast until it's had plenty of time that
@@ -1711,10 +1882,10 @@ void CWallet::ResendWalletTransactions()
             if (nTimeBestReceived - (int64_t)wtx.nTimeReceived > 5 * 60)
                 mapSorted.insert(make_pair(wtx.nTimeReceived, &wtx));
         }
-        BOOST_FOREACH (PAIRTYPE(const unsigned int, CWalletTx*) & item, mapSorted) {
-            CWalletTx& wtx = *item.second;
-            wtx.RelayWalletTransaction();
-        }
+    }
+    BOOST_FOREACH (PAIRTYPE(const unsigned int, CWalletTx*) & item, mapSorted) {
+        CWalletTx& wtx = *item.second;
+        wtx.RelayWalletTransaction();
     }
 }
 
@@ -2221,7 +2392,7 @@ bool less_then_denom(const COutput& out1, const COutput& out2)
     return (!found1 && found2);
 }
 
-bool CWallet::SelectStakeCoins(std::list<std::unique_ptr<CStakeInput> >& listInputs, CAmount nTargetAmount)
+bool CWallet::SelectStakeCoins(std::vector<std::unique_ptr<CStakeInput>>& listInputs, CAmount nTargetAmount)
 {
     LOCK(cs_main);
     //Add BITWIN24
@@ -3101,7 +3272,7 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
         return false;
 
     // Get the list of stakable inputs
-    std::list<std::unique_ptr<CStakeInput> > listInputs;
+    std::vector<std::unique_ptr<CStakeInput>> listInputs;
     if (!SelectStakeCoins(listInputs, nBalance - nReserveBalance))
         return false;
 
@@ -3114,7 +3285,23 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
     CAmount nCredit;
     CScript scriptPubKeyKernel;
     bool fKernelFound = false;
-    for (std::unique_ptr<CStakeInput>& stakeInput : listInputs) {
+
+    // Create vector of ids for random iteration of listInputs
+    std::vector<size_t> ids(listInputs.size());
+    std::iota(ids.begin(), ids.end(), 0);
+    size_t indicesRemained = ids.size();
+    // Init random generator
+    std::random_device dev;
+    std::mt19937 rng(dev());
+    while (indicesRemained > 0) {
+        // Generate random number, get unused id, get stakeInput by id and move id out of scope
+        std::uniform_int_distribution<std::mt19937::result_type> dist(0, indicesRemained - 1);
+        const auto id = dist(rng);
+        auto& stakeInput = listInputs[ids[id]];
+        std::swap(ids[id], ids[indicesRemained - 1]);
+        indicesRemained--;
+        //===============================================
+
         nCredit = 0;
         // Make sure the wallet is unlocked and shutdown hasn't been requested
         if (IsLocked() || ShutdownRequested())
@@ -3936,6 +4123,25 @@ void CWallet::ListLockedCoins(std::vector<COutPoint>& vOutpts)
     }
 }
 
+bool CWallet::DisableSplitOnStake( const CBitcoinAddress& address )
+{
+    AssertLockHeld(cs_wallet);
+
+    const auto it = addressesToSplit.find(address);
+    if (it != addressesToSplit.end()) {
+        addressesToSplit.erase(it);
+    }
+    return CWalletDB(strWalletFile).EraseAddressToSplit(address.ToString());
+}
+
+bool CWallet::EnableSplitOnStake( const CBitcoinAddress& address )
+{
+    AssertLockHeld(cs_wallet);
+
+    addressesToSplit.insert(address);
+    return CWalletDB(strWalletFile).WriteAddressToSplit(address.ToString());
+}
+
 void CWallet::DisableStaking( const CBitcoinAddress& address ) 
 {
     AssertLockHeld(cs_wallet);
@@ -4340,7 +4546,9 @@ bool CWallet::MultiSend()
 {
     LOCK2(cs_main, cs_wallet);
     // Stop the old blocks from sending multisends
-    if (chainActive.Tip()->nTime < (GetAdjustedTime() - 300) || IsLocked()) {
+    const auto tip = chainActive.Tip();
+    const auto adjtime = GetAdjustedTime();
+    if (tip->nTime < (adjtime - 300) || IsLocked()) {
         return false;
     }
 
@@ -4447,6 +4655,156 @@ bool CWallet::MultiSend()
             return true;
     }
 
+    return true;
+}
+
+bool CWallet::RedirectMNReward(bool ignoreTime)
+{
+    LOCK2(cs_main, cs_wallet);
+    // Stop the old blocks from sending multisends
+    const auto tip = chainActive.Tip();
+    const auto adjtime = GetAdjustedTime();
+    if (tip->nTime < (adjtime - 300) || IsLocked()) {
+        return false;
+    }
+
+    // Send only once in 24h
+    if (!isRedirectInProgress && !ignoreTime && chainActive.Tip()->nTime <= lastRedirectTime + 24 * 60 * 60) {
+        return false;
+    }
+
+    if (!isRedirectInProgress) {
+        std::vector <COutput> vCoins;
+        AvailableCoins(vCoins);
+        isRedirectInProgress = true;
+        for (const COutput &out : vCoins) {
+            //need output with precise confirm count - this is how we identify which is the output to send
+            if (out.tx->GetDepthInMainChain() < Params().COINBASE_MATURITY() + 1) {
+                continue;
+            }
+
+            COutPoint outpoint(out.tx->GetHash(), out.i);
+            CTxDestination destMyAddress;
+            if (!ExtractDestination(out.tx->vout[out.i].scriptPubKey, destMyAddress)) {
+                LogPrintf("RedirectMNReward: failed to extract destination\n");
+                continue;
+            }
+
+            const auto itRedirect = mapMNRedirect.find(CBitcoinAddress(destMyAddress));
+            if (itRedirect == mapMNRedirect.end()) {
+                continue;
+            }
+            auto &v = mapSpendable[CBitcoinAddress(destMyAddress)];
+            v.push_back(out);
+        }
+    }
+
+    const size_t max_addresses_per_tx = 10;
+    const size_t max_input_num = 300;
+    std::map<CBitcoinAddress, std::vector<COutput>> tmpMapSpendable;
+    auto itSpendable = mapSpendable.begin();
+    for (size_t i = 0; i < max_addresses_per_tx && itSpendable != mapSpendable.end(); i++, itSpendable++) {
+        tmpMapSpendable.insert(*itSpendable);
+    }
+    mapSpendable.erase(mapSpendable.begin(), itSpendable);
+
+    itSpendable = tmpMapSpendable.begin();
+    while (itSpendable != tmpMapSpendable.end()) {
+        CCoinControl cControl;
+        vector<pair<CScript, CAmount> > vecSend;
+        CAmount total = 0;
+        while (cControl.QuantitySelected() + itSpendable->second.size() < max_input_num &&
+            itSpendable != tmpMapSpendable.end()) {
+            const auto& vOut = itSpendable->second;
+            const auto& destAddress = mapMNRedirect[itSpendable->first];
+            //LogPrintf("RedirectMNReward debug vOut size: %d\n", vOut.size());
+
+            CAmount amount = 0;
+            std::for_each(vOut.begin(), vOut.end(), [&](const COutput& out) {
+                COutPoint outpt(out.tx->GetHash(), out.i);
+                cControl.Select(outpt);
+                amount += out.Value();
+            });
+            total += amount;
+            const auto scriptPubKey = GetScriptForDestination(destAddress.Get());
+            vecSend.emplace_back(scriptPubKey, amount);
+
+            itSpendable++;
+        }
+        if (itSpendable != tmpMapSpendable.end()) {
+            auto& vOut = itSpendable->second;
+            const auto& destAddress = mapMNRedirect[itSpendable->first];
+
+            CAmount amount = 0;
+            auto it = vOut.begin();
+            for (; it != vOut.end() && cControl.QuantitySelected() < max_input_num; it++) {
+                COutPoint outpt(it->tx->GetHash(), it->i);
+                cControl.Select(outpt);
+                amount += it->Value();
+            }
+            total += amount;
+            const auto scriptPubKey = GetScriptForDestination(destAddress.Get());
+            vecSend.emplace_back(scriptPubKey, amount);
+
+            vOut.erase(vOut.begin(), it);
+            //LogPrintf("RedirectMNReward debug vOut size after erase: %d\n", vOut.size());
+        }
+
+        CWalletTx wtxdummy;
+        CReserveKey keyChange(this); // this change address does not end up being used, because change is returned with coin control switch
+        CAmount nFeeRet = 0;
+        string strErr;
+        CreateTransaction(vecSend, wtxdummy, keyChange, nFeeRet, strErr, &cControl, ALL_COINS, false, CAmount(0));
+        int maxId = 0;
+        CAmount maxAmount = 0;
+        for (size_t i = 0; i < vecSend.size(); i++) {
+            auto amount = vecSend[i].second;
+            vecSend[i].second = amount - nFeeRet * (static_cast<double>(amount) / total);
+            if (vecSend[i].second > maxAmount) {
+                maxAmount = vecSend[i].second;
+                maxId = i;
+            }
+        }
+        CTxDestination changeDest;
+        if (!ExtractDestination(vecSend[maxId].first, changeDest)) {
+            LogPrintf("RedirectMNReward: failed to extract destination.\n");
+            continue;
+        }
+        //LogPrintf("RedirectMNReward erasing from vecSend: %s, %d\n", CBitcoinAddress(changeDest).ToString(), vecSend[maxId].second);
+        cControl.destChange = changeDest;
+        if (vecSend.size() > 1) {
+            vecSend.erase(vecSend.begin() + maxId);
+        }
+        else if (vecSend.size() == 1) {
+            // 10% margin to avoid insufficient funds
+            vecSend[0].second = vecSend[0].second - (vecSend[0].second / 10);
+        }
+
+        CWalletTx wtx;
+        strErr.clear();
+        nFeeRet = 0;
+        if (!CreateTransaction(vecSend, wtx, keyChange, nFeeRet, strErr, &cControl, ALL_COINS, false, CAmount(0))) {
+            LogPrintf("RedirectMNReward createtransaction failed: %s\n", strErr);
+            continue;
+        }
+
+        if (!CommitTransaction(wtx, keyChange)) {
+            LogPrintf("MultiSend transaction commit failed\n");
+            continue;
+        }
+    }
+
+    //write lastRedirectTime to DB
+    CWalletDB walletdb(strWalletFile);
+    lastRedirectTime = chainActive.Tip()->nTime;
+    if (!walletdb.WriteLastMNRedirectTime(lastRedirectTime)) {
+        LogPrintf("Failed to write lastRedirectTime to DB\n");
+    }
+    if (mapSpendable.empty()) {
+        isRedirectInProgress = false;
+        LogPrintf("Redirect map is empty\n");
+    }
+    LogPrintf("Redirect successfully sent\n");
     return true;
 }
 

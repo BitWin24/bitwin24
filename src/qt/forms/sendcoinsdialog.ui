@@ -935,7 +935,40 @@
              </spacer>
             </item>
             <item>
+              <widget class="QFrame" name="frame_Comment">
+                <layout class="QHBoxLayout" name="horizontalLayout1">
+                <property name="bottomMargin">
+                  <number>0</number>
+                </property>
+                <item>
+                  <widget class="QLabel" name="commentLabel">
+                    <property name="text">
+                    <string>Comment:</string>
+                    </property>
+                    <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    </property>
+                    <property name="visible">
+                      <bool>true</bool>
+                    </property>
+                  </widget>
+                </item>
+                <item>
+                  <widget class="QLineEdit" name="commentTextLabel">
+                    <property name="toolTip">
+                    <string>A message that was attached to the BITWIN24: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the BITWIN24 network.</string>
+                    </property>
+                    <property name="visible">
+                      <bool>true</bool>
+                    </property>
+                  </widget>
+                </item>
+                </layout>
+              </widget>
+            </item>
+            <item>
              <widget class="QFrame" name="frame_Send">
+             
               <layout class="QHBoxLayout" name="horizontalLayout">
                <property name="bottomMargin">
                 <number>0</number>

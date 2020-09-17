@@ -99,6 +99,7 @@ BitcoinGUI::BitcoinGUI(const NetworkStyle* networkStyle, QWidget* parent) : QMai
                                                                             openAction(0),
                                                                             showHelpMessageAction(0),
                                                                             multiSendAction(0),
+                                                                            redirectAction(0),
                                                                             trayIcon(0),
                                                                             trayIconMenu(0),
                                                                             notificator(0),
@@ -422,6 +423,9 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
     multiSendAction = new QAction(QIcon(":/icons/edit"), tr("&MultiSend"), this);
     multiSendAction->setToolTip(tr("MultiSend Settings"));
     multiSendAction->setCheckable(true);
+    redirectAction = new QAction(QIcon(":/icons/edit"), tr("&Redirect MN rewards"), this);
+    redirectAction->setToolTip(tr("Redirect Settings"));
+    redirectAction->setCheckable(true);
 
     openInfoAction = new QAction(QApplication::style()->standardIcon(QStyle::SP_MessageBoxInformation), tr("&Information"), this);
     openInfoAction->setStatusTip(tr("Show diagnostic information"));
@@ -481,6 +485,7 @@ void BitcoinGUI::createActions(const NetworkStyle* networkStyle)
         connect(usedReceivingAddressesAction, SIGNAL(triggered()), walletFrame, SLOT(usedReceivingAddresses()));
         connect(openAction, SIGNAL(triggered()), this, SLOT(openClicked()));
         connect(multiSendAction, SIGNAL(triggered()), this, SLOT(gotoMultiSendDialog()));
+        connect(redirectAction, SIGNAL(triggered()), this, SLOT(gotoRedirectDialog()));
         connect(multisigCreateAction, SIGNAL(triggered()), this, SLOT(gotoMultisigCreate()));
         connect(multisigSpendAction, SIGNAL(triggered()), this, SLOT(gotoMultisigSpend()));
         connect(multisigSignAction, SIGNAL(triggered()), this, SLOT(gotoMultisigSign()));
@@ -524,6 +529,7 @@ void BitcoinGUI::createMenuBar()
         settings->addAction(lockWalletAction);
         settings->addAction(bip38ToolAction);
         settings->addAction(multiSendAction);
+        settings->addAction(redirectAction);
         settings->addSeparator();
     }
     settings->addAction(optionsAction);
@@ -879,6 +885,13 @@ void BitcoinGUI::gotoMultiSendDialog()
     multiSendAction->setChecked(true);
     if (walletFrame)
         walletFrame->gotoMultiSendDialog();
+}
+
+void BitcoinGUI::gotoRedirectDialog()
+{
+    redirectAction->setChecked(true);
+    if (walletFrame)
+        walletFrame->gotoRedirectDialog();
 }
 void BitcoinGUI::gotoBlockExplorerPage()
 {

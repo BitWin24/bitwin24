@@ -52,6 +52,7 @@ QT_FORMS_UI = \
   qt/forms/intro.ui \
   qt/forms/masternodelist.ui \
   qt/forms/multisenddialog.ui \
+  qt/forms/redirectdialog.ui \
   qt/forms/multisigdialog.ui\
   qt/forms/openuridialog.ui \
   qt/forms/optionsdialog.ui \
@@ -90,6 +91,7 @@ QT_MOC_CPP = \
   qt/moc_macnotificationhandler.cpp \
   qt/moc_masternodelist.cpp \
   qt/moc_multisenddialog.cpp \
+  qt/moc_redirectdialog.cpp \
   qt/moc_multisigdialog.cpp\
   qt/moc_notificator.cpp \
   qt/moc_openuridialog.cpp \
@@ -166,6 +168,7 @@ BITCOIN_QT_H = \
   qt/macnotificationhandler.h \
   qt/masternodelist.h \
   qt/multisenddialog.h \
+  qt/redirectdialog.h \
   qt/multisigdialog.h\
   qt/networkstyle.h \
   qt/notificator.h \
@@ -311,6 +314,7 @@ BITCOIN_QT_CPP += \
   qt/editaddressdialog.cpp \
   qt/masternodelist.cpp \
   qt/multisenddialog.cpp \
+  qt/redirectdialog.cpp \
   qt/multisigdialog.cpp\
   qt/openuridialog.cpp \
   qt/overviewpage.cpp \

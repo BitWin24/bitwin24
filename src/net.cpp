@@ -888,8 +888,9 @@ void ThreadSocketHandler()
                             TRY_LOCK(pnode->cs_vRecvMsg, lockRecv);
                             if (lockRecv) {
                                 TRY_LOCK(pnode->cs_inventory, lockInv);
-                                if (lockInv)
+                                if (lockInv) {
                                     fDelete = true;
+                                }
                             }
                         }
                     }
@@ -1546,11 +1547,7 @@ void ThreadMessageHandler()
             boost::this_thread::interruption_point();
 
             // Send messages
-            {
-                TRY_LOCK(pnode->cs_vSend, lockSend);
-                if (lockSend)
-                    g_signals.SendMessages(pnode, pnode == pnodeTrickle || pnode->fWhitelisted);
-            }
+            g_signals.SendMessages(pnode, pnode == pnodeTrickle || pnode->fWhitelisted);
             boost::this_thread::interruption_point();
         }
 

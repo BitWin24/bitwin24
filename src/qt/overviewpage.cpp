@@ -193,13 +193,14 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
     currentMasternodeEarnings = masternodeEarnings;
     currentStakeEarnings = stakeEarnings;
 
+    const auto t_begin = boost::chrono::high_resolution_clock::now();
     CAmount nLockedBalance = 0;
     CAmount nWatchOnlyLockedBalance = 0;
     if (pwalletMain) {
         nLockedBalance = pwalletMain->GetLockedCoins();
         nWatchOnlyLockedBalance = pwalletMain->GetLockedWatchOnlyBalance();
     }
-
+    const auto t_mid = boost::chrono::high_resolution_clock::now();
     // BITWIN24 Balance
     CAmount nTotalBalance = balance + unconfirmedBalance;
     CAmount bitwin24AvailableBalance = balance - immatureBalance - nLockedBalance;
@@ -310,6 +311,10 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
         cachedTxLocks = nCompleteTXLocks;
         ui->listTransactions->update();
     }
+    const auto t_end = boost::chrono::high_resolution_clock::now();
+    LogPrintf("OverviewPage::setBalance %d ms, %d ms\n",
+        boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
+        boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid - t_begin).count());
 }
 
 // show/hide watch-only labels

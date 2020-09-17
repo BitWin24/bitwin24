@@ -16,6 +16,8 @@ class WalletModel;
 
 class CWallet;
 
+constexpr int MAX_UPDATED_TRANSACTIONS = 100;
+
 /** UI model for the transaction table of a wallet.
  */
 class TransactionTableModel : public QAbstractTableModel
@@ -32,7 +34,8 @@ public:
         Date = 2,
         Type = 3,
         ToAddress = 4,
-        Amount = 5
+        Comment = 5,
+        Amount = 6
     };
 
     /** Roles to get specific information from a transaction row.
@@ -53,6 +56,8 @@ public:
         AddressRole,
         /** Label of address related to transaction */
         LabelRole,
+        /** Comment of transaction */
+        CommentRole,
         /** Net amount of transaction */
         AmountRole,
         /** Unique identifier */

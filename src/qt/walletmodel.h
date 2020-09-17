@@ -15,6 +15,9 @@
 #include "swifttx.h"
 #include "wallet.h"
 
+#include <boost/thread.hpp>
+
+#include <atomic>
 #include <map>
 #include <vector>
 
@@ -223,6 +226,8 @@ public:
     void loadReceiveRequests(std::vector<std::string>& vReceiveRequests);
     bool saveReceiveRequest(const std::string& sAddress, const int64_t nId, const std::string& sRequest);
 
+    bool setTxComment(uint256 hash, const std::string& comment);
+
 private:
     CWallet* wallet;
     bool fHaveWatchOnly;
@@ -254,8 +259,11 @@ private:
     int cachedNumBlocks;
     int cachedTxLocks;
     int cachedZeromintPercentage;
+    boost::mutex cacheMutex;
 
     QTimer* pollTimer;
+    std::atomic_bool pollInProgress;
+    std::unique_ptr<boost::thread> pollThread;
 
     void subscribeToCoreSignals();
     void unsubscribeFromCoreSignals();

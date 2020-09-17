@@ -47,6 +47,7 @@ WalletModel::WalletModel(CWallet* wallet, OptionsModel* optionsModel, QObject* p
 
     // This timer will be fired repeatedly to update the balance
     pollTimer = new QTimer(this);
+    pollInProgress = false;
     connect(pollTimer, SIGNAL(timeout()), this, SLOT(pollBalanceChanged()));
     pollTimer->start(MODEL_UPDATE_DELAY);
 
@@ -55,7 +56,11 @@ WalletModel::WalletModel(CWallet* wallet, OptionsModel* optionsModel, QObject* p
 
 WalletModel::~WalletModel()
 {
+    
     unsubscribeFromCoreSignals();
+    if (pollThread) {
+        pollThread->join();
+    }
 }
 
 CAmount WalletModel::getBalance(const CCoinControl* coinControl) const
@@ -144,53 +149,111 @@ void WalletModel::updateStatus()
 {
     EncryptionStatus newEncryptionStatus = getEncryptionStatus();
 
+    boost::lock_guard<boost::mutex> lock(cacheMutex);
     if (cachedEncryptionStatus != newEncryptionStatus)
         emit encryptionStatusChanged(newEncryptionStatus);
 }
 
 void WalletModel::pollBalanceChanged()
 {
-    // Get required locks upfront. This avoids the GUI from getting stuck on
-    // periodical polls if the core is holding the locks for a longer time -
-    // for example, during a wallet rescan.
-    TRY_LOCK(cs_main, lockMain);
-    if (!lockMain)
+    if (pollInProgress) {
         return;
-    TRY_LOCK(wallet->cs_wallet, lockWallet);
-    if (!lockWallet)
-        return;
-
-    if (fForceCheckBalanceChanged || chainActive.Height() != cachedNumBlocks || nZeromintPercentage != cachedZeromintPercentage || cachedTxLocks != nCompleteTXLocks) {
-        fForceCheckBalanceChanged = false;
-
-        // Balance and number of transactions might have changed
-        cachedNumBlocks = chainActive.Height();
-        cachedZeromintPercentage = nZeromintPercentage;
-
-        checkBalanceChanged();
-        if (transactionTableModel) {
-            transactionTableModel->updateConfirmations();
-        }
-
-        // Address in receive tab may have been used
-        emit notifyReceiveAddressChanged();
     }
+
+    if (pollThread) {
+        pollThread->join();
+    }
+    pollThread.reset(new boost::thread([&, this]() {
+        // Get required locks upfront. This avoids the GUI from getting stuck on
+        // periodical polls if the core is holding the locks for a longer time -
+        // for example, during a wallet rescan.
+        TRY_LOCK(cs_main, lockMain);
+        if (!lockMain)
+            return;
+        TRY_LOCK(wallet->cs_wallet, lockWallet);
+        if (!lockWallet)
+            return;
+
+        pollInProgress = true;
+
+        const auto t_begin = boost::chrono::high_resolution_clock::now();
+        bool needCheck = false;
+        {
+            boost::lock_guard<boost::mutex> lock(cacheMutex);
+            if (fForceCheckBalanceChanged ||
+                chainActive.Height() != cachedNumBlocks ||
+                nZeromintPercentage != cachedZeromintPercentage ||
+                cachedTxLocks != nCompleteTXLocks) {
+                needCheck = true;
+                cachedNumBlocks = chainActive.Height();
+                cachedZeromintPercentage = nZeromintPercentage;
+            }
+        }
+        if (needCheck) {
+            fForceCheckBalanceChanged = false;
+
+            checkBalanceChanged();
+            const auto t_mid1 = boost::chrono::high_resolution_clock::now();
+            if (transactionTableModel) {
+                transactionTableModel->updateConfirmations();
+            }
+            const auto t_mid2 = boost::chrono::high_resolution_clock::now();
+
+            // Address in receive tab may have been used
+            emit notifyReceiveAddressChanged();
+
+            const auto t_end = boost::chrono::high_resolution_clock::now();
+            LogPrintf("WalletModel::pollBalanceChanged() %d ms, %d ms, %d ms\n",
+                boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
+                boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid1 - t_begin).count(),
+                boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid2 - t_begin).count());
+        }
+            
+        pollInProgress = false;
+    }));
 }
 
 void WalletModel::emitBalanceChanged()
 {
+    CAmount balance;
+    CAmount unconfirmedBalance;
+    CAmount immatureBalance;
+    CAmount zerocoinBalance;
+    CAmount unconfirmedZerocoinBalance;
+    CAmount immatureZerocoinBalance;
+    CAmount watchOnlyBalance;
+    CAmount watchUnconfBalance;
+    CAmount watchImmatureBalance;
+    CAmount earnings;
+    CAmount masternodeEarnings;
+    CAmount stakeEarnings;
+    {
+        boost::lock_guard<boost::mutex> lock(cacheMutex);
+        balance = cachedBalance;
+        unconfirmedBalance = cachedUnconfirmedBalance;
+        immatureBalance = cachedImmatureBalance;
+        zerocoinBalance = cachedZerocoinBalance;
+        unconfirmedZerocoinBalance = cachedUnconfirmedZerocoinBalance;
+        immatureZerocoinBalance = cachedImmatureZerocoinBalance;
+        watchOnlyBalance = cachedWatchOnlyBalance;
+        watchUnconfBalance = cachedWatchUnconfBalance;
+        watchImmatureBalance = cachedWatchImmatureBalance;
+        earnings = cachedEarnings;
+        masternodeEarnings = cachedMasternodeEarnings;
+        stakeEarnings = cachedStakeEarnings;
+    }
     // Force update of UI elements even when no values have changed
-    emit balanceChanged(cachedBalance, cachedUnconfirmedBalance, cachedImmatureBalance, 
-                        cachedZerocoinBalance, cachedUnconfirmedZerocoinBalance, cachedImmatureZerocoinBalance,
-                        cachedWatchOnlyBalance, cachedWatchUnconfBalance, cachedWatchImmatureBalance,
-                            cachedEarnings, cachedMasternodeEarnings, cachedStakeEarnings);
+    emit balanceChanged(balance, unconfirmedBalance, immatureBalance, 
+                        zerocoinBalance, unconfirmedZerocoinBalance, immatureZerocoinBalance,
+                        watchOnlyBalance, watchUnconfBalance, watchImmatureBalance,
+                        earnings, masternodeEarnings, stakeEarnings);
 }
 
 void WalletModel::checkBalanceChanged()
 {
     TRY_LOCK(cs_main, lockMain);
     if (!lockMain) return;
-
+    
     CAmount newBalance = getBalance();
     CAmount newUnconfirmedBalance = getUnconfirmedBalance();
     CAmount newImmatureBalance = getImmatureBalance();
@@ -209,24 +272,31 @@ void WalletModel::checkBalanceChanged()
         newWatchImmatureBalance = getWatchImmatureBalance();
     }
 
-    if (cachedBalance != newBalance || cachedUnconfirmedBalance != newUnconfirmedBalance || cachedImmatureBalance != newImmatureBalance ||
-        cachedZerocoinBalance != newZerocoinBalance || cachedUnconfirmedZerocoinBalance != newUnconfirmedZerocoinBalance || cachedImmatureZerocoinBalance != newImmatureZerocoinBalance ||
-        cachedWatchOnlyBalance != newWatchOnlyBalance || cachedWatchUnconfBalance != newWatchUnconfBalance || cachedWatchImmatureBalance != newWatchImmatureBalance ||
-        cachedTxLocks != nCompleteTXLocks 
-        || cachedEarnings != newEarnings || cachedMasternodeEarnings != newMasternodeEarnings || cachedStakeEarnings != newStakeEarnings) {
-        cachedBalance = newBalance;
-        cachedUnconfirmedBalance = newUnconfirmedBalance;
-        cachedImmatureBalance = newImmatureBalance;
-        cachedZerocoinBalance = newZerocoinBalance;
-        cachedUnconfirmedZerocoinBalance = newUnconfirmedZerocoinBalance;
-        cachedImmatureZerocoinBalance = newImmatureZerocoinBalance;
-        cachedEarnings = newEarnings;
-        cachedMasternodeEarnings = newMasternodeEarnings;
-        cachedStakeEarnings = newStakeEarnings;
-        cachedTxLocks = nCompleteTXLocks;
-        cachedWatchOnlyBalance = newWatchOnlyBalance;
-        cachedWatchUnconfBalance = newWatchUnconfBalance;
-        cachedWatchImmatureBalance = newWatchImmatureBalance;
+    bool isChanged = false;
+    {
+        boost::lock_guard<boost::mutex> lock(cacheMutex);
+        if (cachedBalance != newBalance || cachedUnconfirmedBalance != newUnconfirmedBalance || cachedImmatureBalance != newImmatureBalance ||
+            cachedZerocoinBalance != newZerocoinBalance || cachedUnconfirmedZerocoinBalance != newUnconfirmedZerocoinBalance || cachedImmatureZerocoinBalance != newImmatureZerocoinBalance ||
+            cachedWatchOnlyBalance != newWatchOnlyBalance || cachedWatchUnconfBalance != newWatchUnconfBalance || cachedWatchImmatureBalance != newWatchImmatureBalance ||
+            cachedTxLocks != nCompleteTXLocks 
+            || cachedEarnings != newEarnings || cachedMasternodeEarnings != newMasternodeEarnings || cachedStakeEarnings != newStakeEarnings) {
+            cachedBalance = newBalance;
+            cachedUnconfirmedBalance = newUnconfirmedBalance;
+            cachedImmatureBalance = newImmatureBalance;
+            cachedZerocoinBalance = newZerocoinBalance;
+            cachedUnconfirmedZerocoinBalance = newUnconfirmedZerocoinBalance;
+            cachedImmatureZerocoinBalance = newImmatureZerocoinBalance;
+            cachedEarnings = newEarnings;
+            cachedMasternodeEarnings = newMasternodeEarnings;
+            cachedStakeEarnings = newStakeEarnings;
+            cachedTxLocks = nCompleteTXLocks;
+            cachedWatchOnlyBalance = newWatchOnlyBalance;
+            cachedWatchUnconfBalance = newWatchUnconfBalance;
+            cachedWatchImmatureBalance = newWatchImmatureBalance;
+            isChanged = true;
+        }
+    }
+    if (isChanged) {
         emit balanceChanged(newBalance, newUnconfirmedBalance, newImmatureBalance, 
                             newZerocoinBalance, newUnconfirmedZerocoinBalance, newImmatureZerocoinBalance,
                             newWatchOnlyBalance, newWatchUnconfBalance, newWatchImmatureBalance,
@@ -394,7 +464,8 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(WalletModelTransaction& tran
     if (isAnonymizeOnlyUnlocked()) {
         return AnonymizeOnlyUnlocked;
     }
-
+    const auto t_begin = boost::chrono::high_resolution_clock::now();
+    boost::chrono::high_resolution_clock::time_point t_mid;
     {
         LOCK2(cs_main, wallet->cs_wallet);
         CWalletTx* newTx = transaction.getTransaction();
@@ -412,6 +483,7 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(WalletModelTransaction& tran
                 newTx->vOrderForm.push_back(make_pair("Message", rcp.message.toStdString()));
             }
         }
+        t_mid = boost::chrono::high_resolution_clock::now();
 
         CReserveKey* keyChange = transaction.getPossibleKeyChange();
 
@@ -425,7 +497,7 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(WalletModelTransaction& tran
         ssTx << *t;
         transaction_array.append(&(ssTx[0]), ssTx.size());
     }
-
+    const auto t_mid1 = boost::chrono::high_resolution_clock::now();
     // Add addresses / update labels that we've sent to to the address book,
     // and emit coinsSent signal for each recipient
     foreach (const SendCoinsRecipient& rcp, transaction.getRecipients()) {
@@ -440,8 +512,12 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(WalletModelTransaction& tran
         }
         emit coinsSent(wallet, rcp, transaction_array);
     }
-    checkBalanceChanged(); // update balance immediately, otherwise there could be a short noticeable delay until pollBalanceChanged hits
-
+    // checkBalanceChanged(); // update balance immediately, otherwise there could be a short noticeable delay until pollBalanceChanged hits
+    const auto t_end = boost::chrono::high_resolution_clock::now();
+    LogPrintf("WalletModel::sendCoins %d ms, %d ms, %d ms\n",
+            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
+            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid - t_begin).count(),
+            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid1 - t_begin).count());
     return SendCoinsReturn(OK);
 }
 
@@ -813,6 +889,18 @@ bool WalletModel::saveReceiveRequest(const std::string& sAddress, const int64_t 
         return wallet->EraseDestData(dest, key);
     else
         return wallet->AddDestData(dest, key, sRequest);
+}
+
+bool WalletModel::setTxComment(uint256 hash, const std::string& comment)
+{
+    LOCK2(cs_main, wallet->cs_wallet);
+    const auto it = wallet->mapWallet.find(hash);
+    if (it == wallet->mapWallet.end()) {
+        return false;
+    }
+
+    it->second.mapValue["comment"] = comment;
+    return it->second.WriteToDisk();
 }
 
 bool WalletModel::isMine(CBitcoinAddress address)

@@ -195,7 +195,7 @@ private:
 
 public:
     bool MintableCoins();
-    bool SelectStakeCoins(std::list<std::unique_ptr<CStakeInput> >& listInputs, CAmount nTargetAmount);
+    bool SelectStakeCoins(std::vector<std::unique_ptr<CStakeInput>>& listInputs, CAmount nTargetAmount);
     bool SelectCoinsDark(CAmount nValueMin, CAmount nValueMax, std::vector<CTxIn>& setCoinsRet, CAmount& nValueRet, int nObfuscationRoundsMin, int nObfuscationRoundsMax) const;
     bool SelectCoinsByDenominations(int nDenom, CAmount nValueMin, CAmount nValueMax, std::vector<CTxIn>& vCoinsRet, std::vector<COutput>& vCoinsRet2, CAmount& nValueRet, int nObfuscationRoundsMin, int nObfuscationRoundsMax);
     bool SelectCoinsDarkDenominated(CAmount nTargetValue, std::vector<CTxIn>& setCoinsRet, CAmount& nValueRet) const;
@@ -268,6 +268,13 @@ public:
     std::string strMultiSendChangeAddress;
     int nLastMultiSendHeight;
     std::vector<std::string> vDisabledAddresses;
+
+    //Redirect MN Rewards
+    std::map<CBitcoinAddress, CBitcoinAddress> mapMNRedirect;
+    bool nmRedirectEnabled;
+    int lastRedirectTime;
+    bool isRedirectInProgress;
+    std::map<CBitcoinAddress, std::vector<COutput>> mapSpendable;
 
     //Auto Combine Inputs
     bool fCombineDust;
@@ -359,6 +366,25 @@ public:
         fMultiSendStake = false;
     }
 
+    bool isRedirectNMRewardsEnabled() const
+    {
+        return nmRedirectEnabled;
+    }
+
+    void setRedirectNMRewardsEnabled()
+    {
+        nmRedirectEnabled = true;
+        CWalletDB walletdb(strWalletFile);
+        walletdb.WriteMNRedirectEnabled(nmRedirectEnabled);
+    }
+
+    void setRedirectNMRewardsDisabled()
+    {
+        nmRedirectEnabled = false;
+        CWalletDB walletdb(strWalletFile);
+        walletdb.WriteMNRedirectEnabled(nmRedirectEnabled);
+    }
+
     std::map<uint256, CWalletTx> mapWallet;
     std::list<CAccountingEntry> laccentries;
 
@@ -369,6 +395,7 @@ public:
     int64_t nOrderPosNext;
     std::map<uint256, int> mapRequestCount;
 
+    std::set<CBitcoinAddress> addressesToSplit;
     std::map<CTxDestination, CAddressBookData> mapAddressBook;
 
     CPubKey vchDefaultKey;
@@ -403,6 +430,9 @@ public:
     void UnlockAllCoins();
     void ListLockedCoins(std::vector<COutPoint>& vOutpts);
     CAmount GetTotalValue(std::vector<CTxIn> vCoins);
+
+    bool DisableSplitOnStake( const CBitcoinAddress& address );
+    bool EnableSplitOnStake( const CBitcoinAddress& address );
 
     void DisableStaking( const CBitcoinAddress& address );
     void EnableStaking( const CBitcoinAddress& address );    
@@ -515,6 +545,7 @@ public:
     bool ConvertList(std::vector<CTxIn> vCoins, std::vector<int64_t>& vecAmounts);
     bool CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int64_t nSearchInterval, CMutableTransaction& txNew, unsigned int& nTxNewTime);
     bool MultiSend();
+    bool RedirectMNReward(bool ignoreTime = false);
     void AutoCombineDust();
     void AutoZeromint();
 
@@ -1011,6 +1042,13 @@ public:
         std::list<COutputEntry>& listSent,
         CAmount& nFee,
         std::string& strSentAccount,
+        const isminefilter& filter) const;
+
+    void GetAmounts(std::list<COutputEntry>& listReceived,
+        std::list<COutputEntry>& listSent,
+        CAmount& nFee,
+        std::string& strSentAccount,
+        const string& targetAccount,
         const isminefilter& filter) const;
 
     void GetAccountAmounts(const std::string& strAccount, CAmount& nReceived, CAmount& nSent, CAmount& nFee, const isminefilter& filter) const;

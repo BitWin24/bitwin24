@@ -13,6 +13,7 @@
 #include "guiutil.h"
 #include "masternodeconfig.h"
 #include "multisenddialog.h"
+#include "redirectdialog.h"
 #include "multisigdialog.h"
 #include "optionsmodel.h"
 #include "overviewpage.h"
@@ -329,6 +330,13 @@ void WalletView::gotoMultiSendDialog()
     MultiSendDialog* multiSendDialog = new MultiSendDialog(this);
     multiSendDialog->setModel(walletModel);
     multiSendDialog->show();
+}
+
+void WalletView::gotoRedirectDialog()
+{
+    RedirectDialog* redirectDialog = new RedirectDialog(this);
+    redirectDialog->setModel(walletModel);
+    redirectDialog->show();
 }
 
 void WalletView::gotoMultisigDialog(int index)

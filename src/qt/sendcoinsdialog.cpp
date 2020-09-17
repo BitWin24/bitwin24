@@ -357,6 +357,11 @@ void SendCoinsDialog::send(QList<SendCoinsRecipient> recipients, QString strFee,
         return;
     }
 
+    if (!ui->commentTextLabel->text().isEmpty()) {
+        CWalletTx* wTx = currentTransaction.getTransaction();
+        wTx->mapValue["comment"] = ui->commentTextLabel->text().toStdString();
+    }
+
     CAmount txFee = currentTransaction.getTransactionFee();
     QString questionString = tr("Are you sure you want to send?");
     questionString.append("<br /><br />%1");
@@ -433,6 +438,7 @@ void SendCoinsDialog::clear()
         ui->entries->takeAt(0)->widget()->deleteLater();
     }
     addEntry();
+    ui->commentTextLabel->clear();
 
     updateTabsAndLabels();
 }

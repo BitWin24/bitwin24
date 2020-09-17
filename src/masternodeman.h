@@ -68,11 +68,88 @@ private:
     // which Masternodes we've asked for
     std::map<COutPoint, int64_t> mWeAskedForMasternodeListEntry;
 
-public:
-    // Keep track of all broadcasts I've seen
-    map<uint256, CMasternodeBroadcast> mapSeenMasternodeBroadcast;
+    // critical section to protect mapSeenMasternodeBroadcast and mapSeenMasternodePing
+    mutable CCriticalSection cs_mapSeenMasternode;
     // Keep track of all pings I've seen
     map<uint256, CMasternodePing> mapSeenMasternodePing;
+    // Keep track of all broadcasts I've seen
+    map<uint256, CMasternodeBroadcast> mapSeenMasternodeBroadcast;
+
+public:
+
+    void mapSeenMasternodeBroadcastInsert(const uint256& hash, const CMasternodeBroadcast& mnb)
+    {
+        LOCK(cs_mapSeenMasternode);
+        mapSeenMasternodeBroadcast.insert(make_pair(hash, mnb));
+    }
+
+    void mapSeenMasternodeBroadcastErase(const uint256& hash)
+    {
+        LOCK(cs_mapSeenMasternode);
+        mapSeenMasternodeBroadcast.erase(hash);
+    }
+
+    void mapSeenMasternodeBroadcastUpdate(const uint256& hash, std::function<void(CMasternodeBroadcast&)> f)
+    {
+        LOCK(cs_mapSeenMasternode);
+        f(mapSeenMasternodeBroadcast[hash]);
+    }
+
+    size_t mapSeenMasternodeBroadcastSize() const
+    {
+        LOCK(cs_mapSeenMasternode);
+        return mapSeenMasternodeBroadcast.size();
+    }
+
+    size_t mapSeenMasternodeBroadcastCount(const uint256& hash) const
+    {
+        LOCK(cs_mapSeenMasternode);
+        return mapSeenMasternodeBroadcast.count(hash);
+    }
+
+    const CMasternodeBroadcast& mapSeenMasternodeBroadcastGet(const uint256& hash)
+    {
+        LOCK(cs_mapSeenMasternode);
+        return mapSeenMasternodeBroadcast[hash];
+    }
+
+    map<uint256, CMasternodeBroadcast> mapSeenMasternodeBroadcastCopy() const
+    {
+        LOCK(cs_mapSeenMasternode);
+        return mapSeenMasternodeBroadcast;
+    }
+
+    //===================================================
+
+    void mapSeenMasternodePingInsert(const uint256& hash, const CMasternodePing& mnp)
+    {
+        LOCK(cs_mapSeenMasternode);
+        mapSeenMasternodePing.insert(make_pair(hash, mnp));
+    }
+
+    size_t mapSeenMasternodePingSize() const
+    {
+        LOCK(cs_mapSeenMasternode);
+        return mapSeenMasternodePing.size();
+    }
+
+    size_t mapSeenMasternodePingCount(const uint256& hash) const
+    {
+        LOCK(cs_mapSeenMasternode);
+        return mapSeenMasternodePing.count(hash);
+    }
+
+    const CMasternodePing& mapSeenMasternodePingGet(const uint256& hash)
+    {
+        LOCK(cs_mapSeenMasternode);
+        return mapSeenMasternodePing[hash];
+    }
+
+    map<uint256, CMasternodePing> mapSeenMasternodePingCopy() const
+    {
+        LOCK(cs_mapSeenMasternode);
+        return mapSeenMasternodePing;
+    }
 
     // keep track of dsq count to prevent masternodes from gaming obfuscation queue
     int64_t nDsqCount;
@@ -89,6 +166,7 @@ public:
         READWRITE(mWeAskedForMasternodeListEntry);
         READWRITE(nDsqCount);
 
+        LOCK(cs_mapSeenMasternode);
         READWRITE(mapSeenMasternodeBroadcast);
         READWRITE(mapSeenMasternodePing);
     }

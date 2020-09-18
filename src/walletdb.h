@@ -129,6 +129,7 @@ public:
     bool WriteMNRedirect(const std::string& from, const std::string& to);
     bool EraseMNRedirect(const std::string& from);
     bool WriteLastMNRedirectTime(int t);
+    bool WriteMNRedirectDailyHour(int t);
     bool WriteMNRedirectEnabled(bool enabled);
 
     bool WriteDefaultKey(const CPubKey& vchPubKey);

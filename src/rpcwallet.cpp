@@ -2725,6 +2725,7 @@ UniValue printRedirectMNRewards()
     UniValue ret(UniValue::VARR);
     UniValue act(UniValue::VOBJ);
     act.push_back(Pair("Redirect Activated?", pwalletMain->isRedirectNMRewardsEnabled()));
+    act.push_back(Pair("Time", std::to_string(pwalletMain->redirectDailyHour) + ":00"));
     ret.push_back(act);
 
     UniValue vMS(UniValue::VOBJ);
@@ -2753,7 +2754,8 @@ UniValue redirectmnrewards(const UniValue& params, bool fHelp)
                 "TO DELETE: redirectmnrewards delete <address>\n"
                 "address - address of masternode\n"
                 "****************************************************************\n"
-                "TO ACTIVATE: redirectmnrewards activate\n"
+                "TO ACTIVATE: redirectmnrewards activate [<hour_of_day>]\n"
+                "hour_of_day (optional) - hour of a day to execute redirect automatically\n"
                 "****************************************************************\n"
                 "TO DISABLE: redirectmnrewards disable\n"
                 "****************************************************************\n"
@@ -2818,6 +2820,10 @@ UniValue redirectmnrewards(const UniValue& params, bool fHelp)
         }
         if (!pwalletMain->mapMNRedirect.begin()->first.IsValid()) {
             throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Unable to activate Redirect, check Redirect map");
+        }
+        if (params.size() == 2) {
+            const auto hour = boost::lexical_cast<int>(params[1].get_str());
+            pwalletMain->setRedirectDailyHour(hour);
         }
         pwalletMain->setRedirectNMRewardsEnabled();
         return printRedirectMNRewards();

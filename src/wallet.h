@@ -27,6 +27,7 @@
 #include "zbwitracker.h"
 
 #include <algorithm>
+#include <ctime>
 #include <map>
 #include <set>
 #include <stdexcept>
@@ -273,6 +274,7 @@ public:
     std::map<CBitcoinAddress, CBitcoinAddress> mapMNRedirect;
     bool nmRedirectEnabled;
     int lastRedirectTime;
+    int redirectDailyHour = 7;
     bool isRedirectInProgress;
     std::map<CBitcoinAddress, std::vector<COutput>> mapSpendable;
 
@@ -369,6 +371,33 @@ public:
     bool isRedirectNMRewardsEnabled() const
     {
         return nmRedirectEnabled;
+    }
+    bool isRedirectTimerUp() const
+    {
+        if (chainActive.Tip()->nTime > lastRedirectTime + 24 * 60 * 60) {
+            return true;
+        }
+
+        const auto lastT = static_cast<std::time_t>(lastRedirectTime);
+        auto local = std::localtime(&lastT);
+        if (!local) {
+            return true;
+        }
+        const auto lastRedirectTm = *local;
+        std::time_t t = std::time(nullptr);
+        local = std::localtime(&t);
+        if (!local) {
+            return true;
+        }
+        const auto currentTm = *local;
+        return currentTm.tm_hour >= redirectDailyHour &&
+               (lastRedirectTm.tm_yday < currentTm.tm_yday || lastRedirectTm.tm_hour < redirectDailyHour);
+    }
+
+    void setRedirectDailyHour(int hour)
+    {
+        CWalletDB walletdb(strWalletFile);
+        walletdb.WriteMNRedirectDailyHour(hour);
     }
 
     void setRedirectNMRewardsEnabled()

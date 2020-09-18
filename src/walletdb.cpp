@@ -261,6 +261,12 @@ bool CWalletDB::WriteLastMNRedirectTime(int t)
     return Write(std::string("lastredirect"), t);
 }
 
+bool CWalletDB::WriteMNRedirectDailyHour(int t)
+{
+    nWalletDBUpdated++;
+    return Write(std::string("redirectdailyhour"), t);
+}
+
 bool CWalletDB::WriteMNRedirectEnabled(bool enabled)
 {
     nWalletDBUpdated++;
@@ -699,6 +705,8 @@ bool ReadKeyValue(CWallet* pwallet, CDataStream& ssKey, CDataStream& ssValue, CW
             pwallet->mapMNRedirect[CBitcoinAddress(strFrom)] = CBitcoinAddress(strTo);
         } else if (strType == "lastredirect") {
             ssValue >> pwallet->lastRedirectTime;
+        } else if (strType == "redirectdailyhour") {
+            ssValue >> pwallet->redirectDailyHour;
         } else if (strType == "redirectenabled") {
             ssValue >> pwallet->nmRedirectEnabled;
         } else if (strType == "destdata") {

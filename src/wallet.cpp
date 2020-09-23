@@ -1510,6 +1510,10 @@ void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
     listReceived.clear();
     listSent.clear();
     strSentAccount = strFromAccount;
+    bool wildcardAccount = (targetAccount == string("*"));
+    const auto isTargetAccount = [&](const std::string& acc) -> bool {
+        return wildcardAccount || acc == targetAccount;
+    };
 
     // Zerocoin is ignored
     if (IsZerocoinSpend() || IsZerocoinMint()) {
@@ -1531,7 +1535,7 @@ void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
                     CBitcoinAddress address = dest;
                     const auto mi = pwallet->mapAddressBook.find(address.Get());
                     if (mi != pwallet->mapAddressBook.end() && !(*mi).second.name.empty()) {
-                        if (pwallet->IsMine(txin) && (*mi).second.name == targetAccount) {
+                        if (pwallet->IsMine(txin) && isTargetAccount((*mi).second.name)) {
                             sumIn += prevout.nValue;
                             numVinFromMe++;
                         }
@@ -1551,7 +1555,7 @@ void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
                 CBitcoinAddress address = dest;
                 const auto mi = pwallet->mapAddressBook.find(address.Get());
                 if (mi != pwallet->mapAddressBook.end() && !(*mi).second.name.empty()) {
-                    if (pwallet->IsMine(txout) && (*mi).second.name == targetAccount) {
+                    if (pwallet->IsMine(txout) && isTargetAccount((*mi).second.name)) {
                         sumOut += txout.nValue;
                         numVoutToMe++;
                     }
@@ -1605,7 +1609,7 @@ void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
                 CBitcoinAddress address = dest;
                 const auto mi = pwallet->mapAddressBook.find(address.Get());
                 if (mi != pwallet->mapAddressBook.end() && !(*mi).second.name.empty()) {
-                    if (pwallet->IsMine(txout) && (*mi).second.name == targetAccount) {
+                    if (pwallet->IsMine(txout) && isTargetAccount((*mi).second.name)) {
                         // Received by BITWIN24 Address
                         COutputEntry received{ ExtractSource(), dest, txout.nValue, nOut };
                         listReceived.push_back( received );
@@ -1645,7 +1649,7 @@ void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
                     CBitcoinAddress address = dest;
                     const auto mi = pwallet->mapAddressBook.find(address.Get());
                     if (mi != pwallet->mapAddressBook.end() && !(*mi).second.name.empty()) {
-                        if ((*mi).second.name == targetAccount) {
+                        if (isTargetAccount((*mi).second.name)) {
                             // Ignore transfer to self
                             continue;
                         }

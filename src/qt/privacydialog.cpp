@@ -132,10 +132,11 @@ void PrivacyDialog::setModel(WalletModel* walletModel)
 
     if (walletModel && walletModel->getOptionsModel()) {
         // Keep up to date with wallet
-        setBalance(walletModel->getBalance(), walletModel->getUnconfirmedBalance(), walletModel->getImmatureBalance(),
-                   walletModel->getZerocoinBalance(), walletModel->getUnconfirmedZerocoinBalance(), walletModel->getImmatureZerocoinBalance(),
-                   walletModel->getWatchBalance(), walletModel->getWatchUnconfirmedBalance(), walletModel->getWatchImmatureBalance(),
-                   walletModel->getEarnings(), walletModel->getMasternodeEarnings(), walletModel->getStakeEarnings());
+        const auto balanceInfo = walletModel->getBalanceInfo();
+        setBalance(balanceInfo.nTotal, balanceInfo.unconfirmed, balanceInfo.immature,
+                   model->getZerocoinBalance(), model->getUnconfirmedZerocoinBalance(), model->getImmatureZerocoinBalance(),
+                   balanceInfo.watchOnly, balanceInfo.unconfirmedWatchOnly, balanceInfo.immatureWatchOnly,
+                   balanceInfo.allEarnings, balanceInfo.masternodeEarnings, balanceInfo.allEarnings - balanceInfo.masternodeEarnings);
 
         connect(walletModel, SIGNAL(balanceChanged(CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount)), this,
                                SLOT(setBalance(CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount)));
@@ -237,10 +238,11 @@ void PrivacyDialog::on_pushButtonMintzBWI_clicked()
     ui->TEMintStatus->verticalScrollBar()->setValue(ui->TEMintStatus->verticalScrollBar()->maximum()); // Automatically scroll to end of text
 
     // Available balance isn't always updated, so force it.
-    setBalance(walletModel->getBalance(), walletModel->getUnconfirmedBalance(), walletModel->getImmatureBalance(),
-               walletModel->getZerocoinBalance(), walletModel->getUnconfirmedZerocoinBalance(), walletModel->getImmatureZerocoinBalance(),
-               walletModel->getWatchBalance(), walletModel->getWatchUnconfirmedBalance(), walletModel->getWatchImmatureBalance(),
-               walletModel->getEarnings(), walletModel->getMasternodeEarnings(), walletModel->getStakeEarnings());
+    const auto balanceInfo = walletModel->getBalanceInfo();
+    setBalance(balanceInfo.nTotal, balanceInfo.unconfirmed, balanceInfo.immature,
+                   model->getZerocoinBalance(), model->getUnconfirmedZerocoinBalance(), model->getImmatureZerocoinBalance(),
+                   balanceInfo.watchOnly, balanceInfo.unconfirmedWatchOnly, balanceInfo.immatureWatchOnly,
+                   balanceInfo.allEarnings, balanceInfo.masternodeEarnings, balanceInfo.allEarnings - balanceInfo.masternodeEarnings);
     coinControlUpdateLabels();
 
     return;

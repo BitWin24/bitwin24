@@ -113,6 +113,17 @@ enum ZerocoinSpendStatus {
     ZBWI_SPEND_V1_SEC_LEVEL                         // Spend is V1 and security level is not set to 100
 };
 
+struct BalanceInfo {
+    CAmount nTotal = 0;
+    CAmount masternodeEarnings = 0;
+    CAmount allEarnings = 0;
+    CAmount unconfirmed = 0;
+    CAmount immature = 0;
+    CAmount watchOnly = 0;
+    CAmount unconfirmedWatchOnly = 0;
+    CAmount immatureWatchOnly = 0;
+};
+
 struct CompactTallyItem {
     CBitcoinAddress address;
     CAmount nAmount;
@@ -536,6 +547,7 @@ public:
     int ScanForWalletTransactions(CBlockIndex* pindexStart, bool fUpdate = false);
     void ReacceptWalletTransactions();
     void ResendWalletTransactions();
+    BalanceInfo GetBalanceInfo() const;
     CAmount GetBalance() const;
     CAmount GetEarnings(bool fMasternodeOnly) const;
     CAmount GetZerocoinBalance(bool fMatureOnly) const;

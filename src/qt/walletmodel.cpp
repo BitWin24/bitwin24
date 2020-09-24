@@ -63,6 +63,11 @@ WalletModel::~WalletModel()
     }
 }
 
+BalanceInfo WalletModel::getBalanceInfo() const
+{
+    return wallet->GetBalanceInfo();
+}
+
 CAmount WalletModel::getBalance(const CCoinControl* coinControl) const
 {
     if (coinControl) {
@@ -253,24 +258,21 @@ void WalletModel::checkBalanceChanged()
 {
     TRY_LOCK(cs_main, lockMain);
     if (!lockMain) return;
+
+    const auto balanceInfo = getBalanceInfo();
     
-    CAmount newBalance = getBalance();
-    CAmount newUnconfirmedBalance = getUnconfirmedBalance();
-    CAmount newImmatureBalance = getImmatureBalance();
+    CAmount newBalance = balanceInfo.nTotal;
+    CAmount newUnconfirmedBalance = balanceInfo.unconfirmed;
+    CAmount newImmatureBalance = balanceInfo.immature;
     CAmount newZerocoinBalance = getZerocoinBalance();
     CAmount newUnconfirmedZerocoinBalance = getUnconfirmedZerocoinBalance();
     CAmount newImmatureZerocoinBalance = getImmatureZerocoinBalance();
-    CAmount newEarnings = getEarnings();
-    CAmount newMasternodeEarnings = getMasternodeEarnings();
-    CAmount newStakeEarnings = getStakeEarnings();
-    CAmount newWatchOnlyBalance = 0;
-    CAmount newWatchUnconfBalance = 0;
-    CAmount newWatchImmatureBalance = 0;
-    if (haveWatchOnly()) {
-        newWatchOnlyBalance = getWatchBalance();
-        newWatchUnconfBalance = getWatchUnconfirmedBalance();
-        newWatchImmatureBalance = getWatchImmatureBalance();
-    }
+    CAmount newEarnings = balanceInfo.allEarnings;
+    CAmount newMasternodeEarnings = balanceInfo.masternodeEarnings;
+    CAmount newStakeEarnings = balanceInfo.allEarnings - balanceInfo.masternodeEarnings;
+    CAmount newWatchOnlyBalance = balanceInfo.watchOnly;
+    CAmount newWatchUnconfBalance = balanceInfo.unconfirmedWatchOnly;
+    CAmount newWatchImmatureBalance = balanceInfo.immatureWatchOnly;
 
     bool isChanged = false;
     {

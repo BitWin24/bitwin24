@@ -1901,6 +1901,52 @@ void CWallet::ResendWalletTransactions()
  * @{
  */
 
+BalanceInfo CWallet::GetBalanceInfo() const
+{
+    BalanceInfo balinfo;
+    {
+        LOCK2(cs_main, cs_wallet);
+        for (map<uint256, CWalletTx>::const_iterator it = mapWallet.begin(); it != mapWallet.end(); ++it) {
+            const CWalletTx* pcoin = &(*it).second;
+
+            if (pcoin->IsTrusted())
+                balinfo.nTotal += pcoin->GetAvailableCredit();
+
+            if (/*pcoin->IsTrusted() &&*/ pcoin->IsCoinStake() && pcoin->GetDepthInMainChain() > 12 ) {
+                if (isminetype mine = IsMine(pcoin->vout[1])) {
+                    if(!(mine & ISMINE_WATCH_ONLY)) {
+                        CAmount credit = pcoin->GetCredit(ISMINE_ALL);
+                        CAmount debit = pcoin->GetDebit(ISMINE_ALL);
+                        balinfo.allEarnings += credit - debit;
+                    }
+                } else {
+                    CTxDestination destMN;
+                    int nIndexMN = pcoin->vout.size() - 1;
+                    if (ExtractDestination(pcoin->vout[nIndexMN].scriptPubKey, destMN) && ::IsMine(*this, destMN)) {
+                        balinfo.allEarnings += pcoin->vout[nIndexMN].nValue;
+                        balinfo.masternodeEarnings += pcoin->vout[nIndexMN].nValue;
+                    }
+                }
+            }
+            
+            if (!IsFinalTx(*pcoin) || (!pcoin->IsTrusted() && pcoin->GetDepthInMainChain() == 0))
+                balinfo.unconfirmed += pcoin->GetAvailableCredit();
+
+            balinfo.immature += pcoin->GetImmatureCredit();
+
+            if (pcoin->IsTrusted())
+                balinfo.watchOnly += pcoin->GetAvailableWatchOnlyCredit();
+
+            if (!IsFinalTx(*pcoin) || (!pcoin->IsTrusted() && pcoin->GetDepthInMainChain() == 0))
+                balinfo.unconfirmedWatchOnly += pcoin->GetAvailableWatchOnlyCredit();
+
+            balinfo.immatureWatchOnly += pcoin->GetImmatureWatchOnlyCredit();
+        }
+    }
+
+    return balinfo;
+}
+
 CAmount CWallet::GetBalance() const
 {
     CAmount nTotal = 0;

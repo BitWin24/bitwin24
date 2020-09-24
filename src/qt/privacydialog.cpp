@@ -134,7 +134,7 @@ void PrivacyDialog::setModel(WalletModel* walletModel)
         // Keep up to date with wallet
         const auto balanceInfo = walletModel->getBalanceInfo();
         setBalance(balanceInfo.nTotal, balanceInfo.unconfirmed, balanceInfo.immature,
-                   model->getZerocoinBalance(), model->getUnconfirmedZerocoinBalance(), model->getImmatureZerocoinBalance(),
+                   walletModel->getZerocoinBalance(), walletModel->getUnconfirmedZerocoinBalance(), walletModel->getImmatureZerocoinBalance(),
                    balanceInfo.watchOnly, balanceInfo.unconfirmedWatchOnly, balanceInfo.immatureWatchOnly,
                    balanceInfo.allEarnings, balanceInfo.masternodeEarnings, balanceInfo.allEarnings - balanceInfo.masternodeEarnings);
 
@@ -240,7 +240,7 @@ void PrivacyDialog::on_pushButtonMintzBWI_clicked()
     // Available balance isn't always updated, so force it.
     const auto balanceInfo = walletModel->getBalanceInfo();
     setBalance(balanceInfo.nTotal, balanceInfo.unconfirmed, balanceInfo.immature,
-                   model->getZerocoinBalance(), model->getUnconfirmedZerocoinBalance(), model->getImmatureZerocoinBalance(),
+                   walletModel->getZerocoinBalance(), walletModel->getUnconfirmedZerocoinBalance(), walletModel->getImmatureZerocoinBalance(),
                    balanceInfo.watchOnly, balanceInfo.unconfirmedWatchOnly, balanceInfo.immatureWatchOnly,
                    balanceInfo.allEarnings, balanceInfo.masternodeEarnings, balanceInfo.allEarnings - balanceInfo.masternodeEarnings);
     coinControlUpdateLabels();

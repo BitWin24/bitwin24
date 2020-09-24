@@ -1563,6 +1563,8 @@ void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
             }
         }
     }
+    LogPrintf("Info from GetAmounts(): sumIn=%d, sumOut=%d, numVin=%d, numVout=%d\n",
+              sumIn, sumOut, numVinFromMe, numVoutToMe);
 
     if (IsCoinStake()) {
         CTxDestination address;

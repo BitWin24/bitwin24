@@ -1563,8 +1563,8 @@ void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
             }
         }
     }
-    LogPrintf("Info from GetAmounts(): sumIn=%d, sumOut=%d, numVin=%d, numVout=%d\n",
-              sumIn, sumOut, numVinFromMe, numVoutToMe);
+    LogPrintf("Info from GetAmounts(): total vin=%d, total vout=%d, sumIn=%d, sumOut=%d, numVin=%d, numVout=%d\n",
+              vin.size(), vout.size(), sumIn, sumOut, numVinFromMe, numVoutToMe);
 
     if (IsCoinStake()) {
         CTxDestination address;
@@ -1605,6 +1605,7 @@ void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
 
     if (sumOut > sumIn) {
         for(size_t nOut = 0; nOut < vout.size(); nOut++) {
+            LogPrintf("sumOut > sumIn: processing output");
             const auto& txout = vout[nOut];
             CTxDestination dest;
             if (ExtractDestination(txout.scriptPubKey, dest)) {

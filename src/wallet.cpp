@@ -1527,14 +1527,18 @@ void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
     BOOST_FOREACH (const CTxIn& txin, vin) {
         const auto mi = pwallet->mapWallet.find(txin.prevout.hash);
         if (mi != pwallet->mapWallet.end()) {
+            LogPrintf("mi != pwallet->mapWallet.end()\n");
             const CWalletTx& prev = (*mi).second;
             if (txin.prevout.n < prev.vout.size()) {
+                LogPrintf("txin.prevout.n < prev.vout.size()\n");
                 const auto& prevout = prev.vout[txin.prevout.n];
                 CTxDestination dest;
                 if (ExtractDestination(prevout.scriptPubKey, dest)) {
+                    LogPrintf("ExtractDestination(prevout.scriptPubKey, dest)\n");
                     CBitcoinAddress address = dest;
                     const auto mi = pwallet->mapAddressBook.find(address.Get());
                     if (mi != pwallet->mapAddressBook.end()) {
+                        LogPrintf("Found vin address\n");
                         if (pwallet->IsMine(txin) && isTargetAccount((*mi).second.name)) {
                             sumIn += prevout.nValue;
                             numVinFromMe++;
@@ -1547,14 +1551,18 @@ void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
     for (size_t nOut = 0; nOut < vout.size(); nOut++) {
         const auto& txout = vout[nOut];
         if (pwallet->IsChange(txout)) {
+            LogPrintf("IsChange()\n");
             sumOut += txout.nValue;
         }
         else {
+            LogPrintf("Not a change\n");
             CTxDestination dest;
             if (ExtractDestination(txout.scriptPubKey, dest)) {
+                LogPrintf("ExtractDestination(txout.scriptPubKey, dest)\n");
                 CBitcoinAddress address = dest;
                 const auto mi = pwallet->mapAddressBook.find(address.Get());
                 if (mi != pwallet->mapAddressBook.end()) {
+                    LogPrintf("Found vout address\n");
                     if (pwallet->IsMine(txout) && isTargetAccount((*mi).second.name)) {
                         sumOut += txout.nValue;
                         numVoutToMe++;
@@ -1605,7 +1613,7 @@ void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
 
     if (sumOut > sumIn) {
         for(size_t nOut = 0; nOut < vout.size(); nOut++) {
-            LogPrintf("sumOut > sumIn: processing output");
+            LogPrintf("sumOut > sumIn: processing output\n");
             const auto& txout = vout[nOut];
             CTxDestination dest;
             if (ExtractDestination(txout.scriptPubKey, dest)) {

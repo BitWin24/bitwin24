@@ -1941,6 +1941,12 @@ BalanceInfo CWallet::GetBalanceInfo() const
                 balinfo.unconfirmedWatchOnly += pcoin->GetAvailableWatchOnlyCredit();
 
             balinfo.immatureWatchOnly += pcoin->GetImmatureWatchOnlyCredit();
+
+            if (!fLiteMode && pcoin->IsTrusted() && pcoin->GetDepthInMainChain() > 0)
+                balinfo.locked += pcoin->GetLockedCredit();
+
+            if (pcoin->IsTrusted() && pcoin->GetDepthInMainChain() > 0)
+                balinfo.lockedWatchOnly += pcoin->GetLockedWatchOnlyCredit();
         }
     }
 

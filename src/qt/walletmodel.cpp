@@ -232,6 +232,8 @@ void WalletModel::emitBalanceChanged()
     CAmount earnings;
     CAmount masternodeEarnings;
     CAmount stakeEarnings;
+    CAmount lockedBalance;
+    CAmount lockedWatchOnlyBalance;
     {
         boost::lock_guard<boost::mutex> lock(cacheMutex);
         balance = cachedBalance;
@@ -246,12 +248,15 @@ void WalletModel::emitBalanceChanged()
         earnings = cachedEarnings;
         masternodeEarnings = cachedMasternodeEarnings;
         stakeEarnings = cachedStakeEarnings;
+        lockedBalance = cachedLockedBalance;
+        lockedWatchOnlyBalance = cachedLockedWatchOnlyBalance;
     }
     // Force update of UI elements even when no values have changed
     emit balanceChanged(balance, unconfirmedBalance, immatureBalance, 
                         zerocoinBalance, unconfirmedZerocoinBalance, immatureZerocoinBalance,
                         watchOnlyBalance, watchUnconfBalance, watchImmatureBalance,
-                        earnings, masternodeEarnings, stakeEarnings);
+                        earnings, masternodeEarnings, stakeEarnings,
+                        lockedBalance, lockedWatchOnlyBalance);
 }
 
 void WalletModel::checkBalanceChanged()
@@ -273,6 +278,8 @@ void WalletModel::checkBalanceChanged()
     CAmount newWatchOnlyBalance = balanceInfo.watchOnly;
     CAmount newWatchUnconfBalance = balanceInfo.unconfirmedWatchOnly;
     CAmount newWatchImmatureBalance = balanceInfo.immatureWatchOnly;
+    CAmount newLockedBalance = balanceInfo.locked;
+    CAmount newLockedWatchOnlyBalance = balanceInfo.lockedWatchOnly;
 
     bool isChanged = false;
     {
@@ -295,6 +302,8 @@ void WalletModel::checkBalanceChanged()
             cachedWatchOnlyBalance = newWatchOnlyBalance;
             cachedWatchUnconfBalance = newWatchUnconfBalance;
             cachedWatchImmatureBalance = newWatchImmatureBalance;
+            cachedLockedBalance = newLockedBalance;
+            cachedLockedWatchOnlyBalance = newLockedWatchOnlyBalance;
             isChanged = true;
         }
     }
@@ -302,7 +311,8 @@ void WalletModel::checkBalanceChanged()
         emit balanceChanged(newBalance, newUnconfirmedBalance, newImmatureBalance, 
                             newZerocoinBalance, newUnconfirmedZerocoinBalance, newImmatureZerocoinBalance,
                             newWatchOnlyBalance, newWatchUnconfBalance, newWatchImmatureBalance,
-                            newEarnings, newMasternodeEarnings, newStakeEarnings);
+                            newEarnings, newMasternodeEarnings, newStakeEarnings,
+                            newLockedBalance, newLockedWatchOnlyBalance);
     }
 }
 

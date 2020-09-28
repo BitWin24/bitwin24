@@ -122,6 +122,8 @@ struct BalanceInfo {
     CAmount watchOnly = 0;
     CAmount unconfirmedWatchOnly = 0;
     CAmount immatureWatchOnly = 0;
+    CAmount locked = 0;
+    CAmount lockedWatchOnly = 0;
 };
 
 struct CompactTallyItem {

@@ -136,10 +136,11 @@ void PrivacyDialog::setModel(WalletModel* walletModel)
         setBalance(balanceInfo.nTotal, balanceInfo.unconfirmed, balanceInfo.immature,
                    walletModel->getZerocoinBalance(), walletModel->getUnconfirmedZerocoinBalance(), walletModel->getImmatureZerocoinBalance(),
                    balanceInfo.watchOnly, balanceInfo.unconfirmedWatchOnly, balanceInfo.immatureWatchOnly,
-                   balanceInfo.allEarnings, balanceInfo.masternodeEarnings, balanceInfo.allEarnings - balanceInfo.masternodeEarnings);
+                   balanceInfo.allEarnings, balanceInfo.masternodeEarnings, balanceInfo.allEarnings - balanceInfo.masternodeEarnings,
+                   balanceInfo.locked, balanceInfo.lockedWatchOnly);
 
-        connect(walletModel, SIGNAL(balanceChanged(CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount)), this,
-                               SLOT(setBalance(CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount)));
+        connect(walletModel, SIGNAL(balanceChanged(CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount)), this,
+                               SLOT(setBalance(CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount)));
         connect(walletModel->getOptionsModel(), SIGNAL(zeromintEnableChanged(bool)), this, SLOT(updateAutomintStatus()));
         connect(walletModel->getOptionsModel(), SIGNAL(zeromintPercentageChanged(int)), this, SLOT(updateAutomintStatus()));
         ui->securityLevel->setValue(nSecurityLevel);
@@ -242,7 +243,8 @@ void PrivacyDialog::on_pushButtonMintzBWI_clicked()
     setBalance(balanceInfo.nTotal, balanceInfo.unconfirmed, balanceInfo.immature,
                    walletModel->getZerocoinBalance(), walletModel->getUnconfirmedZerocoinBalance(), walletModel->getImmatureZerocoinBalance(),
                    balanceInfo.watchOnly, balanceInfo.unconfirmedWatchOnly, balanceInfo.immatureWatchOnly,
-                   balanceInfo.allEarnings, balanceInfo.masternodeEarnings, balanceInfo.allEarnings - balanceInfo.masternodeEarnings);
+                   balanceInfo.allEarnings, balanceInfo.masternodeEarnings, balanceInfo.allEarnings - balanceInfo.masternodeEarnings,
+                   balanceInfo.locked, balanceInfo.lockedWatchOnly);
     coinControlUpdateLabels();
 
     return;
@@ -635,7 +637,8 @@ bool PrivacyDialog::updateLabel(const QString& address)
 void PrivacyDialog::setBalance(const CAmount& balance, const CAmount& unconfirmedBalance, const CAmount& immatureBalance,
                                const CAmount& zerocoinBalance, const CAmount& unconfirmedZerocoinBalance, const CAmount& immatureZerocoinBalance,
                                const CAmount& watchOnlyBalance, const CAmount& watchUnconfBalance, const CAmount& watchImmatureBalance,
-                               const CAmount& earnings, const CAmount& masternodeEarnings, const CAmount& stakeEarnings)
+                               const CAmount& earnings, const CAmount& masternodeEarnings, const CAmount& stakeEarnings,
+                               const CAmount& locked, const CAmount& lockedWatchOnly)
 {
     currentBalance = balance;
     currentUnconfirmedBalance = unconfirmedBalance;
@@ -646,6 +649,8 @@ void PrivacyDialog::setBalance(const CAmount& balance, const CAmount& unconfirme
     currentWatchOnlyBalance = watchOnlyBalance;
     currentWatchUnconfBalance = watchUnconfBalance;
     currentWatchImmatureBalance = watchImmatureBalance;
+    currentLocked = locked;
+    currentLockedWatchOnly = lockedWatchOnly;
 
     currentEarnings = earnings;
     currentMasternodeEarnings = masternodeEarnings;
@@ -800,7 +805,8 @@ void PrivacyDialog::updateDisplayUnit()
             setBalance(currentBalance, currentUnconfirmedBalance, currentImmatureBalance,
                        currentZerocoinBalance, currentUnconfirmedZerocoinBalance, currentImmatureZerocoinBalance,
                        currentWatchOnlyBalance, currentWatchUnconfBalance, currentWatchImmatureBalance,
-                       currentEarnings, currentMasternodeEarnings, currentStakeEarnings);
+                       currentEarnings, currentMasternodeEarnings, currentStakeEarnings,
+                       currentLocked, currentLockedWatchOnly);
     }
 }
 

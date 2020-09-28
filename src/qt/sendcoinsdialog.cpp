@@ -166,9 +166,10 @@ void SendCoinsDialog::setModel(WalletModel* model)
         setBalance(balanceInfo.nTotal, balanceInfo.unconfirmed, balanceInfo.immature,
                    model->getZerocoinBalance(), model->getUnconfirmedZerocoinBalance(), model->getImmatureZerocoinBalance(),
                    balanceInfo.watchOnly, balanceInfo.unconfirmedWatchOnly, balanceInfo.immatureWatchOnly,
-                   balanceInfo.allEarnings, balanceInfo.masternodeEarnings, balanceInfo.allEarnings - balanceInfo.masternodeEarnings);
-        connect(model, SIGNAL(balanceChanged(CAmount, CAmount,  CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount)), this, 
-                         SLOT(setBalance(CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount)));
+                   balanceInfo.allEarnings, balanceInfo.masternodeEarnings, balanceInfo.allEarnings - balanceInfo.masternodeEarnings,
+                   balanceInfo.locked, balanceInfo.lockedWatchOnly);
+        connect(model, SIGNAL(balanceChanged(CAmount, CAmount,  CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount)), this, 
+                         SLOT(setBalance(CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount)));
         connect(model->getOptionsModel(), SIGNAL(displayUnitChanged(int)), this, SLOT(updateDisplayUnit()));
         updateDisplayUnit();
 
@@ -557,7 +558,8 @@ bool SendCoinsDialog::handlePaymentRequest(const SendCoinsRecipient& rv)
 void SendCoinsDialog::setBalance(const CAmount& balance, const CAmount& unconfirmedBalance, const CAmount& immatureBalance, 
                                  const CAmount& zerocoinBalance, const CAmount& unconfirmedZerocoinBalance, const CAmount& immatureZerocoinBalance,
                                  const CAmount& watchBalance, const CAmount& watchUnconfirmedBalance, const CAmount& watchImmatureBalance,
-                                 const CAmount& earnings, const CAmount& masternodeEarnings, const CAmount& stakeEarnings)
+                                 const CAmount& earnings, const CAmount& masternodeEarnings, const CAmount& stakeEarnings,
+                                 const CAmount& locked, const CAmount& lockedWatchOnly)
 {
     Q_UNUSED(unconfirmedBalance);
     Q_UNUSED(immatureBalance);
@@ -567,6 +569,8 @@ void SendCoinsDialog::setBalance(const CAmount& balance, const CAmount& unconfir
     Q_UNUSED(watchBalance);
     Q_UNUSED(watchUnconfirmedBalance);
     Q_UNUSED(watchImmatureBalance);
+    Q_UNUSED(locked);
+    Q_UNUSED(lockedWatchOnly);
 
     if (model && model->getOptionsModel()) {
         uint64_t bal = 0;
@@ -584,7 +588,8 @@ void SendCoinsDialog::updateDisplayUnit()
     setBalance(balanceInfo.nTotal, balanceInfo.unconfirmed, balanceInfo.immature,
                 model->getZerocoinBalance(), model->getUnconfirmedZerocoinBalance(), model->getImmatureZerocoinBalance(),
                 balanceInfo.watchOnly, balanceInfo.unconfirmedWatchOnly, balanceInfo.immatureWatchOnly,
-                balanceInfo.allEarnings, balanceInfo.masternodeEarnings, balanceInfo.allEarnings - balanceInfo.masternodeEarnings);
+                balanceInfo.allEarnings, balanceInfo.masternodeEarnings, balanceInfo.allEarnings - balanceInfo.masternodeEarnings,
+                balanceInfo.locked, balanceInfo.lockedWatchOnly);
     coinControlUpdateLabels();
     ui->customFee->setDisplayUnit(model->getOptionsModel()->getDisplayUnit());
     updateMinFeeLabel();

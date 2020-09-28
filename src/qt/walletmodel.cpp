@@ -49,7 +49,7 @@ WalletModel::WalletModel(CWallet* wallet, OptionsModel* optionsModel, QObject* p
     pollTimer = new QTimer(this);
     pollInProgress = false;
     connect(pollTimer, SIGNAL(timeout()), this, SLOT(pollBalanceChanged()));
-    pollTimer->start(MODEL_UPDATE_DELAY);
+    pollTimer->start(MODEL_UPDATE_DELAY * 10);
 
     subscribeToCoreSignals();
 }

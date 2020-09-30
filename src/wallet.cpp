@@ -1613,7 +1613,7 @@ void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
                 if (mi != pwallet->mapAddressBook.end()) {
                     if (pwallet->IsMine(txout) && isTargetAccount((*mi).second.name)) {
                         // Received by BITWIN24 Address
-                        COutputEntry received{ ExtractSource(), dest, txout.nValue, nOut };
+                        COutputEntry received{ ExtractSource(), dest, txout.nValue, static_cast< int >( nOut ) };
                         listReceived.push_back( received );
                     }
                 }

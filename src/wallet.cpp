@@ -1522,8 +1522,8 @@ void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
 
     CAmount volatile sumIn = 0;
     CAmount volatile sumOut = 0;
-    int volatile numVinFromMe = 0;
-    int volatile numVoutToMe = 0;
+    size_t volatile numVinFromMe = 0;
+    size_t volatile numVoutToMe = 0;
     BOOST_FOREACH (const CTxIn& txin, vin) {
         const auto mi = pwallet->mapWallet.find(txin.prevout.hash);
         if (mi != pwallet->mapWallet.end()) {
@@ -1613,7 +1613,7 @@ void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
                 if (mi != pwallet->mapAddressBook.end()) {
                     if (pwallet->IsMine(txout) && isTargetAccount((*mi).second.name)) {
                         // Received by BITWIN24 Address
-                        COutputEntry received{ ExtractSource(), dest, txout.nValue, nOut };
+                        COutputEntry received{ ExtractSource(), dest, txout.nValue, static_cast< int >( nOut ) };
                         listReceived.push_back( received );
                     }
                 }

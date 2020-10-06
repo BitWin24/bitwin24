@@ -123,7 +123,22 @@ struct BalanceInfo {
     CAmount unconfirmedWatchOnly = 0;
     CAmount immatureWatchOnly = 0;
     CAmount locked = 0;
+    CAmount unlocked = 0;
     CAmount lockedWatchOnly = 0;
+
+    bool IsEmpty() const {
+        return nTotal == 0 &&
+            masternodeEarnings == 0 &&
+            allEarnings == 0 &&
+            unconfirmed == 0 &&
+            immature == 0 &&
+            watchOnly == 0 &&
+            unconfirmedWatchOnly == 0 &&
+            immatureWatchOnly == 0 &&
+            locked == 0 &&
+            unlocked == 0 &&
+            lockedWatchOnly == 0;
+    }
 };
 
 struct CompactTallyItem {
@@ -429,6 +444,7 @@ public:
 
     std::map<uint256, CWalletTx> mapWallet;
     std::list<CAccountingEntry> laccentries;
+    BalanceInfo balanceInfo;
 
     typedef std::pair<CWalletTx*, CAccountingEntry*> TxPair;
     typedef std::multimap<int64_t, TxPair > TxItems;
@@ -549,6 +565,9 @@ public:
     int ScanForWalletTransactions(CBlockIndex* pindexStart, bool fUpdate = false);
     void ReacceptWalletTransactions();
     void ResendWalletTransactions();
+    void TxAddedToWallet(const CWalletTx& wtxIn);
+    void TxRemovedFromWallet(const CWalletTx& wtxIn);
+    BalanceInfo RecalculateBalanceInfo();
     BalanceInfo GetBalanceInfo() const;
     CAmount GetBalance() const;
     CAmount GetEarnings(bool fMasternodeOnly) const;

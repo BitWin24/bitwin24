@@ -62,6 +62,8 @@ static const int DEFAULT_CUSTOMBACKUPTHRESHOLD = 1;
 
 static const int MAX_SPLIT_OUTPUT_COUNT = 100;
 
+static constexpr int SECONDS_PER_DAY = 60 * 60 * 24;
+
 // Zerocoin denomination which creates exactly one of each denominations:
 // 6666 = 1*5000 + 1*1000 + 1*500 + 1*100 + 1*50 + 1*10 + 1*5 + 1
 static const int ZQ_6666 = 6666;
@@ -126,6 +128,8 @@ struct BalanceInfo {
     CAmount unlocked = 0;
     CAmount lockedWatchOnly = 0;
 
+    std::map<uint256, CWalletTx> tmpTxs;
+
     bool IsEmpty() const {
         return nTotal == 0 &&
             masternodeEarnings == 0 &&
@@ -138,6 +142,22 @@ struct BalanceInfo {
             locked == 0 &&
             unlocked == 0 &&
             lockedWatchOnly == 0;
+    }
+
+    BalanceInfo CopyBalances() const {
+        BalanceInfo ret;
+        ret.nTotal = nTotal;
+        ret.masternodeEarnings = masternodeEarnings;
+        ret.allEarnings = allEarnings;
+        ret.unconfirmed = unconfirmed;
+        ret.immature = immature;
+        ret.watchOnly = watchOnly;
+        ret.unconfirmedWatchOnly = unconfirmedWatchOnly;
+        ret.immatureWatchOnly = immatureWatchOnly;
+        ret.locked = locked;
+        ret.unlocked = unlocked;
+        ret.lockedWatchOnly = lockedWatchOnly;
+        return ret;
     }
 };
 
@@ -567,8 +587,9 @@ public:
     void ResendWalletTransactions();
     void TxAddedToWallet(const CWalletTx& wtxIn);
     void TxRemovedFromWallet(const CWalletTx& wtxIn);
+    void UpdateBalanceOnAddedTransaction(BalanceInfo& balinfo, const CWalletTx& wtxIn);
     BalanceInfo RecalculateBalanceInfo();
-    BalanceInfo GetBalanceInfo() const;
+    BalanceInfo GetBalanceInfo();
     CAmount GetBalance() const;
     CAmount GetEarnings(bool fMasternodeOnly) const;
     CAmount GetZerocoinBalance(bool fMatureOnly) const;

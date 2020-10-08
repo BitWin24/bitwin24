@@ -2031,67 +2031,27 @@ void CWallet::UpdateBalanceOnAddedTransaction(BalanceInfo& balinfo, const CWalle
 BalanceInfo CWallet::RecalculateBalanceInfo()
 {
     BalanceInfo balinfo;
+    BalanceInfo tmp;
 
     LOCK2(cs_main, cs_wallet);
 
+    size_t oldTxs = 0;
     const auto time = GetAdjustedTime();
     for (auto it = mapWallet.begin(); it != mapWallet.end(); ++it) {
         const auto& wtxIn = it->second;
+        UpdateBalanceOnAddedTransaction(tmp, wtxIn);
         if (wtxIn.GetTxTime() >= time - SECONDS_PER_DAY) {
             balinfo.tmpTxs.insert(make_pair(wtxIn.GetHash(), wtxIn));
             continue;
         }
 
-        if (wtxIn.IsTrusted()) {
-            balinfo.nTotal += wtxIn.GetAvailableCredit();
-        }
-
-        if (/*wtxIn.IsTrusted() &&*/ wtxIn.IsCoinStake() && wtxIn.GetDepthInMainChain() > 12 ) {
-            if (isminetype mine = IsMine(wtxIn.vout[1])) {
-                if(!(mine & ISMINE_WATCH_ONLY)) {
-                    CAmount credit = wtxIn.GetCredit(ISMINE_ALL);
-                    CAmount debit = wtxIn.GetDebit(ISMINE_ALL);
-                    balinfo.allEarnings += credit - debit;
-                }
-            } else {
-                CTxDestination destMN;
-                int nIndexMN = wtxIn.vout.size() - 1;
-                if (ExtractDestination(wtxIn.vout[nIndexMN].scriptPubKey, destMN) && ::IsMine(*this, destMN)) {
-                    balinfo.allEarnings += wtxIn.vout[nIndexMN].nValue;
-                    balinfo.masternodeEarnings += wtxIn.vout[nIndexMN].nValue;
-                }
-            }
-        }
-
-        if (!IsFinalTx(wtxIn) || (!wtxIn.IsTrusted() && wtxIn.GetDepthInMainChain() == 0)) {
-            balinfo.unconfirmed += wtxIn.GetAvailableCredit();
-        }
-
-        balinfo.immature += wtxIn.GetImmatureCredit();
-
-        if (wtxIn.IsTrusted()) {
-            balinfo.watchOnly += wtxIn.GetAvailableWatchOnlyCredit();
-        }
-
-        if (!IsFinalTx(wtxIn) || (!wtxIn.IsTrusted() && wtxIn.GetDepthInMainChain() == 0)) {
-            balinfo.unconfirmedWatchOnly += wtxIn.GetAvailableWatchOnlyCredit();
-        }
-
-        balinfo.immatureWatchOnly += wtxIn.GetImmatureWatchOnlyCredit();
-
-        if (!fLiteMode && wtxIn.IsTrusted() && wtxIn.GetDepthInMainChain() > 0) {
-            balinfo.locked += wtxIn.GetLockedCredit();
-        }
-
-        if (wtxIn.IsTrusted() && wtxIn.GetDepthInMainChain() > 0) {
-            balinfo.unlocked += wtxIn.GetUnlockedCredit();
-        }
-
-        if (wtxIn.IsTrusted() && wtxIn.GetDepthInMainChain() > 0) {
-            balinfo.lockedWatchOnly += wtxIn.GetLockedWatchOnlyCredit();
-        }
+        oldTxs++;
+        UpdateBalanceOnAddedTransaction(balinfo, wtxIn);
     }
     balanceInfo = std::move(balinfo);
+
+    LogPrintf("RecalculateBalanceInfo() : stable available=%d, total available=%d, oldTxs=%d, tmpTxs.size()=%d\n",
+        balanceInfo.nTotal, tmp.nTotal, oldTxs, balanceInfo.tmpTxs.size());
     return balanceInfo;
 }
 
@@ -2101,6 +2061,7 @@ BalanceInfo CWallet::GetBalanceInfo()
 
     auto ret = balanceInfo.CopyBalances();
     const auto time = GetAdjustedTime();
+    const auto tmpTxsSize = balanceInfo.tmpTxs.size();
     for (auto it = balanceInfo.tmpTxs.begin(); it != balanceInfo.tmpTxs.end(); ) {
         UpdateBalanceOnAddedTransaction(ret, it->second);
 
@@ -2113,6 +2074,8 @@ BalanceInfo CWallet::GetBalanceInfo()
         }
     }
 
+    LogPrintf("GetBalanceInfo() : stable available=%d, total available=%d, tmpTxsSize before=%d, tmpTxs.size()=%d\n",
+        balanceInfo.nTotal, ret.nTotal, tmpTxsSize, balanceInfo.tmpTxs.size());
     return ret;
 }
 

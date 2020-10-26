@@ -1913,12 +1913,20 @@ void CWallet::TxRemovedFromWallet(const CWalletTx& wtxIn)
 {
     LOCK2(cs_main, cs_wallet);
 
+    LogPrintf("TxRemovedFromWallet(): %s\n", wtxIn.GetHash().ToString());
+
     if (balanceInfo.tmpTxs.erase(wtxIn.GetHash())) {
         return;
     }
 
     if (wtxIn.IsTrusted()) {
-        balanceInfo.nTotal -= wtxIn.GetAvailableCredit();
+        CAmount creditAll = wtxIn.GetCredit(ISMINE_ALL);
+        CAmount debitAll = wtxIn.GetDebit(ISMINE_ALL);
+        CAmount watchOnlyDebit = wtxIn.GetDebit(ISMINE_WATCH_ONLY);
+        CAmount watchOnlyCredit = wtxIn.GetCredit(ISMINE_WATCH_ONLY);
+
+        balanceInfo.nTotal -= creditAll - debitAll;
+        balanceInfo.watchOnly -= watchOnlyCredit - watchOnlyDebit;
     }
 
     if (/*wtxIn.IsTrusted() &&*/ wtxIn.IsCoinStake() && wtxIn.GetDepthInMainChain() > 12 ) {
@@ -1943,10 +1951,6 @@ void CWallet::TxRemovedFromWallet(const CWalletTx& wtxIn)
     }
 
     balanceInfo.immature -= wtxIn.GetImmatureCredit();
-
-    if (wtxIn.IsTrusted()) {
-        balanceInfo.watchOnly -= wtxIn.GetAvailableWatchOnlyCredit();
-    }
 
     if (!IsFinalTx(wtxIn) || (!wtxIn.IsTrusted() && wtxIn.GetDepthInMainChain() == 0)) {
         balanceInfo.unconfirmedWatchOnly -= wtxIn.GetAvailableWatchOnlyCredit();
@@ -1979,7 +1983,13 @@ void CWallet::TxRemovedFromWallet(const CWalletTx& wtxIn)
 void CWallet::UpdateBalanceOnAddedTransaction(BalanceInfo& balinfo, const CWalletTx& wtxIn)
 {
     if (wtxIn.IsTrusted()) {
-        balinfo.nTotal += wtxIn.GetAvailableCredit();
+        CAmount creditAll = wtxIn.GetCredit(ISMINE_ALL);
+        CAmount debitAll = wtxIn.GetDebit(ISMINE_ALL);
+        CAmount watchOnlyDebit = wtxIn.GetDebit(ISMINE_WATCH_ONLY);
+        CAmount watchOnlyCredit = wtxIn.GetCredit(ISMINE_WATCH_ONLY);
+
+        balinfo.nTotal += creditAll - debitAll;
+        balinfo.watchOnly += watchOnlyCredit - watchOnlyDebit;
     }
 
     if (/*wtxIn.IsTrusted() &&*/ wtxIn.IsCoinStake() && wtxIn.GetDepthInMainChain() > 12 ) {
@@ -2004,10 +2014,6 @@ void CWallet::UpdateBalanceOnAddedTransaction(BalanceInfo& balinfo, const CWalle
     }
 
     balinfo.immature += wtxIn.GetImmatureCredit();
-
-    if (wtxIn.IsTrusted()) {
-        balinfo.watchOnly += wtxIn.GetAvailableWatchOnlyCredit();
-    }
 
     if (!IsFinalTx(wtxIn) || (!wtxIn.IsTrusted() && wtxIn.GetDepthInMainChain() == 0)) {
         balinfo.unconfirmedWatchOnly += wtxIn.GetAvailableWatchOnlyCredit();
@@ -2076,6 +2082,14 @@ BalanceInfo CWallet::GetBalanceInfo()
 
     LogPrintf("GetBalanceInfo() : stable available=%d, total available=%d, tmpTxsSize before=%d, tmpTxs.size()=%d\n",
         balanceInfo.nTotal, ret.nTotal, tmpTxsSize, balanceInfo.tmpTxs.size());
+    // const auto oldBalance = GetBalance();
+    // LogPrintf("Total: %d - %d\n", ret.nTotal, oldBalance);
+    // LogPrintf("Earnings: %d - %d\n", ret.allEarnings, GetEarnings(false));
+    // LogPrintf("Unconfirmed: %d - %d\n", ret.unconfirmed, GetUnconfirmedBalance());
+    // LogPrintf("Immature: %d - %d\n", ret.immature, GetImmatureBalance());
+    // if (ret.nTotal > 0 && ret.nTotal != GetBalance()) {
+    //     LogPrintf("DEBUG: balance mismatch (%d), difference: %d\n", oldBalance, ret.nTotal - oldBalance);
+    // }
     return ret;
 }
 

@@ -584,10 +584,13 @@ UniValue createmasternodekey (const UniValue& params, bool fHelp)
 
 UniValue getmasternodeoutputs (const UniValue& params, bool fHelp)
 {
-    if (fHelp || (params.size() != 0))
+    if (fHelp || (params.size() > 1))
         throw runtime_error(
             "getmasternodeoutputs\n"
             "\nPrint all masternode transaction outputs\n"
+
+            "\nArguments:\n"
+            "1. \"sortbydate\"   (boolean, optional, default=false) Sort transactions by date\n"
 
             "\nResult:\n"
             "[\n"
@@ -603,6 +606,19 @@ UniValue getmasternodeoutputs (const UniValue& params, bool fHelp)
 
     // Find possible candidates
     vector<COutput> possibleCoins = activeMasternode.SelectCoinsMasternode();
+    bool needSort = false;
+    if (params.size() > 0) {
+        if (params[0].isBool()) {
+            needSort = params[0].get_bool();
+        }
+        else if (params[0].isStr()) {
+            needSort = params[0].get_str() == "true";
+        }
+    }
+    if (needSort) {
+        std::sort(possibleCoins.begin(), possibleCoins.end(),
+            [](COutput l, COutput r) { return l.tx->GetTxTime() < r.tx->GetTxTime(); });
+    }
 
     UniValue ret(UniValue::VARR);
     BOOST_FOREACH (COutput& out, possibleCoins) {

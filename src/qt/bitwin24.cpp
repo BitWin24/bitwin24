@@ -434,21 +434,32 @@ void BitcoinApplication::initializeResult(int retval)
         paymentServer->setOptionsModel(optionsModel);
 #endif
 
+        const auto t_begin = boost::chrono::high_resolution_clock::now();
         clientModel = new ClientModel(optionsModel);
         window->setClientModel(clientModel);
+        const auto t_mid = boost::chrono::high_resolution_clock::now();
+        auto t_mid1 = t_mid;
+        auto t_mid2 = t_mid;
 
 #ifdef ENABLE_WALLET
         if (pwalletMain) {
             walletModel = new WalletModel(pwalletMain, optionsModel);
+            t_mid1 = boost::chrono::high_resolution_clock::now();
 
             window->addWallet(BitcoinGUI::DEFAULT_WALLET, walletModel);
+            t_mid2 = boost::chrono::high_resolution_clock::now();
             window->setCurrentWallet(BitcoinGUI::DEFAULT_WALLET);
 
             connect(walletModel, SIGNAL(coinsSent(CWallet*, SendCoinsRecipient, QByteArray)),
                 paymentServer, SLOT(fetchPaymentACK(CWallet*, const SendCoinsRecipient&, QByteArray)));
         }
 #endif
-
+        const auto t_end = boost::chrono::high_resolution_clock::now();
+        LogPrintf("DEBUG: show window. Init wallet time: %d ms, %d ms, %d ms, %d ms",
+            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
+            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid2 - t_begin).count(),
+            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid1 - t_begin).count(),
+            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid - t_begin).count());
         // If -min option passed, start window minimized.
         if (GetBoolArg("-min", false)) {
             window->showMinimized();

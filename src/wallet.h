@@ -62,6 +62,8 @@ static const int DEFAULT_CUSTOMBACKUPTHRESHOLD = 1;
 
 static const int MAX_SPLIT_OUTPUT_COUNT = 100;
 
+static constexpr int SECONDS_PER_DAY = 60 * 60 * 24;
+
 // Zerocoin denomination which creates exactly one of each denominations:
 // 6666 = 1*5000 + 1*1000 + 1*500 + 1*100 + 1*50 + 1*10 + 1*5 + 1
 static const int ZQ_6666 = 6666;
@@ -111,6 +113,52 @@ enum ZerocoinSpendStatus {
     ZBWI_SPENT_USED_ZBWI = 14,                      // Coin has already been spend
     ZBWI_TX_TOO_LARGE = 15,                          // The transaction is larger than the max tx size
     ZBWI_SPEND_V1_SEC_LEVEL                         // Spend is V1 and security level is not set to 100
+};
+
+struct BalanceInfo {
+    CAmount nTotal = 0;
+    CAmount masternodeEarnings = 0;
+    CAmount allEarnings = 0;
+    CAmount unconfirmed = 0;
+    CAmount immature = 0;
+    CAmount watchOnly = 0;
+    CAmount unconfirmedWatchOnly = 0;
+    CAmount immatureWatchOnly = 0;
+    CAmount locked = 0;
+    CAmount unlocked = 0;
+    CAmount lockedWatchOnly = 0;
+
+    std::map<uint256, CWalletTx> tmpTxs;
+
+    bool IsEmpty() const {
+        return nTotal == 0 &&
+            masternodeEarnings == 0 &&
+            allEarnings == 0 &&
+            unconfirmed == 0 &&
+            immature == 0 &&
+            watchOnly == 0 &&
+            unconfirmedWatchOnly == 0 &&
+            immatureWatchOnly == 0 &&
+            locked == 0 &&
+            unlocked == 0 &&
+            lockedWatchOnly == 0;
+    }
+
+    BalanceInfo CopyBalances() const {
+        BalanceInfo ret;
+        ret.nTotal = nTotal;
+        ret.masternodeEarnings = masternodeEarnings;
+        ret.allEarnings = allEarnings;
+        ret.unconfirmed = unconfirmed;
+        ret.immature = immature;
+        ret.watchOnly = watchOnly;
+        ret.unconfirmedWatchOnly = unconfirmedWatchOnly;
+        ret.immatureWatchOnly = immatureWatchOnly;
+        ret.locked = locked;
+        ret.unlocked = unlocked;
+        ret.lockedWatchOnly = lockedWatchOnly;
+        return ret;
+    }
 };
 
 struct CompactTallyItem {
@@ -416,6 +464,7 @@ public:
 
     std::map<uint256, CWalletTx> mapWallet;
     std::list<CAccountingEntry> laccentries;
+    BalanceInfo balanceInfo;
 
     typedef std::pair<CWalletTx*, CAccountingEntry*> TxPair;
     typedef std::multimap<int64_t, TxPair > TxItems;
@@ -536,6 +585,11 @@ public:
     int ScanForWalletTransactions(CBlockIndex* pindexStart, bool fUpdate = false);
     void ReacceptWalletTransactions();
     void ResendWalletTransactions();
+    void TxAddedToWallet(const CWalletTx& wtxIn);
+    void TxRemovedFromWallet(const CWalletTx& wtxIn);
+    void UpdateBalanceOnAddedTransaction(BalanceInfo& balinfo, const CWalletTx& wtxIn);
+    BalanceInfo RecalculateBalanceInfo();
+    BalanceInfo GetBalanceInfo();
     CAmount GetBalance() const;
     CAmount GetEarnings(bool fMasternodeOnly) const;
     CAmount GetZerocoinBalance(bool fMatureOnly) const;

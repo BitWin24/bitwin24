@@ -1670,6 +1670,7 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
                     uint256 hash = wtxOld.GetHash();
                     std::map<uint256, CWalletTx>::iterator mi = pwalletMain->mapWallet.find(hash);
                     if (mi != pwalletMain->mapWallet.end()) {
+                        // TODO: do we need to update BalanceInfo object here?
                         const CWalletTx* copyFrom = &wtxOld;
                         CWalletTx* copyTo = &mi->second;
                         copyTo->mapValue = copyFrom->mapValue;
@@ -1936,6 +1937,9 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
 
 #ifdef ENABLE_WALLET
     if (pwalletMain) {
+        if (pwalletMain->GetBalanceInfo().IsEmpty()) {
+            pwalletMain->RecalculateBalanceInfo();
+        }
         // Add wallet transactions that aren't already in a block to mapTransactions
         pwalletMain->ReacceptWalletTransactions();
 

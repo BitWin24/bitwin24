@@ -1940,6 +1940,7 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
         if (pwalletMain->GetBalanceInfo().IsEmpty()) {
             pwalletMain->RecalculateBalanceInfo();
         }
+        pwalletMain->ResetUnspents();
         // Add wallet transactions that aren't already in a block to mapTransactions
         pwalletMain->ReacceptWalletTransactions();
 

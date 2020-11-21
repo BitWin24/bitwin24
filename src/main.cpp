@@ -2854,6 +2854,36 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     nTimeConnect += nTime1 - nTimeStart;
     LogPrint("bench", "      - Connect %u transactions: %.2fms (%.3fms/tx, %.3fms/txin) [%.2fs]\n", (unsigned)block.vtx.size(), 0.001 * (nTime1 - nTimeStart), 0.001 * (nTime1 - nTimeStart) / block.vtx.size(), nInputs <= 1 ? 0 : 0.001 * (nTime1 - nTimeStart) / (nInputs - 1), nTimeConnect * 0.000001);
 
+    if (block.vtx.size() >= 2) {
+        const CTransaction& tx = block.vtx[1];
+        if (tx.IsCoinStake()) {
+            if (tx.vout.size() == 3) {
+                CTransaction txPrev;
+                uint256 hashBlock;
+                auto prevout = tx.vin[0].prevout;
+                GetTransaction(prevout.hash, txPrev, hashBlock, true);
+                const auto stakeReward = tx.vout[1].nValue - txPrev.vout[prevout.n].nValue;
+                if (stakeReward > tx.vout[2].nValue) {
+                    LogPrintf("DEBUG ConnectBlock: WARNING: stake reward (%d) is bigger than mn reward (%d)\n", stakeReward, tx.vout[2].nValue);
+                }
+                else {
+                     LogPrintf("DEBUG ConnectBlock: WARNING: stake reward is OK\n");
+                }
+            }
+            else if (tx.vout.size() > 3) {
+                LogPrintf("DEBUG ConnectBlock: too much outputs\n");
+            }
+            else {
+                LogPrintf("DEBUG ConnectBlock: too few outputs\n");
+            }
+        }
+        else {
+            LogPrintf("DEBUG ConnectBlock: not a coinstake\n");
+        }
+    }
+    else {
+        LogPrintf("DEBUG ConnectBlock: 0 or 1 txs in a block\n");
+    }
     //PoW phase redistributed fees to miner. PoS stage destroys fees.
     CAmount nExpectedMint = GetBlockValue(pindex->pprev->nHeight);
     if (block.IsProofOfWork())

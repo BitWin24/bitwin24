@@ -200,8 +200,8 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
         it++;
     }
     const auto t_end = boost::chrono::high_resolution_clock::now();
-    LogPrintf("CreateMasterNodeWitnessSnapshot time %d ms\n",
-        boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count());
+    // LogPrintf("CreateMasterNodeWitnessSnapshot time %d ms\n",
+    //     boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count());
 
     return result;
 }

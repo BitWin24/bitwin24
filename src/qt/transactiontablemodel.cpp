@@ -165,9 +165,9 @@ public:
         }
         const auto t_end = boost::chrono::high_resolution_clock::now();
         if (boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count() > 0) {
-            LogPrintf("updateWallet %d ms, %d ms\n",
-                boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
-                boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid - t_begin).count());
+            // LogPrintf("updateWallet %d ms, %d ms\n",
+            //     boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
+            //     boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid - t_begin).count());
         }
     }
 
@@ -269,9 +269,9 @@ void TransactionTableModel::updateConfirmations()
     const auto t_mid = boost::chrono::high_resolution_clock::now();
     emit dataChanged(index(0, ToAddress), index(std::min(priv->size() - 1, MAX_UPDATED_TRANSACTIONS), ToAddress));
     const auto t_end = boost::chrono::high_resolution_clock::now();
-    LogPrintf("TransactionTableModel::updateConfirmations() size - %d; %d ms, %d ms\n", priv->size(),
-        boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
-        boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid - t_begin).count());
+    // LogPrintf("TransactionTableModel::updateConfirmations() size - %d; %d ms, %d ms\n", priv->size(),
+    //     boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
+    //     boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid - t_begin).count());
 }
 
 int TransactionTableModel::rowCount(const QModelIndex& parent) const

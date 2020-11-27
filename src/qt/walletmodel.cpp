@@ -208,10 +208,10 @@ void WalletModel::pollBalanceChanged()
             emit notifyReceiveAddressChanged();
 
             const auto t_end = boost::chrono::high_resolution_clock::now();
-            LogPrintf("WalletModel::pollBalanceChanged() %d ms, %d ms, %d ms\n",
-                boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
-                boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid1 - t_begin).count(),
-                boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid2 - t_begin).count());
+            // LogPrintf("WalletModel::pollBalanceChanged() %d ms, %d ms, %d ms\n",
+            //     boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
+            //     boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid1 - t_begin).count(),
+            //     boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid2 - t_begin).count());
         }
             
         pollInProgress = false;
@@ -526,10 +526,10 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(WalletModelTransaction& tran
     }
     // checkBalanceChanged(); // update balance immediately, otherwise there could be a short noticeable delay until pollBalanceChanged hits
     const auto t_end = boost::chrono::high_resolution_clock::now();
-    LogPrintf("WalletModel::sendCoins %d ms, %d ms, %d ms\n",
-            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
-            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid - t_begin).count(),
-            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid1 - t_begin).count());
+    // LogPrintf("WalletModel::sendCoins %d ms, %d ms, %d ms\n",
+    //         boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
+    //         boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid - t_begin).count(),
+    //         boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid1 - t_begin).count());
     return SendCoinsReturn(OK);
 }
 

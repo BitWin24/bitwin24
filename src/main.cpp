@@ -6640,11 +6640,13 @@ bool SendMessages(CNode* pto, bool fSendTrickle)
             pto->PushMessage("getdata", vGetData);
 
         const auto t_end = boost::chrono::high_resolution_clock::now();
-        LogPrintf("TIME: send messages: %d ms, %d ms, %d ms, %d ms\n",
-            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
-            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid2 - t_begin).count(),
-            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid1 - t_begin).count(),
-            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid - t_begin).count());
+        if (boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count() > 500) {
+            LogPrintf("TIME: send messages: %d ms, %d ms, %d ms, %d ms\n",
+                boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
+                boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid2 - t_begin).count(),
+                boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid1 - t_begin).count(),
+                boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid - t_begin).count());
+        }
     }
     return true;
 }

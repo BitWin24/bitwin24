@@ -6452,6 +6452,7 @@ bool SendMessages(CNode* pto, bool fSendTrickle)
         if (!lockMain)
             return true;
 
+        const auto t_begin = boost::chrono::high_resolution_clock::now();
         // Address refresh broadcast
         static int64_t nLastRebroadcast;
         if (!IsInitialBlockDownload() && (GetTime() - nLastRebroadcast > 24 * 60 * 60)) {
@@ -6467,6 +6468,7 @@ bool SendMessages(CNode* pto, bool fSendTrickle)
             if (!vNodes.empty())
                 nLastRebroadcast = GetTime();
         }
+        const auto t_mid = boost::chrono::high_resolution_clock::now();
 
         //
         // Message: addr
@@ -6524,6 +6526,7 @@ bool SendMessages(CNode* pto, bool fSendTrickle)
                 pto->PushMessage("getblocks", chainActive.GetLocator(chainActive.Tip()), uint256(0));
             }
         }
+        const auto t_mid1 = boost::chrono::high_resolution_clock::now();
 
         // Resend wallet transactions that haven't gotten in a block yet
         // Except during reindex, importing and IBD, when old wallet
@@ -6531,6 +6534,7 @@ bool SendMessages(CNode* pto, bool fSendTrickle)
         if (!fReindex /*&& !fImporting && !IsInitialBlockDownload()*/) {
             GetMainSignals().Broadcast();
         }
+        const auto t_mid2 = boost::chrono::high_resolution_clock::now();
 
         //
         // Message: inventory
@@ -6634,6 +6638,13 @@ bool SendMessages(CNode* pto, bool fSendTrickle)
         }
         if (!vGetData.empty())
             pto->PushMessage("getdata", vGetData);
+
+        const auto t_end = boost::chrono::high_resolution_clock::now();
+        LogPrintf("TIME: send messages: %d ms, %d ms, %d ms, %d ms\n",
+            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
+            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid2 - t_begin).count(),
+            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid1 - t_begin).count(),
+            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid - t_begin).count());
     }
     return true;
 }

@@ -2520,7 +2520,7 @@ void CWallet::AvailableCoins(vector<COutput>& vCoins, bool fOnlyConfirmed, const
             }
         }
         const auto t_end = boost::chrono::high_resolution_clock::now();
-        LogPrintf("TIME: AvailableCoins: %d\n",
+        LogPrintf("TIME: AvailableCoins (%d): %d\n", nCoinType,
             boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count());
     }
 }

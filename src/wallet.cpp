@@ -1989,7 +1989,7 @@ void CWallet::TxAddedToWallet(const CWalletTx& wtxIn)
     // for (const auto& out: vCoins1) {
     //     LogPrintf("%s - %d\n", out.tx->GetHash().ToString(), out.i);
     // }
-    LogPrintf("Comparing sizes: %d - %d - %d\n", unspents.size(), vCoins.size(), vCoins1.size());
+    // LogPrintf("Comparing sizes: %d - %d - %d\n", unspents.size(), vCoins.size(), vCoins1.size());
 }
 
 void CWallet::TxRemovedFromWallet(const CWalletTx& wtxIn)

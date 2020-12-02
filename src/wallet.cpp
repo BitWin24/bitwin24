@@ -2439,6 +2439,7 @@ void CWallet::AvailableCoins(vector<COutput>& vCoins, bool fOnlyConfirmed, const
     vCoins.clear();
 
     {
+        std::map<CScript, std::pair<CTxDestination, bool>> destinationCache;
         LOCK2(cs_main, cs_wallet);
         const auto t_begin = boost::chrono::high_resolution_clock::now();
         for (map<uint256, CWalletTx>::const_iterator it = mapWallet.begin(); it != mapWallet.end(); ++it) {
@@ -2485,8 +2486,18 @@ void CWallet::AvailableCoins(vector<COutput>& vCoins, bool fOnlyConfirmed, const
                     if (pcoin->vout[i].IsZerocoinMint())
                         continue;
 
-                    CTxDestination txAddress;
-                    if ( ExtractDestination(pcoin->vout[i].scriptPubKey, txAddress) && !IsStakingEnabled( CBitcoinAddress(txAddress) ) ) {
+                    const auto cacheIt = destinationCache.find(pcoin->vout[i].scriptPubKey);
+                    if (cacheIt == destinationCache.end()) {
+                        CTxDestination txAddress;
+                        if (ExtractDestination(pcoin->vout[i].scriptPubKey, txAddress)) {
+                            const auto stakingEnabled = IsStakingEnabled( CBitcoinAddress(txAddress) );
+                            destinationCache[pcoin->vout[i].scriptPubKey] = std::make_pair(txAddress, stakingEnabled);
+                            if (!stakingEnabled) {
+                                continue;
+                            }
+                        }
+                    }
+                    else if (!cacheIt->second.second) { // already processed
                         continue;
                     }
                 }
@@ -2520,8 +2531,10 @@ void CWallet::AvailableCoins(vector<COutput>& vCoins, bool fOnlyConfirmed, const
             }
         }
         const auto t_end = boost::chrono::high_resolution_clock::now();
-        LogPrintf("TIME: AvailableCoins (%d): %d\n", nCoinType,
-            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count());
+        LogPrintf("TIME: AvailableCoins (%d): %d ms, cache size: %d\n",
+            nCoinType,
+            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
+            destinationCache.size());
     }
 }
 

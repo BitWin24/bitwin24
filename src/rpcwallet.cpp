@@ -678,7 +678,7 @@ CAmount GetAccountBalance(CWalletDB& walletdb, const string& strAccount, int nMi
     LOCK2(cs_main, pwalletMain->cs_wallet);
     pwalletMain->AvailableCoinsNew(vecOutputsNew, false, NULL, false, ALL_COINS, false, filter);
     pwalletMain->AvailableCoins(vecOutputs, false, NULL, false, ALL_COINS, false, filter);
-    LogPrintf("GetAccountBalance: current size: %d, old size: %d\n", vecOutputs.size(), vecOutputsNew.size());
+    LogPrintf("GetAccountBalance: current size: %d, new size: %d\n", vecOutputs.size(), vecOutputsNew.size());
     BOOST_FOREACH (const COutput& out, vecOutputs) {
         if (out.nDepth < nMinDepth)
             continue;
@@ -702,6 +702,7 @@ CAmount GetAccountBalance(CWalletDB& walletdb, const string& strAccount, int nMi
         CTxDestination address;
         if (!ExtractDestination(out.tx->vout[out.i].scriptPubKey, address))
             continue;
+        LogPrintf("GetAccountBalance: utxo new: %s, value=%d\n", CBitcoinAddress(address).ToString(), out.tx->vout[out.i].nValue);
 
         if (!accountAddress.count(address))
             continue;

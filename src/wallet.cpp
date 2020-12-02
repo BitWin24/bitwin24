@@ -1943,12 +1943,14 @@ void CWallet::TxAddedToWallet(const CWalletTx& wtxIn)
     LOCK2(cs_main, cs_wallet);
 
     const auto hash = wtxIn.GetHash();
+    LogPrintf("TxAddedToWallet: %s\n", hash.ToString());
     balanceInfo.tmpTxs.insert(make_pair(hash, wtxIn));
 
     int nDepth = wtxIn.GetDepthInMainChain(false);
     if (nDepth != 0 || wtxIn.InMempool()) {
         for (const auto& input: wtxIn.vin) {
-            unspents.erase(input.prevout);
+            const auto nRemoved = unspents.erase(input.prevout);
+            LogPrintf("Erased %d from unspents: %s\n", nRemoved, input.prevout.ToString());
         }
         const auto pWalletTx = &mapWallet[hash];
         for (size_t i = 0; i < wtxIn.vout.size(); i++) {
@@ -1961,7 +1963,11 @@ void CWallet::TxAddedToWallet(const CWalletTx& wtxIn)
             if ((mine & ISMINE_MULTISIG) != ISMINE_NO) {
                 fIsSpendable = true;
             }
-            if (mine != ISMINE_NO) {
+            CTxDestination dest;
+            ExtractDestination(output.scriptPubKey, dest);
+            LogPrintf("process output: %d, %d, %s\n", mine, mapAddressBook.count(dest), output.ToString());
+            if (mapAddressBook.count(dest)) {
+                LogPrintf("Add to unspents: %s\n", COutPoint(hash, i).ToString());
                 unspents.insert(make_pair(COutPoint(hash, i), COutput(pWalletTx, i, nDepth, fIsSpendable)));
             }
         }
@@ -1979,7 +1985,7 @@ void CWallet::TxAddedToWallet(const CWalletTx& wtxIn)
     // for (const auto& out: vCoins1) {
     //     LogPrintf("%s - %d\n", out.tx->GetHash().ToString(), out.i);
     // }
-    // LogPrintf("Comparing sizes: %d - %d - %d\n", unspents.size(), vCoins.size(), vCoins1.size());
+    LogPrintf("Comparing sizes: %d - %d - %d\n", unspents.size(), vCoins.size(), vCoins1.size());
 }
 
 void CWallet::TxRemovedFromWallet(const CWalletTx& wtxIn)
@@ -2497,7 +2503,7 @@ CAmount CWallet::GetLockedWatchOnlyBalance() const
 /**
  * populate vCoins with vector of available COutputs.
  */
-void CWallet::AvailableCoinsNew(vector<COutput>& vCoins, bool fOnlyConfirmed, const CCoinControl* coinControl, bool fIncludeZeroValue, AvailableCoinsType nCoinType, bool fUseIX, int nWatchonlyConfig, bool includeImmature) const
+void CWallet::AvailableCoins(vector<COutput>& vCoins, bool fOnlyConfirmed, const CCoinControl* coinControl, bool fIncludeZeroValue, AvailableCoinsType nCoinType, bool fUseIX, int nWatchonlyConfig, bool includeImmature) const
 {
     vCoins.clear();
 
@@ -2584,7 +2590,7 @@ void CWallet::AvailableCoinsNew(vector<COutput>& vCoins, bool fOnlyConfirmed, co
     }
 }
 
-void CWallet::AvailableCoins(vector<COutput>& vCoins, bool fOnlyConfirmed, const CCoinControl* coinControl, bool fIncludeZeroValue, AvailableCoinsType nCoinType, bool fUseIX, int nWatchonlyConfig, bool includeImmature) const
+void CWallet::AvailableCoinsNew(vector<COutput>& vCoins, bool fOnlyConfirmed, const CCoinControl* coinControl, bool fIncludeZeroValue, AvailableCoinsType nCoinType, bool fUseIX, int nWatchonlyConfig, bool includeImmature) const
 {
     vCoins.clear();
 

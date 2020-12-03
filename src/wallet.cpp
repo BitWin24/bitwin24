@@ -1814,6 +1814,7 @@ int CWallet::ScanForWalletTransactions(CBlockIndex* pindexStart, bool fUpdate)
 void CWallet::ReacceptWalletTransactions()
 {
     LOCK2(cs_main, cs_wallet);
+    const auto t_begin = boost::chrono::high_resolution_clock::now();
     BOOST_FOREACH (PAIRTYPE(const uint256, CWalletTx) & item, mapWallet) {
         const uint256& wtxid = item.first;
         CWalletTx& wtx = item.second;
@@ -1827,6 +1828,9 @@ void CWallet::ReacceptWalletTransactions()
             wtx.AcceptToMemoryPool(false);
         }
     }
+    const auto t_end = boost::chrono::high_resolution_clock::now();
+    LogPrintf("TIME: ReacceptWalletTransactions: %d\n",
+        boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count());
 }
 
 bool CWalletTx::InMempool() const
@@ -2100,12 +2104,16 @@ CAmount CWallet::GetBalance() const
     CAmount nTotal = 0;
     {
         LOCK2(cs_main, cs_wallet);
+        const auto t_begin = boost::chrono::high_resolution_clock::now();
         for (map<uint256, CWalletTx>::const_iterator it = mapWallet.begin(); it != mapWallet.end(); ++it) {
             const CWalletTx* pcoin = &(*it).second;
 
             if (pcoin->IsTrusted())
                 nTotal += pcoin->GetAvailableCredit();
         }
+        const auto t_end = boost::chrono::high_resolution_clock::now();
+        LogPrintf("TIME: GetBalance: %d\n",
+            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count());
     }
 
     return nTotal;
@@ -2431,7 +2439,9 @@ void CWallet::AvailableCoins(vector<COutput>& vCoins, bool fOnlyConfirmed, const
     vCoins.clear();
 
     {
+        std::map<CScript, std::pair<CTxDestination, bool>> destinationCache;
         LOCK2(cs_main, cs_wallet);
+        const auto t_begin = boost::chrono::high_resolution_clock::now();
         for (map<uint256, CWalletTx>::const_iterator it = mapWallet.begin(); it != mapWallet.end(); ++it) {
             const uint256& wtxid = it->first;
             const CWalletTx* pcoin = &(*it).second;
@@ -2476,8 +2486,18 @@ void CWallet::AvailableCoins(vector<COutput>& vCoins, bool fOnlyConfirmed, const
                     if (pcoin->vout[i].IsZerocoinMint())
                         continue;
 
-                    CTxDestination txAddress;
-                    if ( ExtractDestination(pcoin->vout[i].scriptPubKey, txAddress) && !IsStakingEnabled( CBitcoinAddress(txAddress) ) ) {
+                    const auto cacheIt = destinationCache.find(pcoin->vout[i].scriptPubKey);
+                    if (cacheIt == destinationCache.end()) {
+                        CTxDestination txAddress;
+                        if (ExtractDestination(pcoin->vout[i].scriptPubKey, txAddress)) {
+                            const auto stakingEnabled = IsStakingEnabled( CBitcoinAddress(txAddress) );
+                            destinationCache[pcoin->vout[i].scriptPubKey] = std::make_pair(txAddress, stakingEnabled);
+                            if (!stakingEnabled) {
+                                continue;
+                            }
+                        }
+                    }
+                    else if (!cacheIt->second.second) { // already processed
                         continue;
                     }
                 }
@@ -2510,6 +2530,11 @@ void CWallet::AvailableCoins(vector<COutput>& vCoins, bool fOnlyConfirmed, const
                 vCoins.emplace_back(COutput(pcoin, i, nDepth, fIsSpendable));
             }
         }
+        const auto t_end = boost::chrono::high_resolution_clock::now();
+        LogPrintf("TIME: AvailableCoins (%d): %d ms, cache size: %d\n",
+            nCoinType,
+            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
+            destinationCache.size());
     }
 }
 

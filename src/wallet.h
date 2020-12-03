@@ -128,8 +128,6 @@ struct BalanceInfo {
     CAmount unlocked = 0;
     CAmount lockedWatchOnly = 0;
 
-    std::map<uint256, CWalletTx> tmpTxs;
-
     bool IsEmpty() const {
         return nTotal == 0 &&
             masternodeEarnings == 0 &&
@@ -142,22 +140,6 @@ struct BalanceInfo {
             locked == 0 &&
             unlocked == 0 &&
             lockedWatchOnly == 0;
-    }
-
-    BalanceInfo CopyBalances() const {
-        BalanceInfo ret;
-        ret.nTotal = nTotal;
-        ret.masternodeEarnings = masternodeEarnings;
-        ret.allEarnings = allEarnings;
-        ret.unconfirmed = unconfirmed;
-        ret.immature = immature;
-        ret.watchOnly = watchOnly;
-        ret.unconfirmedWatchOnly = unconfirmedWatchOnly;
-        ret.immatureWatchOnly = immatureWatchOnly;
-        ret.locked = locked;
-        ret.unlocked = unlocked;
-        ret.lockedWatchOnly = lockedWatchOnly;
-        return ret;
     }
 };
 
@@ -464,7 +446,6 @@ public:
 
     std::map<uint256, CWalletTx> mapWallet;
     std::list<CAccountingEntry> laccentries;
-    BalanceInfo balanceInfo;
 
     typedef std::pair<CWalletTx*, CAccountingEntry*> TxPair;
     typedef std::multimap<int64_t, TxPair > TxItems;
@@ -585,10 +566,6 @@ public:
     int ScanForWalletTransactions(CBlockIndex* pindexStart, bool fUpdate = false);
     void ReacceptWalletTransactions();
     void ResendWalletTransactions();
-    void TxAddedToWallet(const CWalletTx& wtxIn);
-    void TxRemovedFromWallet(const CWalletTx& wtxIn);
-    void UpdateBalanceOnAddedTransaction(BalanceInfo& balinfo, const CWalletTx& wtxIn);
-    BalanceInfo RecalculateBalanceInfo();
     BalanceInfo GetBalanceInfo();
     CAmount GetBalance() const;
     CAmount GetEarnings(bool fMasternodeOnly) const;

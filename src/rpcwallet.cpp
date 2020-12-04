@@ -673,12 +673,9 @@ CAmount GetAccountBalance(CWalletDB& walletdb, const string& strAccount, int nMi
     }
 
     vector<COutput> vecOutputs;
-    vector<COutput> vecOutputsNew;
     assert(pwalletMain != NULL);
     LOCK2(cs_main, pwalletMain->cs_wallet);
-    pwalletMain->AvailableCoinsNew(vecOutputsNew, false, NULL, false, ALL_COINS, false, filter);
     pwalletMain->AvailableCoins(vecOutputs, false, NULL, false, ALL_COINS, false, filter);
-    LogPrintf("GetAccountBalance: current size: %d, new size: %d\n", vecOutputs.size(), vecOutputsNew.size());
     BOOST_FOREACH (const COutput& out, vecOutputs) {
         if (out.nDepth < nMinDepth)
             continue;
@@ -686,7 +683,6 @@ CAmount GetAccountBalance(CWalletDB& walletdb, const string& strAccount, int nMi
         CTxDestination address;
         if (!ExtractDestination(out.tx->vout[out.i].scriptPubKey, address))
             continue;
-        LogPrintf("GetAccountBalance: utxo: %s, value=%d\n", CBitcoinAddress(address).ToString(), out.tx->vout[out.i].nValue);
 
         if (!accountAddress.count(address))
             continue;
@@ -694,27 +690,8 @@ CAmount GetAccountBalance(CWalletDB& walletdb, const string& strAccount, int nMi
         nBalance += out.tx->vout[out.i].nValue;
     }
 
-    CAmount tmpBalance = 0;
-    BOOST_FOREACH (const COutput& out, vecOutputsNew) {
-        if (out.nDepth < nMinDepth)
-            continue;
-
-        CTxDestination address;
-        if (!ExtractDestination(out.tx->vout[out.i].scriptPubKey, address))
-            continue;
-        LogPrintf("GetAccountBalance: utxo new: %s, value=%d\n", CBitcoinAddress(address).ToString(), out.tx->vout[out.i].nValue);
-
-        if (!accountAddress.count(address))
-            continue;
-
-        tmpBalance += out.tx->vout[out.i].nValue;
-    }
-    LogPrintf("GetAccountBalance: balance: %d, old balance: %d\n", nBalance, tmpBalance);
-
     // Tally internal accounting entries
     nBalance += walletdb.GetAccountCreditDebit(strAccount);
-    tmpBalance += walletdb.GetAccountCreditDebit(strAccount);
-    LogPrintf("GetAccountBalance: final: balance: %d, old balance: %d\n", nBalance, tmpBalance);
 
     return nBalance;
 }

@@ -658,6 +658,32 @@ bool CWallet::AddToWallet(const CWalletTx& wtxIn, bool fFromLoadWallet)
             wtxOrdered.insert(make_pair(wtx.nOrderPos, TxPair(&wtx, (CAccountingEntry*)0)));
             wtx.nTimeSmart = ComputeTimeSmart(wtx);
             AddToSpends(hash);
+
+            int nDepth = wtx.GetDepthInMainChain(false);
+            if (nDepth != 0 || wtx.InMempool()) {
+                for (const auto& input: wtx.vin) {
+                    const auto nRemoved = unspents.erase(input.prevout);
+                    LogPrintf("Erased %d from unspents: %s\n", nRemoved, input.prevout.ToString());
+                }
+                const auto pWalletTx = &mapWallet[hash];
+                for (size_t i = 0; i < wtx.vout.size(); i++) {
+                    const auto& output = wtx.vout[i];
+                    const auto mine = IsMine(output);
+                    bool fIsSpendable = false;
+                    if ((mine & ISMINE_SPENDABLE) != ISMINE_NO) {
+                        fIsSpendable = true;
+                    }
+                    if ((mine & ISMINE_MULTISIG) != ISMINE_NO) {
+                        fIsSpendable = true;
+                    }
+                    CTxDestination dest;
+                    ExtractDestination(output.scriptPubKey, dest);
+                    if (mapAddressBook.count(dest)) {
+                        LogPrintf("Add to unspents: %s\n", COutPoint(hash, i).ToString());
+                        unspents.insert(make_pair(COutPoint(hash, i), COutput(pWalletTx, i, nDepth, fIsSpendable)));
+                    }
+                }
+            }
         }
 
         bool fUpdated = false;

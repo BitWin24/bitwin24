@@ -2924,13 +2924,25 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
                 }
                 signOfProofValid = (pubkey == witness.pubKeyWitness);
             }
-            if (witness.nProofs.size() != masterNodeCount
-                || !witness.IsValid(block.nTime)
-                || !witness.SignatureValid()
-                || !signOfProofValid) {
+            if (witness.nProofs.size() != masterNodeCount) {
                 return state.DoS(
                     100,
-                    error("ConnectBlock() : not valid proof or unexpected number of master nodes in proof: %s",
+                    error("ConnectBlock() : unexpected number of master nodes in proof: witness proofs=%d, masterNodeCount=%d",
+                          witness.nProofs.size(),
+                          masterNodeCount),
+                    REJECT_INVALID,
+                    "bad-cb-proof-count");
+            }
+            const auto isWitnessValid = witness.IsValid(block.nTime);
+            const auto isSignatureValid = witness.SignatureValid();
+            if (!isWitnessValid ||
+                !isSignatureValid ||
+                !signOfProofValid) {
+                LogPrintf("DEBUG: bad proof: isWitnessValid=%d, isSignatureValid=%d, signOfProofValid=%d",
+                    isWitnessValid, isSignatureValid, signOfProofValid);
+                return state.DoS(
+                    100,
+                    error("ConnectBlock() : not valid proof: %s",
                           witness.ToString()),
                     REJECT_INVALID,
                     "bad-cb-proof");

@@ -2938,7 +2938,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
             if (!isWitnessValid ||
                 !isSignatureValid ||
                 !signOfProofValid) {
-                LogPrintf("DEBUG: bad proof: isWitnessValid=%d, isSignatureValid=%d, signOfProofValid=%d",
+                LogPrintf("DEBUG: bad proof: isWitnessValid=%d, isSignatureValid=%d, signOfProofValid=%d\n",
                     isWitnessValid, isSignatureValid, signOfProofValid);
                 return state.DoS(
                     100,

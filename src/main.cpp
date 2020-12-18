@@ -3464,7 +3464,11 @@ static bool ActivateBestChainStep(CValidationState& state, CBlockIndex* pindexMo
     bool fInvalidFound = false;
     const CBlockIndex* pindexOldTip = chainActive.Tip();
     const CBlockIndex* pindexFork = chainActive.FindFork(pindexMostWork);
+    bool isDifferentChain = pindexOldTip != pindexFork;
 
+    if (pindexOldTip && pindexFork) {
+        LogPrintf("Disconnect active blocks from %d to %d\n", pindexOldTip->nHeight, pindexFork->nHeight);
+    }
     // Disconnect active blocks which are no longer in the best chain.
     while (chainActive.Tip() && chainActive.Tip() != pindexFork) {
         if (!DisconnectTip(state))
@@ -3520,6 +3524,9 @@ static bool ActivateBestChainStep(CValidationState& state, CBlockIndex* pindexMo
     else
         CheckForkWarningConditions();
 
+    if (isDifferentChain && pwalletMain) {
+        pwalletMain->ResetUnspents();
+    }
     return true;
 }
 

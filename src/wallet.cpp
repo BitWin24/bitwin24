@@ -1926,36 +1926,33 @@ void CWallet::ResendWalletTransactions()
 
 void CWallet::ResetUnspents()
 {
+    LOCK2(cs_main, cs_wallet);
     unspents.clear();
+    for (auto it = mapWallet.begin(); it != mapWallet.end(); ++it) {
+        const uint256& wtxid = it->first;
+        const CWalletTx* pcoin = &(*it).second;
 
-    {
-        LOCK2(cs_main, cs_wallet);
-        for (auto it = mapWallet.begin(); it != mapWallet.end(); ++it) {
-            const uint256& wtxid = it->first;
-            const CWalletTx* pcoin = &(*it).second;
+        int nDepth = pcoin->GetDepthInMainChain(false);
 
-            int nDepth = pcoin->GetDepthInMainChain(false);
+        // We should not consider coins which aren't at least in our mempool
+        // It's possible for these to be conflicted via ancestors which we may never be able to detect
+        if (nDepth == 0 && !pcoin->InMempool())
+            continue;
 
-            // We should not consider coins which aren't at least in our mempool
-            // It's possible for these to be conflicted via ancestors which we may never be able to detect
-            if (nDepth == 0 && !pcoin->InMempool())
+        for (unsigned int i = 0; i < pcoin->vout.size(); i++) {
+            isminetype mine = IsMine(pcoin->vout[i]);
+            if (IsSpent(wtxid, i))
+                continue;
+            if (mine == ISMINE_NO)
                 continue;
 
-            for (unsigned int i = 0; i < pcoin->vout.size(); i++) {
-                isminetype mine = IsMine(pcoin->vout[i]);
-                if (IsSpent(wtxid, i))
-                    continue;
-                if (mine == ISMINE_NO)
-                    continue;
+            bool fIsSpendable = false;
+            if ((mine & ISMINE_SPENDABLE) != ISMINE_NO)
+                fIsSpendable = true;
+            if ((mine & ISMINE_MULTISIG) != ISMINE_NO)
+                fIsSpendable = true;
 
-                bool fIsSpendable = false;
-                if ((mine & ISMINE_SPENDABLE) != ISMINE_NO)
-                    fIsSpendable = true;
-                if ((mine & ISMINE_MULTISIG) != ISMINE_NO)
-                    fIsSpendable = true;
-
-                unspents.insert(make_pair(COutPoint(pcoin->GetHash(), i), COutput(pcoin, i, nDepth, fIsSpendable)));
-            }
+            unspents.insert(make_pair(COutPoint(pcoin->GetHash(), i), COutput(pcoin, i, nDepth, fIsSpendable)));
         }
     }
 }

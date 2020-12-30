@@ -94,7 +94,6 @@ public:
     void updateWallet(const uint256& hash, int status, bool showTransaction)
     {
         qDebug() << "TransactionTablePriv::updateWallet : " + QString::fromStdString(hash.ToString()) + " " + QString::number(status);
-        const auto t_begin = boost::chrono::high_resolution_clock::now();
         // Find bounds of this transaction in model
         QList<TransactionRecord>::iterator lower = qLowerBound(
             cachedWallet.begin(), cachedWallet.end(), hash, TxLessThan());
@@ -110,7 +109,6 @@ public:
             if (!showTransaction && inModel)
                 status = CT_DELETED; /* In model, but want to hide, treat as deleted */
         }
-        const auto t_mid = boost::chrono::high_resolution_clock::now();
         qDebug() << "    inModel=" + QString::number(inModel) +
                         " Index=" + QString::number(lowerIndex) + "-" + QString::number(upperIndex) +
                         " showTransaction=" + QString::number(showTransaction) + " derivedStatus=" + QString::number(status);
@@ -162,12 +160,6 @@ public:
             if (parent)
                 parent->updateTime();
             break;
-        }
-        const auto t_end = boost::chrono::high_resolution_clock::now();
-        if (boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count() > 0) {
-            // LogPrintf("updateWallet %d ms, %d ms\n",
-            //     boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
-            //     boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid - t_begin).count());
         }
     }
 
@@ -260,18 +252,12 @@ void TransactionTableModel::updateTransaction(const QString& hash, int status, b
 
 void TransactionTableModel::updateConfirmations()
 {
-    const auto t_begin = boost::chrono::high_resolution_clock::now();
     // Blocks came in since last poll.
     // Invalidate status (number of confirmations) and (possibly) description
     //  for all rows. Qt is smart enough to only actually request the data for the
     //  visible rows.
     emit dataChanged(index(0, Status), index(std::min(priv->size() - 1, MAX_UPDATED_TRANSACTIONS), Status));
-    const auto t_mid = boost::chrono::high_resolution_clock::now();
     emit dataChanged(index(0, ToAddress), index(std::min(priv->size() - 1, MAX_UPDATED_TRANSACTIONS), ToAddress));
-    const auto t_end = boost::chrono::high_resolution_clock::now();
-    // LogPrintf("TransactionTableModel::updateConfirmations() size - %d; %d ms, %d ms\n", priv->size(),
-    //     boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
-    //     boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid - t_begin).count());
 }
 
 int TransactionTableModel::rowCount(const QModelIndex& parent) const

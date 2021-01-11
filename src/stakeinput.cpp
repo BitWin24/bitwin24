@@ -217,12 +217,12 @@ bool CBitWin24Stake::CreateTxOuts(CWallet* pwallet, vector<CTxOut>& vout, CAmoun
     }
 
     bool needSplit = false;
-    CTxDestination utxoAddress;
-    ExtractDestination(scriptPubKeyKernel, utxoAddress);
-    CBitcoinAddress address(utxoAddress);
-    if (pwallet->addressesToSplit.find(address) != pwallet->addressesToSplit.end()) {
-        needSplit = true;
-    }
+    // CTxDestination utxoAddress;
+    // ExtractDestination(scriptPubKeyKernel, utxoAddress);
+    // CBitcoinAddress address(utxoAddress);
+    // if (pwallet->addressesToSplit.find(address) != pwallet->addressesToSplit.end()) {
+    //     needSplit = true;
+    // }
 
     if (needSplit) {
         const CAmount splitAmount = static_cast<CAmount>(pwallet->nStakeSplitThreshold) * COIN;

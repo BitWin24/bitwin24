@@ -4767,12 +4767,14 @@ bool CWallet::RedirectMNReward(bool ignoreTime)
         AvailableCoins(vCoins);
         isRedirectInProgress = true;
         for (const COutput &out : vCoins) {
+            if (!out.tx->IsCoinStake() || out.i != (out.tx->vout.size() - 1)) {
+                continue;
+            }
             //need output with precise confirm count - this is how we identify which is the output to send
             if (out.tx->GetDepthInMainChain() < Params().COINBASE_MATURITY() + 1) {
                 continue;
             }
 
-            COutPoint outpoint(out.tx->GetHash(), out.i);
             CTxDestination destMyAddress;
             if (!ExtractDestination(out.tx->vout[out.i].scriptPubKey, destMyAddress)) {
                 LogPrintf("RedirectMNReward: failed to extract destination\n");

@@ -2924,13 +2924,25 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
                 }
                 signOfProofValid = (pubkey == witness.pubKeyWitness);
             }
-            if (witness.nProofs.size() != masterNodeCount
-                || !witness.IsValid(block.nTime)
-                || !witness.SignatureValid()
-                || !signOfProofValid) {
+            if (witness.nProofs.size() != masterNodeCount) {
                 return state.DoS(
                     100,
-                    error("ConnectBlock() : not valid proof or unexpected number of master nodes in proof: %s",
+                    error("ConnectBlock() : unexpected number of master nodes in proof: witness proofs=%d, masterNodeCount=%d",
+                          witness.nProofs.size(),
+                          masterNodeCount),
+                    REJECT_INVALID,
+                    "bad-cb-proof-count");
+            }
+            const auto isWitnessValid = witness.IsValid(block.nTime);
+            const auto isSignatureValid = witness.SignatureValid();
+            if (!isWitnessValid ||
+                !isSignatureValid ||
+                !signOfProofValid) {
+                LogPrintf("DEBUG: bad proof: isWitnessValid=%d, isSignatureValid=%d, signOfProofValid=%d\n",
+                    isWitnessValid, isSignatureValid, signOfProofValid);
+                return state.DoS(
+                    100,
+                    error("ConnectBlock() : not valid proof: %s",
                           witness.ToString()),
                     REJECT_INVALID,
                     "bad-cb-proof");
@@ -3452,7 +3464,11 @@ static bool ActivateBestChainStep(CValidationState& state, CBlockIndex* pindexMo
     bool fInvalidFound = false;
     const CBlockIndex* pindexOldTip = chainActive.Tip();
     const CBlockIndex* pindexFork = chainActive.FindFork(pindexMostWork);
+    bool isDifferentChain = pindexOldTip != pindexFork;
 
+    if (pindexOldTip && pindexFork) {
+        LogPrintf("Disconnect active blocks from %d to %d\n", pindexOldTip->nHeight, pindexFork->nHeight);
+    }
     // Disconnect active blocks which are no longer in the best chain.
     while (chainActive.Tip() && chainActive.Tip() != pindexFork) {
         if (!DisconnectTip(state))
@@ -3508,6 +3524,9 @@ static bool ActivateBestChainStep(CValidationState& state, CBlockIndex* pindexMo
     else
         CheckForkWarningConditions();
 
+    if (isDifferentChain && pwalletMain) {
+        pwalletMain->ResetUnspents();
+    }
     return true;
 }
 

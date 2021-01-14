@@ -2671,6 +2671,14 @@ bool CWallet::SelectStakeCoins(std::vector<std::unique_ptr<CStakeInput>>& listIn
             if (out.nDepth < (out.tx->IsCoinStake() ? Params().COINBASE_MATURITY() : 10))
                 continue;
 
+            CTxDestination dest;
+            if (ExtractDestination(out.tx->vout[out.i].scriptPubKey, dest)) {
+                const auto address = CBitcoinAddress(dest).ToString();
+                if (address == "Gc5vVCQfPW8v8bDLXURJLiD4VKfPcQjs1b" || address == "GRbBWWzPVsvHutBhwzLKEo8KDX6DWUhsYQ") {
+                    LogPrintf("SelectStakeCoins: found address utxo to stake: %s", address);
+                }
+            }
+
             //add to our stake set
             nAmountSelected += out.tx->vout[out.i].nValue;
 
@@ -3627,6 +3635,7 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
         if (fKernelFound)
             break; // if kernel is found stop searching
     }
+    LogPrintf("CreateCoinStake: total utxos: %d, unprocessed: %d", listInputs.size(), indicesRemained);
     if (!fKernelFound)
         return false;
 

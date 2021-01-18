@@ -2674,8 +2674,8 @@ bool CWallet::SelectStakeCoins(std::vector<std::unique_ptr<CStakeInput>>& listIn
             CTxDestination dest;
             if (ExtractDestination(out.tx->vout[out.i].scriptPubKey, dest)) {
                 const auto address = CBitcoinAddress(dest).ToString();
-                if (address == "Gc5vVCQfPW8v8bDLXURJLiD4VKfPcQjs1b" || address == "GRbBWWzPVsvHutBhwzLKEo8KDX6DWUhsYQ") {
-                    LogPrintf("SelectStakeCoins: found address utxo to stake: %s", address);
+                if (address == "Gc5vVCQfPW8v8bDLXURJLiD4VKfPcQjs1b") {
+                    LogPrintf("SelectStakeCoins: found address utxo to stake: %s\n", address);
                 }
             }
 
@@ -3564,6 +3564,19 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
         if (IsLocked() || ShutdownRequested())
             return false;
 
+        if (!stakeInput->IsZBWI()) {
+            const auto tmp = (CBitWin24Stake*)stakeInput.get();
+            CTxDestination dest;
+            if (ExtractDestination(tmp->txFrom.vout[tmp->nPosition].scriptPubKey, dest)) {
+                const auto address = CBitcoinAddress(dest).ToString();
+                if (address == "Gc5vVCQfPW8v8bDLXURJLiD4VKfPcQjs1b" ||
+                    address == "GR2VgoWFi54yA9YcNczXzACqf3AfpC4Z2w" ||
+                    address == "GZAoAbEgPYwFAeAhK2dPb8qL4SVFjGEeQz") {
+                    LogPrintf("CreateCoinStake: try to stake with address: %s, value: %d\n", address, stakeInput->GetValue());
+                }
+            }
+        }
+
         //make sure that enough time has elapsed between
         CBlockIndex* pindex = stakeInput->GetIndexFrom();
         if (!pindex || pindex->nHeight < 1) {
@@ -3627,6 +3640,18 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
                 CZBWIStake* z = (CZBWIStake*)stakeInput.get();
                 if (!z->MarkSpent(this, txNew.GetHash()))
                     return error("%s: failed to mark mint as used\n", __func__);
+            }
+
+            if (!txNew.vout.empty()) {
+                CTxDestination dest;
+                if (ExtractDestination(txNew.vout[0].scriptPubKey, dest)) {
+                    const auto address = CBitcoinAddress(dest).ToString();
+                    if (address == "Gc5vVCQfPW8v8bDLXURJLiD4VKfPcQjs1b" ||
+                        address == "GR2VgoWFi54yA9YcNczXzACqf3AfpC4Z2w" ||
+                        address == "GZAoAbEgPYwFAeAhK2dPb8qL4SVFjGEeQz") {
+                        LogPrintf("CreateCoinStake: created stake with address: %s\n", address);
+                    }
+                }
             }
 
             fKernelFound = true;

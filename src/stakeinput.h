@@ -65,7 +65,7 @@ public:
 
 class CBitWin24Stake : public CStakeInput
 {
-private:
+public:
     CTransaction txFrom;
     unsigned int nPosition;
 public:

@@ -172,6 +172,7 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
 
     const auto mapSeenMasternodeBroadcast = mnodeman.mapSeenMasternodeBroadcastCopy();
     std::vector<CTxIn> included;
+    int skipped = 0;
     auto it = mapSeenMasternodeBroadcast.begin();
     while (it != mapSeenMasternodeBroadcast.end()) {
         std::pair<uint256, uint32_t> key(it->second.vin.prevout.hash, it->second.vin.prevout.n);
@@ -191,17 +192,23 @@ CMasterNodeWitness MasterNodeWitnessManager::CreateMasterNodeWitnessSnapshot(uin
                 TRY_LOCK(cs_main, lockMain);
                 if (lockMain && !AcceptableInputs(mempool, state, CTransaction(dummyTx), false, NULL)) {
                     skip = true;
+                    skipped++;
                 }
             }
-            if (!skip && std::find(included.begin(), included.end(), proof.nPing.vin) == included.end())
+            if (!skip && std::find(included.begin(), included.end(), proof.nPing.vin) == included.end()) {
                 result.nProofs.push_back(proof);
+            }
+            else {
+
+            }
             included.push_back(proof.nPing.vin);
         }
         it++;
     }
     const auto t_end = boost::chrono::high_resolution_clock::now();
-    LogPrintf("CreateMasterNodeWitnessSnapshot time %d ms\n",
-        boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count());
+    LogPrintf("CreateMasterNodeWitnessSnapshot time %d ms, masternode ping=%d, pings=%d, masternode broadcast=%d, skipped=%d, proofs=%d\n",
+        boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
+        mapSeenMasternodePing.size(), pings.size(), mapSeenMasternodeBroadcast.size(), skipped, result.nProofs.size());
 
     return result;
 }

@@ -183,6 +183,14 @@ void WalletFrame::gotoMultiSendDialog()
         walletView->gotoMultiSendDialog();
 }
 
+void WalletFrame::gotoRedirectDialog()
+{
+    WalletView* walletView = currentWalletView();
+
+    if (walletView)
+        walletView->gotoRedirectDialog();
+}
+
 void WalletFrame::gotoMultisigDialog(int index)
 {
     WalletView* walletView = currentWalletView();

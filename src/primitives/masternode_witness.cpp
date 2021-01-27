@@ -41,19 +41,23 @@ bool CMasterNodeWitness::IsValid(int64_t atTime) const
         CMasternodeBroadcast broadcast = nProofs[i].nBroadcast;
 
         if (ping.sigTime<(atTime - MASTERNODE_REMOVAL_SECONDS) || ping.sigTime>(atTime + MASTERNODE_PING_SECONDS)) {
+            LogPrintf("DEBUG: invalid ping time, ping.sigTime=%d, atTime=%d\n", ping.sigTime, atTime);
             return false;
         }
 
         if (ping.vin != broadcast.vin) {
+            LogPrintf("DEBUG: vin mismatch %s != %s\n", ping.vin.ToString(), broadcast.vin.ToString());
             return false;
         }
 
         if (!broadcast.VerifySignature()) {
+            LogPrintf("DEBUG: !broadcast.VerifySignature()\n");
             return false;
         }
 
         int nDos = 0;
         if (!ping.VerifySignature(broadcast.pubKeyMasternode, nDos) || nDos != 0) {
+            LogPrintf("DEBUG: !ping.VerifySignature(broadcast.pubKeyMasternode, nDos) || nDos != 0\n");
             return false;
         }
 
@@ -65,6 +69,7 @@ bool CMasterNodeWitness::IsValid(int64_t atTime) const
             CBlockIndex *pMNIndex = (*mi).second;
             CBlockIndex *pConfIndex = chainActive[pMNIndex->nHeight + MASTERNODE_MIN_CONFIRMATIONS - 1];
             if (pConfIndex && pConfIndex->GetBlockTime() > atTime) {
+            LogPrintf("DEBUG: pConfIndex && pConfIndex->GetBlockTime() (%d) > atTime (%d)\n", pConfIndex->GetBlockTime(), atTime);
                 return false;
             }
         }
@@ -79,11 +84,13 @@ bool CMasterNodeWitness::IsValid(int64_t atTime) const
 
             TRY_LOCK(cs_main, lockMain);
             if (lockMain && !AcceptableInputs(mempool, state, CTransaction(dummyTx), false, NULL)) {
+                LogPrintf("DEBUG: lockMain && !AcceptableInputs(mempool, state, CTransaction(dummyTx), false, NULL)\n");
                 return false;
             }
         }
 
         if (std::find(checkedOut.begin(), checkedOut.end(), ping.vin) != checkedOut.end()) {
+            LogPrintf("DEBUG: std::find(checkedOut.begin(), checkedOut.end(), ping.vin) != checkedOut.end()\n");
             return false;
         }
         checkedOut.push_back(ping.vin);

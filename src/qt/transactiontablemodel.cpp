@@ -33,6 +33,7 @@ static int column_alignments[] = {
     Qt::AlignLeft | Qt::AlignVCenter, /* date */
     Qt::AlignLeft | Qt::AlignVCenter, /* type */
     Qt::AlignLeft | Qt::AlignVCenter, /* address */
+    Qt::AlignLeft | Qt::AlignVCenter, /* comment */
     Qt::AlignRight | Qt::AlignVCenter /* amount */
 };
 
@@ -93,7 +94,6 @@ public:
     void updateWallet(const uint256& hash, int status, bool showTransaction)
     {
         qDebug() << "TransactionTablePriv::updateWallet : " + QString::fromStdString(hash.ToString()) + " " + QString::number(status);
-
         // Find bounds of this transaction in model
         QList<TransactionRecord>::iterator lower = qLowerBound(
             cachedWallet.begin(), cachedWallet.end(), hash, TxLessThan());
@@ -109,7 +109,6 @@ public:
             if (!showTransaction && inModel)
                 status = CT_DELETED; /* In model, but want to hide, treat as deleted */
         }
-
         qDebug() << "    inModel=" + QString::number(inModel) +
                         " Index=" + QString::number(lowerIndex) + "-" + QString::number(upperIndex) +
                         " showTransaction=" + QString::number(showTransaction) + " derivedStatus=" + QString::number(status);
@@ -144,6 +143,7 @@ public:
             }
             break;
         case CT_DELETED:
+            LogPrintf("updateWallet() CT_DELETED\n");
             if (!inModel) {
                 qWarning() << "TransactionTablePriv::updateWallet : Warning: Got CT_DELETED, but transaction is not in model";
                 break;
@@ -154,8 +154,11 @@ public:
             parent->endRemoveRows();
             break;
         case CT_UPDATED:
+            LogPrintf("updateWallet() CT_UPDATED\n");
             // Miscellaneous updates -- nothing to do, status update will take care of this, and is only computed for
             // visible transactions.
+            if (parent)
+                parent->updateTime();
             break;
         }
     }
@@ -180,10 +183,16 @@ public:
             TRY_LOCK(cs_main, lockMain);
             if (lockMain) {
                 TRY_LOCK(wallet->cs_wallet, lockWallet);
-                if (lockWallet && rec->statusUpdateNeeded()) {
+                if (lockWallet) {
                     std::map<uint256, CWalletTx>::iterator mi = wallet->mapWallet.find(rec->hash);
+                    if (mi == wallet->mapWallet.end()) {
+                        return rec;
+                    }
+                    if (mi->second.mapValue.count("comment")) {
+                        rec->comment = mi->second.mapValue["comment"];
+                    }
 
-                    if (mi != wallet->mapWallet.end()) {
+                    if (rec->statusUpdateNeeded()) {
                         rec->updateStatus(mi->second);
                     }
                 }
@@ -212,7 +221,7 @@ TransactionTableModel::TransactionTableModel(CWallet* wallet, WalletModel* paren
                                                                                      priv(new TransactionTablePriv(wallet, this)),
                                                                                      fProcessingQueuedTransactions(false)
 {
-    columns << QString() << QString() << tr("Date") << tr("Type") << tr("Address") << BitcoinUnits::getAmountColumnTitle(walletModel->getOptionsModel()->getDisplayUnit());
+    columns << QString() << QString() << tr("Date") << tr("Type") << tr("Address") << tr("Comment") << BitcoinUnits::getAmountColumnTitle(walletModel->getOptionsModel()->getDisplayUnit());
     priv->refreshWallet();
 
     connect(walletModel->getOptionsModel(), SIGNAL(displayUnitChanged(int)), this, SLOT(updateDisplayUnit()));
@@ -247,8 +256,8 @@ void TransactionTableModel::updateConfirmations()
     // Invalidate status (number of confirmations) and (possibly) description
     //  for all rows. Qt is smart enough to only actually request the data for the
     //  visible rows.
-    emit dataChanged(index(0, Status), index(priv->size() - 1, Status));
-    emit dataChanged(index(0, ToAddress), index(priv->size() - 1, ToAddress));
+    emit dataChanged(index(0, Status), index(std::min(priv->size() - 1, MAX_UPDATED_TRANSACTIONS), Status));
+    emit dataChanged(index(0, ToAddress), index(std::min(priv->size() - 1, MAX_UPDATED_TRANSACTIONS), ToAddress));
 }
 
 int TransactionTableModel::rowCount(const QModelIndex& parent) const
@@ -547,6 +556,8 @@ QVariant TransactionTableModel::data(const QModelIndex& index, int role) const
             return formatTxType(rec);
         case ToAddress:
             return formatTxToAddress(rec, false);
+        case Comment:
+            return QString::fromStdString(rec->comment);
         case Amount:
             return formatTxAmount(rec, true, BitcoinUnits::separatorAlways);
         }
@@ -613,6 +624,8 @@ QVariant TransactionTableModel::data(const QModelIndex& index, int role) const
         return QString::fromStdString(rec->address);
     case LabelRole:
         return walletModel->getAddressTableModel()->labelForAddress(QString::fromStdString(rec->address));
+    case CommentRole:
+        return QString::fromStdString(rec->comment);
     case AmountRole:
         return qint64(rec->credit + rec->debit);
     case TxIDRole:
@@ -671,7 +684,12 @@ void TransactionTableModel::updateDisplayUnit()
 {
     // emit dataChanged to update Amount column with the current unit
     updateAmountColumnTitle();
-    emit dataChanged(index(0, Amount), index(priv->size() - 1, Amount));
+    emit dataChanged(index(0, Amount), index(std::min(priv->size() - 1, MAX_UPDATED_TRANSACTIONS), Amount));
+}
+
+void TransactionTableModel::updateTime()
+{
+    emit dataChanged(index(0, ColumnIndex::Date), index(std::min(priv->size() - 1, MAX_UPDATED_TRANSACTIONS), ColumnIndex::Date));
 }
 
 // queue notifications to show a non freezing progress dialog e.g. for rescan

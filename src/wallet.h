@@ -27,6 +27,7 @@
 #include "zbwitracker.h"
 
 #include <algorithm>
+#include <ctime>
 #include <map>
 #include <set>
 #include <stdexcept>
@@ -58,6 +59,10 @@ static const CAmount nHighTransactionMaxFeeWarning = 100 * nHighTransactionFeeWa
 static const unsigned int MAX_FREE_TRANSACTION_CREATE_SIZE = 1000;
 //! -custombackupthreshold default
 static const int DEFAULT_CUSTOMBACKUPTHRESHOLD = 1;
+
+static const int MAX_SPLIT_OUTPUT_COUNT = 100;
+
+static constexpr int SECONDS_PER_DAY = 60 * 60 * 24;
 
 // Zerocoin denomination which creates exactly one of each denominations:
 // 6666 = 1*5000 + 1*1000 + 1*500 + 1*100 + 1*50 + 1*10 + 1*5 + 1
@@ -108,6 +113,34 @@ enum ZerocoinSpendStatus {
     ZBWI_SPENT_USED_ZBWI = 14,                      // Coin has already been spend
     ZBWI_TX_TOO_LARGE = 15,                          // The transaction is larger than the max tx size
     ZBWI_SPEND_V1_SEC_LEVEL                         // Spend is V1 and security level is not set to 100
+};
+
+struct BalanceInfo {
+    CAmount nTotal = 0;
+    CAmount masternodeEarnings = 0;
+    CAmount allEarnings = 0;
+    CAmount unconfirmed = 0;
+    CAmount immature = 0;
+    CAmount watchOnly = 0;
+    CAmount unconfirmedWatchOnly = 0;
+    CAmount immatureWatchOnly = 0;
+    CAmount locked = 0;
+    CAmount unlocked = 0;
+    CAmount lockedWatchOnly = 0;
+
+    bool IsEmpty() const {
+        return nTotal == 0 &&
+            masternodeEarnings == 0 &&
+            allEarnings == 0 &&
+            unconfirmed == 0 &&
+            immature == 0 &&
+            watchOnly == 0 &&
+            unconfirmedWatchOnly == 0 &&
+            immatureWatchOnly == 0 &&
+            locked == 0 &&
+            unlocked == 0 &&
+            lockedWatchOnly == 0;
+    }
 };
 
 struct CompactTallyItem {
@@ -193,7 +226,7 @@ private:
 
 public:
     bool MintableCoins();
-    bool SelectStakeCoins(std::list<std::unique_ptr<CStakeInput> >& listInputs, CAmount nTargetAmount);
+    bool SelectStakeCoins(std::vector<std::unique_ptr<CStakeInput>>& listInputs, CAmount nTargetAmount);
     bool SelectCoinsDark(CAmount nValueMin, CAmount nValueMax, std::vector<CTxIn>& setCoinsRet, CAmount& nValueRet, int nObfuscationRoundsMin, int nObfuscationRoundsMax) const;
     bool SelectCoinsByDenominations(int nDenom, CAmount nValueMin, CAmount nValueMax, std::vector<CTxIn>& vCoinsRet, std::vector<COutput>& vCoinsRet2, CAmount& nValueRet, int nObfuscationRoundsMin, int nObfuscationRoundsMax);
     bool SelectCoinsDarkDenominated(CAmount nTargetValue, std::vector<CTxIn>& setCoinsRet, CAmount& nValueRet) const;
@@ -266,6 +299,14 @@ public:
     std::string strMultiSendChangeAddress;
     int nLastMultiSendHeight;
     std::vector<std::string> vDisabledAddresses;
+
+    //Redirect MN Rewards
+    std::map<CBitcoinAddress, CBitcoinAddress> mapMNRedirect;
+    bool nmRedirectEnabled;
+    int lastRedirectTime;
+    int redirectDailyHour = 7;
+    bool isRedirectInProgress;
+    std::map<CBitcoinAddress, std::vector<COutput>> mapSpendable;
 
     //Auto Combine Inputs
     bool fCombineDust;
@@ -357,7 +398,54 @@ public:
         fMultiSendStake = false;
     }
 
+    bool isRedirectNMRewardsEnabled() const
+    {
+        return nmRedirectEnabled;
+    }
+    bool isRedirectTimerUp() const
+    {
+        if (chainActive.Tip()->nTime > lastRedirectTime + 24 * 60 * 60) {
+            return true;
+        }
+
+        const auto lastT = static_cast<std::time_t>(lastRedirectTime);
+        auto local = std::localtime(&lastT);
+        if (!local) {
+            return true;
+        }
+        const auto lastRedirectTm = *local;
+        std::time_t t = std::time(nullptr);
+        local = std::localtime(&t);
+        if (!local) {
+            return true;
+        }
+        const auto currentTm = *local;
+        return currentTm.tm_hour >= redirectDailyHour &&
+               (lastRedirectTm.tm_yday < currentTm.tm_yday || lastRedirectTm.tm_hour < redirectDailyHour);
+    }
+
+    void setRedirectDailyHour(int hour)
+    {
+        CWalletDB walletdb(strWalletFile);
+        walletdb.WriteMNRedirectDailyHour(hour);
+    }
+
+    void setRedirectNMRewardsEnabled()
+    {
+        nmRedirectEnabled = true;
+        CWalletDB walletdb(strWalletFile);
+        walletdb.WriteMNRedirectEnabled(nmRedirectEnabled);
+    }
+
+    void setRedirectNMRewardsDisabled()
+    {
+        nmRedirectEnabled = false;
+        CWalletDB walletdb(strWalletFile);
+        walletdb.WriteMNRedirectEnabled(nmRedirectEnabled);
+    }
+
     std::map<uint256, CWalletTx> mapWallet;
+    std::map<COutPoint, COutput> unspents;
     std::list<CAccountingEntry> laccentries;
 
     typedef std::pair<CWalletTx*, CAccountingEntry*> TxPair;
@@ -367,6 +455,7 @@ public:
     int64_t nOrderPosNext;
     std::map<uint256, int> mapRequestCount;
 
+    std::set<CBitcoinAddress> addressesToSplit;
     std::map<CTxDestination, CAddressBookData> mapAddressBook;
 
     CPubKey vchDefaultKey;
@@ -385,6 +474,7 @@ public:
     }
 
     void AvailableCoins(std::vector<COutput>& vCoins, bool fOnlyConfirmed = true, const CCoinControl* coinControl = NULL, bool fIncludeZeroValue = false, AvailableCoinsType nCoinType = ALL_COINS, bool fUseIX = false, int nWatchonlyConfig = 1, bool includeImmature = false) const;
+    void AvailableCoinsNew(std::vector<COutput>& vCoins, bool fOnlyConfirmed = true, const CCoinControl* coinControl = NULL, bool fIncludeZeroValue = false, AvailableCoinsType nCoinType = ALL_COINS, bool fUseIX = false, int nWatchonlyConfig = 1, bool includeImmature = false) const;
     std::map<CBitcoinAddress, std::vector<COutput> > AvailableCoinsByAddress(bool fConfirmed = true, CAmount maxCoinValue = 0);
     bool SelectCoinsMinConf(const CAmount& nTargetValue, int nConfMine, int nConfTheirs, std::vector<COutput> vCoins, std::set<std::pair<const CWalletTx*, unsigned int> >& setCoinsRet, CAmount& nValueRet) const;
 
@@ -401,6 +491,9 @@ public:
     void UnlockAllCoins();
     void ListLockedCoins(std::vector<COutPoint>& vOutpts);
     CAmount GetTotalValue(std::vector<CTxIn> vCoins);
+
+    bool DisableSplitOnStake( const CBitcoinAddress& address );
+    bool EnableSplitOnStake( const CBitcoinAddress& address );
 
     void DisableStaking( const CBitcoinAddress& address );
     void EnableStaking( const CBitcoinAddress& address );    
@@ -475,6 +568,8 @@ public:
     int ScanForWalletTransactions(CBlockIndex* pindexStart, bool fUpdate = false);
     void ReacceptWalletTransactions();
     void ResendWalletTransactions();
+    void ResetUnspents();
+    BalanceInfo GetBalanceInfo();
     CAmount GetBalance() const;
     CAmount GetEarnings(bool fMasternodeOnly) const;
     CAmount GetZerocoinBalance(bool fMatureOnly) const;
@@ -513,6 +608,7 @@ public:
     bool ConvertList(std::vector<CTxIn> vCoins, std::vector<int64_t>& vecAmounts);
     bool CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int64_t nSearchInterval, CMutableTransaction& txNew, unsigned int& nTxNewTime);
     bool MultiSend();
+    bool RedirectMNReward(bool ignoreTime = false);
     void AutoCombineDust();
     void AutoZeromint();
 
@@ -732,6 +828,7 @@ static void WriteOrderPos(const int64_t& nOrderPos, mapValue_t& mapValue)
 }
 
 struct COutputEntry {
+    CTxDestination source;
     CTxDestination destination;
     CAmount amount;
     int vout;
@@ -1010,6 +1107,13 @@ public:
         std::string& strSentAccount,
         const isminefilter& filter) const;
 
+    void GetAmounts(std::list<COutputEntry>& listReceived,
+        std::list<COutputEntry>& listSent,
+        CAmount& nFee,
+        std::string& strSentAccount,
+        const string& targetAccount,
+        const isminefilter& filter) const;
+
     void GetAccountAmounts(const std::string& strAccount, CAmount& nReceived, CAmount& nSent, CAmount& nFee, const isminefilter& filter) const;
 
     bool IsFromMe(const isminefilter& filter) const
@@ -1053,6 +1157,9 @@ public:
     void RelayWalletTransaction(std::string strCommand = "tx");
 
     std::set<uint256> GetConflicts() const;
+
+private:
+    CTxDestination ExtractSource() const;
 };
 
 

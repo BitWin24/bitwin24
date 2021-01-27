@@ -114,6 +114,7 @@ HEADERS = \
    $$PWD/src/qt/forms/ui_masternodelist.h \
    $$PWD/src/qt/forms/ui_merchantdialog.h \
    $$PWD/src/qt/forms/ui_multisenddialog.h \
+   $$PWD/src/qt/forms/ui_redirectdialog.h \
    $$PWD/src/qt/forms/ui_multisigdialog.h \
    $$PWD/src/qt/forms/ui_obfuscationconfig.h \
    $$PWD/src/qt/forms/ui_openuridialog.h \
@@ -155,6 +156,7 @@ HEADERS = \
    $$PWD/src/qt/masternodelist.h \
    $$PWD/src/qt/merchantdialog.h \
    $$PWD/src/qt/multisenddialog.h \
+   $$PWD/src/qt/redirectdialog.h \
    $$PWD/src/qt/multisigdialog.h \
    $$PWD/src/qt/networkstyle.h \
    $$PWD/src/qt/notificator.h \
@@ -1091,6 +1093,7 @@ SOURCES = \
    $$PWD/src/qt/forms/masternodelist.ui \
    $$PWD/src/qt/forms/merchantdialog.ui \
    $$PWD/src/qt/forms/multisenddialog.ui \
+   $$PWD/src/qt/forms/redirectdialog.ui \
    $$PWD/src/qt/forms/multisigdialog.ui \
    $$PWD/src/qt/forms/obfuscationconfig.ui \
    $$PWD/src/qt/forms/openuridialog.ui \
@@ -1357,6 +1360,7 @@ SOURCES = \
    $$PWD/src/qt/moc_masternodelist.cpp \
    $$PWD/src/qt/moc_merchantdialog.cpp \
    $$PWD/src/qt/moc_multisenddialog.cpp \
+   $$PWD/src/qt/moc_redirectdialog.cpp \
    $$PWD/src/qt/moc_multisigdialog.cpp \
    $$PWD/src/qt/moc_notificator.cpp \
    $$PWD/src/qt/moc_obfuscationconfig.cpp \
@@ -1389,6 +1393,7 @@ SOURCES = \
    $$PWD/src/qt/moc_walletview.cpp \
    $$PWD/src/qt/moc_zbwicontroldialog.cpp \
    $$PWD/src/qt/multisenddialog.cpp \
+   $$PWD/src/qt/redirectdialog.cpp \
    $$PWD/src/qt/multisigdialog.cpp \
    $$PWD/src/qt/networkstyle.cpp \
    $$PWD/src/qt/notificator.cpp \

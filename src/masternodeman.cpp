@@ -260,13 +260,16 @@ void CMasternodeMan::CheckAndRemove(bool forceExpiredRemoval)
             //erase all of the broadcasts we've seen from this vin
             // -- if we missed a few pings and the node was removed, this will allow is to get it back without them
             //    sending a brand new mnb
-            map<uint256, CMasternodeBroadcast>::iterator it3 = mapSeenMasternodeBroadcast.begin();
-            while (it3 != mapSeenMasternodeBroadcast.end()) {
-                if ((*it3).second.vin == (*it).vin) {
-                    masternodeSync.mapSeenSyncMNB.erase((*it3).first);
-                    mapSeenMasternodeBroadcast.erase(it3++);
-                } else {
-                    ++it3;
+            {
+                LOCK(cs_mapSeenMasternode);
+                map<uint256, CMasternodeBroadcast>::iterator it3 = mapSeenMasternodeBroadcast.begin();
+                while (it3 != mapSeenMasternodeBroadcast.end()) {
+                    if ((*it3).second.vin == (*it).vin) {
+                        masternodeSync.mapSeenSyncMNB.erase((*it3).first);
+                        mapSeenMasternodeBroadcast.erase(it3++);
+                    } else {
+                        ++it3;
+                    }
                 }
             }
 
@@ -316,6 +319,7 @@ void CMasternodeMan::CheckAndRemove(bool forceExpiredRemoval)
         }
     }
 
+    LOCK(cs_mapSeenMasternode);
     // remove expired mapSeenMasternodeBroadcast
     map<uint256, CMasternodeBroadcast>::iterator it3 = mapSeenMasternodeBroadcast.begin();
     while (it3 != mapSeenMasternodeBroadcast.end()) {
@@ -345,6 +349,8 @@ void CMasternodeMan::Clear()
     mAskedUsForMasternodeList.clear();
     mWeAskedForMasternodeList.clear();
     mWeAskedForMasternodeListEntry.clear();
+
+    LOCK(cs_mapSeenMasternode);
     mapSeenMasternodeBroadcast.clear();
     mapSeenMasternodePing.clear();
     nDsqCount = 0;
@@ -735,11 +741,11 @@ void CMasternodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
         CMasternodeBroadcast mnb;
         vRecv >> mnb;
 
-        if (mapSeenMasternodeBroadcast.count(mnb.GetHash())) { //seen
+        if (mapSeenMasternodeBroadcastCount(mnb.GetHash())) { //seen
             masternodeSync.AddedMasternodeList(mnb.GetHash());
             return;
         }
-        mapSeenMasternodeBroadcast.insert(make_pair(mnb.GetHash(), mnb));
+        mapSeenMasternodeBroadcastInsert(mnb.GetHash(), mnb);
 
         int nDoS = 0;
         if (!mnb.CheckAndUpdate(nDoS)) {
@@ -781,8 +787,8 @@ void CMasternodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
 
         LogPrint("masternode", "mnp - Masternode ping, vin: %s\n", mnp.vin.prevout.hash.ToString());
 
-        if (mapSeenMasternodePing.count(mnp.GetHash())) return; //seen
-        mapSeenMasternodePing.insert(make_pair(mnp.GetHash(), mnp));
+        if (mapSeenMasternodePingCount(mnp.GetHash())) return; //seen
+        mapSeenMasternodePingInsert(mnp.GetHash(), mnp);
 
         int nDoS = 0;
         if (mnp.CheckAndUpdate(nDoS)) return;
@@ -839,7 +845,9 @@ void CMasternodeMan::ProcessMessage(CNode* pfrom, std::string& strCommand, CData
                     pfrom->PushInventory(CInv(MSG_MASTERNODE_ANNOUNCE, hash));
                     nInvCount++;
 
-                    if (!mapSeenMasternodeBroadcast.count(hash)) mapSeenMasternodeBroadcast.insert(make_pair(hash, mnb));
+                    if (!mapSeenMasternodeBroadcastCount(hash)) {
+                        mapSeenMasternodeBroadcastInsert(hash, mnb);
+                    }
 
                     if (vin == mn.vin) {
                         LogPrint("masternode", "dseg - Sent 1 Masternode entry to peer %i\n", pfrom->GetId());
@@ -1153,8 +1161,8 @@ void CMasternodeMan::Remove(CTxIn vin)
 
 void CMasternodeMan::UpdateMasternodeList(CMasternodeBroadcast mnb)
 {
-	mapSeenMasternodePing.insert(make_pair(mnb.lastPing.GetHash(), mnb.lastPing));
-	mapSeenMasternodeBroadcast.insert(make_pair(mnb.GetHash(), mnb));
+    mapSeenMasternodePingInsert(mnb.lastPing.GetHash(), mnb.lastPing);
+	mapSeenMasternodeBroadcastInsert(mnb.GetHash(), mnb);
 	masternodeSync.AddedMasternodeList(mnb.GetHash());
 
     LogPrint("masternode","CMasternodeMan::UpdateMasternodeList() -- masternode=%s\n", mnb.vin.prevout.ToString());

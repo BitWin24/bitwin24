@@ -76,6 +76,7 @@ CConditionVariable cvBlockChange;
 int nScriptCheckThreads = 0;
 bool fImporting = false;
 bool fReindex = false;
+bool fInitialBestChainActivation = false;
 bool fTxIndex = true;
 bool fIsBareMultisigStd = true;
 bool fCheckBlockIndex = false;
@@ -2853,6 +2854,19 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     nTimeConnect += nTime1 - nTimeStart;
     LogPrint("bench", "      - Connect %u transactions: %.2fms (%.3fms/tx, %.3fms/txin) [%.2fs]\n", (unsigned)block.vtx.size(), 0.001 * (nTime1 - nTimeStart), 0.001 * (nTime1 - nTimeStart) / block.vtx.size(), nInputs <= 1 ? 0 : 0.001 * (nTime1 - nTimeStart) / (nInputs - 1), nTimeConnect * 0.000001);
 
+    if (pindex->pprev->nHeight >= START_HEIGHT_MN_REWARD_CHECK && block.vtx.size() >= 2) {
+        const CTransaction& tx = block.vtx[1];
+        if (tx.IsCoinStake()) {
+            const auto nExpectedMint = pindex->nMint;
+            const auto expectedNMReward = GetMasterNodePayment(nExpectedMint);
+            const auto mnReward = tx.vout[tx.vout.size() - 1].nValue;
+            if (expectedNMReward != mnReward) {
+                LogPrintf("DEBUG ConnectBlock: expected mint: %d, expected nm reward: %d, actual mn reward: %d\n",
+                    nExpectedMint, expectedNMReward, mnReward);
+                return state.DoS(100, error("ConnectBlock() : invalid masternode reward"), REJECT_INVALID, "bad-mn-reward");
+            }
+        }
+    }
     //PoW phase redistributed fees to miner. PoS stage destroys fees.
     CAmount nExpectedMint = GetBlockValue(pindex->pprev->nHeight);
     if (block.IsProofOfWork())
@@ -2872,9 +2886,11 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
             && !IsInitialBlockDownload()
             && !fImporting
             && !fReindex
+            && !fInitialBestChainActivation
             && pindex->pprev->nHeight >= START_HEIGHT_PROOF_WITH_MN_COUNT
             && block.nTime >= (GetAdjustedTime() - MASTERNODE_REMOVAL_SECONDS)) {
             if (!pMNWitness->Exist(block.GetHash())) {
+                LogPrintf("DEBUG: proof is missing for %s\n", block.GetHash().ToString());
                 return state.DoS(
                     5,
                     error("ConnectBlock() : we do not accept fresh blocks without proofs, proof not found for %s",
@@ -2908,13 +2924,25 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
                 }
                 signOfProofValid = (pubkey == witness.pubKeyWitness);
             }
-            if (witness.nProofs.size() != masterNodeCount
-                || !witness.IsValid(block.nTime)
-                || !witness.SignatureValid()
-                || !signOfProofValid) {
+            if (witness.nProofs.size() != masterNodeCount) {
                 return state.DoS(
                     100,
-                    error("ConnectBlock() : not valid proof or unexpected number of master nodes in proof: %s",
+                    error("ConnectBlock() : unexpected number of master nodes in proof: witness proofs=%d, masterNodeCount=%d",
+                          witness.nProofs.size(),
+                          masterNodeCount),
+                    REJECT_INVALID,
+                    "bad-cb-proof-count");
+            }
+            const auto isWitnessValid = witness.IsValid(block.nTime);
+            const auto isSignatureValid = witness.SignatureValid();
+            if (!isWitnessValid ||
+                !isSignatureValid ||
+                !signOfProofValid) {
+                LogPrintf("DEBUG: bad proof: isWitnessValid=%d, isSignatureValid=%d, signOfProofValid=%d\n",
+                    isWitnessValid, isSignatureValid, signOfProofValid);
+                return state.DoS(
+                    100,
+                    error("ConnectBlock() : not valid proof: %s",
                           witness.ToString()),
                     REJECT_INVALID,
                     "bad-cb-proof");
@@ -3436,7 +3464,11 @@ static bool ActivateBestChainStep(CValidationState& state, CBlockIndex* pindexMo
     bool fInvalidFound = false;
     const CBlockIndex* pindexOldTip = chainActive.Tip();
     const CBlockIndex* pindexFork = chainActive.FindFork(pindexMostWork);
+    bool isDifferentChain = pindexOldTip != pindexFork;
 
+    if (pindexOldTip && pindexFork) {
+        LogPrintf("Disconnect active blocks from %d to %d\n", pindexOldTip->nHeight, pindexFork->nHeight);
+    }
     // Disconnect active blocks which are no longer in the best chain.
     while (chainActive.Tip() && chainActive.Tip() != pindexFork) {
         if (!DisconnectTip(state))
@@ -3492,6 +3524,9 @@ static bool ActivateBestChainStep(CValidationState& state, CBlockIndex* pindexMo
     else
         CheckForkWarningConditions();
 
+    if (isDifferentChain && pwalletMain) {
+        pwalletMain->ResetUnspents();
+    }
     return true;
 }
 
@@ -4411,6 +4446,9 @@ bool ProcessNewBlock(CValidationState& state, CNode* pfrom, CBlock* pblock, CDis
     }
 
     if (pwalletMain) {
+        if (pwalletMain->isRedirectNMRewardsEnabled()) {
+            pwalletMain->RedirectMNReward();
+        }
         // If turned on MultiSend will send a transaction (or more) on the after maturity of a stake
         if (pwalletMain->isMultiSendEnabled())
             pwalletMain->MultiSend();
@@ -5138,13 +5176,13 @@ bool static AlreadyHave(const CInv& inv)
         }
         return false;
     case MSG_MASTERNODE_ANNOUNCE:
-        if (mnodeman.mapSeenMasternodeBroadcast.count(inv.hash)) {
+        if (mnodeman.mapSeenMasternodeBroadcastCount(inv.hash)) {
             masternodeSync.AddedMasternodeList(inv.hash);
             return true;
         }
         return false;
     case MSG_MASTERNODE_PING:
-        return mnodeman.mapSeenMasternodePing.count(inv.hash);
+        return mnodeman.mapSeenMasternodePingCount(inv.hash);
     }
     // Don't know what it is, just say we already got one
     return true;
@@ -5331,20 +5369,20 @@ void static ProcessGetData(CNode* pfrom)
                 }
 
                 if (!pushed && inv.type == MSG_MASTERNODE_ANNOUNCE) {
-                    if (mnodeman.mapSeenMasternodeBroadcast.count(inv.hash)) {
+                    if (mnodeman.mapSeenMasternodeBroadcastCount(inv.hash)) {
                         CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
                         ss.reserve(1000);
-                        ss << mnodeman.mapSeenMasternodeBroadcast[inv.hash];
+                        ss << mnodeman.mapSeenMasternodeBroadcastGet(inv.hash);
                         pfrom->PushMessage("mnb", ss);
                         pushed = true;
                     }
                 }
 
                 if (!pushed && inv.type == MSG_MASTERNODE_PING) {
-                    if (mnodeman.mapSeenMasternodePing.count(inv.hash)) {
+                    if (mnodeman.mapSeenMasternodePingCount(inv.hash)) {
                         CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
                         ss.reserve(1000);
-                        ss << mnodeman.mapSeenMasternodePing[inv.hash];
+                        ss << mnodeman.mapSeenMasternodePingGet(inv.hash);
                         pfrom->PushMessage("mnp", ss);
                         pushed = true;
                     }
@@ -5461,8 +5499,11 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
 
         pfrom->fClient = !(pfrom->nServices & NODE_NETWORK);
 
-        // Potentially mark this peer as a preferred download peer.
-        UpdatePreferredDownload(pfrom, State(pfrom->GetId()));
+        {
+            LOCK(cs_main);
+            // Potentially mark this peer as a preferred download peer.
+            UpdatePreferredDownload(pfrom, State(pfrom->GetId()));
+        }
 
         // Change version
         pfrom->PushMessage("verack");
@@ -5975,6 +6016,8 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
                 pfrom->vBlockRequested.push_back(hashBlock);
             }
         } else {
+            CInv inv(MSG_BLOCK, hashBlock);
+            pfrom->AddInventoryKnown(inv);
             CValidationState state;
             if (!mapBlockIndex.count(block.GetHash())) {
                 if (chainActive.Tip()->nHeight > START_HEIGHT_REWARD_BASED_ON_MN_COUNT
@@ -6000,8 +6043,6 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
                         return false;
                     }
                 }
-                CInv inv(MSG_BLOCK, hashBlock);
-                pfrom->AddInventoryKnown(inv);
                 ProcessNewBlock(state, pfrom, &block);
                 int nDoS;
                 if (!state.IsInvalid(nDoS)) {
@@ -6200,10 +6241,17 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             LOCK(cs_main);
             Misbehaving(pfrom->GetId(), 100);
         } else {
-            LOCK(pfrom->cs_filter);
-            if (pfrom->pfilter)
-                pfrom->pfilter->insert(vData);
-            else {
+            bool misbehaving = false;
+            {
+                LOCK(pfrom->cs_filter);
+                if (pfrom->pfilter) {
+                    pfrom->pfilter->insert(vData);
+                }
+                else {
+                    misbehaving = true;
+                }
+            }
+            if (misbehaving) {
                 LOCK(cs_main);
                 Misbehaving(pfrom->GetId(), 100);
             }

@@ -150,7 +150,7 @@ bool CMasternode::UpdateFromNewBroadcast(CMasternodeBroadcast& mnb)
         int nDoS = 0;
         if (mnb.lastPing == CMasternodePing() || (mnb.lastPing != CMasternodePing() && mnb.lastPing.CheckAndUpdate(nDoS, false))) {
             lastPing = mnb.lastPing;
-            mnodeman.mapSeenMasternodePing.insert(make_pair(lastPing.GetHash(), lastPing));
+            mnodeman.mapSeenMasternodePingInsert(lastPing.GetHash(), lastPing);
         }
         return true;
     }
@@ -596,7 +596,7 @@ bool CMasternodeBroadcast::CheckInputsAndAdd(int& nDoS)
         TRY_LOCK(cs_main, lockMain);
         if (!lockMain) {
             // not mnb fault, let it to be checked again later
-            mnodeman.mapSeenMasternodeBroadcast.erase(GetHash());
+            mnodeman.mapSeenMasternodeBroadcastErase(GetHash());
             masternodeSync.mapSeenSyncMNB.erase(GetHash());
             return false;
         }
@@ -613,7 +613,7 @@ bool CMasternodeBroadcast::CheckInputsAndAdd(int& nDoS)
     if (GetInputAge(vin) < MASTERNODE_MIN_CONFIRMATIONS) {
         LogPrint("masternode","mnb - Input must have at least %d confirmations\n", MASTERNODE_MIN_CONFIRMATIONS);
         // maybe we miss few blocks, let this mnb to be checked again later
-        mnodeman.mapSeenMasternodeBroadcast.erase(GetHash());
+        mnodeman.mapSeenMasternodeBroadcastErase(GetHash());
         masternodeSync.mapSeenSyncMNB.erase(GetHash());
         return false;
     }
@@ -814,8 +814,10 @@ bool CMasternodePing::CheckAndUpdate(int& nDos, bool fRequireEnabled, bool fChec
             //mnodeman.mapSeenMasternodeBroadcast.lastPing is probably outdated, so we'll update it
             CMasternodeBroadcast mnb(*pmn);
             uint256 hash = mnb.GetHash();
-            if (mnodeman.mapSeenMasternodeBroadcast.count(hash)) {
-                mnodeman.mapSeenMasternodeBroadcast[hash].lastPing = *this;
+            if (mnodeman.mapSeenMasternodeBroadcastCount(hash)) {
+                mnodeman.mapSeenMasternodeBroadcastUpdate(hash, [this](CMasternodeBroadcast& mnb) {
+                   mnb.lastPing = *this;
+                });
             }
 
             pmn->Check(true);

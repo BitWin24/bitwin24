@@ -88,6 +88,7 @@ private slots:
     void dateRangeChanged();
     void showDetails();
     void copyAddress();
+    void editComment();
     void editLabel();
     void copyLabel();
     void copyAmount();

@@ -1249,41 +1249,53 @@ UniValue listreceivedbyaccount(const UniValue& params, bool fHelp)
     return ListReceived(params, true);
 }
 
-static void MaybePushAddress(UniValue & entry, const CTxDestination &dest)
+static void MaybePushAddress(UniValue & entry, const std::string& key, const CTxDestination& value)
 {
     CBitcoinAddress addr;
-    if (addr.Set(dest))
-        entry.push_back(Pair("address", addr.ToString()));
+    if (addr.Set(value))
+        entry.push_back(Pair(key, addr.ToString()));
 }
 
 void ListTransactions(const CWalletTx& wtx, const string& strAccount, int nMinDepth, bool fLong, UniValue& ret, const isminefilter& filter)
 {
+    // Do not include transactions that are not in the chain
+    if (wtx.GetDepthInMainChain(false) == -1) {
+        return;
+    }
+
     CAmount nFee;
     string strSentAccount;
     list<COutputEntry> listReceived;
     list<COutputEntry> listSent;
 
-    wtx.GetAmounts(listReceived, listSent, nFee, strSentAccount, filter);
+    wtx.GetAmounts(listReceived, listSent, nFee, strSentAccount, strAccount, filter);
 
     bool fAllAccounts = (strAccount == string("*"));
     bool involvesWatchonly = wtx.IsFromMe(ISMINE_WATCH_ONLY);
 
     // Sent
-    if ((!listSent.empty() || nFee != 0) && (fAllAccounts || strAccount == strSentAccount)) {
+    if ((!listSent.empty() || nFee != 0) ) {
         BOOST_FOREACH (const COutputEntry& s, listSent) {
-            UniValue entry(UniValue::VOBJ);
-            if (involvesWatchonly || (::IsMine(*pwalletMain, s.destination) & ISMINE_WATCH_ONLY))
-                entry.push_back(Pair("involvesWatchonly", true));
-            entry.push_back(Pair("account", strSentAccount));
-            MaybePushAddress(entry, s.destination);
-            std::map<std::string, std::string>::const_iterator it = wtx.mapValue.find("DS");
-            entry.push_back(Pair("category", (it != wtx.mapValue.end() && it->second == "1") ? "darksent" : "send"));
-            entry.push_back(Pair("amount", ValueFromAmount(-s.amount)));
-            entry.push_back(Pair("vout", s.vout));
-            entry.push_back(Pair("fee", ValueFromAmount(-nFee)));
-            if (fLong)
-                WalletTxToJSON(wtx, entry);
-            ret.push_back(entry);
+            string account;
+            if (pwalletMain->mapAddressBook.count(s.source))
+                account = pwalletMain->mapAddressBook[s.source].name;
+
+            if (fAllAccounts || account == strAccount) {
+                UniValue entry(UniValue::VOBJ);
+                if (involvesWatchonly || (::IsMine(*pwalletMain, s.destination) & ISMINE_WATCH_ONLY))
+                    entry.push_back(Pair("involvesWatchonly", true));
+                entry.push_back(Pair("account", account));
+                MaybePushAddress(entry, "from", s.source);
+                MaybePushAddress(entry, "address", s.destination);
+                std::map<std::string, std::string>::const_iterator it = wtx.mapValue.find("DS");
+                entry.push_back(Pair("category", (it != wtx.mapValue.end() && it->second == "1") ? "darksent" : "send"));
+                entry.push_back(Pair("amount", ValueFromAmount(-s.amount)));
+                entry.push_back(Pair("vout", s.vout));
+                entry.push_back(Pair("fee", ValueFromAmount(-nFee)));
+                if (fLong)
+                    WalletTxToJSON(wtx, entry);
+                ret.push_back(entry);
+            }
         }
     }
 
@@ -1298,7 +1310,8 @@ void ListTransactions(const CWalletTx& wtx, const string& strAccount, int nMinDe
                 if (involvesWatchonly || (::IsMine(*pwalletMain, r.destination) & ISMINE_WATCH_ONLY))
                     entry.push_back(Pair("involvesWatchonly", true));
                 entry.push_back(Pair("account", account));
-                MaybePushAddress(entry, r.destination);
+                MaybePushAddress(entry, "from", r.source);
+                MaybePushAddress(entry, "address", r.destination);
                 if (wtx.IsCoinBase()) {
                     if (wtx.GetDepthInMainChain() < 1)
                         entry.push_back(Pair("category", "orphan"));
@@ -2101,7 +2114,7 @@ UniValue listlockunspent(const UniValue& params, bool fHelp)
 
 UniValue enablestaking(const UniValue& params, bool fHelp)
 {
-    if (fHelp || params.size() != 2)
+    if (fHelp || params.size() < 2 || params.size() > 3)
     {
         throw runtime_error(
             "enablestaking\n"
@@ -2125,6 +2138,9 @@ UniValue enablestaking(const UniValue& params, bool fHelp)
 
     const bool enableStaking{ params[0].get_bool() };
 
+    std::vector<COutput> vCoins;
+    pwalletMain->AvailableCoins(vCoins);
+
     set<CBitcoinAddress> uniqueAddresses;
     UniValue inputs = params[1].get_array();
     for (unsigned int inx = 0; inx < inputs.size(); inx++) {
@@ -2137,10 +2153,34 @@ UniValue enablestaking(const UniValue& params, bool fHelp)
 
         const auto mi = pwalletMain->mapAddressBook.find(address.Get());
         if (mi == pwalletMain->mapAddressBook.end()) {
-            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, string("Not found, BITWIN24 address: ") + input.get_str());
+            bool found = false;
+
+            BOOST_FOREACH (const COutput& out, vCoins) {
+                COutput cout = out;
+                CTxDestination avaibleAddress;
+                if (!ExtractDestination(cout.tx->vout[cout.i].scriptPubKey, avaibleAddress))
+                    continue;
+                if (avaibleAddress == address.Get()) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found)
+                throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, string("Not found, BITWIN24 address: ") + input.get_str());
         }
 
         uniqueAddresses.insert(address);
+    }
+
+    bool splitOnStake = false;
+    if (params.size() == 3) {
+        if (params[2].isBool()) {
+            splitOnStake = params[2].get_bool();
+        }
+        else if (params[2].isStr()) {
+            splitOnStake = params[2].get_str() == "true";
+        }
     }
 
     for( const auto& address : uniqueAddresses ) {
@@ -2149,7 +2189,14 @@ UniValue enablestaking(const UniValue& params, bool fHelp)
         }
         else {
             pwalletMain->DisableStaking( address );
-        } 
+        }
+
+        if (splitOnStake) {
+            pwalletMain->EnableSplitOnStake(address);
+        }
+        else {
+            pwalletMain->DisableSplitOnStake(address);
+        }
     }
 
     return true;
@@ -2671,6 +2718,132 @@ UniValue multisend(const UniValue& params, bool fHelp)
         }
     }
     return printMultiSend();
+}
+
+UniValue printRedirectMNRewards()
+{
+    UniValue ret(UniValue::VARR);
+    UniValue act(UniValue::VOBJ);
+    act.push_back(Pair("Redirect Activated?", pwalletMain->isRedirectNMRewardsEnabled()));
+    act.push_back(Pair("Time", std::to_string(pwalletMain->redirectDailyHour) + ":00"));
+    ret.push_back(act);
+
+    UniValue vMS(UniValue::VOBJ);
+    for (const auto& p: pwalletMain->mapMNRedirect) {
+        vMS.push_back(Pair("Address (from)", p.first.ToString()));
+        vMS.push_back(Pair("Address (to)", p.second.ToString()));
+    }
+    ret.push_back(vMS);
+    return ret;
+}
+
+UniValue redirectmnrewards(const UniValue& params, bool fHelp)
+{
+    if (fHelp)
+        throw runtime_error(
+                "redirectmnrewards <command>\n"
+                "****************************************************************\n"
+                "WHAT IS REDIRECT?\n"
+                "Redirect allows a user to automatically send mn reward to defined address\n"
+                "The Redirect transaction is sent once in 12 hours for mature coins (100 confirmations)\n"
+                "****************************************************************\n"
+                "TO ADD: redirectmnrewards add <from_address> <to_address>\n"
+                "from_address - address of masternode\n"
+                "to_address - address to send mn rewards to\n"
+                "****************************************************************\n"
+                "TO DELETE: redirectmnrewards delete <address>\n"
+                "address - address of masternode\n"
+                "****************************************************************\n"
+                "TO ACTIVATE: redirectmnrewards activate [<hour_of_day>]\n"
+                "hour_of_day (optional) - hour of a day to execute redirect automatically\n"
+                "****************************************************************\n"
+                "TO DISABLE: redirectmnrewards disable\n"
+                "****************************************************************\n"
+                "TO SEND: redirectmnrewards send\n"
+                "****************************************************************\n");
+
+    if (pwalletMain->IsLocked())
+        throw JSONRPCError(RPC_WALLET_UNLOCK_NEEDED, "Error: Please enter the wallet passphrase with walletpassphrase first.");
+
+    LOCK(pwalletMain->cs_wallet);
+    string strCommand = params[0].get_str();
+    if (strCommand == "print") {
+        return printRedirectMNRewards();
+    }
+    else if (strCommand == "add") {
+        string strFrom = params[1].get_str();
+        string strTo = params[2].get_str();
+        CBitcoinAddress fromAddress(strFrom);
+        CBitcoinAddress toAddress(strTo);
+        if (!fromAddress.IsValid()) {
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid from address");
+        }
+        if (!toAddress.IsValid()) {
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid to address");
+        }
+        const auto it = pwalletMain->mapMNRedirect.find(fromAddress);
+        if (it != pwalletMain->mapMNRedirect.end()) {
+            if (it->second == toAddress) {
+                throw JSONRPCError(RPC_INVALID_PARAMETER, "Already present");
+            }
+            CWalletDB walletdb(pwalletMain->strWalletFile);
+            if (!walletdb.EraseMNRedirect(strFrom)) {
+                throw JSONRPCError(RPC_DATABASE_ERROR, "Failed to erase record from walletdb.");
+            }
+        }
+        pwalletMain->mapMNRedirect[fromAddress] = toAddress;
+        CWalletDB walletdb(pwalletMain->strWalletFile);
+        if(!walletdb.WriteMNRedirect(strFrom, strTo)) {
+            throw JSONRPCError(RPC_DATABASE_ERROR, "Failed to write record to walletdb.");
+        }
+        return printRedirectMNRewards();
+    }
+    else if (strCommand == "delete") {
+        string strFrom = params[1].get_str();
+        CBitcoinAddress fromAddress(strFrom);
+        if (!fromAddress.IsValid()) {
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid address");
+        }
+        const auto it = pwalletMain->mapMNRedirect.find(fromAddress);
+        if (it == pwalletMain->mapMNRedirect.end()) {
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "Could not locate address");
+        }
+        pwalletMain->mapMNRedirect.erase(it);
+        CWalletDB walletdb(pwalletMain->strWalletFile);
+        if (!walletdb.EraseMNRedirect(strFrom)) {
+            throw JSONRPCError(RPC_DATABASE_ERROR, "Failed to erase record from walletdb.");
+        }
+    }
+    else if (strCommand == "activate") {
+        if (pwalletMain->mapMNRedirect.empty()) {
+            throw JSONRPCError(RPC_INVALID_REQUEST, "Unable to activate Redirect, check Redirect map");
+        }
+        if (!pwalletMain->mapMNRedirect.begin()->first.IsValid()) {
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Unable to activate Redirect, check Redirect map");
+        }
+        if (params.size() == 2) {
+            const auto hour = boost::lexical_cast<int>(params[1].get_str());
+            pwalletMain->setRedirectDailyHour(hour);
+        }
+        pwalletMain->setRedirectNMRewardsEnabled();
+        return printRedirectMNRewards();
+    }
+    else if (strCommand == "disable") {
+        pwalletMain->setRedirectNMRewardsDisabled();
+        return printRedirectMNRewards();
+    }
+    else if (strCommand == "send") {
+        if (!pwalletMain->isRedirectNMRewardsEnabled()) {
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "Redirect is disabled, enable it first");
+        }
+        pwalletMain->RedirectMNReward(true);
+        return true;
+    }
+    else {
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "Bad command");
+    }
+
+    return printRedirectMNRewards();
 }
 
 UniValue getzerocoinbalance(const UniValue& params, bool fHelp)

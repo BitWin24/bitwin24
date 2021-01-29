@@ -6016,8 +6016,6 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
                 pfrom->vBlockRequested.push_back(hashBlock);
             }
         } else {
-            CInv inv(MSG_BLOCK, hashBlock);
-            pfrom->AddInventoryKnown(inv);
             CValidationState state;
             if (!mapBlockIndex.count(block.GetHash())) {
                 if (chainActive.Tip()->nHeight > START_HEIGHT_REWARD_BASED_ON_MN_COUNT
@@ -6030,19 +6028,21 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
                                 pMNWitness->Add(witness);
                             }
                             else {
-                                throw "received not valid proof";
+                                throw std::runtime_error("received not valid proof");
                             }
                         }
                         else {
-                            throw "can't get witness with block";
+                            throw std::runtime_error("can't get witness with block");
                         }
                     }
-                    catch (...) {
-                        LogPrintf("received a fresh block without valid witness from a node with new protocol\n");
+                    catch (const std::exception& ex) {
+                        LogPrintf("received a fresh block without valid witness from a node with new protocol, error=%s\n", ex.what());
                         Misbehaving(pfrom->GetId(), 5);
                         return false;
                     }
                 }
+                CInv inv(MSG_BLOCK, hashBlock);
+                pfrom->AddInventoryKnown(inv);
                 ProcessNewBlock(state, pfrom, &block);
                 int nDoS;
                 if (!state.IsInvalid(nDoS)) {

@@ -82,10 +82,10 @@ bool CMasterNodeWitness::IsValid(int64_t atTime) const
             dummyTx.vin.push_back(ping.vin);
             dummyTx.vout.push_back(vout);
 
-            TRY_LOCK(cs_main, lockMain);
-            if (lockMain && !AcceptableInputs(mempool, state, CTransaction(dummyTx), false, NULL)) {
+            LOCK(cs_main);
+            if (!AcceptableInputs(mempool, state, CTransaction(dummyTx), false, NULL)) {
                 LogPrintf("DEBUG: lockMain && !AcceptableInputs(mempool, state, CTransaction(dummyTx), false, NULL)\n");
-                return false;
+                //return false;
             }
         }
 

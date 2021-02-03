@@ -54,8 +54,8 @@ bool MasterNodeWitnessManager::Exist(const uint256 &targetBlockHash) const
 bool MasterNodeWitnessManager::Add(const CMasterNodeWitness &proof, bool validate)
 {
     boost::lock_guard<boost::mutex> guard(_mtx);
-    for (auto& proof : proof.nProofs) {
-        mnodeman.mapSeenMasternodePingInsert(proof.nPing.GetHash(), proof.nPing);
+    for (auto& p : proof.nProofs) {
+        mnodeman.mapSeenMasternodePingInsert(p.nPing.GetHash(), p.nPing);
     }
     if (!Exist(proof.nTargetBlockHash)) {
         if (!validate || proof.IsValid(GetAdjustedTime())) {

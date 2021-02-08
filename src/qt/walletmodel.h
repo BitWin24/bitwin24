@@ -136,6 +136,7 @@ public:
     TransactionTableModel* getTransactionTableModel();
     RecentRequestsTableModel* getRecentRequestsTableModel();
 
+    BalanceInfo getBalanceInfo() const;
     CAmount getBalance(const CCoinControl* coinControl = NULL) const;
     CAmount getUnconfirmedBalance() const;
     CAmount getImmatureBalance() const;
@@ -255,6 +256,8 @@ private:
     CAmount cachedEarnings;
     CAmount cachedMasternodeEarnings;
     CAmount cachedStakeEarnings;
+    CAmount cachedLockedBalance;
+    CAmount cachedLockedWatchOnlyBalance;
     EncryptionStatus cachedEncryptionStatus;
     int cachedNumBlocks;
     int cachedTxLocks;
@@ -274,7 +277,8 @@ signals:
     void balanceChanged(const CAmount& balance, const CAmount& unconfirmedBalance, const CAmount& immatureBalance, 
                         const CAmount& zerocoinBalance, const CAmount& unconfirmedZerocoinBalance, const CAmount& immatureZerocoinBalance, 
                         const CAmount& watchOnlyBalance, const CAmount& watchUnconfBalance, const CAmount& watchImmatureBalance,
-                        const CAmount& earnings, const CAmount& masternodeEarnings, const CAmount& stakeEarnings);
+                        const CAmount& earnings, const CAmount& masternodeEarnings, const CAmount& stakeEarnings,
+                        const CAmount& locked, const CAmount& lockedWatchOnly);
 
     // Encryption status of wallet changed
     void encryptionStatusChanged(int status);

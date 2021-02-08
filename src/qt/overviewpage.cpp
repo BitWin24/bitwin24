@@ -177,7 +177,8 @@ void OverviewPage::getPercentage(CAmount nUnlockedBalance, CAmount nZerocoinBala
 void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmedBalance, const CAmount& immatureBalance,
                               const CAmount& zerocoinBalance, const CAmount& unconfirmedZerocoinBalance, const CAmount& immatureZerocoinBalance,
                               const CAmount& watchOnlyBalance, const CAmount& watchUnconfBalance, const CAmount& watchImmatureBalance,
-                              const CAmount& earnings, const CAmount& masternodeEarnings, const CAmount& stakeEarnings)
+                              const CAmount& earnings, const CAmount& masternodeEarnings, const CAmount& stakeEarnings,
+                              const CAmount& locked, const CAmount& lockedWatchOnly)
 {
     currentBalance = balance;
     currentUnconfirmedBalance = unconfirmedBalance;
@@ -194,21 +195,16 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
     currentStakeEarnings = stakeEarnings;
 
     const auto t_begin = boost::chrono::high_resolution_clock::now();
-    CAmount nLockedBalance = 0;
-    CAmount nWatchOnlyLockedBalance = 0;
-    if (pwalletMain) {
-        nLockedBalance = pwalletMain->GetLockedCoins();
-        nWatchOnlyLockedBalance = pwalletMain->GetLockedWatchOnlyBalance();
-    }
-    const auto t_mid = boost::chrono::high_resolution_clock::now();
+    currentLocked = locked;
+    currentLockedWatchOnly = lockedWatchOnly;
     // BITWIN24 Balance
     CAmount nTotalBalance = balance + unconfirmedBalance;
-    CAmount bitwin24AvailableBalance = balance - immatureBalance - nLockedBalance;
-    CAmount nUnlockedBalance = nTotalBalance - nLockedBalance;
+    CAmount bitwin24AvailableBalance = balance - immatureBalance - locked;
+    CAmount nUnlockedBalance = nTotalBalance - locked;
 
     // BITWIN24 Watch-Only Balance
     CAmount nTotalWatchBalance = watchOnlyBalance + watchUnconfBalance;
-    CAmount nAvailableWatchBalance = watchOnlyBalance - watchImmatureBalance - nWatchOnlyLockedBalance;
+    CAmount nAvailableWatchBalance = watchOnlyBalance - watchImmatureBalance - lockedWatchOnly;
 
     // zBWI Balance
     CAmount matureZerocoinBalance = zerocoinBalance - unconfirmedZerocoinBalance - immatureZerocoinBalance;
@@ -225,14 +221,14 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
     ui->labelBalance->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, bitwin24AvailableBalance, false, BitcoinUnits::separatorAlways));
     ui->labelUnconfirmed->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, unconfirmedBalance, false, BitcoinUnits::separatorAlways));
     ui->labelImmature->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, immatureBalance, false, BitcoinUnits::separatorAlways));
-    ui->labelLockedBalance->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, nLockedBalance, false, BitcoinUnits::separatorAlways));
+    ui->labelLockedBalance->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, locked, false, BitcoinUnits::separatorAlways));
     ui->labelTotal->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, nTotalBalance, false, BitcoinUnits::separatorAlways));
 
     // Watchonly labels
     ui->labelWatchAvailable->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, nAvailableWatchBalance, false, BitcoinUnits::separatorAlways));
     ui->labelWatchPending->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, watchUnconfBalance, false, BitcoinUnits::separatorAlways));
     ui->labelWatchImmature->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, watchImmatureBalance, false, BitcoinUnits::separatorAlways));
-    ui->labelWatchLocked->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, nWatchOnlyLockedBalance, false, BitcoinUnits::separatorAlways));
+    ui->labelWatchLocked->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, lockedWatchOnly, false, BitcoinUnits::separatorAlways));
     ui->labelWatchTotal->setText(BitcoinUnits::floorHtmlWithUnit(nDisplayUnit, nTotalWatchBalance, false, BitcoinUnits::separatorAlways));
 
     // Combined labels
@@ -288,8 +284,8 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
     ui->labelWatchImmature->setVisible(showWatchOnlyImmature && showWatchOnly); // show watch-only immature balance
 
     // BITWIN24 Locked
-    bool showBWILocked = settingShowAllBalances || nLockedBalance != 0;
-    bool showWatchOnlyBWILocked = showBWILocked || nWatchOnlyLockedBalance != 0;
+    bool showBWILocked = settingShowAllBalances || locked != 0;
+    bool showWatchOnlyBWILocked = showBWILocked || lockedWatchOnly != 0;
     ui->labelLockedBalanceText->setVisible(showBWILocked || showWatchOnlyBWILocked);
     ui->labelLockedBalance->setVisible(showBWILocked || showWatchOnlyBWILocked);
     ui->labelWatchLocked->setVisible(showWatchOnlyBWILocked && showWatchOnly);
@@ -312,9 +308,8 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
         ui->listTransactions->update();
     }
     const auto t_end = boost::chrono::high_resolution_clock::now();
-    LogPrintf("OverviewPage::setBalance %d ms, %d ms\n",
-        boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
-        boost::chrono::duration_cast<boost::chrono::milliseconds>(t_mid - t_begin).count());
+    LogPrintf("OverviewPage::setBalance %d ms\n",
+        boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count());
 }
 
 // show/hide watch-only labels
@@ -365,12 +360,14 @@ void OverviewPage::setWalletModel(WalletModel* model)
         ui->listTransactions->setModelColumn(TransactionTableModel::ToAddress);
 
         // Keep up to date with wallet
-        setBalance(model->getBalance(), model->getUnconfirmedBalance(), model->getImmatureBalance(),
+        const auto balanceInfo = model->getBalanceInfo();
+        setBalance(balanceInfo.nTotal, balanceInfo.unconfirmed, balanceInfo.immature,
                    model->getZerocoinBalance(), model->getUnconfirmedZerocoinBalance(), model->getImmatureZerocoinBalance(),
-                   model->getWatchBalance(), model->getWatchUnconfirmedBalance(), model->getWatchImmatureBalance(),
-                   model->getEarnings(), model->getMasternodeEarnings(), model->getStakeEarnings());
-        connect(model, SIGNAL(balanceChanged(CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount)), this,
-                         SLOT(setBalance(CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount)));
+                   balanceInfo.watchOnly, balanceInfo.unconfirmedWatchOnly, balanceInfo.immatureWatchOnly,
+                   balanceInfo.allEarnings, balanceInfo.masternodeEarnings, balanceInfo.allEarnings - balanceInfo.masternodeEarnings,
+                   balanceInfo.locked, balanceInfo.lockedWatchOnly);
+        connect(model, SIGNAL(balanceChanged(CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount)), this,
+                         SLOT(setBalance(CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount, CAmount)));
 
         connect(model->getOptionsModel(), SIGNAL(displayUnitChanged(int)), this, SLOT(updateDisplayUnit()));
         connect(model->getOptionsModel(), SIGNAL(hideZeroBalancesChanged(bool)), this, SLOT(updateDisplayUnit()));
@@ -390,7 +387,8 @@ void OverviewPage::updateDisplayUnit()
         if (currentBalance != -1)
             setBalance(currentBalance, currentUnconfirmedBalance, currentImmatureBalance, currentZerocoinBalance, currentUnconfirmedZerocoinBalance, currentimmatureZerocoinBalance,
                 currentWatchOnlyBalance, currentWatchUnconfBalance, currentWatchImmatureBalance,
-                currentEarnings, currentMasternodeEarnings, currentStakeEarnings);
+                currentEarnings, currentMasternodeEarnings, currentStakeEarnings,
+                currentLocked, currentLockedWatchOnly);
 
         // Update txdelegate->unit with the current unit
         txdelegate->unit = nDisplayUnit;

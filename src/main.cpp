@@ -2854,6 +2854,19 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     nTimeConnect += nTime1 - nTimeStart;
     LogPrint("bench", "      - Connect %u transactions: %.2fms (%.3fms/tx, %.3fms/txin) [%.2fs]\n", (unsigned)block.vtx.size(), 0.001 * (nTime1 - nTimeStart), 0.001 * (nTime1 - nTimeStart) / block.vtx.size(), nInputs <= 1 ? 0 : 0.001 * (nTime1 - nTimeStart) / (nInputs - 1), nTimeConnect * 0.000001);
 
+    if (pindex->pprev->nHeight >= START_HEIGHT_MN_REWARD_CHECK && block.vtx.size() >= 2) {
+        const CTransaction& tx = block.vtx[1];
+        if (tx.IsCoinStake()) {
+            const auto nExpectedMint = pindex->nMint;
+            const auto expectedNMReward = GetMasterNodePayment(nExpectedMint);
+            const auto mnReward = tx.vout[tx.vout.size() - 1].nValue;
+            if (expectedNMReward != mnReward) {
+                LogPrintf("DEBUG ConnectBlock: expected mint: %d, expected nm reward: %d, actual mn reward: %d\n",
+                    nExpectedMint, expectedNMReward, mnReward);
+                return state.DoS(100, error("ConnectBlock() : invalid masternode reward"), REJECT_INVALID, "bad-mn-reward");
+            }
+        }
+    }
     //PoW phase redistributed fees to miner. PoS stage destroys fees.
     CAmount nExpectedMint = GetBlockValue(pindex->pprev->nHeight);
     if (block.IsProofOfWork())
@@ -2911,13 +2924,25 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
                 }
                 signOfProofValid = (pubkey == witness.pubKeyWitness);
             }
-            if (witness.nProofs.size() != masterNodeCount
-                || !witness.IsValid(block.nTime)
-                || !witness.SignatureValid()
-                || !signOfProofValid) {
+            if (witness.nProofs.size() != masterNodeCount) {
                 return state.DoS(
                     100,
-                    error("ConnectBlock() : not valid proof or unexpected number of master nodes in proof: %s",
+                    error("ConnectBlock() : unexpected number of master nodes in proof: witness proofs=%d, masterNodeCount=%d",
+                          witness.nProofs.size(),
+                          masterNodeCount),
+                    REJECT_INVALID,
+                    "bad-cb-proof-count");
+            }
+            const auto isWitnessValid = witness.IsValid(block.nTime);
+            const auto isSignatureValid = witness.SignatureValid();
+            if (!isWitnessValid ||
+                !isSignatureValid ||
+                !signOfProofValid) {
+                LogPrintf("DEBUG: bad proof: isWitnessValid=%d, isSignatureValid=%d, signOfProofValid=%d\n",
+                    isWitnessValid, isSignatureValid, signOfProofValid);
+                return state.DoS(
+                    100,
+                    error("ConnectBlock() : not valid proof: %s",
                           witness.ToString()),
                     REJECT_INVALID,
                     "bad-cb-proof");
@@ -3439,7 +3464,11 @@ static bool ActivateBestChainStep(CValidationState& state, CBlockIndex* pindexMo
     bool fInvalidFound = false;
     const CBlockIndex* pindexOldTip = chainActive.Tip();
     const CBlockIndex* pindexFork = chainActive.FindFork(pindexMostWork);
+    bool isDifferentChain = pindexOldTip != pindexFork;
 
+    if (pindexOldTip && pindexFork) {
+        LogPrintf("Disconnect active blocks from %d to %d\n", pindexOldTip->nHeight, pindexFork->nHeight);
+    }
     // Disconnect active blocks which are no longer in the best chain.
     while (chainActive.Tip() && chainActive.Tip() != pindexFork) {
         if (!DisconnectTip(state))
@@ -3495,6 +3524,9 @@ static bool ActivateBestChainStep(CValidationState& state, CBlockIndex* pindexMo
     else
         CheckForkWarningConditions();
 
+    if (isDifferentChain && pwalletMain) {
+        pwalletMain->ResetUnspents();
+    }
     return true;
 }
 

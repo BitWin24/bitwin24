@@ -49,7 +49,7 @@ WalletModel::WalletModel(CWallet* wallet, OptionsModel* optionsModel, QObject* p
     pollTimer = new QTimer(this);
     pollInProgress = false;
     connect(pollTimer, SIGNAL(timeout()), this, SLOT(pollBalanceChanged()));
-    pollTimer->start(MODEL_UPDATE_DELAY);
+    pollTimer->start(MODEL_UPDATE_DELAY * 10);
 
     subscribeToCoreSignals();
 }
@@ -61,6 +61,11 @@ WalletModel::~WalletModel()
     if (pollThread) {
         pollThread->join();
     }
+}
+
+BalanceInfo WalletModel::getBalanceInfo() const
+{
+    return wallet->GetBalanceInfo();
 }
 
 CAmount WalletModel::getBalance(const CCoinControl* coinControl) const
@@ -227,6 +232,8 @@ void WalletModel::emitBalanceChanged()
     CAmount earnings;
     CAmount masternodeEarnings;
     CAmount stakeEarnings;
+    CAmount lockedBalance;
+    CAmount lockedWatchOnlyBalance;
     {
         boost::lock_guard<boost::mutex> lock(cacheMutex);
         balance = cachedBalance;
@@ -241,36 +248,38 @@ void WalletModel::emitBalanceChanged()
         earnings = cachedEarnings;
         masternodeEarnings = cachedMasternodeEarnings;
         stakeEarnings = cachedStakeEarnings;
+        lockedBalance = cachedLockedBalance;
+        lockedWatchOnlyBalance = cachedLockedWatchOnlyBalance;
     }
     // Force update of UI elements even when no values have changed
     emit balanceChanged(balance, unconfirmedBalance, immatureBalance, 
                         zerocoinBalance, unconfirmedZerocoinBalance, immatureZerocoinBalance,
                         watchOnlyBalance, watchUnconfBalance, watchImmatureBalance,
-                        earnings, masternodeEarnings, stakeEarnings);
+                        earnings, masternodeEarnings, stakeEarnings,
+                        lockedBalance, lockedWatchOnlyBalance);
 }
 
 void WalletModel::checkBalanceChanged()
 {
     TRY_LOCK(cs_main, lockMain);
     if (!lockMain) return;
+
+    const auto balanceInfo = getBalanceInfo();
     
-    CAmount newBalance = getBalance();
-    CAmount newUnconfirmedBalance = getUnconfirmedBalance();
-    CAmount newImmatureBalance = getImmatureBalance();
+    CAmount newBalance = balanceInfo.nTotal;
+    CAmount newUnconfirmedBalance = balanceInfo.unconfirmed;
+    CAmount newImmatureBalance = balanceInfo.immature;
     CAmount newZerocoinBalance = getZerocoinBalance();
     CAmount newUnconfirmedZerocoinBalance = getUnconfirmedZerocoinBalance();
     CAmount newImmatureZerocoinBalance = getImmatureZerocoinBalance();
-    CAmount newEarnings = getEarnings();
-    CAmount newMasternodeEarnings = getMasternodeEarnings();
-    CAmount newStakeEarnings = getStakeEarnings();
-    CAmount newWatchOnlyBalance = 0;
-    CAmount newWatchUnconfBalance = 0;
-    CAmount newWatchImmatureBalance = 0;
-    if (haveWatchOnly()) {
-        newWatchOnlyBalance = getWatchBalance();
-        newWatchUnconfBalance = getWatchUnconfirmedBalance();
-        newWatchImmatureBalance = getWatchImmatureBalance();
-    }
+    CAmount newEarnings = balanceInfo.allEarnings;
+    CAmount newMasternodeEarnings = balanceInfo.masternodeEarnings;
+    CAmount newStakeEarnings = balanceInfo.allEarnings - balanceInfo.masternodeEarnings;
+    CAmount newWatchOnlyBalance = balanceInfo.watchOnly;
+    CAmount newWatchUnconfBalance = balanceInfo.unconfirmedWatchOnly;
+    CAmount newWatchImmatureBalance = balanceInfo.immatureWatchOnly;
+    CAmount newLockedBalance = balanceInfo.locked;
+    CAmount newLockedWatchOnlyBalance = balanceInfo.lockedWatchOnly;
 
     bool isChanged = false;
     {
@@ -293,6 +302,8 @@ void WalletModel::checkBalanceChanged()
             cachedWatchOnlyBalance = newWatchOnlyBalance;
             cachedWatchUnconfBalance = newWatchUnconfBalance;
             cachedWatchImmatureBalance = newWatchImmatureBalance;
+            cachedLockedBalance = newLockedBalance;
+            cachedLockedWatchOnlyBalance = newLockedWatchOnlyBalance;
             isChanged = true;
         }
     }
@@ -300,7 +311,8 @@ void WalletModel::checkBalanceChanged()
         emit balanceChanged(newBalance, newUnconfirmedBalance, newImmatureBalance, 
                             newZerocoinBalance, newUnconfirmedZerocoinBalance, newImmatureZerocoinBalance,
                             newWatchOnlyBalance, newWatchUnconfBalance, newWatchImmatureBalance,
-                            newEarnings, newMasternodeEarnings, newStakeEarnings);
+                            newEarnings, newMasternodeEarnings, newStakeEarnings,
+                            newLockedBalance, newLockedWatchOnlyBalance);
     }
 }
 

@@ -658,6 +658,32 @@ bool CWallet::AddToWallet(const CWalletTx& wtxIn, bool fFromLoadWallet)
             wtxOrdered.insert(make_pair(wtx.nOrderPos, TxPair(&wtx, (CAccountingEntry*)0)));
             wtx.nTimeSmart = ComputeTimeSmart(wtx);
             AddToSpends(hash);
+
+            int nDepth = wtx.GetDepthInMainChain(false);
+            if (nDepth != 0 || wtx.InMempool()) {
+                for (const auto& input: wtx.vin) {
+                    const auto nRemoved = unspents.erase(input.prevout);
+                    LogPrintf("Erased %d from unspents: %s\n", nRemoved, input.prevout.ToString());
+                }
+                const auto pWalletTx = &mapWallet[hash];
+                for (size_t i = 0; i < wtx.vout.size(); i++) {
+                    const auto& output = wtx.vout[i];
+                    const auto mine = IsMine(output);
+                    bool fIsSpendable = false;
+                    if ((mine & ISMINE_SPENDABLE) != ISMINE_NO) {
+                        fIsSpendable = true;
+                    }
+                    if ((mine & ISMINE_MULTISIG) != ISMINE_NO) {
+                        fIsSpendable = true;
+                    }
+                    CTxDestination dest;
+                    ExtractDestination(output.scriptPubKey, dest);
+                    if (mapAddressBook.count(dest)) {
+                        LogPrintf("Add to unspents: %s\n", COutPoint(hash, i).ToString());
+                        unspents.insert(make_pair(COutPoint(hash, i), COutput(pWalletTx, i, nDepth, fIsSpendable)));
+                    }
+                }
+            }
         }
 
         bool fUpdated = false;
@@ -746,8 +772,9 @@ void CWallet::EraseFromWallet(const uint256& hash)
         return;
     {
         LOCK(cs_wallet);
-        if (mapWallet.erase(hash))
+        if (mapWallet.erase(hash)) {
             CWalletDB(strWalletFile).EraseTx(hash);
+        }
     }
     return;
 }
@@ -1563,8 +1590,6 @@ void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
             }
         }
     }
-    LogPrintf("Info from GetAmounts(): total vin=%d, total vout=%d, sumIn=%d, sumOut=%d, numVin=%d, numVout=%d\n",
-              vin.size(), vout.size(), sumIn, sumOut, numVinFromMe, numVoutToMe);
 
     if (IsCoinStake()) {
         CTxDestination address;
@@ -1805,6 +1830,7 @@ int CWallet::ScanForWalletTransactions(CBlockIndex* pindexStart, bool fUpdate)
 void CWallet::ReacceptWalletTransactions()
 {
     LOCK2(cs_main, cs_wallet);
+    const auto t_begin = boost::chrono::high_resolution_clock::now();
     BOOST_FOREACH (PAIRTYPE(const uint256, CWalletTx) & item, mapWallet) {
         const uint256& wtxid = item.first;
         CWalletTx& wtx = item.second;
@@ -1818,6 +1844,9 @@ void CWallet::ReacceptWalletTransactions()
             wtx.AcceptToMemoryPool(false);
         }
     }
+    const auto t_end = boost::chrono::high_resolution_clock::now();
+    LogPrintf("TIME: ReacceptWalletTransactions: %d\n",
+        boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count());
 }
 
 bool CWalletTx::InMempool() const
@@ -1895,6 +1924,38 @@ void CWallet::ResendWalletTransactions()
     }
 }
 
+void CWallet::ResetUnspents()
+{
+    LOCK2(cs_main, cs_wallet);
+    unspents.clear();
+    for (auto it = mapWallet.begin(); it != mapWallet.end(); ++it) {
+        const uint256& wtxid = it->first;
+        const CWalletTx* pcoin = &(*it).second;
+
+        int nDepth = pcoin->GetDepthInMainChain(false);
+
+        // We should not consider coins which aren't at least in our mempool
+        // It's possible for these to be conflicted via ancestors which we may never be able to detect
+        if (nDepth == 0 && !pcoin->InMempool())
+            continue;
+
+        for (unsigned int i = 0; i < pcoin->vout.size(); i++) {
+            isminetype mine = IsMine(pcoin->vout[i]);
+            if (IsSpent(wtxid, i))
+                continue;
+            if (mine == ISMINE_NO)
+                continue;
+
+            bool fIsSpendable = false;
+            if ((mine & ISMINE_SPENDABLE) != ISMINE_NO)
+                fIsSpendable = true;
+            if ((mine & ISMINE_MULTISIG) != ISMINE_NO)
+                fIsSpendable = true;
+
+            unspents.insert(make_pair(COutPoint(pcoin->GetHash(), i), COutput(pcoin, i, nDepth, fIsSpendable)));
+        }
+    }
+}
 /** @} */ // end of mapWallet
 
 
@@ -1903,17 +1964,78 @@ void CWallet::ResendWalletTransactions()
  * @{
  */
 
+
+BalanceInfo CWallet::GetBalanceInfo()
+{
+    BalanceInfo balinfo;
+    {
+        LOCK2(cs_main, cs_wallet);
+        const auto t_begin = boost::chrono::high_resolution_clock::now();
+        for (map<uint256, CWalletTx>::const_iterator it = mapWallet.begin(); it != mapWallet.end(); ++it) {
+            const CWalletTx* pcoin = &(*it).second;
+
+            if (pcoin->IsTrusted())
+                balinfo.nTotal += pcoin->GetAvailableCredit();
+
+            if (/*pcoin->IsTrusted() &&*/ pcoin->IsCoinStake() && pcoin->GetDepthInMainChain() > 12 ) {
+                if (isminetype mine = IsMine(pcoin->vout[1])) {
+                    if(!(mine & ISMINE_WATCH_ONLY)) {
+                        CAmount credit = pcoin->GetCredit(ISMINE_ALL);
+                        CAmount debit = pcoin->GetDebit(ISMINE_ALL);
+                        balinfo.allEarnings += credit - debit;
+                    }
+                } else {
+                    CTxDestination destMN;
+                    int nIndexMN = pcoin->vout.size() - 1;
+                    if (ExtractDestination(pcoin->vout[nIndexMN].scriptPubKey, destMN) && ::IsMine(*this, destMN)) {
+                        balinfo.allEarnings += pcoin->vout[nIndexMN].nValue;
+                        balinfo.masternodeEarnings += pcoin->vout[nIndexMN].nValue;
+                    }
+                }
+            }
+            
+            if (!IsFinalTx(*pcoin) || (!pcoin->IsTrusted() && pcoin->GetDepthInMainChain() == 0))
+                balinfo.unconfirmed += pcoin->GetAvailableCredit();
+
+            balinfo.immature += pcoin->GetImmatureCredit();
+
+            if (pcoin->IsTrusted())
+                balinfo.watchOnly += pcoin->GetAvailableWatchOnlyCredit();
+
+            if (!IsFinalTx(*pcoin) || (!pcoin->IsTrusted() && pcoin->GetDepthInMainChain() == 0))
+                balinfo.unconfirmedWatchOnly += pcoin->GetAvailableWatchOnlyCredit();
+
+            balinfo.immatureWatchOnly += pcoin->GetImmatureWatchOnlyCredit();
+
+            if (!fLiteMode && pcoin->IsTrusted() && pcoin->GetDepthInMainChain() > 0)
+                balinfo.locked += pcoin->GetLockedCredit();
+
+            if (pcoin->IsTrusted() && pcoin->GetDepthInMainChain() > 0)
+                balinfo.lockedWatchOnly += pcoin->GetLockedWatchOnlyCredit();
+        }
+        const auto t_end = boost::chrono::high_resolution_clock::now();
+        LogPrintf("TIME: GetBalanceInfo: %d\n",
+            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count());
+    }
+
+    return balinfo;
+}
+
 CAmount CWallet::GetBalance() const
 {
     CAmount nTotal = 0;
     {
         LOCK2(cs_main, cs_wallet);
+        const auto t_begin = boost::chrono::high_resolution_clock::now();
         for (map<uint256, CWalletTx>::const_iterator it = mapWallet.begin(); it != mapWallet.end(); ++it) {
             const CWalletTx* pcoin = &(*it).second;
 
             if (pcoin->IsTrusted())
                 nTotal += pcoin->GetAvailableCredit();
         }
+        const auto t_end = boost::chrono::high_resolution_clock::now();
+        LogPrintf("TIME: GetBalance: %d\n",
+            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count());
     }
 
     return nTotal;
@@ -2234,12 +2356,14 @@ CAmount CWallet::GetLockedWatchOnlyBalance() const
 /**
  * populate vCoins with vector of available COutputs.
  */
-void CWallet::AvailableCoins(vector<COutput>& vCoins, bool fOnlyConfirmed, const CCoinControl* coinControl, bool fIncludeZeroValue, AvailableCoinsType nCoinType, bool fUseIX, int nWatchonlyConfig, bool includeImmature) const
+void CWallet::AvailableCoinsNew(vector<COutput>& vCoins, bool fOnlyConfirmed, const CCoinControl* coinControl, bool fIncludeZeroValue, AvailableCoinsType nCoinType, bool fUseIX, int nWatchonlyConfig, bool includeImmature) const
 {
     vCoins.clear();
 
     {
+        std::map<CScript, std::pair<CTxDestination, bool>> destinationCache;
         LOCK2(cs_main, cs_wallet);
+        const auto t_begin = boost::chrono::high_resolution_clock::now();
         for (map<uint256, CWalletTx>::const_iterator it = mapWallet.begin(); it != mapWallet.end(); ++it) {
             const uint256& wtxid = it->first;
             const CWalletTx* pcoin = &(*it).second;
@@ -2284,8 +2408,18 @@ void CWallet::AvailableCoins(vector<COutput>& vCoins, bool fOnlyConfirmed, const
                     if (pcoin->vout[i].IsZerocoinMint())
                         continue;
 
-                    CTxDestination txAddress;
-                    if ( ExtractDestination(pcoin->vout[i].scriptPubKey, txAddress) && !IsStakingEnabled( CBitcoinAddress(txAddress) ) ) {
+                    const auto cacheIt = destinationCache.find(pcoin->vout[i].scriptPubKey);
+                    if (cacheIt == destinationCache.end()) {
+                        CTxDestination txAddress;
+                        if (ExtractDestination(pcoin->vout[i].scriptPubKey, txAddress)) {
+                            const auto stakingEnabled = IsStakingEnabled( CBitcoinAddress(txAddress) );
+                            destinationCache[pcoin->vout[i].scriptPubKey] = std::make_pair(txAddress, stakingEnabled);
+                            if (!stakingEnabled) {
+                                continue;
+                            }
+                        }
+                    }
+                    else if (!cacheIt->second.second) { // already processed
                         continue;
                     }
                 }
@@ -2318,6 +2452,115 @@ void CWallet::AvailableCoins(vector<COutput>& vCoins, bool fOnlyConfirmed, const
                 vCoins.emplace_back(COutput(pcoin, i, nDepth, fIsSpendable));
             }
         }
+        const auto t_end = boost::chrono::high_resolution_clock::now();
+        LogPrintf("TIME: AvailableCoinsNew (%d): %d, cache size: %d\n",
+            nCoinType,
+            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
+            destinationCache.size());
+    }
+}
+
+void CWallet::AvailableCoins(vector<COutput>& vCoins, bool fOnlyConfirmed, const CCoinControl* coinControl, bool fIncludeZeroValue, AvailableCoinsType nCoinType, bool fUseIX, int nWatchonlyConfig, bool includeImmature) const
+{
+    vCoins.clear();
+
+    {
+        std::map<CScript, std::pair<CTxDestination, bool>> destinationCache;
+        LOCK2(cs_main, cs_wallet);
+        const auto t_begin = boost::chrono::high_resolution_clock::now();
+        for (auto it = unspents.begin(); it != unspents.end(); it++) {
+            const auto& wtxid = it->first.hash;
+            const auto pcoin = &mapWallet.at(wtxid);
+
+            if (!CheckFinalTx(*pcoin)) // need to become final (how?)
+                continue;
+
+            if (fOnlyConfirmed && !pcoin->IsTrusted()) // skip this
+                continue;
+
+            // wait until mature
+            if (!includeImmature &&  (pcoin->IsCoinBase() || pcoin->IsCoinStake()) && pcoin->GetBlocksToMaturity() > 0)
+                continue;
+
+            int nDepth = pcoin->GetDepthInMainChain(false);
+            // do not use IX for inputs that have less then 6 blockchain confirmations
+            if (fUseIX && nDepth < 6)
+                continue;
+
+            // We should not consider coins which aren't at least in our mempool
+            // It's possible for these to be conflicted via ancestors which we may never be able to detect
+            if (nDepth == 0 && !pcoin->InMempool())
+                continue;
+
+            const auto output = pcoin->vout[it->first.n];
+            bool found = false;
+            if (nCoinType == ONLY_DENOMINATED) {
+                found = IsDenominatedAmount(output.nValue);
+            } else if (nCoinType == ONLY_NOT3000IFMN) {
+                found = !(fMasterNode && output.nValue == 3000 * COIN);
+            } else if (nCoinType == ONLY_NONDENOMINATED_NOT3000IFMN) {
+                if (IsCollateralAmount(output.nValue)) continue; // do not use collateral amounts
+                found = !IsDenominatedAmount(output.nValue);
+                if (found && fMasterNode) found = output.nValue != 3000 * COIN; // do not use Hot MN funds
+            } else if (nCoinType == ONLY_3000) {
+                found = output.nValue == 3000 * COIN;
+            } else {
+                found = true;
+            }
+            if (!found) continue;
+
+            if (nCoinType == STAKABLE_COINS) {
+                if (output.IsZerocoinMint())
+                    continue;
+
+                const auto cacheIt = destinationCache.find(output.scriptPubKey);
+                if (cacheIt == destinationCache.end()) {
+                    CTxDestination txAddress;
+                    if (ExtractDestination(output.scriptPubKey, txAddress)) {
+                        const auto stakingEnabled = IsStakingEnabled( CBitcoinAddress(txAddress) );
+                        destinationCache[output.scriptPubKey] = std::make_pair(txAddress, stakingEnabled);
+                        if (!stakingEnabled) {
+                            continue;
+                        }
+                    }
+                }
+                else if (!cacheIt->second.second) { // already processed
+                    continue;
+                }
+            }
+
+            isminetype mine = IsMine(output);
+            if (IsSpent(wtxid, it->first.n))
+                continue;
+            if (mine == ISMINE_NO)
+                continue;
+
+            if ((mine == ISMINE_MULTISIG || mine == ISMINE_SPENDABLE) && nWatchonlyConfig == 2)
+                continue;
+
+            if (mine == ISMINE_WATCH_ONLY && nWatchonlyConfig == 1)
+                continue;
+
+            if (IsLockedCoin(wtxid, it->first.n) && nCoinType != ONLY_3000)
+                continue;
+            if (output.nValue <= 0 && !fIncludeZeroValue)
+                continue;
+            if (coinControl && coinControl->HasSelected() && !coinControl->fAllowOtherInputs && !coinControl->IsSelected(wtxid, it->first.n))
+                continue;
+
+            bool fIsSpendable = false;
+            if ((mine & ISMINE_SPENDABLE) != ISMINE_NO)
+                fIsSpendable = true;
+            if ((mine & ISMINE_MULTISIG) != ISMINE_NO)
+                fIsSpendable = true;
+
+            vCoins.emplace_back(COutput(pcoin, it->first.n, nDepth, fIsSpendable));
+        }
+        const auto t_end = boost::chrono::high_resolution_clock::now();
+        LogPrintf("TIME: AvailableCoins (%d): %d ms, cache size: %d\n",
+            nCoinType,
+            boost::chrono::duration_cast<boost::chrono::milliseconds>(t_end - t_begin).count(),
+            destinationCache.size());
     }
 }
 
@@ -4684,12 +4927,14 @@ bool CWallet::RedirectMNReward(bool ignoreTime)
         AvailableCoins(vCoins);
         isRedirectInProgress = true;
         for (const COutput &out : vCoins) {
+            if (!out.tx->IsCoinStake() || out.i != (out.tx->vout.size() - 1)) {
+                continue;
+            }
             //need output with precise confirm count - this is how we identify which is the output to send
             if (out.tx->GetDepthInMainChain() < Params().COINBASE_MATURITY() + 1) {
                 continue;
             }
 
-            COutPoint outpoint(out.tx->GetHash(), out.i);
             CTxDestination destMyAddress;
             if (!ExtractDestination(out.tx->vout[out.i].scriptPubKey, destMyAddress)) {
                 LogPrintf("RedirectMNReward: failed to extract destination\n");

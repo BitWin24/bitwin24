@@ -28,8 +28,9 @@
 CMasternodePayments masternodePayments;
 
 CCriticalSection cs_vecPayments;
-CCriticalSection cs_mapMasternodeBlocks;
-CCriticalSection cs_mapMasternodePayeeVotes;
+CCriticalSection cs_mapMasternodeBlocksPayeeVotes;
+//CCriticalSection cs_mapMasternodeBlocks;
+//CCriticalSection cs_mapMasternodePayeeVotes;
 
 //
 // CMasternodePaymentDB
@@ -340,8 +341,17 @@ void CMasternodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_t nFe
             txNew.vout[i].nValue = masternodePayment;
 
             //subtract mn payment from the stake reward
-            if (!txNew.vout[1].IsZerocoinMint())
-                txNew.vout[i - 1].nValue -= masternodePayment;
+            if (!txNew.vout[1].IsZerocoinMint()) {
+                auto lastSplitUtxo = i - 1;
+                auto masternodePaymentRemained = masternodePayment;
+                while (txNew.vout[lastSplitUtxo].nValue <= masternodePaymentRemained) {
+                    masternodePaymentRemained -= txNew.vout[lastSplitUtxo].nValue;
+                    txNew.vout[lastSplitUtxo] = txNew.vout[txNew.vout.size() - 1];
+                    txNew.vout.resize(txNew.vout.size() - 1);
+                    lastSplitUtxo--;
+                }
+                txNew.vout[lastSplitUtxo].nValue -= masternodePaymentRemained;
+            }
         } else {
             txNew.vout.resize(2);
             txNew.vout[1].scriptPubKey = payee;
@@ -484,7 +494,8 @@ bool CMasternodePayments::GetBlockPayee(int nBlockHeight, CScript& payee)
 // -- Only look ahead up to 8 blocks to allow for propagation of the latest 2 winners
 bool CMasternodePayments::IsScheduled(CMasternode& mn, int nNotBlockHeight)
 {
-    LOCK(cs_mapMasternodeBlocks);
+    LOCK(cs_mapMasternodeBlocksPayeeVotes);
+    //LOCK(cs_mapMasternodeBlocks);
 
     int nHeight;
     {
@@ -519,7 +530,8 @@ bool CMasternodePayments::AddWinningMasternode(CMasternodePaymentWinner& winnerI
     }
 
     {
-        LOCK2(cs_mapMasternodePayeeVotes, cs_mapMasternodeBlocks);
+        LOCK(cs_mapMasternodeBlocksPayeeVotes);
+        //LOCK2(cs_mapMasternodePayeeVotes, cs_mapMasternodeBlocks);
 
         if (mapMasternodePayeeVotes.count(winnerIn.GetHash())) {
             return false;
@@ -613,7 +625,8 @@ std::string CMasternodeBlockPayees::GetRequiredPaymentsString()
 
 std::string CMasternodePayments::GetRequiredPaymentsString(int nBlockHeight)
 {
-    LOCK(cs_mapMasternodeBlocks);
+    LOCK(cs_mapMasternodeBlocksPayeeVotes);
+    //LOCK(cs_mapMasternodeBlocks);
 
     if (mapMasternodeBlocks.count(nBlockHeight)) {
         return mapMasternodeBlocks[nBlockHeight].GetRequiredPaymentsString();
@@ -624,7 +637,8 @@ std::string CMasternodePayments::GetRequiredPaymentsString(int nBlockHeight)
 
 bool CMasternodePayments::IsTransactionValid(const CTransaction& txNew, int nBlockHeight)
 {
-    LOCK(cs_mapMasternodeBlocks);
+    LOCK(cs_mapMasternodeBlocksPayeeVotes);
+    //LOCK(cs_mapMasternodeBlocks);
 
     if (mapMasternodeBlocks.count(nBlockHeight)) {
         return mapMasternodeBlocks[nBlockHeight].IsTransactionValid(txNew);
@@ -635,7 +649,8 @@ bool CMasternodePayments::IsTransactionValid(const CTransaction& txNew, int nBlo
 
 void CMasternodePayments::CleanPaymentList()
 {
-    LOCK2(cs_mapMasternodePayeeVotes, cs_mapMasternodeBlocks);
+    LOCK(cs_mapMasternodeBlocksPayeeVotes);
+    //LOCK2(cs_mapMasternodePayeeVotes, cs_mapMasternodeBlocks);
 
     int nHeight;
     {
@@ -796,7 +811,8 @@ bool CMasternodePaymentWinner::SignatureValid()
 
 void CMasternodePayments::Sync(CNode* node, int nCountNeeded)
 {
-    LOCK(cs_mapMasternodePayeeVotes);
+    LOCK(cs_mapMasternodeBlocksPayeeVotes);
+    //LOCK(cs_mapMasternodePayeeVotes);
 
     int nHeight;
     {
@@ -833,7 +849,8 @@ std::string CMasternodePayments::ToString() const
 
 int CMasternodePayments::GetOldestBlock()
 {
-    LOCK(cs_mapMasternodeBlocks);
+    LOCK(cs_mapMasternodeBlocksPayeeVotes);
+    //LOCK(cs_mapMasternodeBlocks);
 
     int nOldestBlock = std::numeric_limits<int>::max();
 
@@ -851,7 +868,8 @@ int CMasternodePayments::GetOldestBlock()
 
 int CMasternodePayments::GetNewestBlock()
 {
-    LOCK(cs_mapMasternodeBlocks);
+    LOCK(cs_mapMasternodeBlocksPayeeVotes);
+    //LOCK(cs_mapMasternodeBlocks);
 
     int nNewestBlock = 0;
 

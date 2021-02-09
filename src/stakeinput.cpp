@@ -212,14 +212,35 @@ bool CBitWin24Stake::CreateTxOuts(CWallet* pwallet, vector<CTxOut>& vout, CAmoun
             return false;
 
         scriptPubKey << key.GetPubKey() << OP_CHECKSIG;
-    } else
+    } else {
         scriptPubKey = scriptPubKeyKernel;
+    }
 
-    vout.emplace_back(CTxOut(0, scriptPubKey));
+    bool needSplit = false;
+    CTxDestination utxoAddress;
+    ExtractDestination(scriptPubKeyKernel, utxoAddress);
+    CBitcoinAddress address(utxoAddress);
+    if (pwallet->addressesToSplit.find(address) != pwallet->addressesToSplit.end()) {
+        needSplit = true;
+    }
 
-    // Calculate if we need to split the output
-    if (nTotal / 2 > (CAmount)(pwallet->nStakeSplitThreshold * COIN))
-        vout.emplace_back(CTxOut(0, scriptPubKey));
+    if (needSplit) {
+        const CAmount splitAmount = static_cast<CAmount>(pwallet->nStakeSplitThreshold) * COIN;
+        const size_t nSplits = nTotal / splitAmount + 1;
+        CAmount usedAmount = 0;
+        if (nSplits >= 2) {
+            // Split UTXO to equal parts defined by nStakeSplitThreshold
+            for (size_t i = 0; i < std::min<size_t>(nSplits - 2, MAX_SPLIT_OUTPUT_COUNT); i++) {
+                vout.emplace_back(splitAmount, scriptPubKey);
+                usedAmount += splitAmount;
+            }
+        }
+        // Put remainder into the last output
+        vout.emplace_back(nTotal - usedAmount, scriptPubKey);
+    }
+    else {
+        vout.emplace_back(nTotal, scriptPubKey);
+    }
 
     return true;
 }

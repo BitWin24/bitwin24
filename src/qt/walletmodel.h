@@ -15,6 +15,9 @@
 #include "swifttx.h"
 #include "wallet.h"
 
+#include <boost/thread.hpp>
+
+#include <atomic>
 #include <map>
 #include <vector>
 
@@ -133,6 +136,7 @@ public:
     TransactionTableModel* getTransactionTableModel();
     RecentRequestsTableModel* getRecentRequestsTableModel();
 
+    BalanceInfo getBalanceInfo() const;
     CAmount getBalance(const CCoinControl* coinControl = NULL) const;
     CAmount getUnconfirmedBalance() const;
     CAmount getImmatureBalance() const;
@@ -223,6 +227,8 @@ public:
     void loadReceiveRequests(std::vector<std::string>& vReceiveRequests);
     bool saveReceiveRequest(const std::string& sAddress, const int64_t nId, const std::string& sRequest);
 
+    bool setTxComment(uint256 hash, const std::string& comment);
+
 private:
     CWallet* wallet;
     bool fHaveWatchOnly;
@@ -250,12 +256,17 @@ private:
     CAmount cachedEarnings;
     CAmount cachedMasternodeEarnings;
     CAmount cachedStakeEarnings;
+    CAmount cachedLockedBalance;
+    CAmount cachedLockedWatchOnlyBalance;
     EncryptionStatus cachedEncryptionStatus;
     int cachedNumBlocks;
     int cachedTxLocks;
     int cachedZeromintPercentage;
+    boost::mutex cacheMutex;
 
     QTimer* pollTimer;
+    std::atomic_bool pollInProgress;
+    std::unique_ptr<boost::thread> pollThread;
 
     void subscribeToCoreSignals();
     void unsubscribeFromCoreSignals();
@@ -266,7 +277,8 @@ signals:
     void balanceChanged(const CAmount& balance, const CAmount& unconfirmedBalance, const CAmount& immatureBalance, 
                         const CAmount& zerocoinBalance, const CAmount& unconfirmedZerocoinBalance, const CAmount& immatureZerocoinBalance, 
                         const CAmount& watchOnlyBalance, const CAmount& watchUnconfBalance, const CAmount& watchImmatureBalance,
-                        const CAmount& earnings, const CAmount& masternodeEarnings, const CAmount& stakeEarnings);
+                        const CAmount& earnings, const CAmount& masternodeEarnings, const CAmount& stakeEarnings,
+                        const CAmount& locked, const CAmount& lockedWatchOnly);
 
     // Encryption status of wallet changed
     void encryptionStatusChanged(int status);

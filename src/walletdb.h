@@ -94,6 +94,9 @@ public:
     bool WritePurpose(const std::string& strAddress, const std::string& purpose);
     bool ErasePurpose(const std::string& strAddress);
 
+    bool WriteAddressToSplit(const string& strAddress);
+    bool EraseAddressToSplit(const string& strAddress);
+
     bool WriteTx(uint256 hash, const CWalletTx& wtx);
     bool EraseTx(uint256 hash);
 
@@ -122,6 +125,12 @@ public:
     bool WriteMSDisabledAddresses(std::vector<std::string> vDisabledAddresses);
     bool EraseMSDisabledAddresses(std::vector<std::string> vDisabledAddresses);
     bool WriteAutoCombineSettings(bool fEnable, CAmount nCombineThreshold);
+
+    bool WriteMNRedirect(const std::string& from, const std::string& to);
+    bool EraseMNRedirect(const std::string& from);
+    bool WriteLastMNRedirectTime(int t);
+    bool WriteMNRedirectDailyHour(int t);
+    bool WriteMNRedirectEnabled(bool enabled);
 
     bool WriteDefaultKey(const CPubKey& vchPubKey);
 

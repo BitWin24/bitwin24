@@ -682,6 +682,9 @@ bool CWallet::AddToWallet(const CWalletTx& wtxIn, bool fFromLoadWallet)
                         LogPrintf("Add to unspents: %s\n", COutPoint(hash, i).ToString());
                         unspents.insert(make_pair(COutPoint(hash, i), COutput(pWalletTx, i, nDepth, fIsSpendable)));
                     }
+                    else if (IsChange(output)) {
+                        unspents.insert(make_pair(COutPoint(hash, i), COutput(pWalletTx, i, nDepth, fIsSpendable)));
+                    }
                 }
             }
         }

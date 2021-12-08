@@ -1269,7 +1269,7 @@ void ListTransactions(const CWalletTx& wtx, const string& strAccount, int nMinDe
     list<COutputEntry> listSent;
 
     wtx.GetAmounts(listReceived, listSent, nFee, strSentAccount, strAccount, filter);
-    nFee = wtx.IsFromMe(filter) ? wtx.GetValueOut() - wtx.GetDebit(filter) : 0;
+    nFee = wtx.IsFromMe(filter) ? -(wtx.GetValueOut() - wtx.GetDebit(filter)) : 0;
 
     bool fAllAccounts = (strAccount == string("*"));
     bool involvesWatchonly = wtx.IsFromMe(ISMINE_WATCH_ONLY);

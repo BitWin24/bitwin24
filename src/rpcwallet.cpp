@@ -1269,7 +1269,7 @@ void ListTransactions(const CWalletTx& wtx, const string& strAccount, int nMinDe
     list<COutputEntry> listSent;
 
     wtx.GetAmounts(listReceived, listSent, nFee, strSentAccount, strAccount, filter);
-    nFee = wtx.IsFromMe(filter) ? -(wtx.GetValueOut() - wtx.GetDebit(filter)) : 0;
+    nFee = wtx.IsFromMe(filter) ? wtx.GetValueOut() - wtx.GetDebit(filter) : 0;
 
     bool fAllAccounts = (strAccount == string("*"));
     bool involvesWatchonly = wtx.IsFromMe(ISMINE_WATCH_ONLY);
@@ -1290,9 +1290,9 @@ void ListTransactions(const CWalletTx& wtx, const string& strAccount, int nMinDe
                 MaybePushAddress(entry, "address", s.destination);
                 std::map<std::string, std::string>::const_iterator it = wtx.mapValue.find("DS");
                 entry.push_back(Pair("category", (it != wtx.mapValue.end() && it->second == "1") ? "darksent" : "send"));
-                entry.push_back(Pair("amount", ValueFromAmount(-s.amount)));
+                entry.push_back(Pair("amount", ValueFromAmount(-s.amount + nFee)));
                 entry.push_back(Pair("vout", s.vout));
-                entry.push_back(Pair("fee", ValueFromAmount(-nFee)));
+                entry.push_back(Pair("fee", ValueFromAmount(nFee)));
                 if (fLong)
                     WalletTxToJSON(wtx, entry);
                 ret.push_back(entry);

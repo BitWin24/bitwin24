@@ -1405,6 +1405,78 @@ CTxDestination CWalletTx::ExtractSource() const {
 
 void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
     list<COutputEntry>& listSent,
+    CAmount& nFee,
+    string& strSentAccount,
+    const isminefilter& filter) const
+{
+    GetAmounts(listReceived, listSent, nFee, strSentAccount, strSentAccount, filter);
+}
+
+void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
+    list<COutputEntry>& listSent,
+    CAmount& nFee,
+    string& strSentAccount,
+    const string& targetAccount,
+    const isminefilter& filter) const
+{
+    // Zerocoin is ignored
+    if (IsZerocoinSpend() || IsZerocoinMint()) {
+        return;
+    }
+
+    nFee = 0;
+    listReceived.clear();
+    listSent.clear();
+    strSentAccount = strFromAccount;
+
+    // Compute fee:
+    CAmount nDebit = GetDebit(filter);
+    if (nDebit > 0) // debit>0 means we signed/sent this transaction
+    {
+        CAmount nValueOut = GetValueOut();
+        nFee = nDebit - nValueOut;
+    }
+
+    // Sent/received.
+    for (unsigned int i = 0; i < vout.size(); ++i) {
+        const CTxOut& txout = vout[i];
+        isminetype fIsMine = pwallet->IsMine(txout);
+        // Only need to handle txouts if AT LEAST one of these is true:
+        //   1) they debit from us (sent)
+        //   2) the output is to us (received)
+        if (nDebit > 0) {
+            // Don't report 'change' txouts
+            if (pwallet->IsChange(txout))
+                continue;
+        } else if (!(fIsMine & filter) && !IsZerocoinSpend())
+            continue;
+
+        // In either case, we need to get the destination address
+        CTxDestination address;
+        if (txout.scriptPubKey.IsZerocoinMint()) {
+            address = CNoDestination();
+        } else if (!ExtractDestination(txout.scriptPubKey, address)) {
+            if (!IsCoinStake() && !IsCoinBase()) {
+                LogPrintf("CWalletTx::GetAmounts: Unknown transaction type found, txid %s\n", this->GetHash().ToString());
+            }
+            address = CNoDestination();
+        }
+
+        COutputEntry output{ address, address, txout.nValue, (int) i };
+
+        // If we are debited by the transaction, add the output as a "sent" entry
+        if (nDebit > 0)
+            listSent.push_back(output);
+
+        // If we are receiving the output, add it as a "received" entry
+        if (fIsMine & filter)
+            listReceived.push_back(output);
+    }
+}
+
+
+/*void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
+    list<COutputEntry>& listSent,
     CAmount& nTxFee,
     string& strSentAccount,
     const isminefilter& filter) const
@@ -1512,7 +1584,6 @@ void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
                     // Sent to BITWIN24 Address
 
                     CAmount nValue = txout.nValue;
-                    /* Add fee to first output */
                     if (nTxFee > 0) {
                         nValue += nTxFee;
                         nTxFee = 0;
@@ -1524,9 +1595,9 @@ void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
             }
         }
     }
-}
+}*/
 
-void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
+/*void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
                            list<COutputEntry>& listSent,
                            CAmount& nTxFee,
                            string& strSentAccount,
@@ -1591,6 +1662,8 @@ void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
         }
     }
 
+    LogPrintf("%s: sumIn=%d sumOut=%d\n", __func__, sumIn, sumOut);
+
     if (IsCoinStake()) {
         CTxDestination address;
         if (!ExtractDestination(vout[1].scriptPubKey, address))
@@ -1634,13 +1707,14 @@ void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
             CTxDestination dest;
             if (ExtractDestination(txout.scriptPubKey, dest)) {
                 CBitcoinAddress address = dest;
-                const auto mi = pwallet->mapAddressBook.find(address.Get());
-                if (mi != pwallet->mapAddressBook.end()) {
-                    if (pwallet->IsMine(txout) && isTargetAccount((*mi).second.name)) {
-                        // Received by BITWIN24 Address
-                        COutputEntry received{ ExtractSource(), dest, txout.nValue, static_cast< int >( nOut ) };
-                        listReceived.push_back( received );
-                    }
+                //const auto mi = pwallet->mapAddressBook.find(address.Get());
+
+                LogPrintf("%s: IsMine(txout): %d\n", __func__, pwallet->IsMine(txout));
+
+                if (pwallet->IsMine(txout)) {
+                    // Received by BITWIN24 Address
+                    COutputEntry received{ ExtractSource(), dest, txout.nValue, static_cast< int >( nOut ) };
+                    listReceived.push_back( received );
                 }
             }
         }
@@ -1684,7 +1758,6 @@ void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
 
                     // Sent to BITWIN24 Address
                     CAmount nValue = txout.nValue;
-                    /* Add fee to first output */
                     if (nTxFee > 0) {
                         nValue += nTxFee;
                         nTxFee = 0;
@@ -1696,7 +1769,7 @@ void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
             }
         }
     }
-}
+}*/
 
 void CWalletTx::GetAccountAmounts(const string& strAccount, CAmount& nReceived, CAmount& nSent, CAmount& nFee, const isminefilter& filter) const
 {

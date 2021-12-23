@@ -1462,15 +1462,22 @@ void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
             address = CNoDestination();
         }
 
-        COutputEntry output{ address, address, txout.nValue, (int) i };
+        COutputEntry output{ ExtractSource(), address, txout.nValue, (int) i };
 
         // If we are debited by the transaction, add the output as a "sent" entry
-        if (nDebit > 0)
+        if (nDebit > 0) {
+            COutputEntry output{ ExtractSource(), address, txout.nValue, (int) i };
             listSent.push_back(output);
+        }
 
         // If we are receiving the output, add it as a "received" entry
-        if (fIsMine & filter)
+        if (fIsMine & filter) {
+            CTxDestination dest;
+            ExtractDestination(txout.scriptPubKey, dest);
+
+            COutputEntry output{ address, dest, txout.nValue, (int) i };
             listReceived.push_back(output);
+        }
     }
 }
 

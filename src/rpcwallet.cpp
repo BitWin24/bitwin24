@@ -1311,7 +1311,6 @@ void ListTransactions(const CWalletTx& wtx, const string& strAccount, int nMinDe
                 if (involvesWatchonly || (::IsMine(*pwalletMain, r.destination) & ISMINE_WATCH_ONLY))
                     entry.push_back(Pair("involvesWatchonly", true));
                 entry.push_back(Pair("account", account));
-                MaybePushAddress(entry, "from", r.source);
                 MaybePushAddress(entry, "address", r.destination);
                 if (wtx.IsCoinBase()) {
                     if (wtx.GetDepthInMainChain() < 1)
